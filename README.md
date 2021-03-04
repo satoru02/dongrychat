@@ -1,24 +1,32 @@
-# README
+# Project
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+domain.com
 
-Things you may want to cover:
+# Install
 
-* Ruby version
+* Clone the repository
 
-* System dependencies
+git clone git@github.com:satoru02/living-room.git
+cd this.project
 
-* Configuration
+* Check version
 
-* Database creation
+ ruby  2.7.2
+ rails 6.0.3
+ vue   3.12.0
 
-* Database initialization
+* Create database.yml file
 
-* How to run the test suite
+cp config/database.yml.sample config/database.yml
 
-* Services (job queues, cache servers, search engines, etc.)
+* Create and setup the database
 
-* Deployment instructions
+bundle exec rake db:create
+bundle exec rake db:setup
 
-* ...
+* Start the Rails server
+
+bin/server
+
+
+
