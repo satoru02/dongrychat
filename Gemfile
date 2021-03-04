@@ -14,8 +14,8 @@ gem 'redis', '~> 4.0'
 gem 'bcrypt', '~> 3.1.7'
 gem 'image_processing', '~> 1.2'
 gem 'dotenv-rails'
-
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'foreman'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
