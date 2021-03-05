@@ -1,9 +1,9 @@
 <template>
 <v-img
-  lazy-src="https://picsum.photos/seed/picsum/200/300"
+  lazy-src="https://picsum.photos/200/300?grayscale"
   :max-height="height"
   :class="round"
-  src="https://picsum.photos/seed/picsum/200/300"
+  src="https://picsum.photos/200/300?grayscale"
 ></v-img>
 
 </template>

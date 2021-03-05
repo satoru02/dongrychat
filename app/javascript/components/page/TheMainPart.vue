@@ -4,16 +4,19 @@
     <v-main>
       <router-view />
     </v-main>
+    <bottom-footer />
   </v-app>
 </template>
 
 <script>
 import Header from './TheHeader'
+import Footer from './TheFooter'
 
 export default {
   name: 'TheMainPart',
   components: {
     'top-header': Header,
+    'bottom-footer': Footer
   }
 }
 </script>
