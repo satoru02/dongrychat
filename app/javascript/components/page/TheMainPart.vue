@@ -13,7 +13,7 @@ import Header from './TheHeader'
 export default {
   name: 'TheMainPart',
   components: {
-    'top-header': Header
+    'top-header': Header,
   }
 }
 </script>
