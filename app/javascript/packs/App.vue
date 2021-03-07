@@ -1,23 +1,17 @@
 <template>
-  <div id="app">
-    <v-app />
-  </div>
+  <main-part />
 </template>
 
 <script>
+  import MainPart from '../components/page/TheMainPart'
 
   export default {
-    data: function () {
-      return {
-        message: "Hello Vue!"
-      }
+    name: 'App',
+    components: {
+      'main-part': MainPart
     }
   }
 </script>
 
 <style scoped>
-  p {
-    font-size: 2em;
-    text-align: center;
-  }
 </style>
