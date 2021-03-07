@@ -24,7 +24,7 @@ const router = new VueRouter({
     },
     {
       // #temporary name
-      path: '/c/:id',
+      path: '/content',
       name: 'Content',
       component: Content
     },
@@ -37,8 +37,8 @@ const router = new VueRouter({
       path: '/trend',
       name: 'Trend',
       component: Trend
-    }
-]
+    },
+  ]
 })
 
 const app = new Vue({

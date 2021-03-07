@@ -1,6 +1,6 @@
 <template>
   <div>
-  <v-row :class="[$vuetify.breakpoint.smAndUp ? 'mt-0': 'mt-n1']">
+  <v-row :class="[$vuetify.breakpoint.smAndUp ? 'mt-0': 'mt-4']">
     <v-col lg=1 xl=1 class="hidden-xs-only hidden-sm-only hidden-md-only" />
     <v-col cols=9 sm=10 md=10 lg=9 :class="[$vuetify.breakpoint.smAndUp ? 'ml-0': 'ml-1 mt-2']">
       <div class="streaming-title">{{ streaming_title }}</div></v-col>

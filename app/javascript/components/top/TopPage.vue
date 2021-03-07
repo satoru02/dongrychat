@@ -7,14 +7,13 @@
             <v-list-item :key="index">
               <template v-slot:default="{ active }">
                 <v-badge color="#f94144" :content='n.count' style="font-weight:bold;" right offset-x="31" offset-y="29" overlap>
-                <!-- <v-badge color="#000000" :content='n.count' style="font-weight:bold;" tile right offset-x="76" offset-y="29" overlap> -->
-                <v-list-item-avatar size=59 height=86 tile class="rounded-lg">
+                <v-list-item-avatar size=55 height=73 tile class="rounded-lg">
                   <v-img :src="n.pic"></v-img>
                 </v-list-item-avatar>
                 </v-badge>
-                <v-list-item-content class=ml-1>
+                <v-list-item-content class=ml-3>
                   <v-list-item-title class="card-title" v-html="n.title"></v-list-item-title>
-                  <v-list-item-subtitle v-text="'John Favrou'" class="subtitle">
+                  <v-list-item-subtitle v-text="'第1話 贖罪'" class="subtitle">
                   </v-list-item-subtitle>
                 </v-list-item-content>
                 <v-list-item-action>
@@ -50,12 +49,12 @@
           'Disney Plus'
         ],
         items: [{
-            title: 'The Mandalorian S1-EP4',
+            title: 'The Mandalorian',
             pic: 'https://freeclassicimages.com/images/7th-Heaven-1927-1A3-movie-poster.jpg',
             count: "99+"
           },
           {
-            title: 'Queens Gambit S1-EP8',
+            title: 'Queens Gambit',
             pic: 'https://freeclassicimages.com/images/20-Million-Miles-To-Earth-07-movie-poster.jpg',
             count: "3"
           },
@@ -94,7 +93,7 @@
   .card-title {
     font-weight: bold;
     font-family: 'Helvetica Neue', sans-serif;
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .subtitle {

@@ -88,7 +88,7 @@
     font-family: 'Helvetica Neue', sans-serif;
     font-size: 12px;
     font-weight: bold;
-    color: #6c757d;
+    color: #000000;
   }
 
   .subtitle {

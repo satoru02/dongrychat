@@ -6,7 +6,6 @@
       <!-- <v-toolbar-title class="toolbar-title"><v-icon class="mt-n1" color="#000000">mdi-access-point</v-icon> Live</v-toolbar-title></v-col> -->
       <v-toolbar-title class="toolbar-title"><v-icon class="mt-n1" color="#000000">mdi-earth</v-icon> Trend</v-toolbar-title></v-col>
     <v-col cols=6 sm=6 md=6 lg=5 xl=3 />
-    <!-- <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="[$vuetify.breakpoint.smAndUp ? 'mt-n2 ml-n2': 'mt-n2 ml-n6']" align="start"><v-btn icon><v-icon>mdi-magnify</v-icon></v-btn></v-col> -->
   </v-row>
 </v-app-bar>
 </template>
@@ -14,12 +13,6 @@
 <script>
 export default {
   name: "TheHeader",
-  data(){
-    return {
-    }
-  },
-  methods:{
-  }
 }
 </script>
 
