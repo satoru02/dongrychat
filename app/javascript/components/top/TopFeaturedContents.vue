@@ -1,12 +1,13 @@
 <template>
-<v-container filled>
-<v-row :class="[$vuetify.breakpoint.mdAndUp ? 'mt-2': 'mt-n7']">
+<v-row :class="[$vuetify.breakpoint.mdAndUp ? 'mt-2': 'mt-n8']">
   <v-col lg=1 xl=1 class="hidden-sm-only" />
   <v-col cols=12 sm=12 md=12 lg=10 xl=10>
-    <base-content-sheet :height="320" :round="'rounded-xl'" />
+    <base-content-sheet
+     :img="'https://picsum.photos/200/300/?blur'"
+     :height="220"
+     :round="'rounded-lg'" />
   </v-col>
 </v-row>
-  </v-container>
 </template>
 
 <script>

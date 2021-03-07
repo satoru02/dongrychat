@@ -1,9 +1,10 @@
 <template>
+
 <v-img
-  lazy-src="https://picsum.photos/200/300?grayscale"
+  :lazy-src="img"
   :max-height="height"
   :class="round"
-  src="https://picsum.photos/200/300?grayscale"
+  :src="img"
 ></v-img>
 
 </template>
@@ -14,11 +15,14 @@ export default {
   props:{
     height:{
       type: Number,
-      default: 100
+      default: 140
     },
     round:{
       type: String,
-      default: 'rounded-xl'
+      default: 'rounded-lg'
+    },
+    img: {
+      type: String
     }
   }
 }
