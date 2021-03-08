@@ -13,9 +13,12 @@ import Top from '../components/top/TopPage'
 import Content from '../components/contents/ContentPage'
 import Search from '../components/search/SearchTop'
 import Trend from '../components/trend/TrendTop'
+
 import Authorization from '../components/authorization/AuthorizationTop'
 import Login from '../components/authorization/Login'
 import Signup from '../components/authorization/Signup'
+import ForgotPassword from '../components/authorization/ForgotPassword'
+
 import User from '../components/user/UserTop'
 import SearchIndex from '../components/search/SearchIndex'
 
@@ -57,6 +60,11 @@ const router = new VueRouter({
       path: '/signup',
       name: 'Signup',
       component: Signup
+    },
+    {
+      path: '/forgot_password',
+      name: 'ForgotPassword',
+      component: ForgotPassword
     },
     {
       path: '/user',

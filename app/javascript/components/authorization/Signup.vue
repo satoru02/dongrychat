@@ -13,7 +13,7 @@
         <v-text-field background-color="#ffffff" class="rounded-xl inp-text" label="パスワード" outlined />
       </v-col>
     </v-row>
-        <v-row class="mt-n10">
+    <v-row class="mt-n10">
       <v-col cols=1 />
       <v-col cols=10>
         <v-text-field background-color="#ffffff" class="rounded-xl inp-text" label="パスワードの再入力" outlined />
@@ -40,7 +40,7 @@
       </v-col>
     </v-row>
     <v-row>
-            <v-col cols=2 class="ml-2" />
+      <v-col cols=2 class="ml-2" />
       <v-col cols=3>
         <v-btn class="sns-btn rounded-s" dark icon x-large>
           <v-icon>mdi-google</v-icon>
@@ -57,8 +57,7 @@
         </v-btn>
       </v-col>
     </v-row>
-    <v-row class="bottom-part">
-    </v-row>
+    <v-row class="bottom-part" />
     <v-row>
       <v-col cols=9 />
       <v-col cols=3>
@@ -69,9 +68,9 @@
 </template>
 
 <script>
-export default {
-  name: 'Signup'
-}
+  export default {
+    name: 'Signup'
+  }
 </script>
 
 <style scoped>
@@ -120,6 +119,5 @@ export default {
   .sns-btn {
     background-color: #000000;
     font-weight: bold;
-    /* height: 34px; */
   }
 </style>

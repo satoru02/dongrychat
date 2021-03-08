@@ -7,20 +7,17 @@
             <v-list-item :key="index">
               <template v-slot:default="{ }">
                 <div class="mr-5 ranktitle">{{index + 1}}</div>
-                <v-list-item-avatar size=59 height=66 tile class="rounded-lg">
+                <v-list-item-avatar size=60 height=60 tile class="rounded-lg">
                   <v-img :src="n.pic"></v-img>
                 </v-list-item-avatar>
                 <v-list-item-content class=ml-7>
                   <v-list-item-title class="card-title" v-html="n.title"></v-list-item-title>
                   <v-list-item-subtitle class="subauthor">
-                    Jon favrou
+                    第1話 救済 24分
                   </v-list-item-subtitle>
                 </v-list-item-content>
                 <v-list-item-action>
                   <div class="subtitle">{{n.count}}人が会話中</div>
-                  <!-- <v-btn style="font-weight:bold;" small rounded v-if="!active" color="indigo" outlined>
-                    Join
-                  </v-btn> -->
                 </v-list-item-action>
               </template>
             </v-list-item>
