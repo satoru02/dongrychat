@@ -17,6 +17,7 @@ import Authorization from '../components/authorization/AuthorizationTop'
 import Login from '../components/authorization/Login'
 import Signup from '../components/authorization/Signup'
 import User from '../components/user/UserTop'
+import SearchIndex from '../components/search/SearchIndex'
 
 const router = new VueRouter({
   mode: 'history',
@@ -61,6 +62,12 @@ const router = new VueRouter({
       path: '/user',
       name: 'User',
       component: User
+    },
+    {
+      //#tempo
+      path: '/searchindex',
+      name: 'SearchIndex',
+      component: SearchIndex
     }
   ]
 })

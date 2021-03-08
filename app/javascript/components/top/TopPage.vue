@@ -31,15 +31,9 @@
 </template>
 
 <script>
-  import TopFeaturedContents from '../top/TopFeaturedContents'
-  import TopContentsRow from '../top/TopContentsRow'
 
   export default {
     name: 'TopPage',
-    components: {
-      'top-contents-row': TopContentsRow,
-      'top-featured-contents': TopFeaturedContents
-    },
     data() {
       return {
         items: [{
