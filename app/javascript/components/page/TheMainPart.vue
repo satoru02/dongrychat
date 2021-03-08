@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app>
-      <top-header v-if="this.checkAuthorization()" />
+      <!-- <top-header v-if="this.checkAuthorization()" /> -->
       <v-main>
         <router-view />
       </v-main>
