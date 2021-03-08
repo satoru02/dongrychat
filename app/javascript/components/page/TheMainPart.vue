@@ -1,13 +1,13 @@
 <template>
   <div>
-    <v-app style="background-color: #ffffff">
-      <top-header />
+    <v-app>
+      <top-header v-if="this.checkAuthorization()" />
       <v-main>
         <router-view />
       </v-main>
       <!-- <bottom-footer /> -->
     </v-app>
-    <base-bottom-bar />
+    <base-bottom-bar v-if="this.checkAuthorization()" />
   </div>
 </template>
 
@@ -22,6 +22,16 @@
       'top-header': Header,
       'bottom-footer': Footer,
       'base-bottom-bar': BaseBottomBar
+    },
+    methods:{
+      checkAuthorization(){
+       let validationRouter = ['Login', 'Signup', 'Authorization']
+       if (validationRouter.includes(this.$route.name)){
+         return false
+       } else {
+         return true
+       }
+      }
     }
   }
 </script>

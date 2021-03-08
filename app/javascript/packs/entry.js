@@ -13,6 +13,9 @@ import Top from '../components/top/TopPage'
 import Content from '../components/contents/ContentPage'
 import Search from '../components/search/SearchTop'
 import Trend from '../components/trend/TrendTop'
+import Authorization from '../components/authorization/AuthorizationTop'
+import Login from '../components/authorization/Login'
+import Signup from '../components/authorization/Signup'
 
 const router = new VueRouter({
   mode: 'history',
@@ -37,6 +40,21 @@ const router = new VueRouter({
       path: '/trend',
       name: 'Trend',
       component: Trend
+    },
+    {
+      path: '/authorization',
+      name: 'Authorization',
+      component: Authorization
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/signup',
+      name: 'Signup',
+      component: Signup
     },
   ]
 })

@@ -1,8 +1,8 @@
 <template>
-  <v-row style="background-color: #ffffff">
+  <v-row>
     <v-col cols=12>
       <v-list two-line>
-        <v-list-item-group style="background-color: #ffffff" active-class="orange--text" multiple>
+        <v-list-item-group active-class="orange--text" multiple>
           <template v-for="(n, index) in items">
             <v-list-item :key="index">
               <template v-slot:default="{ active }">
@@ -42,12 +42,6 @@
     },
     data() {
       return {
-        streaming_title: [
-          'Spark ✨',
-          'Netflix',
-          'Amazon Prime',
-          'Disney Plus'
-        ],
         items: [{
             title: 'The Mandalorian',
             pic: 'https://freeclassicimages.com/images/7th-Heaven-1927-1A3-movie-poster.jpg',
