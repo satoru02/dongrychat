@@ -1,13 +1,14 @@
 <template>
   <v-row>
-    <v-col cols=12>
+    <v-col lg=3 />
+    <v-col cols=12 lg=6>
       <v-list two-line>
-        <v-list-item-group active-class="orange--text" multiple>
+        <v-list-item-group active-class="orange--text" multiple class="list-body">
           <template v-for="(n, index) in items">
             <v-list-item :key="index">
               <template v-slot:default="{ active }">
                 <v-badge color="#f94144" :content='n.count' style="font-weight:bold;" right offset-x="31" offset-y="29" overlap>
-                <v-list-item-avatar size=55 height=73 tile class="rounded-lg">
+                <v-list-item-avatar size=60 height=60 tile class="rounded-lg">
                   <v-img :src="n.pic"></v-img>
                 </v-list-item-avatar>
                 </v-badge>
@@ -71,6 +72,16 @@
             pic: 'https://freeclassicimages.com/images/abbott-and-costello-meet-invisible-man-1951-movie-poster.jpg',
             count: "3"
           },
+          {
+            title: 'Wandavison',
+            pic: 'https://freeclassicimages.com/images/abbott-and-costello-in-hollywood-1945-movie-poster.jpg',
+            count: "3"
+          },
+          {
+            title: 'Avengers',
+            pic: 'https://freeclassicimages.com/images/abbott-and-costello-meet-invisible-man-1951-movie-poster.jpg',
+            count: "3"
+          },
         ]
       }
     }
@@ -78,15 +89,19 @@
 </script>
 
 <style scoped>
+  .list-body{
+    background-color:#fafaf9;
+  }
+
   .card-title {
     font-weight: bold;
     font-family: 'Helvetica Neue', sans-serif;
-    font-size: 15px;
+    font-size: 13px;
   }
 
   .subtitle {
     font-family: 'Helvetica Neue', sans-serif;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: bold;
     color: rgb(235, 232, 232);
   }

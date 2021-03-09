@@ -1,26 +1,24 @@
 <template>
-  <v-row style="background-color: #ffffff">
-    <v-col cols=12>
+  <v-row>
+    <v-col lg=3 />
+    <v-col cols=12 lg=6>
       <v-list two-line>
-        <v-list-item-group style="background-color: #ffffff" active-class="orange--text" multiple>
+        <v-list-item-group active-class="orange--text" multiple class="list-body">
           <template v-for="(n, index) in items">
             <v-list-item :key="index">
               <template v-slot:default="{ }">
                 <div class="mr-5 ranktitle">{{index + 1}}</div>
-                <v-list-item-avatar size=59 height=66 tile class="rounded-lg">
+                <v-list-item-avatar size=60 height=60 tile class="rounded-lg">
                   <v-img :src="n.pic"></v-img>
                 </v-list-item-avatar>
                 <v-list-item-content class=ml-7>
                   <v-list-item-title class="card-title" v-html="n.title"></v-list-item-title>
                   <v-list-item-subtitle class="subauthor">
-                    Jon favrou
+                    第1話 救済 24分
                   </v-list-item-subtitle>
                 </v-list-item-content>
                 <v-list-item-action>
                   <div class="subtitle">{{n.count}}人が会話中</div>
-                  <!-- <v-btn style="font-weight:bold;" small rounded v-if="!active" color="indigo" outlined>
-                    Join
-                  </v-btn> -->
                 </v-list-item-action>
               </template>
             </v-list-item>
@@ -78,6 +76,10 @@
 </script>
 
 <style scoped>
+  .list-body{
+    background-color:#fafaf9;
+  }
+
   .card-title {
     font-weight: bold;
     font-family: 'Helvetica Neue', sans-serif;

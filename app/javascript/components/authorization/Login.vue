@@ -57,8 +57,7 @@
         </v-btn>
       </v-col>
     </v-row>
-    <v-row class="bottom-part">
-    </v-row>
+    <v-row class="bottom-part" />
     <v-row>
       <v-col cols=8 />
       <v-col cols=3 class="ml-7">
@@ -107,12 +106,6 @@ export default {
     color: #4361ee;
   }
 
-  .inp-text {
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 17px;
-    color: #dee2e6;
-  }
-
   .bottom-part {
     height: 70px;
   }
@@ -120,6 +113,5 @@ export default {
   .sns-btn {
     background-color: #000000;
     font-weight: bold;
-    /* height: 34px; */
   }
 </style>
