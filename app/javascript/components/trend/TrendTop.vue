@@ -1,8 +1,9 @@
 <template>
-  <v-row style="background-color: #ffffff">
-    <v-col cols=12>
+  <v-row>
+    <v-col lg=3 />
+    <v-col cols=12 lg=6>
       <v-list two-line>
-        <v-list-item-group style="background-color: #ffffff" active-class="orange--text" multiple>
+        <v-list-item-group active-class="orange--text" multiple class="list-body">
           <template v-for="(n, index) in items">
             <v-list-item :key="index">
               <template v-slot:default="{ }">
@@ -75,6 +76,10 @@
 </script>
 
 <style scoped>
+  .list-body{
+    background-color:#fafaf9;
+  }
+
   .card-title {
     font-weight: bold;
     font-family: 'Helvetica Neue', sans-serif;

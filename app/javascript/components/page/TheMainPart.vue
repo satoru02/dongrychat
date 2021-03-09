@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app>
+    <v-app style="background-color:#fafaf9">
       <top-header v-if="this.checkAuthorization()" />
       <v-main>
         <router-view />

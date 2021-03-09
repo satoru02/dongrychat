@@ -1,20 +1,14 @@
 <template>
   <v-container>
     <v-row class="top-part" />
-    <v-col cols=1 class="ml-n5 mt-1">
-      <v-btn icon>
-        <v-icon>
-          mdi-chevron-left
-        </v-icon>
-      </v-btn>
-    </v-col>
     <v-row>
-      <v-col cols=2 class="ml-8">
+      <v-col lg=2 class="hidden-xs-only" />
+      <v-col cols=2 lg=1 class="ml-8">
       <v-badge color="green" bordered right offset-x="15" offset-y="75" overlap>
         <v-avatar color="red" size=75 height=75 tile class="rounded-xl" />
       </v-badge>
       </v-col>
-      <v-col cols=5 class="ml-6 mt-3">
+      <v-col cols=5 lg=1 class="ml-6 mt-3">
         <v-row>
           <v-col cols=12>
             <div class="user-name">Satoru</div>
@@ -33,9 +27,10 @@
       </v-col>
     </v-row>
     <v-row class="mt-3">
-      <v-col cols=12>
-        <v-tabs grow class="mt-n3" icons-and-text>
-          <v-tabs-slider color="#ffffff" />
+      <v-col lg=2 class="hidden-xs-only" />
+      <v-col cols=12 lg=8>
+        <v-tabs grow class="mt-n3" background-color="#fafaf9" icons-and-text>
+          <v-tabs-slider />
           <v-tab class="list-text" active-class="black--text">Rooms</v-tab>
           <v-tab class="list-text" active-class="black--text">Followers</v-tab>
           <v-tab class="list-text" active-class="black--text">Followings</v-tab>
@@ -70,6 +65,10 @@
     font-size: 12px;
     font-weight: bold;
     color: #adb5bd;
+  }
+
+  .user-menu {
+    background-color:#fafaf9;
   }
 
   .list-text {

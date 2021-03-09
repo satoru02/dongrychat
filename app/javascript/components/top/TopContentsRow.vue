@@ -2,11 +2,11 @@
   <div>
   <v-row :class="[$vuetify.breakpoint.smAndUp ? 'mt-0': 'mt-4']">
     <v-col lg=1 xl=1 class="hidden-xs-only hidden-sm-only hidden-md-only" />
-    <v-col cols=9 sm=10 md=10 lg=9 :class="[$vuetify.breakpoint.smAndUp ? 'ml-0': 'ml-1 mt-2']">
+    <v-col cols=9 sm=10 md=10 lg=12 xl=12 :class="[$vuetify.breakpoint.smAndUp ? 'ml-0': 'ml-1 mt-2']">
       <div class="streaming-title">{{ streaming_title }}</div></v-col>
   </v-row>
   <v-row :class="[$vuetify.breakpoint.smAndUp ? 'mt-n3': 'mt-n10']">
-    <v-col cols=0 lg=1 />
+    <!-- <v-col cols=0 lg=1 /> -->
     <v-col cols=3 lg=2 v-for="(n,index) in items" :key="index">
       <v-avatar size=110 height=170 tile class="rounded-lg">
         <base-content-sheet :img="n.pic" :height="200" />
