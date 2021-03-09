@@ -91,6 +91,9 @@ GEM
       ruby-vips (>= 2.0.17, < 3)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
+    jwt (2.2.2)
+    jwt_sessions (2.5.2)
+      jwt (>= 2.1.1, < 3)
     listen (3.4.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -131,6 +134,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
+    rack-cors (1.1.1)
+      rack (>= 2.0.0)
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -225,6 +230,7 @@ DEPENDENCIES
   foreman
   image_processing (~> 1.2)
   jbuilder (~> 2.7)
+  jwt_sessions (~> 2)
   listen (~> 3.2)
   pg (>= 0.18, < 2.0)
   pry
@@ -233,6 +239,7 @@ DEPENDENCIES
   pry-rails
   pry-stack_explorer
   puma (~> 4.1)
+  rack-cors
   rails (~> 6.0.3, >= 6.0.3.5)
   redis (~> 4.0)
   sass-rails (>= 6)
