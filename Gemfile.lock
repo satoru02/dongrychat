@@ -91,6 +91,8 @@ GEM
       ruby-vips (>= 2.0.17, < 3)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
+    jsonapi-serializer (2.1.0)
+      activesupport (>= 4.2)
     jwt (2.2.2)
     jwt_sessions (2.5.2)
       jwt (>= 2.1.1, < 3)
@@ -230,6 +232,7 @@ DEPENDENCIES
   foreman
   image_processing (~> 1.2)
   jbuilder (~> 2.7)
+  jsonapi-serializer
   jwt_sessions (~> 2)
   listen (~> 3.2)
   pg (>= 0.18, < 2.0)
