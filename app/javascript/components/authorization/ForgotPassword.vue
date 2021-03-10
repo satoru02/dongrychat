@@ -39,56 +39,60 @@
 </template>
 
 <script>
-  import { simpleAxios } from '../../backend/axios.js'
+  import {
+    simpleAxios
+  } from '../../backend/axios.js'
   const PASSWORD_RESET_URL = '/api/v1/password_resets';
 
   export default {
-  name: 'ForgotPassword',
-  data(){
-    return{
-      email: null,
-      error: null,
-      notice: null,
-      notify_text: null,
-      snackbar: false,
-    }
-  },
-  created(){
-    // this.checkSignedIn()
-  },
-  updated(){
-    // this.checkSignedIn()
-  },
-  methods: {
-    checkSignedIn(){
-      if(this.$store.state.signedIn){
-        this.$router.replace('/')
+    name: 'ForgotPassword',
+    data() {
+      return {
+        email: null,
+        error: null,
+        notice: null,
+        notify_text: null,
+        snackbar: false,
       }
     },
-    resetPassword() {
-      simpleAxios.post(PASSWORD_RESET_URL, { email: this.email })
-        .then(res => this.submitSuccessful(res))
-        .catch(error => this.submitFailed(error))
+    created() {
+      // this.checkSignedIn()
     },
-    submitSuccessful(res) {
-      this.notify_text = 'パスワード再設定のメールを送信しました！メールボックスを確認ください。'
-      this.snackbar = true
-      this.email = null
+    updated() {
+      // this.checkSignedIn()
     },
-    submitFailed(error) {
-      this.error = (error.response && error.response.data && error.response.data.error) || ''
-      this.notify_text = '入力されたEメールで登録されたユーザーは存在しません。'
-      this.snackbar = true
-      this.email = null
-    },
-    makeAccount(){
-      this.$router.replace('/signup')
-    },
-    haveAccount(){
-      this.$router.replace('/login')
+    methods: {
+      checkSignedIn() {
+        if (this.$store.state.signedIn) {
+          this.$router.replace('/')
+        }
+      },
+      resetPassword() {
+        simpleAxios.post(PASSWORD_RESET_URL, {
+            email: this.email
+          })
+          .then(res => this.submitSuccessful(res))
+          .catch(error => this.submitFailed(error))
+      },
+      submitSuccessful(res) {
+        this.notify_text = 'パスワード再設定のメールを送信しました！メールボックスを確認ください。'
+        this.snackbar = true
+        this.email = null
+      },
+      submitFailed(error) {
+        this.error = (error.response && error.response.data && error.response.data.error) || ''
+        this.notify_text = '入力されたEメールで登録されたユーザーは存在しません。'
+        this.snackbar = true
+        this.email = null
+      },
+      makeAccount() {
+        this.$router.replace('/signup')
+      },
+      haveAccount() {
+        this.$router.replace('/login')
+      }
     }
   }
-}
 </script>
 
 <style scoped>

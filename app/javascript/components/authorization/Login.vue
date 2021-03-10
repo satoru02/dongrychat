@@ -10,7 +10,8 @@
     <v-row class="mt-n10">
       <v-col cols=1 />
       <v-col cols=10>
-        <v-text-field :type="visible ? 'text' : 'password'" v-model="password" background-color="#ffffff" class="rounded-xl inp-text" label="パスワード" outlined />
+        <v-text-field :type="visible ? 'text' : 'password'" v-model="password" background-color="#ffffff"
+          class="rounded-xl inp-text" label="パスワード" outlined />
       </v-col>
     </v-row>
     <v-row class="mt-n9">
@@ -68,47 +69,50 @@
 </template>
 
 <script>
-import { simpleAxios, secureAxios } from '../../backend/axios';
-const LOGIN_URL = '/api/v1/login'
-const USER_INFO_URL = '/api/v1/users/me'
+  import {
+    simpleAxios,
+    secureAxios
+  } from '../../backend/axios';
+  const LOGIN_URL = '/api/v1/login'
+  const USER_INFO_URL = '/api/v1/users/me'
 
-export default {
-  name: 'Login',
-  data(){
-    return{
-      email: null,
-      password: null,
-      error: null,
-      visible: false,
-    }
-  },
-  created(){
-    this.checkSignedIn()
-  },
-  updated(){
-    this.checkSignedIn()
-  },
-  methods: {
-    checkSignedIn(){
-      if(this.$store.state.signedIn){
-        this.$router.replace('/')
+  export default {
+    name: 'Login',
+    data() {
+      return {
+        email: null,
+        password: null,
+        error: null,
+        visible: false,
       }
     },
-    signIn(){
-      simpleAxios.post(LOGIN_URL, {
-        email: this.email,
-        password: this.password
-      })
-      .then(res => this.signinSuccessful(res))
-      .catch(err => this.signinFailed(err))
+    created() {
+      this.checkSignedIn()
     },
-    signinSuccessful(res){
-      if(!res.data.csrf){
-        this.signInFailed()
-        return
-      }
-      simpleAxios.defaults.headers.common['Authorization'] = `Bearer ${res.data.access_token}`
-      simpleAxios.get(USER_INFO_URL)
+    updated() {
+      this.checkSignedIn()
+    },
+    methods: {
+      checkSignedIn() {
+        if (this.$store.state.signedIn) {
+          this.$router.replace('/')
+        }
+      },
+      signIn() {
+        simpleAxios.post(LOGIN_URL, {
+            email: this.email,
+            password: this.password
+          })
+          .then(res => this.signinSuccessful(res))
+          .catch(err => this.signinFailed(err))
+      },
+      signinSuccessful(res) {
+        if (!res.data.csrf) {
+          this.signInFailed()
+          return
+        }
+        simpleAxios.defaults.headers.common['Authorization'] = `Bearer ${res.data.access_token}`
+        simpleAxios.get(USER_INFO_URL)
           .then(me_response => {
             this.$store.commit('setCurrentUser', {
               currentUser: me_response.data,
@@ -119,19 +123,23 @@ export default {
             this.$router.replace('/')
           })
           .catch(error => this.signinFailed(error))
-    },
-    signinFailed(err){
-      this.error = (err.response && err.response.data && err.response.data.error) || ""
-      this.$store.commit('unsetCurrentUser')
-    },
-    makeAccount(){
-      this.$router.push({name: 'signup'})
-    },
-    forgetPassword(){
-      this.$router.push({name: "ForgotPassword"})
+      },
+      signinFailed(err) {
+        this.error = (err.response && err.response.data && err.response.data.error) || ""
+        this.$store.commit('unsetCurrentUser')
+      },
+      makeAccount() {
+        this.$router.push({
+          name: 'signup'
+        })
+      },
+      forgetPassword() {
+        this.$router.push({
+          name: "ForgotPassword"
+        })
+      }
     }
   }
-}
 </script>
 
 <style scoped>

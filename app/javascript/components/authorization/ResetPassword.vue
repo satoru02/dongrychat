@@ -4,15 +4,15 @@
     <v-row>
       <v-col cols=1 />
       <v-col cols=10>
-        <v-text-field :type="visible ? 'text' : 'password'" v-model="password" background-color="#ffffff" class="rounded-xl inp-text" label="パスワード"
-          outlined />
+        <v-text-field :type="visible ? 'text' : 'password'" v-model="password" background-color="#ffffff"
+          class="rounded-xl inp-text" label="パスワード" outlined />
       </v-col>
     </v-row>
     <v-row>
       <v-col cols=1 />
       <v-col cols=10>
-        <v-text-field :type="visible ? 'text' : 'password'" v-model="password_confirmation" background-color="#ffffff" class="rounded-xl inp-text"
-          label="パスワードの再入力" outlined />
+        <v-text-field :type="visible ? 'text' : 'password'" v-model="password_confirmation" background-color="#ffffff"
+          class="rounded-xl inp-text" label="パスワードの再入力" outlined />
       </v-col>
     </v-row>
     <v-row class="mt-n8">
@@ -35,7 +35,9 @@
 </template>
 
 <script>
-  import { simpleAxios } from '../../backend/axios.js'
+  import {
+    simpleAxios
+  } from '../../backend/axios.js'
   const PASSWORD_RESET_URL = '/api/v1/password_resets'
 
   export default {
@@ -54,12 +56,12 @@
       this.checkPasswordToken()
       this.checkSignedIn()
     },
-    updated(){
+    updated() {
       this.checkSignedIn()
     },
     methods: {
-      checkSignedIn(){
-        if(this.$store.state.signedIn){
+      checkSignedIn() {
+        if (this.$store.state.signedIn) {
           this.$router.replace('/')
         }
       },
@@ -89,7 +91,7 @@
           .catch(error => {
             this.resetFailed(error)
             this.$router.replace('/')
-        })
+          })
       }
     }
   }

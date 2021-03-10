@@ -11,14 +11,14 @@
       <v-col cols=1 />
       <v-col cols=10>
         <v-text-field v-model="password" @click="visible = false" :type="visible ? 'text' : 'password'"
-         background-color="#ffffff" class="rounded-xl inp-text" label="パスワード" outlined />
+          background-color="#ffffff" class="rounded-xl inp-text" label="パスワード" outlined />
       </v-col>
     </v-row>
     <v-row class="mt-n10">
       <v-col cols=1 />
       <v-col cols=10>
         <v-text-field v-model="password_confirmation" @click="visible = false" :type="visible ? 'text': 'password'"
-         background-color="#ffffff" class="rounded-xl inp-text" label="パスワードの再入力" outlined />
+          background-color="#ffffff" class="rounded-xl inp-text" label="パスワードの再入力" outlined />
       </v-col>
     </v-row>
     <v-row class="mt-n7">
@@ -78,13 +78,15 @@
 </template>
 
 <script>
-  import { simpleAxios } from '../../backend/axios'
+  import {
+    simpleAxios
+  } from '../../backend/axios'
   const SIGNUP_URL = '/api/v1/signup'
 
   export default {
     name: 'Signup',
-    data(){
-      return{
+    data() {
+      return {
         email: null,
         password: null,
         password_confirmation: null,
@@ -94,35 +96,37 @@
         notify_text: 'アカウント登録のメールを送信しました！メールボックスを確認ください。'
       }
     },
-    created(){
+    created() {
       this.checkSignedIn()
     },
     updated() {
       this.checkSignedIn()
     },
-    methods:{
-      checkSignedIn(){
-        if(this.$store.state.signedIn){
+    methods: {
+      checkSignedIn() {
+        if (this.$store.state.signedIn) {
           this.$router.replace('/')
         }
       },
-      signup(){
-        simpleAxios.post(SIGNUP_URL,{
-          email: this.email,
-          password: this.password,
-          password_confirmation: this.password_confirmation
-        })
-        .then(res => this.signupSuccessful(res))
-        .catch(err => this.signupFailed(err))
+      signup() {
+        simpleAxios.post(SIGNUP_URL, {
+            email: this.email,
+            password: this.password,
+            password_confirmation: this.password_confirmation
+          })
+          .then(res => this.signupSuccessful(res))
+          .catch(err => this.signupFailed(err))
       },
-      signupSuccessful(res){
+      signupSuccessful(res) {
         this.snackbar = true
       },
-      signupFailed(err){
+      signupFailed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
       },
-      haveAccount(){
-        this.$router.push({name: 'login'})
+      haveAccount() {
+        this.$router.push({
+          name: 'login'
+        })
       }
     }
   }
