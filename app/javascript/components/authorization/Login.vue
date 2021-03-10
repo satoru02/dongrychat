@@ -65,13 +65,20 @@
         <div @click="makeAccount()" class="switch-text">アカウント登録</div>
       </v-col>
     </v-row>
+    <v-snackbar top color="black" v-model="snackbar">
+      <li v-for="error in errors" :key="error.id">{{ error }}</li>
+      <template v-slot:action="{attrs}">
+        <v-btn color="white" text v-bind="attrs" @click="snackbar = false">
+          閉じる
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
 <script>
   import {
-    simpleAxios,
-    secureAxios
+    simpleAxios
   } from '../../backend/axios';
   const LOGIN_URL = '/api/v1/login'
   const USER_INFO_URL = '/api/v1/users/me'
@@ -82,8 +89,14 @@
       return {
         email: null,
         password: null,
+        errors: [],
         error: null,
         visible: false,
+        snackbar: false,
+        // email_rules: [v => v.length <= 235 || 'メールは最大235文字までです。'],
+        // password_rules: [v => v.length >= 6 && v.length <=100],
+        counter: 235,
+        notify_text: null,
       }
     },
     created() {
@@ -98,13 +111,38 @@
           this.$router.replace('/')
         }
       },
+      validEmail(email) {
+        var reg =
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return reg.test(email);
+      },
+      checkInputValidation() {
+        this.errors = [];
+
+        if (!this.email) {
+          this.errors.push('メールアドレスが入力されていません。')
+        } else if (!this.validEmail(this.email)) {
+          this.errors.push('メールアドレスが有効な形式ではありません。')
+        }
+
+        if (!this.password) {
+          this.errors.push('パスワードが入力されていません。')
+        }
+
+        if (this.errors.length) {
+          return this.snackbar = true
+        }
+      },
       signIn() {
-        simpleAxios.post(LOGIN_URL, {
-            email: this.email,
-            password: this.password
-          })
-          .then(res => this.signinSuccessful(res))
-          .catch(err => this.signinFailed(err))
+        this.checkInputValidation()
+        if (!this.errors.length) {
+          simpleAxios.post(LOGIN_URL, {
+              email: this.email,
+              password: this.password
+            })
+            .then(res => this.signinSuccessful(res))
+            .catch(err => this.signinFailed(err))
+        }
       },
       signinSuccessful(res) {
         if (!res.data.csrf) {

@@ -35,17 +35,14 @@
               csrf: response.data.csrf,
               token: response.data.access_token
             })
-            this.error = ''
             this.$router.replace('/')
           })
-          .catch(error => this.signupFailed(error))
           .catch(err => this.missedUserInfo(err))
       },
       missedUserInfo(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
       },
       activationFailed(error) {
-        console.log(error)
         this.error = (error.response && error.response.data && error.response.data.error) || ""
         this.$store.commit('unsetCurrentUser')
       },

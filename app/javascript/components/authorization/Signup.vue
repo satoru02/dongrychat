@@ -4,21 +4,22 @@
     <v-row>
       <v-col cols=1 />
       <v-col cols=10>
-        <v-text-field v-model="email" background-color="#ffffff" class="rounded-xl inp-text" label="Eメール" outlined />
+        <v-text-field v-model="email" :type="'email'" background-color="#ffffff" class="rounded-xl inp-text"
+          label="Eメール" outlined />
       </v-col>
     </v-row>
-    <v-row class="mt-n10">
+    <v-row class="mt-n6">
       <v-col cols=1 />
       <v-col cols=10>
         <v-text-field v-model="password" @click="visible = false" :type="visible ? 'text' : 'password'"
           background-color="#ffffff" class="rounded-xl inp-text" label="パスワード" outlined />
       </v-col>
     </v-row>
-    <v-row class="mt-n10">
+    <v-row class="mt-n6">
       <v-col cols=1 />
       <v-col cols=10>
         <v-text-field v-model="password_confirmation" @click="visible = false" :type="visible ? 'text': 'password'"
-          background-color="#ffffff" class="rounded-xl inp-text" label="パスワードの再入力" outlined />
+          background-color="#ffffff" class="rounded-xl inp-text" label="パスワードの確認" outlined />
       </v-col>
     </v-row>
     <v-row class="mt-n7">
@@ -66,6 +67,16 @@
         <div @click="haveAccount()" class="switch-text">ログイン</div>
       </v-col>
     </v-row>
+
+    <v-snackbar top v-model="errorbar" color="black">
+      <li v-for="error in errors" :key="error.id">{{error}}</li>
+      <template v-slot:action="{attrs}">
+        <v-btn color="white" text v-bind="attrs" @click="errorbar = false">
+          閉じる
+        </v-btn>
+      </template>
+    </v-snackbar>
+
     <v-snackbar top v-model="snackbar" color="black">
       {{ notify_text }}
       <template v-slot:action="{attrs}">
@@ -90,9 +101,14 @@
         email: null,
         password: null,
         password_confirmation: null,
+        errorbar: false,
         snackbar: false,
+        errors: [],
         error: null,
         visible: true,
+        // email_rules: [v => v.length <= 235 || 'メールは最大235文字までです。'],
+        // password_rules: [v => v.length >= 6 && v.length <=100],
+        counter: 235,
         notify_text: 'アカウント登録のメールを送信しました！メールボックスを確認ください。'
       }
     },
@@ -108,14 +124,41 @@
           this.$router.replace('/')
         }
       },
+      validEmail(email) {
+        var reg =
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return reg.test(email)
+      },
+      checkFormValidation() {
+        this.errors = [];
+
+        if (!this.email) {
+          this.errors.push('メールアドレスが入力されていません。')
+        } else if (!this.validEmail(this.email)) {
+          this.errors.push('メールアドレスが有効な形式ではありません。')
+        }
+
+        if (!this.password) {
+          this.errors.push('パスワードが入力されていません。')
+        }
+        if (!this.password_confirmation) {
+          this.errors.push('パスワード確認の項目が入力されていません。')
+        }
+        if (this.errors.length) {
+          return this.errorbar = true
+        }
+      },
       signup() {
-        simpleAxios.post(SIGNUP_URL, {
-            email: this.email,
-            password: this.password,
-            password_confirmation: this.password_confirmation
-          })
-          .then(res => this.signupSuccessful(res))
-          .catch(err => this.signupFailed(err))
+        this.checkFormValidation()
+        if (!this.errors.length) {
+          simpleAxios.post(SIGNUP_URL, {
+              email: this.email,
+              password: this.password,
+              password_confirmation: this.password_confirmation
+            })
+            .then(res => this.signupSuccessful(res))
+            .catch(err => this.signupFailed(err))
+        }
       },
       signupSuccessful(res) {
         this.snackbar = true

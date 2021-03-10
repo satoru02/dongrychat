@@ -23,6 +23,14 @@
         </v-btn>
       </v-col>
     </v-row>
+    <v-snackbar top v-model="errorbar" color="black">
+      <li v-for="error in errors" :key="error.id">{{error}}</li>
+      <template v-slot:action="{attrs}">
+        <v-btn color="white" text v-bind="attrs" @click="errorbar = false">
+          閉じる
+        </v-btn>
+      </template>
+    </v-snackbar>
     <v-snackbar top color="black" v-model="snackbar">
       {{ notify_text }}
       <template v-slot:action="{attrs}">
@@ -46,8 +54,12 @@
       return {
         password: null,
         password_confirmation: null,
+        errors: [],
         error: null,
         snackbar: false,
+        errorbar: false,
+        // password_rules: [v => v.length >= 6 && v.length <=100],
+        counter: 235,
         notify_text: null,
         visible: false,
       }
@@ -65,13 +77,31 @@
           this.$router.replace('/')
         }
       },
+      checkPasswordValidation() {
+        this.errors = [];
+
+        if (!this.password) {
+          this.errors.push('パスワードが入力されていません。')
+        }
+
+        if (!this.password_confirmation) {
+          this.errors.push('パスワード確認の項目が入力されていません。')
+        }
+
+        if (this.errors.length) {
+          return this.errorbar = true
+        }
+      },
       resetPassword() {
-        simpleAxios.patch(PASSWORD_RESET_URL + `/` + `${this.$route.params.token}`, {
-            password: this.password,
-            password_confirmation: this.password_confirmation
-          })
-          .then(response => this.resetSuccessful(response))
-          .catch(error => this.resetFailed(error))
+        this.checkPasswordValidation()
+        if (!this.errors.length) {
+          simpleAxios.patch(PASSWORD_RESET_URL + `/` + `${this.$route.params.token}`, {
+              password: this.password,
+              password_confirmation: this.password_confirmation
+            })
+            .then(response => this.resetSuccessful(response))
+            .catch(error => this.resetFailed(error))
+        }
       },
       resetSuccessful(response) {
         this.notify_text = 'パスワードがリセットされました。'

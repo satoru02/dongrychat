@@ -27,6 +27,14 @@
         <div @click="haveAccount()" class="switch-text">ログイン</div>
       </v-col>
     </v-row>
+    <v-snackbar top v-model="errorbar" color="black">
+      <li v-for="error in errors" :key="error.id">{{error}}</li>
+      <template v-slot:action="{attrs}">
+        <v-btn color="white" text v-bind="attrs" @click="errorbar = false">
+          閉じる
+        </v-btn>
+      </template>
+    </v-snackbar>
     <v-snackbar top v-model="snackbar" color="black">
       {{ notify_text }}
       <template v-slot:action="{attrs}">
@@ -49,17 +57,21 @@
     data() {
       return {
         email: null,
+        errors: [],
         error: null,
         notice: null,
         notify_text: null,
         snackbar: false,
+        errorbar: false,
+        // email_rules: [v => v.length <= 235 || 'メールは最大235文字までです。'],
+        counter: 235
       }
     },
     created() {
-      // this.checkSignedIn()
+      this.checkSignedIn()
     },
     updated() {
-      // this.checkSignedIn()
+      this.checkSignedIn()
     },
     methods: {
       checkSignedIn() {
@@ -67,12 +79,33 @@
           this.$router.replace('/')
         }
       },
+      validEmail(email) {
+        var reg =
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return reg.test(email);
+      },
+      checkInputValidation() {
+        this.errors = []
+
+        if (!this.email) {
+          this.errors.push('メールアドレスが入力されていません。')
+        } else if (!this.validEmail(this.email)) {
+          this.errors.push('メールアドレスが有効な形式ではありません。')
+        }
+
+        if (this.errors.length) {
+          return this.errorbar = true
+        }
+      },
       resetPassword() {
-        simpleAxios.post(PASSWORD_RESET_URL, {
-            email: this.email
-          })
-          .then(res => this.submitSuccessful(res))
-          .catch(error => this.submitFailed(error))
+        this.checkInputValidation()
+        if (!this.errors.length) {
+          simpleAxios.post(PASSWORD_RESET_URL, {
+              email: this.email
+            })
+            .then(res => this.submitSuccessful(res))
+            .catch(error => this.submitFailed(error))
+        }
       },
       submitSuccessful(res) {
         this.notify_text = 'パスワード再設定のメールを送信しました！メールボックスを確認ください。'
