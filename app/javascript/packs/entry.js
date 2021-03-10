@@ -15,6 +15,7 @@ import Authorization from '../components/authorization/AuthorizationTop';
 import AccountActivation from '../components/authorization/AccountActivation';
 import ResetPassword from '../components/authorization/ResetPassword';
 import Login from '../components/authorization/Login';
+import Logout from '../components/authorization//Logout';
 import Signup from '../components/authorization/Signup';
 import ForgotPassword from '../components/authorization/ForgotPassword';
 import User from '../components/user/UserTop';
@@ -108,6 +109,11 @@ const router = new VueRouter({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/logout',
+      name: 'Logout',
+      component: Logout
     },
     {
       path: '/signup',

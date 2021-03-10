@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { simpleAxios } from '../../backend/axios';
+import { simpleAxios, secureAxios } from '../../backend/axios';
 const LOGIN_URL = '/api/v1/login'
 const USER_INFO_URL = '/api/v1/users/me'
 
