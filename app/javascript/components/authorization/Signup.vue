@@ -4,25 +4,27 @@
     <v-row>
       <v-col cols=1 />
       <v-col cols=10>
-        <v-text-field background-color="#ffffff" class="rounded-xl inp-text" label="Eメール" outlined />
+        <v-text-field v-model="email" background-color="#ffffff" class="rounded-xl inp-text" label="Eメール" outlined />
       </v-col>
     </v-row>
     <v-row class="mt-n10">
       <v-col cols=1 />
       <v-col cols=10>
-        <v-text-field background-color="#ffffff" class="rounded-xl inp-text" label="パスワード" outlined />
+        <v-text-field v-model="password" @click="visible = false" :type="visible ? 'text' : 'password'"
+         background-color="#ffffff" class="rounded-xl inp-text" label="パスワード" outlined />
       </v-col>
     </v-row>
     <v-row class="mt-n10">
       <v-col cols=1 />
       <v-col cols=10>
-        <v-text-field background-color="#ffffff" class="rounded-xl inp-text" label="パスワードの再入力" outlined />
+        <v-text-field v-model="password_confirmation" @click="visible = false" :type="visible ? 'text': 'password'"
+         background-color="#ffffff" class="rounded-xl inp-text" label="パスワードの再入力" outlined />
       </v-col>
     </v-row>
     <v-row class="mt-n7">
       <v-col cols=1 />
       <v-col cols=10>
-        <v-btn x-large class="rounded-xl" color="#000000" dark block>
+        <v-btn @click="signup()" x-large class="rounded-xl" color="#000000" dark block>
           <div class="reg-text">アカウント登録</div>
         </v-btn>
       </v-col>
@@ -61,15 +63,68 @@
     <v-row>
       <v-col cols=9 />
       <v-col cols=3>
-        <div class="switch-text">ログイン</div>
+        <div @click="haveAccount()" class="switch-text">ログイン</div>
       </v-col>
     </v-row>
+    <v-snackbar top v-model="snackbar" color="black">
+      {{ notify_text }}
+      <template v-slot:action="{attrs}">
+        <v-btn color="white" text v-bind="attrs" @click="snackbar = false">
+          閉じる
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
 <script>
+  import { simpleAxios } from '../../backend/axios'
+  const SIGNUP_URL = '/api/v1/signup'
+
   export default {
-    name: 'Signup'
+    name: 'Signup',
+    data(){
+      return{
+        email: null,
+        password: null,
+        password_confirmation: null,
+        snackbar: false,
+        error: null,
+        visible: true,
+        notify_text: 'アカウント登録のメールを送信しました！メールボックスを確認ください。'
+      }
+    },
+    created(){
+      this.checkSignedIn()
+    },
+    updated() {
+      this.checkSignedIn()
+    },
+    methods:{
+      checkSignedIn(){
+        if(this.$store.state.signedIn){
+          this.$router.replace('/')
+        }
+      },
+      signup(){
+        simpleAxios.post(SIGNUP_URL,{
+          email: this.email,
+          password: this.password,
+          password_confirmation: this.password_confirmation
+        })
+        .then(res => this.signupSuccessful(res))
+        .catch(err => this.signupFailed(err))
+      },
+      signupSuccessful(res){
+        this.snackbar = true
+      },
+      signupFailed(err){
+        this.error = (err.response && err.response.data && err.response.data.error) || ''
+      },
+      haveAccount(){
+        this.$router.push({name: 'login'})
+      }
+    }
   }
 </script>
 

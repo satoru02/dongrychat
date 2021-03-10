@@ -4,25 +4,25 @@
     <v-row>
       <v-col cols=1 />
       <v-col cols=10>
-        <v-text-field background-color="#ffffff" class="rounded-xl inp-text" label="Eメール" outlined />
+        <v-text-field v-model="email" background-color="#ffffff" class="rounded-xl inp-text" label="Eメール" outlined />
       </v-col>
     </v-row>
     <v-row class="mt-n10">
       <v-col cols=1 />
       <v-col cols=10>
-        <v-text-field background-color="#ffffff" class="rounded-xl inp-text" label="パスワード" outlined />
+        <v-text-field :type="visible ? 'text' : 'password'" v-model="password" background-color="#ffffff" class="rounded-xl inp-text" label="パスワード" outlined />
       </v-col>
     </v-row>
     <v-row class="mt-n9">
       <v-col cols=6 />
       <v-col cols=5 class="ml-7">
-        <div class="setting-text">パスワードを忘れた場合はこちら</div>
+        <div @click="forgetPassword()" class="setting-text">パスワードを忘れた場合はこちら</div>
       </v-col>
     </v-row>
     <v-row class="mt-n2">
       <v-col cols=1 />
       <v-col cols=10>
-        <v-btn x-large class="rounded-xl" color="#000000" dark block>
+        <v-btn @click="signIn()" x-large class="rounded-xl" color="#000000" dark block>
           <div class="login-text">ログイン</div>
         </v-btn>
       </v-col>
@@ -61,15 +61,76 @@
     <v-row>
       <v-col cols=8 />
       <v-col cols=3 class="ml-7">
-        <div class="switch-text">アカウント登録</div>
+        <div @click="makeAccount()" class="switch-text">アカウント登録</div>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import { simpleAxios } from '../../backend/axios';
+const LOGIN_URL = '/api/v1/login'
+const USER_INFO_URL = '/api/v1/users/me'
+
 export default {
-  name: 'Login'
+  name: 'Login',
+  data(){
+    return{
+      email: null,
+      password: null,
+      error: null,
+      visible: false,
+    }
+  },
+  created(){
+    this.checkSignedIn()
+  },
+  updated(){
+    this.checkSignedIn()
+  },
+  methods: {
+    checkSignedIn(){
+      if(this.$store.state.signedIn){
+        this.$router.replace('/')
+      }
+    },
+    signIn(){
+      simpleAxios.post(LOGIN_URL, {
+        email: this.email,
+        password: this.password
+      })
+      .then(res => this.signinSuccessful(res))
+      .catch(err => this.signinFailed(err))
+    },
+    signinSuccessful(res){
+      if(!res.data.csrf){
+        this.signInFailed()
+        return
+      }
+      simpleAxios.defaults.headers.common['Authorization'] = `Bearer ${res.data.access_token}`
+      simpleAxios.get(USER_INFO_URL)
+          .then(me_response => {
+            this.$store.commit('setCurrentUser', {
+              currentUser: me_response.data,
+              csrf: res.data.csrf,
+              token: res.data.access_token
+            })
+            this.error = ''
+            this.$router.replace('/')
+          })
+          .catch(error => this.signinFailed(error))
+    },
+    signinFailed(err){
+      this.error = (err.response && err.response.data && err.response.data.error) || ""
+      this.$store.commit('unsetCurrentUser')
+    },
+    makeAccount(){
+      this.$router.push({name: 'signup'})
+    },
+    forgetPassword(){
+      this.$router.push({name: "ForgotPassword"})
+    }
+  }
 }
 </script>
 

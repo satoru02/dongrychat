@@ -1,26 +1,70 @@
-import Vue from 'vue'
-import App from './App.vue'
-import Vuetify from 'vuetify'
-import VueRouter from 'vue-router'
-import 'vuetify/dist/vuetify.min.css'
-import '@mdi/font/css/materialdesignicons.css'
+import Vue from 'vue';
+import App from './App.vue';
+import Vuetify from 'vuetify';
+import Vuex from 'vuex';
+import createPersistedState from 'vuex-persistedstate';
+import VueRouter from 'vue-router';
+import 'vuetify/dist/vuetify.min.css';
+import '@mdi/font/css/materialdesignicons.css';
 
-Vue.use(Vuetify)
-Vue.use(VueRouter)
+import Top from '../components/top/TopPage';
+import Content from '../components/contents/ContentPage';
+import Search from '../components/search/SearchTop';
+import Trend from '../components/trend/TrendTop';
+import Authorization from '../components/authorization/AuthorizationTop';
+import AccountActivation from '../components/authorization/AccountActivation';
+import ResetPassword from '../components/authorization/ResetPassword';
+import Login from '../components/authorization/Login';
+import Signup from '../components/authorization/Signup';
+import ForgotPassword from '../components/authorization/ForgotPassword';
+import User from '../components/user/UserTop';
+import SearchIndex from '../components/search/SearchIndex';
 
-//component
-import Top from '../components/top/TopPage'
-import Content from '../components/contents/ContentPage'
-import Search from '../components/search/SearchTop'
-import Trend from '../components/trend/TrendTop'
+Vue.use(Vuetify);
+Vue.use(VueRouter);
+Vue.use(Vuex);
 
-import Authorization from '../components/authorization/AuthorizationTop'
-import Login from '../components/authorization/Login'
-import Signup from '../components/authorization/Signup'
-import ForgotPassword from '../components/authorization/ForgotPassword'
-
-import User from '../components/user/UserTop'
-import SearchIndex from '../components/search/SearchIndex'
+const store = new Vuex.Store({
+  state: {
+    currentUser: {},
+    signedIn: false,
+    csrf: null
+  },
+  getters: {
+    isAdmin: state => {
+      return state.currentUser.role == "admin"
+    },
+    isManager: state => {
+      return state.currentUser.role == "manager"
+    },
+    currentUserId: state => {
+      return state.currentUser && state.currentUser.data.attributes.id
+    }
+  },
+  mutations: {
+    setCurrentUser(state, {
+      currentUser,
+      csrf,
+      token
+    }) {
+      state.currentUser = currentUser
+      state.signedIn = true
+      state.csrf = csrf
+      state.token = token
+    },
+    unsetCurrentUser(state){
+      state.currentUser = {}
+      state.signedIn = false
+      state.csrf = null
+      state.token = null
+    },
+    refresh(state, csrf){
+      state.signedIn = true
+      state.csrf = csrf
+    }
+  },
+  plugins: [createPersistedState()]
+})
 
 const router = new VueRouter({
   mode: 'history',
@@ -31,7 +75,6 @@ const router = new VueRouter({
       component: Top
     },
     {
-      // #temporary name
       path: '/content',
       name: 'Content',
       component: Content
@@ -50,6 +93,16 @@ const router = new VueRouter({
       path: '/authorization',
       name: 'Authorization',
       component: Authorization
+    },
+    {
+      path: "/account_activations/:token",
+      name: "AccountActivation",
+      component: AccountActivation
+    },
+    {
+      path: "/password_resets/:token",
+      name: "ResetPassword",
+      component: ResetPassword
     },
     {
       path: '/login',
@@ -72,7 +125,6 @@ const router = new VueRouter({
       component: User
     },
     {
-      //#tempo
       path: '/searchindex',
       name: 'SearchIndex',
       component: SearchIndex
@@ -85,5 +137,8 @@ const app = new Vue({
    render: h => h(App),
    vuetify: new Vuetify({
     }),
-   router
-})
+   router,
+   store
+});
+
+export { store };
