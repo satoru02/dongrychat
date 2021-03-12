@@ -1,12 +1,14 @@
 import Vue from 'vue';
 import App from './App.vue';
 import Vuetify from 'vuetify';
+import axios from 'axios';
 import Vuex from 'vuex';
+import VueAxios from 'vue-axios';
+import VueAuthenticate from 'vue-authenticate';
 import createPersistedState from 'vuex-persistedstate';
 import VueRouter from 'vue-router';
 import 'vuetify/dist/vuetify.min.css';
 import '@mdi/font/css/materialdesignicons.css';
-
 import Top from '../components/top/TopPage';
 import Content from '../components/contents/ContentPage';
 import Search from '../components/search/SearchTop';
@@ -24,6 +26,18 @@ import SearchIndex from '../components/search/SearchIndex';
 Vue.use(Vuetify);
 Vue.use(VueRouter);
 Vue.use(Vuex);
+Vue.use(VueAxios, axios);
+Vue.use(VueAuthenticate, {
+  baseUrl: 'http://localhost:5000',
+  providers: {
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      client_secret: process.env.GOOGLE_CLIENT_SECRET,
+      redirectUri: 'http://localhost:5000/login',
+      grant_type: 'authorization_code',
+    }
+  }
+});
 
 const store = new Vuex.Store({
   state: {

@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   root to: 'home#index'
 
+  resources :auth, only: [:create] do
+    collection do
+      post ':provider', action: :create
+    end
+  end
+
   namespace 'api' do
     namespace 'v1' do
       resources :signup, only: [:create]

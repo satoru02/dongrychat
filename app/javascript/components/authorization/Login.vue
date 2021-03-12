@@ -43,7 +43,7 @@
     <v-row>
       <v-col cols=2 class="ml-2" />
       <v-col cols=3>
-        <v-btn class="sns-btn rounded-s" dark icon x-large>
+        <v-btn @click="authenticate('google')" class="sns-btn rounded-s" dark icon x-large>
           <v-icon>mdi-google</v-icon>
         </v-btn>
       </v-col>
@@ -174,6 +174,16 @@
       forgetPassword() {
         this.$router.push({
           name: "ForgotPassword"
+        })
+      },
+      authenticate: function (provider) {
+        this.$auth.authenticate(provider).then(res => {
+          this.$store.commit('setCurrentUser', {
+              currentUser: res.data.user,
+              csrf: res.data.csrf,
+              token: res.data.access_token
+            })
+          this.$router.replace('/')
         })
       }
     }
