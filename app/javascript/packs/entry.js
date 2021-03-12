@@ -35,6 +35,12 @@ Vue.use(VueAuthenticate, {
       client_secret: process.env.GOOGLE_CLIENT_SECRET,
       redirectUri: 'http://localhost:5000/login',
       grant_type: 'authorization_code',
+    },
+    facebook: {
+      clientId: process.env.FACEBOOK_CLIENT_ID,
+      client_secret: process.env.FACEBOOK_CLIENT_SECRET,
+      redirectUri: 'http://localhost:5000/login',
+      grant_type: 'authorization_code',
     }
   }
 });

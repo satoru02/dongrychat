@@ -48,13 +48,13 @@
         </v-btn>
       </v-col>
       <v-col cols=3>
-        <v-btn class="sns-btn rounded-s" dark icon x-large>
-          <v-icon>mdi-apple</v-icon>
+        <v-btn @click="authenticate('facebook')" class="sns-btn rounded-s" dark icon x-large>
+          <v-icon>mdi-facebook</v-icon>
         </v-btn>
       </v-col>
       <v-col cols=2>
         <v-btn class="sns-btn rounded-s" dark icon x-large>
-          <v-icon>mdi-facebook</v-icon>
+          <v-icon>mdi-twitter</v-icon>
         </v-btn>
       </v-col>
     </v-row>
