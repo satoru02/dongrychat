@@ -22,6 +22,7 @@ gem 'foreman'
 gem 'jsonapi-serializer'
 gem 'faraday'
 gem 'jwt'
+gem "skylight"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
