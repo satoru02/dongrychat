@@ -6,6 +6,7 @@ import Vuex from 'vuex';
 import VueAxios from 'vue-axios';
 import VueAuthenticate from 'vue-authenticate';
 import createPersistedState from 'vuex-persistedstate';
+import VueGtag from "vue-gtag";
 import VueRouter from 'vue-router';
 import 'vuetify/dist/vuetify.min.css';
 import '@mdi/font/css/materialdesignicons.css';
@@ -44,6 +45,11 @@ Vue.use(VueAuthenticate, {
     }
   }
 });
+
+// Vue.use(VueGtag, {
+//   config: {id: process.env.GA_ID},
+//   router
+// })
 
 const store = new Vuex.Store({
   state: {
