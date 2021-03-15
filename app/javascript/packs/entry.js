@@ -11,7 +11,8 @@ import VueRouter from 'vue-router';
 import 'vuetify/dist/vuetify.min.css';
 import '@mdi/font/css/materialdesignicons.css';
 import Top from '../components/top/TopPage';
-import Content from '../components/contents/ContentPage';
+import TvDetails from '../components/tv/TvDetailsPage';
+import MvDetails from '../components/mv/MvDetailsPage';
 import Search from '../components/search/SearchTop';
 import Trend from '../components/trend/TrendTop';
 import Authorization from '../components/authorization/AuthorizationTop';
@@ -102,9 +103,14 @@ const router = new VueRouter({
       component: Top
     },
     {
-      path: '/content',
-      name: 'Content',
-      component: Content
+      path: '/tv/:id/season/:number',
+      name: 'TvDetails',
+      component: TvDetails
+    },
+    {
+      path: '/mv/:id',
+      name: 'MvDetails',
+      component: MvDetails
     },
     {
       path: '/search',
