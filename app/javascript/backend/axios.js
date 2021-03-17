@@ -10,10 +10,19 @@ const simpleAxios = axios.create({
   }
 });
 
+
+const tmdbAxios = axios.create({
+  withCredentials: false,
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
+
 const secureAxios = axios.create({
   withCredentials: true,
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': 'http://localhost:5000'
   }
 });
 
@@ -73,5 +82,6 @@ secureAxios.interceptors.response.use(null, error => {
 
 export {
   simpleAxios,
-  secureAxios
+  secureAxios,
+  tmdbAxios
 };

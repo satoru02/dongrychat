@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   root to: 'home#index'
 
   resources :auth, only: [:create] do
@@ -29,6 +30,13 @@ Rails.application.routes.draw do
       resources :users do
         collection do
           get :me
+        end
+      end
+
+      resources :spaces do
+        collection do
+          get :enter
+          get :confirm
         end
       end
     end

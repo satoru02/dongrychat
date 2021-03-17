@@ -1,38 +1,57 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col cols=12>
-        <v-tabs show-arrows grow class="mt-n3" icons-and-text>
-          <v-tabs-slider color="teal lighten-3" />
-          <v-tab v-for="(n,index) in 6" :key="index" class="list-text" active-class="black--text">Category</v-tab>
-        </v-tabs>
-      </v-col>
-    </v-row>
-    <v-row class="mt-n13" v-for="(n,index) in 10" :key="index">
-      <v-col cols=12>
-        <contents-row />
-      </v-col>
-    </v-row>
-  </v-container>
 </template>
 
 <script>
-  import ContentsRow from '../top/TopContentsRow'
+  import { tmdbAxios } from '../../backend/axios';
+  const WTV_ENDPOINT = `https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.TMDB_API_KEY}`;
+  const WMV_ENDPOINT = `https://api.themoviedb.org/3/trending/mv/week?api_key=${process.env.TMDB_API_KEY}`;
+  const TTV_ENDPOINT = `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`;
+  const TMV_ENDPOINT = `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1&region=JP`;
+  const TRTV_ENDPOINT = `https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`;
+
   export default {
     name: 'SearchIndex',
-    components: {
-      'contents-row': ContentsRow
-    },
     data() {
-      return {}
+      return {
+        weekly_trend_mvs: [],
+        weekly_trend_tvs: [],
+        todays_popular_tvs: [],
+        todays_popular_mvs: [],
+        top_rated_tvs: [],
+      }
+    },
+    created(){
+      this.getContents()
+    },
+    methods:{
+      getTrendTvs(){
+        return tmdbAxios.get(WTV_ENDPOINT)
+      },
+      getTrendMvs(){
+        return tmdbAxios.get(WMV_ENDPOINT)
+      },
+      getPopularTvs(){
+        return tmdbAxios.get(TTV_ENDPOINT)
+      },
+      getPopularMvs(){
+        return tmdbAxios.get(TMV_ENDPOINT)
+      },
+      getTopratedTvs(){
+        return tmdbAxios.get(TRTV_ENDPOINT)
+      },
+      getContents(){
+        Promise.all([this.getTrendTvs(), this.getTrendMvs(), this.getPopularTvs(), this.getPopularMvs(), this.getTopratedTvs()])
+        .then((res) => {
+          this.weekly_trend_tvs = res[0].data.results
+          this.weekly_trend_mvs = res[1].data.results
+          this.todays_popular_tvs = res[2].data.results
+          this.todays_popular_mvs = res[3].data.results
+          this.top_rated_tvs = res[4].data.results
+        })
+      }
     }
   }
 </script>
 
 <style scoped>
-  .list-text {
-    font-size: 10px;
-    font-family: 'Helvetica Neue', sans-serif;
-    font-weight: bold;
-  }
 </style>

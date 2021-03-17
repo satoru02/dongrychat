@@ -6,11 +6,15 @@ import Vuex from 'vuex';
 import VueAxios from 'vue-axios';
 import VueAuthenticate from 'vue-authenticate';
 import createPersistedState from 'vuex-persistedstate';
+import VueGtag from "vue-gtag";
 import VueRouter from 'vue-router';
 import 'vuetify/dist/vuetify.min.css';
 import '@mdi/font/css/materialdesignicons.css';
+
 import Top from '../components/top/TopPage';
-import Content from '../components/contents/ContentPage';
+import TvDetails from '../components/tv/TvDetailsPage';
+import MvDetails from '../components/mv/MvDetailsPage';
+import Space from '../components/space/Space';
 import Search from '../components/search/SearchTop';
 import Trend from '../components/trend/TrendTop';
 import Authorization from '../components/authorization/AuthorizationTop';
@@ -44,6 +48,11 @@ Vue.use(VueAuthenticate, {
     }
   }
 });
+
+// Vue.use(VueGtag, {
+//   config: {id: process.env.GA_ID},
+//   router
+// })
 
 const store = new Vuex.Store({
   state: {
@@ -96,9 +105,26 @@ const router = new VueRouter({
       component: Top
     },
     {
-      path: '/content',
-      name: 'Content',
-      component: Content
+      path: '/tv/:id/season/:number',
+      name: 'TvDetails',
+      component: TvDetails
+    },
+    {
+      path: '/space/:name/:season_number/:episode_number',
+      name: 'TvSpace',
+      props: true,
+      component: Space
+    },
+    {
+      path: '/space/:name',
+      name: 'MvSpace',
+      props: true,
+      component: Space
+    },
+    {
+      path: '/mv/:id',
+      name: 'MvDetails',
+      component: MvDetails
     },
     {
       path: '/search',
