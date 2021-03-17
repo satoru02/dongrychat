@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       resources :spaces do
         collection do
           get :enter
+          get :confirm
         end
       end
     end

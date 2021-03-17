@@ -110,8 +110,14 @@ const router = new VueRouter({
       component: TvDetails
     },
     {
-      path: '/space',
-      name: 'Space',
+      path: '/space/:name/:season_number/:episode_number',
+      name: 'TvSpace',
+      props: true,
+      component: Space
+    },
+    {
+      path: '/space/:name',
+      name: 'MvSpace',
       props: true,
       component: Space
     },

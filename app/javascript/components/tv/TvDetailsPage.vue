@@ -83,7 +83,6 @@
           .catch(err => this.fetchFailed(err))
       },
       fetchSuccessfull(res) {
-        console.log(res)
         this.description = res.data.overview
         this.episodes = res.data.episodes
       },
@@ -92,11 +91,14 @@
       },
       enterSpace(tv_data, tv_name) {
         this.$router.push({
-          name: 'Space',
+          name: 'TvSpace',
           params: {
-            value: tv_data,
-            name: tv_name,
-            media: 'tv'
+            season_number: tv_data.season_number,
+            episode_number: tv_data.episode_number,
+            // name: tv_name,
+            name: 'mandalorian',
+            media: 'tv',
+            value: tv_data
           }
         })
       }

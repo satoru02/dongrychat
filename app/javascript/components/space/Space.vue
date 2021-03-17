@@ -8,6 +8,7 @@ const SPACE_ENDPOINT = `/api/v1/spaces/enter`;
 export default {
   name: 'Space',
   created(){
+    console.log(this.$route.params.value)
     this.setSpace()
   },
   props: {
@@ -22,6 +23,10 @@ export default {
   },
   data(){
     return {
+      space_name: null,
+      space_description: null,
+      space_image: null,
+      space_data: null,
       comments: [],
       members: [],
     }
@@ -32,25 +37,17 @@ export default {
     //     name: this.$route.params.name,
     //     season: this.$route.params.value.season_number,
     //     episode: this.$route.params.value.episode_number,
-    //     media: this.$route.params.media,
+    //     media: media,
     //   }})}
 
     setSpace(){
       secureAxios.get(SPACE_ENDPOINT, { params: {
-        name: 'test',
-        season: this.$route.params.value.season_number,
-        episode: this.$route.params.value.episode_number,
-        media: 'tv',
-    }})
-     .then(res => this.enterSuccessful(res))
-     .cacth(err => this.enterFailed())
+        name: 'malio',
+        season: this.$route.params.season_number,
+        episode: this.$route.params.episode_number,
+        media: 'tv'
+    }}).then(res => console.log(res.data.data))
     },
-    enterSuccessful(res){
-      console.log(res)
-    },
-    enterFailed(err){
-      console.log(err)
-    }
   }
 }
 </script>

@@ -90,8 +90,15 @@
       fetchFailed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
       },
-      enterSpace(mv_data, mv_name){
-        this.$router.push({ name: 'Space', params: { value: mv_data, name: mv_name, media: 'mv' } })
+      enterSpace(mv_data, mv_name) {
+        this.$router.push({
+          name: 'MvSpace',
+          params: {
+            value: mv_data,
+            name: mv_name,
+            media: 'mv'
+          }
+        })
       }
     }
   }
