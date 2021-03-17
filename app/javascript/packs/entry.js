@@ -10,9 +10,11 @@ import VueGtag from "vue-gtag";
 import VueRouter from 'vue-router';
 import 'vuetify/dist/vuetify.min.css';
 import '@mdi/font/css/materialdesignicons.css';
+
 import Top from '../components/top/TopPage';
 import TvDetails from '../components/tv/TvDetailsPage';
 import MvDetails from '../components/mv/MvDetailsPage';
+import Space from '../components/space/Space';
 import Search from '../components/search/SearchTop';
 import Trend from '../components/trend/TrendTop';
 import Authorization from '../components/authorization/AuthorizationTop';
@@ -106,6 +108,12 @@ const router = new VueRouter({
       path: '/tv/:id/season/:number',
       name: 'TvDetails',
       component: TvDetails
+    },
+    {
+      path: '/space',
+      name: 'Space',
+      props: true,
+      component: Space
     },
     {
       path: '/mv/:id',

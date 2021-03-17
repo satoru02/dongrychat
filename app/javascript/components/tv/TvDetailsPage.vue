@@ -1,94 +1,107 @@
 <template>
-<div>
-<v-row>
-  <v-col cols=5 class="ml-4 mt-3">
-    <featured-content />
-  </v-col>
-  <v-col>
+  <div>
     <v-row>
-      <v-col :contents_name="contents_name" cols=12 class="mt-3 card-title">
-        <h3>マンダロリアン</h3>
+      <v-col cols=5 class="ml-4 mt-3">
+        <featured-content />
+      </v-col>
+      <v-col>
+        <v-row>
+          <v-col :tv_name="tv_name" cols=12 class="mt-3 card-title">
+            <h3>{{ tv_name }}</h3>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols=12 class="mt-n4">
+            <div style="font-size: 0.7rem;">
+              {{ description }}
+            </div>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col cols=12 class="mt-n4">
-        <div style="font-size: 0.7rem;">
-         {{ description }}
-        </div>
-      </v-col>
-    </v-row>
-  </v-col>
-</v-row>
 
-<v-row>
-  <v-col cols=12 class="mt-n3">
-     <v-list two-line>
-        <v-list-item-group style="background-color: #ffffff" active-class="orange--text" multiple>
-          <template v-for="(n, index) in items" >
-            <v-list-item :key="index">
-              <template v-slot:default="{ }">
-                <div class="mr-5 ranktitle">{{index + 1}}</div>
-                <v-list-item-content class=ml-1>
-                  <v-list-item-title class="card-title" v-html="n.title"></v-list-item-title>
-                  <v-list-item-subtitle v-html="n.name" class="subtitle">
-                  </v-list-item-subtitle>
-                </v-list-item-content>
-                <v-list-item-action>
-                  <div class="subtitle">{{n.count}}人が会話中</div>
-                </v-list-item-action>
-              </template>
-            </v-list-item>
-          </template>
-        </v-list-item-group>
-      </v-list>
-  </v-col>
-</v-row>
-</div>
+    <v-row>
+      <v-col cols=12 class="mt-n3">
+        <v-list two-line>
+          <v-list-item-group style="background-color: #ffffff" active-class="orange--text" multiple>
+            <template v-for="(episode, index) in episodes">
+              <v-list-item :key="index" @click="enterSpace(episode, tv_name)">
+                <template v-slot:default="{}">
+                  <div class="mr-5 ranktitle">{{index + 1}}</div>
+                  <v-list-item-content class=ml-1>
+                    <v-list-item-title class="card-title" v-html="episode.title"></v-list-item-title>
+                    <v-list-item-subtitle v-html="episode.name" class="subtitle">
+                    </v-list-item-subtitle>
+                  </v-list-item-content>
+                  <v-list-item-action>
+                    <!-- <div class="subtitle">{{item.count}}人が会話中</div> -->
+                  </v-list-item-action>
+                </template>
+              </v-list-item>
+            </template>
+          </v-list-item-group>
+        </v-list>
+      </v-col>
+    </v-row>
+  </div>
 
 </template>
 
 <script>
-import { tmdbAxios } from '../../backend/axios';
-import FeaturedContent from '../top/TopFeaturedContents';
+  import {
+    tmdbAxios
+  } from '../../backend/axios';
+  import FeaturedContent from '../top/TopFeaturedContents';
 
-export default {
-  name: 'TvDetailsPage',
-  components:{
-    'featured-content': FeaturedContent
-  },
-  props:{
-    contents_name: {
-      type: String,
-      // required: true
-    }
-  },
-  data(){
-    return{
-      description: null,
-      error: null,
-      items: [],
-    }
-  },
-  created(){
-    this.getContents()
-  },
-  methods:{
-    getContents(){
-      var TV_ENDPOINT = `https://api.themoviedb.org/3/tv/${this.$route.params.id}/season/${this.$route.params.number}?api_key=${process.env.TMDB_API_KEY}&language=ja`
-      tmdbAxios.get(TV_ENDPOINT)
-       .then(res => this.fetchSuccessfull(res))
-       .catch(err => this.fetchFailed(err))
+  export default {
+    name: 'TvDetailsPage',
+    components: {
+      'featured-content': FeaturedContent
     },
-    fetchSuccessfull(res){
-      console.log(res)
-      this.description = res.data.overview
-      this.items = res.data.episodes
+    props: {
+      tv_name: {
+        type: String,
+        // required: true
+      },
     },
-    fetchFailed(err){
-      this.error = (err.response && err.response.data && err.response.data.error) || ''
+    data() {
+      return {
+        description: null,
+        episodes: [],
+        error: null,
+      }
+    },
+    created() {
+      this.getContents()
+    },
+    methods: {
+      getContents() {
+        var TV_ENDPOINT =
+          `https://api.themoviedb.org/3/tv/${this.$route.params.id}/season/${this.$route.params.number}?api_key=${process.env.TMDB_API_KEY}&language=ja`
+        tmdbAxios.get(TV_ENDPOINT)
+          .then(res => this.fetchSuccessfull(res))
+          .catch(err => this.fetchFailed(err))
+      },
+      fetchSuccessfull(res) {
+        console.log(res)
+        this.description = res.data.overview
+        this.episodes = res.data.episodes
+      },
+      fetchFailed(err) {
+        this.error = (err.response && err.response.data && err.response.data.error) || ''
+      },
+      enterSpace(tv_data, tv_name) {
+        this.$router.push({
+          name: 'Space',
+          params: {
+            value: tv_data,
+            name: tv_name,
+            media: 'tv'
+          }
+        })
+      }
     }
   }
-}
 </script>
 
 <style scoped>

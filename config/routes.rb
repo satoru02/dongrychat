@@ -32,6 +32,12 @@ Rails.application.routes.draw do
           get :me
         end
       end
+
+      resources :spaces do
+        collection do
+          get :enter
+        end
+      end
     end
   end
 
