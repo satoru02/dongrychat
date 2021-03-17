@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :comments
+  has_many :spaces, through: :comments
   has_secure_password
   enum role: %i[user manager admin].freeze
   before_save :downcase_email

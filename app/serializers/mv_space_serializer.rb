@@ -3,4 +3,5 @@ class MvSpaceSerializer
 
   set_type :mv_space
   attributes :id, :name, :media
+  has_many :comments, serializer: CommentsSerializer
 end
