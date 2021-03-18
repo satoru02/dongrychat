@@ -106,7 +106,7 @@ const router = new VueRouter({
       component: Top
     },
     {
-      path: '/tv/:id/season/:number',
+      path: '/tv/:id//:tv_name/season/:number',
       name: 'TvDetails',
       component: TvDetails
     },

@@ -1,12 +1,11 @@
 <template>
-
-<v-img
-  :lazy-src="img"
-  :max-height="height"
-  :class="round"
-  :src="img"
-></v-img>
-
+  <v-img
+    :lazy-src="img"
+    :max-height="height"
+    :class="round"
+    :src="img"
+    :elevation="elevation"
+  ></v-img>
 </template>
 
 <script>
@@ -23,6 +22,10 @@ export default {
     },
     img: {
       type: String
+    },
+    elevation: {
+      type: Number,
+      default: 0
     }
   }
 }
