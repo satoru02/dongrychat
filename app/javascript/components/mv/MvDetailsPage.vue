@@ -6,8 +6,8 @@
       </v-col>
       <v-col>
         <v-row>
-          <v-col :mv_name="mv_name" cols=12 class="mt-3 card-title">
-            <h3>{{ contents_name }}</h3>
+          <v-col cols=12 class="mt-3 card-title">
+            <h3>{{ this.$route.params.mv_name }}</h3>
           </v-col>
         </v-row>
         <v-row>
@@ -58,17 +58,10 @@
     components: {
       'featured-content': FeaturedContent
     },
-    props: {
-      mv_name: {
-        type: String,
-        // required: true
-      }
-    },
     data() {
       return {
-        description: null,
-        contents: null,
         error: null,
+        tmdb_data: null,
       }
     },
     created() {
@@ -84,18 +77,17 @@
       },
       fetchSuccessfull(res) {
         console.log(res)
-        // this.description = res.data.overview
-        // this.items = res.data.episodes
+        this.tmdb_data = res.data
       },
       fetchFailed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
       },
-      enterSpace(mv_data, mv_name) {
+      enterSpace() {
         this.$router.push({
           name: 'MvSpace',
           params: {
-            value: mv_data,
-            name: mv_name,
+            value: this.tmdb_data,
+            name: this.$route.params.mv_name,
             media: 'mv'
           }
         })

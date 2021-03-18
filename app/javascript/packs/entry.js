@@ -107,7 +107,7 @@ const router = new VueRouter({
       component: Top
     },
     {
-      path: '/tv/:id//:tv_name/season/:number',
+      path: '/tv/:id/:tv_name/season/:number',
       name: 'TvDetails',
       component: TvDetails
     },
@@ -124,7 +124,7 @@ const router = new VueRouter({
       component: MvSpace
     },
     {
-      path: '/mv/:id',
+      path: '/mv/:id/:mv_name',
       name: 'MvDetails',
       component: MvDetails
     },

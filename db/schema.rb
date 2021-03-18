@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_17_104103) do
+ActiveRecord::Schema.define(version: 2021_03_18_124634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,20 @@ ActiveRecord::Schema.define(version: 2021_03_17_104103) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "resource_token", null: false
     t.string "resource_digest", null: false
+    t.string "episode_title"
+    t.integer "tmdb_tv_id"
+    t.integer "tmdb_mv_id"
+    t.string "image_path"
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "space_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["space_id"], name: "index_subscriptions_on_space_id"
+    t.index ["user_id", "space_id"], name: "index_subscriptions_on_user_id_and_space_id", unique: true
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

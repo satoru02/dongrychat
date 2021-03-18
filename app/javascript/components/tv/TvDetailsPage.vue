@@ -63,10 +63,11 @@
         description: null,
         episodes: [],
         error: null,
+        tmdb_tv_id: null,
+        poster_path: null
       }
     },
     created() {
-      console.log(this.$route.params.tv_name)
       this.getContents()
     },
     methods: {
@@ -78,8 +79,11 @@
           .catch(err => this.fetchFailed(err))
       },
       fetchSuccessfull(res) {
+        console.log(res)
         this.description = res.data.overview
         this.episodes = res.data.episodes
+        this.tmdb_tv_id = res.data.id
+        this.poster_path = res.data.poster_path
       },
       fetchFailed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
@@ -92,7 +96,9 @@
             episode_number: tv_data.episode_number,
             name: this.$route.params.tv_name,
             media: 'tv',
-            value: tv_data
+            value: tv_data,
+            tmdb_tv_id: this.tmdb_tv_id,
+            image_path: this.poster_path
           }
         })
       }
