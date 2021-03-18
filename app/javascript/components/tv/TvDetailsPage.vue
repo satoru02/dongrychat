@@ -6,8 +6,8 @@
       </v-col>
       <v-col>
         <v-row>
-          <v-col :tv_name="tv_name" cols=12 class="mt-3 card-title">
-            <h3>{{ tv_name }}</h3>
+          <v-col cols=12 class="mt-3 card-title">
+            <h3>{{ this.$route.params.tv_name }}</h3>
           </v-col>
         </v-row>
         <v-row>
@@ -25,7 +25,7 @@
         <v-list two-line>
           <v-list-item-group style="background-color: #ffffff" active-class="orange--text" multiple>
             <template v-for="(episode, index) in episodes">
-              <v-list-item :key="index" @click="enterSpace(episode, tv_name)">
+              <v-list-item :key="index" @click="enterSpace(episode)">
                 <template v-slot:default="{}">
                   <div class="mr-5 ranktitle">{{index + 1}}</div>
                   <v-list-item-content class=ml-1>
@@ -58,12 +58,6 @@
     components: {
       'featured-content': FeaturedContent
     },
-    props: {
-      tv_name: {
-        type: String,
-        // required: true
-      },
-    },
     data() {
       return {
         description: null,
@@ -72,6 +66,7 @@
       }
     },
     created() {
+      console.log(this.$route.params.tv_name)
       this.getContents()
     },
     methods: {
@@ -89,14 +84,13 @@
       fetchFailed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
       },
-      enterSpace(tv_data, tv_name) {
+      enterSpace(tv_data) {
         this.$router.push({
           name: 'TvSpace',
           params: {
             season_number: tv_data.season_number,
             episode_number: tv_data.episode_number,
-            // name: tv_name,
-            name: 'mandalorian',
+            name: this.$route.params.tv_name,
             media: 'tv',
             value: tv_data
           }

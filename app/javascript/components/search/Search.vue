@@ -1,22 +1,46 @@
 <template>
+  <v-container>
+    <popular-part v-if="this.mode === 'tv'" :weekly_trend_contents="weekly_trend_tvs" :media="this.mode"/>
+    <popular-part v-else :weekly_trend_contents="weekly_trend_mvs" :media="this.mode" />
+    <trend-part />
+    <top-rated v-if="this.mode === 'tv'" :weekly_trend_contents="weekly_trend_tvs" />
+    <top-rated v-else :weekly_trend_contents="weekly_trend_mvs" />
+    <!-- <actors-part /> -->
+  </v-container>
 </template>
 
 <script>
   import { tmdbAxios } from '../../backend/axios';
+
+  // search components
+  import SearchPopularPart from '../search/SearchPopularPart';
+  import SearchTrendPart from '../search/SearchTrendPart';
+  import SearchTopRatedPard from '../search/SearchTopRatedPart';
+  // import SearchActorsPart from '../search/SearchActorsPart';
+
+  // setting tmdb_api endpoints
   const WTV_ENDPOINT = `https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.TMDB_API_KEY}`;
   const WMV_ENDPOINT = `https://api.themoviedb.org/3/trending/mv/week?api_key=${process.env.TMDB_API_KEY}`;
   const TTV_ENDPOINT = `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`;
   const TMV_ENDPOINT = `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1&region=JP`;
   const TRTV_ENDPOINT = `https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`;
+  // const ACTORS_ENDPOINT = ``
 
   export default {
-    name: 'SearchIndex',
+    name: 'Search',
+    components: {
+      'popular-part': SearchPopularPart,
+      'trend-part': SearchTrendPart,
+      'top-rated': SearchTopRatedPard,
+      // 'actors-part': SearchActorsPart,
+    },
     data() {
       return {
+        mode: 'tv',
         weekly_trend_mvs: [],
         weekly_trend_tvs: [],
-        todays_popular_tvs: [],
         todays_popular_mvs: [],
+        todays_popular_tvs: [],
         top_rated_tvs: [],
       }
     },

@@ -14,8 +14,8 @@ import '@mdi/font/css/materialdesignicons.css';
 import Top from '../components/top/TopPage';
 import TvDetails from '../components/tv/TvDetailsPage';
 import MvDetails from '../components/mv/MvDetailsPage';
-import Space from '../components/space/Space';
-import Search from '../components/search/SearchTop';
+import TvSpace from '../components/space/TvSpace';
+import MvSpace from '../components/space/MvSpace';
 import Trend from '../components/trend/TrendTop';
 import Authorization from '../components/authorization/AuthorizationTop';
 import AccountActivation from '../components/authorization/AccountActivation';
@@ -25,7 +25,9 @@ import Logout from '../components/authorization//Logout';
 import Signup from '../components/authorization/Signup';
 import ForgotPassword from '../components/authorization/ForgotPassword';
 import User from '../components/user/UserTop';
-import SearchIndex from '../components/search/SearchIndex';
+import Search from '../components/search/Search';
+import Contents from '../components/contents/ContentsList';
+import Actors from '../components/contents/ActorsList';
 
 Vue.use(Vuetify);
 Vue.use(VueRouter);
@@ -105,7 +107,7 @@ const router = new VueRouter({
       component: Top
     },
     {
-      path: '/tv/:id/season/:number',
+      path: '/tv/:id//:tv_name/season/:number',
       name: 'TvDetails',
       component: TvDetails
     },
@@ -113,23 +115,18 @@ const router = new VueRouter({
       path: '/space/:name/:season_number/:episode_number',
       name: 'TvSpace',
       props: true,
-      component: Space
+      component: TvSpace
     },
     {
       path: '/space/:name',
       name: 'MvSpace',
       props: true,
-      component: Space
+      component: MvSpace
     },
     {
       path: '/mv/:id',
       name: 'MvDetails',
       component: MvDetails
-    },
-    {
-      path: '/search',
-      name: 'Search',
-      component: Search
     },
     {
       path: '/trend',
@@ -177,9 +174,29 @@ const router = new VueRouter({
       component: User
     },
     {
-      path: '/searchindex',
-      name: 'SearchIndex',
-      component: SearchIndex
+      path: '/search',
+      name: 'Search',
+      component: Search
+    },
+    {
+      path: '/popular',
+      name: 'Popular',
+      component: Contents
+    },
+    {
+      path: '/streaming/:platform',
+      name: 'Streaming',
+      component: Contents
+    },
+    {
+      path: '/top_rated',
+      name: 'TopRated',
+      component: Contents
+    },
+    {
+      path: '/actors',
+      name: 'Actors',
+      component: Actors
     }
   ]
 })
