@@ -1,6 +1,11 @@
 Rails.application.configure do
-  # Settings specified here will take precedence over those in config/application.rb.
+  # Get log daily.
+  config.logger = Logger.new('log/development.log', 'daily')
+  config.logger.formatter = proc { |severity, datetime, _progname, message|
+    "[#{datetime}] [#{severity}] -- #{message}\n"
+  }
 
+  # Settings specified here will take precedence over those in config/application.rb.
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
