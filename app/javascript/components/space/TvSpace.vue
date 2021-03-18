@@ -12,6 +12,8 @@
   export default {
     name: 'TvSpace',
     created(){
+      console.log(this.$route.params.value)
+      console.log(this.$route.params.tmdb_tv_id)
       this.setSpace()
     },
     data(){
@@ -28,7 +30,10 @@
           name: this.$route.params.name,
           season: this.$route.params.season_number,
           episode: this.$route.params.episode_number,
-          media: this.media
+          episode_title: this.$route.params.value.name,
+          media: this.media,
+          tmdb_tv_id: this.$route.params.tmdb_tv_id,
+          image_path: this.$route.params.image_path
       }}).then(res => this.space_data = res.data.data)
       },
       subscribe(){

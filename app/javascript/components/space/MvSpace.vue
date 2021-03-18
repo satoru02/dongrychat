@@ -26,7 +26,9 @@
       setSpace(){
         secureAxios.get(SPACE_ENDPOINT, { params: {
           name: this.$route.params.name,
-          media: this.media
+          media: this.media,
+          image_path: '',
+          tmdb_mv_id: ''
       }}).then(res => this.space_data = res.data.data)
       },
       subscribe(){
