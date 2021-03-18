@@ -1,5 +1,12 @@
 Rails.application.configure do
-  # Settings specified here will take precedence over those in config/application.rb.
+  # Get log daily.
+  config.logger = Logger.new('log/production.log', 'daily')
+  config.logger.formatter = proc { |severity, datetime, _progname, message|
+    "[#{datetime}] [#{severity}] -- #{message}\n"
+  }
+
+  # log level = Level 3 and above
+  config.log_level = :error
 
   # Code is not reloaded between requests.
   config.cache_classes = true

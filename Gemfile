@@ -23,6 +23,7 @@ gem 'jsonapi-serializer'
 gem 'faraday'
 gem 'jwt'
 gem "skylight"
+# gem 'lograge'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -36,6 +37,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'meta_request'
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '~> 3.2'
   gem 'spring'
