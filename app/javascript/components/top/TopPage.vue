@@ -32,12 +32,18 @@
 </template>
 
 <script>
+　import { secureAxios, tmdbAxios } from '../../backend/axios';
+  const SPACES_ENDPOINT = `/api/v1/spaces`;
+  const TMDB_TV_IMG_ENDPOINT = ``;
+  const TMDB_MV_IMG_ENDPOINT = ``;
 
   export default {
     name: 'TopPage',
     data() {
       return {
-        items: [{
+        contents: [],
+        items: [
+          {
             title: 'The Mandalorian',
             pic: 'https://freeclassicimages.com/images/7th-Heaven-1927-1A3-movie-poster.jpg',
             count: "99+"
@@ -51,38 +57,18 @@
             title: 'Game of the thrones',
             pic: 'https://freeclassicimages.com/images/69th-St-Vice-01-movie-poster.jpg',
             count: "3"
-          },
-          {
-            title: '全裸監督',
-            pic: 'https://freeclassicimages.com/images/Abigail-Leslie-Is-Back-In-Town-01-movie-poster.jpg',
-            count: "4"
-          },
-          {
-            title: '愛のむきだし',
-            pic: 'https://freeclassicimages.com/images/above-us-the-waves-1956-movie-poster.jpg',
-            count: "3"
-          },
-          {
-            title: 'Wandavison',
-            pic: 'https://freeclassicimages.com/images/abbott-and-costello-in-hollywood-1945-movie-poster.jpg',
-            count: "3"
-          },
-          {
-            title: 'Avengers',
-            pic: 'https://freeclassicimages.com/images/abbott-and-costello-meet-invisible-man-1951-movie-poster.jpg',
-            count: "3"
-          },
-          {
-            title: 'Wandavison',
-            pic: 'https://freeclassicimages.com/images/abbott-and-costello-in-hollywood-1945-movie-poster.jpg',
-            count: "3"
-          },
-          {
-            title: 'Avengers',
-            pic: 'https://freeclassicimages.com/images/abbott-and-costello-meet-invisible-man-1951-movie-poster.jpg',
-            count: "3"
-          },
+          }
         ]
+      }
+    },
+    created(){
+      this.getSubscription()
+    },
+    methods:{
+      getSubscription(){
+        secureAxios.get(SPACES_ENDPOINT, {params: {
+          user_id: this.$store.state.currentUser.data.id
+        }}).then(res => console.log(res))
       }
     }
   }

@@ -27,18 +27,17 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :subscriptions
-
       resources :users do
         collection do
           get :me
         end
       end
 
+      resources :subscriptions
       resources :spaces do
         collection do
           get :enter
-          get :confirm
+          get :enter_from_subscription
         end
       end
     end

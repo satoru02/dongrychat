@@ -1,3 +1,8 @@
+#episode_title
+#image_path
+#tmdb_tv_id
+#tmdb_mv_id
+
 class Space < ApplicationRecord
   has_many :comments
   has_many :subscriptions

@@ -4,12 +4,6 @@ module Api
       before_action :authorize_access_request!
       before_action :set_subscription, only: [:show, :destroy]
 
-      def index
-      end
-
-      def show
-      end
-
       def create
         @subscription = Subscription.new(user_id: params[:user_id], space_id: params[:space_id])
         if @subscription.save!
