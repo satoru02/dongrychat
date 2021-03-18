@@ -79,7 +79,6 @@
           .catch(err => this.fetchFailed(err))
       },
       fetchSuccessfull(res) {
-        console.log(res)
         this.description = res.data.overview
         this.episodes = res.data.episodes
         this.tmdb_tv_id = res.data.id
@@ -98,7 +97,8 @@
             media: 'tv',
             value: tv_data,
             tmdb_tv_id: this.tmdb_tv_id,
-            image_path: this.poster_path
+            image_path: this.poster_path,
+            from: `detailsPage`
           }
         })
       }

@@ -2,19 +2,23 @@
   <v-btn @click="subscribe()">Subscribe</v-btn>
 </template>
 
-  <script>
-  import { secureAxios } from '../../backend/axios';
+<script>
+  import {
+    secureAxios
+  } from '../../backend/axios';
   // setting space
-  const SPACE_ENDPOINT = `/api/v1/spaces/enter`;
+  const SPACE_ENDPOINT_FROM_SEARCH = `/api/v1/spaces/enter`;
+  const SPACE_ENDPOINT_FROM_SUBSCRIPTION = `/api/v1/spaces/enter_from_subscription`;
+
   // subscribe space
   const SUBSCRIBE_ENDPOINT = `/api/v1/subscriptions`;
 
   export default {
     name: 'MvSpace',
-    created(){
+    created() {
       this.setSpace()
     },
-    data(){
+    data() {
       return {
         space_data: null,
         comments: [],
@@ -22,27 +26,37 @@
         media: 'mv'
       }
     },
-    methods:{
-      setSpace(){
-        secureAxios.get(SPACE_ENDPOINT, { params: {
-          name: this.$route.params.name,
-          media: this.media,
-          image_path: '',
-          tmdb_mv_id: ''
-      }}).then(res => this.space_data = res.data.data)
+    methods: {
+      setSpace() {
+        if (this.$route.params.from === 'subscription') {
+          secureAxios.get(SPACE_ENDPOINT_FROM_SUBSCRIPTION, {
+            params: {
+              space_id: this.$route.params.space_id
+            }
+          }).then(res => this.space_data = res.data.data)
+        } else if (this.$route.params.from === 'detailsPage') {
+          secureAxios.get(SPACE_ENDPOINT, {
+            params: {
+              name: this.$route.params.name,
+              media: this.media,
+              image_path: '',
+              tmdb_mv_id: ''
+            }
+          }).then(res => this.space_data = res.data.data)
+        }
       },
-      subscribe(){
+      subscribe() {
         secureAxios.post(SUBSCRIBE_ENDPOINT, {
-          user_id: this.$store.state.currentUser.data.id,
-          space_id: this.space_data.id
-        })
-        .then(res => this.subscribeSuccessful(res))
-        .catch(err => this.subscribeFailed(err))
+            user_id: this.$store.state.currentUser.data.id,
+            space_id: this.space_data.id
+          })
+          .then(res => this.subscribeSuccessful(res))
+          .catch(err => this.subscribeFailed(err))
       },
-      subscribeSuccessful(res){
+      subscribeSuccessful(res) {
         console.log(res)
       },
-      subscribeFailed(err){
+      subscribeFailed(err) {
         console.log(err)
       }
     }

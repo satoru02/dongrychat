@@ -5,7 +5,7 @@
       <v-list two-line>
         <v-list-item-group active-class="orange--text" multiple class="list-body">
           <template v-for="(item, index) in items">
-            <v-list-item :key="index">
+            <v-list-item :key="index" @click="enterSpace(item)">
               <template v-slot:default="{ active }">
                 <v-badge color="#f94144" :content='34' style="font-weight:bold;" right offset-x="31" offset-y="29" overlap>
                 <v-list-item-avatar size=63 height=65 tile class="rounded-lg">
@@ -54,10 +54,25 @@
         .catch(err => this.getFailed(err))
       },
       getSuccessful(res){
-        console.log(res.data.data)
         this.items = res.data.data
       },
       getFailed(err){
+        console.log(err)
+      },
+      enterSpace(item){
+        if(item.attributes.media === 'tv'){
+          this.$router.push({name: 'TvSpace', params: {
+            name: item.attributes.name,
+            season_number: item.attributes.season,
+            episode_number: item.attributes.episode,
+            space_id: item.attributes.id,
+            from: `subscription`,}})
+        } else if(item.attributes.media === 'mv'){
+          this.$router.push({name: 'MvSpace', params: {
+            name: item.attributes.name,
+            space_id: item.attributes.id,
+            from: `subscription`}})
+        }
       }
     }
   }

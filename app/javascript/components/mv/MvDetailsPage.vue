@@ -88,7 +88,8 @@
           params: {
             value: this.tmdb_data,
             name: this.$route.params.mv_name,
-            media: 'mv'
+            media: 'mv',
+            from: 'detailsPage',
           }
         })
       }

@@ -33,8 +33,7 @@ class Space < ApplicationRecord
 
       set_log_level_for_production
 
-      if @space = self.find_by(tmdb_tv_id: space_params[:tmdb_mv_id])
-      # if @space = self.find_by(name: space_params[:name])
+      if @space = self.find_by(name: space_params[:name], tmdb_mv_id: space_params[:tmdb_mv_id])
         return @space
         logger.debug {"The space already exists."}
       else
@@ -51,8 +50,7 @@ class Space < ApplicationRecord
 
       set_log_level_for_production
 
-      if @space = self.find_by(tmdb_tv_id: space_params[:tmdb_tv_id])
-      # if @space = self.find_by(name: space_params[:name], season: space_params[:season], episode: space_params[:episode])
+      if @space = self.find_by(name: space_params[:name], season: space_params[:season], episode: space_params[:episode], tmdb_tv_id: space_params[:tmdb_tv_id])
         return @space
         logger.debug {"The space already exists."}
       else
