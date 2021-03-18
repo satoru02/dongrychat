@@ -15,7 +15,6 @@ import Top from '../components/top/TopPage';
 import TvDetails from '../components/tv/TvDetailsPage';
 import MvDetails from '../components/mv/MvDetailsPage';
 import Space from '../components/space/Space';
-import Search from '../components/search/SearchTop';
 import Trend from '../components/trend/TrendTop';
 import Authorization from '../components/authorization/AuthorizationTop';
 import AccountActivation from '../components/authorization/AccountActivation';
@@ -25,7 +24,9 @@ import Logout from '../components/authorization//Logout';
 import Signup from '../components/authorization/Signup';
 import ForgotPassword from '../components/authorization/ForgotPassword';
 import User from '../components/user/UserTop';
-import SearchIndex from '../components/search/SearchIndex';
+import Search from '../components/search/Search';
+import Contents from '../components/contents/ContentsList';
+import Actors from '../components/contents/ActorsList';
 
 Vue.use(Vuetify);
 Vue.use(VueRouter);
@@ -127,11 +128,6 @@ const router = new VueRouter({
       component: MvDetails
     },
     {
-      path: '/search',
-      name: 'Search',
-      component: Search
-    },
-    {
       path: '/trend',
       name: 'Trend',
       component: Trend
@@ -177,9 +173,29 @@ const router = new VueRouter({
       component: User
     },
     {
-      path: '/searchindex',
-      name: 'SearchIndex',
-      component: SearchIndex
+      path: '/search',
+      name: 'Search',
+      component: Search
+    },
+    {
+      path: '/popular',
+      name: 'Popular',
+      component: Contents
+    },
+    {
+      path: '/streaming/:platform',
+      name: 'Streaming',
+      component: Contents
+    },
+    {
+      path: '/top_rated',
+      name: 'TopRated',
+      component: Contents
+    },
+    {
+      path: '/actors',
+      name: 'Actors',
+      component: Actors
     }
   ]
 })

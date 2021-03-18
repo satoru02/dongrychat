@@ -10,7 +10,7 @@
   const TRTV_ENDPOINT = `https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`;
 
   export default {
-    name: 'SearchIndex',
+    name: 'Search',
     data() {
       return {
         weekly_trend_mvs: [],
