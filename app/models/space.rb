@@ -1,6 +1,7 @@
 class Space < ApplicationRecord
   has_many :comments
-  has_many :users, through: :comments
+  has_many :subscriptions
+  has_many :users, through: :subscriptions
   enum media: %i[mv tv].freeze
   before_validation :create_resource_digest
   validates :name, presence: true

@@ -27,6 +27,8 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :subscriptions
+
       resources :users do
         collection do
           get :me
