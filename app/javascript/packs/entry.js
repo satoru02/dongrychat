@@ -14,7 +14,8 @@ import '@mdi/font/css/materialdesignicons.css';
 import Top from '../components/top/TopPage';
 import TvDetails from '../components/tv/TvDetailsPage';
 import MvDetails from '../components/mv/MvDetailsPage';
-import Space from '../components/space/Space';
+import TvSpace from '../components/space/TvSpace';
+import MvSpace from '../components/space/MvSpace';
 import Trend from '../components/trend/TrendTop';
 import Authorization from '../components/authorization/AuthorizationTop';
 import AccountActivation from '../components/authorization/AccountActivation';
@@ -114,13 +115,13 @@ const router = new VueRouter({
       path: '/space/:name/:season_number/:episode_number',
       name: 'TvSpace',
       props: true,
-      component: Space
+      component: TvSpace
     },
     {
       path: '/space/:name',
       name: 'MvSpace',
       props: true,
-      component: Space
+      component: MvSpace
     },
     {
       path: '/mv/:id',

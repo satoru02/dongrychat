@@ -25,7 +25,7 @@
         <v-list two-line>
           <v-list-item-group style="background-color: #ffffff" active-class="orange--text" multiple>
             <template v-for="(episode, index) in episodes">
-              <v-list-item :key="index" @click="enterSpace(episode, tv_name)">
+              <v-list-item :key="index" @click="enterSpace(episode)">
                 <template v-slot:default="{}">
                   <div class="mr-5 ranktitle">{{index + 1}}</div>
                   <v-list-item-content class=ml-1>
