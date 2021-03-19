@@ -1,4 +1,5 @@
-# unique
+# unique => tmdb_{tv.mv}_id
+# token_attributes is not used now.
 class Space < ApplicationRecord
   has_many :comments
   has_many :subscriptions

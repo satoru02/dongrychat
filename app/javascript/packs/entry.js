@@ -10,6 +10,7 @@ import VueGtag from "vue-gtag";
 import VueRouter from 'vue-router';
 import 'vuetify/dist/vuetify.min.css';
 import '@mdi/font/css/materialdesignicons.css';
+
 import Top from '../components/top/TopPage';
 import TvDetails from '../components/details/TvDetailsPage';
 import MvDetails from '../components/details/MvDetailsPage';

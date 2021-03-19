@@ -13,7 +13,7 @@
         <v-row>
           <v-col cols=12 class="mt-n4">
             <div style="font-size: 0.7rem;">
-              {{ description }}
+              {{ tv_details.overview }}
             </div>
           </v-col>
         </v-row>
@@ -24,14 +24,13 @@
       <v-col cols=12 class="mt-n3">
         <v-list two-line>
           <v-list-item-group style="background-color: #ffffff" active-class="orange--text" multiple>
-            <template v-for="(episode, index) in episodes">
+            <template v-for="(episode, index) in tv_details.episodes">
               <v-list-item :key="index" @click="enterSpace(episode)">
                 <template v-slot:default="{}">
                   <div class="mr-5 ranktitle">{{index + 1}}</div>
                   <v-list-item-content class=ml-1>
-                    <v-list-item-title class="card-title" v-html="episode.title"></v-list-item-title>
-                    <v-list-item-subtitle v-html="episode.name" class="subtitle">
-                    </v-list-item-subtitle>
+                    <v-list-item-title class="card-title" v-html="episode.title" />
+                    <v-list-item-subtitle v-html="episode.name" class="subtitle" />
                   </v-list-item-content>
                   <v-list-item-action>
                     <!-- <div class="subtitle">{{item.count}}人が会話中</div> -->
@@ -44,13 +43,10 @@
       </v-col>
     </v-row>
   </div>
-
 </template>
 
 <script>
-  import {
-    tmdbAxios
-  } from '../../backend/axios';
+  import { tmdbAxios } from '../../backend/axios';
   import FeaturedContent from '../top/TopFeaturedContents';
 
   export default {
@@ -60,11 +56,8 @@
     },
     data() {
       return {
-        description: null,
-        episodes: [],
+        tv_details: [],
         error: null,
-        tmdb_tv_id: null,
-        poster_path: null
       }
     },
     created() {
@@ -79,10 +72,7 @@
           .catch(err => this.fetchFailed(err))
       },
       fetchSuccessfull(res) {
-        this.description = res.data.overview
-        this.episodes = res.data.episodes
-        this.tmdb_tv_id = res.data.id
-        this.poster_path = res.data.poster_path
+        this.tv_details = res.data
       },
       fetchFailed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
@@ -94,10 +84,10 @@
             season_number: tv_data.season_number,
             episode_number: tv_data.episode_number,
             name: this.$route.params.tv_name,
-            media: 'tv',
             value: tv_data,
-            tmdb_tv_id: this.tmdb_tv_id,
-            image_path: this.poster_path,
+            tmdb_tv_id: this.tv_details.id,
+            image_path: this.tv_details.poster_path,
+            media: 'tv',
             from: `detailsPage`
           }
         })

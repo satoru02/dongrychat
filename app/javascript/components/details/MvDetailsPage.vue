@@ -13,7 +13,7 @@
         <v-row>
           <v-col cols=12 class="mt-n4">
             <div style="font-size: 0.7rem;">
-              {{ description }}
+              {{ mv_details.overview }}
             </div>
           </v-col>
         </v-row>
@@ -60,8 +60,8 @@
     },
     data() {
       return {
+        mv_details: [],
         error: null,
-        tmdb_data: null,
       }
     },
     created() {
@@ -76,8 +76,7 @@
           .catch(err => this.fetchFailed(err))
       },
       fetchSuccessfull(res) {
-        console.log(res)
-        this.tmdb_data = res.data
+        this.mv_details = res.data
       },
       fetchFailed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
@@ -86,7 +85,7 @@
         this.$router.push({
           name: 'MvSpace',
           params: {
-            value: this.tmdb_data,
+            value: this.mv_details,
             name: this.$route.params.mv_name,
             media: 'mv',
             from: 'detailsPage',
