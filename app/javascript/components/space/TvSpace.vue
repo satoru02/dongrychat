@@ -4,17 +4,13 @@
 
 <script>
   import { secureAxios } from '../../backend/axios';
-  // setting space
   const SPACE_ENDPOINT_FROM_SEARCH = `/api/v1/spaces/enter`;
   const SPACE_ENDPOINT_FROM_SUBSCRIPTION = `/api/v1/spaces/enter_from_subscription`;
-
-  // subscribe space
   const SUBSCRIBE_ENDPOINT = `/api/v1/subscriptions`;
 
   export default {
     name: 'TvSpace',
     created(){
-      console.log(this.$route.params.from)
       this.setSpace()
     },
     data(){
@@ -55,7 +51,7 @@
         console.log(res)
       },
       subscribeFailed(err){
-        console.log(err)
+        this.error = (err.response && err.response.data && err.response.data.error) || ''
       }
     }
   }

@@ -3,14 +3,9 @@
 </template>
 
 <script>
-  import {
-    secureAxios
-  } from '../../backend/axios';
-  // setting space
+  import { secureAxios } from '../../backend/axios';
   const SPACE_ENDPOINT_FROM_SEARCH = `/api/v1/spaces/enter`;
   const SPACE_ENDPOINT_FROM_SUBSCRIPTION = `/api/v1/spaces/enter_from_subscription`;
-
-  // subscribe space
   const SUBSCRIBE_ENDPOINT = `/api/v1/subscriptions`;
 
   export default {
@@ -35,7 +30,7 @@
             }
           }).then(res => this.space_data = res.data.data)
         } else if (this.$route.params.from === 'detailsPage') {
-          secureAxios.get(SPACE_ENDPOINT, {
+          secureAxios.get(SPACE_ENDPOINT_FROM_SEARCH, {
             params: {
               name: this.$route.params.name,
               media: this.media,
@@ -57,7 +52,7 @@
         console.log(res)
       },
       subscribeFailed(err) {
-        console.log(err)
+        this.error = (err.response && err.response.data && err.response.data.error) || ''
       }
     }
   }

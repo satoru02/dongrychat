@@ -11,20 +11,16 @@
 
 <script>
   import { tmdbAxios } from '../../backend/axios';
-
-  // search components
   import SearchPopularPart from '../search/SearchPopularPart';
   import SearchTrendPart from '../search/SearchTrendPart';
   import SearchTopRatedPard from '../search/SearchTopRatedPart';
   // import SearchActorsPart from '../search/SearchActorsPart';
 
-  // setting tmdb_api endpoints
   const WTV_ENDPOINT = `https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.TMDB_API_KEY}`;
   const WMV_ENDPOINT = `https://api.themoviedb.org/3/trending/mv/week?api_key=${process.env.TMDB_API_KEY}`;
   const TTV_ENDPOINT = `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`;
   const TMV_ENDPOINT = `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1&region=JP`;
   const TRTV_ENDPOINT = `https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`;
-  // const ACTORS_ENDPOINT = ``
 
   export default {
     name: 'Search',
