@@ -7,13 +7,13 @@
       <v-col>
         <v-row>
           <v-col cols=12 class="mt-3 card-title">
-            <h3>{{ this.$route.params.tv_name }}</h3>
+            <h3>{{ this.$route.params.mv_name }}</h3>
           </v-col>
         </v-row>
         <v-row>
           <v-col cols=12 class="mt-n4">
             <div style="font-size: 0.7rem;">
-              {{ description }}
+              {{ mv_details.overview }}
             </div>
           </v-col>
         </v-row>
@@ -22,25 +22,25 @@
 
     <v-row>
       <v-col cols=12 class="mt-n3">
-        <v-list two-line>
+        <!-- <v-list two-line>
           <v-list-item-group style="background-color: #ffffff" active-class="orange--text" multiple>
-            <template v-for="(episode, index) in episodes">
-              <v-list-item :key="index" @click="enterSpace(episode)">
-                <template v-slot:default="{}">
+            <template v-for="(n, index) in items">
+              <v-list-item :key="index">
+                <template v-slot:default="{ }">
                   <div class="mr-5 ranktitle">{{index + 1}}</div>
                   <v-list-item-content class=ml-1>
-                    <v-list-item-title class="card-title" v-html="episode.title"></v-list-item-title>
-                    <v-list-item-subtitle v-html="episode.name" class="subtitle">
+                    <v-list-item-title class="card-title" v-html="n.title"></v-list-item-title>
+                    <v-list-item-subtitle v-html="n.name" class="subtitle">
                     </v-list-item-subtitle>
                   </v-list-item-content>
                   <v-list-item-action>
-                    <!-- <div class="subtitle">{{item.count}}人が会話中</div> -->
+                    <div class="subtitle">{{n.count}}人が会話中</div>
                   </v-list-item-action>
                 </template>
               </v-list-item>
             </template>
           </v-list-item-group>
-        </v-list>
+        </v-list> -->
       </v-col>
     </v-row>
   </div>
@@ -54,17 +54,14 @@
   import FeaturedContent from '../top/TopFeaturedContents';
 
   export default {
-    name: 'TvDetailsPage',
+    name: 'TvPage',
     components: {
       'featured-content': FeaturedContent
     },
     data() {
       return {
-        description: null,
-        episodes: [],
+        mv_details: [],
         error: null,
-        tmdb_tv_id: null,
-        poster_path: null
       }
     },
     created() {
@@ -72,33 +69,26 @@
     },
     methods: {
       getContents() {
-        var TV_ENDPOINT =
-          `https://api.themoviedb.org/3/tv/${this.$route.params.id}/season/${this.$route.params.number}?api_key=${process.env.TMDB_API_KEY}&language=ja`
-        tmdbAxios.get(TV_ENDPOINT)
+        var MV_ENDPOINT =
+          `https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=${process.env.TMDB_API_KEY}`
+        tmdbAxios.get(MV_ENDPOINT)
           .then(res => this.fetchSuccessfull(res))
           .catch(err => this.fetchFailed(err))
       },
       fetchSuccessfull(res) {
-        console.log(res)
-        this.description = res.data.overview
-        this.episodes = res.data.episodes
-        this.tmdb_tv_id = res.data.id
-        this.poster_path = res.data.poster_path
+        this.mv_details = res.data
       },
       fetchFailed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
       },
-      enterSpace(tv_data) {
+      enterSpace() {
         this.$router.push({
-          name: 'TvSpace',
+          name: 'MvSpace',
           params: {
-            season_number: tv_data.season_number,
-            episode_number: tv_data.episode_number,
-            name: this.$route.params.tv_name,
-            media: 'tv',
-            value: tv_data,
-            tmdb_tv_id: this.tmdb_tv_id,
-            image_path: this.poster_path
+            value: this.mv_details,
+            name: this.$route.params.mv_name,
+            media: 'mv',
+            from: 'detailsPage',
           }
         })
       }

@@ -5,13 +5,12 @@ module Api
 
       def index
         @user = User.find_by(id: params[:user_id])
-        @spaces = @user.spaces
-        # fix -> add MvSpaceSerializer
-        serializer = TvSpaceSerializer.new(@spaces)
+        @spaces = @user.spaces.includes(:comments)
+        serializer = MultiSpaceSerializer.new(@spaces)
         render json: serializer.serializable_hash.to_json
       end
 
-      # for search
+      # from space component. unstable.
       def enter
         if params[:media] === 'mv'
           @space = Space.create_or_search_mv(params.permit(:name, :media, :image_path, :tmdb_mv_id), current_user)
@@ -23,8 +22,15 @@ module Api
         render json: serializer.serializable_hash.to_json
       end
 
-      # for subscription
+      # from top subscription. stable.
       def enter_from_subscription
+        @space = Space.find_by(id: params[:space_id])
+        if @space.tv?
+          serializer = TvSpaceSerializer.new(@space)
+        elsif @space.mv?
+          serializer = MvSpaceSerializer.new(@space)
+        end
+        render json: serializer.serializable_hash.to_json
       end
     end
   end

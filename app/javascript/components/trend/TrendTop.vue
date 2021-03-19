@@ -9,10 +9,10 @@
               <template v-slot:default="{ }">
                 <div class="mr-5 ranktitle">{{index + 1}}</div>
                 <v-list-item-avatar size=60 height=60 tile class="rounded-lg">
-                  <v-img :src="n.pic"></v-img>
+                  <v-img :src="n.pic" />
                 </v-list-item-avatar>
                 <v-list-item-content class=ml-7>
-                  <v-list-item-title class="card-title" v-html="n.title"></v-list-item-title>
+                  <v-list-item-title class="card-title" v-html="n.title" />
                   <v-list-item-subtitle class="subauthor">
                     第1話 救済 24分
                   </v-list-item-subtitle>
