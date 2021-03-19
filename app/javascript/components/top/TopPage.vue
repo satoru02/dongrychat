@@ -39,7 +39,8 @@
     data() {
       return {
         items: [],
-        base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`
+        base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
+        error: null,
       }
     },
     created(){
@@ -47,7 +48,7 @@
     },
     methods:{
       getSubscription(){
-        secureAxios.get(SPACES_ENDPOINT, {params: {
+        secureAxios.get(SPACES_ENDPOINT, { params: {
           user_id: this.$store.state.currentUser.data.id
         }})
         .then(res => this.getSuccessful(res))
@@ -57,7 +58,7 @@
         this.items = res.data.data
       },
       getFailed(err){
-        console.log(err)
+        this.error = (err.response && err.response.data && err.response.data.error) || ''
       },
       enterSpace(item){
         if(item.attributes.media === 'tv'){
@@ -66,12 +67,14 @@
             season_number: item.attributes.season,
             episode_number: item.attributes.episode,
             space_id: item.attributes.id,
-            from: `subscription`,}})
+            from: `subscription`
+        }})
         } else if(item.attributes.media === 'mv'){
           this.$router.push({name: 'MvSpace', params: {
             name: item.attributes.name,
             space_id: item.attributes.id,
-            from: `subscription`}})
+            from: `subscription`
+        }})
         }
       }
     }
