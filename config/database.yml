@@ -14,6 +14,10 @@ test:
   <<: *default
   database: living_room_test
 
+staging:
+  <<: *default
+  database: living_room_staging
+
 production:
   <<: *default
   database: living_room_production
