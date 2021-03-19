@@ -1,4 +1,22 @@
-# token_attributes is not used now.
+# == Schema Information
+#
+# Table name: spaces
+#
+#  id              :bigint           not null, primary key
+#  episode         :integer
+#  episode_title   :string
+#  image_path      :string
+#  media           :integer          default("mv"), not null
+#  name            :string           not null
+#  resource_digest :string           not null
+#  resource_token  :string           not null
+#  season          :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  tmdb_mv_id      :integer
+#  tmdb_tv_id      :integer
+#
+
 class Space < ApplicationRecord
   has_many :comments
   has_many :subscriptions
