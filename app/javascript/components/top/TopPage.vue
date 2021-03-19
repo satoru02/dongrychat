@@ -41,8 +41,18 @@
         items: [],
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
         error: null,
-        // this data trigger means subscription.
-        trigger: 'sb'
+      }
+    },
+    channels: {
+      TopsubChannel: {
+        connected(){},
+        rejected(){},
+        received(data){
+          console.log(data)
+          // if(this.items.filter(item => item.id === data["space_id"])){
+          // }
+        },
+        disconnected(){}
       }
     },
     created(){
@@ -53,11 +63,14 @@
         secureAxios.get(SPACES_ENDPOINT, { params: {
           user_id: this.$store.state.currentUser.data.id
         }})
-        .then(res => this.getSuccessful(res))
+        .then(res => this.createCable(res.data.data))
         .catch(err => this.getFailed(err))
       },
-      getSuccessful(res){
-        this.items = res.data.data
+      createCable(spaces){
+        this.items = spaces
+        this.$cable.subscribe({
+          channel: 'TopsubChannel',
+        })
       },
       getFailed(err){
         this.error = (err.response && err.response.data && err.response.data.error) || ''
@@ -69,9 +82,7 @@
         }})
         } else if(item.attributes.media === 'mv'){
           this.$router.push({name: 'subscribedMvSpace', params: {
-            name: item.attributes.name,
             space_id: item.attributes.id,
-            from: this.trigger
         }})
         }
       }

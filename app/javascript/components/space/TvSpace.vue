@@ -1,8 +1,8 @@
 <template>
 <div>
-    <v-btn @click="subscribe()">Subscribe</v-btn>
-      <v-text-field background-color="#212529" v-model="comment" @click:append-outer="sendComment(comment)" dense
-      type="text" no-details outlined append-outer-icon="mdi-send" />
+  <v-btn @click="subscribe()">Subscribe</v-btn>
+  <v-text-field background-color="#212529" v-model="comment" @click:append-outer="sendComment(comment)" dense
+    type="text" no-details outlined append-outer-icon="mdi-send" />
 </div>
 </template>
 
