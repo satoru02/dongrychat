@@ -62,6 +62,7 @@
       return {
         mv_details: [],
         error: null,
+        media: 'mv'
       }
     },
     created() {
@@ -87,8 +88,7 @@
           params: {
             value: this.mv_details,
             name: this.$route.params.mv_name,
-            media: 'mv',
-            from: 'detailsPage',
+            media: this.media,
           }
         })
       }

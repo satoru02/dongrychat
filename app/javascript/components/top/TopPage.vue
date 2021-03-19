@@ -43,6 +43,18 @@
         error: null,
       }
     },
+    channels: {
+      TopsubChannel: {
+        connected(){},
+        rejected(){},
+        received(data){
+          console.log(data)
+          // if(this.items.filter(item => item.id === data["space_id"])){
+          // }
+        },
+        disconnected(){}
+      }
+    },
     created(){
       this.getSubscription()
     },
@@ -51,29 +63,26 @@
         secureAxios.get(SPACES_ENDPOINT, { params: {
           user_id: this.$store.state.currentUser.data.id
         }})
-        .then(res => this.getSuccessful(res))
+        .then(res => this.createCable(res.data.data))
         .catch(err => this.getFailed(err))
       },
-      getSuccessful(res){
-        this.items = res.data.data
+      createCable(spaces){
+        this.items = spaces
+        this.$cable.subscribe({
+          channel: 'TopsubChannel',
+        })
       },
       getFailed(err){
         this.error = (err.response && err.response.data && err.response.data.error) || ''
       },
       enterSpace(item){
         if(item.attributes.media === 'tv'){
-          this.$router.push({name: 'TvSpace', params: {
-            name: item.attributes.name,
-            season_number: item.attributes.season,
-            episode_number: item.attributes.episode,
+          this.$router.push({name: 'subscribedTvSpace', params: {
             space_id: item.attributes.id,
-            from: `subscription`
         }})
         } else if(item.attributes.media === 'mv'){
-          this.$router.push({name: 'MvSpace', params: {
-            name: item.attributes.name,
+          this.$router.push({name: 'subscribedMvSpace', params: {
             space_id: item.attributes.id,
-            from: `subscription`
         }})
         }
       }

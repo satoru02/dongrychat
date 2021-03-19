@@ -8,6 +8,7 @@ import VueAuthenticate from 'vue-authenticate';
 import createPersistedState from 'vuex-persistedstate';
 import VueGtag from "vue-gtag";
 import VueRouter from 'vue-router';
+import ActionCableVue from 'actioncable-vue';
 import 'vuetify/dist/vuetify.min.css';
 import '@mdi/font/css/materialdesignicons.css';
 
@@ -50,6 +51,26 @@ Vue.use(VueAuthenticate, {
     }
   }
 });
+
+  const developmentOptions = {
+    debug: true,
+    debugLevel: 'error',
+    connectionUrl: 'ws://localhost:5000/cable',
+    connectImmediately: true
+  };
+
+  // const productionOptions = {
+  //   debug: true,
+  //   debugLevel: 'error',
+  //   connectionUrl: 'wss://partykit.jp/cable',
+  //   connectImmediately: true
+  // }
+
+  if (process.env.NODE_ENV === "development") {
+    Vue.use(ActionCableVue, developmentOptions)
+  } else if (process.env.NODE_ENV === "production") {
+    Vue.use(ActionCableVue, productionOptions)
+  }
 
 // Vue.use(VueGtag, {
 //   config: {id: process.env.GA_ID},
@@ -112,21 +133,33 @@ const router = new VueRouter({
       component: TvDetails
     },
     {
-      path: '/space/:name/:season_number/:episode_number',
+      path: '/mv/:id/:mv_name',
+      name: 'MvDetails',
+      component: MvDetails
+    },
+    {
+      path: '/tv_space/:name/:season_number/:episode_number',
       name: 'TvSpace',
       props: true,
       component: TvSpace
     },
     {
-      path: '/space/:name',
+      path: '/mv_space/:name',
       name: 'MvSpace',
       props: true,
       component: MvSpace
     },
     {
-      path: '/mv/:id/:mv_name',
-      name: 'MvDetails',
-      component: MvDetails
+      path: '/tv_space/:space_id',
+      name: 'subscribedTvSpace',
+      props: true,
+      component: TvSpace
+    },
+    {
+      path: '/mv_space/:space_id',
+      name: 'subscribedMvSpace',
+      props: true,
+      component: MvSpace
     },
     {
       path: '/trend',

@@ -1,5 +1,9 @@
 <template>
+<div>
   <v-btn @click="subscribe()">Subscribe</v-btn>
+  <v-text-field background-color="#212529" v-model="comment" @click:append-outer="sendComment(comment)" dense
+    type="text" no-details outlined append-outer-icon="mdi-send" />
+</div>
 </template>
 
 <script>
@@ -19,24 +23,35 @@
         comments: [],
         members: [],
         media: 'tv',
+        comment: null,
+      }
+    },
+    channels: {
+      SpaceChannel: {
+        connected(){},
+        rejected(){},
+        received(data){
+          console.log(data)
+        },
+        disconnected(){}
       }
     },
     methods: {
       setSpace(){
-        if(this.$route.params.from === 'subscription'){
+        if(this.$route.name === 'subscribedTvSpace'){
           secureAxios.get(SPACE_ENDPOINT_FROM_SUBSCRIPTION, { params: {
             space_id: this.$route.params.space_id
-          }}).then(res => this.space_data = res.data.data)
-        } else if(this.$route.params.from === 'detailsPage') {
+          }}).then(res => this.createCable(res.data.data))
+        } else if(this.$route.name === 'TvSpace') {
           secureAxios.get(SPACE_ENDPOINT_FROM_SEARCH, { params: {
             name: this.$route.params.name,
             season: this.$route.params.season_number,
             episode: this.$route.params.episode_number,
-            episode_title: this.$route.params.value.name,
             media: this.media,
+            episode_title: this.$route.params.episode_title,
             tmdb_tv_id: this.$route.params.tmdb_tv_id,
             image_path: this.$route.params.image_path
-          }}).then(res => this.space_data = res.data.data)
+          }}).then(res => this.createCable(res.data.data))
         }
       },
       subscribe(){
@@ -52,6 +67,28 @@
       },
       subscribeFailed(err){
         this.error = (err.response && err.response.data && err.response.data.error) || ''
+      },
+      createCable(space){
+        this.space_data = space
+        this.$cable.subscribe({
+          channel: 'SpaceChannel',
+          space: space.id
+        })
+      },
+      getComments(){
+      },
+      sendComment(comment){
+        if(comment) {
+          this.$cable.perform({
+            channel: 'SpaceChannel',
+            action: 'speak',
+            data: {
+              comment: comment,
+              user_id: this.$store.state.currentUser.data.id,
+              space: this.space_data.id
+            }
+          })
+        }
       }
     }
   }
