@@ -23,13 +23,13 @@
     },
     methods: {
       setSpace() {
-        if (this.$route.params.from === 'subscription') {
+        if (this.$route.name === 'subscribedMvSpace') {
           secureAxios.get(SPACE_ENDPOINT_FROM_SUBSCRIPTION, {
             params: {
               space_id: this.$route.params.space_id
             }
           }).then(res => this.space_data = res.data.data)
-        } else if (this.$route.params.from === 'detailsPage') {
+        } else if (this.$route.name === 'MvSpace') {
           secureAxios.get(SPACE_ENDPOINT_FROM_SEARCH, {
             params: {
               name: this.$route.params.name,

@@ -41,6 +41,8 @@
         items: [],
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
         error: null,
+        // this data trigger means subscription.
+        trigger: 'sb'
       }
     },
     created(){
@@ -62,18 +64,14 @@
       },
       enterSpace(item){
         if(item.attributes.media === 'tv'){
-          this.$router.push({name: 'TvSpace', params: {
-            name: item.attributes.name,
-            season_number: item.attributes.season,
-            episode_number: item.attributes.episode,
+          this.$router.push({name: 'subscribedTvSpace', params: {
             space_id: item.attributes.id,
-            from: `subscription`
         }})
         } else if(item.attributes.media === 'mv'){
-          this.$router.push({name: 'MvSpace', params: {
+          this.$router.push({name: 'subscribedMvSpace', params: {
             name: item.attributes.name,
             space_id: item.attributes.id,
-            from: `subscription`
+            from: this.trigger
         }})
         }
       }

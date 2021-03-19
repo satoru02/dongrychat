@@ -58,6 +58,7 @@
       return {
         tv_details: [],
         error: null,
+        media: 'tv'
       }
     },
     created() {
@@ -84,11 +85,10 @@
             season_number: tv_data.season_number,
             episode_number: tv_data.episode_number,
             name: this.$route.params.tv_name,
-            value: tv_data,
+            episode_title: tv_data.name,
             tmdb_tv_id: this.tv_details.id,
             image_path: this.tv_details.poster_path,
-            media: 'tv',
-            from: `detailsPage`
+            media: this.media,
           }
         })
       }
