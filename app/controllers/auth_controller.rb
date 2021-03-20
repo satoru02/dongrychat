@@ -42,6 +42,7 @@ class AuthController < ApplicationController
 
     unless User.find_by(email: fetched_email)
       user = User.create(
+        name: User.authName,
         email: fetched_email,
         password: SecureRandom.urlsafe_base64,
       )
@@ -50,7 +51,6 @@ class AuthController < ApplicationController
       user = User.find_by(email: fetched_email)
     end
 
-    user = UserSerializer.new(user)
     payload = { user_id: user.id, aud: [user.role] }
     session = JWTSessions::Session.new(
       payload: payload,
@@ -64,6 +64,8 @@ class AuthController < ApplicationController
       httponly: true,
       path: "/"
     )
+
+    user = UserSerializer.new(user)
     render json: { csrf: tokens[:csrf], access_token: tokens[:access], user: user }
   end
 end
