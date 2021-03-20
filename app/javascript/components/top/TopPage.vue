@@ -63,8 +63,7 @@
       getSubscription() {
         secureAxios.get(SPACES_ENDPOINT, {
             params: {
-              user_id: this.$store.state.currentUser.data.id
-              // user_id: this.$store.state.currentUser.id
+              user_id: this.$store.state.currentUser.id
 
             }
           })

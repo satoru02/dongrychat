@@ -14,7 +14,7 @@
     },
     methods: {
       logout() {
-        secureAxios.delete(LOGOUT_URL + `/` + `${this.$store.state.currentUser.data.attributes.id}`)
+        secureAxios.delete(LOGOUT_URL + `/` + `${this.$store.state.currentUser.id}`)
           .then(res => this.logoutSuccessful())
           .catch(error => this.setError(error, 'Cannot log out.'))
       },

@@ -153,7 +153,7 @@
         simpleAxios.get(USER_INFO_URL)
           .then(me_response => {
             this.$store.commit('setCurrentUser', {
-              currentUser: me_response.data,
+              currentUser: me_response.data.data.attributes,
               csrf: res.data.csrf,
               token: res.data.access_token
             })
@@ -178,8 +178,9 @@
       },
       authenticate: function (provider) {
         this.$auth.authenticate(provider).then(res => {
+          console.log(res)
           this.$store.commit('setCurrentUser', {
-              currentUser: res.data.user,
+              currentUser: res.data.user.data.attributes,
               csrf: res.data.csrf,
               token: res.data.access_token
             })
