@@ -3,14 +3,20 @@
 # Table name: users
 #
 #  id                              :bigint           not null, primary key
+#  about                           :text
 #  activated                       :boolean          default(FALSE)
 #  activated_at                    :datetime
 #  activation_token                :string
+#  birthday                        :string
 #  email                           :string
+#  gender                          :integer
+#  location                        :string
+#  name                            :string           not null
 #  password_digest                 :string
 #  reset_password_token            :string
 #  reset_password_token_expires_at :datetime
 #  role                            :integer          default("user")
+#  sns_links                       :text             default([]), is an Array
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
 #
@@ -28,10 +34,20 @@ class User < ApplicationRecord
   enum role: %i[user manager admin].freeze
   before_save :downcase_email
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :name, presence: true
   validates :password, presence: true, length: { minimum: 6 }, allow_nil:true
   validates :email, presence: true, length: { maximum: 235 },
              format: { with: VALID_EMAIL_REGEX },
              uniqueness: { case_sensitive: false }
+
+  class << self
+    def authName(length = rand(10))
+      source = ("a".."z").to_a + ("A".."Z").to_a + (0..9).to_a + ["_","-","."]
+      key = "user_"
+      length.times{ key += source[rand(source.size)].to_s }
+      return key
+    end
+  end
 
   def authenticated?(attribute, token)
     token = send("#{attribute}_token")

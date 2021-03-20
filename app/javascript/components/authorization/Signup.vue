@@ -11,6 +11,13 @@
     <v-row class="mt-n6">
       <v-col cols=1 />
       <v-col cols=10>
+        <v-text-field v-model="name" :type="'email'" background-color="#ffffff" class="rounded-xl inp-text"
+          label="ユーザーネーム" outlined />
+      </v-col>
+    </v-row>
+    <v-row class="mt-n6">
+      <v-col cols=1 />
+      <v-col cols=10>
         <v-text-field v-model="password" @click="visible = false" :type="visible ? 'text' : 'password'"
           background-color="#ffffff" class="rounded-xl inp-text" label="パスワード" outlined />
       </v-col>
@@ -106,6 +113,7 @@
         errors: [],
         error: null,
         visible: true,
+        name: null,
         // email_rules: [v => v.length <= 235 || 'メールは最大235文字までです。'],
         // password_rules: [v => v.length >= 6 && v.length <=100],
         counter: 235,
@@ -152,6 +160,7 @@
         this.checkFormValidation()
         if (!this.errors.length) {
           simpleAxios.post(SIGNUP_URL, {
+              name: this.name,
               email: this.email,
               password: this.password,
               password_confirmation: this.password_confirmation

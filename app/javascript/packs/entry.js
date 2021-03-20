@@ -29,6 +29,7 @@ import User from '../components/user/UserTop';
 import Search from '../components/search/Search';
 import Contents from '../components/contents/ContentsList';
 import Actors from '../components/contents/ActorsList';
+import UserSettings from '../components/user/UserSettings';
 
 Vue.use(Vuetify);
 Vue.use(VueRouter);
@@ -205,6 +206,11 @@ const router = new VueRouter({
       path: '/user',
       name: 'User',
       component: User
+    },
+    {
+      path: '/settings',
+      name: 'Settings',
+      component: UserSettings
     },
     {
       path: '/search',

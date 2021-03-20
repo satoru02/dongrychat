@@ -1,7 +1,7 @@
 module Api
   module V1
     class SignupController < ApplicationController
-      KEYS = [:email, :password, :password_confirmation].freeze
+      KEYS = [:name, :email, :password, :password_confirmation].freeze
 
       def create
         user = User.new(user_params)
