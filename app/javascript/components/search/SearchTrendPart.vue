@@ -1,24 +1,17 @@
 <template>
-<v-container>
-<v-row>
-  <v-col cols=12>
-    <h3>人気のスペース</h3>
-  </v-col>
-</v-row>
-  <v-row>
-    <v-col lg=3 />
-    <v-col cols=12 lg=6>
+<v-container class=mt-12>
+    <h3 class="mb-2 head-title">人気のチャットスペース</h3>
       <v-list two-line>
         <v-list-item-group active-class="orange--text" multiple class="list-body">
           <template v-for="(n, index) in items">
             <v-list-item :key="index">
-              <template v-slot:default="{ }">
+              <template v-slot:default="{}">
                 <div class="mr-5 ranktitle">{{index + 1}}</div>
                 <v-list-item-avatar size=60 height=60 tile class="rounded-lg">
-                  <v-img :src="n.pic"></v-img>
+                  <v-img :src="n.pic" />
                 </v-list-item-avatar>
                 <v-list-item-content class=ml-7>
-                  <v-list-item-title class="card-title" v-html="n.title"></v-list-item-title>
+                  <v-list-item-title class="card-title" v-html="n.title" />
                   <v-list-item-subtitle class="subauthor">
                     第1話 救済 24分
                   </v-list-item-subtitle>
@@ -31,8 +24,6 @@
           </template>
         </v-list-item-group>
       </v-list>
-    </v-col>
-  </v-row>
 </v-container>
 </template>
 
@@ -74,7 +65,7 @@
 
 <style scoped>
   .list-body{
-    background-color:#fafaf9;
+    background-color:#ffffff;
   }
 
   .card-title {
@@ -87,6 +78,13 @@
     font-family: 'Helvetica Neue', sans-serif;
     font-size: 12px;
     font-weight: bold;
+    color: #000000;
+  }
+
+  .head-title {
+    font-weight: bold;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 20px;
     color: #000000;
   }
 

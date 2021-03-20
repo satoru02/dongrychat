@@ -2,6 +2,7 @@
   <v-img
     :lazy-src="img"
     :max-height="height"
+    :size="size"
     :class="round"
     :src="img"
     :elevation="elevation"
@@ -13,6 +14,10 @@ export default {
   name: 'BaseContentSheet',
   props:{
     height:{
+      type: Number,
+      default: 140
+    },
+    size:{
       type: Number,
       default: 140
     },

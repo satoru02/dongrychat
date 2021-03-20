@@ -19,7 +19,6 @@
         </v-row>
       </v-col>
     </v-row>
-
     <v-row>
       <v-col cols=12 class="mt-n3">
         <v-list two-line>
