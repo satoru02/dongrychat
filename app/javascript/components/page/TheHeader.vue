@@ -21,7 +21,7 @@
         </v-col>
         <v-col md=1 lg=1 xl=1 />
         <v-col md=6 lg=6 xl=6 class="ml-6">
-          <v-text-field filled dense rounded placeholder="search" />
+          <v-text-field filled dense rounded placeholder="search" v-model="query" @keydown.enter="search(query)" />
         </v-col>
         <v-col md=1 lg=1 xl=1 />
         <v-col md=1 lg=1 xl=1 class="ml-n13">
@@ -39,9 +39,20 @@
 </template>
 
 <script>
+  import { tmdbAxios } from '../../backend/axios';
+
   export default {
     name: "TheHeader",
+    data(){
+      return {
+        query: null,
+        error: null,
+      }
+    },
     methods: {
+      search(query){
+        this.$router.replace({name: 'Results', params: { query: query} })
+      },
       changeHeader() {
         if (this.$route.name === 'Top') {
           return 'Live'
