@@ -62,7 +62,7 @@ secureAxios.interceptors.response.use(null, error => {
             }
           })
           .then(meResponse => store.commit('setCurrentUser', {
-            currentUser: meResponse.data,
+            currentUser: meResponse.data.data.attributes,
             csrf: response.data.csrf,
             token: response.data.access_token
           }));

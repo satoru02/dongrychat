@@ -1,40 +1,38 @@
 <template>
-  <v-row>
-    <v-col lg=3 />
-    <v-col cols=12 lg=6>
-      <v-list two-line>
-        <v-list-item-group active-class="orange--text" multiple class="list-body">
-          <template v-for="(n, index) in items">
-            <v-list-item :key="index">
-              <template v-slot:default="{ }">
-                <div class="mr-5 ranktitle">{{index + 1}}</div>
-                <v-list-item-avatar size=60 height=60 tile class="rounded-lg">
-                  <v-img :src="n.pic" />
-                </v-list-item-avatar>
-                <v-list-item-content class=ml-7>
-                  <v-list-item-title class="card-title" v-html="n.title" />
-                  <v-list-item-subtitle class="subauthor">
-                    第1話 救済 24分
-                  </v-list-item-subtitle>
-                </v-list-item-content>
-                <v-list-item-action>
-                  <div class="subtitle">{{n.count}}人が会話中</div>
-                </v-list-item-action>
-              </template>
-            </v-list-item>
-          </template>
-        </v-list-item-group>
-      </v-list>
-    </v-col>
-  </v-row>
+  <v-container>
+    <h1 class="ml-7 mb-2 head-title">Trend</h1>
+    <v-list two-line>
+      <v-list-item-group active-class="orange--text" multiple class="list-body">
+        <template v-for="(n, index) in items">
+          <v-list-item :key="index">
+            <template v-slot:default="{ }">
+              <div class="mr-5 ranktitle">{{index + 1}}</div>
+              <v-list-item-avatar size=60 height=60 tile class="rounded-lg">
+                <v-img :src="n.pic" />
+              </v-list-item-avatar>
+              <v-list-item-content class=ml-7>
+                <v-list-item-title class="card-title" v-html="n.title" />
+                <v-list-item-subtitle class="subauthor">
+                  第1話 救済 24分
+                </v-list-item-subtitle>
+              </v-list-item-content>
+              <v-list-item-action>
+                <div class="subtitle">{{n.count}}人が会話中</div>
+              </v-list-item-action>
+            </template>
+          </v-list-item>
+        </template>
+      </v-list-item-group>
+    </v-list>
+  </v-container>
 </template>
 
 <script>
   export default {
     name: 'TrendTop',
-    data(){
-      return{
-         items: [{
+    data() {
+      return {
+        items: [{
             title: 'The Mandalorian S1-EP4',
             pic: 'https://freeclassicimages.com/images/7th-Heaven-1927-1A3-movie-poster.jpg',
             count: "23"
@@ -76,14 +74,21 @@
 </script>
 
 <style scoped>
-  .list-body{
-    background-color:#fafaf9;
+  .list-body {
+    background-color: #ffffff;
   }
 
   .card-title {
     font-weight: bold;
     font-family: 'Helvetica Neue', sans-serif;
     font-size: 14px;
+  }
+
+  .head-title {
+    font-weight: bold;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 32px;
+    color: #000000;
   }
 
   .ranktitle {

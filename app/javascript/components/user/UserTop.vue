@@ -1,14 +1,14 @@
 <template>
-  <v-container>
+  <v-container class="ml-4">
     <v-row class="top-part" />
     <v-row>
-      <v-col lg=2 class="hidden-xs-only" />
-      <v-col cols=2 lg=1 class="ml-8">
-      <v-badge color="green" bordered right offset-x="15" offset-y="75" overlap>
-        <v-avatar color="red" size=75 height=75 tile class="rounded-xl" />
-      </v-badge>
+      <!-- <v-col lg=2 class="hidden-xs-only" /> -->
+      <v-col cols=2 lg=1>
+        <v-badge color="green" bordered right offset-x="15" offset-y="75" overlap>
+          <v-avatar color="red" size=75 height=75 tile class="rounded-xl" />
+        </v-badge>
       </v-col>
-      <v-col cols=5 lg=1 class="ml-6 mt-3">
+      <v-col cols=5 lg=8 class="ml-6 mt-3">
         <v-row>
           <v-col cols=12>
             <div class="user-name">Satoru</div>
@@ -26,10 +26,10 @@
         </v-btn>
       </v-col>
     </v-row>
-    <v-row class="mt-3">
+    <v-row>
       <v-col lg=2 class="hidden-xs-only" />
-      <v-col cols=12 lg=8>
-        <v-tabs grow class="mt-n3" background-color="#fafaf9" icons-and-text>
+      <v-col cols=12 md=12 lg=12 xl=12>
+        <v-tabs grow class="mt-n10" background-color="#ffffff" icons-and-text>
           <v-tabs-slider />
           <v-tab class="list-text" active-class="black--text">Rooms</v-tab>
           <v-tab class="list-text" active-class="black--text">Followers</v-tab>

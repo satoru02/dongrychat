@@ -50,6 +50,7 @@ class AuthController < ApplicationController
       user = User.find_by(email: fetched_email)
     end
 
+    user = UserSerializer.new(user)
     payload = { user_id: user.id, aud: [user.role] }
     session = JWTSessions::Session.new(
       payload: payload,

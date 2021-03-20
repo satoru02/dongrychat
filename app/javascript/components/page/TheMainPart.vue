@@ -1,9 +1,17 @@
 <template>
   <div>
-    <v-app style="background-color:#fafaf9">
+    <v-app style="background-color:#ffffff">
       <top-header v-if="this.checkAuthorization()" />
-      <v-main>
-        <router-view />
+      <v-main class=mt-5>
+        <v-row>
+          <v-col md=1 lg=1 xl=1 />
+          <v-col md=2 lg=2 xl=2>
+            <side-bar />
+          </v-col>
+          <v-col md=6 lg=6 xl=6>
+            <router-view />
+          </v-col>
+        </v-row>
       </v-main>
       <!-- <bottom-footer /> -->
     </v-app>
@@ -14,6 +22,7 @@
 <script>
   import Header from './TheHeader'
   import BaseBottomBar from '../base/BaseBottomBar'
+  import SideBar from '../../components/page/TheSideBar'
   import Footer from './TheFooter'
 
   export default {
@@ -21,7 +30,8 @@
     components: {
       'top-header': Header,
       'bottom-footer': Footer,
-      'base-bottom-bar': BaseBottomBar
+      'base-bottom-bar': BaseBottomBar,
+      'side-bar': SideBar
     },
     methods:{
       checkAuthorization(){

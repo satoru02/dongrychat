@@ -1,14 +1,14 @@
 <template>
- <div class="scrollmenu">
+ <div class="mt-7">
    <v-row>
      <v-col cols=12>
-       <h3>トレンド</h3>
+       <h3 class="mb-2 head-title">トレンド</h3>
      </v-col>
    </v-row>
    <v-row>
      <v-col cols=4 v-for="(item, index) in weekly_trend_contents" :key="index" @click="showContents(item)">
      <!-- <v-col cols=3 v-for="(item, index) in 4" :key="index"> -->
-       <base-content-sheet :img="pic" :height="100" :elevation="2" />
+       <base-content-sheet :img="pic" :height="200" />
        コンテンツタイトル
      </v-col>
    </v-row>
@@ -48,4 +48,10 @@ export default {
 </script>
 
 <style scoped>
+  .head-title {
+    font-weight: bold;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 20px;
+    color: #000000;
+  }
 </style>

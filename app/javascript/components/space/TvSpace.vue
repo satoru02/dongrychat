@@ -56,7 +56,7 @@
       },
       subscribe(){
         secureAxios.post(SUBSCRIBE_ENDPOINT, {
-          user_id: this.$store.state.currentUser.data.id,
+          user_id: this.$store.state.currentUser.id,
           space_id: this.space_data.id
         })
         .then(res => this.subscribeSuccessful(res))
@@ -84,7 +84,7 @@
             action: 'speak',
             data: {
               comment: comment,
-              user_id: this.$store.state.currentUser.data.id,
+              user_id: this.$store.state.currentUser.id,
               space: this.space_data.id
             }
           })
