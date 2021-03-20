@@ -84,7 +84,7 @@
             action: 'speak',
             data: {
               comment: comment,
-              user_id: this.$store.state.currentUser.data.id,
+              user_id: this.$store.state.currentUser.id,
               space: this.space_data.id
             }
           })

@@ -64,7 +64,6 @@
         secureAxios.get(SPACES_ENDPOINT, {
             params: {
               user_id: this.$store.state.currentUser.id
-
             }
           })
           .then(res => this.createCable(res.data.data))
