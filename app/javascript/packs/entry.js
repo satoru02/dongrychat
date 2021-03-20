@@ -30,6 +30,7 @@ import Search from '../components/search/Search';
 import Contents from '../components/contents/ContentsList';
 import Actors from '../components/contents/ActorsList';
 import UserSettings from '../components/user/UserSettings';
+import Results from '../components/search/SearchResults';
 
 Vue.use(Vuetify);
 Vue.use(VueRouter);
@@ -216,6 +217,12 @@ const router = new VueRouter({
       path: '/search',
       name: 'Search',
       component: Search
+    },
+    {
+      path: '/results/:query',
+      name: 'Results',
+      props: true,
+      component: Results
     },
     {
       path: '/popular',
