@@ -2,8 +2,8 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV.fetch("PG_USER_NAME") %>
-  password: <%= ENV.fetch("PG_PASSWORD") %>
+  username: <%= ENV["PG_USER_NAME"] %>
+  password: <%= ENV["PG_PASSWORD"] %>
   timeout: 5000
 
 development:
@@ -21,5 +21,5 @@ staging:
 production:
   <<: *default
   database: living_room_production
-  username: living_room
-  password: <%= ENV['LIVING_ROOM_DATABASE_PASSWORD'] %>
+  username: <%= ENV["PG_PRODUCTION_USER_NAME"] %>
+  password: <%= ENV['PG_PASSWORD'] %>
