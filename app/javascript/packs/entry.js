@@ -61,12 +61,12 @@ Vue.use(VueAuthenticate, {
     connectImmediately: true
   };
 
-  // const productionOptions = {
-  //   debug: true,
-  //   debugLevel: 'error',
-  //   connectionUrl: 'wss://partykit.jp/cable',
-  //   connectImmediately: true
-  // }
+  const productionOptions = {
+    debug: true,
+    debugLevel: 'error',
+    connectionUrl: 'wss://52.199.240.50/cable',
+    connectImmediately: true
+  }
 
   if (process.env.NODE_ENV === "development") {
     Vue.use(ActionCableVue, developmentOptions)
