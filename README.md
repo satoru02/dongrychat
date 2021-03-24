@@ -1,8 +1,6 @@
 # Project
 
-```
-domain.com
-```
+dongrychat.com
 
 # Install
 
