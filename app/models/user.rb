@@ -27,9 +27,20 @@
 #  index_users_on_reset_password_token  (reset_password_token)
 #
 class User < ApplicationRecord
+
+  has_many :active_relationships, class_name: "Relationship",
+           foreign_key: "follower_id",
+           dependent: :destroy
+  has_many :passive_relationsihps, class_name: "Relationship",
+           foreign_key: "followed_id",
+           dependent: :destroy
+  has_many :following, through: :active_relationships, source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
+
   has_many :comments
   has_many :subscriptions
   has_many :spaces, through: :subscriptions
+
   has_secure_password
   enum role: %i[user manager admin].freeze
   before_save :downcase_email
@@ -48,6 +59,8 @@ class User < ApplicationRecord
       return key
     end
   end
+
+  # authentication & authorization
 
   def authenticated?(attribute, token)
     token = send("#{attribute}_token")
@@ -81,6 +94,20 @@ class User < ApplicationRecord
   def clear_password_token!
     self.reset_password_token = nil
     self.reset_password_token_expires_at = nil
+  end
+
+  # relationships
+
+  def follow other_user
+    following << other_user
+  end
+
+  def unfollow other_user
+    active_relationships.find_by(followed_id: other_user.id).destroy
+  end
+
+  def following? other_user
+    following.include? other_user
   end
 
   private
