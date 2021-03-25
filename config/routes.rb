@@ -66,6 +66,7 @@
 Rails.application.routes.draw do
 
   root to: 'home#index'
+  mount ActionCable.server => "/cable"
 
   resources :auth, only: [:create] do
     collection do

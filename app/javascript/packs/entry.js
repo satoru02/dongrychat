@@ -49,7 +49,7 @@ const developmentOptions = {
 const productionOptions = {
   debug: true,
   debugLevel: 'error',
-  connectionUrl: `wss://52.199.240.50/cable`,
+  connectionUrl: `wss://dongrychat.com/cable`,
   // connectionUrl: `wss://${process.env.SERVICE_DOMAIN}/cable`,
   connectImmediately: true
 };
