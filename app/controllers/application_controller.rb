@@ -3,24 +3,14 @@ class ApplicationController < ActionController::API
   include ActionController::HttpAuthentication::Basic::ControllerMethods
   include ActionController::HttpAuthentication::Token::ControllerMethods
   include JWTSessions::RailsAuthorization
+
   rescue_from JWTSessions::Errors::Unauthorized, with: :not_authorized
   rescue_from JWTSessions::Errors::ClaimsVerification, with: :forbidden
   rescue_from ActionController::ParameterMissing, with: :response_bad_request
   rescue_from ActiveRecord::RecordNotFound, with: :response_not_found
   rescue_from ActiveRecord::RecordInvalid, with: :unprocessable_entity
-  before_action :basic_auth, if: :production?
 
   private
-
-    def basic_auth
-      authenticate_or_request_with_http_basic do |username, password|
-        username == ENV["BASIC_AUTH_USER"] && password == ENV["BASIC_AUTH_PASSWORD"]
-      end
-    end
-
-    def production?
-      Rails.env.production?
-    end
 
     def current_user
       @current_user ||= User.find(payload['user_id'])
