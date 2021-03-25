@@ -2,10 +2,15 @@ module Api
   module V1
     class UsersController < ApplicationController
       before_action :authorize_access_request!
-      before_action :set_user, only: [:update]
+      before_action :set_user, only: [:show, :update]
 
       def me
         serializer = UserSerializer.new(current_user)
+        render json: serializer.serializable_hash.to_json
+      end
+
+      def show
+        serializer = UserSerializer.new(@user)
         render json: serializer.serializable_hash.to_json
       end
 
