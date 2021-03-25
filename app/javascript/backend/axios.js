@@ -22,8 +22,7 @@ const secureAxios = axios.create({
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': 'http://localhost:5000',
-    // 'Access-Control-Allow-Origin': 'https://dongrychat.com'
+    'Access-Control-Allow-Origin': `http://${process.env.COMMON_DOMAIN}`,
   }
 });
 
