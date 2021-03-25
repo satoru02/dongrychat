@@ -31,6 +31,8 @@ import Contents from '../components/contents/ContentsList';
 import Actors from '../components/contents/ActorsList';
 import UserSettings from '../components/user/UserSettings';
 import Results from '../components/search/SearchResults';
+import UserFollowings from '../components/user/UserFollowings';
+import UserFollowers from '../components/user/UserFollowers';
 
 Vue.use(Vuetify);
 Vue.use(VueRouter);
@@ -134,6 +136,14 @@ const store = new Vuex.Store({
     refresh(state, csrf) {
       state.signedIn = true
       state.csrf = csrf
+    },
+    follow(state, user_id){
+      state.currentUser.following.push(user_id)
+    },
+    unfollow(state, user_id){
+      state.currentUser.following = state.currentUser.following.filter(
+        following => following != user_id
+      )
     }
   },
   plugins: [createPersistedState()]
@@ -221,9 +231,27 @@ const router = new VueRouter({
       component: ForgotPassword
     },
     {
-      path: '/user',
-      name: 'User',
-      component: User
+      path: '/users/:id',
+      name: "User",
+      component: User,
+      children: [
+        {
+          path: "followings",
+          name: "Followings",
+          component: UserFollowings,
+          props: (route) => ({
+            query: route.query.status
+          })
+        },
+        {
+          path: "followers",
+          name: "Followers",
+          component: UserFollowers,
+          props: (route) => ({
+            query: route.query.status
+          })
+        },
+      ]
     },
     {
       path: '/settings',

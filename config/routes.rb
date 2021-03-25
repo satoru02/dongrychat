@@ -96,8 +96,12 @@ Rails.application.routes.draw do
         collection do
           get :me
         end
+        member do
+          get :following, :followers
+        end
       end
 
+      resources :relationships, only: [:create, :destroy]
       resources :subscriptions
       resources :spaces do
         collection do

@@ -8,7 +8,6 @@
     <v-text-field :placeholder="'新しいパスワード'"  filled outlined dense v-model="password" />
     <v-text-field :placeholder="'新しいパスワードの再入力'" filled outlined dense v-model="password_confirmation" />
     <v-btn outlined color="primary" @click="updateProfile()">更新</v-btn>
-
     <v-snackbar top color="black" v-model="error_bar">
       <li v-for="error in errors" :key="error.id">{{ error }}</li>
       <template v-slot:action="{attrs}">
@@ -17,7 +16,6 @@
         </v-btn>
       </template>
     </v-snackbar>
-
     <v-snackbar top v-model="snack_bar" color="black">
       {{ notify_text }}
       <template v-slot:action="{attrs}">

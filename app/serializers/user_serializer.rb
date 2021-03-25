@@ -31,4 +31,11 @@ class UserSerializer
 
   set_type :user
   attributes :id, :email, :role, :activated, :activated_at, :name, :about, :location, :sns_links, :gender, :birthday
+  attribute :following do |object|
+    object.following.map(&:id)
+  end
+
+  attribute :follower do |object|
+    object.followers.map(&:id)
+  end
 end
