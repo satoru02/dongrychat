@@ -1,7 +1,6 @@
 module Api
   module V1
     class SignupController < ApplicationController
-      KEYS = [:name, :email, :password, :password_confirmation].freeze
 
       def create
         user = User.new(user_params)
@@ -16,7 +15,7 @@ module Api
       private
 
         def user_params
-          params.tap { |p| p.require(KEYS)}.permit(*KEYS)
+          params.require(:signup).permit(:name, :email, :password, :password_confirmation)
         end
     end
   end

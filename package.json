@@ -17,6 +17,7 @@
     "vue-loader": "^15.9.6",
     "vue-router": "^3.5.1",
     "vue-template-compiler": "^2.6.12",
+    "vuelidate": "^0.7.6",
     "vuetify": "^2.4.5",
     "vuex": "^3.6.2",
     "vuex-persistedstate": "^4.0.0-beta.3"
