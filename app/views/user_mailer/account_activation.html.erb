@@ -1,3 +1,8 @@
+<h2>DongryChatへようこそ！</h2>
+
+<p>DongryChatでは、最新の映画やドラマのリアルタイムチャットが出来ます！</p>
+<p>下記のリンクをクリックすると、アカウント登録が完了します。</p>
+
 <% if Rails.env.development? %>
   <%= "http://#{ENV["LOCALHOST"]}/account_activations/#{@user.activation_token}" %>
 <% elsif Rails.env.production? %>
