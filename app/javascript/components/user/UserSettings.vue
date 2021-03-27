@@ -210,7 +210,7 @@
         this.snack_bar = true
       },
       updateFailed(err) {
-        this.error = (err.response && err.response.data && err.response.data.error) || ''
+        this.errors.push('入力内容に間違いがあります。')
         this.error_bar = true
       },
       checkSignedIn() {

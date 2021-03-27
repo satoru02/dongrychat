@@ -44,6 +44,7 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :name, presence: true
   validates :password, presence: true, length: { minimum: 6 }, allow_nil:true
+  # 1.Youtube 2.Instagram 3.Twitter 4.Facebook -> fix?
   validates :sns_links, url: true
   validates :email, presence: true, length: { maximum: 235 },
              format: { with: VALID_EMAIL_REGEX },
