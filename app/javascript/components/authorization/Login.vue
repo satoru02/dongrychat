@@ -4,14 +4,17 @@
     <v-row>
       <v-col cols=1 />
       <v-col cols=10>
-        <v-text-field v-model="email" background-color="#ffffff" class="rounded-xl inp-text" label="Eメール" outlined />
+        <v-text-field
+          v-model="email" background-color="#ffffff" class="rounded-xl inp-text" label="Eメール" outlined
+          :rules="[rules.requiredEmail, rules.testMail]"
+         />
       </v-col>
     </v-row>
     <v-row class="mt-n10">
       <v-col cols=1 />
       <v-col cols=10>
         <v-text-field :type="visible ? 'text' : 'password'" v-model="password" background-color="#ffffff"
-          class="rounded-xl inp-text" label="パスワード" outlined />
+          class="rounded-xl inp-text" label="パスワード" outlined :rules="[rules.requiredPassword, rules.minPassword]" />
       </v-col>
     </v-row>
     <v-row class="mt-n9">
@@ -23,7 +26,10 @@
     <v-row class="mt-n2">
       <v-col cols=1 />
       <v-col cols=10>
-        <v-btn @click="signIn()" x-large class="rounded-xl" color="#000000" dark block>
+        <v-btn v-if="inputComplete === false" disabled x-large class="rounded-xl" block>
+          <div class="login-text">ログイン</div>
+        </v-btn>
+        <v-btn v-if="inputComplete === true" @click="signIn()" x-large class="rounded-xl" :style="afterInput" dark block>
           <div class="login-text">ログイン</div>
         </v-btn>
       </v-col>
@@ -87,16 +93,26 @@
     name: 'Login',
     data() {
       return {
-        email: null,
-        password: null,
+        email: '',
+        password: '',
         errors: [],
-        error: null,
+        error: '',
         visible: false,
         snackbar: false,
-        // email_rules: [v => v.length <= 235 || 'メールは最大235文字までです。'],
-        // password_rules: [v => v.length >= 6 && v.length <=100],
-        counter: 235,
         notify_text: null,
+        reg: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        rules: {
+          requiredEmail: (v) => !!v || `メールアドレスを入力してください。`,
+          requiredPassword: (v) => !!v || 'パスワードを入力してください。',
+          minPassword: (v) => v.length >= 6 || '最低6文字以上のパスワードを入力してください。',
+          testMail: (v) => this.reg.test(v) || `メールの形式が正しくありません。`
+        },
+        beforeInput: {
+          backgroundColor: "#134563"
+        },
+        afterInput: {
+          backgroundColor: "#000000"
+        }
       }
     },
     created() {
@@ -105,6 +121,15 @@
     updated() {
       this.checkSignedIn()
     },
+    computed: {
+      inputComplete() {
+        if ((this.email) && (this.password.length > 6)) {
+          return true
+        } else {
+          return false
+        }
+      }
+    },
     methods: {
       checkSignedIn() {
         if (this.$store.state.signedIn) {
@@ -112,23 +137,18 @@
         }
       },
       validEmail(email) {
-        var reg =
-          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return reg.test(email);
+        return this.reg.test(email);
       },
       checkInputValidation() {
         this.errors = [];
-
         if (!this.email) {
           this.errors.push('メールアドレスが入力されていません。')
         } else if (!this.validEmail(this.email)) {
           this.errors.push('メールアドレスが有効な形式ではありません。')
         }
-
         if (!this.password) {
           this.errors.push('パスワードが入力されていません。')
         }
-
         if (this.errors.length) {
           return this.snackbar = true
         }
@@ -168,7 +188,7 @@
       },
       makeAccount() {
         this.$router.push({
-          name: 'signup'
+          name: 'Signup'
         })
       },
       forgetPassword() {

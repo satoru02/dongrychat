@@ -8,6 +8,7 @@ import VueAuthenticate from 'vue-authenticate';
 import createPersistedState from 'vuex-persistedstate';
 import VueGtag from "vue-gtag";
 import VueRouter from 'vue-router';
+import Vuelidate from 'vuelidate';
 import ActionCableVue from 'actioncable-vue';
 import 'vuetify/dist/vuetify.min.css';
 import '@mdi/font/css/materialdesignicons.css';
@@ -38,6 +39,7 @@ Vue.use(Vuetify);
 Vue.use(VueRouter);
 Vue.use(Vuex);
 Vue.use(VueAxios, axios);
+Vue.use(Vuelidate);
 
 const developmentOptions = {
   debug: true,
