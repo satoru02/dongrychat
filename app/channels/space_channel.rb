@@ -8,16 +8,18 @@ class SpaceChannel < ApplicationCable::Channel
 
   def speak(data)
     # for space
-    ActionCable.server.broadcast("space_channel_#{data["space"]}", {
+    ActionCable.server.broadcast("space_channel_#{data["space_id"]}", {
       comment: data["comment"],
       user: data["user_id"],
-      space: data["space"]
+      space: data["space_id"]
     })
-
+    comment = Comment.new(user_id: data["user_id"], space_id: data["space_id"], content: data["comment"])
+    comment.save!
     # for toppage subscription
     ActionCable.server.broadcast("topsub_channel", {
       comment: data["comment"],
-      space_id: data["space"]
+      user_id: data["user_id"],
+      space_id: data["space_id"]
     })
   end
 end

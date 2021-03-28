@@ -6,9 +6,8 @@
         <template v-for="(item, index) in items">
           <v-list-item :key="index" @click="enterSpace(item)">
             <template v-slot:default="{ active }">
-              <v-badge
-                v-if="item.attributes.unread_comments > 0"
-                color="#f94144" :content='item.attributes.unread_comments' style="font-weight:bold;" right offset-x="31" offset-y="29"
+              <v-badge v-if="item.attributes.unread_comments > 0" color="#f94144"
+                :content='item.attributes.unread_comments' style="font-weight:bold;" right offset-x="31" offset-y="29"
                 overlap>
                 <v-list-item-avatar size=63 height=65 tile class="rounded-lg">
                   <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
@@ -55,7 +54,8 @@
         rejected() {},
         received(data) {
           this.items.filter((item) => {
-            if (item.id === data["space_id"]) {
+            if ((item.attributes.id === data["space_id"]) && (this.$store.state.currentUser.id != data[
+              "user_id"])) {
               item.attributes.unread_comments += 1
             }
           });

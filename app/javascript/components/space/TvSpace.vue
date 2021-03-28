@@ -85,7 +85,7 @@
             data: {
               comment: comment,
               user_id: this.$store.state.currentUser.id,
-              space: this.space_data.id
+              space_id: this.space_data.attributes.id
             }
           })
         }

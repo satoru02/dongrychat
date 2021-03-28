@@ -88,8 +88,8 @@ class Space < ApplicationRecord
       end
   end
 
-  def unread_comments
-    self.comments.select{|comment| comment.confirmation === false}
+  def unread_comments(user)
+    self.comments.select{|comment| (comment.confirmation === false) && (comment.user_id != user.id )}
   end
 
   def authenticated? token

@@ -5,8 +5,8 @@ module Api
 
       def index
         @user = User.find_by(id: params[:user_id])
-        @spaces = @user.spaces.includes(:comments).sort_by{|space| [-space.unread_comments.length]}
-        serializer = MultiSpaceSerializer.new(@spaces)
+        @spaces = @user.spaces.includes(:comments).sort_by{|space| [-space.unread_comments(current_user).length]}
+        serializer = MultiSpaceSerializer.new(@spaces, {params: {current_user: current_user}})
         render json: serializer.serializable_hash.to_json
       end
 
