@@ -4,6 +4,7 @@ module Api
       before_action :authorize_access_request!
 
       def index
+        # replace user to current_user
         @user = User.find_by(id: params[:user_id])
         @spaces = @user.spaces.includes(:comments).sort_by{|space| [-space.unread_comments(current_user).length]}
         serializer = MultiSpaceSerializer.new(@spaces, {params: {current_user: current_user}})
@@ -31,6 +32,12 @@ module Api
         elsif @space.mv?
           serializer = MvSpaceSerializer.new(@space)
         end
+        render json: serializer.serializable_hash.to_json
+      end
+
+      def trend
+        @spaces = Space.getTrend(params.permit(:time, :record_count))
+        serializer = MultiSpaceSerializer.new(@spaces, {params: {current_user: current_user}})
         render json: serializer.serializable_hash.to_json
       end
     end

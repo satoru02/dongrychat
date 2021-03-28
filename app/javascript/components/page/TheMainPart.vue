@@ -2,7 +2,7 @@
   <div>
     <v-app style="background-color:#ffffff">
       <top-header v-if="this.checkAuthorization()" />
-      <v-main class=mt-5>
+      <v-main class="mt-5">
         <v-row>
           <v-col md=1 lg=1 xl=1 />
           <v-col md=2 lg=2 xl=2>

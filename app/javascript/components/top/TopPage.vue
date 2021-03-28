@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1 class="ml-7 mb-2 head-title">Home</h1>
+    <h1 class="ml-3 mb-2 head-title">Home</h1>
     <v-list two-line>
       <v-list-item-group active-class="orange--text" multiple class="list-body">
         <template v-for="(item, index) in items">
@@ -9,11 +9,11 @@
               <v-badge v-if="item.attributes.unread_comments > 0" color="#f94144"
                 :content='item.attributes.unread_comments' style="font-weight:bold;" right offset-x="31" offset-y="29"
                 overlap>
-                <v-list-item-avatar size=63 height=65 tile class="rounded-lg">
+                <v-list-item-avatar size=80 height=80 tile class="rounded-lg">
                   <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
                 </v-list-item-avatar>
               </v-badge>
-              <v-list-item-avatar v-else size=63 height=65 tile class="rounded-lg">
+              <v-list-item-avatar v-else size=80 height=80 tile class="rounded-lg">
                 <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
               </v-list-item-avatar>
               <v-list-item-content class=ml-3>

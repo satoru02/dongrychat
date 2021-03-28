@@ -81,6 +81,12 @@ class Space < ApplicationRecord
       end
     end
 
+    # params[:time] => realtime, hour, day, week, month
+    # params[:record_count] => 0..**
+    def getTrend(time)
+      self.includes(:comments).where(comments: { created_at: Date.today.all_day}).sort_by{|a| -a.comments.length }
+    end
+
     private
       # for production
       def set_log_level_for_production
