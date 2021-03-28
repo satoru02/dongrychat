@@ -5,7 +5,7 @@ module Api
 
       def index
         @user = User.find_by(id: params[:user_id])
-        @spaces = @user.spaces.includes(:comments)
+        @spaces = @user.spaces.includes(:comments).sort_by{|space| [-space.unread_comments.length]}
         serializer = MultiSpaceSerializer.new(@spaces)
         render json: serializer.serializable_hash.to_json
       end
@@ -25,6 +25,7 @@ module Api
       # from top subscription. stable.
       def enter_from_subscription
         @space = Space.find_by(id: params[:space_id])
+        @space.comments.update_all(confirmation: true)
         if @space.tv?
           serializer = TvSpaceSerializer.new(@space)
         elsif @space.mv?

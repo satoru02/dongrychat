@@ -6,12 +6,17 @@
         <template v-for="(item, index) in items">
           <v-list-item :key="index" @click="enterSpace(item)">
             <template v-slot:default="{ active }">
-              <v-badge color="#f94144" :content='34' style="font-weight:bold;" right offset-x="31" offset-y="29"
+              <v-badge
+                v-if="item.attributes.unread_comments > 0"
+                color="#f94144" :content='item.attributes.unread_comments' style="font-weight:bold;" right offset-x="31" offset-y="29"
                 overlap>
                 <v-list-item-avatar size=63 height=65 tile class="rounded-lg">
                   <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
                 </v-list-item-avatar>
               </v-badge>
+              <v-list-item-avatar v-else size=63 height=65 tile class="rounded-lg">
+                <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
+              </v-list-item-avatar>
               <v-list-item-content class=ml-3>
                 <v-list-item-title class="card-title" v-html="item.attributes.name" />
                 <v-list-item-subtitle v-text="item.attributes.episode_title" class="subtitle" />
@@ -49,9 +54,11 @@
         connected() {},
         rejected() {},
         received(data) {
-          console.log(data)
-          // if(this.items.filter(item => item.id === data["space_id"])){
-          // }
+          this.items.filter((item) => {
+            if (item.id === data["space_id"]) {
+              item.attributes.unread_comments += 1
+            }
+          });
         },
         disconnected() {}
       }

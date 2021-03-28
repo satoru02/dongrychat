@@ -3,5 +3,5 @@ class MvSpaceSerializer
 
   set_type :mv_space
   attributes :id, :name, :media, :image_path, :tmdb_mv_id
-  has_many :comments, serializer: CommentsSerializer
+  has_many :comments, serializer: CommentSerializer
 end
