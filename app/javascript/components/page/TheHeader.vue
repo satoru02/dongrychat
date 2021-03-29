@@ -49,23 +49,23 @@
         error: null,
       }
     },
-    channels: {
-      AppearanceChannel: {
-        connected() {},
-        rejected() {},
-        received(data) {
-           if (data["user_id"] === this.$store.state.currentUser.id){
-            //green icon
-          }
-        },
-        disconnected() {},
-      }
-    },
-    mounted(){
-      this.$cable.subscribe({
-        channel: 'AppearanceChannel',
-      })
-    },
+    // channels: {
+    //   AppearanceChannel: {
+    //     connected() {},
+    //     rejected() {},
+    //     received(data) {
+    //        if (data["user_id"] === this.$store.state.currentUser.id){
+    //         //green icon
+    //       }
+    //     },
+    //     disconnected() {},
+    //   }
+    // },
+    // mounted(){
+    //   this.$cable.subscribe({
+    //     channel: 'AppearanceChannel',
+    //   })
+    // },
     methods: {
       search(query){
         this.$router.replace({name: 'Results', params: { query: query} })

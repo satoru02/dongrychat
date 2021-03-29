@@ -24,6 +24,11 @@ export default {
     'base-content-sheet': BaseContentSheet
   },
   props:{
+    media: {
+      type: String,
+      default: 'tv',
+      required: true
+    },
     weekly_trend_contents: {
       type: Array,
       default: Array,
@@ -37,10 +42,10 @@ export default {
   },
   methods: {
     showContents(item){
-      if(this.media = 'tv'){
+      if(this.media == 'tv'){
         this.$router.push({name: 'TvDetails', params:{ id: item.id, number: 1, tv_name: item.name } })
-      } else if(this.media = 'mv') {
-        this.$router.push({name: 'MvDetails', params:{ id: 1399 } })
+      } else if(this.media == 'mv') {
+        this.$router.push({name: 'MvDetails', params:{ id: item.id, mv_name: item.title } })
       }
     }
   }

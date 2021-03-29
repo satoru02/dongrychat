@@ -63,6 +63,7 @@
           .catch(err => this.getFailed(err))
       },
       getSuccessful(res) {
+        console.log(res)
         this.items = res.data.data
       },
       getFailed(err) {

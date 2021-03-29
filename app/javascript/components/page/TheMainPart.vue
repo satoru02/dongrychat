@@ -9,7 +9,9 @@
             <side-bar />
           </v-col>
           <v-col md=6 lg=6 xl=6>
-            <router-view />
+            <keep-alive>
+              <router-view />
+            </keep-alive>
           </v-col>
         </v-row>
       </v-main>
