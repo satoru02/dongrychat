@@ -1,29 +1,35 @@
 <template>
   <v-container>
-    <h1 class="ml-3 mb-2 head-title">Home</h1>
+    <h1 class="ml-3 mb-1 head-title">ホーム</h1>
     <v-list two-line>
       <v-list-item-group active-class="orange--text" multiple class="list-body">
         <template v-for="(item, index) in items">
           <v-list-item :key="index" @click="enterSpace(item)">
-            <template v-slot:default="{ active }">
-              <v-badge v-if="item.attributes.unread_comments > 0" color="#f94144"
+            <template v-slot:default="{}">
+              <v-badge v-if="item.attributes.unread_comments > 0" color="red"
                 :content='item.attributes.unread_comments' style="font-weight:bold;" right offset-x="31" offset-y="29"
                 overlap>
-                <v-list-item-avatar size=80 height=80 tile class="rounded-lg">
+                <v-list-item-avatar size=66 height=66 tile class="rounded-lg">
                   <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
                 </v-list-item-avatar>
               </v-badge>
-              <v-list-item-avatar v-else size=80 height=80 tile class="rounded-lg">
+              <v-list-item-avatar v-else size=66 height=66 tile class="rounded-lg">
                 <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
               </v-list-item-avatar>
-              <v-list-item-content class=ml-3>
-                <v-list-item-title class="card-title" v-html="item.attributes.name" />
-                <v-list-item-subtitle v-text="item.attributes.episode_title" class="subtitle" />
+              <v-list-item-content class=ml-1>
+                <!-- <v-list-item-title class="card-title" v-html="item.attributes.name" /> -->
+                <v-list-item-title class="card-title">
+                  {{item.attributes.name}} （338）
+                </v-list-item-title>
+                <v-list-item-subtitle class="subtitle mt-1">
+                  Season{{item.attributes.season}}-{{item.attributes.episode}}
+                   {{item.attributes.episode_title}}
+                </v-list-item-subtitle>
               </v-list-item-content>
-              <v-list-item-action>
-                <v-icon v-if="!active" color="grey lighten-1">
-                  mdi-chevron-right
-                </v-icon>
+              <v-list-item-action class="ml-n16">
+                <div class="comment">受信したメッセージ・・・</div>
+                 <!-- <v-avatar class="ml-n16" color="green" :size="24" v-if="item.attributes.unread_comments > 0">
+                   <span class="white--text font-weight-bold subtitle">{{item.attributes.unread_comments}}</span></v-avatar> -->
               </v-list-item-action>
             </template>
           </v-list-item>
@@ -121,14 +127,21 @@
   .head-title {
     font-weight: bold;
     font-family: 'Helvetica Neue', sans-serif;
-    font-size: 32px;
+    font-size: 22px;
     color: #000000;
   }
 
   .subtitle {
     font-family: 'Helvetica Neue', sans-serif;
-    font-size: 10px;
+    font-size: 13px;
     font-weight: bold;
-    color: rgb(235, 232, 232);
+    color: #6c757d;
+  }
+
+  .comment {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #121213;
   }
 </style>

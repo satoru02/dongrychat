@@ -1,6 +1,16 @@
 <template>
   <v-container>
-    <h1 class="ml-3 mb-2 head-title">Trend</h1>
+    <v-row class="mb-n1">
+      <v-col lg=1><h3 class="ml-3 head-title mt-n1">TV</h3>
+      <v-avatar color="blue" class="ml-7" :size="5" />
+      </v-col>
+      <v-col lg=1><h3 class="ml-3 mt-2 another-head-title">Movie</h3></v-col>
+
+      <v-col lg=9 />
+      <v-col lg=1 class="mt-n3">
+        <v-switch v-model="switch1" color="orange" inset />
+      </v-col>
+    </v-row>
     <v-list two-line>
       <v-list-item-group active-class="orange--text" multiple class="list-body">
         <template v-for="(item, index) in items">
@@ -11,17 +21,25 @@
               </div>
               <!-- <v-badge color="#f94144" :content='"New"' style="font-weight:bold;" right offset-x="31" offset-y="29"
                 overlap> -->
-                <v-list-item-avatar size=80 height=80 tile class="rounded-lg">
+                <v-list-item-avatar size=66 height=66 tile class="rounded-lg">
                   <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
                 </v-list-item-avatar>
               <!-- </v-badge> -->
-              <v-list-item-content class=ml-5>
+              <v-list-item-content class=ml-4>
                 <v-list-item-title class="card-title" v-html="item.attributes.name" />
                 <v-list-item-subtitle class="subdiscription mt-1">
-                  Season{{item.attributes.season}}-{{item.attributes.episode}}
-                  「{{item.attributes.episode_title}}」
+                  <!-- Season{{item.attributes.season}}-{{item.attributes.episode}}
+                  {{item.attributes.episode_title}} -->
+                  Steve johnson
                 </v-list-item-subtitle>
               </v-list-item-content>
+
+              <v-list-item-action>
+                <div class="subtitle ml-n16">{{item.attributes.season}}</div>
+              </v-list-item-action>
+              <v-list-item-action>
+                <div class="subtitle ml-n6">{{item.attributes.episode}}</div>
+              </v-list-item-action>
               <v-list-item-action>
                 <div class="subtitle">157人が会話中</div>
               </v-list-item-action>
@@ -46,6 +64,7 @@
         items: [],
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
         error: null,
+        switch1: false
       }
     },
     created() {
@@ -106,33 +125,40 @@
   .card-title {
     font-weight: bold;
     font-family: 'Helvetica Neue', sans-serif;
-    font-size: 17px;
+    font-size: 16px;
   }
 
   .head-title {
     font-weight: bold;
     font-family: 'Helvetica Neue', sans-serif;
-    font-size: 25px;
+    font-size: 30px;
     color: #000000;
+  }
+
+  .another-head-title {
+    font-weight: bold;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 18px;
+    color: #9e9e9e;
   }
 
   .ranktitle {
     font-family: 'Helvetica Neue', sans-serif;
-    font-size: 18px;
+    font-size: 13px;
     font-weight: bold;
     color: #8f8f8f;
   }
 
   .subtitle {
     font-family: 'Helvetica Neue', sans-serif;
-    font-size: 7px;
+    font-size: 9px;
     font-weight: bold;
-    color: #6c757d;
+    color: #484b4d;
   }
 
   .subdiscription {
     font-family: 'Helvetica Neue', sans-serif;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: bold;
     color: #6c757d;
   }
