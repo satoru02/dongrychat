@@ -1,12 +1,13 @@
 <template>
   <v-container>
-    <v-row class="mt-n2">
+    <v-row class="mt-13">
       <v-col lg=3></v-col>
       <v-col lg=8>
-        <v-avatar class="rounded-lg" color="primary" tile size=40 height=41 />
+        <v-avatar class="rounded-lg" color="primary" tile size=42 height=42>
+          <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"></v-avatar>
       </v-col>
     </v-row>
-    <v-list class="ml-16 mt-7" rounded v-if="$vuetify.breakpoint.width > 600">
+    <v-list class="ml-16 mt-5" rounded v-if="$vuetify.breakpoint.width > 600">
       <v-list-item-group v-model="selectedItem" color="primary">
         <v-list-item class="mt-n3" v-for="(item, i) in menus" :key="i" @click="changeRoute(item.path_name)">
           <v-list-item-icon>
@@ -19,12 +20,12 @@
       </v-list-item-group>
     </v-list>
     <v-row>
-      <v-col lg=12 class=mt-16 />
+      <v-col lg=12 class=mt-14 />
     </v-row>
     <v-row>
-      <v-col lg=12 class=mt-16 />
+      <v-col lg=12 class=mt-n8 />
     </v-row>
-    <v-row class=mt-8>
+    <v-row class=mt-16>
       <v-col lg=3 />
       <v-col lg=8>
         <v-btn block elevation=3 class="rounded-lg" color="yellow" :height="35">
