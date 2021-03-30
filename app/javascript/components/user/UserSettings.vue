@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <h3 class="mb-5 ml-4 head-title">Settings</h3>
-    <v-row>
+    <h3 class="mb-5 ml-4 head-title">プロフィール設定</h3>
+    <v-row class="mt-10">
       <v-col lg=1 md=1 xl=1 />
       <v-col lg=2 md=2 xl=2>
         <h3 class="setting-title mt-2">名前</h3>
@@ -83,7 +83,7 @@
           v-model="sns_links[3]" />
       </v-col>
     </v-row>
-    <v-row class="mt-n4">
+    <v-row class="mt-6">
       <v-col lg=1 />
       <v-col lg=10 class="mt-n2">
         <v-btn block outlined color="primary" @click="updateProfile()">更新</v-btn>

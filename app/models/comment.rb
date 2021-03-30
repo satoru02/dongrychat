@@ -2,12 +2,13 @@
 #
 # Table name: comments
 #
-#  id         :bigint           not null, primary key
-#  content    :text             not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  space_id   :bigint
-#  user_id    :bigint
+#  id           :bigint           not null, primary key
+#  confirmation :boolean          default(FALSE)
+#  content      :text             not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  space_id     :bigint
+#  user_id      :bigint
 #
 # Indexes
 #
@@ -18,4 +19,8 @@ class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :space
   validates :content, presence: true
+
+  # def readen
+  #   self.update!(confirmation: true)
+  # end
 end

@@ -1,29 +1,38 @@
 <template>
-<div>
-  <v-btn @click="subscribe()">Subscribe</v-btn>
-  <v-text-field background-color="#212529" v-model="comment" @click:append-outer="sendComment(comment)" dense
-    type="text" no-details outlined append-outer-icon="mdi-send" />
-</div>
+  <div>
+    <v-btn @click="subscribe()">Subscribe</v-btn>
+    <v-text-field background-color="#212529" v-model="comment" @click:append-outer="sendComment(comment)" dense
+      type="text" no-details outlined append-outer-icon="mdi-send" />
+      <v-row>
+        <v-col lg=1 v-for="(comment, index) in comments" :key="index">
+            {{comment.user_id}}
+        </v-col>
+        <!-- <appearance :comments="comments" /> -->
+      </v-row>
+  </div>
 </template>
 
 <script>
   import { secureAxios } from '../../backend/axios';
+  // import Appearance from './Appearance';
   const SPACE_ENDPOINT_FROM_SEARCH = `/api/v1/spaces/enter`;
   const SPACE_ENDPOINT_FROM_SUBSCRIPTION = `/api/v1/spaces/enter_from_subscription`;
   const SUBSCRIBE_ENDPOINT = `/api/v1/subscriptions`;
 
   export default {
     name: 'TvSpace',
+    components: {
+      // "appearance": Appearance
+    },
     created(){
       this.setSpace()
     },
     data(){
       return {
-        space_data: null,
-        comments: [],
-        members: [],
+        space_data: '',
         media: 'tv',
-        comment: null,
+        comments: '',
+        comment: '',
       }
     },
     channels: {
@@ -31,6 +40,13 @@
         connected(){},
         rejected(){},
         received(data){
+          // # when catch comment
+          // # when catch user login
+          // if (data["user_id"] === this.$store.state.currentUser.data.attributes.id){
+          //   this.icon = true
+          // } else {
+          //   this.icon = false
+          // }
           console.log(data)
         },
         disconnected(){}
@@ -54,6 +70,14 @@
           }}).then(res => this.createCable(res.data.data))
         }
       },
+      createCable(space){
+        this.space_data = space
+        this.comments = space.attributes.comments
+        this.$cable.subscribe({
+          channel: 'SpaceChannel',
+          space: space.id
+        })
+      },
       subscribe(){
         secureAxios.post(SUBSCRIBE_ENDPOINT, {
           user_id: this.$store.state.currentUser.id,
@@ -68,15 +92,6 @@
       subscribeFailed(err){
         this.error = (err.response && err.response.data && err.response.data.error) || ''
       },
-      createCable(space){
-        this.space_data = space
-        this.$cable.subscribe({
-          channel: 'SpaceChannel',
-          space: space.id
-        })
-      },
-      getComments(){
-      },
       sendComment(comment){
         if(comment) {
           this.$cable.perform({
@@ -85,7 +100,7 @@
             data: {
               comment: comment,
               user_id: this.$store.state.currentUser.id,
-              space: this.space_data.id
+              space_id: this.space_data.attributes.id
             }
           })
         }

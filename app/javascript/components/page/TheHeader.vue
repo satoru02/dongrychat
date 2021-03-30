@@ -15,9 +15,9 @@
       <v-row class="mt-7 ml-15">
         <v-col md=1 lg=1 xl=1 />
         <v-col md=1 lg=1 xl=1 class="ml-n14">
-         <v-toolbar-title class="toolbar-title">
+         <!-- <v-toolbar-title class="toolbar-title">
             <v-icon class="mt-n1" color="#000000">mdi-access-point</v-icon> {{this.changeHeader()}}
-          </v-toolbar-title>
+          </v-toolbar-title> -->
         </v-col>
         <v-col md=1 lg=1 xl=1 />
         <v-col md=6 lg=6 xl=6 class="ml-6">
@@ -49,6 +49,23 @@
         error: null,
       }
     },
+    // channels: {
+    //   AppearanceChannel: {
+    //     connected() {},
+    //     rejected() {},
+    //     received(data) {
+    //        if (data["user_id"] === this.$store.state.currentUser.id){
+    //         //green icon
+    //       }
+    //     },
+    //     disconnected() {},
+    //   }
+    // },
+    // mounted(){
+    //   this.$cable.subscribe({
+    //     channel: 'AppearanceChannel',
+    //   })
+    // },
     methods: {
       search(query){
         this.$router.replace({name: 'Results', params: { query: query} })

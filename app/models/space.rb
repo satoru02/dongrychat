@@ -48,11 +48,10 @@ class Space < ApplicationRecord
     end
 
     def create_or_search_mv(space_params, user)
-
       set_log_level_for_production
-
       # fix => same name movie case.
       if @space = self.find_by(name: space_params[:name])
+        @space.comments.update_all(confirmation: true)
         return @space
         logger.debug {"The space already exists."}
       else
@@ -66,11 +65,10 @@ class Space < ApplicationRecord
     end
 
     def create_or_search_tv(space_params, user)
-
       set_log_level_for_production
-
       # fix => same name tv case.
       if @space = self.find_by(name: space_params[:name], season: space_params[:season], episode: space_params[:episode])
+        @space.comments.update_all(confirmation: true)
         return @space
         logger.debug {"The space already exists."}
       else
@@ -83,11 +81,22 @@ class Space < ApplicationRecord
       end
     end
 
+    # Fix
+    # params[:time] => realtime, hour, day, week, month
+    # params[:record_count] => 0..**
+    def getTrend(time)
+      self.includes(:comments).where(comments: { created_at: Date.yesterday.all_day}).sort_by{|a| -a.comments.length }
+    end
+
     private
       # for production
       def set_log_level_for_production
         Rails.logger.level = 0
       end
+  end
+
+  def unread_comments(user)
+    self.comments.select{|comment| (comment.confirmation === false) && (comment.user_id != user.id )}
   end
 
   def authenticated? token

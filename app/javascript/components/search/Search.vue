@@ -1,12 +1,20 @@
 <template>
-  <v-container>
-    <popular-part v-if="this.mode === 'tv'" :weekly_trend_contents="weekly_trend_tvs" :media="this.mode"/>
-    <popular-part v-else :weekly_trend_contents="weekly_trend_mvs" :media="this.mode" />
-    <trend-part />
-    <top-rated v-if="this.mode === 'tv'" :weekly_trend_contents="weekly_trend_tvs" />
-    <top-rated v-else :weekly_trend_contents="weekly_trend_mvs" />
-    <!-- <actors-part /> -->
-  </v-container>
+    <v-container class="mt-n3">
+      <v-row no-gutters dense class="mb-n16">
+        <v-col lg=11 />
+        <v-col lg=1>
+          <v-switch v-model="switch1" color="orange" inset />
+        </v-col>
+      </v-row>
+      <!-- <popular-part v-if="this.switch1 === true" :weekly_trend_contents="weekly_trend_tvs" :media="'tv'"/>
+    <popular-part v-else :weekly_trend_contents="weekly_trend_mvs" :media="'mv'" />
+    <trend-part /> -->
+    <keep-alive>
+      <top-rated v-if="this.switch1 === true" :weekly_trend_contents="weekly_trend_tvs" :media="'tv'" />
+      <top-rated v-else :weekly_trend_contents="weekly_trend_mvs" :media="'mv'" />
+    </keep-alive>
+      <!-- <actors-part /> -->
+    </v-container>
 </template>
 
 <script>
@@ -17,7 +25,7 @@
   // import SearchActorsPart from '../search/SearchActorsPart';
 
   const WTV_ENDPOINT = `https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.TMDB_API_KEY}`;
-  const WMV_ENDPOINT = `https://api.themoviedb.org/3/trending/mv/week?api_key=${process.env.TMDB_API_KEY}`;
+  const WMV_ENDPOINT = `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.TMDB_API_KEY}`;
   const TTV_ENDPOINT = `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`;
   const TMV_ENDPOINT = `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1&region=JP`;
   const TRTV_ENDPOINT = `https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`;
@@ -32,42 +40,61 @@
     },
     data() {
       return {
-        mode: 'tv',
         weekly_trend_mvs: [],
         weekly_trend_tvs: [],
         todays_popular_mvs: [],
         todays_popular_tvs: [],
         top_rated_tvs: [],
+        switch1: false,
       }
     },
-    created(){
-      this.getContents()
+    created() {
+      this.getMvContents()
     },
-    methods:{
-      getTrendTvs(){
+    watch: {
+      switch1: function () {
+        this.weekly_trend_mvs = []
+        this.weekly_trend_tvs = []
+        this.todays_popular_mvs = []
+        this.todays_popular_tvs = []
+        this.top_rated_tvs = []
+        if (this.switch1 === true) {
+          this.getTvContents()
+        } else {
+          this.getMvContents()
+        }
+      }
+    },
+    methods: {
+      getTrendTvs() {
         return tmdbAxios.get(WTV_ENDPOINT)
       },
-      getTrendMvs(){
+      getTrendMvs() {
         return tmdbAxios.get(WMV_ENDPOINT)
       },
-      getPopularTvs(){
+      getPopularTvs() {
         return tmdbAxios.get(TTV_ENDPOINT)
       },
-      getPopularMvs(){
+      getPopularMvs() {
         return tmdbAxios.get(TMV_ENDPOINT)
       },
-      getTopratedTvs(){
+      getTopratedTvs() {
         return tmdbAxios.get(TRTV_ENDPOINT)
       },
-      getContents(){
-        Promise.all([this.getTrendTvs(), this.getTrendMvs(), this.getPopularTvs(), this.getPopularMvs(), this.getTopratedTvs()])
-        .then((res) => {
-          this.weekly_trend_tvs = res[0].data.results
-          this.weekly_trend_mvs = res[1].data.results
-          this.todays_popular_tvs = res[2].data.results
-          this.todays_popular_mvs = res[3].data.results
-          this.top_rated_tvs = res[4].data.results
-        })
+      getTvContents() {
+        Promise.all([this.getTrendTvs(), this.getPopularTvs(), this.getTopratedTvs()])
+          .then((res) => {
+            this.weekly_trend_tvs = res[0].data.results
+            this.todays_popular_tvs = res[1].data.results
+            this.top_rated_tvs = res[2].data.results
+          })
+      },
+      getMvContents() {
+        Promise.all([this.getTrendMvs(), this.getPopularMvs()])
+          .then((res) => {
+            this.weekly_trend_mvs = res[0].data.results
+            this.todays_popular_mvs = res[1].data.results
+          })
       }
     }
   }

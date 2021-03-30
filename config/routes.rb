@@ -108,6 +108,7 @@ Rails.application.routes.draw do
         collection do
           get :enter
           get :enter_from_subscription
+          get :trend
         end
       end
     end
