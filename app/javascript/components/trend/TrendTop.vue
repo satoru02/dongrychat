@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row class="mb-n1">
+    <v-row class="mb-n2">
       <v-col lg=1><h3 class="ml-3 head-title mt-n1">TV</h3>
       <v-avatar color="blue" class="ml-7" :size="5" />
       </v-col>

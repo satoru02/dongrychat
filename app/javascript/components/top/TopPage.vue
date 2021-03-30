@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1 class="ml-3 mb-1 head-title">ホーム</h1>
+    <h1 class="ml-3 mt-n1 mb-4 head-title">ホーム</h1>
     <v-list two-line>
       <v-list-item-group active-class="orange--text" multiple class="list-body">
         <template v-for="(item, index) in items">
@@ -120,20 +120,20 @@
   .card-title {
     font-weight: bold;
     font-family: 'Helvetica Neue', sans-serif;
-    font-size: 17px;
+    font-size: 15px;
     color: #000000;
   }
 
   .head-title {
     font-weight: bold;
     font-family: 'Helvetica Neue', sans-serif;
-    font-size: 22px;
+    font-size: 28px;
     color: #000000;
   }
 
   .subtitle {
     font-family: 'Helvetica Neue', sans-serif;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: bold;
     color: #6c757d;
   }
