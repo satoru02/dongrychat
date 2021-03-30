@@ -16,7 +16,7 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-list class="ml-16 mt-4" rounded v-if="$vuetify.breakpoint.width > 600">
+    <v-list class="ml-16 mt-3" rounded v-if="$vuetify.breakpoint.width > 600">
       <v-list-item-group v-model="selectedItem" color="primary">
         <v-list-item class="mt-n2" v-for="(item, i) in menus" :key="i" @click="changeRoute(item.path_name)">
           <v-list-item-icon>
@@ -32,13 +32,13 @@
       <v-col lg=12 class=mt-16 />
     </v-row>
     <v-row>
-      <v-col lg=12 class=mt-13 />
+      <v-col lg=12 class=mt-15 />
     </v-row>
     <v-row class=mt-16>
       <v-col lg=3 />
       <v-col lg=8>
-        <v-btn block elevation=3 class="rounded-lg" color="black" :height="35">
-          <div class="btn-text">about DongryChat 👈</div>
+        <v-btn block elevation=3 class="rounded-lg" color="green" :height="35">
+          <div class="btn-text">DongryChatについて 👈</div>
         </v-btn>
       </v-col>
     </v-row>
@@ -57,7 +57,7 @@
             path_name: 'Top'
           },
           {
-            text: 'ランキング',
+            text: 'トレンド',
             icon: 'mdi-flag-outline',
             path_name: 'Trend'
           },
@@ -67,13 +67,13 @@
             path_name: 'Search'
           },
           {
-            text: '通知',
-            icon: 'mdi-bell-outline',
-            path_name: ''
+            text: 'ニュース',
+            icon: 'mdi-newspaper',
+            path_name: 'Search'
           },
           {
-            text: 'ユーザー',
-            icon: 'mdi-account-outline',
+            text: '通知',
+            icon: 'mdi-bell-outline',
             path_name: ''
           },
           {

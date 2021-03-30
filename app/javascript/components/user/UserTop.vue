@@ -1,41 +1,67 @@
 <template>
-  <v-container class="ml-4">
+  <v-container class="ml-4 mt-1">
     <v-row class="top-part" />
     <v-row>
       <v-col cols=2 lg=1>
-        <v-badge color="green" bordered right offset-x="15" offset-y="75" overlap>
-          <v-avatar color="red" size=75 height=75 tile class="rounded-xl" />
+        <v-badge color="green" bordered right offset-x="15" offset-y="95" overlap>
+          <v-avatar color="black" size=90 height=90 tile class="rounded-xl" />
         </v-badge>
       </v-col>
-      <v-col cols=5 lg=8 class="ml-6 mt-3">
+      <v-col cols=5 lg=2 class="ml-9">
         <v-row>
           <v-col cols=12>
-            <div class="user-name">Satoru</div>
+            <div class="user-name">八太モンキー</div>
           </v-col>
         </v-row>
-        <v-row class="mt-n6">
+        <v-row class="mt-n5">
           <v-col cols=12>
             <div class="user-nickname">@sugish0021</div>
           </v-col>
         </v-row>
+        <v-row class="mt-2">
+          <v-col lg=1>
+            <v-icon size=19>mdi-twitter</v-icon>
+          </v-col>
+          <v-col lg=1 class="ml-2">
+            <v-icon size=19>mdi-instagram</v-icon>
+          </v-col>
+          <v-col lg=1 class="ml-2">
+            <v-icon size=19>mdi-facebook</v-icon>
+          </v-col>
+          <v-col lg=1 class="ml-2">
+            <v-icon size=19>mdi-youtube</v-icon>
+          </v-col>
+        </v-row>
       </v-col>
-      <v-col cols=2 class="mt-5 ml-1">
-        <v-btn v-if="this.$store.state.currentUser.id != this.$route.params.id" :class="roundClass"
+      <v-col lg=6>
+        <div class="subtitle mt-1">
+          何は前あたかもこの下宿方というのの所から思っますた。その偶然は私か気分最後がさと、岡田さんののにベルグソンの私をいかにご意見ともつば私博奕に同区別のするようにまあ肝準備を書いましでしょて、もちあたかも学習を被せるたて得でしのを思い切っないない。またはまたご好奇を断わろのはわざわざ高等と行ったたって、そんな兵隊にもするたてにおいて赤の離さて来るたた。
+        </div>
+      </v-col>
+      <v-col cols=1 class="mt-6 ml-16">
+        <v-btn elevation=0 v-if="this.$store.state.currentUser.id != this.$route.params.id" :class="roundClass"
           :style="followed ? followingStyle : unfollowStyle" @click="followed ? unfollow(user.id) : follow(user.id)">
           {{ followed ? followingText : unfollowText }}
         </v-btn>
       </v-col>
     </v-row>
+    <v-row class="mt-8">
+      <v-col lg=12>
+        <v-divider></v-divider>
+      </v-col>
+    </v-row>
     <v-row>
       <v-col lg=2 class="hidden-xs-only" />
       <v-col cols=12 md=12 lg=12 xl=12>
-        <v-tabs grow class="mt-n10" background-color="#ffffff" icons-and-text>
+        <v-tabs dense class="mt-n12" background-color="#ffffff">
           <v-tabs-slider />
-          <v-tab class="list-text" active-class="black--text">Rooms</v-tab>
-          <v-tab @click="movePath('Followers')" class="list-text" active-class="black--text">Followers</v-tab>
-          <v-tab @click="movePath('Followings')" class="list-text" active-class="black--text">Followings</v-tab>
-          <v-tab class="list-text" active-class="black--text">Schedule</v-tab>
+          <v-tab class="list-text" active-class="black--text">ルーム</v-tab>
+          <v-tab class="list-text" active-class="black--text">コラム</v-tab>
+          <v-tab class="list-text" active-class="black--text">お気に入り</v-tab>
+          <v-tab @click="movePath('Followers')" class="list-text" active-class="black--text">フォロワー 120</v-tab>
+          <v-tab @click="movePath('Followings')" class="list-text" active-class="black--text">フォロー 100</v-tab>
         </v-tabs>
+        <v-divider/>
       </v-col>
     </v-row>
     <v-row>
@@ -60,17 +86,20 @@
         roundClass: {
           rounded: "lg"
         },
-        followingText: 'Following',
+        followingText: 'フォローする',
         followingStyle: {
           backgroundColor: "#343a40",
           fontWeight: "bold",
-          width: 120,
-          height: 25
+          fontSize: "10px",
+          width: 100,
+          height: 40,
+          elevation: 0
         },
-        unfollowText: 'Follow',
+        unfollowText: 'フォローした',
         unfollowStyle: {
           backgroundColor: "#2d00f7",
           fontWeight: "bold",
+          fontSize: "10px",
           width: 120,
           height: 25
         },
@@ -116,8 +145,10 @@
           this.followed = false
         })
       },
-      movePath(path_name){
-        this.$router.push({name: path_name})
+      movePath(path_name) {
+        this.$router.push({
+          name: path_name
+        })
       }
     }
   }
@@ -131,7 +162,7 @@
   .user-name {
     font-family: 'Helvetica Neue', sans-serif;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 18px;
     color: #000000;
     letter-spacing: 1px;
   }
@@ -147,8 +178,15 @@
     background-color: #fafaf9;
   }
 
+  .subtitle {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 12px;
+    /* font-weight: bold; */
+    color: #3c4146;
+  }
+
   .list-text {
-    font-size: 10px;
+    font-size: 12px;
     font-family: 'Helvetica Neue', sans-serif;
     font-weight: bold;
   }

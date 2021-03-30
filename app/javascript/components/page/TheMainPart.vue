@@ -9,7 +9,7 @@
             <side-bar />
           </v-col>
           <v-divider vertical />
-          <v-col md=6 lg=8 xl=6>
+          <v-col md=8 lg=8 xl=8>
             <!-- <top-header v-if="this.checkAuthorization()" /> -->
             <!-- <keep-alive> -->
               <router-view />
