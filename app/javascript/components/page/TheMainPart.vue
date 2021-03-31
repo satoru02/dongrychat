@@ -1,7 +1,6 @@
 <template>
   <div>
     <v-app style="background-color:#ffffff">
-      <!-- <top-header v-if="this.checkAuthorization()" /> -->
       <v-main class="mt-5">
         <v-row>
           <v-col md=3 lg=3 xl=3>
@@ -9,13 +8,11 @@
           </v-col>
           <v-divider vertical class="ml-n16" />
           <v-col md=8 lg=9 xl=8 v-if="this.$route.name === 'Top' || this.$route.name === 'Trend' || this.$route.name === 'User' ">
-            <!-- <top-header v-if="this.checkAuthorization()" /> -->
             <!-- <keep-alive> -->
               <router-view />
             <!-- </keep-alive> -->
           </v-col>
           <v-col md=8 lg=7 xl=8 v-else>
-            <!-- <top-header v-if="this.checkAuthorization()" /> -->
             <!-- <keep-alive> -->
               <router-view />
             <!-- </keep-alive> -->

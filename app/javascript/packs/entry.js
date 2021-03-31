@@ -267,9 +267,43 @@ const router = new VueRouter({
     },
     {
       path: '/results/:query',
-      name: 'Results',
+      name: 'multi',
       props: true,
-      component: Results
+      component: Results,
+      children: [
+        {
+          path: "person",
+          name: "person",
+          component: Results,
+          props: (route) => ({
+            query: route.query.status
+          })
+        },
+        {
+          path: "tv",
+          name: "tv",
+          component: Results,
+          props: (route) => ({
+            query: route.query.status
+          })
+        },
+        {
+          path: "movie",
+          name: "movie",
+          component: Results,
+          props: (route) => ({
+            query: route.query.status
+          })
+        },
+        {
+          path: "Company",
+          name: "Company",
+          component: Results,
+          props: (route) => ({
+            query: route.query.status
+          })
+        }
+      ]
     },
     {
       path: '/popular',

@@ -127,6 +127,28 @@
         </v-card>
       </v-col>
     </v-row>
+            <v-row>
+      <v-col lg=12>
+        <v-card elevation=0 height=350 outlined class="rounded-lg">
+          <v-row>
+            <v-col lg=3 class="mt-2">
+              <div class="subtitle ml-6 mt-3">評価の高いドラマ</div>
+            </v-col>
+          </v-row>
+          <div class="ml-3">
+            <v-avatar v-for="(n, index) in 4" :key="index" class="rounded-lg ml-7 mt-4" color="primary" tile size=100
+              width=160 height=220>
+              <v-row>
+                <v-col lg=12>
+                  <img src="https://image.tmdb.org/t/p/w500/qR6Ybx47dzCcvJKl9juzKKzy9Q9.jpg">
+                </v-col>
+              </v-row>
+            </v-avatar>
+            <!-- <top-rated :weekly_trend_contents="weekly_trend_mvs" :media="'mv'" /> -->
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
     <!-- <v-row no-gutters dense class="mb-n16">
         <v-col lg=11 />
         <v-col lg=1>

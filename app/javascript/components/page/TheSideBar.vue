@@ -3,10 +3,11 @@
     <v-row class="mt-10">
       <v-col lg=3 />
       <v-col lg=8>
-        <v-divider></v-divider>
+        <v-text-field v-model="query" @keydown.enter="search(query)" color="#ffd166"
+         prepend-inner-icon="mdi-magnify" dense class="rounded-lg" outlined placeholder="search" />
       </v-col>
     </v-row>
-    <v-row class="mt-4">
+    <v-row class="mt-n8">
       <v-col lg=3></v-col>
       <v-col lg=8>
         <v-card elevation=0 height=60 outlined class="rounded-lg">
@@ -27,17 +28,25 @@
           </v-list-item-content>
         </v-list-item>
       </v-list-item-group>
+        <!-- <v-tabs hide-slider vertical class="mt-n12" background-color="#ffffff">
+          <v-tabs-slider />
+          <v-tab class="list-text" active-class="black--text">ルーム</v-tab>
+          <v-tab class="list-text" active-class="black--text">コラム</v-tab>
+          <v-tab class="list-text" active-class="black--text">お気に入り</v-tab>
+          <v-tab class="list-text" active-class="black--text">フォロワー 120</v-tab>
+          <v-tab class="list-text" active-class="black--text">フォロー 100</v-tab>
+        </v-tabs> -->
     </v-list>
     <v-row>
       <v-col lg=12 class=mt-16 />
     </v-row>
     <v-row>
-      <v-col lg=12 class=mt-16 />
+      <v-col lg=12 class=mt-7 />
     </v-row>
     <v-row class=mt-16>
       <v-col lg=3 />
       <v-col lg=8>
-        <v-btn block elevation=3 class="rounded-lg" color="green" :height="35">
+        <v-btn block elevation=3 class="rounded-lg" color="orange" :height="35">
           <div class="btn-text">DongryChatについて 👈</div>
         </v-btn>
       </v-col>
@@ -51,6 +60,7 @@
     data() {
       return {
         selectedItem: '',
+        query: null,
         menus: [{
             text: 'ホーム',
             icon: 'mdi-home-outline',
@@ -89,7 +99,10 @@
         this.$router.push({
           name: path
         })
-      }
+      },
+      search(query){
+        this.$router.replace({name: 'multi', params: { query: query} })
+      },
     }
   }
 </script>
@@ -107,4 +120,8 @@
     font-size: 3px;
     color: #ffffff;
   }
+
+  .v-text-field--outlined >>> fieldset {
+  border-color: rgba(218, 218, 218, 0.986);
+}
 </style>
