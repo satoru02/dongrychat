@@ -32,7 +32,7 @@
       <v-col lg=12 class=mt-16 />
     </v-row>
     <v-row>
-      <v-col lg=12 class=mt-15 />
+      <v-col lg=12 class=mt-16 />
     </v-row>
     <v-row class=mt-16>
       <v-col lg=3 />

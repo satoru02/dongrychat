@@ -85,7 +85,8 @@ class Space < ApplicationRecord
     # params[:time] => realtime, hour, day, week, month
     # params[:record_count] => 0..**
     def getTrend(time)
-      self.includes(:comments).where(comments: { created_at: Date.yesterday.all_day}).sort_by{|a| -a.comments.length }
+      d = Date.yesterday - 1
+      self.includes(:comments).where(comments: { created_at: d.all_day}).sort_by{|a| -a.comments.length }
     end
 
     private
