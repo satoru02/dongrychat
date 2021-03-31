@@ -7,19 +7,20 @@
             <side-bar class="ml-n11" />
           </v-col>
           <v-divider vertical class="ml-n16" />
-          <v-col md=8 lg=9 xl=8 v-if="this.$route.name === 'Top' || this.$route.name === 'Trend' || this.$route.name === 'User' ">
+          <!-- <v-col md=8 lg=9 xl=8 v-if="this.$route.name === 'Top' || this.$route.name === 'Trend' || this.$route.name === 'User' "> -->
+          <v-col md=9 lg=9 xl=9>
             <!-- <keep-alive> -->
               <router-view />
             <!-- </keep-alive> -->
           </v-col>
-          <v-col md=8 lg=7 xl=8 v-else>
-            <!-- <keep-alive> -->
+          <!-- <v-col md=8 lg=9 xl=8 v-else>
+            <keep-alive>
               <router-view />
-            <!-- </keep-alive> -->
-          </v-col>
-          <v-col lg=2>
+            </keep-alive>
+          </v-col> -->
+          <!-- <v-col lg=2>
             <right-part />
-          </v-col>
+          </v-col> -->
         </v-row>
       </v-main>
     </v-app>

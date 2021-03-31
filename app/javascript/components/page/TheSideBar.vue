@@ -72,13 +72,13 @@
             path_name: 'Trend'
           },
           {
-            text: '検索',
-            icon: 'mdi-magnify',
+            text: 'ニュース',
+            icon: 'mdi-newspaper',
             path_name: 'Search'
           },
           {
-            text: 'ニュース',
-            icon: 'mdi-newspaper',
+            text: '検索',
+            icon: 'mdi-magnify',
             path_name: 'Search'
           },
           {

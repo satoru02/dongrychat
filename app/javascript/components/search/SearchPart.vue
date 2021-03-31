@@ -13,7 +13,7 @@
             <div
              :class="heading.innderHeading.titlePosition"
              :style="heading.innderHeading.titleStyle"
-             v-text="heading.innderHeading.title" />
+             v-text="title" />
           </v-col>
           <v-col md=7 lg=7 xl=7 />
           <v-col md=2 lg=2 xl=2>
@@ -26,8 +26,8 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col md=3 lg=3 xl=3
-            v-for="(item, index) in weekly_trend_contents"
+          <v-col md=3 lg=2 xl=3
+            v-for="(item, index) in items"
             :class="heading.img.position"
             :key="index">
             <v-row>
@@ -77,10 +77,15 @@
         default: 'tv',
         required: true
       },
-      weekly_trend_contents: {
+      items: {
         type: Array,
         default: Array,
         required: true,
+      },
+      title: {
+        type: String,
+        default: String,
+        required: true
       }
     },
     data() {
@@ -97,7 +102,7 @@
         heading: {
           position: 'mt-n3',
           elevation: '0',
-          height: '420',
+          height: '430',
           round: 'rounded-lg',
           innderHeading: {
             position: 'mt-n1',
@@ -113,7 +118,7 @@
           innderSubHeading: {
             position: 'mt-n1',
             title: 'もっとみる',
-            titlePosition: 'ml-1 mt-6',
+            titlePosition: 'ml-10 mt-6',
             titleStyle: {
               fontFamily: 'Helvetica Neue sans-serif',
               fontSize: '13px',
@@ -122,17 +127,17 @@
             }
           },
           img: {
-            position: 'mt-n10 ml-n5',
+            position: 'mt-n10 ml-4',
             avatar: {
-              position: 'ml-14 mt-7 rounded-lg',
-              size: '70',
-              width: '170',
-              height: '280'
+              position: 'ml-6 mt-7 rounded-lg',
+              size: '60',
+              width: '180',
+              height: '300'
             },
-            titlePosition: 'mt-n3 ml-16',
+            titlePosition: 'mt-n3 ml-7',
             titleStyle: {
               fontFamily: 'Helvetica Neue sans-serif',
-              fontSize: '14px',
+              fontSize: '13px',
               fontWeight: 'bold',
               color: '#000000'
             }
