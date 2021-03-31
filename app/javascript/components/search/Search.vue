@@ -1,39 +1,22 @@
 <template>
   <v-container fluid>
-    <v-row class="mt-n3">
-      <v-col lg=1><h3 class="ml-3 head-title mt-2">TV</h3>
-      <!-- <v-avatar color="blue" class="ml-7" :size="5" /> -->
+    <v-row>
+      <v-col md=1 lg=1 xl=1>
+        <div :style="switch1 === false ? active : inactive" v-text="tv.header" />
+        <v-avatar :color="colors.blue" :size="5" v-if="switch1 === false" :class="tv.avatar" />
       </v-col>
-      <v-col lg=1>
-        <!-- <h3 class="ml-3 mt-2 another-head-title">Movie</h3> -->
+      <v-col md=1 lg=1 xl=1>
+        <div :style="switch1 === true ? active : inactive" v-text="movie.header" />
+        <v-avatar :color="colors.blue" :size="5" v-if="switch1 === true" :class="movie.avatar" />
       </v-col>
-      <v-col lg=9 />
-      <v-col lg=1 class="mt-n3">
-        <v-switch v-model="switch1" color="orange" inset />
-      </v-col>
-    </v-row>
-    <v-row class="mt-n7">
-      <v-col lg=12>
-        <v-card elevation=0 height=350 outlined class="rounded-lg">
-          <v-row class="mt-n1">
-            <v-col lg=3>
-              <div class="subtitle ml-6 mt-3">今週のおすすめ</div>
-            </v-col>
-          </v-row>
-          <div class="ml-3">
-            <v-avatar v-for="(n, index) in 4" :key="index" class="rounded-lg ml-7 mt-4" color="primary" tile size=100
-              width=160 height=220>
-              <v-row>
-                <v-col lg=12>
-                  <img src="https://image.tmdb.org/t/p/w500/qR6Ybx47dzCcvJKl9juzKKzy9Q9.jpg">
-                </v-col>
-              </v-row>
-            </v-avatar>
-            <!-- <top-rated :weekly_trend_contents="weekly_trend_mvs" :media="'mv'" /> -->
-          </div>
-        </v-card>
+      <v-col md=9 lg=9 xl=9 />
+      <v-col md=1 lg=1 xl=1>
+        <v-switch v-model="switch1" :color="colors.orange" inset :class="switchPosition" />
       </v-col>
     </v-row>
+    <top-rated v-if="this.switch1 === false" :weekly_trend_contents="weekly_trend_tvs" :media="'tv'" />
+    <top-rated v-else :weekly_trend_contents="weekly_trend_mvs" :media="'mv'" />
+
     <v-row class="mt-n1">
       <v-col lg=6>
         <v-card elevation=0 height=393 outlined class="rounded-lg">
@@ -167,22 +150,18 @@
 </template>
 
 <script>
-  import {
-    tmdbAxios
-  } from '../../backend/axios';
+  import { tmdbAxios } from '../../backend/axios';
   import SearchPopularPart from '../search/SearchPopularPart';
   import SearchTrendPart from '../search/SearchTrendPart';
   import SearchTopRatedPard from '../search/SearchTopRatedPart';
   import BaseLandingPart from '../base/BaseLandingPart';
   // import SearchActorsPart from '../search/SearchActorsPart';
 
-  const WTV_ENDPOINT = `https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.TMDB_API_KEY}`;
-  const WMV_ENDPOINT = `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.TMDB_API_KEY}`;
+  const WTV_ENDPOINT = `https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.TMDB_API_KEY}&language=ja`;
+  const WMV_ENDPOINT = `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.TMDB_API_KEY}&language=ja`;
   const TTV_ENDPOINT = `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`;
-  const TMV_ENDPOINT =
-    `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1&region=JP`;
-  const TRTV_ENDPOINT =
-    `https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`;
+  const TMV_ENDPOINT = `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1&region=JP`;
+  const TRTV_ENDPOINT = `https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`;
 
   export default {
     name: 'Search',
@@ -201,10 +180,35 @@
         todays_popular_tvs: [],
         top_rated_tvs: [],
         switch1: false,
+        switchPosition: 'mt-1',
+        colors: {
+          blue: 'blue',
+          orange: 'orange'
+        },
+        tv: {
+          header: 'TV',
+          avatar: 'ml-4'
+        },
+        movie: {
+          header: 'MOVIE',
+          avatar: 'ml-10'
+        },
+        active: {
+          fontFamily: 'Helvetica Neue sans-serif',
+          fontSize: '25px',
+          fontWeight: 'bold',
+          color: '#000000'
+        },
+        inactive: {
+          fontFamily: 'Helvetica Neue sans-serif',
+          fontSize: '25px',
+          fontWeight: 'bold',
+          color: '#8f8f8f'
+        }
       }
     },
     created() {
-      this.getMvContents()
+      this.getTvContents()
     },
     watch: {
       switch1: function () {
@@ -213,7 +217,7 @@
         this.todays_popular_mvs = []
         this.todays_popular_tvs = []
         this.top_rated_tvs = []
-        if (this.switch1 === true) {
+        if (this.switch1 === false) {
           this.getTvContents()
         } else {
           this.getMvContents()
@@ -239,7 +243,8 @@
       getTvContents() {
         Promise.all([this.getTrendTvs(), this.getPopularTvs(), this.getTopratedTvs()])
           .then((res) => {
-            this.weekly_trend_tvs = res[0].data.results
+            var pick = res[0].data.results.slice(0,4)
+            this.weekly_trend_tvs = pick
             this.todays_popular_tvs = res[1].data.results
             this.top_rated_tvs = res[2].data.results
           })
@@ -247,10 +252,11 @@
       getMvContents() {
         Promise.all([this.getTrendMvs(), this.getPopularMvs()])
           .then((res) => {
-            this.weekly_trend_mvs = res[0].data.results
+            var pick = res[0].data.results.slice(0,4)
+            this.weekly_trend_mvs = pick
             this.todays_popular_mvs = res[1].data.results
           })
-      }
+      },
     }
   }
 </script>
