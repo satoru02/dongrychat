@@ -1,47 +1,52 @@
 <template>
   <v-container>
-    <v-row class="mb-n2">
-      <v-col lg=1><h3 class="ml-3 head-title mt-n1">TV</h3>
-      <v-avatar color="blue" class="ml-7" :size="5" />
+    <v-row>
+      <v-col md=1 lg=1 xl=1>
+        <div :style="switch1 === false ? active : inactive" v-text="tv.header" />
+        <v-avatar :color="colors.blue" :size="5" v-if="switch1 === false" :class="tv.avatar" />
       </v-col>
-      <v-col lg=1><h3 class="ml-3 mt-2 another-head-title">Movie</h3></v-col>
-
-      <v-col lg=9 />
-      <v-col lg=1 class="mt-n3">
-        <v-switch v-model="switch1" color="orange" inset />
+      <v-col md=1 lg=1 xl=1>
+        <div :style="switch1 === true ? active : inactive" v-text="movie.header" />
+        <v-avatar :color="colors.blue" :size="5" v-if="switch1 === true" :class="movie.avatar" />
+      </v-col>
+      <v-col md=9 lg=9 xl=9 />
+      <v-col md=1 lg=1 xl=1>
+        <v-switch v-model="switch1" :color="colors.orange" inset :class="switchPosition" />
       </v-col>
     </v-row>
+
     <v-list two-line>
-      <v-list-item-group active-class="orange--text" multiple class="list-body">
+      <v-list-item-group :active-class="listItemGroup.active" multiple :class="listItemGroup.body">
         <template v-for="(item, index) in items">
           <v-list-item :key="index" @click="enterSpace(item.attributes)">
             <template v-slot:default="{}">
-              <div class="mr-4 ranktitle">{{index + 1}}
-                <v-icon color="green" class="ml-2" :size="22">mdi-menu-up</v-icon>
+              <div :style="ranking.title" :class="ranking.position">{{index + 1}}
+                <v-icon :color="icon.color" :class="icon.position" :size="icon.size" v-text="icon.mdi" />
               </div>
               <!-- <v-badge color="#f94144" :content='"New"' style="font-weight:bold;" right offset-x="31" offset-y="29"
                 overlap> -->
-                <v-list-item-avatar size=66 height=66 tile class="rounded-lg">
-                  <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
-                </v-list-item-avatar>
+              <v-list-item-avatar :size="avatar.size" :height="avatar.height" tile :class="avatar.round">
+                <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
+              </v-list-item-avatar>
               <!-- </v-badge> -->
-              <v-list-item-content class=ml-4>
-                <v-list-item-title class="card-title" v-html="item.attributes.name" />
-                <v-list-item-subtitle class="subdiscription mt-1">
+              <v-list-item-content :class="listItemContent.position">
+                <v-list-item-title :style="listItemTitle.style" v-html="item.attributes.name" />
+                <v-list-item-subtitle :style="listItemSubtitle.style" :class="listItemSubtitle.position"
+                  v-text="'Steve johnson'">
                   <!-- Season{{item.attributes.season}}-{{item.attributes.episode}}
                   {{item.attributes.episode_title}} -->
-                  Steve johnson
                 </v-list-item-subtitle>
               </v-list-item-content>
-
               <v-list-item-action>
-                <div class="subtitle ml-n16">{{item.attributes.season}}</div>
+                <div :style="listItemAction.style" :class="listItemAction.season_position"
+                  v-text="item.attributes.season" />
               </v-list-item-action>
               <v-list-item-action>
-                <div class="subtitle ml-n6">{{item.attributes.episode}}</div>
+                <div :style="listItemAction.style" :class="listItemAction.episode_position"
+                  v-text="item.attributes.episode" />
               </v-list-item-action>
               <v-list-item-action>
-                <div class="subtitle">157人が会話中</div>
+                <div :style="listItemAction.style" v-text="'157人が会話中'" />
               </v-list-item-action>
             </template>
           </v-list-item>
@@ -55,43 +60,140 @@
   import {
     secureAxios
   } from '../../backend/axios';
-  const TREND_ENDPOINT = `/api/v1/spaces/trend`;
-
   export default {
     name: 'TrendTop',
     data() {
       return {
+        TREND_ENDPOINT: `/api/v1/spaces/trend`,
         items: [],
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
         error: null,
-        switch1: false
+        switch1: false,
+        switchPosition: 'mt-1',
+        colors: {
+          blue: 'blue',
+          orange: 'orange'
+        },
+        query_media: 'tv',
+        media: {
+          tv: 'tv',
+          movie: 'mv',
+        },
+        tv: {
+          header: 'TV',
+          avatar: 'ml-2',
+          pathName: 'TvSpace'
+        },
+        movie: {
+          header: 'MOVIE',
+          avatar: 'ml-7',
+          pathName: 'MvSpace'
+        },
+        active: {
+          fontFamily: 'Helvetica Neue, sans-serif',
+          fontSize: '20px',
+          fontWeight: 'bold',
+          color: '#000000'
+        },
+        inactive: {
+          fontFamily: 'Helvetica Neue, sans-serif',
+          fontSize: '20px',
+          fontWeight: 'bold',
+          color: '#8f8f8f'
+        },
+        listItemGroup: {
+          body: 'list-body',
+          active: 'orange--text'
+        },
+        listItemContent: {
+          position: 'ml-4'
+        },
+        listItemSubtitle: {
+          position: 'mt-1',
+          season_position: 'ml-n16',
+          episode_position: 'ml-n6',
+          style: {
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '12px',
+            fontWeight: 'bold',
+            color: '#6c757d'
+          }
+        },
+        listItemAction: {
+          position: 'mt-1',
+          style: {
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '9px',
+            fontWeight: 'bold',
+            color: '#484b4d'
+          }
+        },
+        listItemTitle: {
+          style: {
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '16px'
+          }
+        },
+        ranking: {
+          title: {
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '12px',
+            fontWeight: 'bold',
+            color: '#8f8f8f',
+          },
+          position: 'mr-4'
+        },
+        icon: {
+          color: 'green',
+          position: 'ml-2',
+          size: 22,
+          mdi: 'mdi-menu-up'
+        },
+        avatar: {
+          size: 66,
+          height: 66,
+          round: "rounded-lg"
+        }
       }
     },
     created() {
       this.getTrend()
     },
+    watch: {
+      switch1: function () {
+        this.items = []
+        if (this.switch1 === false) {
+          this.query_media = this.media.tv
+          this.getTrend()
+        } else if (this.switch1 === true) {
+          this.query_media = this.media.movie
+          this.getTrend()
+        }
+      }
+    },
     methods: {
       getTrend() {
-        secureAxios.get(TREND_ENDPOINT, {
+        secureAxios.get(this.TREND_ENDPOINT, {
             params: {
               time: "day",
-              record_count: ""
+              record_count: "",
+              media: this.query_media
             }
           })
           .then(res => this.getSuccessful(res))
           .catch(err => this.getFailed(err))
       },
       getSuccessful(res) {
-        console.log(res)
         this.items = res.data.data
       },
       getFailed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
       },
       enterSpace(item) {
-        if (item.media === 'tv') {
+        if (item.media === this.media.tv) {
           this.$router.push({
-            name: 'TvSpace',
+            name: this.tv.pathName,
             params: {
               season_number: item.season,
               episode_number: item.episode,
@@ -102,9 +204,9 @@
               media: item.media,
             }
           })
-        } else if (item.media === 'mv') {
+        } else if (item.media === this.media.movie) {
           this.$router.push({
-            name: 'MvSpace',
+            name: this.movie.pathName,
             params: {
               value: item.mv_details,
               name: item.mv_name,

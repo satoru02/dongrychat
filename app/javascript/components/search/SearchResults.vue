@@ -158,21 +158,21 @@
         listActive: 'orange--text',
         resultsStyle: {
           fontSize: "18px",
-          fontFamily: 'Helvetica Neue sans-serif',
+          fontFamily: 'Helvetica Neue, sans-serif',
           fontWeight: 'bold',
         },
         listStyle: {
           fontSize: '13px',
-          fontFamily: 'Helvetica Neue sans-serif',
+          fontFamily: 'Helvetica Neue, sans-serif',
           fontWeight: 'bold',
         },
         listItemStyle: {
           fontWeight: 'bold',
-          fontFamily: 'Helvetica Neue sans-serif',
+          fontFamily: 'Helvetica Neue, sans-serif',
           fontSize: '15px'
         },
         subtitleStyle: {
-          fontFamily: 'Helvetica Neue sans-serif',
+          fontFamily: 'Helvetica Neue, sans-serif',
           fontSize: '12px',
           fontWeight: 'bold',
           color: '#6c757d'

@@ -114,7 +114,7 @@
             title: '今週のおすすめ',
             titlePosition: 'ml-10 mt-3',
             titleStyle: {
-              fontFamily: 'Helvetica Neue sans-serif',
+              fontFamily: 'Helvetica Neue, sans-serif',
               fontSize: '20px',
               fontWeight: 'bold',
               color: '#484b4d'
@@ -125,7 +125,7 @@
             title: 'もっとみる',
             titlePosition: 'ml-10 mt-6',
             titleStyle: {
-              fontFamily: 'Helvetica Neue sans-serif',
+              fontFamily: 'Helvetica Neue, sans-serif',
               fontSize: '13px',
               fontWeight: 'bold',
               color: '#484b4d'
@@ -141,7 +141,7 @@
             },
             titlePosition: 'mt-n3 ml-7',
             titleStyle: {
-              fontFamily: 'Helvetica Neue sans-serif',
+              fontFamily: 'Helvetica Neue, sans-serif',
               fontSize: '13px',
               fontWeight: 'bold',
               color: '#000000'

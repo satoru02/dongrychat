@@ -164,13 +164,13 @@
           avatar: 'ml-10'
         },
         active: {
-          fontFamily: 'Helvetica Neue sans-serif',
+          fontFamily: 'Helvetica Neue, sans-serif',
           fontSize: '25px',
           fontWeight: 'bold',
           color: '#000000'
         },
         inactive: {
-          fontFamily: 'Helvetica Neue sans-serif',
+          fontFamily: 'Helvetica Neue, sans-serif',
           fontSize: '25px',
           fontWeight: 'bold',
           color: '#8f8f8f'

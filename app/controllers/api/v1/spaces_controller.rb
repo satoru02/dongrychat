@@ -36,7 +36,7 @@ module Api
       end
 
       def trend
-        @spaces = Space.getTrend(params.permit(:time, :record_count))
+        @spaces = Space.getTrend(params.permit(:time, :record_count, :media))
         serializer = MultiSpaceSerializer.new(@spaces, {params: {current_user: current_user}})
         render json: serializer.serializable_hash.to_json
       end
