@@ -67,7 +67,7 @@
             path_name: 'Top'
           },
           {
-            text: 'トレンド',
+            text: 'リアルタイム',
             icon: 'mdi-flag-outline',
             path_name: 'Trend'
           },

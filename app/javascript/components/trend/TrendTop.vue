@@ -3,11 +3,11 @@
     <v-row>
       <v-col md=1 lg=1 xl=1>
         <div :style="switch1 === false ? active : inactive" v-text="tv.header" />
-        <v-avatar :color="colors.blue" :size="5" v-if="switch1 === false" :class="tv.avatar" />
+        <!-- <v-avatar :color="colors.blue" :size="5" v-if="switch1 === false" :class="tv.avatar" /> -->
       </v-col>
       <v-col md=1 lg=1 xl=1>
         <div :style="switch1 === true ? active : inactive" v-text="movie.header" />
-        <v-avatar :color="colors.blue" :size="5" v-if="switch1 === true" :class="movie.avatar" />
+        <!-- <v-avatar :color="colors.blue" :size="5" v-if="switch1 === true" :class="movie.avatar" /> -->
       </v-col>
       <v-col md=9 lg=9 xl=9 />
       <v-col md=1 lg=1 xl=1>
@@ -75,13 +75,19 @@
           orange: 'orange'
         },
         query_media: 'tv',
+        query_time: {
+          hour: 'hour',
+          today: 'today',
+          week: 'week',
+          month: 'month'
+        },
         media: {
           tv: 'tv',
           movie: 'mv',
         },
         tv: {
           header: 'TV',
-          avatar: 'ml-2',
+          avatar: 'ml-3',
           pathName: 'TvSpace'
         },
         movie: {
@@ -91,15 +97,17 @@
         },
         active: {
           fontFamily: 'Helvetica Neue, sans-serif',
-          fontSize: '20px',
+          fontSize: '25px',
           fontWeight: 'bold',
-          color: '#000000'
+          color: '#000000',
+          letterSpacing: '3px'
         },
         inactive: {
           fontFamily: 'Helvetica Neue, sans-serif',
-          fontSize: '20px',
+          fontSize: '25px',
           fontWeight: 'bold',
-          color: '#8f8f8f'
+          color: '#8f8f8f',
+          letterSpacing: '3px'
         },
         listItemGroup: {
           body: 'list-body',
@@ -132,7 +140,7 @@
           style: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '16px'
+            fontSize: '16px',
           }
         },
         ranking: {
@@ -176,7 +184,6 @@
       getTrend() {
         secureAxios.get(this.TREND_ENDPOINT, {
             params: {
-              time: "day",
               record_count: "",
               media: this.query_media
             }

@@ -27,6 +27,7 @@ class Space < ApplicationRecord
   validates :resource_token, presence: true
   validates :resource_digest, presence: true
   validates :media, presence: true
+  scope :getTrend, -> (query){where(media: query[:media]).includes(:comments).where(comments: {created_at: Date.today.all_day}).sort_by{|a| -a.comments.length}}
   with_options if: :mv? do |mv|
     mv.validates :tmdb_mv_id, presence: true, numericality: { only_integer: true }
   end
@@ -79,11 +80,6 @@ class Space < ApplicationRecord
         return @space
         logger.debug {"New space is created by #{user.id}:#{user.email}."}
       end
-    end
-
-    def getTrend(range)
-      d = Date.yesterday - 3
-      self.where(media: range[:media]).includes(:comments).where(comments: { created_at: d.all_day}).sort_by{|a| -a.comments.length }
     end
 
     private
