@@ -34,6 +34,7 @@ import UserSettings from '../components/user/UserSettings';
 import Results from '../components/search/SearchResults';
 import UserFollowings from '../components/user/UserFollowings';
 import UserFollowers from '../components/user/UserFollowers';
+import SearchList from '../components/search/SearchList';
 
 Vue.use(Vuetify);
 Vue.use(VueRouter);
@@ -266,10 +267,64 @@ const router = new VueRouter({
       component: Search
     },
     {
+      path: '/trending',
+      name: 'trending',
+      component: SearchList
+    },
+    {
+      path: '/popular',
+      name: 'popular',
+      component: SearchList
+    },
+    {
+      path: '/top-rated',
+      name: 'topRated',
+      component: SearchList
+    },
+    {
+      path: '/upcoming',
+      name: 'upcoming',
+      component: SearchList
+    },
+    {
       path: '/results/:query',
-      name: 'Results',
+      name: 'multi',
       props: true,
-      component: Results
+      component: Results,
+      children: [
+        {
+          path: "person",
+          name: "person",
+          component: Results,
+          props: (route) => ({
+            query: route.query.status
+          })
+        },
+        {
+          path: "tv",
+          name: "tv",
+          component: Results,
+          props: (route) => ({
+            query: route.query.status
+          })
+        },
+        {
+          path: "movie",
+          name: "movie",
+          component: Results,
+          props: (route) => ({
+            query: route.query.status
+          })
+        },
+        {
+          path: "Company",
+          name: "Company",
+          component: Results,
+          props: (route) => ({
+            query: route.query.status
+          })
+        }
+      ]
     },
     {
       path: '/popular',

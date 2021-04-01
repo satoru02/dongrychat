@@ -1,23 +1,28 @@
 <template>
   <div>
     <v-app style="background-color:#ffffff">
-      <!-- <top-header v-if="this.checkAuthorization()" /> -->
       <v-main class="mt-5">
         <v-row>
-          <!-- <v-col md=1 lg=1 xl=1 /> -->
           <v-col md=3 lg=3 xl=3>
-            <side-bar />
+            <side-bar class="ml-n11" />
           </v-col>
-          <v-divider vertical />
-          <v-col md=8 lg=8 xl=8>
-            <!-- <top-header v-if="this.checkAuthorization()" /> -->
+          <v-divider vertical class="ml-n16" />
+          <!-- <v-col md=8 lg=9 xl=8 v-if="this.$route.name === 'Top' || this.$route.name === 'Trend' || this.$route.name === 'User' "> -->
+          <v-col md=9 lg=9 xl=9>
             <!-- <keep-alive> -->
               <router-view />
             <!-- </keep-alive> -->
           </v-col>
+          <!-- <v-col md=8 lg=9 xl=8 v-else>
+            <keep-alive>
+              <router-view />
+            </keep-alive>
+          </v-col> -->
+          <!-- <v-col lg=2>
+            <right-part />
+          </v-col> -->
         </v-row>
       </v-main>
-      <!-- <bottom-footer /> -->
     </v-app>
     <base-bottom-bar v-if="this.checkAuthorization()" />
   </div>
@@ -28,6 +33,7 @@
   import BaseBottomBar from '../base/BaseBottomBar'
   import SideBar from '../../components/page/TheSideBar'
   import Footer from './TheFooter'
+  import RightPart from '../page/TheRightPart';
 
   export default {
     name: 'TheMainPart',
@@ -35,7 +41,8 @@
       'top-header': Header,
       'bottom-footer': Footer,
       'base-bottom-bar': BaseBottomBar,
-      'side-bar': SideBar
+      'side-bar': SideBar,
+      'right-part': RightPart
     },
     methods: {
       checkAuthorization() {

@@ -15,11 +15,11 @@ export default {
   props:{
     height:{
       type: Number,
-      default: 140
+      default: 280
     },
     size:{
       type: Number,
-      default: 140
+      default: 300
     },
     round:{
       type: String,

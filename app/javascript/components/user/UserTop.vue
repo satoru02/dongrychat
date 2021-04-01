@@ -53,7 +53,7 @@
     <v-row>
       <v-col lg=2 class="hidden-xs-only" />
       <v-col cols=12 md=12 lg=12 xl=12>
-        <v-tabs dense class="mt-n12" background-color="#ffffff">
+        <v-tabs hide-slider dense class="mt-n12" background-color="#ffffff">
           <v-tabs-slider />
           <v-tab class="list-text" active-class="black--text">ルーム</v-tab>
           <v-tab class="list-text" active-class="black--text">コラム</v-tab>
