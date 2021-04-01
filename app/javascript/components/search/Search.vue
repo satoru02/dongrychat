@@ -29,53 +29,28 @@
       </v-col>
     </v-row>
 
-    <top-rated
+    <trend-part
       v-if="this.switch1 === false"
       :items="weekly_trend_tvs"
       :media="media.tv"
-      :title="weekly_title" />
-    <top-rated
+      :title="weekly_title"
+      :endpoint="endpoint.trending" />
+    <trend-part
       v-else
       :items="weekly_trend_mvs"
       :media="media.mv"
-      :title="weekly_title" />
-
-    <v-row class="mt-n1">
-      <v-col lg=6>
-        <v-card elevation=0 height=393 outlined class="rounded-lg">
-          <v-row>
-            <v-col lg=12>
-              <div class="part-title ml-6 mt-5">ランキング</div>
-            </v-col>
-          </v-row>
-          <v-list two-line>
-            <v-list-item-group active-class="orange--text" multiple class="list-body">
-              <template v-for="(item, index) in 5">
-                <v-list-item :key="index">
-                  <template v-slot:default="{}">
-                    <div class="mr-4 ranktitle">{{index + 1}}
-                    </div>
-                    <v-list-item-avatar size=36 height=36 class="rounded-lg">
-                      <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-                    </v-list-item-avatar>
-                    <v-list-item-content class=ml-4>
-                      <v-list-item-title class="card-title" v-html="'タイトル'" />
-                      <v-list-item-subtitle class="subdiscription mt-1">
-                        Steve johnson
-                      </v-list-item-subtitle>
-                    </v-list-item-content>
-                    <v-list-item-action>
-                      <div class="subtitle">157人が会話中</div>
-                    </v-list-item-action>
-                  </template>
-                </v-list-item>
-              </template>
-            </v-list-item-group>
-          </v-list>
-        </v-card>
-      </v-col>
-      <v-col lg=6>
-        <v-card elevation=0 height=393 outlined class="rounded-lg">
+      :title="weekly_title"
+      :endpoint="endpoint.trending" />
+    <v-row
+      :class="multiple_part.position">
+      <v-col md=6 lg=6 xl=6
+        v-for="(n,index) in 2"
+        :key="index">
+        <v-card
+          :elevation="multiple_part.elevation"
+          :height="multiple_part.height"
+          :class="multiple_part.round"
+          outlined>
         </v-card>
       </v-col>
     </v-row>
@@ -85,30 +60,35 @@
        :items="upcoming_mvs"
        :media="media.mv"
        :title="upcoming_title"
+       :endpoint="endpoint.upcoming"
     />
-    <trend-part
+    <top-rated
       v-if="this.switch1 === false"
       :items="top_rated_tvs"
       :media="media.tv"
       :title="rated_title"
+      :endpoint="endpoint.topRated"
     />
-    <trend-part
+    <top-rated
        v-else
        :items="top_rated_mvs"
        :media="media.mv"
        :title="rated_title"
+       :endpoint="endpoint.topRated"
     />
     <popular-part
        v-if="this.switch1 === false"
        :items="todays_popular_tvs"
        :media="media.tv"
        :title="popular_title"
+       :endpoint="endpoint.popular"
       />
     <popular-part
        v-else
        :items="todays_popular_mvs"
        :media="media.mv"
        :title="popular_title"
+       :endpoint="endpoint.popular"
     />
   </v-container>
 </template>
@@ -119,15 +99,6 @@
   import SearchTrendPart from '../search/SearchPart';
   import SearchTopRatedPard from '../search/SearchPart';
   import SearchUpcomingPart from '../search/SearchPart';
-  import TrendSpace from '../trend/TrendTop';
-  const WTV_ENDPOINT = `https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.TMDB_API_KEY}&language=ja`;
-  const WMV_ENDPOINT = `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.TMDB_API_KEY}&language=ja`;
-  const TTV_ENDPOINT = `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`;
-  const TMV_ENDPOINT = `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1&region=JP`;
-  const TRTV_ENDPOINT = `https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`;
-  const TRMV_ENDPOINT = `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`;
-  const UPCOMING_MV_ENDPOINT = `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1`;
-
   export default {
     name: 'Search',
     components: {
@@ -135,14 +106,9 @@
       'top-rated': SearchTopRatedPard,
       'trend-part': SearchTrendPart,
       'upcoming-part': SearchUpcomingPart,
-      'trend-space': TrendSpace
     },
     data() {
       return {
-        media: {
-          tv: 'tv',
-          mv: 'mv'
-        },
         weekly_trend_mvs: [],
         weekly_trend_tvs: [],
         todays_popular_mvs: [],
@@ -150,12 +116,41 @@
         top_rated_tvs: [],
         top_rated_mvs: [],
         upcoming_mvs: [],
+        tmdb_api: {
+          tv: {
+            popular: `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`,
+            trending: `https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.TMDB_API_KEY}&language=ja`,
+            topRated: `https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`
+          },
+          movie: {
+            popular: `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`,
+            trending: `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.TMDB_API_KEY}&language=ja`,
+            topRated: `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`,
+            upcoming: `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.TMDB_API_KEY}&language=en-US&page=1`
+          }
+        },
         switch1: false,
+        media: {
+          tv: 'tv',
+          mv: 'mv'
+        },
+        endpoint: {
+          trending: 'trending',
+          popular: 'popular',
+          topRated: 'topRated',
+          upcoming: 'upcoming',
+        },
         switchPosition: 'mt-1',
         weekly_title: '今週のおすすめ',
         popular_title: '人気の作品',
         rated_title: '評価の高い作品',
         upcoming_title: 'もうすぐ公開',
+        multiple_part: {
+          position: 'mt-n1',
+          elevation: '0',
+          height: '393',
+          round: 'rounded-lg'
+        },
         colors: {
           blue: 'blue',
           orange: 'orange'
@@ -201,28 +196,25 @@
     },
     methods: {
       getTrendTvs() {
-        return tmdbAxios.get(WTV_ENDPOINT)
+        return tmdbAxios.get(this.tmdb_api.tv.trending)
       },
       getTrendMvs() {
-        return tmdbAxios.get(WMV_ENDPOINT)
+        return tmdbAxios.get(this.tmdb_api.movie.trending)
       },
       getPopularTvs() {
-        return tmdbAxios.get(TTV_ENDPOINT)
+        return tmdbAxios.get(this.tmdb_api.tv.popular)
       },
       getPopularMvs() {
-        return tmdbAxios.get(TMV_ENDPOINT)
+        return tmdbAxios.get(this.tmdb_api.movie.popular)
       },
       getTopratedTvs() {
-        return tmdbAxios.get(TRTV_ENDPOINT)
+        return tmdbAxios.get(this.tmdb_api.tv.topRated)
       },
       getTopratedMvs() {
-        return tmdbAxios.get(TRMV_ENDPOINT)
+        return tmdbAxios.get(this.tmdb_api.movie.topRated)
       },
       getUpcomingMvs() {
-        return tmdbAxios.get(UPCOMING_MV_ENDPOINT)
-      },
-      getUpcomingTvs() {
-        return tmdbAxios.get(UPCOMING_TV_ENDPOINT)
+        return tmdbAxios.get(this.tmdb_api.movie.upcoming)
       },
       getTvContents() {
         Promise.all([this.getTrendTvs(), this.getPopularTvs(), this.getTopratedTvs()])
@@ -246,44 +238,4 @@
 </script>
 
 <style scoped>
-  .title {
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 2px;
-    font-weight: bold;
-    color: #111213;
-  }
-
-  .card-title {
-    font-weight: bold;
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 8px;
-  }
-
-  .subdiscription {
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 4px;
-    font-weight: bold;
-    color: #6c757d;
-  }
-
-  .subtitle {
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 4px;
-    font-weight: bold;
-    color: #484b4d;
-  }
-
-  .part-title {
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 10px;
-    font-weight: bold;
-    color: #111213;
-  }
-
-  .ranktitle {
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 8px;
-    font-weight: bold;
-    color: #8f8f8f;
-  }
 </style>

@@ -122,6 +122,9 @@
     name: 'SearchResults',
     data() {
       return {
+        tmdb_api: {
+          search: `https://api.themoviedb.org/3/search/${this.$route.name}?api_key=${process.env.TMDB_API_KEY}&language=en-US&query=${this.$route.params.query}&page=1&include_adult=false`
+        },
         items: {
           type: '',
           contents: []
@@ -197,9 +200,7 @@
     },
     methods: {
       getResults() {
-        tmdbAxios.get(
-            `https://api.themoviedb.org/3/search/${this.$route.name}?api_key=${process.env.TMDB_API_KEY}&language=en-US&query=${this.$route.params.query}&page=1&include_adult=false`
-          )
+        tmdbAxios.get(this.tmdb_api.search)
           .then(res => this.searchSuccessful(res))
           .catch(err => this.searchFailed(err))
       },

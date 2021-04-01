@@ -26,7 +26,7 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col md=3 lg=2 xl=3
+          <v-col md=2 lg=2 xl=2
             v-for="(item, index) in items"
             :class="heading.img.position"
             :key="index">
@@ -83,6 +83,11 @@
         required: true,
       },
       title: {
+        type: String,
+        default: String,
+        required: true
+      },
+      endpoint: {
         type: String,
         default: String,
         required: true
@@ -166,7 +171,9 @@
           })
         }
       },
-      movePath() {}
+      movePath() {
+        this.$router.push({name: this.endpoint, params: {query: this.media}})
+      }
     }
   }
 </script>

@@ -34,6 +34,7 @@ import UserSettings from '../components/user/UserSettings';
 import Results from '../components/search/SearchResults';
 import UserFollowings from '../components/user/UserFollowings';
 import UserFollowers from '../components/user/UserFollowers';
+import SearchList from '../components/search/SearchList';
 
 Vue.use(Vuetify);
 Vue.use(VueRouter);
@@ -264,6 +265,26 @@ const router = new VueRouter({
       path: '/search',
       name: 'Search',
       component: Search
+    },
+    {
+      path: '/trending',
+      name: 'trending',
+      component: SearchList
+    },
+    {
+      path: '/popular',
+      name: 'popular',
+      component: SearchList
+    },
+    {
+      path: '/top-rated',
+      name: 'topRated',
+      component: SearchList
+    },
+    {
+      path: '/upcoming',
+      name: 'upcoming',
+      component: SearchList
     },
     {
       path: '/results/:query',
