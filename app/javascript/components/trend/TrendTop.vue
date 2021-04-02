@@ -3,11 +3,9 @@
     <v-row>
       <v-col md=1 lg=1 xl=1>
         <div :style="switch1 === false ? active : inactive" v-text="tv.header" />
-        <!-- <v-avatar :color="colors.blue" :size="5" v-if="switch1 === false" :class="tv.avatar" /> -->
       </v-col>
       <v-col md=1 lg=1 xl=1>
         <div :style="switch1 === true ? active : inactive" v-text="movie.header" />
-        <!-- <v-avatar :color="colors.blue" :size="5" v-if="switch1 === true" :class="movie.avatar" /> -->
       </v-col>
       <v-col md=9 lg=9 xl=9 />
       <v-col md=1 lg=1 xl=1>
@@ -140,7 +138,7 @@
           style: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '16px',
+            fontSize: '14px',
           }
         },
         ranking: {
@@ -215,8 +213,9 @@
           this.$router.push({
             name: this.movie.pathName,
             params: {
-              value: item.mv_details,
-              name: item.mv_name,
+              image_path: item.image_path,
+              tmdb_mv_id: item.tmdb_mv_id,
+              name: item.name,
               media: item.media,
             }
           })
@@ -227,53 +226,4 @@
 </script>
 
 <style scoped>
-  .list-body {
-    background-color: #ffffff;
-  }
-
-  .card-title {
-    font-weight: bold;
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 16px;
-  }
-
-  .head-title {
-    font-weight: bold;
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 30px;
-    color: #000000;
-  }
-
-  .another-head-title {
-    font-weight: bold;
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 18px;
-    color: #9e9e9e;
-  }
-
-  .ranktitle {
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 13px;
-    font-weight: bold;
-    color: #8f8f8f;
-  }
-
-  .subtitle {
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 9px;
-    font-weight: bold;
-    color: #484b4d;
-  }
-
-  .subdiscription {
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 12px;
-    font-weight: bold;
-    color: #6c757d;
-  }
-
-  .side-count {
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 14px;
-  }
 </style>

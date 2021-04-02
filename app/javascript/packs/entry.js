@@ -14,8 +14,7 @@ import 'vuetify/dist/vuetify.min.css';
 import '@mdi/font/css/materialdesignicons.css';
 
 import Top from '../components/top/TopPage';
-import TvDetails from '../components/details/TvDetailsPage';
-import MvDetails from '../components/details/MvDetailsPage';
+import Details from '../components/details/DetailsPage';
 import TvSpace from '../components/space/TvSpace';
 import MvSpace from '../components/space/MvSpace';
 import Trend from '../components/trend/TrendTop';
@@ -162,12 +161,12 @@ const router = new VueRouter({
     {
       path: '/tv/:id/:tv_name/season/:number',
       name: 'TvDetails',
-      component: TvDetails
+      component: Details
     },
     {
       path: '/mv/:id/:mv_name',
       name: 'MvDetails',
-      component: MvDetails
+      component: Details
     },
     {
       path: '/tv_space/:name/:season_number/:episode_number',

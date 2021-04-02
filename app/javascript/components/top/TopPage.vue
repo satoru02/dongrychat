@@ -120,7 +120,7 @@
   .card-title {
     font-weight: bold;
     font-family: 'Helvetica Neue', sans-serif;
-    font-size: 15px;
+    font-size: 14px;
     color: #000000;
   }
 

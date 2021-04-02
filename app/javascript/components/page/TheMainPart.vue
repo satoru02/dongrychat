@@ -3,12 +3,13 @@
     <v-app style="background-color:#ffffff">
       <v-main class="mt-5">
         <v-row>
-          <v-col md=3 lg=3 xl=3>
-            <side-bar class="ml-n11" />
+          <v-col lg=1 />
+          <v-col md=3 lg=3 xl=3 class="ml-n12">
+            <side-bar class="ml-n7" />
           </v-col>
-          <v-divider vertical class="ml-n16" />
+          <!-- <v-divider vertical class="ml-n16" /> -->
           <!-- <v-col md=8 lg=9 xl=8 v-if="this.$route.name === 'Top' || this.$route.name === 'Trend' || this.$route.name === 'User' "> -->
-          <v-col md=9 lg=9 xl=9>
+          <v-col md=9 lg=6 xl=9 class="ml-n16">
             <!-- <keep-alive> -->
               <router-view />
             <!-- </keep-alive> -->
@@ -18,9 +19,9 @@
               <router-view />
             </keep-alive>
           </v-col> -->
-          <!-- <v-col lg=2>
+          <v-col lg=2>
             <right-part />
-          </v-col> -->
+          </v-col>
         </v-row>
       </v-main>
     </v-app>

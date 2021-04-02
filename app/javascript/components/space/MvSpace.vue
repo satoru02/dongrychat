@@ -49,8 +49,8 @@
             params: {
               name: this.$route.params.name,
               media: this.media,
-              image_path: '',
-              tmdb_mv_id: ''
+              image_path: this.$route.params.image_path,
+              tmdb_mv_id: this.$route.params.tmdb_mv_id
             }
           }).then(res => this.createCable(res.data.data))
         }
@@ -86,7 +86,7 @@
             data: {
               comment: comment,
               user_id: this.$store.state.currentUser.id,
-              space: this.space_data.id
+              space_id: this.space_data.attributes.id
             }
           })
         }
