@@ -47,7 +47,7 @@
     </v-row>
     <v-row class="mt-8">
       <v-col lg=12>
-        <v-divider></v-divider>
+        <!-- <v-divider></v-divider> -->
       </v-col>
     </v-row>
     <v-row>
@@ -61,7 +61,7 @@
           <v-tab @click="movePath('Followers')" class="list-text" active-class="black--text">フォロワー 120</v-tab>
           <v-tab @click="movePath('Followings')" class="list-text" active-class="black--text">フォロー 100</v-tab>
         </v-tabs>
-        <v-divider/>
+        <!-- <v-divider/> -->
       </v-col>
     </v-row>
     <v-row>
