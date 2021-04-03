@@ -2,46 +2,24 @@
   <v-container>
     <v-row>
       <v-col md=1 lg=1 xl=1>
-        <div
-          :style="switch1 === false ? active : inactive"
-          v-text="tv.header" />
-        <v-avatar
-           :color="colors.blue"
-           :size="5" v-if="switch1 === false"
-           :class="tv.avatar" />
+        <div :style="switch1 === false ? active : inactive" v-text="tv.header" />
+        <v-avatar :color="colors.blue" :size="5" v-if="switch1 === false" :class="tv.avatar" />
       </v-col>
       <v-col md=1 lg=1 xl=1>
-        <div
-          :style="switch1 === true ? active : inactive"
-          v-text="movie.header" />
-        <v-avatar
-          :color="colors.blue" :size="5"
-          v-if="switch1 === true"
-          :class="movie.avatar" />
+        <div :style="switch1 === true ? active : inactive" v-text="movie.header" />
+        <v-avatar :color="colors.blue" :size="5" v-if="switch1 === true" :class="movie.avatar" />
       </v-col>
       <v-col md=9 lg=9 xl=9 />
       <v-col md=1 lg=1 xl=1>
-        <v-switch
-          v-model="switch1"
-          :color="colors.orange"
-          inset
-          :class="switchPosition" />
+        <v-switch v-model="switch1" :color="colors.orange" inset :class="switchPosition" />
       </v-col>
     </v-row>
     <v-row>
-      <v-col md=2 lg=2 xl=2
-        v-for="(item, index) in items"
-        :class="listItem.img.position"
-        :key="index">
+      <v-col md=2 lg=2 xl=2 v-for="(item, index) in items" :class="listItem.img.position" :key="index">
         <v-row>
           <v-col md=12 lg=12 xl=12>
-            <v-avatar
-              @click="showContents(item)"
-              :class="listItem.img.avatar.position"
-              :size="listItem.img.avatar.size"
-              :width="listItem.img.avatar.width"
-              :height="listItem.img.avatar.height"
-              tile>
+            <v-avatar @click="showContents(item)" :class="listItem.img.avatar.position" :size="listItem.img.avatar.size"
+              :width="listItem.img.avatar.width" :height="listItem.img.avatar.height" tile>
               <v-row>
                 <v-col md=12 lg=12 xl=12>
                   <base-content-sheet :height="300" :img="base_tmdb_img_url + item.poster_path" />
@@ -52,10 +30,8 @@
         </v-row>
         <v-row>
           <v-col md=12 lg=12 xl=12>
-            <div
-             :style="listItem.img.titleStyle"
-             :class="listItem.img.titlePosition"
-             v-text="media === tv.type ? item.name : item.title" />
+            <div :style="listItem.img.titleStyle" :class="listItem.img.titlePosition"
+              v-text="media === tv.type ? item.name : item.title" />
           </v-col>
         </v-row>
       </v-col>
@@ -64,7 +40,9 @@
 </template>
 
 <script>
-  import { tmdbAxios } from '../../backend/axios';
+  import {
+    tmdbAxios
+  } from '../../backend/axios';
   import BaseContentSheet from '../base/BaseContentSheet';
   export default {
     name: 'SearchList',
@@ -162,46 +140,46 @@
         }
       }
     },
-    created(){
+    created() {
       if (this.$route.params.query) {
         this.media = this.$route.params.query
       }
-      if (this.media === 'tv'){
+      if (this.media === 'tv') {
         this.switch1 = false
         this.getTvContents()
-      } else if (this.media === 'mv'){
+      } else if (this.media === 'mv') {
         this.switch1 = true
         this.getMvContents()
       }
     },
     methods: {
       getTvContents() {
-        if(this.$route.name === this.tmdb_api.type.trending){
+        if (this.$route.name === this.tmdb_api.type.trending) {
           this.endpoint = this.tmdb_api.tv.trending
-        } else if(this.$route.name === this.tmdb_api.type.popular){
+        } else if (this.$route.name === this.tmdb_api.type.popular) {
           this.endpoint = this.tmdb_api.tv.popular
-        } else if(this.$route.name === this.tmdb_api.type.topRated){
+        } else if (this.$route.name === this.tmdb_api.type.topRated) {
           this.endpoint = this.tmdb_api.tv.topRated
         };
         tmdbAxios.get(this.endpoint)
           .then((res) => {
             this.items = res.data.results
-        })
+          })
       },
       getMvContents() {
-        if(this.$route.name === this.tmdb_api.type.trending){
+        if (this.$route.name === this.tmdb_api.type.trending) {
           this.endpoint = this.tmdb_api.movie.trending
-        } else if(this.$route.name === this.tmdb_api.type.popular){
+        } else if (this.$route.name === this.tmdb_api.type.popular) {
           this.endpoint = this.tmdb_api.movie.popular
-        } else if(this.$route.name === this.tmdb_api.type.topRated){
+        } else if (this.$route.name === this.tmdb_api.type.topRated) {
           this.endpoint = this.tmdb_api.movie.topRated
-        } else if(this.$route.name === this.tmdb_api.type.upcoming){
+        } else if (this.$route.name === this.tmdb_api.type.upcoming) {
           this.endpoint = this.tmdb_api.movie.upcoming
         };
         tmdbAxios.get(this.endpoint)
           .then((res) => {
             this.items = res.data.results
-        })
+          })
       },
       showContents(item) {
         if (this.media == this.tv.type) {

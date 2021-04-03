@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1 class="ml-3 mt-n1 mb-4 head-title">ホーム</h1>
+    <h1 class="ml-3 mt-n4 mb-1 head-title">HOME</h1>
     <v-list two-line>
       <v-list-item-group active-class="orange--text" multiple class="list-body">
         <template v-for="(item, index) in items">
@@ -74,11 +74,7 @@
     },
     methods: {
       getSubscription() {
-        secureAxios.get(SPACES_ENDPOINT, {
-            params: {
-              user_id: this.$store.state.currentUser.id
-            }
-          })
+        secureAxios.get(SPACES_ENDPOINT)
           .then(res => this.createCable(res.data.data))
           .catch(err => this.getFailed(err))
       },

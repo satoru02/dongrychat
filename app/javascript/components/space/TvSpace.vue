@@ -1,19 +1,22 @@
 <template>
-  <div>
-    <v-btn @click="subscribe()">Subscribe</v-btn>
-    <v-text-field background-color="#212529" v-model="comment" @click:append-outer="sendComment(comment)" dense
+  <v-container class="mt-5">
+    <!-- <v-text-field background-color="#212529" v-model="comment" @click:append-outer="sendComment(comment)" dense
       type="text" no-details outlined append-outer-icon="mdi-send" />
       <v-row>
         <v-col lg=1 v-for="(comment, index) in comments" :key="index">
             {{comment.user_id}}
         </v-col>
-        <!-- <appearance :comments="comments" /> -->
-      </v-row>
-  </div>
+        <v-btn v-if="subscribed === false" @click="subscribe()">Subscribe</v-btn>
+      </v-row> -->
+      <comment />
+      <v-text-field class="mt-n4" background-color="#ffffff" v-model="comment" @click:append-outer="sendComment(comment)" dense
+      type="text" no-details outlined />
+  </v-container>
 </template>
 
 <script>
   import { secureAxios } from '../../backend/axios';
+  import BaseComment from '../base/BaseComment';
   // import Appearance from './Appearance';
   const SPACE_ENDPOINT_FROM_SEARCH = `/api/v1/spaces/enter`;
   const SPACE_ENDPOINT_FROM_SUBSCRIPTION = `/api/v1/spaces/enter_from_subscription`;
@@ -23,6 +26,7 @@
     name: 'TvSpace',
     components: {
       // "appearance": Appearance
+      'comment' : BaseComment
     },
     created(){
       this.setSpace()
@@ -33,6 +37,7 @@
         media: 'tv',
         comments: '',
         comment: '',
+        subscribed: ''
       }
     },
     channels: {
@@ -73,6 +78,7 @@
       createCable(space){
         this.space_data = space
         this.comments = space.attributes.comments
+        this.subscribed = space.attributes.subscribed
         this.$cable.subscribe({
           channel: 'SpaceChannel',
           space: space.id

@@ -105,6 +105,10 @@ class User < ApplicationRecord
     following.include? other_user
   end
 
+  def subscribed? space_id
+    self.subscriptions.exists? space_id: space_id
+  end
+
   private
 
     def downcase_email

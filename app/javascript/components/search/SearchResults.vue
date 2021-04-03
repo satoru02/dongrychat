@@ -2,108 +2,45 @@
   <v-container>
     <v-row>
       <v-col md=12 lg=12 xl=12>
-        <div
-          :style="resultsStyle"
-          v-text="resultsText" />
+        <div :style="resultsStyle" v-text="resultsText" />
       </v-col>
     </v-row>
     <v-row>
       <v-col md=12 lg=12 xl=12>
-        <v-tabs
-          hide-slider
-          dense
-          :background-color="tabColor">
-          <v-tab
-            :style="listStyle"
-            :active-class="tabActive"
-            v-text="keyword.text"
-            @click="movePath(keyword.arg)"
-            />
-          <v-tab
-            :style="listStyle"
-            :active-class="tabActive"
-            v-text="tv.text"
-            @click="movePath(tv.arg)"
-          />
-          <v-tab
-            :style="listStyle"
-            :active-class="tabActive"
-            v-text="movie.text"
-            @click="movePath(movie.arg)"
-            />
-          <v-tab
-            :style="listStyle"
-            :active-class="tabActive"
-            v-text="person.text"
-            @click="movePath(person.arg)"
-            />
-          <v-tab
-            :style="listStyle"
-            :active-class="tabActive"
-            v-text="company.text"
-            @click="movePath(company.arg)"
-            />
+        <v-tabs hide-slider dense :background-color="tabColor">
+          <v-tab :style="listStyle" :active-class="tabActive" v-text="keyword.text" @click="movePath(keyword.arg)" />
+          <v-tab :style="listStyle" :active-class="tabActive" v-text="tv.text" @click="movePath(tv.arg)" />
+          <v-tab :style="listStyle" :active-class="tabActive" v-text="movie.text" @click="movePath(movie.arg)" />
+          <v-tab :style="listStyle" :active-class="tabActive" v-text="person.text" @click="movePath(person.arg)" />
+          <v-tab :style="listStyle" :active-class="tabActive" v-text="company.text" @click="movePath(company.arg)" />
         </v-tabs>
       </v-col>
     </v-row>
     <v-list two-line>
-      <v-list-item-group
-       :active-class="listActive"
-        multiple>
-        <template
-          v-for="(item, index) in items.contents">
-          <v-list-item
-           :key="index"
-          @click="showContents(item)">
+      <v-list-item-group :active-class="listActive" multiple>
+        <template v-for="(item, index) in items.contents">
+          <v-list-item :key="index" @click="showContents(item)">
             <template v-slot:default="{}">
-              <v-list-item-avatar
-                :size='avatar.size'
-                :width='avatar.width'
-                :height='avatar.height'
+              <v-list-item-avatar :size='avatar.size' :width='avatar.width' :height='avatar.height'
                 :class="avatar.rounded">
-                <v-img
-                  v-if="items.type === person.arg"
-                  :src="base_tmdb_img_url + item.profile_path" />
-                <v-img
-                  v-else :src="base_tmdb_img_url + item.poster_path" />
+                <v-img v-if="items.type === person.arg" :src="base_tmdb_img_url + item.profile_path" />
+                <v-img v-else :src="base_tmdb_img_url + item.poster_path" />
               </v-list-item-avatar>
-              <v-list-item-content
-                 v-if="items.type === keyword.arg">
-                <v-list-item-title
-                  v-if="item.media_type === tv.arg"
-                  :style="listItemStyle"
-                  v-text="item.name" />
-                <v-list-item-title
-                  v-if="item.media_type === movie.arg"
-                  :style="listItemStyle"
-                  v-text="item.title" />
-                <v-list-item-subtitle
-                   :style="subtitleStyle"
-                  v-text="item.overview" />
+              <v-list-item-content v-if="items.type === keyword.arg">
+                <v-list-item-title v-if="item.media_type === tv.arg" :style="listItemStyle" v-text="item.name" />
+                <v-list-item-title v-if="item.media_type === movie.arg" :style="listItemStyle" v-text="item.title" />
+                <v-list-item-subtitle :style="subtitleStyle" v-text="item.overview" />
               </v-list-item-content>
-              <v-list-item-content
-                v-if="items.type === tv.arg">
-                <v-list-item-title
-                  :style="listItemStyle"
-                  v-text="item.name" />
-                <v-list-item-subtitle
-                 :style="subtitleStyle"
-                v-text="item.overview" />
+              <v-list-item-content v-if="items.type === tv.arg">
+                <v-list-item-title :style="listItemStyle" v-text="item.name" />
+                <v-list-item-subtitle :style="subtitleStyle" v-text="item.overview" />
               </v-list-item-content>
-              <v-list-item-content
-                v-if="items.type === movie.arg">
-                <v-list-item-title
-                  :style="listItemStyle"
-                  v-text="item.title" />
-                <v-list-item-subtitle
-                  :style="subtitleStyle"
-                  v-text="item.overview" />
+              <v-list-item-content v-if="items.type === movie.arg">
+                <v-list-item-title :style="listItemStyle" v-text="item.title" />
+                <v-list-item-subtitle :style="subtitleStyle" v-text="item.overview" />
               </v-list-item-content>
-              <v-list-item-content
-                v-if="items.type === person.arg">
-                <v-list-item-title
-                  :style="listItemStyle"
-                  v-text="item.name" />
+              <v-list-item-content v-if="items.type === person.arg">
+                <v-list-item-title :style="listItemStyle" v-text="item.name" />
               </v-list-item-content>
             </template>
           </v-list-item>
@@ -274,8 +211,7 @@
           })
         } else if (this.items.type === this.person.arg) {
           // actors component
-        }
-        else if (this.items.type === this.company.arg) {
+        } else if (this.items.type === this.company.arg) {
           // company component
         }
       },

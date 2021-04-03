@@ -1,9 +1,9 @@
 <template>
-<div>
-  <v-btn @click="subscribe()">Subscribe</v-btn>
+<container>
+    <v-btn v-if="subscribed === false" @click="subscribe()">Subscribe</v-btn>
         <v-text-field background-color="#212529" v-model="comment" @click:append-outer="sendComment(comment)" dense
       type="text" no-details outlined append-outer-icon="mdi-send" />
-  </div>
+  </container>
 </template>
 
 <script>
@@ -19,11 +19,12 @@
     },
     data() {
       return {
-        space_data: null,
+        space_data: '',
         comments: [],
         members: [],
         media: 'mv',
-        comment: null
+        comment: '',
+        subscribed: '',
       }
     },
     channels: {
@@ -71,6 +72,7 @@
       },
       createCable(space){
         this.space_data = space
+        this.subscribed = space.attributes.subscribe
         this.$cable.subscribe({
           channel: 'SpaceChannel',
           space: space.id
