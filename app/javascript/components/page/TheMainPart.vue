@@ -5,7 +5,7 @@
         <v-row>
           <v-col lg=1 class="ml-n9" />
           <v-col md=3 lg=3 xl=3 class="ml-n16">
-            <side-bar class="ml-n7" />
+            <side-bar class="ml-n4" />
           </v-col>
           <!-- <v-col md=8 lg=9 xl=8 v-if="this.$route.name === 'Top' || this.$route.name === 'Trend' || this.$route.name === 'User' "> -->
           <v-col md=9 lg=7 xl=9 class="ml-n16">
@@ -18,7 +18,7 @@
               <router-view />
             </keep-alive>
           </v-col> -->
-          <v-col md=2 lg=2 xl=2>
+          <v-col md=2 lg=2 xl=2 class="ml-n6">
             <right-part />
           </v-col>
         </v-row>

@@ -1,21 +1,64 @@
 <template>
-  <v-container class="mt-5">
-    <!-- <v-text-field background-color="#212529" v-model="comment" @click:append-outer="sendComment(comment)" dense
-      type="text" no-details outlined append-outer-icon="mdi-send" />
-      <v-row>
-        <v-col lg=1 v-for="(comment, index) in comments" :key="index">
-            {{comment.user_id}}
-        </v-col>
+  <!-- <v-row>
         <v-btn v-if="subscribed === false" @click="subscribe()">Subscribe</v-btn>
       </v-row> -->
-      <comment />
-      <v-text-field class="mt-n4" background-color="#ffffff" v-model="comment" @click:append-outer="sendComment(comment)" dense
-      type="text" no-details outlined />
+
+  <v-container :class="space_top.position">
+    <v-row :class="space_top.row">
+      <v-col md=12 lg=12 xl=12 :class="space_top.col">
+        <v-list-item>
+          <template v-slot:default="{}">
+            <v-list-item-avatar :size="space_top.avatar.size" :height='space_top.avatar.height' tile
+              :class="space_top.avatar.round">
+              <v-img :src="base_tmdb_img_url + space_image" />
+            </v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-title :class="space_top.title.position" :style="space_top.title.style"
+                v-text="space_data.attributes.name" />
+              <v-list-item-subtitle :class="space_top.subtitle.position" :style="space_top.subtitle.style"
+                v-text="space_data.attributes.users.length + '人がお気に入り'" />
+            </v-list-item-content>
+          </template></v-list-item>
+        <v-divider :class="divider.position" />
+      </v-col>
+    </v-row>
+
+    <v-row :class="comment_part.row" v-for="(comment, index) in comments" :key="index">
+      <v-col md=1 lg=1 xl=1 :class="comment_part.col">
+        <v-avatar :class="comment_part.avatar.class" tile :size='comment_part.avatar.size'
+          :height='comment_part.avatar.height'>
+          <img src="https://gravatar.com/avatar/fc04e69ffc05780882f85a264135142c?s=400&d=retro&r=x">
+        </v-avatar>
+      </v-col>
+      <v-col md=10 lg=10 xl=10 :class="comment_part.inner_col">
+        <v-row>
+          <v-col md=3 lg=3 xl=3>
+            <div :style="comment_part.style.username" v-text="comment.attributes.user.name" />
+          </v-col>
+          <v-col md=8 lg=8 xl=8 />
+          <v-col md=1 lg=1 xl=1 :class="comment_part.countClass">
+            <!-- <div :style="comment_part.style.count" v-text="comment.created_at" /> -->
+          </v-col>
+        </v-row>
+        <v-row :class="comment_part.text_row">
+          <v-col md=12 lg=12 xl=12>
+            <div :style="comment_part.style.content" v-text="comment.attributes.content" />
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col lg=12 />
+    </v-row>
+      <v-text-field class="mt-n9" background-color="#ffffff" v-model="comment" @click:append-outer="sendComment(comment)" dense
+      type="text" no-details outlined　append-outer-icon="mdi-send" />
   </v-container>
 </template>
 
 <script>
-  import { secureAxios } from '../../backend/axios';
+  import {
+    secureAxios
+  } from '../../backend/axios';
   import BaseComment from '../base/BaseComment';
   // import Appearance from './Appearance';
   const SPACE_ENDPOINT_FROM_SEARCH = `/api/v1/spaces/enter`;
@@ -26,25 +69,100 @@
     name: 'TvSpace',
     components: {
       // "appearance": Appearance
-      'comment' : BaseComment
+      'comment': BaseComment
     },
-    created(){
+    created() {
       this.setSpace()
     },
-    data(){
+    data() {
       return {
         space_data: '',
         media: 'tv',
         comments: '',
         comment: '',
-        subscribed: ''
+        subscribed: '',
+        space_image: '',
+        base_tmdb_img_url: `https://image.tmdb.org/t/p/w200`,
+        items: [],
+        space_top: {
+          position: 'mt-n5',
+          row: 'ml-1',
+          col: 'mb-6',
+          avatar: {
+            size: '75',
+            height: '105',
+            round: 'rounded-lg'
+          },
+          title: {
+            position: 'ml-1 mt-n3',
+            style: {
+              color: '#000000',
+              fontWeight: 'bold',
+              fontFamily: 'Helvetica Neue, sans-serif',
+              fontSize: '13px'
+            }
+          },
+          subtitle: {
+            position: 'ml-1 mb-n2 mt-1',
+            style: {
+              color: '#000000',
+              fontWeight: 'bold',
+              fontFamily: 'Helvetica Neue, sans-serif',
+              fontSize: '6px'
+            }
+          }
+        },
+        comment_part: {
+          row: 'mt-1 ml-1',
+          col: 'ml-5 mt-n3',
+          inner_col: 'ml-n3',
+          countClass: 'mt-1',
+          text_row: 'mt-n6',
+          avatar: {
+            class: 'rounded-lg mt-3',
+            size: '40',
+            height: '40'
+          },
+          style: {
+            username: {
+              color: '#495057',
+              fontWeight: 'bold',
+              fontFamily: 'Helvetica Neue, sans-serif',
+              fontSize: '13px'
+            },
+            count: {
+              color: '#495057',
+              fontWeight: 'bold',
+              fontFamily: 'Helvetica Neue, sans-serif',
+              fontSize: '9px'
+            },
+            content: {
+              color: '#000000',
+              fontWeight: 'bold',
+              fontFamily: 'Helvetica Neue, sans-serif',
+              fontSize: '13px'
+            }
+          }
+        },
+        listItemAction: {
+          position: 'mt-1',
+          style: {
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '7px',
+            fontWeight: 'bold',
+            color: '#adb5bd'
+          }
+        },
+        divider: {
+          position: 'mt-3 ml-4 mb-n5'
+        }
       }
     },
     channels: {
       SpaceChannel: {
-        connected(){},
-        rejected(){},
-        received(data){
+        connected() {},
+        rejected() {},
+        received(data) {
           // # when catch comment
           // # when catch user login
           // if (data["user_id"] === this.$store.state.currentUser.data.attributes.id){
@@ -54,52 +172,57 @@
           // }
           console.log(data)
         },
-        disconnected(){}
+        disconnected() {}
       }
     },
     methods: {
-      setSpace(){
-        if(this.$route.name === 'subscribedTvSpace'){
-          secureAxios.get(SPACE_ENDPOINT_FROM_SUBSCRIPTION, { params: {
-            space_id: this.$route.params.space_id
-          }}).then(res => this.createCable(res.data.data))
-        } else if(this.$route.name === 'TvSpace') {
-          secureAxios.get(SPACE_ENDPOINT_FROM_SEARCH, { params: {
-            name: this.$route.params.name,
-            season: this.$route.params.season_number,
-            episode: this.$route.params.episode_number,
-            media: this.media,
-            episode_title: this.$route.params.episode_title,
-            tmdb_tv_id: this.$route.params.tmdb_tv_id,
-            image_path: this.$route.params.image_path
-          }}).then(res => this.createCable(res.data.data))
+      setSpace() {
+        if (this.$route.name === 'subscribedTvSpace') {
+          secureAxios.get(SPACE_ENDPOINT_FROM_SUBSCRIPTION, {
+            params: {
+              space_id: this.$route.params.space_id
+            }
+          }).then(res => this.createCable(res.data.data))
+        } else if (this.$route.name === 'TvSpace') {
+          secureAxios.get(SPACE_ENDPOINT_FROM_SEARCH, {
+            params: {
+              name: this.$route.params.name,
+              season: this.$route.params.season_number,
+              episode: this.$route.params.episode_number,
+              media: this.media,
+              episode_title: this.$route.params.episode_title,
+              tmdb_tv_id: this.$route.params.tmdb_tv_id,
+              image_path: this.$route.params.image_path
+            }
+          }).then(res => this.createCable(res.data.data))
         }
       },
-      createCable(space){
+      createCable(space) {
         this.space_data = space
-        this.comments = space.attributes.comments
+        this.comments = space.attributes.comments.data
         this.subscribed = space.attributes.subscribed
+        this.space_image = space.attributes.image_path
         this.$cable.subscribe({
           channel: 'SpaceChannel',
           space: space.id
         })
       },
-      subscribe(){
+      subscribe() {
         secureAxios.post(SUBSCRIBE_ENDPOINT, {
-          user_id: this.$store.state.currentUser.id,
-          space_id: this.space_data.id
-        })
-        .then(res => this.subscribeSuccessful(res))
-        .catch(err => this.subscribeFailed(err))
+            user_id: this.$store.state.currentUser.id,
+            space_id: this.space_data.id
+          })
+          .then(res => this.subscribeSuccessful(res))
+          .catch(err => this.subscribeFailed(err))
       },
-      subscribeSuccessful(res){
+      subscribeSuccessful(res) {
         console.log(res)
       },
-      subscribeFailed(err){
+      subscribeFailed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
       },
-      sendComment(comment){
-        if(comment) {
+      sendComment(comment) {
+        if (comment) {
           this.$cable.perform({
             channel: 'SpaceChannel',
             action: 'speak',

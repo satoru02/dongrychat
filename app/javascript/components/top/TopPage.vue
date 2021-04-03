@@ -9,11 +9,11 @@
               <v-badge v-if="item.attributes.unread_comments > 0" color="red"
                 :content='item.attributes.unread_comments' style="font-weight:bold;" right offset-x="31" offset-y="29"
                 overlap>
-                <v-list-item-avatar size=66 height=66 tile class="rounded-lg">
+                <v-list-item-avatar size=60 height=60 tile class="rounded-lg">
                   <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
                 </v-list-item-avatar>
               </v-badge>
-              <v-list-item-avatar v-else size=66 height=66 tile class="rounded-lg">
+              <v-list-item-avatar v-else size=58 height=58 tile class="rounded-lg">
                 <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
               </v-list-item-avatar>
               <v-list-item-content class=ml-1>
