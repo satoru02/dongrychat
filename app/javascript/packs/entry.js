@@ -12,6 +12,7 @@ import Vuelidate from 'vuelidate';
 import ActionCableVue from 'actioncable-vue';
 import 'vuetify/dist/vuetify.min.css';
 import '@mdi/font/css/materialdesignicons.css';
+import InfiniteLoading from 'vue-infinite-loading';
 
 import Top from '../components/top/TopPage';
 import Details from '../components/details/DetailsPage';
@@ -40,6 +41,7 @@ Vue.use(VueRouter);
 Vue.use(Vuex);
 Vue.use(VueAxios, axios);
 Vue.use(Vuelidate);
+Vue.use(InfiniteLoading);
 
 const developmentOptions = {
   debug: true,

@@ -1,28 +1,26 @@
 <template>
   <!-- <v-row>
-        <v-btn v-if="subscribed === false" @click="subscribe()">Subscribe</v-btn>
-      </v-row> -->
-
-  <v-container :class="space_top.position">
+    <v-btn v-if="subscribed === false" @click="subscribe()">Subscribe</v-btn>
+  </v-row> -->
+  <v-container :class="space_top.position" infinite-wrapper>
     <v-row :class="space_top.row">
       <v-col md=12 lg=12 xl=12 :class="space_top.col">
         <v-list-item>
           <template v-slot:default="{}">
             <v-list-item-avatar :size="space_top.avatar.size" :height='space_top.avatar.height' tile
               :class="space_top.avatar.round">
-              <v-img :src="base_tmdb_img_url + space_image" />
+              <v-img :src="base_tmdb_img_url + space_data.image_path" />
             </v-list-item-avatar>
             <v-list-item-content>
               <v-list-item-title :class="space_top.title.position" :style="space_top.title.style"
-                v-text="space_data.attributes.name" />
+                v-text="space_data.name" />
               <v-list-item-subtitle :class="space_top.subtitle.position" :style="space_top.subtitle.style"
-                v-text="space_data.attributes.users.length + '人がお気に入り'" />
+                v-text="space_data.users.length + '人がお気に入り'" />
             </v-list-item-content>
           </template></v-list-item>
         <v-divider :class="divider.position" />
       </v-col>
     </v-row>
-
     <v-row :class="comment_part.row" v-for="(comment, index) in comments" :key="index">
       <v-col md=1 lg=1 xl=1 :class="comment_part.col">
         <v-avatar :class="comment_part.avatar.class" tile :size='comment_part.avatar.size'
@@ -33,7 +31,7 @@
       <v-col md=10 lg=10 xl=10 :class="comment_part.inner_col">
         <v-row>
           <v-col md=3 lg=3 xl=3>
-            <div :style="comment_part.style.username" v-text="comment.attributes.user.name" />
+            <!-- <div :style="comment_part.style.username" v-text="comment.attributes.user.name" /> -->
           </v-col>
           <v-col md=8 lg=8 xl=8 />
           <v-col md=1 lg=1 xl=1 :class="comment_part.countClass">
@@ -47,11 +45,13 @@
         </v-row>
       </v-col>
     </v-row>
+    <infinite-loading v-if="this.$route.name ==='subscribedTvSpace'" @infinite="infiniteHandlerForSubscription" />
+    <infinite-loading v-if="this.$route.name ==='TvSpace'" @infinite="infiniteHandlerForTvSpace" />
     <v-row>
       <v-col lg=12 />
     </v-row>
-      <v-text-field class="mt-n9" background-color="#ffffff" v-model="comment" @click:append-outer="sendComment(comment)" dense
-      type="text" no-details outlined　append-outer-icon="mdi-send" />
+    <v-text-field class="mt-n9" background-color="#ffffff" v-model="comment" @click:append-outer="sendComment(comment)"
+      dense type="text" no-details outlined　append-outer-icon="mdi-send" />
   </v-container>
 </template>
 
@@ -60,25 +60,24 @@
     secureAxios
   } from '../../backend/axios';
   import BaseComment from '../base/BaseComment';
-  // import Appearance from './Appearance';
   const SPACE_ENDPOINT_FROM_SEARCH = `/api/v1/spaces/enter`;
   const SPACE_ENDPOINT_FROM_SUBSCRIPTION = `/api/v1/spaces/enter_from_subscription`;
   const SUBSCRIBE_ENDPOINT = `/api/v1/subscriptions`;
+  import InfiniteLoading from 'vue-infinite-loading';
+  // import Appearance from './Appearance';
 
   export default {
     name: 'TvSpace',
     components: {
       // "appearance": Appearance
-      'comment': BaseComment
-    },
-    created() {
-      this.setSpace()
+      'comment': BaseComment,
+      'infinite-loading': InfiniteLoading,
     },
     data() {
       return {
         space_data: '',
         media: 'tv',
-        comments: '',
+        comments: [],
         comment: '',
         subscribed: '',
         space_image: '',
@@ -155,7 +154,9 @@
         },
         divider: {
           position: 'mt-3 ml-4 mb-n5'
-        }
+        },
+        page: 1,
+        pageSize: 10,
       }
     },
     channels: {
@@ -175,16 +176,40 @@
         disconnected() {}
       }
     },
+    created() {
+      this.setSpace()
+    },
     methods: {
       setSpace() {
         if (this.$route.name === 'subscribedTvSpace') {
-          secureAxios.get(SPACE_ENDPOINT_FROM_SUBSCRIPTION, {
-            params: {
-              space_id: this.$route.params.space_id
-            }
-          }).then(res => this.createCable(res.data.data))
+          this.infiniteHandlerForSubscription($state)
         } else if (this.$route.name === 'TvSpace') {
-          secureAxios.get(SPACE_ENDPOINT_FROM_SEARCH, {
+          this.infiniteHandlerForTvSpace($state)
+        }
+      },
+      infiniteHandlerForSubscription($state) {
+        secureAxios.get(SPACE_ENDPOINT_FROM_SUBSCRIPTION, {
+            params: {
+              space_id: this.$route.params.space_id,
+              page: this.page,
+              per_page: this.pageSize,
+            }
+          })
+          .then(res => {
+            if (res.data.data.length) {
+              if (this.page === 1) {
+                this.setSpace(res)
+              }
+              this.page += 1;
+              this.comments.push(...res.data.data)
+              $state.loaded();
+            } else {
+              $state.complete();
+            }
+          })
+      },
+      infiniteHandlerForTvSpace($state) {
+        secureAxios.get(SPACE_ENDPOINT_FROM_SEARCH, {
             params: {
               name: this.$route.params.name,
               season: this.$route.params.season_number,
@@ -192,19 +217,41 @@
               media: this.media,
               episode_title: this.$route.params.episode_title,
               tmdb_tv_id: this.$route.params.tmdb_tv_id,
-              image_path: this.$route.params.image_path
+              image_path: this.$route.params.image_path,
+              page: this.page,
+              per_page: this.pageSize,
             }
-          }).then(res => this.createCable(res.data.data))
-        }
+          })
+          .then(res => {
+            if (res.data.data.type === 'space') {
+              this.setBlankSpace(res)
+              $state.complete();
+            } else {
+              if (res.data.data.length) {
+                if (this.page === 1) {
+                  this.setSpace(res)
+                }
+                this.page += 1;
+                this.comments.push(...res.data.data)
+                $state.loaded();
+              } else {
+                $state.complete();
+              }
+            }
+          })
       },
-      createCable(space) {
-        this.space_data = space
-        this.comments = space.attributes.comments.data
-        this.subscribed = space.attributes.subscribed
-        this.space_image = space.attributes.image_path
+      setSpace(res) {
+        this.space_data = res.data.data[0].attributes.space.data.attributes
+        this.createCable()
+      },
+      setBlankSpace(res) {
+        this.space_data = res.data.data.attributes
+        this.createCable()
+      },
+      createCable() {
         this.$cable.subscribe({
           channel: 'SpaceChannel',
-          space: space.id
+          space: this.space_data.id
         })
       },
       subscribe() {
@@ -229,7 +276,7 @@
             data: {
               comment: comment,
               user_id: this.$store.state.currentUser.id,
-              space_id: this.space_data.attributes.id
+              space_id: this.space_data.id
             }
           })
         }

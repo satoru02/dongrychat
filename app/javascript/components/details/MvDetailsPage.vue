@@ -1,0 +1,124 @@
+<template>
+  <div>
+    <v-row>
+      <v-col cols=5 class="ml-4 mt-3">
+        <featured-content />
+      </v-col>
+      <v-col>
+        <v-row>
+          <v-col cols=12 class="mt-3 card-title">
+            <h3>{{ this.$route.params.mv_name }}</h3>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols=12 class="mt-n4">
+            <div style="font-size: 0.7rem;">
+              {{ mv_details.overview }}
+            </div>
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col cols=12 class="mt-n3">
+        <!-- <v-list two-line>
+          <v-list-item-group style="background-color: #ffffff" active-class="orange--text" multiple>
+            <template v-for="(n, index) in items">
+              <v-list-item :key="index">
+                <template v-slot:default="{ }">
+                  <div class="mr-5 ranktitle">{{index + 1}}</div>
+                  <v-list-item-content class=ml-1>
+                    <v-list-item-title class="card-title" v-html="n.title"></v-list-item-title>
+                    <v-list-item-subtitle v-html="n.name" class="subtitle">
+                    </v-list-item-subtitle>
+                  </v-list-item-content>
+                  <v-list-item-action>
+                    <div class="subtitle">{{n.count}}人が会話中</div>
+                  </v-list-item-action>
+                </template>
+              </v-list-item>
+            </template>
+          </v-list-item-group>
+        </v-list> -->
+      </v-col>
+    </v-row>
+  </div>
+
+</template>
+
+<script>
+  import {
+    tmdbAxios
+  } from '../../backend/axios';
+  import FeaturedContent from '../top/TopFeaturedContents';
+
+  export default {
+    name: 'TvPage',
+    components: {
+      'featured-content': FeaturedContent
+    },
+    data() {
+      return {
+        mv_details: [],
+        error: null,
+        media: 'mv'
+      }
+    },
+    created() {
+      this.getContents()
+    },
+    methods: {
+      getContents() {
+        var MV_ENDPOINT =
+          `https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=${process.env.TMDB_API_KEY}`
+        tmdbAxios.get(MV_ENDPOINT)
+          .then(res => this.fetchSuccessfull(res))
+          .catch(err => this.fetchFailed(err))
+      },
+      fetchSuccessfull(res) {
+        this.mv_details = res.data
+      },
+      fetchFailed(err) {
+        this.error = (err.response && err.response.data && err.response.data.error) || ''
+      },
+      enterSpace() {
+        this.$router.push({
+          name: 'MvSpace',
+          params: {
+            value: this.mv_details,
+            name: this.$route.params.mv_name,
+            media: this.media,
+          }
+        })
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  .card-title {
+    font-weight: bold;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+  }
+
+  .subtitle {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    color: #6c757d;
+  }
+
+  .ranktitle {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+  }
+
+  .side-count {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+  }
+</style>
