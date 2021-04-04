@@ -31,7 +31,7 @@
       <v-col md=10 lg=10 xl=10 :class="comment_part.inner_col">
         <v-row>
           <v-col md=3 lg=3 xl=3>
-            <!-- <div :style="comment_part.style.username" v-text="comment.attributes.user.name" /> -->
+            <div :style="comment_part.style.username" v-text="comment.attributes.user.name" />
           </v-col>
           <v-col md=8 lg=8 xl=8 />
           <v-col md=1 lg=1 xl=1 :class="comment_part.countClass">
@@ -76,6 +76,7 @@
     data() {
       return {
         space_data: '',
+        users: '',
         media: 'tv',
         comments: [],
         comment: '',
@@ -177,10 +178,10 @@
       }
     },
     created() {
-      this.setSpace()
+      this.setSpace($state)
     },
     methods: {
-      setSpace() {
+      setSpace($state) {
         if (this.$route.name === 'subscribedTvSpace') {
           this.infiniteHandlerForSubscription($state)
         } else if (this.$route.name === 'TvSpace') {
@@ -196,15 +197,20 @@
             }
           })
           .then(res => {
-            if (res.data.data.length) {
-              if (this.page === 1) {
-                this.setSpace(res)
-              }
-              this.page += 1;
-              this.comments.push(...res.data.data)
-              $state.loaded();
-            } else {
+            if (res.data.data.type === 'space') {
+              this.setBlankSpace(res)
               $state.complete();
+            } else {
+              if (res.data.data.length) {
+                if (this.page === 1) {
+                  this.setSpaceData(res)
+                }
+                this.page += 1;
+                this.comments.push(...res.data.data)
+                $state.loaded();
+              } else {
+                $state.complete();
+              }
             }
           })
       },
@@ -229,7 +235,7 @@
             } else {
               if (res.data.data.length) {
                 if (this.page === 1) {
-                  this.setSpace(res)
+                  this.setSpaceData(res)
                 }
                 this.page += 1;
                 this.comments.push(...res.data.data)
@@ -240,7 +246,7 @@
             }
           })
       },
-      setSpace(res) {
+      setSpaceData(res) {
         this.space_data = res.data.data[0].attributes.space.data.attributes
         this.createCable()
       },
