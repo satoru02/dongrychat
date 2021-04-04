@@ -23,7 +23,7 @@ module Api
         @condition = current_user.subscribed?(@space.id)
 
         if @space.comments.exists?
-          @comments = @space.comments.includes(:user).pager(page: params[:page], per: params[:per_page])
+          @comments = @space.comments.includes(:user).order("created_at ASC").pager(page: params[:page], per: params[:per_page])
           serializer = CommentSerializer.new(@comments, {params: {condition: @condition, media: @media}})
         else
           serializer = MultiSpaceSerializer.new(@space, {params: {condition: @condition, media: @media}})
@@ -44,7 +44,7 @@ module Api
         end
 
         if @space.comments.exists?
-          @comments = @space.comments.includes(:user).pager(page: params[:page], per: params[:per_page])
+          @comments = @space.comments.includes(:user).order("created_at ASC").pager(page: params[:page], per: params[:per_page])
           serializer = CommentSerializer.new(@comments, {params: {condition: @condition, media: @media}})
         else
           serializer = MultiSpaceSerializer.new(@space, {params: {condition: @condition, media: @media}})
@@ -53,7 +53,7 @@ module Api
       end
 
       def trend
-        @spaces = Space.getTrend(params.permit(:record_count, :media))
+        @spaces = Space.includes(:users).getTrend(params.permit(:record_count, :media))
         serializer = MultiSpaceSerializer.new(@spaces, {params: {current_user: current_user}})
         render json: serializer.serializable_hash.to_json
       end
