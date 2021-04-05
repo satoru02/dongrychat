@@ -1,5 +1,5 @@
 <template>
-  <v-container :class="trend_header.position">
+  <v-container :class="trend_header.position" :key="componentKey">
     <v-row>
       <v-col md=1 lg=1 xl=1>
         <div :style="switch1 === false ? active : inactive" v-text="tv.header" />
@@ -50,11 +50,16 @@
         </template>
       </v-list-item-group>
     </v-list>
+    <infinite-loading spinner="circles" @infinite="infiniteHandler">
+      <span slot="no-more" />
+    </infinite-loading>
   </v-container>
 </template>
 
 <script>
-  import { secureAxios } from '../../backend/axios';
+  import {
+    secureAxios
+  } from '../../backend/axios';
   export default {
     name: 'TrendTop',
     data() {
@@ -62,9 +67,12 @@
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
         trend_endpoint: `/api/v1/spaces/trend`,
         items: [],
-        error: '',
         switch1: false,
-        // for css------------------------------------------
+        page: 1,
+        pageSize: 10,
+        error: '',
+        componentKey: 0,
+        // css objects ------------------------------------------
         switchPosition: 'mt-1',
         trend_header: {
           position: 'mt-n4 ml-2'
@@ -168,31 +176,42 @@
         // ------------------------------------------
       }
     },
-    created() {
-      this.getTrend()
-    },
     watch: {
       switch1: function () {
+        this.page = 1
         this.items = []
         if (this.switch1 === false) {
           this.query_media = this.media.tv
-          this.getTrend()
+          this.forceRerender()
         } else if (this.switch1 === true) {
           this.query_media = this.media.movie
-          this.getTrend()
+          this.forceRerender()
         }
       }
     },
     methods: {
-      getTrend() {
-        secureAxios.get(this.trend_endpoint, {
-            params: {
-              record_count: '',
-              media: this.query_media
-            }
-          })
-          .then(res => this.getSuccessful(res))
-          .catch(err => this.getFailed(err))
+      forceRerender() {
+        this.componentKey += 1
+      },
+      infiniteHandler($state) {
+        setTimeout(() => {
+          secureAxios.get(this.trend_endpoint, {
+              params: {
+                page: this.page,
+                per_page: this.pageSize,
+                media: this.query_media
+              }
+            })
+            .then(res => {
+              if (res.data.data.length) {
+                this.page += 1,
+                  this.items.push(...res.data.data)
+                $state.loaded()
+              } else {
+                $state.complete();
+              }
+            })
+        }, 150);
       },
       getSuccessful(res) {
         this.items = res.data.data

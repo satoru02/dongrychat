@@ -40,14 +40,11 @@
 </template>
 
 <script>
-  import { secureAxios } from '../../backend/axios';
-  import InfiniteLoading from 'vue-infinite-loading';
-
+  import {
+    secureAxios
+  } from '../../backend/axios';
   export default {
     name: 'TopPage',
-    components: {
-      'infinite-loading': InfiniteLoading,
-    },
     data() {
       return {
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
@@ -61,8 +58,10 @@
           movie: 'subscribedMvSpace'
         },
         items: [],
+        page: 1,
+        pageSize: 10,
         error: '',
-        // for css------------------------------------------
+        // css objects ------------------------------------------
         header_part: {
           position: 'ml-3 mt-n4 mb-1',
           caption: 'HOME',
@@ -112,9 +111,7 @@
         },
         list_item_action: {
           position: 'ml-n16'
-        },
-        page: 1,
-        pageSize: 10,
+        }
         // ------------------------------------------
       }
     },
@@ -142,23 +139,24 @@
           channel: 'TopsubChannel',
         })
       },
-      infiniteHandler($state){
+      infiniteHandler($state) {
         setTimeout(() => {
-        secureAxios.get(this.spaces_endpoint, {
-        params: {
-          page: this.page,
-          per_page: this.pageSize
-        }})
-          .then(res => {
-            if (res.data.data.length){
-              this.page += 1,
-              this.items.push(...res.data.data)
-              $state.loaded()
-            } else {
-              $state.complete();
-            }
-          })
-        }, 300);
+          secureAxios.get(this.spaces_endpoint, {
+              params: {
+                page: this.page,
+                per_page: this.pageSize
+              }
+            })
+            .then(res => {
+              if (res.data.data.length) {
+                this.page += 1,
+                  this.items.push(...res.data.data)
+                $state.loaded()
+              } else {
+                $state.complete();
+              }
+            })
+        }, 150);
       },
       getFailed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
