@@ -38,6 +38,7 @@ class User < ApplicationRecord
   has_many :comments
   has_many :subscriptions
   has_many :spaces, through: :subscriptions
+  has_one_attached :avatar
   has_secure_password
   enum role: %i[user manager admin].freeze
   before_save :downcase_email
@@ -107,6 +108,19 @@ class User < ApplicationRecord
 
   def subscribed? space_id
     self.subscriptions.exists? space_id: space_id
+  end
+
+  def avatar_url(object)
+    object.service_url
+  end
+
+  def attach_avatar(file)
+    s3 = Aws::S3::Resource.new(region: ENV["AWS_REGION"])
+    obj = s3.bucket(ENV["AWS_BUCKET"]).object("avatar/#{file}")
+    params = { filename: obj.key, content_type: obj.content_type, byte_size: obj.size, checksum: obj.etag.gsub('"',"") }
+    blob = ActiveStorage::Blob.create_before_direct_upload!(params)
+    blob.update_attributes(key: "avatar/#{file}")
+    self.avatar.attach(blob)
   end
 
   private

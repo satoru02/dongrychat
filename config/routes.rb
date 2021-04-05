@@ -76,6 +76,7 @@ Rails.application.routes.draw do
 
   namespace 'api' do
     namespace 'v1' do
+      get '/avatar/presigned_url', to: 'avatar#presigned_url'
       resources :signup, only: [:create]
       resources :login, only: [:create, :destroy]
       resources :refresh, only: [:create]

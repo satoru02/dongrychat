@@ -20,8 +20,13 @@ class SpaceChannel < ApplicationCable::Channel
         content: data["content"],
         space_id: data["space_id"],
         user: {
-          id: data["user_id"],
-          name: data["user_name"],
+          data: {
+            attributes: {
+              id: data["user_id"],
+              name: data["user_name"],
+              avatar_url: if current_user.avatar.attached?; then current_user.avatar_url(current_user.avatar.blob) end
+            }
+          }
         }
       }
     })
