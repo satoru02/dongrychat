@@ -6,25 +6,25 @@
     </v-row>
     <v-row>
       <v-col lg=12>
-        <v-card elevation=0 height=160 outlined color="yellow" class="rounded-lg">
+        <v-card elevation=0 height=160 outlined color="black" class="rounded-lg">
         </v-card>
       </v-col>
     </v-row>
     <v-row>
       <v-col lg=12 class=mt-2>
-        <v-card elevation=0 height=60 color="yellow" class="rounded-lg">
+        <v-card elevation=0 height=60 color="black" class="rounded-lg">
         </v-card>
       </v-col>
     </v-row>
     <v-row>
       <v-col lg=12 class=mt-n2>
-        <v-card elevation=0 height=60 color="yellow" class="rounded-lg">
+        <v-card elevation=0 height=60 color="black" class="rounded-lg">
         </v-card>
       </v-col>
     </v-row>
     <v-row>
       <v-col lg=12 class=mt-n2>
-        <v-card elevation=0 height=460 color="yellow" class="rounded-lg">
+        <v-card elevation=0 height=460 color="black" class="rounded-lg">
         </v-card>
       </v-col>
     </v-row>

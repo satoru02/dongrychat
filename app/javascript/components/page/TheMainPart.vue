@@ -1,23 +1,17 @@
 <template>
   <div>
-    <v-app style="background-color:#ffffff">
+    <v-app style="background-color:#ffffff;" class="overflow-hidden">
       <v-main class="mt-5">
         <v-row>
-          <v-col lg=1 class="ml-n8" />
-          <v-col md=3 lg=3 xl=3 class="ml-n16">
-            <side-bar class="ml-n4" />
+          <v-col lg=1 class="ml-n16" />
+          <v-col md=3 lg=3 xl=3 class="ml-n14">
+            <side-bar class="ml-4" />
           </v-col>
-          <!-- <v-col md=8 lg=9 xl=8 v-if="this.$route.name === 'Top' || this.$route.name === 'Trend' || this.$route.name === 'User' "> -->
           <v-col md=9 lg=7 xl=9 class="ml-n16">
             <!-- <keep-alive> -->
               <router-view />
             <!-- </keep-alive> -->
           </v-col>
-          <!-- <v-col md=8 lg=9 xl=8 v-else>
-            <keep-alive>
-              <router-view />
-            </keep-alive>
-          </v-col> -->
           <v-col md=2 lg=2 xl=2 class="ml-n6">
             <right-part />
           </v-col>
@@ -31,13 +25,11 @@
 <script>
   import BaseBottomBar from '../base/BaseBottomBar'
   import SideBar from '../../components/page/TheSideBar'
-  // import Footer from './TheFooter'
   import RightPart from '../page/TheRightPart';
 
   export default {
     name: 'TheMainPart',
     components: {
-      // 'bottom-footer': Footer,
       'base-bottom-bar': BaseBottomBar,
       'side-bar': SideBar,
       'right-part': RightPart
