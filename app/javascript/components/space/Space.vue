@@ -25,13 +25,13 @@
       <v-col md=1 lg=1 xl=1 :class="comment_part.col">
         <v-avatar :class="comment_part.avatar.class" tile :size='comment_part.avatar.size'
           :height='comment_part.avatar.height'>
-          <img src="https://gravatar.com/avatar/fc04e69ffc05780882f85a264135142c?s=400&d=retro&r=x">
+          <img :src="comment.attributes.user.data.attributes.avatar_url">
         </v-avatar>
       </v-col>
       <v-col md=10 lg=10 xl=10 :class="comment_part.inner_col">
         <v-row>
           <v-col md=3 lg=3 xl=3>
-            <div :style="comment_part.style.username" v-text="comment.attributes.user.name" />
+            <div :style="comment_part.style.username" v-text="comment.attributes.user.data.attributes.name" />
           </v-col>
           <v-col md=7 lg=7 xl=7 />
           <v-col md=2 lg=2 xl=2 :class="comment_part.countClass">
@@ -287,7 +287,8 @@
               content: content,
               user_id: this.$store.state.currentUser.id,
               user_name: this.$store.state.currentUser.name,
-              space_id: this.space_data.id
+              space_id: this.space_data.id,
+              avatar_url: ''
             }
           })
         }

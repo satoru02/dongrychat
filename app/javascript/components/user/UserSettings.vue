@@ -21,6 +21,13 @@
       </v-col>
     </v-row>
     <v-row class="mt-n8">
+      <v-col lg=3></v-col>
+      <v-col lg=8 md=12 xl=8>
+        <v-file-input filled dense outlined v-model="picture" @change="getPresignedURI()" />
+      </v-col>
+    </v-row>
+
+    <v-row class="mt-n8">
       <v-col lg=1 md=1 xl=1 />
       <v-col lg=2 md=2 xl=2>
         <h3 class="setting-title mt-3">メールアドレス</h3>
@@ -111,9 +118,11 @@
 
 <script>
   import {
-    secureAxios
+    secureAxios,
+    simpleAxios
   } from '../../backend/axios';
   const UPDATE_ENDPOINT = '/api/v1/users'
+  const GET_PRESIGNED_URL = '/api/v1/avatar'
 
   export default {
     name: 'Settings',
@@ -124,6 +133,7 @@
         about: this.$store.state.currentUser.about,
         location: this.$store.state.currentUser.location,
         sns_links: this.$store.state.currentUser.sns_links,
+        picture: null,
         error: '',
         errors: [],
         snack_bar: false,
@@ -185,6 +195,35 @@
         //   } else if (this.sns_links[3] === "") {};
         // }
       },
+      getPresignedURI() {
+        secureAxios.get(GET_PRESIGNED_URL + `/` + `presigned_url`, {
+          params: {
+            filename: this.picture.name,
+            filetype: this.picture.type
+          }
+        }).then(response => {
+          var formdata = new FormData()
+          formdata.append("Content-Type", response.data.fields['Content-Type'])
+          formdata.append("key", response.data.fields['key'])
+          formdata.append("acl", response.data.fields['acl'])
+          formdata.append("policy", response.data.fields['policy'])
+          formdata.append("x-amz-algorithm", response.data.fields['x-amz-algorithm'])
+          formdata.append("x-amz-credential", response.data.fields['x-amz-credential'])
+          formdata.append("x-amz-date", response.data.fields['x-amz-date'])
+          formdata.append("x-amz-meta-original-filename", response.data.fields['x-amz-meta-original-filename'])
+          formdata.append("x-amz-signature", response.data.fields['x-amz-signature'])
+          formdata.append("file", this.picture, "file.txt")
+
+          simpleAxios.post(response.data.url, formdata, {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+            })
+            .then((response) => {
+              console.log(response)
+            })
+        })
+      },
       updateProfile() {
         this.checkFormValidation()
         if (!this.errors.length) {
@@ -193,12 +232,20 @@
               about: this.about,
               email: this.email,
               location: this.location,
-              sns_links: this.sns_links
+              sns_links: this.sns_links,
+              file_name: this.setPicture()
             })
             .then(res => this.updateSuccessful(res))
             .catch(err => this.updateFailed(err))
         } else {
           this.error_bar = true
+        }
+      },
+      setPicture() {
+        if (this.picture) {
+          return this.picture.name
+        } else {
+          return null
         }
       },
       updateSuccessful(res) {

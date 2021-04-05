@@ -16,6 +16,11 @@ module Api
 
       def update
         if @user.update!(user_params)
+
+          if params[:file_name]
+            @user.attach_avatar(params[:file_name])
+          end
+
           serializer = UserSerializer.new(current_user)
           render json: serializer.serializable_hash.to_json
         else

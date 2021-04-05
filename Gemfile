@@ -23,6 +23,7 @@ gem 'jsonapi-serializer'
 gem 'faraday'
 gem 'jwt'
 gem "skylight"
+gem "aws-sdk-s3", require: false
 # gem 'lograge'
 
 group :development, :test do
