@@ -5,7 +5,7 @@ module Api
 
       def index
         # fix -> scope
-        @spaces = current_user.spaces.includes(:comments, :users).sort_by{|space| [-space.unread_comments(current_user).length]}
+        @spaces = current_user.spaces.includes(:comments, :users).sort_by{|space| [-space.unread_comments(current_user).length]}.paginate(:page => params[:page], :per_page => params[:per_page])
         serializer = CaptionSpaceSerializer.new(@spaces, {params: {current_user: current_user}})
         render json: serializer.serializable_hash.to_json
       end

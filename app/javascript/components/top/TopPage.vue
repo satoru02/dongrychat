@@ -33,13 +33,21 @@
         </template>
       </v-list-item-group>
     </v-list>
+    <infinite-loading spinner="circles" @infinite="infiniteHandler">
+      <span slot="no-more" />
+    </infinite-loading>
   </v-container>
 </template>
 
 <script>
   import { secureAxios } from '../../backend/axios';
+  import InfiniteLoading from 'vue-infinite-loading';
+
   export default {
     name: 'TopPage',
+    components: {
+      'infinite-loading': InfiniteLoading,
+    },
     data() {
       return {
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
@@ -104,7 +112,9 @@
         },
         list_item_action: {
           position: 'ml-n16'
-        }
+        },
+        page: 1,
+        pageSize: 10,
         // ------------------------------------------
       }
     },
@@ -124,19 +134,31 @@
       }
     },
     created() {
-      this.getSubscription()
+      this.createCable()
     },
     methods: {
-      getSubscription() {
-        secureAxios.get(this.spaces_endpoint)
-          .then(res => this.createCable(res.data.data))
-          .catch(err => this.getFailed(err))
-      },
-      createCable(spaces) {
-        this.items = spaces
+      createCable() {
         this.$cable.subscribe({
           channel: 'TopsubChannel',
         })
+      },
+      infiniteHandler($state){
+        setTimeout(() => {
+        secureAxios.get(this.spaces_endpoint, {
+        params: {
+          page: this.page,
+          per_page: this.pageSize
+        }})
+          .then(res => {
+            if (res.data.data.length){
+              this.page += 1,
+              this.items.push(...res.data.data)
+              $state.loaded()
+            } else {
+              $state.complete();
+            }
+          })
+        }, 300);
       },
       getFailed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''

@@ -24,6 +24,7 @@ gem 'faraday'
 gem 'jwt'
 gem "skylight"
 gem "aws-sdk-s3", require: false
+gem 'will_paginate', '~> 3.1.0'
 # gem 'lograge'
 
 group :development, :test do
