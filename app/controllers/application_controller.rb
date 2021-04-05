@@ -8,7 +8,6 @@ class ApplicationController < ActionController::API
   rescue_from ActionController::ParameterMissing, with: :response_bad_request
   rescue_from ActiveRecord::RecordNotFound, with: :response_not_found
   rescue_from ActiveRecord::RecordInvalid, with: :unprocessable_entity
-  require 'will_paginate/array'
 
   private
 

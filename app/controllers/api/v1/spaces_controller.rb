@@ -2,6 +2,7 @@ module Api
   module V1
     class SpacesController < ApplicationController
       before_action :authorize_access_request!
+      require 'will_paginate/array'
 
       def index
         # fix -> scope
