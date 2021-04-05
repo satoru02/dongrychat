@@ -1,48 +1,27 @@
 <template>
-  <v-row
-    :class="heading.position">
+  <v-row :class="heading.position">
     <v-col md=12 lg=12 xl=12>
-      <v-card
-        :elevation="heading.elevation"
-        :class="heading.round"
-        :height="heading.height"
-        outlined>
-        <v-row
-         :class="heading.innderHeading.position">
+      <v-card :elevation="heading.elevation" :class="heading.round" :height="heading.height" outlined>
+        <v-row :class="heading.innderHeading.position">
           <v-col md=3 lg=3 xl=3>
-            <div
-             :class="heading.innderHeading.titlePosition"
-             :style="heading.innderHeading.titleStyle"
-             v-text="title" />
+            <div :class="heading.innderHeading.titlePosition" :style="heading.innderHeading.titleStyle"
+              v-text="title" />
           </v-col>
           <v-col md=7 lg=7 xl=7 />
           <v-col md=2 lg=2 xl=2>
-            <div
-              @click="movePath()"
-              :class="heading.innderSubHeading.titlePosition"
-              :style="heading.innderSubHeading.titleStyle"
-              v-text="heading.innderSubHeading.title"
-            />
+            <div @click="movePath()" :class="heading.innderSubHeading.titlePosition"
+              :style="heading.innderSubHeading.titleStyle" v-text="heading.innderSubHeading.title" />
           </v-col>
         </v-row>
         <v-row>
-          <v-col md=2 lg=2 xl=2
-            v-for="(item, index) in items"
-            :class="heading.img.position"
-            :key="index">
+          <v-col md=2 lg=2 xl=2 v-for="(item, index) in items" :class="heading.img.position" :key="index">
             <v-row>
               <v-col md=12 lg=12 xl=12>
-                <v-avatar
-                 :class="heading.img.avatar.position"
-                 :size="heading.img.avatar.size"
-                 :width="heading.img.avatar.width"
-                 :height="heading.img.avatar.height" tile>
+                <v-avatar :class="heading.img.avatar.position" :size="heading.img.avatar.size"
+                  :width="heading.img.avatar.width" :height="heading.img.avatar.height" tile>
                   <v-row @click="showContents(item)">
                     <v-col md=12 lg=12 xl=12>
-                      <base-content-sheet
-                       :height="300"
-                       :img="base_tmdb_img_url + item.poster_path"
-                      />
+                      <base-content-sheet :height="300" :img="base_tmdb_img_url + item.poster_path" />
                     </v-col>
                   </v-row>
                 </v-avatar>
@@ -50,11 +29,8 @@
             </v-row>
             <v-row>
               <v-col md=12 lg=12 xl=12>
-                <div
-                  :style="heading.img.titleStyle"
-                  :class="heading.img.titlePosition"
-                  v-text="media === tv.type ? item.name : item.title"
-                />
+                <div :style="heading.img.titleStyle" :class="heading.img.titlePosition"
+                  v-text="media === tv.type ? item.name : item.title" />
               </v-col>
             </v-row>
           </v-col>
@@ -172,7 +148,12 @@
         }
       },
       movePath() {
-        this.$router.push({name: this.endpoint, params: {query: this.media}})
+        this.$router.push({
+          name: this.endpoint,
+          params: {
+            query: this.media
+          }
+        })
       }
     }
   }

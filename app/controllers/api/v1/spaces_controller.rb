@@ -4,21 +4,35 @@ module Api
       before_action :authorize_access_request!
 
       def index
-        # replace user to current_user
-        @user = User.find_by(id: params[:user_id])
-        @spaces = @user.spaces.includes(:comments).sort_by{|space| [-space.unread_comments(current_user).length]}
-        serializer = MultiSpaceSerializer.new(@spaces, {params: {current_user: current_user}})
+        # fix -> scope
+        @spaces = current_user.spaces.includes(:comments, :users).sort_by{|space| [-space.unread_comments(current_user).length]}
+        serializer = CaptionSpaceSerializer.new(@spaces, {params: {current_user: current_user}})
+        render json: serializer.serializable_hash.to_json
+      end
+
+      def trend
+        @spaces = Space.includes(:users).getTrend(params.permit(:record_count, :media))
+        serializer = CaptionSpaceSerializer.new(@spaces, {params: {current_user: current_user}})
         render json: serializer.serializable_hash.to_json
       end
 
       # from space component. unstable.
       def enter
         if params[:media] === 'mv'
-          @space = Space.create_or_search_mv(params.permit(:name, :media, :image_path, :tmdb_mv_id), current_user)
-          serializer = MvSpaceSerializer.new(@space)
+          @space = Space.create_or_search_mv(params.permit(:name, :media, :image_path, :tmdb_mv_id, :page, :per_page), current_user)
+          @media = 'mv'
         elsif params[:media] === 'tv'
-          @space = Space.create_or_search_tv(params.permit(:name, :season, :episode, :episode_title, :media, :tmdb_tv_id, :image_path), current_user)
-          serializer = TvSpaceSerializer.new(@space)
+          @space = Space.create_or_search_tv(params.permit(:name, :season, :episode, :episode_title, :media, :tmdb_tv_id, :image_path, :page, :per_page), current_user)
+          @media = 'tv'
+        end
+
+        @condition = current_user.subscribed?(@space.id)
+
+        if @space.comments.exists?
+          @comments = @space.comments.includes(:user).order("created_at ASC").pager(page: params[:page], per: params[:per_page])
+          serializer = CommentSerializer.new(@comments, {params: {condition: @condition, media: @media}})
+        else
+          serializer = SpaceSerializer.new(@space, {params: {condition: @condition, media: @media}})
         end
         render json: serializer.serializable_hash.to_json
       end
@@ -26,18 +40,15 @@ module Api
       # from top subscription. stable.
       def enter_from_subscription
         @space = Space.find_by(id: params[:space_id])
-        @space.comments.update_all(confirmation: true)
-        if @space.tv?
-          serializer = TvSpaceSerializer.new(@space)
-        elsif @space.mv?
-          serializer = MvSpaceSerializer.new(@space)
-        end
-        render json: serializer.serializable_hash.to_json
-      end
+        @condition = current_user.subscribed?(@space.id)
 
-      def trend
-        @spaces = Space.getTrend(params.permit(:record_count, :media))
-        serializer = MultiSpaceSerializer.new(@spaces, {params: {current_user: current_user}})
+        if @space.comments.exists?
+          @space.comments.where(confirmation: false).update_all(confirmation: true)
+          @comments = @space.comments.includes(:user).order("created_at ASC").pager(page: params[:page], per: params[:per_page])
+          serializer = CommentSerializer.new(@comments, {params: {condition: @condition, media: params[:media]}})
+        else
+          serializer = SpaceSerializer.new(@space, {params: {condition: @condition, media: params[:media]}})
+        end
         render json: serializer.serializable_hash.to_json
       end
     end

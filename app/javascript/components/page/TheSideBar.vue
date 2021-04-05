@@ -1,23 +1,13 @@
 <template>
   <v-container>
-    <v-row class="mt-10">
+    <v-row class="mt-n7 ml-n4 mr-3">
       <v-col lg=3 />
-      <v-col lg=8>
+      <v-col lg=9>
         <v-text-field v-model="query" @keydown.enter="search(query)" color="#ffd166"
-         prepend-inner-icon="mdi-magnify" dense class="rounded-lg" outlined placeholder="search" />
+         prepend-inner-icon="mdi-magnify" dense class="rounded-lg" outlined placeholder="見たい映画を検索" />
       </v-col>
     </v-row>
-    <v-row class="mt-n8">
-      <v-col lg=3></v-col>
-      <v-col lg=8>
-        <v-card elevation=0 height=60 outlined class="rounded-lg">
-        <v-avatar class="rounded-lg ml-4 mt-3" color="primary" tile size=36 height=36>
-          <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John">
-          </v-avatar>
-        </v-card>
-      </v-col>
-    </v-row>
-    <v-list nav class="ml-16 mt-3" v-if="$vuetify.breakpoint.width > 600">
+    <v-list nav class="ml-16 mt-n5" v-if="$vuetify.breakpoint.width > 600">
       <v-list-item-group v-model="selectedItem">
         <v-list-item class="mt-n2" v-for="(item, i) in menus" :key="i" @click="changeRoute(item.path_name)">
           <v-list-item-icon>
@@ -37,10 +27,23 @@
           <v-tab class="list-text" active-class="black--text">フォロー 100</v-tab>
         </v-tabs> -->
     </v-list>
+    <v-row class="mt-8 ml-n6">
+      <v-col lg=3></v-col>
+      <v-col lg=8>
+        <!-- <v-card elevation=0 height=60 outlined class="rounded-lg"> -->
+        <!-- <v-avatar class="rounded-lg mt-3" color="primary" tile size=36 height=36>
+          <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John">
+          </v-avatar> -->
+        <!-- </v-card> -->
+      </v-col>
+    </v-row>
     <v-row>
       <v-col lg=12 class=mt-16 />
     </v-row>
-    <v-row class=mt-16>
+    <v-row>
+      <v-col lg=12 class=mt-16 />
+    </v-row>
+    <v-row class=mt-15>
       <v-col lg=3 />
       <v-col lg=8>
         <v-btn block elevation=3 class="rounded-lg" color="black" :height="35">

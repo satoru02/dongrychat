@@ -2,99 +2,47 @@
   <v-container fluid>
     <v-row>
       <v-col md=1 lg=1 xl=1>
-        <div
-          :style="switch1 === false ? active : inactive"
-          v-text="tv.header" />
-        <v-avatar
-           :color="colors.blue"
-           :size="5" v-if="switch1 === false"
-           :class="tv.avatar" />
+        <div :style="switch1 === false ? active : inactive" v-text="tv.header" />
+        <v-avatar :color="colors.blue" :size="5" v-if="switch1 === false" :class="tv.avatar" />
       </v-col>
       <v-col md=1 lg=1 xl=1>
-        <div
-          :style="switch1 === true ? active : inactive"
-          v-text="movie.header" />
-        <v-avatar
-          :color="colors.blue" :size="5"
-          v-if="switch1 === true"
-          :class="movie.avatar" />
+        <div :style="switch1 === true ? active : inactive" v-text="movie.header" />
+        <v-avatar :color="colors.blue" :size="5" v-if="switch1 === true" :class="movie.avatar" />
       </v-col>
       <v-col md=9 lg=9 xl=9 />
       <v-col md=1 lg=1 xl=1>
-        <v-switch
-          v-model="switch1"
-          :color="colors.orange"
-          inset
-          :class="switchPosition" />
+        <v-switch v-model="switch1" :color="colors.orange" inset :class="switchPosition" />
       </v-col>
     </v-row>
 
-    <trend-part
-      v-if="this.switch1 === false"
-      :items="weekly_trend_tvs"
-      :media="media.tv"
-      :title="weekly_title"
+    <trend-part v-if="this.switch1 === false" :items="weekly_trend_tvs" :media="media.tv" :title="weekly_title"
       :endpoint="endpoint.trending" />
-    <trend-part
-      v-else
-      :items="weekly_trend_mvs"
-      :media="media.mv"
-      :title="weekly_title"
+    <trend-part v-else :items="weekly_trend_mvs" :media="media.mv" :title="weekly_title"
       :endpoint="endpoint.trending" />
-    <v-row
-      :class="multiple_part.position">
-      <v-col md=6 lg=6 xl=6
-        v-for="(n,index) in 2"
-        :key="index">
-        <v-card
-          :elevation="multiple_part.elevation"
-          :height="multiple_part.height"
-          :class="multiple_part.round"
+    <v-row :class="multiple_part.position">
+      <v-col md=6 lg=6 xl=6 v-for="(n,index) in 2" :key="index">
+        <v-card :elevation="multiple_part.elevation" :height="multiple_part.height" :class="multiple_part.round"
           outlined>
         </v-card>
       </v-col>
     </v-row>
 
-    <upcoming-part
-       v-if="this.switch1 === true"
-       :items="upcoming_mvs"
-       :media="media.mv"
-       :title="upcoming_title"
-       :endpoint="endpoint.upcoming"
-    />
-    <top-rated
-      v-if="this.switch1 === false"
-      :items="top_rated_tvs"
-      :media="media.tv"
-      :title="rated_title"
-      :endpoint="endpoint.topRated"
-    />
-    <top-rated
-       v-else
-       :items="top_rated_mvs"
-       :media="media.mv"
-       :title="rated_title"
-       :endpoint="endpoint.topRated"
-    />
-    <popular-part
-       v-if="this.switch1 === false"
-       :items="todays_popular_tvs"
-       :media="media.tv"
-       :title="popular_title"
-       :endpoint="endpoint.popular"
-      />
-    <popular-part
-       v-else
-       :items="todays_popular_mvs"
-       :media="media.mv"
-       :title="popular_title"
-       :endpoint="endpoint.popular"
-    />
+    <upcoming-part v-if="this.switch1 === true" :items="upcoming_mvs" :media="media.mv" :title="upcoming_title"
+      :endpoint="endpoint.upcoming" />
+    <top-rated v-if="this.switch1 === false" :items="top_rated_tvs" :media="media.tv" :title="rated_title"
+      :endpoint="endpoint.topRated" />
+    <top-rated v-else :items="top_rated_mvs" :media="media.mv" :title="rated_title" :endpoint="endpoint.topRated" />
+    <popular-part v-if="this.switch1 === false" :items="todays_popular_tvs" :media="media.tv" :title="popular_title"
+      :endpoint="endpoint.popular" />
+    <popular-part v-else :items="todays_popular_mvs" :media="media.mv" :title="popular_title"
+      :endpoint="endpoint.popular" />
   </v-container>
 </template>
 
 <script>
-  import { tmdbAxios } from '../../backend/axios';
+  import {
+    tmdbAxios
+  } from '../../backend/axios';
   import SearchPopularPart from '../search/SearchPart';
   import SearchTrendPart from '../search/SearchPart';
   import SearchTopRatedPard from '../search/SearchPart';
@@ -219,18 +167,18 @@
       getTvContents() {
         Promise.all([this.getTrendTvs(), this.getPopularTvs(), this.getTopratedTvs()])
           .then((res) => {
-            this.weekly_trend_tvs = res[0].data.results.slice(0,5)
-            this.todays_popular_tvs = res[1].data.results.slice(0,5)
-            this.top_rated_tvs = res[2].data.results.slice(0,5)
+            this.weekly_trend_tvs = res[0].data.results.slice(0, 5)
+            this.todays_popular_tvs = res[1].data.results.slice(0, 5)
+            this.top_rated_tvs = res[2].data.results.slice(0, 5)
           })
       },
       getMvContents() {
         Promise.all([this.getTrendMvs(), this.getPopularMvs(), this.getTopratedMvs(), this.getUpcomingMvs()])
           .then((res) => {
-            this.weekly_trend_mvs = res[0].data.results.slice(0,5)
-            this.todays_popular_mvs = res[1].data.results.slice(0,5)
-            this.top_rated_mvs = res[2].data.results.slice(0,5)
-            this.upcoming_mvs = res[3].data.results.slice(0,5)
+            this.weekly_trend_mvs = res[0].data.results.slice(0, 5)
+            this.todays_popular_mvs = res[1].data.results.slice(0, 5)
+            this.top_rated_mvs = res[2].data.results.slice(0, 5)
+            this.upcoming_mvs = res[3].data.results.slice(0, 5)
           })
       },
     }

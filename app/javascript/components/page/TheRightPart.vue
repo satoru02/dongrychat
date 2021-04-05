@@ -1,30 +1,30 @@
 <template>
-  <v-container>
+  <v-container class="mt-n2">
     <v-row>
       <v-col lg=12 class="mt-7">
       </v-col>
     </v-row>
     <v-row>
       <v-col lg=12>
-        <v-card elevation=0 height=160 outlined color="yellow" class="rounded-s">
+        <v-card elevation=0 height=160 outlined color="yellow" class="rounded-lg">
         </v-card>
       </v-col>
     </v-row>
     <v-row>
-      <v-col lg=12 class=mt-16>
-        <v-card elevation=0 height=60 outlined class="rounded-s">
-        </v-card>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col lg=12 class=mt-n2>
-        <v-card elevation=0 height=60 outlined class="rounded-s">
+      <v-col lg=12 class=mt-2>
+        <v-card elevation=0 height=60 color="yellow" class="rounded-lg">
         </v-card>
       </v-col>
     </v-row>
     <v-row>
       <v-col lg=12 class=mt-n2>
-        <v-card elevation=0 height=460 outlined class="rounded-s">
+        <v-card elevation=0 height=60 color="yellow" class="rounded-lg">
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col lg=12 class=mt-n2>
+        <v-card elevation=0 height=460 color="yellow" class="rounded-lg">
         </v-card>
       </v-col>
     </v-row>

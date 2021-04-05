@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container :class="trend_header.position">
     <v-row>
       <v-col md=1 lg=1 xl=1>
         <div :style="switch1 === false ? active : inactive" v-text="tv.header" />
@@ -13,7 +13,7 @@
       </v-col>
     </v-row>
 
-    <v-list two-line>
+    <v-list two-line :class="trend_part.position">
       <v-list-item-group :active-class="listItemGroup.active" multiple :class="listItemGroup.body">
         <template v-for="(item, index) in items">
           <v-list-item :key="index" @click="enterSpace(item.attributes)">
@@ -68,6 +68,12 @@
         error: null,
         switch1: false,
         switchPosition: 'mt-1',
+        trend_header: {
+          position: 'mt-n4 ml-2'
+        },
+        trend_part: {
+          position: 'mt-n6'
+        },
         colors: {
           blue: 'blue',
           orange: 'orange'
@@ -157,8 +163,8 @@
           mdi: 'mdi-menu-up'
         },
         avatar: {
-          size: 66,
-          height: 66,
+          size: 60,
+          height: 60,
           round: "rounded-lg"
         }
       }

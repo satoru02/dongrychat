@@ -12,11 +12,11 @@ import Vuelidate from 'vuelidate';
 import ActionCableVue from 'actioncable-vue';
 import 'vuetify/dist/vuetify.min.css';
 import '@mdi/font/css/materialdesignicons.css';
+import InfiniteLoading from 'vue-infinite-loading';
 
 import Top from '../components/top/TopPage';
 import Details from '../components/details/DetailsPage';
-import TvSpace from '../components/space/TvSpace';
-import MvSpace from '../components/space/MvSpace';
+import Space from '../components/space/Space';
 import Trend from '../components/trend/TrendTop';
 import Authorization from '../components/authorization/AuthorizationTop';
 import AccountActivation from '../components/authorization/AccountActivation';
@@ -40,6 +40,7 @@ Vue.use(VueRouter);
 Vue.use(Vuex);
 Vue.use(VueAxios, axios);
 Vue.use(Vuelidate);
+Vue.use(InfiniteLoading);
 
 const developmentOptions = {
   debug: true,
@@ -172,25 +173,25 @@ const router = new VueRouter({
       path: '/tv_space/:name/:season_number/:episode_number',
       name: 'TvSpace',
       props: true,
-      component: TvSpace
+      component: Space
     },
     {
-      path: '/mv_space/:name',
+      path: '/mv_space/m/:name',
       name: 'MvSpace',
       props: true,
-      component: MvSpace
+      component: Space
     },
     {
       path: '/tv_space/:space_id',
       name: 'subscribedTvSpace',
       props: true,
-      component: TvSpace
+      component: Space
     },
     {
       path: '/mv_space/:space_id',
       name: 'subscribedMvSpace',
       props: true,
-      component: MvSpace
+      component: Space
     },
     {
       path: '/trend',

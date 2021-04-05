@@ -47,7 +47,7 @@
     </v-row>
     <v-row v-else>
       <v-col md=12 lg=12 xl=12>
-                <v-list>
+        <v-list>
           <v-list-item-group :active-class="list_part.active">
             <template>
               <v-list-item @click="enterMovieSpace(details)">

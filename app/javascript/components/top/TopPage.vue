@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1 class="ml-3 mt-n1 mb-4 head-title">ホーム</h1>
+    <h1 class="ml-3 mt-n4 mb-1 head-title">HOME</h1>
     <v-list two-line>
       <v-list-item-group active-class="orange--text" multiple class="list-body">
         <template v-for="(item, index) in items">
@@ -9,11 +9,11 @@
               <v-badge v-if="item.attributes.unread_comments > 0" color="red"
                 :content='item.attributes.unread_comments' style="font-weight:bold;" right offset-x="31" offset-y="29"
                 overlap>
-                <v-list-item-avatar size=66 height=66 tile class="rounded-lg">
+                <v-list-item-avatar size=60 height=60 tile class="rounded-lg">
                   <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
                 </v-list-item-avatar>
               </v-badge>
-              <v-list-item-avatar v-else size=66 height=66 tile class="rounded-lg">
+              <v-list-item-avatar v-else size=58 height=58 tile class="rounded-lg">
                 <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
               </v-list-item-avatar>
               <v-list-item-content class=ml-1>
@@ -74,11 +74,7 @@
     },
     methods: {
       getSubscription() {
-        secureAxios.get(SPACES_ENDPOINT, {
-            params: {
-              user_id: this.$store.state.currentUser.id
-            }
-          })
+        secureAxios.get(SPACES_ENDPOINT)
           .then(res => this.createCable(res.data.data))
           .catch(err => this.getFailed(err))
       },
