@@ -36,7 +36,6 @@ class SpaceChannel < ApplicationCable::Channel
   end
 
   private
-
     def redis
      Redis.new
     end

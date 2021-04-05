@@ -3,7 +3,7 @@
     <v-app style="background-color:#ffffff">
       <v-main class="mt-5">
         <v-row>
-          <v-col lg=1 class="ml-n9" />
+          <v-col lg=1 class="ml-n8" />
           <v-col md=3 lg=3 xl=3 class="ml-n16">
             <side-bar class="ml-n4" />
           </v-col>

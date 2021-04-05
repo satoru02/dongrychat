@@ -2,7 +2,6 @@
   <!-- <v-row>
     <v-btn v-if="subscribed === false" @click="subscribe()">Subscribe</v-btn>
   </v-row> -->
-  
   <v-container :class="space_top.position">
     <v-row :class="space_top.row">
       <v-col md=12 lg=12 xl=12 :class="space_top.col">
@@ -46,15 +45,8 @@
         </v-row>
       </v-col>
     </v-row>
-    <infinite-loading spinner="circles" v-if="this.$route.name ==='subscribedTvSpace'"
-      @infinite="infiniteHandlerForSubscription">
+    <infinite-loading spinner="circles" @infinite="infiniteHandler">
       <span slot="no-more" />
-      <!-- <div slot="no-results" v-text="'あなたが最初のメンバーです！'" /> -->
-    </infinite-loading>
-    <infinite-loading spinner="circles" v-if="this.$route.name ==='TvSpace'"
-     @infinite="infiniteHandlerForTvSpace">
-      <span slot="no-more" />
-      <!-- <div slot="no-results" v-text="'あなたが最初のメンバーです！'" /> -->
     </infinite-loading>
     <v-row>
       <v-col lg=12 class="mt-16" />
@@ -77,7 +69,7 @@
   // import Appearance from './Appearance';
 
   export default {
-    name: 'TvSpace',
+    name: 'Space',
     components: {
       // "appearance": Appearance
       'comment': BaseComment,
@@ -86,8 +78,13 @@
     data() {
       return {
         space_data: '',
+        endpoint: '',
         users: '',
-        media: 'tv',
+        media: {
+          tv: 'tv',
+          mv: 'mv',
+        },
+        params: {},
         comments: [],
         comment: '',
         content: '',
@@ -183,9 +180,8 @@
           // } else {
           //   this.icon = false
           // }
-          console.log(data)
           if (data) {
-            if (data.attributes.space_id === this.space_data.id){
+            if (data.attributes.space_id === this.space_data.id) {
               this.comments.push(data)
             }
           }
@@ -193,66 +189,66 @@
         disconnected() {}
       }
     },
+    created() {
+      if (this.$route.name === 'subscribedTvSpace') {
+        this.endpoint = SPACE_ENDPOINT_FROM_SUBSCRIPTION
+        this.params = {
+          space_id: this.$route.params.space_id,
+          media: this.media.tv
+        }
+      } else if (this.$route.name === 'subscribedMvSpace') {
+        this.endpoint = SPACE_ENDPOINT_FROM_SUBSCRIPTION
+        this.params = {
+          space_id: this.$route.params.space_id,
+          media: this.media.mv
+        }
+      } else if (this.$route.name === 'TvSpace') {
+        this.endpoint = SPACE_ENDPOINT_FROM_SEARCH
+        this.params = {
+          name: this.$route.params.name,
+          season: this.$route.params.season_number,
+          episode: this.$route.params.episode_number,
+          media: this.media.tv,
+          episode_title: this.$route.params.episode_title,
+          tmdb_tv_id: this.$route.params.tmdb_tv_id,
+          image_path: this.$route.params.image_path,
+        }
+      } else if (this.$route.name === 'MvSpace') {
+        this.endpoint = SPACE_ENDPOINT_FROM_SEARCH
+        this.params = {
+          name: this.$route.params.name,
+          media: this.media.mv,
+          image_path: this.$route.params.image_path,
+          tmdb_mv_id: this.$route.params.tmdb_mv_id,
+        }
+      }
+    },
     methods: {
-      infiniteHandlerForSubscription($state) {
-        setTimeout(() =>{
-        secureAxios.get(SPACE_ENDPOINT_FROM_SUBSCRIPTION, {
-            params: {
-              space_id: this.$route.params.space_id,
-              page: this.page,
-              per_page: this.pageSize,
-            }
-          })
-          .then(res => {
-            if (res.data.data.type === 'space') {
-              this.setBlankSpace(res)
-              $state.complete();
-            } else {
-              if (res.data.data.length) {
-                if (this.page === 1) {
-                  this.setSpaceData(res)
-                }
-                this.page += 1;
-                this.comments.push(...res.data.data)
-                $state.loaded();
-              } else {
+      infiniteHandler($state) {
+        setTimeout(() => {
+          this.params.page = this.page
+          this.params.per_page = this.pageSize
+          secureAxios.get(this.endpoint, {
+              params: this.params
+            })
+            .then(res => {
+              if (res.data.data.type === 'space') {
+                this.setBlankSpace(res)
                 $state.complete();
-              }
-            }
-          })}, 200);
-      },
-      infiniteHandlerForTvSpace($state) {
-        setTimeout(() =>{
-        secureAxios.get(SPACE_ENDPOINT_FROM_SEARCH, {
-            params: {
-              name: this.$route.params.name,
-              season: this.$route.params.season_number,
-              episode: this.$route.params.episode_number,
-              media: this.media,
-              episode_title: this.$route.params.episode_title,
-              tmdb_tv_id: this.$route.params.tmdb_tv_id,
-              image_path: this.$route.params.image_path,
-              page: this.page,
-              per_page: this.pageSize,
-            }
-          })
-          .then(res => {
-            if (res.data.data.type === 'space') {
-              this.setBlankSpace(res)
-              $state.complete();
-            } else {
-              if (res.data.data.length) {
-                if (this.page === 1) {
-                  this.setSpaceData(res)
-                }
-                this.page += 1;
-                this.comments.push(...res.data.data)
-                $state.loaded();
               } else {
-                $state.complete();
+                if (res.data.data.length) {
+                  if (this.page === 1) {
+                    this.setSpaceData(res)
+                  }
+                  this.page += 1;
+                  this.comments.push(...res.data.data)
+                  $state.loaded();
+                } else {
+                  $state.complete();
+                }
               }
-            }
-          })}, 200);
+            })
+        }, 200);
       },
       setSpaceData(res) {
         this.space_data = res.data.data[0].attributes.space.data.attributes

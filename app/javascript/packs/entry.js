@@ -16,8 +16,7 @@ import InfiniteLoading from 'vue-infinite-loading';
 
 import Top from '../components/top/TopPage';
 import Details from '../components/details/DetailsPage';
-import TvSpace from '../components/space/TvSpace';
-import MvSpace from '../components/space/MvSpace';
+import Space from '../components/space/Space';
 import Trend from '../components/trend/TrendTop';
 import Authorization from '../components/authorization/AuthorizationTop';
 import AccountActivation from '../components/authorization/AccountActivation';
@@ -174,25 +173,25 @@ const router = new VueRouter({
       path: '/tv_space/:name/:season_number/:episode_number',
       name: 'TvSpace',
       props: true,
-      component: TvSpace
+      component: Space
     },
     {
-      path: '/mv_space/:name',
+      path: '/mv_space/m/:name',
       name: 'MvSpace',
       props: true,
-      component: MvSpace
+      component: Space
     },
     {
       path: '/tv_space/:space_id',
       name: 'subscribedTvSpace',
       props: true,
-      component: TvSpace
+      component: Space
     },
     {
       path: '/mv_space/:space_id',
       name: 'subscribedMvSpace',
       props: true,
-      component: MvSpace
+      component: Space
     },
     {
       path: '/trend',
