@@ -6,16 +6,7 @@
         <template v-for="(item, index) in items">
           <v-list-item :key="index" @click="enterSpace(item)">
             <template v-slot:default="{}">
-              <v-badge v-if="item.attributes.unread_comments > 0" :color="list_part.badge.color"
-                :content='item.attributes.unread_comments' :style="list_part.badge.style" right
-                :offset-x="list_part.badge.x" :offset-y="list_part.badge.y" overlap>
-                <v-list-item-avatar :size="list_avatar.size" :height="list_avatar.height" tile
-                  :class="list_avatar.round">
-                  <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
-                </v-list-item-avatar>
-              </v-badge>
-              <v-list-item-avatar v-else :size="list_avatar.size" :height="list_avatar.height" tile
-                :class="list_avatar.round">
+              <v-list-item-avatar :size="list_avatar.size" :height="list_avatar.height" tile :class="list_avatar.round">
                 <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
               </v-list-item-avatar>
               <v-list-item-content :class="list_item_content.position">
@@ -24,9 +15,10 @@
                   v-text="'Season' + item.attributes.season + '-' + item.attributes.episode + '' + item.attributes.episode_title" />
               </v-list-item-content>
               <v-list-item-action :class="list_item_action.position">
-                <!-- <div class="comment">受信したメッセージ・・・</div> -->
-                <!-- <v-avatar class="ml-n16" color="green" :size="24" v-if="item.attributes.unread_comments > 0">
-                   <span class="white--text font-weight-bold subtitle">{{item.attributes.unread_comments}}</span></v-avatar> -->
+                <v-avatar :class="notify_btn.position" :color="notify_btn.red" :size="notify_btn.size"
+                  v-if="item.attributes.unread_comments > 0">
+                  <span :style="notify_text.style" v-text="item.attributes.unread_comments" />
+                </v-avatar>
               </v-list-item-action>
             </template>
           </v-list-item>
@@ -111,6 +103,19 @@
         },
         list_item_action: {
           position: 'ml-n16'
+        },
+        notify_btn: {
+          position: 'ml-n16 rounded-lg',
+          color: 'red',
+          size: 23
+        },
+        notify_text: {
+          style: {
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '12px',
+            fontWeight: 'bold',
+            color: '#ffffff'
+          }
         }
         // ------------------------------------------
       }
