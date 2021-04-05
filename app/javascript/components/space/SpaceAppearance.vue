@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: "Appearance",
+  name: "SpaceAppearance",
   props: {
     comments: ''
   },

@@ -10,9 +10,9 @@ import VueGtag from "vue-gtag";
 import VueRouter from 'vue-router';
 import Vuelidate from 'vuelidate';
 import ActionCableVue from 'actioncable-vue';
+import InfiniteLoading from 'vue-infinite-loading';
 import 'vuetify/dist/vuetify.min.css';
 import '@mdi/font/css/materialdesignicons.css';
-import InfiniteLoading from 'vue-infinite-loading';
 
 import Top from '../components/top/TopPage';
 import Details from '../components/details/DetailsPage';
@@ -27,8 +27,6 @@ import Signup from '../components/authorization/Signup';
 import ForgotPassword from '../components/authorization/ForgotPassword';
 import User from '../components/user/UserTop';
 import Search from '../components/search/Search';
-import Contents from '../components/contents/ContentsList';
-import Actors from '../components/contents/ActorsList';
 import UserSettings from '../components/user/UserSettings';
 import Results from '../components/search/SearchResults';
 import UserFollowings from '../components/user/UserFollowings';
@@ -325,26 +323,6 @@ const router = new VueRouter({
           })
         }
       ]
-    },
-    {
-      path: '/popular',
-      name: 'Popular',
-      component: Contents
-    },
-    {
-      path: '/streaming/:platform',
-      name: 'Streaming',
-      component: Contents
-    },
-    {
-      path: '/top_rated',
-      name: 'TopRated',
-      component: Contents
-    },
-    {
-      path: '/actors',
-      name: 'Actors',
-      component: Actors
     }
   ]
 })
