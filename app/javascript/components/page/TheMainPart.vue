@@ -29,17 +29,15 @@
 </template>
 
 <script>
-  import Header from './TheHeader'
   import BaseBottomBar from '../base/BaseBottomBar'
   import SideBar from '../../components/page/TheSideBar'
-  import Footer from './TheFooter'
+  // import Footer from './TheFooter'
   import RightPart from '../page/TheRightPart';
 
   export default {
     name: 'TheMainPart',
     components: {
-      'top-header': Header,
-      'bottom-footer': Footer,
+      // 'bottom-footer': Footer,
       'base-bottom-bar': BaseBottomBar,
       'side-bar': SideBar,
       'right-part': RightPart

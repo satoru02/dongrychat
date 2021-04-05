@@ -1,4 +1,5 @@
 <template>
+  <!-- fix -->
   <!-- <v-row>
     <v-btn v-if="subscribed === false" @click="subscribe()">Subscribe</v-btn>
   </v-row> -->
@@ -14,6 +15,7 @@
             <v-list-item-content>
               <v-list-item-title :class="space_top.title.position" :style="space_top.title.style"
                 v-text="space_data.name" />
+              <!-- fix -->
               <!-- <v-list-item-subtitle :class="space_top.subtitle.position" :style="space_top.subtitle.style"
                 v-text="space_data.users.length + '人がお気に入り'" /> -->
             </v-list-item-content>
@@ -48,6 +50,8 @@
     <infinite-loading spinner="circles" @infinite="infiniteHandler">
       <span slot="no-more" />
     </infinite-loading>
+
+    <!-- fix -->
     <v-row>
       <v-col lg=12 class="mt-16" />
     </v-row>
@@ -57,41 +61,48 @@
 </template>
 
 <script>
-  import {
-    secureAxios
-  } from '../../backend/axios';
-  import BaseComment from '../base/BaseComment';
+  import { secureAxios } from '../../backend/axios';
   import InfiniteLoading from 'vue-infinite-loading';
   import moment from 'moment';
-  const SPACE_ENDPOINT_FROM_SEARCH = `/api/v1/spaces/enter`;
-  const SPACE_ENDPOINT_FROM_SUBSCRIPTION = `/api/v1/spaces/enter_from_subscription`;
-  const SUBSCRIBE_ENDPOINT = `/api/v1/subscriptions`;
-  // import Appearance from './Appearance';
+  // import Appearance from './SpaceAppearance';
 
   export default {
     name: 'Space',
     components: {
       // "appearance": Appearance
-      'comment': BaseComment,
       'infinite-loading': InfiniteLoading,
     },
     data() {
       return {
-        space_data: '',
-        endpoint: '',
-        users: '',
+        base_tmdb_img_url: `https://image.tmdb.org/t/p/w200`,
+        api: {
+          from_search: `/api/v1/spaces/enter`,
+          from_subscription: `/api/v1/spaces/enter_from_subscription`,
+          for_subscription: `/api/v1/subscriptions`
+        },
+        space: {
+          tv: {
+            subscribed: 'subscribedTvSpace',
+            unsubscribed: 'TvSpace'
+          },
+          movie: {
+            subscribed: 'subscribedMvSpace',
+            unsubscribed: 'MvSpace'
+          }
+        },
         media: {
           tv: 'tv',
           mv: 'mv',
         },
+        items: [],
         params: {},
         comments: [],
-        comment: '',
+        space_data: '',
+        endpoint: '',
+        users: '',
         content: '',
         subscribed: '',
-        space_image: '',
-        base_tmdb_img_url: `https://image.tmdb.org/t/p/w200`,
-        items: [],
+        // for css------------------------------------------------
         space_top: {
           position: 'mt-n6',
           row: 'ml-1',
@@ -166,6 +177,7 @@
         },
         page: 1,
         pageSize: 10,
+        // ------------------------------------------------
       }
     },
     channels: {
@@ -190,20 +202,20 @@
       }
     },
     created() {
-      if (this.$route.name === 'subscribedTvSpace') {
-        this.endpoint = SPACE_ENDPOINT_FROM_SUBSCRIPTION
+      if (this.$route.name === this.space.tv.subscribed) {
+        this.endpoint = this.api.from_subscription
         this.params = {
           space_id: this.$route.params.space_id,
           media: this.media.tv
         }
-      } else if (this.$route.name === 'subscribedMvSpace') {
-        this.endpoint = SPACE_ENDPOINT_FROM_SUBSCRIPTION
+      } else if (this.$route.name === this.space.movie.subscribed) {
+        this.endpoint = this.api.from_subscription
         this.params = {
           space_id: this.$route.params.space_id,
           media: this.media.mv
         }
-      } else if (this.$route.name === 'TvSpace') {
-        this.endpoint = SPACE_ENDPOINT_FROM_SEARCH
+      } else if (this.$route.name === this.space.tv.unsubscribed) {
+        this.endpoint = this.api.from_search
         this.params = {
           name: this.$route.params.name,
           season: this.$route.params.season_number,
@@ -213,8 +225,8 @@
           tmdb_tv_id: this.$route.params.tmdb_tv_id,
           image_path: this.$route.params.image_path,
         }
-      } else if (this.$route.name === 'MvSpace') {
-        this.endpoint = SPACE_ENDPOINT_FROM_SEARCH
+      } else if (this.$route.name === this.space.movie.unsubscribed) {
+        this.endpoint = this.api.from_search
         this.params = {
           name: this.$route.params.name,
           media: this.media.mv,
@@ -265,7 +277,7 @@
         })
       },
       subscribe() {
-        secureAxios.post(SUBSCRIBE_ENDPOINT, {
+        secureAxios.post(this.api.for_subscription, {
             user_id: this.$store.state.currentUser.id,
             space_id: this.space_data.id
           })

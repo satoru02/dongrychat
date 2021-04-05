@@ -1,5 +1,5 @@
 <template>
-  <v-container :class="trend_header.position">
+  <v-container :class="trend_header.position" :key="componentKey">
     <v-row>
       <v-col md=1 lg=1 xl=1>
         <div :style="switch1 === false ? active : inactive" v-text="tv.header" />
@@ -12,7 +12,6 @@
         <v-switch v-model="switch1" :color="colors.orange" inset :class="switchPosition" />
       </v-col>
     </v-row>
-
     <v-list two-line :class="trend_part.position">
       <v-list-item-group :active-class="listItemGroup.active" multiple :class="listItemGroup.body">
         <template v-for="(item, index) in items">
@@ -51,6 +50,9 @@
         </template>
       </v-list-item-group>
     </v-list>
+    <infinite-loading spinner="circles" @infinite="infiniteHandler">
+      <span slot="no-more" />
+    </infinite-loading>
   </v-container>
 </template>
 
@@ -62,11 +64,15 @@
     name: 'TrendTop',
     data() {
       return {
-        TREND_ENDPOINT: `/api/v1/spaces/trend`,
-        items: [],
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
-        error: null,
+        trend_endpoint: `/api/v1/spaces/trend`,
+        items: [],
         switch1: false,
+        page: 1,
+        pageSize: 10,
+        error: '',
+        componentKey: 0,
+        // css objects ------------------------------------------
         switchPosition: 'mt-1',
         trend_header: {
           position: 'mt-n4 ml-2'
@@ -167,33 +173,45 @@
           height: 60,
           round: "rounded-lg"
         }
+        // ------------------------------------------
       }
-    },
-    created() {
-      this.getTrend()
     },
     watch: {
       switch1: function () {
+        this.page = 1
         this.items = []
         if (this.switch1 === false) {
           this.query_media = this.media.tv
-          this.getTrend()
+          this.forceRerender()
         } else if (this.switch1 === true) {
           this.query_media = this.media.movie
-          this.getTrend()
+          this.forceRerender()
         }
       }
     },
     methods: {
-      getTrend() {
-        secureAxios.get(this.TREND_ENDPOINT, {
-            params: {
-              record_count: "",
-              media: this.query_media
-            }
-          })
-          .then(res => this.getSuccessful(res))
-          .catch(err => this.getFailed(err))
+      forceRerender() {
+        this.componentKey += 1
+      },
+      infiniteHandler($state) {
+        setTimeout(() => {
+          secureAxios.get(this.trend_endpoint, {
+              params: {
+                page: this.page,
+                per_page: this.pageSize,
+                media: this.query_media
+              }
+            })
+            .then(res => {
+              if (res.data.data.length) {
+                this.page += 1,
+                  this.items.push(...res.data.data)
+                $state.loaded()
+              } else {
+                $state.complete();
+              }
+            })
+        }, 150);
       },
       getSuccessful(res) {
         this.items = res.data.data
