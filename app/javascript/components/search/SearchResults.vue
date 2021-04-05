@@ -51,14 +51,14 @@
 </template>
 
 <script>
-  import {
-    tmdbAxios
-  } from '../../backend/axios';
+  import { tmdbAxios } from '../../backend/axios';
 
   export default {
     name: 'SearchResults',
     data() {
       return {
+        base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
+        resultsText: `「${this.$route.params.query}」の検索結果`,
         tmdb_api: {
           search: `https://api.themoviedb.org/3/search/${this.$route.name}?api_key=${process.env.TMDB_API_KEY}&language=en-US&query=${this.$route.params.query}&page=1&include_adult=false`
         },
@@ -66,8 +66,6 @@
           type: '',
           contents: []
         },
-        base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
-        resultsText: `「${this.$route.params.query}」の検索結果`,
         keyword: {
           text: 'キーワード',
           arg: 'multi'
@@ -90,6 +88,7 @@
           text: '企業',
           arg: 'company'
         },
+        // for css --------------------------------------------
         tabColor: '#ffffff',
         tabActive: 'black--text',
         listActive: 'orange--text',
@@ -120,6 +119,7 @@
           height: '135',
           rounded: 'rounded-lg'
         }
+        // --------------------------------------------
       }
     },
     watch: {

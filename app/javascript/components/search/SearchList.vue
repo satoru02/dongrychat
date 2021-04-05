@@ -40,9 +40,7 @@
 </template>
 
 <script>
-  import {
-    tmdbAxios
-  } from '../../backend/axios';
+  import { tmdbAxios } from '../../backend/axios';
   import BaseContentSheet from '../base/BaseContentSheet';
   export default {
     name: 'SearchList',
@@ -51,7 +49,7 @@
     },
     data() {
       return {
-        endpoint: '',
+        base_tmdb_img_url: `https://image.tmdb.org/t/p/w200`,
         tmdb_api: {
           type: {
             popular: 'popular',
@@ -74,8 +72,9 @@
         items: [],
         switch1: false,
         media: 'tv',
+        endpoint: '',
+         // for css------------------------------------------
         switchPosition: 'mt-1',
-        base_tmdb_img_url: `https://image.tmdb.org/t/p/w200`,
         colors: {
           blue: 'blue',
           orange: 'orange'
@@ -125,7 +124,8 @@
               color: '#000000'
             }
           }
-        },
+        }
+        // ------------------------------------------
       }
     },
     watch: {

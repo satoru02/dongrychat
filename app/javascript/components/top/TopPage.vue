@@ -37,18 +37,13 @@
 </template>
 
 <script>
-  import {
-    secureAxios
-  } from '../../backend/axios';
-  const SPACES_ENDPOINT = `/api/v1/spaces`;
-
+  import { secureAxios } from '../../backend/axios';
   export default {
     name: 'TopPage',
     data() {
       return {
-        items: [],
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
-        error: '',
+        spaces_endpoint: `/api/v1/spaces`,
         media: {
           tv: 'tv',
           movie: 'mv'
@@ -57,6 +52,8 @@
           tv: 'subscribedTvSpace',
           movie: 'subscribedMvSpace'
         },
+        items: [],
+        error: '',
         // for css------------------------------------------
         header_part: {
           position: 'ml-3 mt-n4 mb-1',
@@ -131,7 +128,7 @@
     },
     methods: {
       getSubscription() {
-        secureAxios.get(SPACES_ENDPOINT)
+        secureAxios.get(this.spaces_endpoint)
           .then(res => this.createCable(res.data.data))
           .catch(err => this.getFailed(err))
       },

@@ -73,9 +73,7 @@
 </template>
 
 <script>
-  import {
-    tmdbAxios
-  } from '../../backend/axios';
+  import { tmdbAxios } from '../../backend/axios';
   import BaseContentSheet from '../base/BaseContentSheet';
   export default {
     name: 'DetailsPage',
@@ -84,12 +82,15 @@
     },
     data() {
       return {
+        base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
         tmdb_tv: `https://api.themoviedb.org/3/tv/${this.$route.params.id}/season/${this.$route.params.number}?api_key=${process.env.TMDB_API_KEY}&language=ja`,
         tmdb_mv: `https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=${process.env.TMDB_API_KEY}&language=ja`,
         details: [],
+        error: '',
         media: 'tv',
         tv_space: 'TvSpace',
-        base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
+        movie_space: 'MvSpace',
+        // for css ----------------------------------------
         heading_part: {
           position: 'mt-7',
           sheet_height: 330,
@@ -143,8 +144,8 @@
           fontSize: '12px',
           fontWeight: 'bold',
           color: '#0a0a0a',
-        },
-        error: null,
+        }
+        // ----------------------------------------
       }
     },
     created() {
@@ -189,7 +190,7 @@
       },
       enterMovieSpace(details) {
         this.$router.push({
-          name: 'MvSpace',
+          name: this.movie_space,
           params: {
             image_path: details.poster_path,
             tmdb_mv_id: details.id,

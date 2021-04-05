@@ -12,7 +12,6 @@
         <v-switch v-model="switch1" :color="colors.orange" inset :class="switchPosition" />
       </v-col>
     </v-row>
-
     <v-list two-line :class="trend_part.position">
       <v-list-item-group :active-class="listItemGroup.active" multiple :class="listItemGroup.body">
         <template v-for="(item, index) in items">
@@ -55,18 +54,17 @@
 </template>
 
 <script>
-  import {
-    secureAxios
-  } from '../../backend/axios';
+  import { secureAxios } from '../../backend/axios';
   export default {
     name: 'TrendTop',
     data() {
       return {
-        TREND_ENDPOINT: `/api/v1/spaces/trend`,
-        items: [],
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
-        error: null,
+        trend_endpoint: `/api/v1/spaces/trend`,
+        items: [],
+        error: '',
         switch1: false,
+        // for css------------------------------------------
         switchPosition: 'mt-1',
         trend_header: {
           position: 'mt-n4 ml-2'
@@ -167,6 +165,7 @@
           height: 60,
           round: "rounded-lg"
         }
+        // ------------------------------------------
       }
     },
     created() {
@@ -186,9 +185,9 @@
     },
     methods: {
       getTrend() {
-        secureAxios.get(this.TREND_ENDPOINT, {
+        secureAxios.get(this.trend_endpoint, {
             params: {
-              record_count: "",
+              record_count: '',
               media: this.query_media
             }
           })
