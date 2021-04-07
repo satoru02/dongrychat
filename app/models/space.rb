@@ -20,14 +20,17 @@
 class Space < ApplicationRecord
   has_many :comments
   has_many :subscriptions
+  has_many :confirmations
   has_many :users, through: :subscriptions
-  enum media: %i[mv tv].freeze
-  before_validation :create_resource_digest
+  scope :getTrend, -> (query){where(media: query[:media]).includes(:comments).where(comments: {created_at: Date.today.all_day}).sort_by{|space| -space.comments.length}}
+
   validates :name, presence: true
   validates :resource_token, presence: true
   validates :resource_digest, presence: true
   validates :media, presence: true
-  scope :getTrend, -> (query){where(media: query[:media]).includes(:comments).where(comments: {created_at: Date.today.all_day}).sort_by{|a| -a.comments.length}}
+  before_validation :create_resource_digest
+
+  enum media: %i[mv tv].freeze
   with_options if: :mv? do |mv|
     mv.validates :tmdb_mv_id, presence: true, numericality: { only_integer: true }
   end
@@ -48,49 +51,41 @@ class Space < ApplicationRecord
       BCrypt::Password.create(string, cost: cost)
     end
 
+    # fix => same name movie case.
     def create_or_search_mv(space_params, user)
-      set_log_level_for_production
-      # fix => same name movie case.
       if @space = self.find_by(name: space_params[:name])
-        @space.comments.update_all(confirmation: true)
         return @space
-        logger.debug {"The space already exists."}
       else
         @space = self.create(
           name: space_params[:name], tmdb_mv_id: space_params[:tmdb_mv_id],
           image_path: space_params[:image_path]
         )
         return @space
-        logger.debug {"New space is created by #{user.id}:#{user.email}."}
       end
     end
 
+    # fix => same name tv case.
     def create_or_search_tv(space_params, user)
-      set_log_level_for_production
-      # fix => same name tv case.
       if @space = self.find_by(name: space_params[:name], season: space_params[:season], episode: space_params[:episode])
-        @space.comments.update_all(confirmation: true)
         return @space
-        logger.debug {"The space already exists."}
       else
         @space = self.create!(
           name: space_params[:name], season: space_params[:season], episode: space_params[:episode], media: space_params[:media],
           tmdb_tv_id: space_params[:tmdb_tv_id], episode_title: space_params[:episode_title], image_path: space_params[:image_path]
         )
         return @space
-        logger.debug {"New space is created by #{user.id}:#{user.email}."}
       end
     end
-
-    private
-      # for production
-      def set_log_level_for_production
-        Rails.logger.level = 0
-      end
   end
 
-  def unread_comments(user)
-    self.comments.select{|comment| (comment.confirmation === false) && (comment.user_id != user.id )}
+  def comments_unconfirmed_by(user)
+    self.comments.length - self.confirmations.select{|conf| conf.user_id === user.id}.length
+  end
+
+  def comments_confirmed_by(user)
+    exme_comments = self.comments.select {|com| com.user_id != user.id }.pluck(:id)
+    bulk_comments = exme_comments.map { |comment| { user_id: user.id, comment_id: comment, space_id: self.id } }
+    Confirmation.insert_all(bulk_comments)
   end
 
   def authenticated? token

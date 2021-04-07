@@ -15,9 +15,9 @@
                   v-text="'Season' + item.attributes.season + '-' + item.attributes.episode + '' + item.attributes.episode_title" />
               </v-list-item-content>
               <v-list-item-action :class="list_item_action.position">
-                <v-avatar :class="notify_btn.position" :color="notify_btn.red" :size="notify_btn.size"
-                  v-if="item.attributes.unread_comments > 0">
-                  <span :style="notify_text.style" v-text="item.attributes.unread_comments" />
+                <v-avatar :class="notify_btn.position" :color="notify_btn.color" :size="notify_btn.size"
+                  v-if="item.attributes.unconfirmed_comments > 0">
+                  <span :style="notify_text.style" v-text="item.attributes.unconfirmed_comments" />
                 </v-avatar>
               </v-list-item-action>
             </template>
@@ -128,7 +128,7 @@
           this.items.filter((item) => {
             if ((item.attributes.id === data["space_id"]) && (this.$store.state.currentUser.id != data[
                 "user_id"])) {
-              item.attributes.unread_comments += 1
+              item.attributes.unconfirmed_comments += 1
             }
           });
         },
@@ -161,7 +161,7 @@
                 $state.complete();
               }
             })
-        }, 150);
+        }, 0);
       },
       getFailed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''

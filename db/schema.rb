@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_05_030506) do
+ActiveRecord::Schema.define(version: 2021_04_06_085005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,9 +42,19 @@ ActiveRecord::Schema.define(version: 2021_04_05_030506) do
     t.text "content", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "confirmation", default: false
     t.index ["space_id"], name: "index_comments_on_space_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "confirmations", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "comment_id"
+    t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.integer "space_id", null: false
+    t.index ["comment_id"], name: "index_confirmations_on_comment_id"
+    t.index ["user_id", "comment_id"], name: "index_confirmations_on_user_id_and_comment_id", unique: true
+    t.index ["user_id"], name: "index_confirmations_on_user_id"
   end
 
   create_table "relationships", force: :cascade do |t|

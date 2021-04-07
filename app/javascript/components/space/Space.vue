@@ -1,9 +1,9 @@
 <template>
   <!-- fix -->
-  <!-- <v-row>
-    <v-btn v-if="subscribed === false" @click="subscribe()">Subscribe</v-btn>
-  </v-row> -->
   <v-container :class="space_top.position">
+      <v-row>
+    <v-btn v-if="space_data.subscribed === false" @click="subscribe()">Subscribe</v-btn>
+  </v-row>
     <v-row :class="space_top.row">
       <v-col md=12 lg=12 xl=12 :class="space_top.col">
         <v-list-item>

@@ -35,9 +35,9 @@ class User < ApplicationRecord
            dependent: :destroy
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
-  has_many :comments
+  has_many :confirmations
   has_many :subscriptions
-  has_many :spaces, through: :subscriptions
+  has_many :spaces, -> {includes :comments, :users, :confirmations}, through: :subscriptions
   has_one_attached :avatar
   has_secure_password
   enum role: %i[user manager admin].freeze
