@@ -8,9 +8,12 @@ class ApplicationController < ActionController::API
   rescue_from ActionController::ParameterMissing, with: :response_bad_request
   rescue_from ActiveRecord::RecordNotFound, with: :response_not_found
   rescue_from ActiveRecord::RecordInvalid, with: :unprocessable_entity
-  require 'will_paginate/array'
 
   private
+
+    def render_json(serializer)
+      render json: serializer.serializable_hash.to_json
+    end
 
     def current_user
       @current_user ||= User.find(payload['user_id'])

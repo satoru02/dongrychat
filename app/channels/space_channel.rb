@@ -30,8 +30,10 @@ class SpaceChannel < ApplicationCable::Channel
         }
       }
     })
+
     comment = Comment.new(user_id: data["user_id"], space_id: data["space_id"], content: data["content"])
     comment.save!
+
     # for toppage subscription
     ActionCable.server.broadcast("topsub_channel", {
       comment: data["content"],
