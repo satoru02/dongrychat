@@ -15,29 +15,12 @@
 #  index_comments_on_user_id   (user_id)
 #
 class Comment < ApplicationRecord
-  has_many :confirmations
+  has_many :confirmations, dependent: :destroy
   belongs_to :user
   belongs_to :space
   validates :content, presence: true
-
   after_save :confirmed_by_maker
-
-  # class << self
-  #   def confirmed_by user, comments, space
-  #     bulk_comments = comments.map { |comment_id| { user_id: user.id, comment_id: comment_id, space_id: space.id } }
-  #     Confirmation.insert_all(bulk_comments)
-  #   end
-
-  #   def unreads
-  #     self.includes(:confirmations)
-  #   end
-  # end
-
-  # def check_unconfirm user,comment
-  #   unless self.confirmations.where(user_id: user.id, comment_id: comment.id)
-  #     self
-  #   end
-  # end
+  scope :order_by_latest, -> {includes(:user).order("created_at ASC")}
 
   def confirmed_by_maker
     Confirmation.create!(user_id: self.user_id, comment_id: self.id, space_id: self.space_id)

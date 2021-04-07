@@ -11,6 +11,10 @@ class ApplicationController < ActionController::API
 
   private
 
+    def render_json(serializer)
+      render json: serializer.serializable_hash.to_json
+    end
+
     def current_user
       @current_user ||= User.find(payload['user_id'])
     end

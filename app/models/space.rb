@@ -18,18 +18,24 @@
 #
 
 class Space < ApplicationRecord
-  has_many :comments
-  has_many :subscriptions
-  has_many :confirmations
+  has_many :comments, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
+  has_many :confirmations, dependent: :destroy
   has_many :users, through: :subscriptions
-  scope :getTrend, -> (query){where(media: query[:media]).includes(:comments).where(comments: {created_at: Date.today.all_day}).sort_by{|space| -space.comments.length}}
-
+  scope :get_trend, -> (query){
+     includes(:users, :confirmations, :comments)
+     .where(media: query[:media])
+     .where(comments: {created_at: Date.today.all_day})
+     .sort_by{|space| -space.comments.length}
+  }
+  scope :order_by_comments, -> (user){
+    sort_by{|space| -space.comments_unconfirmed_by(user)}
+  }
   validates :name, presence: true
   validates :resource_token, presence: true
   validates :resource_digest, presence: true
   validates :media, presence: true
   before_validation :create_resource_digest
-
   enum media: %i[mv tv].freeze
   with_options if: :mv? do |mv|
     mv.validates :tmdb_mv_id, presence: true, numericality: { only_integer: true }
@@ -83,7 +89,7 @@ class Space < ApplicationRecord
   end
 
   def comments_confirmed_by(user)
-    exme_comments = self.comments.select {|com| com.user_id != user.id }.pluck(:id)
+    exme_comments = self.comments.select {|comment| comment.user_id != user.id }.pluck(:id)
     bulk_comments = exme_comments.map { |comment| { user_id: user.id, comment_id: comment, space_id: self.id } }
     Confirmation.insert_all(bulk_comments)
   end

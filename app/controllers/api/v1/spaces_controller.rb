@@ -2,57 +2,87 @@ module Api
   module V1
     class SpacesController < ApplicationController
       before_action :authorize_access_request!
+      before_action :set_space, only: [:enter_from_subscription]
       require 'will_paginate/array'
 
       def index
-        @spaces = current_user.spaces
-        .sort_by{|space| -space.comments_unconfirmed_by(current_user)}
-        .paginate(:page => params[:page], :per_page => params[:per_page])
-        serializer = CaptionSpaceSerializer.new(@spaces, {params: {current_user: current_user}})
-        render json: serializer.serializable_hash.to_json
+        @spaces = current_user.spaces.order_by_comments(current_user).paginate(:page => params[:page], :per_page => params[:per_page])
+        serializer = set_caption_serializer(@spaces)
+        render_json(serializer)
       end
 
       def trend
-        @spaces = Space.includes(:users).getTrend(params).paginate(:page => params[:page], :per_page => params[:per_page])
-        serializer = CaptionSpaceSerializer.new(@spaces, {params: {current_user: current_user}})
-        render json: serializer.serializable_hash.to_json
+        @spaces = Space.get_trend(params).paginate(:page => params[:page], :per_page => params[:per_page])
+        serializer = set_caption_serializer(@spaces)
+        render_json(serializer)
       end
 
       def enter
         if params[:media] === 'mv'
-          @space = Space.create_or_search_mv(params.permit(:name, :media, :image_path, :tmdb_mv_id, :page, :per_page), current_user)
-          @media = 'mv'
+          @space = Space.create_or_search_mv(mv_space_params, current_user)
         elsif params[:media] === 'tv'
-          @space = Space.create_or_search_tv(params.permit(:name, :season, :episode, :episode_title, :media, :tmdb_tv_id, :image_path, :page, :per_page), current_user)
-          @media = 'tv'
+          @space = Space.create_or_search_tv(tv_space_params, current_user)
         end
 
         @condition = current_user.subscribed?(@space.id)
 
         if @space.comments.exists?
-          @comments = @space.comments.includes(:user).order("created_at ASC").pager(page: params[:page], per: params[:per_page])
-          serializer = CommentSerializer.new(@comments, {params: {condition: @condition, media: @media}})
+          @comments = @space.comments.order_by_latest.paginate(:page => params[:page], :per_page => params[:per_page])
+          serializer = set_comment_serializer(@comments, @condition, params[:media])
         else
-          serializer = SpaceSerializer.new(@space, {params: {condition: @condition, media: @media}})
+          serializer = set_space_serializer(@space, @condition, params[:media])
         end
-        render json: serializer.serializable_hash.to_json
+
+        render_json(serializer)
       end
 
       def enter_from_subscription
-        @space = Space.find_by(id: params[:space_id])
         @condition = current_user.subscribed?(@space.id)
 
         if @space.comments.exists?
-          if @space.comments_unconfirmed_by(current_user) > 0
-            @space.comments_confirmed_by(current_user)
-          end
-          @comments = @space.comments.includes(:user).order("created_at ASC").pager(page: params[:page], per: params[:per_page])
-          serializer = CommentSerializer.new(@comments, {params: {condition: @condition, media: params[:media]}})
+          if @space.comments_unconfirmed_by(current_user) > 0; @space.comments_confirmed_by(current_user) end
+          @comments = @space.comments.order_by_latest.paginate(:page => params[:page], :per_page => params[:per_page])
+          serializer = set_comment_serializer(@comments, @condition, params[:media])
         else
-          serializer = SpaceSerializer.new(@space, {params: {condition: @condition, media: params[:media]}})
+          serializer = set_space_serializer(@space, @condition, params[:media])
         end
-        render json: serializer.serializable_hash.to_json
+
+        render_json(serializer)
       end
+
+      private
+
+        def set_caption_serializer(obj)
+          CaptionSpaceSerializer.new(obj, current_user_params)
+        end
+
+        def set_comment_serializer(obj, condition, media)
+          CommentSerializer.new(obj, enter_params(condition, media))
+        end
+
+        def set_space_serializer(obj, condition, media)
+          SpaceSerializer.new(obj, enter_params(condition, media))
+        end
+
+        def set_space
+          @space = Space.find_by(id: params[:space_id])
+        end
+
+        def mv_space_params
+          params.permit(:name, :media, :image_path, :tmdb_mv_id, :page, :per_page)
+        end
+
+        def tv_space_params
+          params.permit(:name, :season, :episode, :episode_title, :media, :tmdb_tv_id, :image_path, :page, :per_page)
+        end
+
+        def current_user_params
+          { params: { current_user: current_user } }
+        end
+
+        def enter_params(condition, media)
+          { params: { condition: condition, media: media } }
+        end
     end
   end
 end
