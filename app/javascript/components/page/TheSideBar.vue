@@ -1,11 +1,8 @@
 <template>
   <v-container v-if="$vuetify.breakpoint.width > 600">
-    <v-row :class="text_field.position" :style="text_field.style">
+    <v-row :class="header_part.position">
       <v-col md=3 lg=3 xl=3 />
       <v-col md=9 lg=9 xl=9>
-        <v-text-field v-model="query" @keydown.enter="search(query)" :color="text_field.color"
-          prepend-inner-icon="mdi-magnify" dense :class="text_field.round" outlined
-          :placeholder="text_field.placeholder" />
       </v-col>
     </v-row>
     <v-row>
@@ -45,29 +42,20 @@
       return {
         selectedItem: '',
         query: '',
-        menus: [{
-            text: 'Home',
-            icon: 'mdi-home-outline',
-            path_name: 'Top'
-          },
+        menus: [
           {
-            text: 'Live',
+            text: 'Live feed',
             icon: 'mdi-access-point',
             path_name: 'Trend'
           },
           {
+            text: 'Space',
+            icon: 'mdi-home-outline',
+            path_name: 'Top'
+          },
+          {
             text: 'Discover',
             icon: 'mdi-magnify',
-            path_name: 'Search'
-          },
-          {
-            text: 'Users',
-            icon: 'mdi-account',
-            path_name: 'Search'
-          },
-          {
-            text: 'News',
-            icon: 'mdi-newspaper',
             path_name: 'Search'
           },
           {
@@ -82,32 +70,27 @@
           },
         ],
         // css objects -----------------------------
-        text_field: {
-          position: 'mt-n7 ml-n4 mr-3',
-          color: '#ffd166',
-          placeholder: '検索',
-          round: 'rounded-lg',
-          style: {
-            position: 'fixed'
-          }
+        header_part: {
+          position: 'mt-n3 ml-n4 mr-3',
         },
         top_blank_space: {
-          position: 'mt-10'
+          position: 'mt-16'
         },
         bottom_blank_space: {
-          position: 'mt-8 ml-n6 mb-16',
+          position: 'mt-6 ml-n6 mb-13',
           style: {
             height: '470px'
           }
         },
         list: {
-          position: 'ml-16 mt-n5',
+          position: 'ml-16 mt-n6',
           style: {
-            position: 'fixed'
+            position: 'fixed',
+            color: '#F6F6F6'
           }
         },
         list_item: {
-          position: 'mt-n2'
+          position: 'mt-1'
         },
         icon: {
           size: 20,
@@ -118,14 +101,14 @@
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '15px',
-            color: '#000000'
+            color: '#011627'
           }
         },
         btn: {
           position: 'mt-15 ml-1',
           elevation: 3,
           round: 'rounded-lg',
-          color: '#000000',
+          color: '#ff0054',
           height: 35,
           style: {
             position: 'fixed'
@@ -149,20 +132,9 @@
           name: path
         })
       },
-      search(query) {
-        this.$router.replace({
-          name: 'multi',
-          params: {
-            query: query
-          }
-        })
-      },
     }
   }
 </script>
 
 <style scoped>
-  .v-text-field--outlined>>>fieldset {
-    border-color: rgba(218, 218, 218, 0.986);
-  }
 </style>

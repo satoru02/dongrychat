@@ -5,4 +5,9 @@ class CaptionSpaceSerializer
   attribute :unconfirmed_comments do |space, params|
     space.comments_unconfirmed_by(params[:current_user])
   end
+
+  attribute :latest_comment do |space|
+    # LatestCommentSerializer.new(space.comments.last)
+    space.comments.last
+  end
 end

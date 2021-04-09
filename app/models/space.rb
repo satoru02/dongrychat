@@ -18,10 +18,11 @@
 #
 
 class Space < ApplicationRecord
-  has_many :comments, dependent: :destroy
+  has_many :comments, ->{ includes(:user) }, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
   has_many :confirmations, dependent: :destroy
   has_many :users, through: :subscriptions
+  # has_many :users, ->{ includes(avatar_attachment: :blob) }, through: :subscriptions
   scope :get_trend, -> (query){
      includes(:users, :confirmations, :comments)
      .where(media: query[:media])
