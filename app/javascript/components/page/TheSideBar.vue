@@ -74,10 +74,10 @@
           position: 'mt-n3 ml-n4 mr-3',
         },
         top_blank_space: {
-          position: 'mt-16'
+          position: 'mt-13'
         },
         bottom_blank_space: {
-          position: 'mt-6 ml-n6 mb-13',
+          position: 'mt-8 ml-n6 mb-13',
           style: {
             height: '470px'
           }
@@ -108,7 +108,7 @@
           position: 'mt-15 ml-1',
           elevation: 3,
           round: 'rounded-lg',
-          color: '#ff0054',
+          color: '#000000',
           height: 35,
           style: {
             position: 'fixed'

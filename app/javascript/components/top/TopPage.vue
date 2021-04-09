@@ -1,7 +1,7 @@
 <template>
   <v-container :class="top_part.position">
     <h3 :class="header_part.position" :style="header_part.style" v-text="header_part.caption" />
-    <v-list three-line :class="list_part.position">
+    <v-list two-line :class="list_part.position">
       <v-list-item-group multiple :class="list_part.body">
         <v-list-item v-for="(item, index) in items" :key="index" @click="enterSpace(item)">
           <template v-slot:default="{ }">
@@ -16,13 +16,12 @@
             <v-list-item-content :class="list_item_content.position">
               <v-list-item-title
                 :style="list_item_title.style"
-                v-text="item.attributes.name + '  (130)'" />
-              <v-list-item-subtitle
-              v-if="item.attributes.media === 'tv'"
-               :style="list_item_subtitle.style" :class="list_item_subtitle.position"
-                  v-text="'シーズン' + item.attributes.season + '-' + item.attributes.episode + '  ' +
-                  '「' +
-                  item.attributes.episode_title + '」'" />
+                >
+                {{item.attributes.name}}
+                <v-chip outlined v-if="item.attributes.media === 'tv'" class="ml-2" x-small color="black" text-color="black">
+                  シーズン{{item.attributes.season}} 第{{item.attributes.episode}}話
+                  {{item.attributes.episode_title}}</v-chip>
+              </v-list-item-title>
               <v-list-item-subtitle :style="list_item_subtitle.style" :class="list_item_subtitle.position">
                 <!-- <v-avatar :class="avatar.position" :size="avatar.size" :height="avatar.height">
                   <img :src="item.attributes.latest_comment.data.attributes.user.data.attributes.avatar_url">
@@ -31,6 +30,7 @@
               </v-list-item-subtitle>
             </v-list-item-content>
             <v-list-item-action :class="list_item_action.position">
+              <v-list-item-action-text :style="list_time.style">{{formalizeTime(item.attributes.latest_comment.created_at)}}</v-list-item-action-text>
               <v-avatar v-if="item.attributes.unconfirmed_comments > 0" :class="notify_btn.position"
                 :color="notify_btn.color" :size="notify_btn.size">
                 <span :style="notify_text.style" v-text="item.attributes.unconfirmed_comments" />
@@ -50,6 +50,8 @@
   import {
     secureAxios
   } from '../../backend/axios';
+  import moment from 'moment';
+
   export default {
     name: 'TopPage',
     data() {
@@ -70,14 +72,14 @@
         error: '',
         // css objects ------------------------------------------
         top_part: {
-          position: 'ml-n4'
+          position: 'ml-n2'
         },
         header_part: {
-          position: 'mb-5 ml-4',
+          position: 'mb-5 ml-3',
           caption: 'Space',
           style: {
             fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
+            // fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '22px',
             color: '#011627'
           }
@@ -96,8 +98,8 @@
           }
         },
         list_avatar: {
-          size: 90,
-          height: 90,
+          size: 60,
+          height: 60,
           round: 'rounded-lg',
           style: {
             borderStyle: 'solid',
@@ -111,20 +113,41 @@
         list_item_title: {
           style: {
             fontWeight: 'bold',
-            fontFamily: '-apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif',
-            fontSize: '15px',
-            color: '#011627'
+            // fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '14px',
+            color: '#000000'
+          }
+        },
+        details: {
+          position: 'mt-n1',
+          style: {
+            fontWeight: 'bold',
+            fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
+            fontSize: '10px',
+            color: '#ffffff',
+            lineHeight: '17px',
+            maxWidth: "450px",
           }
         },
         list_item_subtitle: {
-          position: 'mt-n2',
+          position: 'mt-1',
           style: {
-            fontWeight: '600',
-            fontFamily: '"Segoe UI", Meiryo, system-ui, -apple-system, system-ui, sans-serif;',
-            fontSize: '13px',
-            color: '#0f1419',
-            lineHeight: '20px'
+            fontWeight: 'bold',
+            fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
+            fontSize: '11px',
+            color: '#6c757d',
+            lineHeight: '16px',
+            maxWidth: "450px",
           }
+        },
+        list_time: {
+          style: {
+            // fontWeight: 'bold',
+            fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
+            fontSize: '6px',
+            color: '#adb5bd',
+          }
+
         },
         list_count: {
           style: {
@@ -135,7 +158,7 @@
           }
         },
         list_item_action: {
-          position: 'ml-n16 mt-n2'
+          position: 'ml-n16 mt-7 mb-5'
         },
         avatar: {
           position: 'mr-1',
@@ -143,7 +166,7 @@
           height: 20,
         },
         notify_btn: {
-          position: 'ml-n3 mt-15',
+          position: 'mr-1 mt-n4',
           color: 'red',
           size: 22
         },
@@ -220,7 +243,10 @@
             }
           })
         }
-      }
+      },
+      formalizeTime(time) {
+        return moment(time).format("hh:mm")
+      },
     }
   }
 </script>

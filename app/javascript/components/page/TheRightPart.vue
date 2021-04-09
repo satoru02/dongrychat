@@ -39,7 +39,7 @@
       return {
         query: '',
         right_part: {
-          position: 'ml-n2'
+          position: 'ml-n10'
         },
         text_field: {
           position: 'mt-n4 ml-n8 mr-3',

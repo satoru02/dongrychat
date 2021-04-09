@@ -1,9 +1,9 @@
 <template>
   <div>
     <v-app class="overflow-hidden">
-      <v-main class="mt-5 ml-n1">
+      <v-main class="mt-5 ml-n3">
         <v-row>
-          <v-col md=3 lg=3 xl=3 class="ml-9 mr-n3">
+          <v-col md=3 lg=3 xl=3 class="ml-15 mr-n3">
             <side-bar />
           </v-col>
           <v-col sm=12 cols=12 md=9 lg=6 xl=9 :class="$vuetify.breakpoint.width > 600 ? 'ml-n16' : 'ml-n4'">
