@@ -1,18 +1,17 @@
 <template>
   <div>
-    <v-app style="background-color:#ffffff;" class="overflow-hidden">
-      <v-main class="mt-5">
+    <v-app class="overflow-hidden">
+      <v-main class="mt-5 ml-n1">
         <v-row>
-          <v-col lg=1 class="ml-n16" />
-          <v-col md=3 lg=3 xl=3 class="ml-n14">
-            <side-bar class="ml-4" />
+          <v-col md=3 lg=3 xl=3 class="ml-9 mr-n3">
+            <side-bar />
           </v-col>
-          <v-col md=9 lg=7 xl=9 class="ml-n16">
+          <v-col sm=12 cols=12 md=9 lg=6 xl=9 :class="$vuetify.breakpoint.width > 600 ? 'ml-n16' : 'ml-n4'">
             <!-- <keep-alive> -->
               <router-view />
             <!-- </keep-alive> -->
           </v-col>
-          <v-col md=2 lg=2 xl=2 class="ml-n6">
+          <v-col md=2 lg=3 xl=2 class="ml-1">
             <right-part />
           </v-col>
         </v-row>

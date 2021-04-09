@@ -73,12 +73,12 @@
         error: '',
         componentKey: 0,
         // css objects ------------------------------------------
-        switchPosition: 'mt-1',
+        switchPosition: 'mt-3 ml-n4',
         trend_header: {
-          position: 'mt-n4 ml-2'
+          position: 'ml-n3'
         },
         trend_part: {
-          position: 'mt-n6'
+          position: ''
         },
         colors: {
           blue: 'blue',
@@ -169,8 +169,8 @@
           mdi: 'mdi-menu-up'
         },
         avatar: {
-          size: 60,
-          height: 60,
+          size: 55,
+          height: 55,
           round: "rounded-lg"
         }
         // ------------------------------------------

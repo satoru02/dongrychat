@@ -1,28 +1,43 @@
 <template>
-  <v-container>
-    <h1 :class="header_part.position" :style="header_part.style" v-text="header_part.caption" />
-    <v-list two-line>
-      <v-list-item-group :active-class="list_part.active" multiple :class="list_part.body">
-        <template v-for="(item, index) in items">
-          <v-list-item :key="index" @click="enterSpace(item)">
-            <template v-slot:default="{}">
-              <v-list-item-avatar :size="list_avatar.size" :height="list_avatar.height" tile :class="list_avatar.round">
-                <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
-              </v-list-item-avatar>
-              <v-list-item-content :class="list_item_content.position">
-                <v-list-item-title :style="list_item_title.style" v-text="item.attributes.name" />
-                <v-list-item-subtitle :style="list_item_subtitle.style" :class="list_item_subtitle.position"
-                  v-text="'Season' + item.attributes.season + '-' + item.attributes.episode + '' + item.attributes.episode_title" />
-              </v-list-item-content>
-              <v-list-item-action :class="list_item_action.position">
-                <v-avatar :class="notify_btn.position" :color="notify_btn.color" :size="notify_btn.size"
-                  v-if="item.attributes.unconfirmed_comments > 0">
-                  <span :style="notify_text.style" v-text="item.attributes.unconfirmed_comments" />
-                </v-avatar>
-              </v-list-item-action>
-            </template>
-          </v-list-item>
-        </template>
+  <v-container :class="top_part.position">
+    <h3 :class="header_part.position" :style="header_part.style" v-text="header_part.caption" />
+    <v-list three-line :class="list_part.position">
+      <v-list-item-group multiple :class="list_part.body">
+        <v-list-item v-for="(item, index) in items" :key="index" @click="enterSpace(item)">
+          <template v-slot:default="{ }">
+            <!-- <v-list-item-avatar
+              :style="item.attributes.unconfirmed_comments > 0 ? list_avatar.style : '' " :size="list_avatar.size" :height="list_avatar.height" tile :class="list_avatar.round">
+              <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
+            </v-list-item-avatar> -->
+            <v-list-item-avatar
+              :size="list_avatar.size" :height="list_avatar.height" tile :class="list_avatar.round">
+              <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
+            </v-list-item-avatar>
+            <v-list-item-content :class="list_item_content.position">
+              <v-list-item-title
+                :style="list_item_title.style"
+                v-text="item.attributes.name + '  (130)'" />
+              <v-list-item-subtitle
+              v-if="item.attributes.media === 'tv'"
+               :style="list_item_subtitle.style" :class="list_item_subtitle.position"
+                  v-text="'シーズン' + item.attributes.season + '-' + item.attributes.episode + '  ' +
+                  '「' +
+                  item.attributes.episode_title + '」'" />
+              <v-list-item-subtitle :style="list_item_subtitle.style" :class="list_item_subtitle.position">
+                <!-- <v-avatar :class="avatar.position" :size="avatar.size" :height="avatar.height">
+                  <img :src="item.attributes.latest_comment.data.attributes.user.data.attributes.avatar_url">
+                </v-avatar> -->
+                {{item.attributes.latest_comment.content}}
+              </v-list-item-subtitle>
+            </v-list-item-content>
+            <v-list-item-action :class="list_item_action.position">
+              <v-avatar v-if="item.attributes.unconfirmed_comments > 0" :class="notify_btn.position"
+                :color="notify_btn.color" :size="notify_btn.size">
+                <span :style="notify_text.style" v-text="item.attributes.unconfirmed_comments" />
+              </v-avatar>
+            </v-list-item-action>
+          </template>
+        </v-list-item>
       </v-list-item-group>
     </v-list>
     <infinite-loading spinner="circles" @infinite="infiniteHandler">
@@ -54,18 +69,22 @@
         pageSize: 10,
         error: '',
         // css objects ------------------------------------------
+        top_part: {
+          position: 'ml-n4'
+        },
         header_part: {
-          position: 'ml-3 mt-n4 mb-1',
-          caption: 'HOME',
+          position: 'mb-5 ml-4',
+          caption: 'Space',
           style: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '28px',
-            color: '#000000'
+            fontSize: '22px',
+            color: '#011627'
           }
         },
         list_part: {
           active: 'orange--text',
+          position: '',
           body: 'list-body',
           badge: {
             color: 'red',
@@ -77,42 +96,61 @@
           }
         },
         list_avatar: {
-          size: 60,
-          height: 60,
-          round: 'rounded-lg'
+          size: 90,
+          height: 90,
+          round: 'rounded-lg',
+          style: {
+            borderStyle: 'solid',
+            borderWidth: '0.13em',
+            borderColor: '#ef233c'
+          }
         },
         list_item_content: {
-          position: 'ml-1'
+          position: ''
         },
         list_item_title: {
           style: {
             fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '14px',
-            color: '#000000'
+            fontFamily: '-apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif',
+            fontSize: '15px',
+            color: '#011627'
           }
         },
         list_item_subtitle: {
-          position: 'mt-1',
+          position: 'mt-n2',
+          style: {
+            fontWeight: '600',
+            fontFamily: '"Segoe UI", Meiryo, system-ui, -apple-system, system-ui, sans-serif;',
+            fontSize: '13px',
+            color: '#0f1419',
+            lineHeight: '20px'
+          }
+        },
+        list_count: {
           style: {
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '12px',
+            fontSize: '13px',
             fontWeight: 'bold',
-            color: '#6c757d'
+            color: '#454955'
           }
         },
         list_item_action: {
-          position: 'ml-n16'
+          position: 'ml-n16 mt-n2'
+        },
+        avatar: {
+          position: 'mr-1',
+          size: 20,
+          height: 20,
         },
         notify_btn: {
-          position: 'ml-n16 rounded-lg',
+          position: 'ml-n3 mt-15',
           color: 'red',
-          size: 23
+          size: 22
         },
         notify_text: {
           style: {
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '12px',
+            fontSize: '11px',
             fontWeight: 'bold',
             color: '#ffffff'
           }
