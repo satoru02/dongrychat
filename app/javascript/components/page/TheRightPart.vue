@@ -44,8 +44,8 @@
     </v-row>
     <v-row v-for="(n,index) in 5" :key="index">
       <v-col md=1 lg=1 xl=1>
-        <v-avatar :size="avatar.size" :height="avatar.height" :style="avatar.style">
-          <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John">
+        <v-avatar :size="avatar.size" :height="avatar.height">
+          <img src="https://cdn.vuetifyjs.com/images/john.jpg">
         </v-avatar>
       </v-col>
       <v-col md=1 lg=1 xl=1 />
@@ -172,11 +172,6 @@
         avatar: {
           size: 45,
           height: 45,
-          style: {
-            borderStyle: 'solid',
-            borderWidth: '0.14em',
-            borderColor: '#3f37c9'
-          }
         },
         profile: {
           position: "ml-3 mt-6",

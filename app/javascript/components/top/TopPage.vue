@@ -76,7 +76,7 @@
         },
         header_part: {
           position: 'mb-5 ml-3',
-          caption: 'Space',
+          caption: 'Spaces',
           style: {
             fontWeight: 'bold',
             // fontFamily: 'Helvetica Neue, sans-serif',

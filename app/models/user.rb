@@ -58,6 +58,9 @@ class User < ApplicationRecord
       length.times{ key += source[rand(source.size)].to_s }
       return key
     end
+
+    def online
+    end
   end
 
   def authenticated?(attribute, token)

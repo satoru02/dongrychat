@@ -7,6 +7,6 @@ class CommentSerializer
   end
 
   attribute :user do |comment|
-    CommentUserSerializer.new(comment.user)
+    UserSerializer.new(comment.user)
   end
 end

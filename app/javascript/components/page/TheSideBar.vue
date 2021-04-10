@@ -44,12 +44,12 @@
         query: '',
         menus: [
           {
-            text: 'Live feed',
+            text: 'Charts',
             icon: 'mdi-access-point',
             path_name: 'Trend'
           },
           {
-            text: 'Space',
+            text: 'Spaces',
             icon: 'mdi-home-outline',
             path_name: 'Top'
           },

@@ -35,11 +35,11 @@
                   {{item.attributes.episode_title}}</v-chip>
                 </v-list-item-subtitle>
               </v-list-item-content>
-              <v-list-item-action class="mr-n6">
+              <v-list-item-action class="mr-n6" v-if="item.attributes.users.length > 0">
                 <v-badge class="mt-1" dot color="red"></v-badge>
               </v-list-item-action>
-              <v-list-item-action>
-                <div :style="listItemAction.style" v-text="'15'" />
+              <v-list-item-action v-if="item.attributes.users.length > 0">
+                <div :style="listItemAction.style" v-text="item.attributes.users.length" />
               </v-list-item-action>
             </template>
           </v-list-item>
