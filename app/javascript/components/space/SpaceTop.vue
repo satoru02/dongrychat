@@ -1,5 +1,4 @@
 <template>
-  <!-- fix -->
   <v-container :class="space_top.position">
     <v-row>
       <v-btn v-if="space_data.subscribed === false" @click="subscribe()">Subscribe</v-btn>
@@ -125,7 +124,7 @@
   // import Appearance from './SpaceAppearance';
 
   export default {
-    name: 'Space',
+    name: 'SpaceTop',
     components: {
       'base-loader': BaseInfiniteLoader,
       // "appearance": Appearance

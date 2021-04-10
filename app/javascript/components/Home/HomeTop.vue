@@ -1,31 +1,29 @@
 <template>
-  <v-container :class="top_part.position">
-    <h3 :class="header_part.position" :style="header_part.style" v-text="header_part.caption" />
-    <v-list two-line :class="list_part.position">
-      <v-list-item-group multiple :class="list_part.body">
+  <v-container :class="grid.topPart">
+    <h3 :class="grid.header" :style="style.headerPart" v-text="headerCaption" />
+    <v-list two-line>
+      <v-list-item-group multiple :class="listPart.body">
         <v-list-item v-for="(item, index) in items" :key="index" @click="enterSpace(item)">
-          <template v-slot:default="{ }">
-            <v-list-item-avatar :size="list_avatar.size" :height="list_avatar.height" tile :class="list_avatar.round">
-              <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
+          <template v-slot:default="{}">
+            <v-list-item-avatar :size="listAvatar.size" :height="listAvatar.height" tile :class="listAvatar.round">
+              <base-image :img="base_tmdb_img_url + item.attributes.image_path" :height='100' />
             </v-list-item-avatar>
-            <v-list-item-content :class="list_item_content.position">
-              <v-list-item-title :style="list_item_title.style">
+            <v-list-item-content>
+              <v-list-item-title :style="style.listItemTitle">
                 {{item.attributes.name}}
-                <v-chip outlined v-if="item.attributes.media === 'tv'" class="ml-2" x-small color="black"
-                  text-color="black">
-                  シーズン{{item.attributes.season}} 第{{item.attributes.episode}}話
-                  {{item.attributes.episode_title}}</v-chip>
+                <base-label :class="grid.label" v-if="item.attributes.media === media.tv" :color="colors.chip"
+                  :text-color="colors.chip" :season="item.attributes.season" :episode="item.attributes.episode"
+                  :title="item.attributes.episode_title" />
               </v-list-item-title>
-              <v-list-item-subtitle :style="list_item_subtitle.style" :class="list_item_subtitle.position">
-                {{item.attributes.latest_comment.content}}
-              </v-list-item-subtitle>
+              <v-list-item-subtitle v-if="item.attributes.latest_comment !== null" :style="style.listItemSubtitle"
+                :class="grid.listItemSubtitle" v-text="item.attributes.latest_comment.content" />
             </v-list-item-content>
-            <v-list-item-action :class="list_item_action.position">
-              <v-list-item-action-text :style="list_time.style">
-                {{formalizeTime(item.attributes.latest_comment.created_at)}}</v-list-item-action-text>
-              <v-avatar v-if="item.attributes.unconfirmed_comments > 0" :class="notify_btn.position"
-                :color="notify_btn.color" :size="notify_btn.size">
-                <span :style="notify_text.style" v-text="item.attributes.unconfirmed_comments" />
+            <v-list-item-action :class="grid.listItemAction">
+              <v-list-item-action-text v-if="item.attributes.latest_comment !== null" :style="style.listTime"
+                v-text="formalizeTime(item.attributes.latest_comment.created_at)" />
+              <v-avatar v-if="item.attributes.unconfirmed_comments > 0" :class="grid.notifyBtn"
+                :color="colors.notifyBtn" :size="notify_btn.size">
+                <span :style="style.notifyText" v-text="item.attributes.unconfirmed_comments" />
               </v-avatar>
             </v-list-item-action>
           </template>
@@ -68,30 +66,47 @@
         page: 1,
         pageSize: 10,
         error: '',
+        headerCaption: 'Home',
+        listPart: {
+          body: 'list-body',
+        },
+        listAvatar: {
+          size: 60,
+          height: 60,
+          round: 'rounded-lg',
+        },
+        avatar: {
+          size: 20,
+          height: 20,
+        },
+        notify_btn: {
+          color: 'red',
+          size: 22
+        },
+        colors: {
+          chip: 'black',
+          notifyBtn: 'red'
+        },
         grid: {
           topPart: 'ml-n2',
           header: 'mb-5 ml-3',
-          listPart: '',
-          listItemContent: '',
           listItemSubtitle: 'mt-1',
           listItemAction: 'ml-n16 mt-7 mb-5',
           details: 'mt-n1',
           avatar: 'mr-1',
-          notifyBtn: 'mr-1 mt-n4'
+          notifyBtn: 'mr-1 mt-n4',
+          label: 'ml-2'
         },
         style: {
           headerPart: {
             fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '22px',
             color: '#011627'
           },
-          listAvatar: {
-            borderStyle: 'solid',
-            borderWidth: '0.13em',
-            borderColor: '#ef233c'
-          },
           listItemTitle: {
             fontWeight: 'bold',
+            fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
             fontSize: '14px',
             color: '#000000'
           },
@@ -123,114 +138,6 @@
             color: '#454955'
           },
           notifyText: {
-            fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '11px',
-            fontWeight: 'bold',
-            color: '#ffffff'
-          }
-        },
-
-        top_part: {
-          position: 'ml-n2'
-        },
-        header_part: {
-          position: 'mb-5 ml-3',
-          caption: 'Home',
-          style: {
-            fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '22px',
-            color: '#011627'
-          }
-        },
-        list_part: {
-          active: 'orange--text',
-          position: '',
-          body: 'list-body',
-          badge: {
-            color: 'red',
-            x: 31,
-            y: 29,
-            style: {
-              fontWeight: 'bold'
-            }
-          }
-        },
-        list_avatar: {
-          size: 60,
-          height: 60,
-          round: 'rounded-lg',
-          style: {
-            borderStyle: 'solid',
-            borderWidth: '0.13em',
-            borderColor: '#ef233c'
-          }
-        },
-        list_item_content: {
-          position: ''
-        },
-        list_item_title: {
-          style: {
-            fontWeight: 'bold',
-            // fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '14px',
-            color: '#000000'
-          }
-        },
-        details: {
-          position: 'mt-n1',
-          style: {
-            fontWeight: 'bold',
-            fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
-            fontSize: '10px',
-            color: '#ffffff',
-            lineHeight: '17px',
-            maxWidth: "450px",
-          }
-        },
-        list_item_subtitle: {
-          position: 'mt-1',
-          style: {
-            fontWeight: 'bold',
-            fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
-            fontSize: '11px',
-            color: '#6c757d',
-            lineHeight: '16px',
-            maxWidth: "450px",
-          }
-        },
-        list_time: {
-          style: {
-            // fontWeight: 'bold',
-            fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
-            fontSize: '6px',
-            color: '#adb5bd',
-          }
-
-        },
-        list_count: {
-          style: {
-            fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '13px',
-            fontWeight: 'bold',
-            color: '#454955'
-          }
-        },
-        list_item_action: {
-          position: 'ml-n16 mt-7 mb-5'
-        },
-        avatar: {
-          position: 'mr-1',
-          size: 20,
-          height: 20,
-        },
-        notify_btn: {
-          position: 'mr-1 mt-n4',
-          color: 'red',
-          size: 22
-        },
-        notify_text: {
-          style: {
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '11px',
             fontWeight: 'bold',
@@ -281,9 +188,6 @@
               }
             })
         }, 0);
-      },
-      getFailed(err) {
-        this.error = (err.response && err.response.data && err.response.data.error) || ''
       },
       enterSpace(item) {
         if (item.attributes.media === this.media.tv) {

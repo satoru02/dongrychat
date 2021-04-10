@@ -15,8 +15,7 @@ import 'vuetify/dist/vuetify.min.css';
 import '@mdi/font/css/materialdesignicons.css';
 import HomeTop from '../components/Home/HomeTop';
 import Details from '../components/details/DetailsPage';
-import Space from '../components/space/Space';
-
+import SpaceTop from '../components/Space/SpaceTop';
 import ChartTop from '../components/Chart/ChartTop';
 import Authorization from '../components/authorization/AuthorizationTop';
 import AccountActivation from '../components/authorization/AccountActivation';
@@ -176,25 +175,25 @@ const router = new VueRouter({
       path: '/tv_space/:name/:season_number/:episode_number',
       name: 'TvSpace',
       props: true,
-      component: Space
+      component: SpaceTop
     },
     {
       path: '/mv_space/m/:name',
       name: 'MvSpace',
       props: true,
-      component: Space
+      component: SpaceTop
     },
     {
       path: '/tv_space/:space_id',
       name: 'subscribedTvSpace',
       props: true,
-      component: Space
+      component: SpaceTop
     },
     {
       path: '/mv_space/:space_id',
       name: 'subscribedMvSpace',
       props: true,
-      component: Space
+      component: SpaceTop
     },
     {
       path: '/authorization',
