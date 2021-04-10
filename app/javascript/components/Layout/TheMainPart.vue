@@ -1,17 +1,17 @@
 <template>
   <div>
-    <v-app class="overflow-hidden">
-      <v-main class="mt-5 ml-n3">
+    <v-app :class="grid.app">
+      <v-main :class="grid.main">
         <v-row>
-          <v-col md=3 lg=3 xl=3 class="ml-15 mr-n3">
+          <v-col md=3 lg=3 xl=3 :class="grid.sidebar" v-if="$vuetify.breakpoint.width > 600">
             <side-bar />
           </v-col>
-          <v-col sm=12 cols=12 md=9 lg=6 xl=9 :class="$vuetify.breakpoint.width > 600 ? 'ml-n16' : 'ml-n4'">
+          <v-col sm=12 cols=12 md=6 lg=6 xl=6 :class="$vuetify.breakpoint.width > 600 ? grid.deskCenter : grid.mobileCenter">
             <!-- <keep-alive> -->
-              <router-view />
+            <router-view />
             <!-- </keep-alive> -->
           </v-col>
-          <v-col md=2 lg=3 xl=2 class="ml-1">
+          <v-col md=3 lg=3 xl=3 :class="grid.rightPart" v-if="$vuetify.breakpoint.width > 600">
             <right-part />
           </v-col>
         </v-row>
@@ -33,6 +33,18 @@
       'side-bar': SideBar,
       'right-part': RightPart
     },
+    data(){
+      return {
+        grid: {
+          app: 'overflow-hidden',
+          main: 'mt-5 ml-n3',
+          sidebar: 'ml-15 mr-n3',
+          deskCenter: 'ml-n16',
+          mobileCenter: 'ml-n4',
+          rightPart: 'ml-1'
+        }
+      }
+    },
     methods: {
       checkAuthorization() {
         let validationRouter = ['Login', 'Signup', 'Authorization']
@@ -45,6 +57,3 @@
     }
   }
 </script>
-
-<style scoped>
-</style>
