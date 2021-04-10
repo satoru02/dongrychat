@@ -1,9 +1,7 @@
 <template>
   <v-container>
     <v-row :class="header_part.position">
-      <v-col md=3 lg=3 xl=3 />
-      <v-col md=9 lg=9 xl=9>
-      </v-col>
+      <v-col md=12 lg=12 xl=12 />
     </v-row>
     <v-row>
       <v-col md=12 lg=12 xl=12 :class="top_blank_space.position" />
@@ -42,7 +40,8 @@
       return {
         selectedItem: '',
         query: '',
-        menus: [{
+        menus: [
+          {
             text: 'Charts',
             icon: 'mdi-access-point',
             path_name: 'Chart'
