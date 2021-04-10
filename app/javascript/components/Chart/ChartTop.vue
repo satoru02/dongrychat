@@ -1,45 +1,41 @@
 <template>
-  <v-container :class="trend_header.position" :key="componentKey">
+  <v-container :class="grid.header" :key="componentKey">
     <v-row>
       <v-col md=1 lg=1 xl=1>
-        <div :style="switch1 === false ? active : inactive" v-text="tv.header" />
+        <div :style="switch1 === false ? style.active : style.inactive" v-text="tv.header" />
       </v-col>
       <v-col md=1 lg=1 xl=1>
-        <div :style="switch1 === true ? active : inactive" v-text="movie.header" />
+        <div :style="switch1 === true ? style.active : style.inactive" v-text="movie.header" />
       </v-col>
       <v-col md=9 lg=9 xl=9 />
       <v-col md=1 lg=1 xl=1>
-        <v-switch v-model="switch1" :color="colors.orange" inset :class="switchPosition" />
+        <v-switch v-model="switch1" :color="colors.switchButton" inset :class="grid.switch" />
       </v-col>
     </v-row>
-    <v-list two-line :class="trend_part.position">
-      <v-list-item-group :active-class="listItemGroup.active" multiple :class="listItemGroup.body">
+    <v-list two-line>
+      <v-list-item-group :active-class="colors.listItemGroupActive" :class="grid.listItemGroup" multiple>
         <template v-for="(item, index) in items">
           <v-list-item :key="index" @click="enterSpace(item.attributes)">
             <template v-slot:default="{}">
-              <div :style="ranking.title" :class="ranking.position">{{index + 1}}
-                <v-icon :color="icon.color" :class="icon.position" :size="icon.size" v-text="icon.mdi" />
+              <div :style="style.ranking" :class="grid.ranking">{{index + 1}}
+                <v-icon :color="colors.rankIcon" :class="grid.icon" :size="icon.size" v-text="icon.mdi" />
               </div>
               <v-list-item-avatar :size="avatar.size" :height="avatar.height" tile :class="avatar.round">
-                <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
+                <base-image :img="base_tmdb_img_url + item.attributes.image_path" :height="avatar.height" />
               </v-list-item-avatar>
-              <v-list-item-content :class="listItemContent.position">
-                <v-list-item-title :style="listItemTitle.style">
-                  {{item.attributes.name}}
-                </v-list-item-title>
-                <v-list-item-subtitle :style="listItemSubtitle.style" :class="listItemSubtitle.position"
-                >
-                <v-chip outlined v-if="item.attributes.media === 'tv'"
-                  x-small label color="black" text-color="black">
-                  シーズン{{item.attributes.season}} 第{{item.attributes.episode}}話
-                  {{item.attributes.episode_title}}</v-chip>
+              <v-list-item-content :class="grid.listItemContent">
+                <v-list-item-title :style="style.listItemTitle" v-text="item.attributes.name" />
+                <v-list-item-subtitle :style="style.listItemSubtitle" :class="grid.listItemSubtitle">
+                  <base-label v-if="item.attributes.media === media.tv" :color="colors.chip" :text-color="colors.chip"
+                    :season="item.attributes.season" :episode="item.attributes.episode"
+                    :title="item.attributes.episode_title" />
                 </v-list-item-subtitle>
               </v-list-item-content>
-              <v-list-item-action class="mr-n6" v-if="item.attributes.users.length > 0">
-                <v-badge class="mt-1" dot color="red"></v-badge>
+              <v-list-item-action :class="grid.notifyBadge" v-if="item.attributes.users.length > 0">
+                <v-badge :class="grid.notifyDot" dot :color="colors.notifyBadge" />
               </v-list-item-action>
               <v-list-item-action v-if="item.attributes.users.length > 0">
-                <div :style="listItemAction.style" v-text="item.attributes.users.length" />
+                <div :style="style.listItemAction" v-text="item.attributes.users.length" />
               </v-list-item-action>
             </template>
           </v-list-item>
@@ -56,8 +52,15 @@
   import {
     secureAxios
   } from '../../backend/axios';
+  import BaseImage from '../base/BaseImage';
+  import BaseLabel from '../base/BaseLabel';
+
   export default {
-    name: 'TrendTop',
+    name: 'ChartTop',
+    components: {
+      'base-image': BaseImage,
+      'base-label': BaseLabel
+    },
     data() {
       return {
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
@@ -66,26 +69,17 @@
         switch1: false,
         page: 1,
         pageSize: 10,
-        error: '',
         componentKey: 0,
-        // css objects ------------------------------------------
-        switchPosition: 'mt-3 ml-n4',
-        trend_header: {
-          position: 'ml-n3 mt-n2'
-        },
-        trend_part: {
-          position: ''
-        },
-        colors: {
-          blue: 'blue',
-          orange: 'orange'
-        },
         query_media: 'tv',
-        query_time: {
-          hour: 'hour',
-          today: 'today',
-          week: 'week',
-          month: 'month'
+        error: '',
+        avatar: {
+          size: 55,
+          height: 55,
+          round: "rounded-lg"
+        },
+        icon: {
+          size: 22,
+          mdi: 'mdi-menu-up'
         },
         media: {
           tv: 'tv',
@@ -93,83 +87,70 @@
         },
         tv: {
           header: 'TV',
-          avatar: 'ml-3',
           pathName: 'TvSpace'
         },
         movie: {
           header: 'MOVIE',
-          avatar: 'ml-7',
           pathName: 'MvSpace'
         },
-        active: {
-          fontFamily: 'Helvetica Neue, sans-serif',
-          fontSize: '25px',
-          fontWeight: 'bold',
-          color: '#000000',
-          letterSpacing: '3px'
+        colors: {
+          switchButton: 'orange',
+          rankIcon: 'green',
+          chip: 'black',
+          notifyBadge: 'red',
+          listItemGroupActive: 'orange'
         },
-        inactive: {
-          fontFamily: 'Helvetica Neue, sans-serif',
-          fontSize: '25px',
-          fontWeight: 'bold',
-          color: '#8f8f8f',
-          letterSpacing: '3px'
+        grid: {
+          switch: 'mt-3 ml-n4',
+          header: 'ml-n3 mt-n2',
+          ranking: 'mr-4',
+          icon: 'ml-2',
+          listItemContent: 'ml-4',
+          listItemAction: 'mt-1',
+          listItemSubtitle: 'mt-1',
+          listItemGroup: 'list-body',
+          notifyBadge: 'mr-n6',
+          notifyDot: 'mt-1'
         },
-        listItemGroup: {
-          body: 'list-body',
-          active: 'orange--text'
-        },
-        listItemContent: {
-          position: 'ml-4'
-        },
-        listItemSubtitle: {
-          position: 'mt-1',
-          season_position: 'ml-n16',
-          episode_position: 'ml-n6',
-          style: {
-            fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '12px',
-            fontWeight: 'bold',
-            color: '#6c757d'
-          }
-        },
-        listItemAction: {
-          position: 'mt-1',
-          style: {
-            fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '13px',
-            fontWeight: 'bold',
-            color: '#484b4d'
-          }
-        },
-        listItemTitle: {
-          style: {
-            fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '14px',
-          }
-        },
-        ranking: {
-          title: {
+        style: {
+          ranking: {
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '12px',
             fontWeight: 'bold',
             color: '#8f8f8f',
           },
-          position: 'mr-4'
-        },
-        icon: {
-          color: 'green',
-          position: 'ml-2',
-          size: 22,
-          mdi: 'mdi-menu-up'
-        },
-        avatar: {
-          size: 55,
-          height: 55,
-          round: "rounded-lg"
+          listItemTitle: {
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '14px',
+          },
+          listItemAction: {
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '13px',
+            fontWeight: 'bold',
+            color: '#484b4d'
+          },
+          listItemSubtitle: {
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '12px',
+            fontWeight: 'bold',
+            color: '#6c757d'
+          },
+          active: {
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '25px',
+            fontWeight: 'bold',
+            color: '#000000',
+            letterSpacing: '3px'
+          },
+          inactive: {
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '25px',
+            fontWeight: 'bold',
+            color: '#8f8f8f',
+            letterSpacing: '3px'
+          }
         }
-        // ------------------------------------------
       }
     },
     watch: {
@@ -209,12 +190,6 @@
             })
         }, 150);
       },
-      getSuccessful(res) {
-        this.items = res.data.data
-      },
-      getFailed(err) {
-        this.error = (err.response && err.response.data && err.response.data.error) || ''
-      },
       enterSpace(item) {
         if (item.media === this.media.tv) {
           this.$router.push({
@@ -244,6 +219,3 @@
     }
   }
 </script>
-
-<style scoped>
-</style>

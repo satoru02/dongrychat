@@ -46,7 +46,7 @@
           {
             text: 'Charts',
             icon: 'mdi-access-point',
-            path_name: 'Trend'
+            path_name: 'Chart'
           },
           {
             text: 'Spaces',

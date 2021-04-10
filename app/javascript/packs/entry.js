@@ -13,11 +13,11 @@ import ActionCableVue from 'actioncable-vue';
 import InfiniteLoading from 'vue-infinite-loading';
 import 'vuetify/dist/vuetify.min.css';
 import '@mdi/font/css/materialdesignicons.css';
-
 import Top from '../components/top/TopPage';
 import Details from '../components/details/DetailsPage';
 import Space from '../components/space/Space';
-import Trend from '../components/trend/TrendTop';
+
+import ChartTop from '../components/Chart/ChartTop';
 import Authorization from '../components/authorization/AuthorizationTop';
 import AccountActivation from '../components/authorization/AccountActivation';
 import ResetPassword from '../components/authorization/ResetPassword';
@@ -154,8 +154,8 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'Trend',
-      component: Trend
+      name: 'Chart',
+      component: ChartTop
     },
     {
       path: '/space',

@@ -294,11 +294,11 @@
           // } else {
           //   this.icon = false
           // }
-          // if (data) {
-          //   if (data.attributes.space_id === this.space_data.id) {
-          //     this.comments.push(data)
-          //   }
-          // }
+          if (data) {
+            if (data.attributes.space_id === this.space_data.id) {
+              this.comments.push(data)
+            }
+          }
         },
         disconnected() {}
       }
