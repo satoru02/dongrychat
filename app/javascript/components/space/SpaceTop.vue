@@ -1,6 +1,7 @@
 <template>
-  <!-- fix -->
   <v-container :class="space_top.position">
+
+    <!-- //space header -->
     <v-row>
       <v-btn v-if="space_data.subscribed === false" @click="subscribe()">Subscribe</v-btn>
     </v-row>
@@ -15,7 +16,6 @@
             <v-list-item-content>
               <v-list-item-title :class="space_top.title.position" :style="space_top.title.style"
                 v-text="space_data.name" />
-              <!-- fix -->
               <!-- <v-list-item-subtitle :class="space_top.subtitle.position" :style="space_top.subtitle.style"
                 v-text="space_data.users.length + '人がお気に入り'" /> -->
             </v-list-item-content>
@@ -23,6 +23,8 @@
         <v-divider :class="divider.position" />
       </v-col>
     </v-row>
+
+    <!-- //comment part -->
     <v-row :class="comment_part.row" v-for="(comment, index) in comments" :key="index">
       <v-col md=1 lg=1 xl=1 :class="comment_part.col">
         <v-avatar @click="popupProfile(comment.attributes.user.data.attributes)" :class="comment_part.avatar.class" tile
@@ -47,15 +49,18 @@
         </v-row>
       </v-col>
     </v-row>
-    <infinite-loading spinner="circles" @infinite="infiniteHandler">
-      <span slot="no-more" />
-    </infinite-loading>
+
+    <base-loader :handler="infiniteHandler" />
 
     <v-row>
       <v-col lg=12 class="mt-16" />
     </v-row>
+
+    <!-- textfiled -->
     <v-text-field class="mt-n9" background-color="#ffffff" v-model="content" @click:append-outer="sendComment(content)"
       dense type="text" no-details outlined　append-outer-icon="mdi-send" />
+
+    <!-- dialog -->
     <v-dialog v-model="dialog" width="500">
       <v-card>
         <v-card-text :style="name_title.style">
@@ -114,6 +119,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
   </v-container>
 </template>
 
@@ -122,15 +128,15 @@
     secureAxios
   } from '../../backend/axios';
   const RELATIONSHOP_URL = `/api/v1/relationships`;
-  import InfiniteLoading from 'vue-infinite-loading';
+  import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
   import moment from 'moment';
   // import Appearance from './SpaceAppearance';
 
   export default {
-    name: 'Space',
+    name: 'SpaceTop',
     components: {
+      'base-loader': BaseInfiniteLoader,
       // "appearance": Appearance
-      'infinite-loading': InfiniteLoading,
     },
     data() {
       return {
@@ -167,7 +173,7 @@
         users: '',
         content: '',
         subscribed: '',
-        // for css------------------------------------------------
+
         space_top: {
           position: 'mt-n6',
           row: 'ml-1',
@@ -278,8 +284,7 @@
           fontSize: "10px",
           width: 50,
           height: 35
-        },
-        // ------------------------------------------------
+        }
       }
     },
     channels: {
@@ -294,11 +299,11 @@
           // } else {
           //   this.icon = false
           // }
-          // if (data) {
-          //   if (data.attributes.space_id === this.space_data.id) {
-          //     this.comments.push(data)
-          //   }
-          // }
+          if (data) {
+            if (data.attributes.space_id === this.space_data.id) {
+              this.comments.push(data)
+            }
+          }
         },
         disconnected() {}
       }

@@ -41,7 +41,7 @@
 
 <script>
   import { tmdbAxios } from '../../backend/axios';
-  import BaseContentSheet from '../base/BaseContentSheet';
+  import BaseContentSheet from '../Base/BaseContentSheet';
   export default {
     name: 'SearchList',
     components: {

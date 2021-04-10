@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import MainPart from '../components/page/TheMainPart'
+  import MainPart from '../components/Layout/TheMainPart'
   export default {
     name: 'App',
     components: {

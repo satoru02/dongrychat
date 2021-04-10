@@ -1,9 +1,7 @@
 <template>
-  <v-container v-if="$vuetify.breakpoint.width > 600">
+  <v-container>
     <v-row :class="header_part.position">
-      <v-col md=3 lg=3 xl=3 />
-      <v-col md=9 lg=9 xl=9>
-      </v-col>
+      <v-col md=12 lg=12 xl=12 />
     </v-row>
     <v-row>
       <v-col md=12 lg=12 xl=12 :class="top_blank_space.position" />
@@ -46,12 +44,12 @@
           {
             text: 'Charts',
             icon: 'mdi-access-point',
-            path_name: 'Trend'
+            path_name: 'Chart'
           },
           {
-            text: 'Spaces',
+            text: 'Home',
             icon: 'mdi-home-outline',
-            path_name: 'Top'
+            path_name: 'Home'
           },
           {
             text: 'Discover',
@@ -69,7 +67,6 @@
             path_name: 'Settings'
           },
         ],
-        // css objects -----------------------------
         header_part: {
           position: 'mt-n3 ml-n4 mr-3',
         },
@@ -123,7 +120,6 @@
             color: '#ffffff',
           }
         }
-        // -----------------------------
       }
     },
     methods: {
@@ -135,6 +131,3 @@
     }
   }
 </script>
-
-<style scoped>
-</style>
