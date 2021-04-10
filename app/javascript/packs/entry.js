@@ -13,7 +13,7 @@ import ActionCableVue from 'actioncable-vue';
 import InfiniteLoading from 'vue-infinite-loading';
 import 'vuetify/dist/vuetify.min.css';
 import '@mdi/font/css/materialdesignicons.css';
-import Top from '../components/top/TopPage';
+import HomeTop from '../components/Home/HomeTop';
 import Details from '../components/details/DetailsPage';
 import Space from '../components/space/Space';
 
@@ -158,9 +158,9 @@ const router = new VueRouter({
       component: ChartTop
     },
     {
-      path: '/space',
-      name: 'Top',
-      component: Top
+      path: '/home',
+      name: 'Home',
+      component: HomeTop
     },
     {
       path: '/tv/:id/:tv_name/season/:number',

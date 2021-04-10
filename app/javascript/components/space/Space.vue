@@ -47,9 +47,7 @@
         </v-row>
       </v-col>
     </v-row>
-    <infinite-loading spinner="circles" @infinite="infiniteHandler">
-      <span slot="no-more" />
-    </infinite-loading>
+    <base-loader :handler="infiniteHandler" />
 
     <v-row>
       <v-col lg=12 class="mt-16" />
@@ -122,15 +120,15 @@
     secureAxios
   } from '../../backend/axios';
   const RELATIONSHOP_URL = `/api/v1/relationships`;
-  import InfiniteLoading from 'vue-infinite-loading';
+  import BaseInfiniteLoader from '../base//BaseInfiniteLoader';
   import moment from 'moment';
   // import Appearance from './SpaceAppearance';
 
   export default {
     name: 'Space',
     components: {
+      'base-loader': BaseInfiniteLoader,
       // "appearance": Appearance
-      'infinite-loading': InfiniteLoading,
     },
     data() {
       return {

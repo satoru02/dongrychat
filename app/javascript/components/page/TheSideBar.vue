@@ -49,9 +49,9 @@
             path_name: 'Chart'
           },
           {
-            text: 'Spaces',
+            text: 'Home',
             icon: 'mdi-home-outline',
-            path_name: 'Top'
+            path_name: 'Home'
           },
           {
             text: 'Discover',
