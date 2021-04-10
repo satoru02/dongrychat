@@ -22,9 +22,9 @@
 </template>
 
 <script>
-  import BaseBottomBar from '../base/BaseBottomBar'
-  import SideBar from '../../components/page/TheSideBar'
-  import RightPart from '../page/TheRightPart';
+  import BaseBottomBar from '../Base/BaseBottomBar'
+  import SideBar from '../../components/Layout/TheSideBar'
+  import RightPart from '../Layout/TheRightPart';
 
   export default {
     name: 'TheMainPart',

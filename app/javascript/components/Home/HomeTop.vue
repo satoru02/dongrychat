@@ -39,9 +39,9 @@
     secureAxios
   } from '../../backend/axios';
   import moment from 'moment';
-  import BaseImage from '../base/BaseImage';
-  import BaseLabel from '../base/BaseLabel';
-  import BaseInfiniteLoader from '../base/BaseInfiniteLoader';
+  import BaseImage from '../Base/BaseImage';
+  import BaseLabel from '../Base/BaseLabel';
+  import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
 
   export default {
     name: 'HomeTop',

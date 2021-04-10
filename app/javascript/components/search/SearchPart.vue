@@ -41,7 +41,7 @@
 </template>
 
 <script>
-  import BaseContentSheet from '../base/BaseContentSheet';
+  import BaseContentSheet from '../Base/BaseContentSheet';
   export default {
     name: 'SearchTopRatedPart',
     components: {

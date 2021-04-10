@@ -43,10 +43,10 @@
   import {
     tmdbAxios
   } from '../../backend/axios';
-  import SearchPopularPart from '../search/SearchPart';
-  import SearchTrendPart from '../search/SearchPart';
-  import SearchTopRatedPard from '../search/SearchPart';
-  import SearchUpcomingPart from '../search/SearchPart';
+  import SearchPopularPart from '../Search/SearchPart';
+  import SearchTrendPart from '../Search/SearchPart';
+  import SearchTopRatedPard from '../Search/SearchPart';
+  import SearchUpcomingPart from '../Search/SearchPart';
   export default {
     name: 'Search',
     components: {

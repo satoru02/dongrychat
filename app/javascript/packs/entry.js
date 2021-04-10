@@ -14,22 +14,22 @@ import InfiniteLoading from 'vue-infinite-loading';
 import 'vuetify/dist/vuetify.min.css';
 import '@mdi/font/css/materialdesignicons.css';
 import HomeTop from '../components/Home/HomeTop';
-import Details from '../components/details/DetailsPage';
+import DetailTop from '../components/Detail/DetailsTop';
 import SpaceTop from '../components/Space/SpaceTop';
 import ChartTop from '../components/Chart/ChartTop';
-import Authorization from '../components/authorization/AuthorizationTop';
-import AccountActivation from '../components/authorization/AccountActivation';
-import ResetPassword from '../components/authorization/ResetPassword';
-import Login from '../components/authorization/Login';
-import Logout from '../components/authorization//Logout';
-import Signup from '../components/authorization/Signup';
-import ForgotPassword from '../components/authorization/ForgotPassword';
-import Search from '../components/search/Search';
-import UserSettings from '../components/user/UserSettings';
-import Results from '../components/search/SearchResults';
-import UserFollowings from '../components/user/UserFollowings';
-import UserFollowers from '../components/user/UserFollowers';
-import SearchList from '../components/search/SearchList';
+import Authorization from '../components/Authorization/AuthorizationTop';
+import AccountActivation from '../components/Authorization/AccountActivation';
+import ResetPassword from '../components/Authorization/ResetPassword';
+import Login from '../components/Authorization/Login';
+import Logout from '../components/Authorization//Logout';
+import Signup from '../components/Authorization/Signup';
+import ForgotPassword from '../components/Authorization/ForgotPassword';
+import Search from '../components/Search/Search';
+import UserSettings from '../components/User/UserSettings';
+import Results from '../components/Search/SearchResults';
+import UserFollowings from '../components/User/UserFollowings';
+import UserFollowers from '../components/User/UserFollowers';
+import SearchList from '../components/Search/SearchList';
 
 Vue.use(Vuetify);
 Vue.use(VueRouter);
@@ -164,12 +164,12 @@ const router = new VueRouter({
     {
       path: '/tv/:id/:tv_name/season/:number',
       name: 'TvDetails',
-      component: Details
+      component: DetailTop
     },
     {
       path: '/mv/:id/:mv_name',
       name: 'MvDetails',
-      component: Details
+      component: DetailTop
     },
     {
       path: '/tv_space/:name/:season_number/:episode_number',

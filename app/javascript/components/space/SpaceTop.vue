@@ -119,7 +119,7 @@
     secureAxios
   } from '../../backend/axios';
   const RELATIONSHOP_URL = `/api/v1/relationships`;
-  import BaseInfiniteLoader from '../base//BaseInfiniteLoader';
+  import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
   import moment from 'moment';
   // import Appearance from './SpaceAppearance';
 

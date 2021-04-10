@@ -52,8 +52,8 @@
   import {
     secureAxios
   } from '../../backend/axios';
-  import BaseImage from '../base/BaseImage';
-  import BaseLabel from '../base/BaseLabel';
+  import BaseImage from '../Base/BaseImage';
+  import BaseLabel from '../Base/BaseLabel';
 
   export default {
     name: 'ChartTop',
