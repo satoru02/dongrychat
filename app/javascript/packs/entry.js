@@ -25,7 +25,6 @@ import Login from '../components/authorization/Login';
 import Logout from '../components/authorization//Logout';
 import Signup from '../components/authorization/Signup';
 import ForgotPassword from '../components/authorization/ForgotPassword';
-import User from '../components/user/UserTop';
 import Search from '../components/search/Search';
 import UserSettings from '../components/user/UserSettings';
 import Results from '../components/search/SearchResults';
@@ -152,8 +151,14 @@ const store = new Vuex.Store({
 
 const router = new VueRouter({
   mode: 'history',
-  routes: [{
+  routes: [
+    {
       path: '/',
+      name: 'Trend',
+      component: Trend
+    },
+    {
+      path: '/space',
       name: 'Top',
       component: Top
     },
@@ -192,11 +197,6 @@ const router = new VueRouter({
       component: Space
     },
     {
-      path: '/trend',
-      name: 'Trend',
-      component: Trend
-    },
-    {
       path: '/authorization',
       name: 'Authorization',
       component: Authorization
@@ -232,27 +232,14 @@ const router = new VueRouter({
       component: ForgotPassword
     },
     {
-      path: '/users/:id',
-      name: "User",
-      component: User,
-      children: [
-        {
-          path: "followings",
-          name: "Followings",
-          component: UserFollowings,
-          props: (route) => ({
-            query: route.query.status
-          })
-        },
-        {
-          path: "followers",
-          name: "Followers",
-          component: UserFollowers,
-          props: (route) => ({
-            query: route.query.status
-          })
-        },
-      ]
+      path: '/users/:id/followings',
+      name: 'Followings',
+      component: UserFollowings
+    },
+    {
+      path: '/users/:id/followers',
+      name: 'Followers',
+      component: UserFollowers
     },
     {
       path: '/settings',

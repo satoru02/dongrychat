@@ -1,35 +1,34 @@
 <template>
   <v-container>
-    <v-list-item-group active-class="orange--text" multiple class="list-body">
-      <template v-for="(item, index) in 6">
-        <v-list-item :key="index">
+    <v-list-item-group v-for="(user, index) in relationships" :key="index" active-class="orange--text" multiple class="list-body">
+        <v-list-item >
           <template v-slot:default="{}">
             <v-list-item-avatar size=58 height=58 tile class="rounded-lg">
-              <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
+              <v-img :src="user.attributes.avatar_url" />
             </v-list-item-avatar>
             <v-list-item-content class=ml-1>
               <v-list-item-title class="card-title">
-                username
+                {{user.attributes.name}}
               </v-list-item-title>
-              <v-list-item-subtitle class="subtitle mt-1">
-                username
-              </v-list-item-subtitle>
             </v-list-item-content>
             <v-list-item-action class="ml-n5">
-              <v-btn elevation=0
-                :style="followingStyle"
-              >
-                {{ unfollowText }}
+              <v-btn small elevation=0 v-if="$store.state.currentUser.id != user.id"
+                :style="checkRelationship(user) ? followingStyle : unfollowStyle"
+                @click="checkRelationship(user) ? unfollow(user.attributes.id) : follow(user.attributes.id)">
+                {{ checkRelationship(user) ? followingText : unfollowText }}
               </v-btn>
             </v-list-item-action>
           </template>
         </v-list-item>
-      </template>
     </v-list-item-group>
   </v-container>
 </template>
 
 <script>
+  import {
+    secureAxios
+  } from '../../backend/axios';
+  const RELATIONSHOP_URL = `/api/v1/relationships`;
   export default {
     name: "UserRelationships",
     props: {
@@ -40,16 +39,17 @@
     },
     data() {
       return {
-        followingText: 'フォローした',
+        followed: false,
+        followingText: 'following',
         followingStyle: {
-          backgroundColor: "#343a40",
+          backgroundColor: "#000000",
           fontWeight: "bold",
           fontSize: "10px",
           width: 100,
           height: 40,
           elevation: 0
         },
-        unfollowText: 'フォローする',
+        unfollowText: 'follow',
         unfollowStyle: {
           backgroundColor: "#2d00f7",
           fontWeight: "bold",
@@ -58,6 +58,34 @@
           height: 25
         },
       }
+    },
+    methods: {
+      checkRelationship(user){
+        if (this.$store.state.currentUser.following.includes(user.attributes.id)) {
+          return true
+        } else {
+          return false
+        }
+      },
+      follow(user_id) {
+        secureAxios.post(RELATIONSHOP_URL, {
+          followed_id: user_id
+        }).then(res => {
+          this.$store.commit('follow', user_id)
+          this.followed = true
+        })
+      },
+      unfollow(user_id) {
+        secureAxios.delete(RELATIONSHOP_URL + `/` + `${this.$store.state.currentUser.id}`, {
+          params: {
+            id: this.$store.state.currentUser.id,
+            followed_id: user_id
+          }
+        }).then(res => {
+          this.$store.commit('unfollow', user_id)
+          this.followed = false
+        })
+      },
     }
   }
 </script>

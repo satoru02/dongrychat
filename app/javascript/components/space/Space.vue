@@ -1,9 +1,9 @@
 <template>
   <!-- fix -->
   <v-container :class="space_top.position">
-      <v-row>
-    <v-btn v-if="space_data.subscribed === false" @click="subscribe()">Subscribe</v-btn>
-  </v-row>
+    <v-row>
+      <v-btn v-if="space_data.subscribed === false" @click="subscribe()">Subscribe</v-btn>
+    </v-row>
     <v-row :class="space_top.row">
       <v-col md=12 lg=12 xl=12 :class="space_top.col">
         <v-list-item>
@@ -25,8 +25,8 @@
     </v-row>
     <v-row :class="comment_part.row" v-for="(comment, index) in comments" :key="index">
       <v-col md=1 lg=1 xl=1 :class="comment_part.col">
-        <v-avatar :class="comment_part.avatar.class" tile :size='comment_part.avatar.size'
-          :height='comment_part.avatar.height'>
+        <v-avatar @click="popupProfile(comment.attributes.user.data.attributes)" :class="comment_part.avatar.class" tile
+          :size='comment_part.avatar.size' :height='comment_part.avatar.height'>
           <img :src="comment.attributes.user.data.attributes.avatar_url">
         </v-avatar>
       </v-col>
@@ -51,17 +51,77 @@
       <span slot="no-more" />
     </infinite-loading>
 
-    <!-- fix -->
     <v-row>
       <v-col lg=12 class="mt-16" />
     </v-row>
     <v-text-field class="mt-n9" background-color="#ffffff" v-model="content" @click:append-outer="sendComment(content)"
       dense type="text" no-details outlined　append-outer-icon="mdi-send" />
+    <v-dialog v-model="dialog" width="500">
+      <v-card>
+        <v-card-text :style="name_title.style">
+          <v-row>
+            <v-col lg=2>
+              <v-avatar class="mt-8" size=70 height=70>
+                <img :src="user_pop.avatar_url">
+              </v-avatar>
+            </v-col>
+            <v-col lg=10>
+              <v-row class="ml-5 mt-5">
+                <v-col lg=6>
+                  {{this.user_pop.name}}
+                </v-col>
+                <v-col lg=6>
+                  <v-btn small elevation=0 v-if="this.$store.state.currentUser.id != this.user_pop.id"
+                    :class="roundClass" :style="followed ? followingStyle : unfollowStyle"
+                    @click="followed ? unfollow(user_pop.id) : follow(user_pop.id)">
+                    {{ followed ? followingText : unfollowText }}
+                  </v-btn>
+                </v-col>
+              </v-row>
+              <v-row class="ml-5 mt-n2">
+                <v-col md=6 lg=6 xl=6 @click="movePath(user_pop, 'followings')">
+                  <div :style="relationship.style">フォロー {{this.following_length}}
+                  </div>
+                </v-col>
+                <v-col md=6 lg=6 xl=6 class=ml-n10 @click="movePath(user_pop, 'followers')">
+                  <div :style="relationship.style">フォロワー {{this.follower_length}}</div>
+                </v-col>
+              </v-row>
+              <v-row class="ml-5 mt-n2">
+                <v-col lg=12>
+                  {{this.user_pop.about}}
+                </v-col>
+              </v-row>
+              <v-row class="ml-5 mt-2">
+                <v-col lg=1>
+                  <v-icon size=19>mdi-twitter</v-icon>
+                </v-col>
+                <v-col lg=1 class="ml-2">
+                  <v-icon size=19>mdi-instagram</v-icon>
+                </v-col>
+                <v-col lg=1 class="ml-2">
+                  <v-icon size=19>mdi-facebook</v-icon>
+                </v-col>
+                <v-col lg=1 class="ml-2">
+                  <v-icon size=19>mdi-youtube</v-icon>
+                </v-col>
+              </v-row>
+            </v-col>
+          </v-row>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
-  import { secureAxios } from '../../backend/axios';
+  import {
+    secureAxios
+  } from '../../backend/axios';
+  const RELATIONSHOP_URL = `/api/v1/relationships`;
   import InfiniteLoading from 'vue-infinite-loading';
   import moment from 'moment';
   // import Appearance from './SpaceAppearance';
@@ -75,6 +135,11 @@
     data() {
       return {
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w200`,
+        dialog: false,
+        followed: Boolean,
+        user_pop: '',
+        follower_length: '',
+        following_length: '',
         api: {
           from_search: `/api/v1/spaces/enter`,
           from_subscription: `/api/v1/spaces/enter_from_subscription`,
@@ -175,8 +240,45 @@
         divider: {
           position: 'mt-3 ml-4 mb-n8'
         },
+        name_title: {
+          style: {
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '14px',
+            color: '#011627'
+          }
+        },
+        relationship: {
+          style: {
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '7px',
+            color: '#6c757d'
+          }
+        },
         page: 1,
         pageSize: 10,
+        followed: Boolean,
+        roundClass: {
+          rounded: "lg"
+        },
+        followingText: 'フォローする',
+        followingStyle: {
+          backgroundColor: "#343a40",
+          fontWeight: "bold",
+          fontSize: "10px",
+          width: 50,
+          height: 40,
+          elevation: 0
+        },
+        unfollowText: 'フォローした',
+        unfollowStyle: {
+          backgroundColor: "#2d00f7",
+          fontWeight: "bold",
+          fontSize: "10px",
+          width: 50,
+          height: 35
+        },
         // ------------------------------------------------
       }
     },
@@ -192,11 +294,11 @@
           // } else {
           //   this.icon = false
           // }
-          if (data) {
-            if (data.attributes.space_id === this.space_data.id) {
-              this.comments.push(data)
-            }
-          }
+          // if (data) {
+          //   if (data.attributes.space_id === this.space_data.id) {
+          //     this.comments.push(data)
+          //   }
+          // }
         },
         disconnected() {}
       }
@@ -307,6 +409,41 @@
       },
       formalizeTime(time) {
         return moment(time).format("YYYY/MM/DD hh:mm")
+      },
+      popupProfile(user) {
+        if (this.$store.state.currentUser.following.includes(user.id)) {
+          this.followed = true
+        } else {
+          this.followed = false
+        }
+        this.dialog = true
+        this.user_pop = user
+        this.follower_length = user.follower.length
+        this.following_length = user.following.length
+      },
+      movePath(user, relationship) {
+        this.$router.push({
+          path: `/users/${user.id}/${relationship}`
+        })
+      },
+      follow(user_id) {
+        secureAxios.post(RELATIONSHOP_URL, {
+          followed_id: user_id
+        }).then(res => {
+          this.$store.commit('follow', user_id)
+          this.followed = true
+        })
+      },
+      unfollow(user_id) {
+        secureAxios.delete(RELATIONSHOP_URL + `/` + `${this.$store.state.currentUser.id}`, {
+          params: {
+            id: this.$store.state.currentUser.id,
+            followed_id: user_id
+          }
+        }).then(res => {
+          this.$store.commit('unfollow', user_id)
+          this.followed = false
+        })
       },
     }
   }

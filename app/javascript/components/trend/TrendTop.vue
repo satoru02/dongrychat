@@ -20,30 +20,26 @@
               <div :style="ranking.title" :class="ranking.position">{{index + 1}}
                 <v-icon :color="icon.color" :class="icon.position" :size="icon.size" v-text="icon.mdi" />
               </div>
-              <!-- <v-badge color="#f94144" :content='"New"' style="font-weight:bold;" right offset-x="31" offset-y="29"
-                overlap> -->
               <v-list-item-avatar :size="avatar.size" :height="avatar.height" tile :class="avatar.round">
                 <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
               </v-list-item-avatar>
-              <!-- </v-badge> -->
               <v-list-item-content :class="listItemContent.position">
-                <v-list-item-title :style="listItemTitle.style" v-html="item.attributes.name" />
+                <v-list-item-title :style="listItemTitle.style">
+                  {{item.attributes.name}}
+                </v-list-item-title>
                 <v-list-item-subtitle :style="listItemSubtitle.style" :class="listItemSubtitle.position"
-                  v-text="'Steve johnson'">
-                  <!-- Season{{item.attributes.season}}-{{item.attributes.episode}}
-                  {{item.attributes.episode_title}} -->
+                >
+                <v-chip outlined v-if="item.attributes.media === 'tv'"
+                  x-small label color="black" text-color="black">
+                  シーズン{{item.attributes.season}} 第{{item.attributes.episode}}話
+                  {{item.attributes.episode_title}}</v-chip>
                 </v-list-item-subtitle>
               </v-list-item-content>
-              <v-list-item-action>
-                <div :style="listItemAction.style" :class="listItemAction.season_position"
-                  v-text="item.attributes.season" />
+              <v-list-item-action class="mr-n6" v-if="item.attributes.users.length > 0">
+                <v-badge class="mt-1" dot color="red"></v-badge>
               </v-list-item-action>
-              <v-list-item-action>
-                <div :style="listItemAction.style" :class="listItemAction.episode_position"
-                  v-text="item.attributes.episode" />
-              </v-list-item-action>
-              <v-list-item-action>
-                <div :style="listItemAction.style" v-text="'157人が会話中'" />
+              <v-list-item-action v-if="item.attributes.users.length > 0">
+                <div :style="listItemAction.style" v-text="item.attributes.users.length" />
               </v-list-item-action>
             </template>
           </v-list-item>
@@ -75,7 +71,7 @@
         // css objects ------------------------------------------
         switchPosition: 'mt-3 ml-n4',
         trend_header: {
-          position: 'ml-n3'
+          position: 'ml-n3 mt-n2'
         },
         trend_part: {
           position: ''
@@ -141,7 +137,7 @@
           position: 'mt-1',
           style: {
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '9px',
+            fontSize: '13px',
             fontWeight: 'bold',
             color: '#484b4d'
           }

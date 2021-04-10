@@ -16,3 +16,5 @@ class AppearanceChannel < ApplicationCable::Channel
   #   Redis.new
   #  end
 end
+
+# redis.get("user_#{current_user.id}_online")

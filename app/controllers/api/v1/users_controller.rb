@@ -9,6 +9,12 @@ module Api
         render_json(serializer)
       end
 
+      def index
+        user = User.online
+        serializer = UserSerializer.new(user)
+        render_json(serializer)
+      end
+
       def show
         serializer = UserSerializer.new(@user)
         render_json(serializer)
