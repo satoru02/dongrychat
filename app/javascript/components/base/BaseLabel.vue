@@ -1,5 +1,7 @@
 <template>
   <v-chip x-small outlined label v-text="displayDetails()" :color="color" :text-color="textColor" />
+  <!-- <v-chip small outlined label v-text="displayDetails()" :color="color" :text-color="textColor" /> -->
+
 </template>
 <script>
   export default {
