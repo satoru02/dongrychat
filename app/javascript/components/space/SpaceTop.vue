@@ -1,28 +1,6 @@
 <template>
   <v-container :class="space_top.position">
-
-    <!-- //space header -->
-    <v-row>
-      <v-btn v-if="space_data.subscribed === false" @click="subscribe()">Subscribe</v-btn>
-    </v-row>
-    <v-row :class="space_top.row">
-      <v-col md=12 lg=12 xl=12 :class="space_top.col">
-        <v-list-item>
-          <template v-slot:default="{}">
-            <v-list-item-avatar :size="space_top.avatar.size" :height='space_top.avatar.height' tile
-              :class="space_top.avatar.round">
-              <v-img :src="base_tmdb_img_url + space_data.image_path" />
-            </v-list-item-avatar>
-            <v-list-item-content>
-              <v-list-item-title :class="space_top.title.position" :style="space_top.title.style"
-                v-text="space_data.name" />
-              <!-- <v-list-item-subtitle :class="space_top.subtitle.position" :style="space_top.subtitle.style"
-                v-text="space_data.users.length + '人がお気に入り'" /> -->
-            </v-list-item-content>
-          </template></v-list-item>
-        <v-divider :class="divider.position" />
-      </v-col>
-    </v-row>
+    <space-header :space_data="this.space_data" />
 
     <!-- //comment part -->
     <v-row :class="comment_part.row" v-for="(comment, index) in comments" :key="index">
@@ -32,12 +10,12 @@
           <img :src="comment.attributes.user.data.attributes.avatar_url">
         </v-avatar>
       </v-col>
-      <v-col md=10 lg=10 xl=10 :class="comment_part.inner_col">
+      <v-col md=10 lg=11 xl=10 :class="comment_part.inner_col">
         <v-row>
           <v-col md=3 lg=3 xl=3>
             <div :style="comment_part.style.username" v-text="comment.attributes.user.data.attributes.name" />
           </v-col>
-          <v-col md=7 lg=7 xl=7 />
+          <v-col md=7 lg=6 xl=7 />
           <v-col md=2 lg=2 xl=2 :class="comment_part.countClass">
             <div :style="comment_part.style.count" v-text="formalizeTime(comment.attributes.created_at)" />
           </v-col>
@@ -119,7 +97,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
+    <!-- </v-card> -->
   </v-container>
 </template>
 
@@ -130,12 +108,16 @@
   const RELATIONSHOP_URL = `/api/v1/relationships`;
   import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
   import moment from 'moment';
+  import SpaceHeader from './SpaceHeader';
+  import BaseLabel from '../Base/BaseLabel';
   // import Appearance from './SpaceAppearance';
 
   export default {
     name: 'SpaceTop',
     components: {
       'base-loader': BaseInfiniteLoader,
+      'space-header': SpaceHeader,
+      'base-label': BaseLabel
       // "appearance": Appearance
     },
     data() {
@@ -165,6 +147,10 @@
           tv: 'tv',
           mv: 'mv',
         },
+        colors: {
+          chip: 'black',
+          notifyBtn: 'red'
+        },
         items: [],
         params: {},
         comments: [],
@@ -173,39 +159,38 @@
         users: '',
         content: '',
         subscribed: '',
-
         space_top: {
-          position: 'mt-n6',
+          position: 'mt-n7',
           row: 'ml-1',
-          col: 'mb-6',
+          col: 'mb-6 ml-n5',
           avatar: {
-            size: '45',
-            height: '45',
+            size: '105',
+            height: '135',
             round: 'rounded-lg'
           },
           title: {
-            position: 'ml-1 mt-n3',
+            position: 'ml-1',
             style: {
               color: '#000000',
               fontWeight: 'bold',
               fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '13px'
+              fontSize: '17px'
             }
           },
           subtitle: {
-            position: 'ml-1 mb-n2 mt-1',
+            position: 'ml-1',
             style: {
               color: '#000000',
               fontWeight: 'bold',
               fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '6px'
+              fontSize: '11px'
             }
           }
         },
         comment_part: {
           row: 'ml-1',
-          col: 'ml-5 mt-n3',
-          inner_col: 'ml-n3',
+          col: ' mt-n3',
+          inner_col: '',
           countClass: 'mt-1',
           text_row: 'mt-n5',
           avatar: {
@@ -244,7 +229,7 @@
           }
         },
         divider: {
-          position: 'mt-3 ml-4 mb-n8'
+          position: 'mt-n1 mb-n8'
         },
         name_title: {
           style: {
@@ -331,6 +316,7 @@
           episode_title: this.$route.params.episode_title,
           tmdb_tv_id: this.$route.params.tmdb_tv_id,
           image_path: this.$route.params.image_path,
+          overview: this.$route.params.overview
         }
       } else if (this.$route.name === this.space.movie.unsubscribed) {
         this.endpoint = this.api.from_search
@@ -339,6 +325,7 @@
           media: this.media.mv,
           image_path: this.$route.params.image_path,
           tmdb_mv_id: this.$route.params.tmdb_mv_id,
+          overview: this.$route.params.overview
         }
       }
     },

@@ -26,7 +26,7 @@
               <v-list-item-content :class="grid.listItemContent">
                 <v-list-item-title :style="style.listItemTitle" v-text="item.attributes.name" />
                 <v-list-item-subtitle :style="style.listItemSubtitle" :class="grid.listItemSubtitle">
-                  <base-label v-if="item.attributes.media === media.tv" :color="colors.chip" :text-color="colors.chip"
+                  <base-label :x_small="true" v-if="item.attributes.media === media.tv" :color="colors.chip" :text-color="colors.chip"
                     :season="item.attributes.season" :episode="item.attributes.episode"
                     :title="item.attributes.episode_title" />
                 </v-list-item-subtitle>

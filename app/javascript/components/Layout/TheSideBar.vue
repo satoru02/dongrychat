@@ -76,14 +76,14 @@
         bottom_blank_space: {
           position: 'mt-8 ml-n6 mb-13',
           style: {
-            height: '470px'
+            height: '490px'
           }
         },
         list: {
           position: 'ml-16 mt-n6',
           style: {
             position: 'fixed',
-            color: '#F6F6F6'
+            color: '#ced4da'
           }
         },
         list_item: {

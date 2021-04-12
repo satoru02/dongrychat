@@ -1,5 +1,5 @@
 <template>
-  <v-chip x-small outlined label v-text="displayDetails()" :color="color" :text-color="textColor" />
+  <v-chip :small="small" :x-small="x_small" outlined label v-text="displayDetails()" :color="color" :text-color="textColor" />
 </template>
 <script>
   export default {
@@ -31,6 +31,14 @@
       title: {
         type: String,
         default: ''
+      },
+      small: {
+        type: Boolean,
+        default: false
+      },
+      x_small: {
+        type: Boolean,
+        default: false
       }
     },
     methods: {

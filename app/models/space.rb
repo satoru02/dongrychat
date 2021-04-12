@@ -8,6 +8,7 @@
 #  image_path      :string
 #  media           :integer          default("mv"), not null
 #  name            :string           not null
+#  overview        :text
 #  resource_digest :string           not null
 #  resource_token  :string           not null
 #  season          :integer
@@ -65,7 +66,7 @@ class Space < ApplicationRecord
       else
         @space = self.create(
           name: space_params[:name], tmdb_mv_id: space_params[:tmdb_mv_id],
-          image_path: space_params[:image_path]
+          image_path: space_params[:image_path], overview: space_params[:overview]
         )
         return @space
       end
@@ -78,7 +79,8 @@ class Space < ApplicationRecord
       else
         @space = self.create!(
           name: space_params[:name], season: space_params[:season], episode: space_params[:episode], media: space_params[:media],
-          tmdb_tv_id: space_params[:tmdb_tv_id], episode_title: space_params[:episode_title], image_path: space_params[:image_path]
+          tmdb_tv_id: space_params[:tmdb_tv_id], episode_title: space_params[:episode_title], image_path: space_params[:image_path],
+          overview: space_params[:overview]
         )
         return @space
       end
