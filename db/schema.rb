@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_06_085005) do
+ActiveRecord::Schema.define(version: 2021_04_12_045534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 2021_04_06_085005) do
     t.integer "tmdb_tv_id"
     t.integer "tmdb_mv_id"
     t.string "image_path"
+    t.text "overview"
   end
 
   create_table "subscriptions", force: :cascade do |t|

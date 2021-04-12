@@ -2,7 +2,7 @@
 #
 #                                Prefix Verb   URI Pattern                                                                              Controller#Action
 #                                  root GET    /                                                                                        home#index
-#                                              /cable                                                                                   #<ActionCable::Server::Base:0x00007fd806ec48d0 @config=#<ActionCable::Server::Configuration:0x00007fd80522b160 @log_tags=[], @connection_class=#<Proc:0x00007fd8052331d0 /Users/sugiwaka/.rbenv/versions/2.7.2/lib/ruby/gems/2.7.0/gems/actioncable-6.0.3.5/lib/action_cable/engine.rb:37 (lambda)>, @worker_pool_size=4, @disable_request_forgery_protection=false, @allow_same_origin_as_host=true, @logger=#<Logger:0x00007fd805290e70 @level=0, @progname=nil, @default_formatter=#<Logger::Formatter:0x00007fd805290e48 @datetime_format=nil>, @formatter=#<Proc:0x00007fd805290b28 /Users/sugiwaka/living-room/config/environments/development.rb:4>, @logdev=#<Logger::LogDevice:0x00007fd805290df8 @shift_period_suffix="%Y%m%d", @shift_size=1048576, @shift_age="daily", @filename="log/development.log", @dev=#<File:log/development.log>, @binmode=false, @mon_data=#<Monitor:0x00007fd805290da8>, @mon_data_owner_object_id=12000, @next_rotate_time=2021-04-08 00:00:00 +0900>>, @cable={"adapter"=>"async"}, @mount_path="/cable", @allowed_request_origins=/https?:\/\/localhost:\d+/>, @mutex=#<Monitor:0x00007fd806ec4858>, @pubsub=nil, @worker_pool=nil, @event_loop=nil, @remote_connections=nil>
+#                                              /cable                                                                                   #<ActionCable::Server::Base:0x00007ffadf714580 @config=#<ActionCable::Server::Configuration:0x00007ffae80b6090 @log_tags=[], @connection_class=#<Proc:0x00007ffadf6ce238 /Users/sugiwaka/.rbenv/versions/2.7.2/lib/ruby/gems/2.7.0/gems/actioncable-6.0.3.5/lib/action_cable/engine.rb:37 (lambda)>, @worker_pool_size=4, @disable_request_forgery_protection=false, @allow_same_origin_as_host=true, @logger=#<Logger:0x00007ffae82f7548 @level=0, @progname=nil, @default_formatter=#<Logger::Formatter:0x00007ffae82f7520 @datetime_format=nil>, @formatter=#<Proc:0x00007ffae82f7200 /Users/sugiwaka/living-room/config/environments/development.rb:4>, @logdev=#<Logger::LogDevice:0x00007ffae82f74d0 @shift_period_suffix="%Y%m%d", @shift_size=1048576, @shift_age="daily", @filename="log/development.log", @dev=#<File:log/development.log>, @binmode=false, @mon_data=#<Monitor:0x00007ffae82f7480>, @mon_data_owner_object_id=12000, @next_rotate_time=2021-04-13 00:00:00 +0900>>, @cable={"adapter"=>"async"}, @mount_path="/cable", @allowed_request_origins=/https?:\/\/localhost:\d+/>, @mutex=#<Monitor:0x00007ffadf714530>, @pubsub=nil, @worker_pool=nil, @event_loop=nil, @remote_connections=nil>
 #                                       POST   /auth/:provider(.:format)                                                                auth#create
 #                            auth_index POST   /auth(.:format)                                                                          auth#create
 #           api_v1_avatar_presigned_url GET    /api/v1/avatar/presigned_url(.:format)                                                   api/v1/avatar#presigned_url
@@ -29,7 +29,9 @@
 #                                       DELETE /api/v1/users/:id(.:format)                                                              api/v1/users#destroy
 #                  api_v1_relationships POST   /api/v1/relationships(.:format)                                                          api/v1/relationships#create
 #                   api_v1_relationship DELETE /api/v1/relationships/:id(.:format)                                                      api/v1/relationships#destroy
-#                  api_v1_subscriptions GET    /api/v1/subscriptions(.:format)                                                          api/v1/subscriptions#index
+#                  api_v1_subscriptions POST   /api/v1/subscriptions(.:format)                                                          api/v1/subscriptions#create
+#           delete_api_v1_subscriptions DELETE /api/v1/subscriptions/:space_id/:user_id(.:format)                                       api/v1/subscriptions#delete
+#                                       GET    /api/v1/subscriptions(.:format)                                                          api/v1/subscriptions#index
 #                                       POST   /api/v1/subscriptions(.:format)                                                          api/v1/subscriptions#create
 #               new_api_v1_subscription GET    /api/v1/subscriptions/new(.:format)                                                      api/v1/subscriptions#new
 #              edit_api_v1_subscription GET    /api/v1/subscriptions/:id/edit(.:format)                                                 api/v1/subscriptions#edit
@@ -111,7 +113,14 @@ Rails.application.routes.draw do
       end
 
       resources :relationships, only: [:create, :destroy]
-      resources :subscriptions
+
+      resources :subscriptions do
+        collection do
+          post :create
+          delete ':space_id/:user_id', action: :destroy, as: :destroy
+        end
+      end
+
       resources :spaces do
         collection do
           get :enter

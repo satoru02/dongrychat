@@ -185,6 +185,7 @@
             tmdb_tv_id: this.details.id,
             image_path: this.details.poster_path,
             media: this.media,
+            overview: tv_data.overview
           }
         })
       },
@@ -196,6 +197,7 @@
             tmdb_mv_id: details.id,
             name: this.$route.params.mv_name,
             media: this.media,
+            overview: details.overview
           }
         })
       }
