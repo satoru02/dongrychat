@@ -1,10 +1,5 @@
 <template>
   <v-container :class="space_top.position">
-    <!-- space button -->
-    <v-row>
-      <v-btn v-if="space_data.subscribed === false" @click="subscribe()">Subscribe</v-btn>
-    </v-row>
-
     <space-header :space_data="this.space_data" />
 
     <!-- //comment part -->

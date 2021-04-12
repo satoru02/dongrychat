@@ -1,61 +1,68 @@
 <template>
-  <v-row :class="space_top.row">
-    <v-col md=12 lg=12 xl=12 :class="space_top.col">
-      <v-list three-line>
-        <v-list-item multiple>
-          <template v-slot:default="{}">
-            <v-list-item-avatar :size="space_top.avatar.size" :height='space_top.avatar.height' tile
-              :class="space_top.avatar.round">
-              <v-img :src="base_tmdb_img_url + space_data.image_path" />
-            </v-list-item-avatar>
-            <v-list-item-content>
-              <v-list-item-title :class="space_top.title.position" :style="space_top.title.style">
-                {{space_data.name}}
-                <v-chip class="ml-2" small>235</v-chip>
-                <!-- <base-label class="ml-2" v-if="space_data.media === media.tv" :color="colors.chip"
-                  :text-color="colors.chip" :season="space_data.season" :episode="space_data.episode"
-                  :title="space_data.episode_title" /> -->
-              </v-list-item-title>
-              <v-list-item-subtitle :class="space_top.subtitle.position" :style="space_top.atmark.style"
-                v-text="'@ワンダビジョン'" />
-              <v-list-item-subtitle :class="space_top.subtitle.position" :style="space_top.subtitle.style"
-             >
-                <base-label v-if="space_data.media === media.tv" :color="colors.chip"
-                  :text-color="colors.chip" :season="space_data.season" :episode="space_data.episode"
-                  :title="space_data.episode_title" />
-                   <!-- <v-chip small outlined label v-text="displayDetails()" :color="color" :text-color="textColor" /> -->
-              </v-list-item-subtitle>
-              <v-list-item-subtitle
-               :class="space_top.dis.position" :style="space_top.dis.style"
-                v-text="'正義の象徴を失った世界を救ファルコンとウィンター・ソルジャーの新たな戦いを描くクライム・アクション開幕！ これは、新たな”キャプテン・アメリカ”誕生'">
-              </v-list-item-subtitle>
-              <!-- <v-list-item-subtitle class="ml-1" :style="space_top.fav.style"
-                v-text="'mdi-heart' + space_data.users.length"> -->
-                <v-list-item-subtitle class="ml-1" :style="space_top.fav.style"
-                >
-                <v-icon class="mt-n1" size="17">mdi-account</v-icon>
-                1348人がお気に入り中
-              <v-icon class="ml-2" size="17">mdi-chat</v-icon>
-                134
-                <v-chip class="ml-5" x-small>TV</v-chip>
-              </v-list-item-subtitle>
-            </v-list-item-content>
-            <v-list-item-action>
-                <v-btn outlined elevation=0 :style="space_top.btn.style" class="ml-10 mt-1" small color="black">
-                  チャットに参加する
-                </v-btn>
-                <!-- <v-btn class=mt-3 outlined elevation=0 height="30" width=135 color=black>
-                 <v-icon>mdi-dots-horizontal</v-icon>
-                </v-btn> -->
-            </v-list-item-action>
-          </template></v-list-item>
-      </v-list>
-      <v-divider :class="divider.position" />
+  <v-row :class="grid.header">
+    <v-col md=2 lg=2 xl=2>
+      <v-avatar :class="avatar.round" :size="avatar.size" :height='avatar.height' tile>
+        <v-img :src="base_tmdb_img_url + space_data.image_path" />
+      </v-avatar>
+    </v-col>
+    <v-col md=10 lg=10 xl=10>
+      <v-row :class='grid.titlePart'>
+        <v-col md=8 lg=8 xl=8 :class='grid.title'>
+          <div :style="style.title">
+            {{space_data.name}}
+            <v-chip :class="grid.chip" v-text="space_data.users.length" small />
+          </div>
+        </v-col>
+        <v-col md=3 lg=3 xl=3>
+          <v-btn @click="subscribe()" :elevation='btn.elevation' :class="grid.btn" small
+            :color="space_data.subscribed === true ? colors.red : colors.black"
+            :outlined="space_data.subscribed === true ? false : true"
+            :style="space_data.subscribed === true ? style.subscribedBtn : style.unsubscribedBtn"
+            v-text="space_data.subscribed === true ? btn.subscribedText : btn.unsubscribedText" />
+        </v-col>
+      </v-row>
+      <v-row dense>
+        <v-col md=12 lg=12 xl=12>
+          <div :class="grid.subName" :style="style.subName" v-text="'@' + space_data.name" />
+        </v-col>
+      </v-row>
+      <v-row dense>
+        <v-col md=12 lg=12 xl=12 :class="grid.label">
+          <base-label :style="style.label" v-if="space_data.media === media.tv" :color="colors.black"
+            :text-color="colors.chip" :season="space_data.season" :episode="space_data.episode"
+            :title="space_data.episode_title" />
+        </v-col>
+      </v-row>
+
+      <!-- // fix overview -->
+      <v-row>
+        <v-col md=10 lg=11 xl=10 :class="grid.summary">
+          <div :style="style.summary"
+            v-text="'正義の象徴を失った世界を救ファルコンとウィンター・ソルジャーの新たな戦いを描くクライム・アクション開幕！ これは、新たな”キャプテン・アメリカ”誕生'" />
+        </v-col>
+      </v-row>
+      <!-- // fix tag -->
+      <v-row class="mt-5 ml-1">
+        <v-col md=4 lg=1 xl=4 :style="style.fav">
+        </v-col>
+        <v-col md=2 lg=2 xl=2 class="ml-n6">
+          <v-chip color="#000000" :style="style.tag" small>#TV</v-chip>
+        </v-col>
+        <v-col md=2 lg=3 xl=2 class="ml-n10">
+          <v-chip color="#000000" :style="style.tag" small>#Netflix Original</v-chip>
+        </v-col>
+        <v-col md=2 lg=3 xl=2 class="ml-n6">
+          <v-chip color="#000000" :style="style.tag" small>#Drama</v-chip>
+        </v-col>
+      </v-row>
     </v-col>
   </v-row>
 </template>
 
 <script>
+  import {
+    secureAxios
+  } from '../../backend/axios';
   import BaseLabel from '../Base/BaseLabel';
   export default {
     name: 'SpaceHeader',
@@ -69,91 +76,106 @@
     },
     data() {
       return {
-        style: {
-          listItemTitle: {
-            fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '14px',
-          },
+        base_tmdb_img_url: `https://image.tmdb.org/t/p/w200`,
+        api: {
+          for_subscription: `/api/v1/subscriptions`
+        },
+        btn: {
+          subscribedText: 'チャットに参加中',
+          unsubscribedText: 'チャットに参加する',
+          elevation: 0
         },
         media: {
           tv: 'tv',
           mv: 'mv',
         },
-        base_tmdb_img_url: `https://image.tmdb.org/t/p/w200`,
         colors: {
-          chip: 'black',
-          notifyBtn: 'red'
+          black: '#000000',
+          red: '#ef233c',
         },
-        space_top: {
-          position: 'mt-n7',
-          row: 'ml-1 mt-6',
-          col: 'mb-6 ml-n5',
-          avatar: {
-            size: '115',
-            height: '165',
-            round: 'rounded-lg'
-          },
+        avatar: {
+          size: '135',
+          height: '205',
+          round: 'rounded-lg'
+        },
+        grid: {
+          header: 'ml-1 mt-6',
+          titlePart: 'mt-n2',
+          title: 'ml-9',
+          chip: 'ml-3',
+          btn: 'ml-n1',
+          subName: 'ml-9 mt-n2',
+          label: 'ml-9 mt-2',
+          summary: 'ml-9 mt-n2'
+        },
+        style: {
           title: {
-            position: 'ml-1 mb-n4',
-            style: {
-              color: '#000000',
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '17px'
-            }
+            color: '#000000',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '17px'
           },
-          atmark: {
-            position: 'ml-1 mb-n6',
-            style: {
-              color: '#495057',
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '11px'
-            }
+          subscribedBtn: {
+            color: '#ffffff',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '11px',
           },
-          subtitle: {
-            position: 'ml-1',
-            style: {
-              color: '#000000',
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '11px'
-            }
+          unsubscribedBtn: {
+            color: '#000000',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '11px'
+          },
+          subName: {
+            color: '#6c757d',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '12px'
+          },
+          label: {
+            color: '#000000',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '11px'
+          },
+          summary: {
+            color: '#000000',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '12px'
           },
           fav: {
-            position: 'ml-1',
-            style: {
-              color: '#343a40',
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '11px'
-            }
+            color: '#6c757d',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '10px'
           },
-          dis: {
-            position: 'mt-1 ml-1',
-            style: {
-              color: '#000000',
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '12px'
-            }
-          },
-          btn: {
-            position: 'ml-1 mt-n2',
-            style: {
-              color: '#ffffff',
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '11px'
-            }
+          tag: {
+            color: '#ffffff',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '11px'
           }
         },
         divider: {
-          position: 'mt-n1 mb-n8'
+          position: 'mt-4 mb-n8'
         },
       }
     },
-    methods: {}
+    methods: {
+      subscribe() {
+        secureAxios.post(this.api.for_subscription, {
+            user_id: this.$store.state.currentUser.id,
+            space_id: this.space_data.id
+          })
+          .then(res => this.subscribeSuccessful(res))
+          .catch(err => this.subscribeFailed(err))
+      },
+      subscribeSuccessful(res) {},
+      subscribeFailed(err) {
+        this.error = (err.response && err.response.data && err.response.data.error) || ''
+      },
+    }
   }
 </script>
