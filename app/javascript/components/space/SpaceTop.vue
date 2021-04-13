@@ -1,6 +1,7 @@
 <template>
   <v-container :class="space_top.position">
     <space-header :space_data="this.space_data" />
+    <v-divider class="mt-4 mb-5" />
 
     <!-- //comment part -->
     <v-row :class="comment_part.row" v-for="(comment, index) in comments" :key="index">
@@ -160,7 +161,7 @@
         content: '',
         subscribed: '',
         space_top: {
-          position: 'mt-n7',
+          position: 'mt-n10 ml-n2',
           row: 'ml-1',
           col: 'mb-6 ml-n5',
           avatar: {
@@ -442,4 +443,7 @@
 </script>
 
 <style scoped>
+.theme--light.v-divider {
+    border-color: rgba(0,1,1,.06);
+}
 </style>

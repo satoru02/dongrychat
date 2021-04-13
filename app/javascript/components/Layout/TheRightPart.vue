@@ -62,14 +62,14 @@
           }
         },
         grid: {
-          rightPart: 'ml-n6',
+          rightPart: 'ml-n8 mt-n3',
           onlinePart: 'mt-7',
           username: 'mt-3'
         },
         textField: {
           placeholder: '検索',
           round: 'rounded-lg',
-          width: 250,
+          width: 350,
         },
         onlineTitle: 'Online',
         avatar: {

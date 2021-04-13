@@ -75,7 +75,7 @@
         },
         profilePart: {
           elevation: 0,
-          width: 250,
+          width: 350,
           height: 100,
           round: 'rounded-lg',
         },

@@ -1,6 +1,6 @@
 <template>
   <v-container :class="grid.header" :key="componentKey">
-    <v-row>
+    <v-row class="ml-2">
       <v-col md=1 lg=1 xl=1>
         <div :style="switch1 === false ? style.active : style.inactive" v-text="tv.header" />
       </v-col>
@@ -102,13 +102,13 @@
         },
         grid: {
           switch: 'mt-3 ml-n4',
-          header: 'ml-n3 mt-n2',
+          header: 'mt-n2 ml-n2',
           ranking: 'mr-4',
           icon: 'ml-2',
           listItemContent: 'ml-4',
           listItemAction: 'mt-1',
           listItemSubtitle: 'mt-1',
-          listItemGroup: 'list-body',
+          listItemGroup: 'list-body mt-n6',
           notifyBadge: 'mr-n6',
           notifyDot: 'mt-1'
         },

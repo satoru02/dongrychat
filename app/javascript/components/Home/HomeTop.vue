@@ -68,7 +68,7 @@
         error: '',
         headerCaption: 'Home',
         listPart: {
-          body: 'list-body',
+          body: 'list-body mt-n5',
         },
         listAvatar: {
           size: 60,
@@ -88,7 +88,7 @@
           notifyBtn: 'red'
         },
         grid: {
-          topPart: 'ml-n2',
+          topPart: 'ml-n2 mt-n1',
           header: 'mb-5 ml-3',
           listItemSubtitle: 'mt-1',
           listItemAction: 'ml-n16 mt-7 mb-5',
