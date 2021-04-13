@@ -1,7 +1,13 @@
 <template>
   <v-container :class="space_top.position">
     <space-header :space_data="this.space_data" />
-    <v-divider class="mt-4 mb-3" />
+    <v-tabs :style="comment_part.style.tabs" class="mt-7" height="31px" color="black">
+      <v-tab :style="comment_part.style.tab">チャット</v-tab>
+      <v-tab :style="comment_part.style.tab">レビュー</v-tab>
+      <v-tab :style="comment_part.style.tab">メンバー</v-tab>
+      <v-tab :style="comment_part.style.tab">ニュース</v-tab>
+    </v-tabs>
+    <v-divider />
 
     <!-- //comment part -->
     <v-row :class="comment_part.row" v-for="(comment, index) in comments" :key="index">
@@ -36,8 +42,8 @@
     </v-row>
 
     <!-- textfiled -->
-    <v-text-field class="mt-n9" background-color="#ffffff" v-model="content" @click:append-outer="sendComment(content)"
-      dense type="text" no-details outlined　append-outer-icon="mdi-send" />
+    <!-- <v-text-field class="mt-n9" background-color="#ffffff" v-model="content" @click:append-outer="sendComment(content)"
+      dense type="text" no-details outlined　append-outer-icon="mdi-send" /> -->
 
     <!-- dialog -->
     <v-dialog v-model="dialog" width="500">
@@ -192,7 +198,7 @@
           row: 'ml-1 mt-1',
           col: ' mt-n3',
           inner_col: 'ml-n4',
-          countClass: 'mt-1',
+          countClass: '',
           text_row: 'mt-n6',
           avatar: {
             class: 'rounded-lg mt-3',
@@ -217,6 +223,17 @@
               // fontWeight: 'bold',
               fontFamily: 'monospace',
               fontSize: '13px'
+            },
+            tabs: {
+              color: '#000000',
+              fontWeight: 'bold',
+              fontFamily: 'Helvetica Neue, sans-serif',
+              fontSize: '13px'
+            },
+            tab: {
+              fontWeight: 'bold',
+              fontFamily: 'Helvetica Neue, sans-serif',
+              fontSize: '12px'
             }
           }
         },
@@ -388,6 +405,7 @@
       },
       formalizeTime(time) {
         return moment(time).format("YYYY/MM/DD hh:mm")
+        // return moment(time).format("hh:mm")
       },
       popupProfile(user) {
         if (this.$store.state.currentUser.following.includes(user.id)) {
@@ -429,7 +447,7 @@
 </script>
 
 <style scoped>
-.theme--light.v-divider {
-    border-color: rgba(0,1,1,.06);
-}
+  .theme--light.v-divider {
+    border-color: rgba(0, 1, 1, .06);
+  }
 </style>

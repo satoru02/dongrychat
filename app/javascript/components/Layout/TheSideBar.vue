@@ -1,5 +1,5 @@
 <template>
-  <v-container class="ml-n6">
+  <v-container class="ml-1">
     <v-row :class="header_part.position">
       <v-col md=12 lg=12 xl=12 />
     </v-row>
@@ -105,7 +105,7 @@
           position: 'mt-15 ml-1',
           elevation: 0,
           round: 'rounded-lg',
-          color: 'yellow',
+          color: 'orange',
           height: 35,
           style: {
             position: 'fixed'
@@ -118,7 +118,7 @@
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '3px',
             width: '145px',
-            color: '#000000',
+            color: '#ffffff',
           }
         }
       }

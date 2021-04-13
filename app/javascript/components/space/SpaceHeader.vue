@@ -17,7 +17,7 @@
         </v-col>
         <v-col md=2 lg=2 xl=2>
           <v-btn @click="subscribed === true ? unsubscribe() : subscribe()" :elevation='btn.elevation' :class="grid.btn"
-            small :color="subscribed === true ? colors.red : colors.black"
+            small :color="subscribed === true ? colors.green : colors.black"
             :outlined="subscribed === true ? false : true"
             :style="subscribed === true ? style.subscribedBtn : style.unsubscribedBtn"
             v-text="subscribed === true ? btn.subscribedText : btn.unsubscribedText" />
@@ -113,8 +113,8 @@
         },
         colors: {
           black: '#000000',
-          red: '#ef233c',
-          yellow: 'yellow'
+          green: '#41e2ba',
+          yellow: '#f7e733',
         },
         avatar: {
           size: '135',
@@ -194,7 +194,7 @@
             fontSize: '10px'
           },
           tag: {
-            color: '#f8f9fa',
+            color: '#ffffff',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '11px'
