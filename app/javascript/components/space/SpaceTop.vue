@@ -189,7 +189,7 @@
           }
         },
         comment_part: {
-          row: 'ml-1',
+          row: 'ml-1 mt-1',
           col: ' mt-n3',
           inner_col: 'ml-n4',
           countClass: 'mt-1',
@@ -287,7 +287,7 @@
           // }
           if (data) {
             if (data.attributes.space_id === this.space_data.id) {
-              this.comments.push(data)
+              this.comments.unshift(data)
             }
           }
         },

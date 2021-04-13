@@ -20,7 +20,7 @@ class Comment < ApplicationRecord
   belongs_to :space
   validates :content, presence: true
   after_save :confirmed_by_maker
-  scope :order_by_latest, -> {includes(:user, :space).order("created_at ASC")}
+  scope :order_by_latest, -> {includes(:user, :space).order("created_at DESC")}
 
   def confirmed_by_maker
     Confirmation.create!(user_id: self.user_id, comment_id: self.id, space_id: self.space_id)
