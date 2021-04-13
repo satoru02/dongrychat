@@ -59,13 +59,13 @@
         <v-col md=4 lg=1 xl=4 :style="style.fav">
         </v-col>
         <v-col md=2 lg=2 xl=2 class="ml-n6">
-          <v-chip color="#000000" :style="style.tag" small>#TV</v-chip>
+          <v-chip color="#293241" :style="style.tag" small>#TV</v-chip>
         </v-col>
         <v-col md=2 lg=3 xl=2 class="ml-n15">
-          <v-chip color="#000000" :style="style.tag" small>#Netflix Original</v-chip>
+          <v-chip color="#293241" :style="style.tag" small>#Netflix Original</v-chip>
         </v-col>
         <v-col md=2 lg=3 xl=2 class="ml-n14">
-          <v-chip color="#000000" :style="style.tag" small>#Drama</v-chip>
+          <v-chip color="#293241" :style="style.tag" small>#Drama</v-chip>
         </v-col>
       </v-row>
     </v-col>
@@ -122,7 +122,7 @@
           round: 'rounded-lg'
         },
         grid: {
-          header: 'ml-n1 mt-6',
+          header: 'ml-1 mt-6',
           titlePart: 'mt-n2 ml-n8',
           title: 'ml-9',
           chip: 'ml-n3 mt-1',
@@ -194,7 +194,7 @@
             fontSize: '10px'
           },
           tag: {
-            color: '#ffffff',
+            color: '#f8f9fa',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '11px'

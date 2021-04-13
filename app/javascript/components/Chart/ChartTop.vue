@@ -101,7 +101,7 @@
           listItemGroupActive: 'orange'
         },
         grid: {
-          switch: 'mt-3 ml-n4',
+          switch: 'mt-2 ml-n4',
           header: 'mt-n2 ml-n2',
           ranking: 'mr-4',
           icon: 'ml-2',

@@ -1,7 +1,7 @@
 <template>
   <v-container :class="space_top.position">
     <space-header :space_data="this.space_data" />
-    <v-divider class="mt-4 mb-5" />
+    <v-divider class="mt-4 mb-3" />
 
     <!-- //comment part -->
     <v-row :class="comment_part.row" v-for="(comment, index) in comments" :key="index">
@@ -11,12 +11,12 @@
           <img :src="comment.attributes.user.data.attributes.avatar_url">
         </v-avatar>
       </v-col>
-      <v-col md=10 lg=11 xl=10 :class="comment_part.inner_col">
+      <v-col md=11 lg=11 xl=11 :class="comment_part.inner_col">
         <v-row>
           <v-col md=3 lg=3 xl=3>
             <div :style="comment_part.style.username" v-text="comment.attributes.user.data.attributes.name" />
           </v-col>
-          <v-col md=7 lg=6 xl=7 />
+          <v-col md=7 lg=7 xl=7 />
           <v-col md=2 lg=2 xl=2 :class="comment_part.countClass">
             <div :style="comment_part.style.count" v-text="formalizeTime(comment.attributes.created_at)" />
           </v-col>
@@ -191,9 +191,9 @@
         comment_part: {
           row: 'ml-1',
           col: ' mt-n3',
-          inner_col: '',
+          inner_col: 'ml-n4',
           countClass: 'mt-1',
-          text_row: 'mt-n5',
+          text_row: 'mt-n6',
           avatar: {
             class: 'rounded-lg mt-3',
             size: '40',
@@ -201,21 +201,21 @@
           },
           style: {
             username: {
-              color: '#000000',
+              color: '#6c757d',
               fontWeight: 'bold',
               fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '13px'
+              fontSize: '11px'
             },
             count: {
-              color: '#495057',
+              color: '#6c757d',
               fontWeight: 'bold',
               fontFamily: 'Helvetica Neue, sans-serif',
               fontSize: '7px'
             },
             content: {
               color: '#000000',
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue, sans-serif',
+              // fontWeight: 'bold',
+              fontFamily: 'monospace',
               fontSize: '13px'
             }
           }
@@ -226,7 +226,7 @@
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '7px',
             fontWeight: 'bold',
-            color: '#adb5bd'
+            color: '#6c757d'
           }
         },
         divider: {
@@ -370,20 +370,6 @@
           channel: 'SpaceChannel',
           space: this.space_data.id
         })
-      },
-      subscribe() {
-        secureAxios.post(this.api.for_subscription, {
-            user_id: this.$store.state.currentUser.id,
-            space_id: this.space_data.id
-          })
-          .then(res => this.subscribeSuccessful(res))
-          .catch(err => this.subscribeFailed(err))
-      },
-      subscribeSuccessful(res) {
-        console.log(res)
-      },
-      subscribeFailed(err) {
-        this.error = (err.response && err.response.data && err.response.data.error) || ''
       },
       sendComment(content) {
         if (content) {
