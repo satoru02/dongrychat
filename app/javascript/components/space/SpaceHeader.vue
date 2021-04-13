@@ -10,9 +10,9 @@
         <v-col md=8 lg=8 xl=8 :class='grid.title'>
           <div :style="style.title">
             {{space_data.name}}
-            <v-text class="ml-n2" :style="style.year">（2021）</v-text>
-            <v-chip :color="colors.yellow" :class="grid.chip" v-text="space_data.users.length" :style="style.chip"
-              small />
+            <v-chip :color="colors.yellow" :style="style.chip" class="mt-n1 ml-2" small>
+              {{space_data.users.length}}
+            </v-chip>
           </div>
         </v-col>
         <v-col md=2 lg=2 xl=2>
@@ -31,21 +31,31 @@
           <div :class="grid.subName" :style="style.subName" v-text="'@' + space_data.name" />
         </v-col>
       </v-row>
-      <v-row dense>
+      <v-row dense style="max-height: 35px;">
         <v-col md=12 lg=12 xl=12 :class="grid.label">
-          <base-label :small="true" :style="style.label" v-if="space_data.media === media.tv" :color="colors.black"
+          <base-label v-if="space_data.media === media.tv" :small="true" :style="style.label" :color="colors.black"
             :text-color="colors.chip" :season="space_data.season" :episode="space_data.episode"
             :title="space_data.episode_title" />
+          <v-chip v-if="space_data.media === media.mv" small outlined label :color="colors.black" :style="style.label"
+            v-text="'Movie'" />
         </v-col>
       </v-row>
 
       <v-row>
         <v-col md=11 lg=11 xl=11 :class="grid.summary">
           <div :style="style.summary" v-text="space_data.overview != null ? space_data.overview : dummyText" />
+          <!-- <v-expansion-panels flat>
+            <v-expansion-panel>
+              <v-expansion-panel-header>Panel 3</v-expansion-panel-header>
+              <v-expansion-panel-content>
+                Some content
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels> -->
         </v-col>
       </v-row>
 
-      <v-row class="mt-5 ml-1">
+      <v-row class="mt-1 ml-1">
         <v-col md=4 lg=1 xl=4 :style="style.fav">
         </v-col>
         <v-col md=2 lg=2 xl=2 class="ml-n6">
@@ -79,13 +89,14 @@
       },
     },
     created() {
+      console.log(this.$vuetify)
       setTimeout(() => {
         this.subscribed = this.space_data.subscribed
       }, 700)
     },
     data() {
       return {
-        dummyText: '正義の象徴を失った世界を救ファルコンとウィンター・ソルジャーの新たな戦いを描くクライム・アクション開幕！ これは、新たな”キャプテン・アメリカ”誕生',
+        dummyText: '',
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w200`,
         subscribed: Boolean,
         api: {
@@ -114,11 +125,11 @@
           header: 'ml-1 mt-6',
           titlePart: 'mt-n2',
           title: 'ml-9',
-          chip: 'ml-3 mt-n1',
-          btn: 'ml-n5',
+          chip: 'ml-13 mt-1',
+          btn: 'ml-n4',
           subName: 'ml-9 mt-n3',
-          label: 'ml-9 mt-2',
-          summary: 'ml-9 mt-n2',
+          label: 'ml-9 mt-1',
+          summary: 'ml-9 mt-n3',
           mdi: 'ml-3 mt-1'
         },
         mdi: {
@@ -129,7 +140,11 @@
             color: '#000000',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '17px'
+            fontSize: '16px',
+            // lineHeight: '2.3'
+            // letterSpacing: 'px'
+            // width: '270px',
+            // maxWidth: '300px',
           },
           subscribedBtn: {
             color: '#ffffff',
@@ -147,7 +162,7 @@
             color: '#6c757d',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '12px'
+            fontSize: '11px',
           },
           year: {
             color: '#000000',
@@ -159,13 +174,18 @@
             color: '#000000',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '11px'
+            fontSize: '11px',
+            // height: '25px',
           },
           summary: {
             color: '#000000',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '12px'
+            fontSize: '12px',
+            height: '70px',
+            maxHeight: '70px',
+            overflow: 'scroll',
+            overflowY: 'scroll',
           },
           fav: {
             color: '#6c757d',
@@ -180,8 +200,10 @@
             fontSize: '11px'
           },
           chip: {
-            fontSize: '12px',
-            height: '22px',
+            // height: '20px',
+            color: '#000000',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
           }
         },
         divider: {
