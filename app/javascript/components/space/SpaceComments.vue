@@ -24,8 +24,13 @@
         </v-row>
       </v-col>
     </v-row>
+<!--
+    <base-profile-dialog v-on:input="offDialog()" :passDialog="dialog" :name="this.$store.state.currentUser.name"
+      :id="this.$store.state.currentUser.id" :about="this.$store.state.currentUser.about"
+      :followings="this.$store.state.currentUser.following.length"
+      :followers="this.$store.state.currentUser.follower.length" /> -->
 
-    <v-dialog v-model="dialog" width="500">
+    <!-- <v-dialog v-model="dialog" width="500">
       <v-card>
         <v-card-text :style="name_title.style">
           <v-row>
@@ -82,7 +87,7 @@
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
-    </v-dialog>
+    </v-dialog> -->
   </v-container>
 </template>
 
@@ -91,10 +96,13 @@
     secureAxios
   } from '../../backend/axios';
   import moment from 'moment';
+  import BaseProfileDialog from '../Base/BaseProfileDialog';
   const RELATIONSHOP_URL = `/api/v1/relationships`;
   export default {
     name: 'SpaceComments',
-    components: {},
+    components: {
+      'base-profile-dialog': BaseProfileDialog
+    },
     props: {
       comments: {
         type: Array,
@@ -224,6 +232,12 @@
           this.$store.commit('unfollow', user_id)
           this.followed = false
         })
+      },
+      showDialog() {
+        this.dialog = true
+      },
+      offDialog(value) {
+        this.dialog = value
       },
       formalizeTime(time) {
         return moment(time).format("YYYY/MM/DD hh:mm")

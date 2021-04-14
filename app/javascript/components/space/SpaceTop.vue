@@ -39,18 +39,18 @@
   import {
     secureAxios
   } from '../../backend/axios';
-  import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
   import SpaceHeader from './SpaceHeader';
   import BaseLabel from '../Base/BaseLabel';
   import SpaceComments from './SpaceComments';
+  import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
   // import Appearance from './SpaceAppearance';
   export default {
     name: 'SpaceTop',
     components: {
-      'base-loader': BaseInfiniteLoader,
       'space-header': SpaceHeader,
+      'base-label': BaseLabel,
       'space-comments': SpaceComments,
-      'base-label': BaseLabel
+      'base-loader': BaseInfiniteLoader,
       // "appearance": Appearance
     },
     data() {
@@ -58,19 +58,11 @@
         page: 1,
         pageSize: 10,
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w200`,
-        dialog: false,
-        followed: Boolean,
-        user_pop: '',
-        follower_length: '',
-        following_length: '',
-        items: [],
         params: {},
         comments: [],
         space_data: '',
         endpoint: '',
-        users: '',
         content: '',
-        subscribed: '',
         media: {
           tv: 'tv',
           mv: 'mv',
@@ -171,15 +163,6 @@
             }
           }
         },
-        listItemAction: {
-          position: 'mt-1',
-          style: {
-            fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '7px',
-            fontWeight: 'bold',
-            color: '#6c757d'
-          }
-        }
       }
     },
     channels: {
