@@ -24,4 +24,7 @@ class SpaceSerializer
   attribute :subscribed do |space, params|
     params[:condition]
   end
+  attribute :comments_count do |space|
+    space.comments.length
+  end
 end

@@ -113,7 +113,7 @@
         },
         colors: {
           black: '#000000',
-          green: '#41e2ba',
+          green: 'orange',
           yellow: '#f7e733',
         },
         avatar: {

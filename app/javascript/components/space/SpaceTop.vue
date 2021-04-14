@@ -1,110 +1,37 @@
 <template>
   <v-container :class="space_top.position">
     <space-header :space_data="this.space_data" />
-    <v-tabs :style="comment_part.style.tabs" class="mt-7" height="31px" color="black">
-      <v-tab :style="comment_part.style.tab">チャット</v-tab>
-      <v-tab :style="comment_part.style.tab">レビュー</v-tab>
-      <v-tab :style="comment_part.style.tab">メンバー</v-tab>
-      <v-tab :style="comment_part.style.tab">ニュース</v-tab>
+    <v-tabs v-if="space_data" :style="tabs.style" :class="tabs.grid" :height="tabs.height" :width="tabs.width"
+      :color="tabs.color">
+      <v-tab :style="tab.style">
+        {{tabs.chat}}
+        <v-btn rounded :style="tab.btn.style" :elevation="tabs.btnElevation" :class="tabs.btnGrid"
+          :color="tabs.btnColor" x-small v-text="space_data.comments_count" />
+      </v-tab>
+      <v-tab :style="tab.style">
+        {{tabs.review}}
+        <v-btn :style="tab.btn.style" :elevation="tabs.btnElevation" :class="tabs.btnGrid" :color="tabs.btnColor"
+          x-small v-text="'0'" />
+      </v-tab>
+      <v-tab :style="tab.style">
+        {{tabs.members}}
+        <v-btn :style="tab.btn.style" :elevation="tabs.btnElevation" :class="tabs.btnGrid" :color="tabs.btnColor"
+          x-small v-text="space_data.users.length" />
+      </v-tab>
+      <v-tab :style="tab.style">
+        {{tabs.news}}
+        <v-btn :style="tab.btn.style" :elevation="tabs.btnElevation" :class="tabs.btnGrid" :color="tabs.btnColor"
+          x-small v-text="'0'" />
+      </v-tab>
+      <v-tab :style="tab.style" v-text="tabs.relationship" />
     </v-tabs>
     <v-divider />
-
-    <!-- //comment part -->
-    <v-row :class="comment_part.row" v-for="(comment, index) in comments" :key="index">
-      <v-col md=1 lg=1 xl=1 :class="comment_part.col">
-        <v-avatar @click="popupProfile(comment.attributes.user.data.attributes)" :class="comment_part.avatar.class" tile
-          :size='comment_part.avatar.size' :height='comment_part.avatar.height'>
-          <img :src="comment.attributes.user.data.attributes.avatar_url">
-        </v-avatar>
-      </v-col>
-      <v-col md=11 lg=11 xl=11 :class="comment_part.inner_col">
-        <v-row>
-          <v-col md=3 lg=3 xl=3>
-            <div :style="comment_part.style.username" v-text="comment.attributes.user.data.attributes.name" />
-          </v-col>
-          <v-col md=7 lg=7 xl=7 />
-          <v-col md=2 lg=2 xl=2 :class="comment_part.countClass">
-            <div :style="comment_part.style.count" v-text="formalizeTime(comment.attributes.created_at)" />
-          </v-col>
-        </v-row>
-        <v-row :class="comment_part.text_row">
-          <v-col md=12 lg=12 xl=12>
-            <div :style="comment_part.style.content" v-text="comment.attributes.content" />
-          </v-col>
-        </v-row>
-      </v-col>
-    </v-row>
-
-    <base-loader :handler="infiniteHandler" />
-
-    <v-row>
-      <v-col lg=12 class="mt-16" />
-    </v-row>
-
-    <!-- textfiled -->
-    <!-- <v-text-field class="mt-n9" background-color="#ffffff" v-model="content" @click:append-outer="sendComment(content)"
-      dense type="text" no-details outlined　append-outer-icon="mdi-send" /> -->
-
-    <!-- dialog -->
-    <v-dialog v-model="dialog" width="500">
-      <v-card>
-        <v-card-text :style="name_title.style">
-          <v-row>
-            <v-col lg=2>
-              <v-avatar class="mt-8" size=70 height=70>
-                <img :src="user_pop.avatar_url">
-              </v-avatar>
-            </v-col>
-            <v-col lg=10>
-              <v-row class="ml-5 mt-5">
-                <v-col lg=6>
-                  {{this.user_pop.name}}
-                </v-col>
-                <v-col lg=6>
-                  <v-btn small elevation=0 v-if="this.$store.state.currentUser.id != this.user_pop.id"
-                    :class="roundClass" :style="followed ? followingStyle : unfollowStyle"
-                    @click="followed ? unfollow(user_pop.id) : follow(user_pop.id)">
-                    {{ followed ? followingText : unfollowText }}
-                  </v-btn>
-                </v-col>
-              </v-row>
-              <v-row class="ml-5 mt-n2">
-                <v-col md=6 lg=6 xl=6 @click="movePath(user_pop, 'followings')">
-                  <div :style="relationship.style">フォロー {{this.following_length}}
-                  </div>
-                </v-col>
-                <v-col md=6 lg=6 xl=6 class=ml-n10 @click="movePath(user_pop, 'followers')">
-                  <div :style="relationship.style">フォロワー {{this.follower_length}}</div>
-                </v-col>
-              </v-row>
-              <v-row class="ml-5 mt-n2">
-                <v-col lg=12>
-                  {{this.user_pop.about}}
-                </v-col>
-              </v-row>
-              <v-row class="ml-5 mt-2">
-                <v-col lg=1>
-                  <v-icon size=19>mdi-twitter</v-icon>
-                </v-col>
-                <v-col lg=1 class="ml-2">
-                  <v-icon size=19>mdi-instagram</v-icon>
-                </v-col>
-                <v-col lg=1 class="ml-2">
-                  <v-icon size=19>mdi-facebook</v-icon>
-                </v-col>
-                <v-col lg=1 class="ml-2">
-                  <v-icon size=19>mdi-youtube</v-icon>
-                </v-col>
-              </v-row>
-            </v-col>
-          </v-row>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-    <!-- </v-card> -->
+    <div infinite-wrapper :style="wrapper.style">
+      <space-comments :comments="comments" />
+      <base-loader :handler="infiniteHandler" :wrapper="true" />
+    </div>
+    <v-text-field clearable :style="textField.style" :class="textField.grid" :background-color="textField.color"
+      v-model="content" @keydown.enter="sendComment(content)" dense :placeholder="textField.placeholder" solo flat />
   </v-container>
 </template>
 
@@ -112,29 +39,42 @@
   import {
     secureAxios
   } from '../../backend/axios';
-  const RELATIONSHOP_URL = `/api/v1/relationships`;
   import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
-  import moment from 'moment';
   import SpaceHeader from './SpaceHeader';
   import BaseLabel from '../Base/BaseLabel';
+  import SpaceComments from './SpaceComments';
   // import Appearance from './SpaceAppearance';
-
   export default {
     name: 'SpaceTop',
     components: {
       'base-loader': BaseInfiniteLoader,
       'space-header': SpaceHeader,
+      'space-comments': SpaceComments,
       'base-label': BaseLabel
       // "appearance": Appearance
     },
     data() {
       return {
+        page: 1,
+        pageSize: 10,
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w200`,
         dialog: false,
         followed: Boolean,
         user_pop: '',
         follower_length: '',
         following_length: '',
+        items: [],
+        params: {},
+        comments: [],
+        space_data: '',
+        endpoint: '',
+        users: '',
+        content: '',
+        subscribed: '',
+        media: {
+          tv: 'tv',
+          mv: 'mv',
+        },
         api: {
           from_search: `/api/v1/spaces/enter`,
           from_subscription: `/api/v1/spaces/enter_from_subscription`,
@@ -150,22 +90,59 @@
             unsubscribed: 'MvSpace'
           }
         },
-        media: {
-          tv: 'tv',
-          mv: 'mv',
+        tabs: {
+          chat: 'チャット',
+          review: 'レビュー',
+          members: 'メンバー',
+          news: 'ニュース',
+          relationship: '関連作',
+          grid: 'mt-2',
+          height: '48px',
+          width: '70px',
+          color: '#000000',
+          btnGrid: 'ml-1 rounded-xl',
+          btnColor: '#e9ecef',
+          btnElevation: 0,
+          style: {
+            color: '#000000',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '13px',
+          },
+        },
+        tab: {
+          style: {
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '11px'
+          },
+          btn: {
+            style: {
+              fontWeight: 'bold',
+              fontFamily: 'Helvetica Neue, sans-serif',
+              fontSize: '10px'
+            }
+          }
+        },
+        wrapper: {
+          style: {
+            maxHeight: '462px',
+            height: '462px',
+            overflow: 'scroll'
+          }
         },
         colors: {
           chip: 'black',
           notifyBtn: 'red'
         },
-        items: [],
-        params: {},
-        comments: [],
-        space_data: '',
-        endpoint: '',
-        users: '',
-        content: '',
-        subscribed: '',
+        textField: {
+          grid: 'mt-1 ml-6 mr-6 rounded-lg',
+          color: '#e9ecef',
+          placeholder: '#メッセージを送信',
+          style: {
+            position: 'static'
+          }
+        },
         space_top: {
           position: 'mt-n10 ml-n2',
           row: 'ml-1',
@@ -194,49 +171,6 @@
             }
           }
         },
-        comment_part: {
-          row: 'ml-1 mt-1',
-          col: ' mt-n3',
-          inner_col: 'ml-n4',
-          countClass: '',
-          text_row: 'mt-n6',
-          avatar: {
-            class: 'rounded-lg mt-3',
-            size: '40',
-            height: '40'
-          },
-          style: {
-            username: {
-              color: '#6c757d',
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '11px'
-            },
-            count: {
-              color: '#6c757d',
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '7px'
-            },
-            content: {
-              color: '#000000',
-              // fontWeight: 'bold',
-              fontFamily: 'monospace',
-              fontSize: '13px'
-            },
-            tabs: {
-              color: '#000000',
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '13px'
-            },
-            tab: {
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '12px'
-            }
-          }
-        },
         listItemAction: {
           position: 'mt-1',
           style: {
@@ -245,48 +179,6 @@
             fontWeight: 'bold',
             color: '#6c757d'
           }
-        },
-        divider: {
-          position: 'mt-n1 mb-n8'
-        },
-        name_title: {
-          style: {
-            fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '14px',
-            color: '#011627'
-          }
-        },
-        relationship: {
-          style: {
-            fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '7px',
-            color: '#6c757d'
-          }
-        },
-        page: 1,
-        pageSize: 10,
-        followed: Boolean,
-        roundClass: {
-          rounded: "lg"
-        },
-        followingText: 'フォローする',
-        followingStyle: {
-          backgroundColor: "#343a40",
-          fontWeight: "bold",
-          fontSize: "10px",
-          width: 50,
-          height: 40,
-          elevation: 0
-        },
-        unfollowText: 'フォローした',
-        unfollowStyle: {
-          backgroundColor: "#2d00f7",
-          fontWeight: "bold",
-          fontSize: "10px",
-          width: 50,
-          height: 35
         }
       }
     },
@@ -372,7 +264,7 @@
                 }
               }
             })
-        }, 200);
+        }, 50);
       },
       setSpaceData(res) {
         this.space_data = res.data.data[0].attributes.space.data.attributes
@@ -402,46 +294,7 @@
             }
           })
         }
-      },
-      formalizeTime(time) {
-        return moment(time).format("YYYY/MM/DD hh:mm")
-        // return moment(time).format("hh:mm")
-      },
-      popupProfile(user) {
-        if (this.$store.state.currentUser.following.includes(user.id)) {
-          this.followed = true
-        } else {
-          this.followed = false
-        }
-        this.dialog = true
-        this.user_pop = user
-        this.follower_length = user.follower.length
-        this.following_length = user.following.length
-      },
-      movePath(user, relationship) {
-        this.$router.push({
-          path: `/users/${user.id}/${relationship}`
-        })
-      },
-      follow(user_id) {
-        secureAxios.post(RELATIONSHOP_URL, {
-          followed_id: user_id
-        }).then(res => {
-          this.$store.commit('follow', user_id)
-          this.followed = true
-        })
-      },
-      unfollow(user_id) {
-        secureAxios.delete(RELATIONSHOP_URL + `/` + `${this.$store.state.currentUser.id}`, {
-          params: {
-            id: this.$store.state.currentUser.id,
-            followed_id: user_id
-          }
-        }).then(res => {
-          this.$store.commit('unfollow', user_id)
-          this.followed = false
-        })
-      },
+      }
     }
   }
 </script>
@@ -449,5 +302,9 @@
 <style scoped>
   .theme--light.v-divider {
     border-color: rgba(0, 1, 1, .06);
+  }
+
+  .v-input__slot::before {
+    border-style: none !important;
   }
 </style>

@@ -73,7 +73,6 @@
 #                  rails_direct_uploads POST   /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
 
 Rails.application.routes.draw do
-
   root to: 'home#index'
   mount ActionCable.server => "/cable"
 
@@ -113,7 +112,6 @@ Rails.application.routes.draw do
       end
 
       resources :relationships, only: [:create, :destroy]
-
       resources :subscriptions do
         collection do
           post :create

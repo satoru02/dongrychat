@@ -2,8 +2,8 @@
   <v-container :class="grid.rightPart">
     <v-row>
       <v-col md=12 lg=12 xl=12>
-        <v-text-field v-model="query" @keydown.enter="search(query)" :prepend-inner-icon="mdi.magnify" dense
-          :class="textField.round" outlined :max-width="textField.width" :placeholder="textField.placeholder" />
+        <v-text-field v-model="query" dense background-color="#e7ecef" solo flat @keydown.enter="search(query)" :prepend-inner-icon="mdi.magnify"
+          :class="textField.round" :max-width="textField.width" :placeholder="textField.placeholder" />
         <!-- <the-search-field /> -->
       </v-col>
     </v-row>
@@ -62,7 +62,7 @@
           }
         },
         grid: {
-          rightPart: 'ml-n8 mt-n3',
+          rightPart: 'ml-n9 mt-n3',
           onlinePart: 'mt-7',
           username: 'mt-3'
         },
