@@ -31,7 +31,7 @@
       <base-loader :handler="infiniteHandler" :wrapper="true" />
     </div>
     <v-text-field clearable :style="textField.style" :class="textField.grid" :background-color="textField.color"
-      v-model="content" @keydown.enter="sendComment(content)" dense :placeholder="textField.placeholder" solo flat />
+      v-model="content" @keypress="setMessage()" @keyup.enter="sendComment(content)" dense :placeholder="textField.placeholder" solo flat />
   </v-container>
 </template>
 
@@ -63,6 +63,7 @@
         space_data: '',
         endpoint: '',
         content: '',
+        canSubmit: false,
         media: {
           tv: 'tv',
           mv: 'mv',
@@ -263,7 +264,13 @@
           space: this.space_data.id
         })
       },
+      setMessage(){
+        this.canSubmit = true
+      },
       sendComment(content) {
+        if(!this.canSubmit){
+          return
+        }
         if (content) {
           this.$cable.perform({
             channel: 'SpaceChannel',
@@ -276,6 +283,8 @@
               avatar_url: ''
             }
           })
+          this.content = ''
+          this.canSubmit = false
         }
       }
     }

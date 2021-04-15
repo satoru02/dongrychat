@@ -2,12 +2,12 @@
   <v-container fluid>
     <v-row>
       <v-col md=1 lg=1 xl=1>
-        <div :style="switch1 === false ? active : inactive" v-text="tv.header" />
-        <v-avatar :color="colors.blue" :size="5" v-if="switch1 === false" :class="tv.avatar" />
+        <div class="ml-6" :style="switch1 === false ? active : inactive" v-text="tv.header" />
+        <!-- <v-avatar :color="colors.blue" :size="5" v-if="switch1 === false" :class="tv.avatar" /> -->
       </v-col>
       <v-col md=1 lg=1 xl=1>
         <div :style="switch1 === true ? active : inactive" v-text="movie.header" />
-        <v-avatar :color="colors.blue" :size="5" v-if="switch1 === true" :class="movie.avatar" />
+        <!-- <v-avatar :color="colors.blue" :size="5" v-if="switch1 === true" :class="movie.avatar" /> -->
       </v-col>
       <v-col md=9 lg=9 xl=9 />
       <v-col md=1 lg=1 xl=1>
@@ -15,17 +15,17 @@
       </v-col>
     </v-row>
 
-    <trend-part v-if="this.switch1 === false" :items="weekly_trend_tvs" :media="media.tv" :title="weekly_title"
+    <trend-part class="mt-n10" v-if="this.switch1 === false" :items="weekly_trend_tvs" :media="media.tv" :title="weekly_title"
       :endpoint="endpoint.trending" />
     <trend-part v-else :items="weekly_trend_mvs" :media="media.mv" :title="weekly_title"
       :endpoint="endpoint.trending" />
-    <v-row :class="multiple_part.position">
+    <!-- <v-row :class="multiple_part.position">
       <v-col md=6 lg=6 xl=6 v-for="(n,index) in 2" :key="index">
         <v-card :elevation="multiple_part.elevation" :height="multiple_part.height" :class="multiple_part.round"
           outlined>
         </v-card>
       </v-col>
-    </v-row>
+    </v-row> -->
 
     <upcoming-part v-if="this.switch1 === true" :items="upcoming_mvs" :media="media.mv" :title="upcoming_title"
       :endpoint="endpoint.upcoming" />

@@ -105,7 +105,7 @@
         },
         grid: {
           switch: 'mt-2 ml-n4',
-          header: 'mt-n2 ml-n2',
+          header: 'mt-n1 ml-n2',
           ranking: 'mr-6',
           icon: 'ml-2',
           listItemContent: 'ml-4',

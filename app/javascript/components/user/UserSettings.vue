@@ -1,13 +1,13 @@
 <template>
   <v-container>
     <h3 class="mb-5 ml-4 head-title">プロフィール設定</h3>
-    <v-row class="mt-10">
+    <v-row class="mt-n2">
       <v-col lg=1 md=1 xl=1 />
       <v-col lg=2 md=2 xl=2>
         <h3 class="setting-title mt-2">名前</h3>
       </v-col>
       <v-col lg=8 md=8 xl=8>
-        <v-text-field :rules="[rules.minName]" :placeholder="this.$store.state.currentUser.name" filled outlined dense
+        <v-text-field :rules="[rules.minName]" background-color="#edf2f4" :placeholder="this.$store.state.currentUser.name" solo filled dense flat
           v-model="name" />
       </v-col>
     </v-row>
@@ -17,13 +17,13 @@
         <h3 class="setting-title">自己紹介</h3>
       </v-col>
       <v-col lg=8 md=8 xl=8>
-        <v-textarea :placeholder="this.$store.state.currentUser.about" filled outlined dense v-model="about" />
+        <v-textarea background-color="#edf2f4" solo flat :placeholder="this.$store.state.currentUser.about" filled dense v-model="about" />
       </v-col>
     </v-row>
     <v-row class="mt-n8">
       <v-col lg=3></v-col>
       <v-col lg=8 md=12 xl=8>
-        <v-file-input filled dense outlined v-model="picture" @change="getPresignedURI()" />
+        <v-file-input background-color="#edf2f4" filled dense flat solo v-model="picture" @change="getPresignedURI()" />
       </v-col>
     </v-row>
 
@@ -33,7 +33,7 @@
         <h3 class="setting-title mt-3">メールアドレス</h3>
       </v-col>
       <v-col lg=8 md=8 xl=8>
-        <v-text-field :rules="[rules.testMail]" :placeholder="this.$store.state.currentUser.email" filled outlined dense
+        <v-text-field background-color="#edf2f4" solo flat :rules="[rules.testMail]" :placeholder="this.$store.state.currentUser.email" filled dense
           v-model="email" />
       </v-col>
     </v-row>
@@ -43,7 +43,7 @@
         <h3 class="setting-title mt-3">住所</h3>
       </v-col>
       <v-col lg=8 md=8 xl=8>
-        <v-text-field :placeholder="this.$store.state.currentUser.location" filled outlined dense v-model="location" />
+        <v-text-field background-color="#edf2f4" solo flat :placeholder="this.$store.state.currentUser.location" filled dense v-model="location" />
       </v-col>
     </v-row>
     <v-row class="mt-n8">
@@ -52,8 +52,8 @@
         <h3 class="setting-title mt-3">Youtube</h3>
       </v-col>
       <v-col lg=8 md=8 xl=8>
-        <v-text-field :rules="[rules.testURL]"
-          :placeholder="sns_links[0] == '' ? 'https://youtube.com/username' : sns_links[0]" filled outlined dense
+        <v-text-field background-color="#edf2f4" solo flat :rules="[rules.testURL]"
+          :placeholder="sns_links[0] == '' ? 'https://youtube.com/username' : sns_links[0]" filled dense
           v-model="sns_links[0]" />
       </v-col>
     </v-row>
@@ -63,8 +63,8 @@
         <h3 class="setting-title mt-3">Instagram</h3>
       </v-col>
       <v-col lg=8 md=8 xl=8>
-        <v-text-field :rules="[rules.testURL]"
-          :placeholder="sns_links[1] == '' ? 'https://instagram.com/username' : sns_links[1]" filled outlined dense
+        <v-text-field background-color="#edf2f4" solo flat :rules="[rules.testURL]"
+          :placeholder="sns_links[1] == '' ? 'https://instagram.com/username' : sns_links[1]" filled dense
           v-model="sns_links[1]" />
       </v-col>
     </v-row>
@@ -74,8 +74,8 @@
         <h3 class="setting-title mt-3">Twitter</h3>
       </v-col>
       <v-col lg=8 md=8 xl=8>
-        <v-text-field :rules="[rules.testURL]"
-          :placeholder="sns_links[2] == '' ? 'https://twitter.com/username' : sns_links[2]" filled outlined dense
+        <v-text-field background-color="#edf2f4" solo flat :rules="[rules.testURL]"
+          :placeholder="sns_links[2] == '' ? 'https://twitter.com/username' : sns_links[2]" filled dense
           v-model="sns_links[2]" />
       </v-col>
     </v-row>
@@ -85,14 +85,14 @@
         <h3 class="setting-title mt-3">Facebook</h3>
       </v-col>
       <v-col lg=8 md=8 xl=8>
-        <v-text-field :rules="[rules.testURL]"
-          :placeholder="sns_links[3] == '' ? 'https://facebook.com/username' : sns_links[3]" filled outlined dense
+        <v-text-field background-color="#edf2f4" solo flat :rules="[rules.testURL]"
+          :placeholder="sns_links[3] == '' ? 'https://facebook.com/username' : sns_links[3]" filled dense
           v-model="sns_links[3]" />
       </v-col>
     </v-row>
-    <v-row class="mt-6">
+    <v-row class="mt-4">
       <v-col lg=1 />
-      <v-col lg=10 class="mt-n2">
+      <v-col lg=10>
         <v-btn block outlined color="primary" @click="updateProfile()">更新</v-btn>
       </v-col>
       <v-col lg=1 />
