@@ -1,15 +1,16 @@
 <template>
   <v-row :class="heading.position">
-    <v-col md=12 lg=12 xl=12>
-      <v-card :elevation="heading.elevation" :class="heading.round" :height="heading.height" outlined>
+    <v-col md=12 lg=12 xl=12 class="ml-1 mt-n6">
+      <!-- <v-card :elevation="heading.elevation" :class="heading.round" :height="heading.height" outlined> -->
         <v-row :class="heading.innderHeading.position">
           <v-col md=3 lg=3 xl=3>
             <div :class="heading.innderHeading.titlePosition" :style="heading.innderHeading.titleStyle"
               v-text="title" />
           </v-col>
           <v-col md=7 lg=7 xl=7 />
-          <v-col md=2 lg=2 xl=2>
-            <div @click="movePath()" :class="heading.innderSubHeading.titlePosition"
+          <v-col md=2 lg=2 xl=2 :class="heading.innderSubHeading.titlePosition">
+            <div
+             @click="movePath()"
               :style="heading.innderSubHeading.titleStyle" v-text="heading.innderSubHeading.title" />
           </v-col>
         </v-row>
@@ -17,25 +18,21 @@
           <v-col md=2 lg=2 xl=2 v-for="(item, index) in items" :class="heading.img.position" :key="index">
             <v-row>
               <v-col md=12 lg=12 xl=12>
-                <v-avatar :class="heading.img.avatar.position" :size="heading.img.avatar.size"
+                <v-avatar @click="showContents(item)" :class="heading.img.avatar.position" :size="heading.img.avatar.size"
                   :width="heading.img.avatar.width" :height="heading.img.avatar.height" tile>
-                  <v-row @click="showContents(item)">
-                    <v-col md=12 lg=12 xl=12>
-                      <base-content-sheet :height="300" :img="base_tmdb_img_url + item.poster_path" />
-                    </v-col>
-                  </v-row>
+                  <v-img :src="base_tmdb_img_url + item.poster_path" />
                 </v-avatar>
               </v-col>
             </v-row>
             <v-row>
-              <v-col md=12 lg=12 xl=12>
+              <!-- <v-col md=12 lg=12 xl=12>
                 <div :style="heading.img.titleStyle" :class="heading.img.titlePosition"
                   v-text="media === tv.type ? item.name : item.title" />
-              </v-col>
+              </v-col> -->
             </v-row>
           </v-col>
         </v-row>
-      </v-card>
+      <!-- </v-card> -->
     </v-col>
   </v-row>
 </template>
@@ -87,12 +84,12 @@
           height: '430',
           round: 'rounded-lg',
           innderHeading: {
-            position: 'mt-n1',
+            position: 'mt-3',
             title: '今週のおすすめ',
-            titlePosition: 'ml-10 mt-3',
+            titlePosition: 'ml-10 mt-6',
             titleStyle: {
               fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '20px',
+              fontSize: '15px',
               fontWeight: 'bold',
               color: '#484b4d'
             }
@@ -100,7 +97,7 @@
           innderSubHeading: {
             position: 'mt-n1',
             title: 'もっとみる',
-            titlePosition: 'ml-10 mt-6',
+            titlePosition: 'ml-n1 mt-6',
             titleStyle: {
               fontFamily: 'Helvetica Neue, sans-serif',
               fontSize: '13px',
@@ -112,9 +109,8 @@
             position: 'mt-n10 ml-4',
             avatar: {
               position: 'ml-6 mt-7 rounded-lg',
-              size: '60',
-              width: '180',
-              height: '300'
+              size: '125',
+              height: '195'
             },
             titlePosition: 'mt-n3 ml-7',
             titleStyle: {

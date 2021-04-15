@@ -7,7 +7,7 @@
     </v-col>
     <v-col md=10 lg=10 xl=10>
       <v-row :class='grid.titlePart'>
-        <v-col md=8 lg=8 xl=8 :class='grid.title'>
+        <v-col md=8 lg=9 xl=8 :class='grid.title'>
           <div :style="style.title">
             {{space_data.name}}
             <v-chip :color="colors.yellow" :style="style.chip" class="mt-n1 ml-2" small>
@@ -22,9 +22,9 @@
             :style="subscribed === true ? style.subscribedBtn : style.unsubscribedBtn"
             v-text="subscribed === true ? btn.subscribedText : btn.unsubscribedText" />
         </v-col>
-        <v-col md=1 lg=1 xl=1 :class="grid.mdi">
+        <!-- <v-col md=1 lg=1 xl=1 :class="grid.mdi">
           <v-icon v-text="mdi.dotsVertical" size="22" />
-        </v-col>
+        </v-col> -->
       </v-row>
       <v-row dense>
         <v-col md=12 lg=12 xl=12>
@@ -42,7 +42,7 @@
       </v-row>
 
       <v-row>
-        <v-col md=11 lg=11 xl=11 :class="grid.summary">
+        <v-col md=12 lg=12 xl=12 :class="grid.summary">
           <div :style="style.summary" v-text="space_data.overview != null ? space_data.overview : dummyText" />
           <!-- <v-expansion-panels flat>
             <v-expansion-panel>
@@ -55,16 +55,16 @@
         </v-col>
       </v-row>
 
-      <v-row class="mt-1 ml-n7">
+      <v-row class="mt-n1 ml-n13">
         <v-col md=4 lg=1 xl=4 :style="style.fav">
         </v-col>
-        <v-col md=2 lg=2 xl=2 class="ml-n6">
+        <v-col md=2 lg=2 xl=2 class="ml-n9 mr-n5">
           <v-chip color="#293241" :style="style.tag" small>#TV</v-chip>
         </v-col>
-        <v-col md=2 lg=3 xl=2 class="ml-n15">
+        <v-col md=2 lg=3 xl=2 class="ml-n15 mr-n5">
           <v-chip color="#293241" :style="style.tag" small>#Netflix Original</v-chip>
         </v-col>
-        <v-col md=2 lg=3 xl=2 class="ml-n14">
+        <v-col md=2 lg=3 xl=2 class="ml-n16">
           <v-chip color="#293241" :style="style.tag" small>#Drama</v-chip>
         </v-col>
       </v-row>
@@ -122,15 +122,15 @@
           round: 'rounded-lg'
         },
         grid: {
-          header: 'ml-1 mt-6',
-          titlePart: 'mt-n2 ml-n8',
+          header: 'ml-1 mt-7',
+          titlePart: 'mt-n2 ml-n14',
           title: 'ml-9',
           chip: 'ml-n3 mt-1',
-          btn: 'ml-1',
-          subName: 'ml-4 mt-n3',
-          label: 'ml-4 mt-1',
-          summary: 'ml-4 mt-n3',
-          mdi: 'ml-5 mt-1'
+          btn: '',
+          subName: 'mt-n3 ml-n2',
+          label: 'mt-1 ml-n2',
+          summary: 'mt-n2 ml-n2',
+          mdi: 'ml-5 mr-n16 mt-1'
         },
         mdi: {
           dotsVertical: 'mdi-dots-vertical'

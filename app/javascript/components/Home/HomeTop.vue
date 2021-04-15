@@ -6,7 +6,7 @@
         <v-list-item class="mt-n2 mb-n2" v-for="(item, index) in items" :key="index" @click="enterSpace(item)">
           <template v-slot:default="{}">
             <v-list-item-avatar :size="listAvatar.size" :height="listAvatar.height" tile :class="listAvatar.round">
-              <base-image :img="base_tmdb_img_url + item.attributes.image_path" :height='100' />
+              <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
             </v-list-item-avatar>
             <v-list-item-content>
               <v-list-item-title :style="style.listItemTitle">
@@ -71,8 +71,8 @@
           body: 'list-body mt-n5',
         },
         listAvatar: {
-          size: 50,
-          height: 50,
+          size: 70,
+          height: 90,
           round: 'rounded-lg',
         },
         avatar: {
