@@ -1,6 +1,6 @@
 <template>
   <v-container :class="grid.header" :key="componentKey">
-    <v-row>
+    <v-row class="ml-2">
       <v-col md=1 lg=1 xl=1>
         <div :style="switch1 === false ? style.active : style.inactive" v-text="tv.header" />
       </v-col>
@@ -15,10 +15,10 @@
     <v-list two-line>
       <v-list-item-group :active-class="colors.listItemGroupActive" :class="grid.listItemGroup" multiple>
         <template v-for="(item, index) in items">
-          <v-list-item :key="index" @click="enterSpace(item.attributes)">
-            <template v-slot:default="{}">
-              <div :style="style.ranking" :class="grid.ranking">{{index + 1}}
-                <v-icon :color="colors.rankIcon" :class="grid.icon" :size="icon.size" v-text="icon.mdi" />
+          <v-list-item class="mt-n2 mb-n2" :key="index" @click="enterSpace(item.attributes)">
+              <div :style="style.ranking" :class="grid.ranking">
+                <v-btn icon text-color="#6c757d" style="background-color: #dee2e6;" x-small elevation=0>{{index + 1}}</v-btn>
+                <!-- <v-icon :color="colors.rankIcon" :class="grid.icon" :size="icon.size" v-text="icon.mdi" /> -->
               </div>
               <v-list-item-avatar :size="avatar.size" :height="avatar.height" tile :class="avatar.round">
                 <base-image :img="base_tmdb_img_url + item.attributes.image_path" :height="avatar.height" />
@@ -35,11 +35,14 @@
                 <v-badge :class="grid.notifyDot" dot :color="colors.notifyBadge" />
               </v-list-item-action>
               <v-list-item-action v-if="item.attributes.users.length > 0">
-                <div :style="style.listItemAction" v-text="item.attributes.users.length" />
+                <div class=ml-2 :style="style.listItemAction" v-text="item.attributes.users.length" />
               </v-list-item-action>
-            </template>
           </v-list-item>
-        </template>
+                    <!-- <v-divider
+            v-if="index < items.length - 1"
+            :key="index + 1"
+          ></v-divider> -->
+          </template>
       </v-list-item-group>
     </v-list>
     <infinite-loading spinner="circles" @infinite="infiniteHandler">
@@ -73,8 +76,8 @@
         query_media: 'tv',
         error: '',
         avatar: {
-          size: 55,
-          height: 55,
+          size: 50,
+          height: 50,
           round: "rounded-lg"
         },
         icon: {
@@ -101,14 +104,14 @@
           listItemGroupActive: 'orange'
         },
         grid: {
-          switch: 'mt-3 ml-n4',
-          header: 'ml-n3 mt-n2',
-          ranking: 'mr-4',
+          switch: 'mt-2 ml-n4',
+          header: 'mt-n2 ml-n2',
+          ranking: 'mr-6',
           icon: 'ml-2',
           listItemContent: 'ml-4',
           listItemAction: 'mt-1',
           listItemSubtitle: 'mt-1',
-          listItemGroup: 'list-body',
+          listItemGroup: 'list-body mt-n6',
           notifyBadge: 'mr-n6',
           notifyDot: 'mt-1'
         },
@@ -126,7 +129,7 @@
           },
           listItemAction: {
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '13px',
+            fontSize: '11px',
             fontWeight: 'bold',
             color: '#484b4d'
           },
@@ -219,3 +222,9 @@
     }
   }
 </script>
+
+<style scoped>
+.theme--light.v-divider {
+    border-color: rgba(0,1,1,.06);
+}
+</style>

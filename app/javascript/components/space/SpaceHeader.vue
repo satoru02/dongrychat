@@ -17,7 +17,7 @@
         </v-col>
         <v-col md=2 lg=2 xl=2>
           <v-btn @click="subscribed === true ? unsubscribe() : subscribe()" :elevation='btn.elevation' :class="grid.btn"
-            small :color="subscribed === true ? colors.red : colors.black"
+            small :color="subscribed === true ? colors.green : colors.black"
             :outlined="subscribed === true ? false : true"
             :style="subscribed === true ? style.subscribedBtn : style.unsubscribedBtn"
             v-text="subscribed === true ? btn.subscribedText : btn.unsubscribedText" />
@@ -55,17 +55,17 @@
         </v-col>
       </v-row>
 
-      <v-row class="mt-1 ml-1">
+      <v-row class="mt-1 ml-n7">
         <v-col md=4 lg=1 xl=4 :style="style.fav">
         </v-col>
         <v-col md=2 lg=2 xl=2 class="ml-n6">
-          <v-chip color="#000000" :style="style.tag" small>#TV</v-chip>
+          <v-chip color="#293241" :style="style.tag" small>#TV</v-chip>
         </v-col>
-        <v-col md=2 lg=3 xl=2 class="ml-n10">
-          <v-chip color="#000000" :style="style.tag" small>#Netflix Original</v-chip>
+        <v-col md=2 lg=3 xl=2 class="ml-n15">
+          <v-chip color="#293241" :style="style.tag" small>#Netflix Original</v-chip>
         </v-col>
-        <v-col md=2 lg=3 xl=2 class="ml-n6">
-          <v-chip color="#000000" :style="style.tag" small>#Drama</v-chip>
+        <v-col md=2 lg=3 xl=2 class="ml-n14">
+          <v-chip color="#293241" :style="style.tag" small>#Drama</v-chip>
         </v-col>
       </v-row>
     </v-col>
@@ -113,8 +113,8 @@
         },
         colors: {
           black: '#000000',
-          red: '#ef233c',
-          yellow: 'yellow'
+          green: 'orange',
+          yellow: '#f7e733',
         },
         avatar: {
           size: '135',
@@ -123,14 +123,14 @@
         },
         grid: {
           header: 'ml-1 mt-6',
-          titlePart: 'mt-n2',
+          titlePart: 'mt-n2 ml-n8',
           title: 'ml-9',
-          chip: 'ml-13 mt-1',
-          btn: 'ml-n4',
-          subName: 'ml-9 mt-n3',
-          label: 'ml-9 mt-1',
-          summary: 'ml-9 mt-n3',
-          mdi: 'ml-3 mt-1'
+          chip: 'ml-n3 mt-1',
+          btn: 'ml-1',
+          subName: 'ml-4 mt-n3',
+          label: 'ml-4 mt-1',
+          summary: 'ml-4 mt-n3',
+          mdi: 'ml-5 mt-1'
         },
         mdi: {
           dotsVertical: 'mdi-dots-vertical'

@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="ml-1">
     <v-row :class="header_part.position">
       <v-col md=12 lg=12 xl=12 />
     </v-row>
@@ -68,13 +68,13 @@
           },
         ],
         header_part: {
-          position: 'mt-n3 ml-n4 mr-3',
+          position: 'mt-n8 ml-n4 mr-3',
         },
         top_blank_space: {
           position: 'mt-13'
         },
         bottom_blank_space: {
-          position: 'mt-8 ml-n6 mb-13',
+          position: 'mt-15 ml-n6 mb-13',
           style: {
             height: '490px'
           }
@@ -103,20 +103,21 @@
         },
         btn: {
           position: 'mt-15 ml-1',
-          elevation: 3,
+          elevation: 0,
           round: 'rounded-lg',
-          color: '#000000',
+          color: 'orange',
           height: 35,
           style: {
             position: 'fixed'
           }
         },
         btn_text: {
-          text: 'DongryChatについて 👈',
+          text: 'Michaoについて 👈',
           style: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '3px',
+            width: '145px',
             color: '#ffffff',
           }
         }

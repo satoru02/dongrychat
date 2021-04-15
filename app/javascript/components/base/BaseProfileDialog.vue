@@ -1,24 +1,32 @@
 <template>
-  <v-dialog v-model="change" :width="width">
+  <v-dialog v-model="change" :width="width" v-if="user">
     <v-card>
       <v-card-text :style="style.Name">
         <v-row>
           <v-col md=2 lg=2 xl=2>
             <v-avatar :class="grid.avatar" :size="avatar.size" :height="avatar.height">
-              <base-avatar :img="'https://cdn.vuetifyjs.com/images/john.jpg'" />
+              <base-avatar :img="user.avatar_url" />
             </v-avatar>
           </v-col>
           <v-col md=10 lg=10 xl=10>
             <v-row :class="grid.name">
-              <v-col md=12 lg=12 xl=12 v-text="name" />
+              <v-col md=6 lg=6 xl=6 v-text="user.name" />
+              <v-col md=6 lg=6 xl=6 v-if="user.id !== this.$store.state.currentUser.id">
+                <v-btn small elevation=0 v-if="this.$store.state.currentUser.id != user.id" :class="roundClass"
+                  :style="followed ? followingStyle : unfollowStyle"
+                  @click="followed ? unfollow(user.id) : follow(user.id)">
+                  {{ followed ? followingText : unfollowText }}
+                </v-btn>
+              </v-col>
             </v-row>
-            <v-row :class="grid.relationship">
-              <v-col md=6 lg=6 xl=6 @click="movePath(id, followingsArg)" v-text="followHeader + blank + followings" />
-              <v-col md=6 lg=6 xl=6 @click="movePath(id, followersArg)" :class='grid.Relationship'
-                v-text="followerHeader + blank + followers" />
+            <v-row :class="grid.relationship" :style="realtionshipsStyle">
+              <v-col md=6 lg=6 xl=6 @click="movePath(user.id, followingsArg)"
+                v-text="followHeader + blank + user.following.length" />
+              <v-col md=6 lg=6 xl=6 @click="movePath(user.id, followersArg)" :class='grid.Relationship'
+                v-text="followerHeader + blank + user.follower.length" />
             </v-row>
             <v-row :class="grid.about">
-              <v-col md=12 lg=12 xl=12 v-text="about" />
+              <v-col md=12 lg=12 xl=12 v-text="user.about" />
             </v-row>
             <v-row :class="grid.sns">
               <v-col md=1 lg=1 xl=1>
@@ -42,6 +50,10 @@
 </template>
 
 <script>
+  import {
+    secureAxios
+  } from '../../backend/axios';
+  const RELATIONSHOP_URL = `/api/v1/relationships`;
   import BaseAvatar from '../Base/BaseAvatar';
   export default {
     name: 'BaseProfileDialog',
@@ -49,24 +61,16 @@
       'base-avatar': BaseAvatar
     },
     props: {
+      user: {
+        type: Object,
+        // required: true
+      },
       passDialog: {
         type: Boolean
       },
-      id: {
-        type: Number
+      followed: {
+        type: Boolean,
       },
-      name: {
-        type: String
-      },
-      followings: {
-        type: Number
-      },
-      followers: {
-        type: Number
-      },
-      about: {
-        type: String
-      }
     },
     computed: {
       change: {
@@ -104,6 +108,9 @@
             color: '#011627'
           }
         },
+        color: {
+          white: '#ffffff'
+        },
         mdi: {
           twitter: 'mdi-twitter',
           instagram: 'mdi-instagram',
@@ -114,10 +121,56 @@
         avatar: {
           size: 70,
           height: 70
+        },
+        followingText: 'フォロー中',
+        followingStyle: {
+          backgroundColor: "#343a40",
+          fontWeight: "bold",
+          fontSize: "6px",
+          color: '#ffffff',
+          width: 70,
+          height: 25,
+        },
+        unfollowText: 'フォローする',
+        unfollowStyle: {
+          backgroundColor: "#2d00f7",
+          fontWeight: "bold",
+          fontSize: "6px",
+          color: '#ffffff',
+          width: 75,
+          height: 25,
+        },
+        roundClass: {
+          rounded: "lg"
+        },
+        realtionshipsStyle: {
+          fontWeight: 'bold',
+          fontFamily: 'Helvetica Neue, sans-serif',
+          fontSize: '7px',
+          color: '#6c757d'
         }
       }
     },
     methods: {
+      follow(user_id) {
+        secureAxios.post(RELATIONSHOP_URL, {
+          followed_id: user_id
+        }).then(res => {
+          this.$store.commit('follow', user_id)
+          this.followed = true
+        })
+      },
+      unfollow(user_id) {
+        secureAxios.delete(RELATIONSHOP_URL + `/` + `${this.$store.state.currentUser.id}`, {
+          params: {
+            id: this.$store.state.currentUser.id,
+            followed_id: user_id
+          }
+        }).then(res => {
+          this.$store.commit('unfollow', user_id)
+          this.followed = false
+        })
+      },
       movePath(user_id, relationship) {
         this.$router.push({
           path: `/users/${user_id}/${relationship}`

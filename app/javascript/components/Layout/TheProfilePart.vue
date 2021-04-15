@@ -25,10 +25,7 @@
         </v-row>
       </v-col>
     </v-row>
-    <base-profile-dialog v-on:input="offDialog()" :passDialog="dialog" :name="this.$store.state.currentUser.name"
-      :id="this.$store.state.currentUser.id" :about="this.$store.state.currentUser.about"
-      :followings="this.$store.state.currentUser.following.length"
-      :followers="this.$store.state.currentUser.follower.length" />
+    <base-profile-dialog v-on:input="offDialog()" :passDialog="dialog" :user="this.$store.state.currentUser" />
   </v-card>
 </template>
 
@@ -75,7 +72,7 @@
         },
         profilePart: {
           elevation: 0,
-          width: 250,
+          width: 350,
           height: 100,
           round: 'rounded-lg',
         },
