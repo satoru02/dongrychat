@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col md=1 lg=1 xl=1>
-        <div :style="switch1 === false ? active : inactive" v-text="tv.header" />
+        <div class="ml-6" :style="switch1 === false ? active : inactive" v-text="tv.header" />
         <!-- <v-avatar :color="colors.blue" :size="5" v-if="switch1 === false" :class="tv.avatar" /> -->
       </v-col>
       <v-col md=1 lg=1 xl=1>
