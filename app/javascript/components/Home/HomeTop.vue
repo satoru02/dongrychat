@@ -3,7 +3,7 @@
     <h3 :class="grid.header" :style="style.headerPart" v-text="headerCaption" />
     <v-list two-line>
       <v-list-item-group multiple :class="listPart.body">
-        <v-list-item v-for="(item, index) in items" :key="index" @click="enterSpace(item)">
+        <v-list-item class="mt-n2 mb-n2" v-for="(item, index) in items" :key="index" @click="enterSpace(item)">
           <template v-slot:default="{}">
             <v-list-item-avatar :size="listAvatar.size" :height="listAvatar.height" tile :class="listAvatar.round">
               <base-image :img="base_tmdb_img_url + item.attributes.image_path" :height='100' />
@@ -71,8 +71,8 @@
           body: 'list-body mt-n5',
         },
         listAvatar: {
-          size: 60,
-          height: 60,
+          size: 50,
+          height: 50,
           round: 'rounded-lg',
         },
         avatar: {

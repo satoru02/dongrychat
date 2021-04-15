@@ -39,7 +39,7 @@
       return {
         grid: {
           app: 'overflow-hidden',
-          main: 'mt-5 ml-n10',
+          main: 'mt-5 ml-n11',
           sidebar: 'ml-15 mr-n3 mt-n5',
           deskCenter: 'ml-n16 mt-n4',
           mobileCenter: 'ml-n4',
