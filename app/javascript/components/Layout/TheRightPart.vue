@@ -2,7 +2,7 @@
   <v-container :class="grid.rightPart">
     <v-row>
       <v-col md=12 lg=12 xl=12>
-        <v-text-field v-model="query" dense background-color="#e7ecef" solo flat @keydown.enter="search(query)" :prepend-inner-icon="mdi.magnify"
+        <v-text-field v-model="query" dense background-color="#e7ecef" solo flat @keypress="setQuery()" @keydown.enter="search(query)" :prepend-inner-icon="mdi.magnify"
           :class="textField.round" :max-width="textField.width" :placeholder="textField.placeholder" />
         <!-- <the-search-field /> -->
       </v-col>
@@ -44,6 +44,7 @@
     data() {
       return {
         query: '',
+        canSubmit: false,
         mdi: {
           magnify: 'mdi-magnify'
         },
@@ -83,13 +84,22 @@
       }
     },
     methods: {
+      setQuery(){
+        this.canSubmit = true
+      },
       search(query) {
+        if(!this.canSubmit){
+          return
+        }
+
         this.$router.replace({
           name: 'multi',
           params: {
             query: query
           }
         })
+        this.query = ''
+        this.canSubmit = false
       }
     }
   }
