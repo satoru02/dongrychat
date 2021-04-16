@@ -61,20 +61,8 @@
 
     <v-tabs v-if="media === 'tv'" :style="tabs.style" :class="tabs.grid" :height="tabs.height" :width="tabs.width"
       :color="tabs.color">
-      <v-tab :style="tab.style">
-        シーズン1
-      </v-tab>
-      <v-tab :style="tab.style">
-        シーズン2
-      </v-tab>
-      <v-tab :style="tab.style">
-        シーズン3
-      </v-tab>
-      <v-tab :style="tab.style">
-        シーズン4
-      </v-tab>
-      <v-tab :style="tab.style">
-        　シーズン5
+      <v-tab @click="changeSeason(index+1)" :style="tab.style" v-for="(season, index) in overall.seasons.length" :key="index">
+        シーズン{{index + 1}}
       </v-tab>
     </v-tabs>
     <v-divider class="ml-n2" v-if="media === 'tv'" />
@@ -95,9 +83,6 @@
                     <v-list-item-title :style="details_title">
                       #{{index + 1}} {{episode.name}}
                       <!-- <v-btn icon class="ml-3" color="#000000" style="background-color: yellow;" x-small elevation=0>1</v-btn> -->
-                      <!-- <v-chip color="yellow" :style="chip" class="ml-3" small>
-                        1
-                     </v-chip> -->
                     </v-list-item-title>
                     <v-list-item-subtitle :style="overviewStyle" class="mt-1">
                       {{episode.overview}}
@@ -156,9 +141,11 @@
     data() {
       return {
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
+        tmdb_tv_overall: `https://api.themoviedb.org/3/tv/${this.$route.params.id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`,
         tmdb_tv: `https://api.themoviedb.org/3/tv/${this.$route.params.id}/season/${this.$route.params.number}?api_key=${process.env.TMDB_API_KEY}&language=ja`,
         tmdb_mv: `https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=${process.env.TMDB_API_KEY}&language=ja`,
         details: [],
+        overall: [],
         error: '',
         media: 'tv',
         tv_space: 'TvSpace',
@@ -306,28 +293,51 @@
     created() {
       if (this.$route.name === 'TvDetails') {
         this.media = 'tv'
-        this.getTvContents()
+        this.getTvContents(this.$route.params.number)
+        this.getTvOverall()
       } else if (this.$route.name === 'MvDetails') {
         this.media = 'mv'
         this.getMvContents()
       }
     },
+    watch: {
+      "$route.params.number"() {
+        this.details = []
+        this.media = 'tv'
+        this.getTvContents(this.$route.params.number)
+      }
+    },
     methods: {
-      getTvContents() {
-        tmdbAxios.get(this.tmdb_tv)
-          .then(res => this.fetchSuccessfull(res))
+      getTvContents(number) {
+        tmdbAxios.get(`https://api.themoviedb.org/3/tv/${this.$route.params.id}/season/${number}?api_key=${process.env.TMDB_API_KEY}&language=ja`)
+          .then(res => this.setContents(res))
           .catch(err => this.fetchFailed(err))
       },
       getMvContents() {
         tmdbAxios.get(this.tmdb_mv)
-          .then(res => this.fetchSuccessfull(res))
+          .then(res => this.setContents(res))
           .catch(err => this.fetchFailed(err))
       },
-      fetchSuccessfull(res) {
+      setContents(res) {
         this.details = res.data
+      },
+      getTvOverall() {
+        tmdbAxios.get(this.tmdb_tv_overall)
+          .then(res => this.setOverall(res))
+          .catch(err => this.fetchFailed(err))
+      },
+      setOverall(res) {
+        this.overall = res.data
       },
       fetchFailed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
+      },
+      changeSeason(number){
+        this.$router.replace({name: 'TvDetails', params: {
+          id: this.$route.params.id,
+          number: number,
+          tv_name: this.$route.params.tv_name
+        }})
       },
       enterTvSpace(tv_data) {
         this.$router.push({
