@@ -8,9 +8,11 @@
       </v-col>
       <v-col md=7 lg=9 xl=7>
         <v-row>
-          <v-col md=12 lg=12 xl=12 :class="heading_part.title.position" :style="heading_part.title.style">
-            <h3 v-if="media === 'tv'" v-text="this.$route.params.tv_name" />
+          <v-col md=12 lg=9 xl=12 :class="heading_part.title.position" :style="heading_part.title.style">
+            <h3 v-if="media === 'tv'" v-text="this.$route.params.tv_name + '（2021）'" />
             <h3 v-else v-text="this.$route.params.mv_name" />
+          </v-col>
+          <v-col lg=2>
           </v-col>
         </v-row>
         <v-row dense class="mt-n6">
@@ -57,7 +59,8 @@
       </v-col>
     </v-row>
 
-    <v-tabs v-if="media === 'tv'" :style="tabs.style" :class="tabs.grid" :height="tabs.height" :width="tabs.width" :color="tabs.color">
+    <v-tabs v-if="media === 'tv'" :style="tabs.style" :class="tabs.grid" :height="tabs.height" :width="tabs.width"
+      :color="tabs.color">
       <v-tab :style="tab.style">
         シーズン1
       </v-tab>
@@ -91,7 +94,7 @@
                   <v-list-item-content :class='list_part.title.position'>
                     <v-list-item-title :style="details_title">
                       #{{index + 1}} {{episode.name}}
-                     <!-- <v-btn icon class="ml-3" color="#000000" style="background-color: yellow;" x-small elevation=0>1</v-btn> -->
+                      <!-- <v-btn icon class="ml-3" color="#000000" style="background-color: yellow;" x-small elevation=0>1</v-btn> -->
                       <!-- <v-chip color="yellow" :style="chip" class="ml-3" small>
                         1
                      </v-chip> -->
@@ -214,6 +217,14 @@
               maxHeight: '90px',
               overflow: 'scroll',
               overflowY: 'scroll',
+            }
+          },
+          btn: {
+            style: {
+              fontWeight: 'bold',
+              fontFamily: 'Helvetica Neue sans-serif',
+              fontSize: '12px',
+              color: '#000000',
             }
           }
         },
