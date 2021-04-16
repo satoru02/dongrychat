@@ -3,7 +3,7 @@
     <v-row :class="heading_part.position">
       <v-col md=4 lg=2 xl=4 :class="heading_part.avatar.position">
         <v-avatar tile :size="heading_part.avatar.size" :height="heading_part.avatar.height" class="rounded-lg">
-          <v-img :src="base_tmdb_img_url + details.poster_path" />
+          <v-img v-if="details.poster_path" :src="base_tmdb_img_url + details.poster_path" />
         </v-avatar>
       </v-col>
       <v-col md=7 lg=9 xl=7>
@@ -48,13 +48,15 @@
             　 田和村ごえ
             　</v-col>
         </v-row>
-        <v-row class="mt-n8">
-          　<v-col lg=2 :style="heading_part.personHeader.style" :class="heading_part.person.position">
+        <v-row class="mt-n7">
+          　<v-col lg=2 :style="heading_part.personHeader.style" class="ml-1 mt-1">
             　 ジャンル
             　</v-col>
-          　<v-col lg=7 :style="heading_part.person.style" class="ml-n11">
-            　 アクション
-            　</v-col>
+          　<v-col lg=8 :style="heading_part.person.style" class="ml-n8">
+            　 <v-chip class="mr-4 mb-2" v-for="(genre, index) in overall.genres" :key="index" color="#293241" :style="heading_part.tag.style" small>
+              {{genre.name}}
+            </v-chip>
+            </v-col>
         </v-row>
       </v-col>
     </v-row>
@@ -142,15 +144,15 @@
       return {
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
         tmdb_tv_overall: `https://api.themoviedb.org/3/tv/${this.$route.params.id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`,
-        tmdb_tv: `https://api.themoviedb.org/3/tv/${this.$route.params.id}/season/${this.$route.params.number}?api_key=${process.env.TMDB_API_KEY}&language=ja`,
+        // tmdb_tv: `https://api.themoviedb.org/3/tv/${this.$route.params.id}/season/${this.number}?api_key=${process.env.TMDB_API_KEY}&language=ja`,
         tmdb_mv: `https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=${process.env.TMDB_API_KEY}&language=ja`,
         details: [],
         overall: [],
         error: '',
+        number: '',
         media: 'tv',
         tv_space: 'TvSpace',
         movie_space: 'MvSpace',
-        // for css ----------------------------------------
         heading_part: {
           position: 'mt-7 ml-n7',
           avatar: {
@@ -212,6 +214,14 @@
               fontFamily: 'Helvetica Neue sans-serif',
               fontSize: '12px',
               color: '#000000',
+            }
+          },
+          tag: {
+            style: {
+              color: '#ffffff',
+              fontWeight: 'bold',
+              fontFamily: 'Helvetica Neue, sans-serif',
+              fontSize: '11px'
             }
           }
         },
@@ -286,13 +296,13 @@
               fontSize: '10px'
             }
           }
-        },
-        // ----------------------------------------
+        }
       }
     },
     created() {
       if (this.$route.name === 'TvDetails') {
         this.media = 'tv'
+        // this.number = this.$route.params.number
         this.getTvContents(this.$route.params.number)
         this.getTvOverall()
       } else if (this.$route.name === 'MvDetails') {
@@ -304,12 +314,15 @@
       "$route.params.number"() {
         this.details = []
         this.media = 'tv'
+        // this.number = this.$route.params.number
         this.getTvContents(this.$route.params.number)
       }
     },
     methods: {
       getTvContents(number) {
+        // console.log(this.number)
         tmdbAxios.get(`https://api.themoviedb.org/3/tv/${this.$route.params.id}/season/${number}?api_key=${process.env.TMDB_API_KEY}&language=ja`)
+        // tmdbAxios.get(this.tmdb_tv)
           .then(res => this.setContents(res))
           .catch(err => this.fetchFailed(err))
       },
