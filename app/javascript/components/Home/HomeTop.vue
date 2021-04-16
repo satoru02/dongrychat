@@ -76,8 +76,8 @@
           round: 'rounded-lg',
         },
         avatar: {
-          size: 20,
-          height: 20,
+          size: 30,
+          height: 30,
         },
         notify_btn: {
           color: 'red',

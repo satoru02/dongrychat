@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="ml-n2">
     <v-row>
       <v-col md=12 lg=12 xl=12>
         <div :style="resultsStyle" v-text="resultsText" />
