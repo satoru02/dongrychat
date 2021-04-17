@@ -210,7 +210,8 @@
           episode_title: this.$route.params.episode_title,
           tmdb_tv_id: this.$route.params.tmdb_tv_id,
           image_path: this.$route.params.image_path,
-          overview: this.$route.params.overview
+          overview: this.$route.params.overview,
+          tag_list: this.$route.params.tag_list
         }
       } else if (this.$route.name === this.space.movie.unsubscribed) {
         this.endpoint = this.api.from_search
@@ -219,7 +220,8 @@
           media: this.media.mv,
           image_path: this.$route.params.image_path,
           tmdb_mv_id: this.$route.params.tmdb_mv_id,
-          overview: this.$route.params.overview
+          overview: this.$route.params.overview,
+          tag_list: this.$route.params.tag_list
         }
       }
     },
