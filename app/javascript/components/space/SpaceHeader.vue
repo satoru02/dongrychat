@@ -44,28 +44,12 @@
       <v-row>
         <v-col md=12 lg=12 xl=12 :class="grid.summary">
           <div :style="style.summary" v-text="space_data.overview != null ? space_data.overview : dummyText" />
-          <!-- <v-expansion-panels flat>
-            <v-expansion-panel>
-              <v-expansion-panel-header>Panel 3</v-expansion-panel-header>
-              <v-expansion-panel-content>
-                Some content
-              </v-expansion-panel-content>
-            </v-expansion-panel>
-          </v-expansion-panels> -->
         </v-col>
       </v-row>
 
-      <v-row class="mt-n1 ml-n13">
-        <v-col md=4 lg=1 xl=4 :style="style.fav">
-        </v-col>
-        <v-col md=2 lg=2 xl=2 class="ml-n9 mr-n5">
-          <v-chip color="#293241" :style="style.tag" small>#TV</v-chip>
-        </v-col>
-        <v-col md=2 lg=3 xl=2 class="ml-n15 mr-n5">
-          <v-chip color="#293241" :style="style.tag" small>#Netflix Original</v-chip>
-        </v-col>
-        <v-col md=2 lg=3 xl=2 class="ml-n16">
-          <v-chip color="#293241" :style="style.tag" small>#Drama</v-chip>
+      <v-row class="mt-n1">
+        <v-col md=12 lg=12 xl=12 :style="style.tag" small>
+          <v-chip class="mr-2" v-for="(tag, index) in space_data.tag_list" :key="index" color="#293241" :style="style.tag" small v-text="'#' + tag" />
         </v-col>
       </v-row>
     </v-col>
