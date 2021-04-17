@@ -53,8 +53,8 @@
             　 ジャンル
             　</v-col>
           　<v-col lg=8 :style="heading_part.person.style" class="ml-n8">
-            　 <v-chip class="mr-4 mb-2" v-for="(genre, index) in overall.genres" :key="index" color="#293241" :style="heading_part.tag.style" small>
-              {{genre.name}}
+            　 <v-chip class="mr-4 mb-2" v-for="(genre, index) in this.genres" :key="index" color="#293241" :style="heading_part.tag.style" small>
+              {{genre}}
             </v-chip>
             </v-col>
         </v-row>
@@ -144,10 +144,10 @@
       return {
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
         tmdb_tv_overall: `https://api.themoviedb.org/3/tv/${this.$route.params.id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`,
-        // tmdb_tv: `https://api.themoviedb.org/3/tv/${this.$route.params.id}/season/${this.number}?api_key=${process.env.TMDB_API_KEY}&language=ja`,
         tmdb_mv: `https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=${process.env.TMDB_API_KEY}&language=ja`,
         details: [],
         overall: [],
+        genres: [],
         error: '',
         number: '',
         media: 'tv',
@@ -302,7 +302,6 @@
     created() {
       if (this.$route.name === 'TvDetails') {
         this.media = 'tv'
-        // this.number = this.$route.params.number
         this.getTvContents(this.$route.params.number)
         this.getTvOverall()
       } else if (this.$route.name === 'MvDetails') {
@@ -314,25 +313,26 @@
       "$route.params.number"() {
         this.details = []
         this.media = 'tv'
-        // this.number = this.$route.params.number
         this.getTvContents(this.$route.params.number)
       }
     },
     methods: {
       getTvContents(number) {
-        // console.log(this.number)
         tmdbAxios.get(`https://api.themoviedb.org/3/tv/${this.$route.params.id}/season/${number}?api_key=${process.env.TMDB_API_KEY}&language=ja`)
-        // tmdbAxios.get(this.tmdb_tv)
-          .then(res => this.setContents(res))
+          .then(res => this.setTvDetails(res))
           .catch(err => this.fetchFailed(err))
       },
       getMvContents() {
         tmdbAxios.get(this.tmdb_mv)
-          .then(res => this.setContents(res))
+          .then(res => this.setMvDetails(res))
           .catch(err => this.fetchFailed(err))
       },
-      setContents(res) {
+      setTvDetails(res) {
         this.details = res.data
+      },
+      setMvDetails(res) {
+        this.details = res.data
+        this.genres = this.setGenres(this.details.genres)
       },
       getTvOverall() {
         tmdbAxios.get(this.tmdb_tv_overall)
@@ -340,7 +340,15 @@
           .catch(err => this.fetchFailed(err))
       },
       setOverall(res) {
-        this.overall = res.data
+       this.overall = res.data
+       this.genres = this.setGenres(this.overall.genres)
+      },
+      setGenres(content_genres){
+       var ary = []
+       for(var i = 0; i < content_genres.length; i++){
+         ary.push(content_genres[i].name)
+       }
+       return ary
       },
       fetchFailed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
@@ -363,7 +371,8 @@
             tmdb_tv_id: this.details.id,
             image_path: this.details.poster_path,
             media: this.media,
-            overview: tv_data.overview
+            overview: tv_data.overview,
+            tag_list: this.genres
           }
         })
       },
@@ -375,7 +384,8 @@
             tmdb_mv_id: details.id,
             name: this.$route.params.mv_name,
             media: this.media,
-            overview: details.overview
+            overview: details.overview,
+            tag_list: this.genres
           }
         })
       }
