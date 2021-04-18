@@ -7,12 +7,14 @@ module Api
 
       def index
         @spaces = current_user.spaces.order_by_comments(current_user).paginate(:page => params[:page], :per_page => params[:per_page])
+
         serializer = set_caption_serializer(@spaces)
         render_json(serializer)
       end
 
       def trend
         @spaces = Space.get_trend(params).paginate(:page => params[:page], :per_page => params[:per_page])
+
         serializer = set_caption_serializer(@spaces)
         render_json(serializer)
       end
@@ -26,27 +28,14 @@ module Api
 
         @condition = current_user.subscribed?(@space.id)
 
-        if @space.comments.exists?
-          @comments = @space.comments.order_by_latest.paginate(:page => params[:page], :per_page => params[:per_page])
-          serializer = set_comment_serializer(@comments, @condition, params[:media])
-        else
-          serializer = set_space_serializer(@space, @condition, params[:media])
-        end
-
+        serializer = set_space_serializer(@space, @condition, params[:media])
         render_json(serializer)
       end
 
       def enter_from_subscription
         @condition = current_user.subscribed?(@space.id)
 
-        if @space.comments.exists?
-          if @space.comments_unconfirmed_by(current_user) > 0; @space.comments_confirmed_by(current_user) end
-          @comments = @space.comments.order_by_latest.paginate(:page => params[:page], :per_page => params[:per_page])
-          serializer = set_comment_serializer(@comments, @condition, params[:media])
-        else
-          serializer = set_space_serializer(@space, @condition, params[:media])
-        end
-
+        serializer = set_space_serializer(@space, @condition, params[:media])
         render_json(serializer)
       end
 
@@ -54,10 +43,6 @@ module Api
 
         def set_caption_serializer(obj)
           CaptionSpaceSerializer.new(obj, current_user_params)
-        end
-
-        def set_comment_serializer(obj, condition, media)
-          CommentSerializer.new(obj, enter_params(condition, media))
         end
 
         def set_space_serializer(obj, condition, media)

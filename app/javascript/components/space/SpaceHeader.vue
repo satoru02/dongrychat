@@ -73,7 +73,6 @@
       },
     },
     created() {
-      console.log(this.$vuetify)
       setTimeout(() => {
         this.subscribed = this.space_data.subscribed
       }, 700)

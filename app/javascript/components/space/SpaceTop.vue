@@ -3,35 +3,14 @@
     <space-header :space_data="this.space_data" />
     <v-tabs v-if="space_data" :style="tabs.style" :class="tabs.grid" :height="tabs.height" :width="tabs.width"
       :color="tabs.color">
-      <v-tab :style="tab.style">
-        {{tabs.chat}}
+      <v-tab :style="tab.style" v-for="(menu, index) in menus" :key="index">
+        {{menu}}
         <v-btn rounded :style="tab.btn.style" :elevation="tabs.btnElevation" :class="tabs.btnGrid"
-          :color="tabs.btnColor" x-small v-text="space_data.comments_count" />
+          :color="tabs.btnColor" x-small v-text="setCount(menu)" />
       </v-tab>
-      <v-tab :style="tab.style">
-        {{tabs.review}}
-        <v-btn :style="tab.btn.style" :elevation="tabs.btnElevation" :class="tabs.btnGrid" :color="tabs.btnColor"
-          x-small v-text="'0'" />
-      </v-tab>
-      <v-tab :style="tab.style">
-        {{tabs.members}}
-        <v-btn :style="tab.btn.style" :elevation="tabs.btnElevation" :class="tabs.btnGrid" :color="tabs.btnColor"
-          x-small v-text="space_data.users.length" />
-      </v-tab>
-      <v-tab :style="tab.style">
-        {{tabs.news}}
-        <v-btn :style="tab.btn.style" :elevation="tabs.btnElevation" :class="tabs.btnGrid" :color="tabs.btnColor"
-          x-small v-text="'0'" />
-      </v-tab>
-      <v-tab :style="tab.style" v-text="tabs.relationship" />
     </v-tabs>
     <v-divider />
-    <div infinite-wrapper :style="wrapper.style">
-      <space-comments :comments="comments" />
-      <base-loader :handler="infiniteHandler" :wrapper="true" />
-    </div>
-    <v-text-field clearable :style="textField.style" :class="textField.grid" :background-color="textField.color"
-      v-model="content" @keypress="setMessage()" @keyup.enter="sendComment(content)" dense :placeholder="textField.placeholder" solo flat />
+    <space-chats v-if="this.space_data" :spaceId="this.space_data.id" />
   </v-container>
 </template>
 
@@ -40,30 +19,20 @@
     secureAxios
   } from '../../backend/axios';
   import SpaceHeader from './SpaceHeader';
-  import BaseLabel from '../Base/BaseLabel';
-  import SpaceComments from './SpaceComments';
-  import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
-  // import Appearance from './SpaceAppearance';
+  import SpaceChats from './SpaceChats';
+
   export default {
     name: 'SpaceTop',
     components: {
       'space-header': SpaceHeader,
-      'base-label': BaseLabel,
-      'space-comments': SpaceComments,
-      'base-loader': BaseInfiniteLoader,
-      // "appearance": Appearance
+      'space-chats': SpaceChats,
     },
     data() {
       return {
-        page: 1,
-        pageSize: 10,
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w200`,
         params: {},
-        comments: [],
         space_data: '',
         endpoint: '',
-        content: '',
-        canSubmit: false,
         media: {
           tv: 'tv',
           mv: 'mv',
@@ -83,12 +52,13 @@
             unsubscribed: 'MvSpace'
           }
         },
+        menus: [
+          'チャット',
+          'レビュー',
+          'ユーザー',
+          'ニュース'
+        ],
         tabs: {
-          chat: 'チャット',
-          review: 'レビュー',
-          members: 'メンバー',
-          news: 'ニュース',
-          relationship: '関連作',
           grid: 'mt-2',
           height: '48px',
           width: '70px',
@@ -117,74 +87,9 @@
             }
           }
         },
-        wrapper: {
-          style: {
-            maxHeight: '462px',
-            height: '462px',
-            overflow: 'scroll'
-          }
-        },
-        colors: {
-          chip: 'black',
-          notifyBtn: 'red'
-        },
-        textField: {
-          grid: 'mt-1 ml-6 mr-6 rounded-lg',
-          color: '#e9ecef',
-          placeholder: '#メッセージを送信',
-          style: {
-            position: 'static'
-          }
-        },
         space_top: {
           position: 'mt-n10 ml-n2',
-          row: 'ml-1',
-          col: 'mb-6 ml-n5',
-          avatar: {
-            size: '105',
-            height: '135',
-            round: 'rounded-lg'
-          },
-          title: {
-            position: 'ml-1',
-            style: {
-              color: '#000000',
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '17px'
-            }
-          },
-          subtitle: {
-            position: 'ml-1',
-            style: {
-              color: '#000000',
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '11px'
-            }
-          }
         },
-      }
-    },
-    channels: {
-      SpaceChannel: {
-        connected() {},
-        rejected() {},
-        received(data) {
-          // # when catch comment
-          // # when catch user login
-          // if (data["user_id"] === this.$store.state.currentUser.data.attributes.id){
-          //   this.icon = true
-          // } else {
-          //   this.icon = false
-          // }
-          if (data) {
-            if (data.attributes.space_id === this.space_data.id) {
-              this.comments.unshift(data)
-            }
-          }
-        },
-        disconnected() {}
       }
     },
     created() {
@@ -224,69 +129,31 @@
           tag_list: this.$route.params.tag_list
         }
       }
+      this.setSpace()
     },
     methods: {
-      infiniteHandler($state) {
-        setTimeout(() => {
-          this.params.page = this.page
-          this.params.per_page = this.pageSize
-          secureAxios.get(this.endpoint, {
-              params: this.params
-            })
-            .then(res => {
-              if (res.data.data.type === 'space') {
-                this.setBlankSpace(res)
-                $state.complete();
-              } else {
-                if (res.data.data.length) {
-                  if (this.page === 1) {
-                    this.setSpaceData(res)
-                  }
-                  this.page += 1;
-                  this.comments.push(...res.data.data)
-                  $state.loaded();
-                } else {
-                  $state.complete();
-                }
-              }
-            })
-        }, 50);
-      },
-      setSpaceData(res) {
-        this.space_data = res.data.data[0].attributes.space.data.attributes
-        this.createCable()
-      },
-      setBlankSpace(res) {
-        this.space_data = res.data.data.attributes
-        this.createCable()
-      },
-      createCable() {
-        this.$cable.subscribe({
-          channel: 'SpaceChannel',
-          space: this.space_data.id
+      setSpace(){
+        secureAxios.get(this.endpoint, {
+          params: this.params
         })
+        .then(res => this.successful(res))
+        .catch(err => this.failed(err))
       },
-      setMessage(){
-        this.canSubmit = true
+      successful(res){
+        this.space_data = res.data.data.attributes
       },
-      sendComment(content) {
-        if(!this.canSubmit){
-          return
-        }
-        if (content) {
-          this.$cable.perform({
-            channel: 'SpaceChannel',
-            action: 'speak',
-            data: {
-              content: content,
-              user_id: this.$store.state.currentUser.id,
-              user_name: this.$store.state.currentUser.name,
-              space_id: this.space_data.id,
-              avatar_url: ''
-            }
-          })
-          this.content = ''
-          this.canSubmit = false
+      failed(err){
+        this.error = (err.response && err.response.data && err.response.data.error) || ''
+      },
+      setCount(menu_name){
+        if(menu_name === 'チャット'){
+          return this.space_data.comments_count
+        } else if(menu_name === 'ユーザー'){
+          return this.space_data.users.length
+        } else if(menu_name === 'レビュー'){
+          return 0
+        } else if(menu_name === 'ニュース') {
+          return 0
         }
       }
     }
@@ -297,7 +164,6 @@
   .theme--light.v-divider {
     border-color: rgba(0, 1, 1, .06);
   }
-
   .v-input__slot::before {
     border-style: none !important;
   }
