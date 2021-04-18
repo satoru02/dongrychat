@@ -14,6 +14,7 @@
   import { secureAxios } from '../../backend/axios';
   import SpaceComments from './SpaceComments';
   import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
+
   export default {
     name: 'SpaceChats',
     components: {

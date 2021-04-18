@@ -3,29 +3,25 @@
     <space-header :space_data="this.space_data" />
     <v-tabs v-if="space_data" :style="tabs.style" :class="tabs.grid" :height="tabs.height" :width="tabs.width"
       :color="tabs.color">
-      <v-tab :style="tab.style" v-for="(menu, index) in menus" :key="index">
-        {{menu}}
+      <v-tab @click="changeMenu(menu.path)" :style="tab.style" v-for="(menu, index) in menus" :key="index">
+        {{menu.name}}
         <v-btn rounded :style="tab.btn.style" :elevation="tabs.btnElevation" :class="tabs.btnGrid"
-          :color="tabs.btnColor" x-small v-text="setCount(menu)" />
+          :color="tabs.btnColor" x-small v-text="setCount(menu.name)" />
       </v-tab>
     </v-tabs>
     <v-divider />
-    <space-chats v-if="this.space_data" :spaceId="this.space_data.id" />
+    <router-view v-if="this.space_data" :spaceId="this.space_data.id" />
   </v-container>
 </template>
 
 <script>
-  import {
-    secureAxios
-  } from '../../backend/axios';
+  import { secureAxios } from '../../backend/axios';
   import SpaceHeader from './SpaceHeader';
-  import SpaceChats from './SpaceChats';
 
   export default {
     name: 'SpaceTop',
     components: {
       'space-header': SpaceHeader,
-      'space-chats': SpaceChats,
     },
     data() {
       return {
@@ -53,10 +49,22 @@
           }
         },
         menus: [
-          'チャット',
-          'レビュー',
-          'ユーザー',
-          'ニュース'
+          {
+            name: 'チャット',
+            path: 'chats'
+          },
+          {
+            name: 'レビュー',
+            path: 'reviews'
+          },
+          {
+            name: 'ユーザー',
+            path: 'members'
+          },
+          {
+            name: 'ニュース',
+            path: 'news'
+          }
         ],
         tabs: {
           grid: 'mt-2',
@@ -131,6 +139,9 @@
       }
       this.setSpace()
     },
+    watch: {
+      $route: 'setSpace'
+    },
     methods: {
       setSpace(){
         secureAxios.get(this.endpoint, {
@@ -155,6 +166,9 @@
         } else if(menu_name === 'ニュース') {
           return 0
         }
+      },
+      changeMenu(menu_name){
+        this.$router.push(({path: menu_name}))
       }
     }
   }

@@ -16,6 +16,8 @@ import '@mdi/font/css/materialdesignicons.css';
 import HomeTop from '../components/Home/HomeTop';
 import DetailTop from '../components/Detail/DetailsTop';
 import SpaceTop from '../components/Space/SpaceTop';
+import SpaceChats from '../components/Space/SpaceChats';
+import SpaceUsers from '../components/Space/SpaceUsers';
 import ChartTop from '../components/Chart/ChartTop';
 import Authorization from '../components/Authorization/AuthorizationTop';
 import AccountActivation from '../components/Authorization/AccountActivation';
@@ -172,20 +174,8 @@ const router = new VueRouter({
       component: DetailTop
     },
     {
-      path: '/tv_space/:name/:season_number/:episode_number',
-      name: 'TvSpace',
-      props: true,
-      component: SpaceTop
-    },
-    {
       path: '/mv_space/m/:name',
       name: 'MvSpace',
-      props: true,
-      component: SpaceTop
-    },
-    {
-      path: '/tv_space/:space_id',
-      name: 'subscribedTvSpace',
       props: true,
       component: SpaceTop
     },
@@ -194,6 +184,39 @@ const router = new VueRouter({
       name: 'subscribedMvSpace',
       props: true,
       component: SpaceTop
+    },
+    {
+      path: '/tv_space/:name/:season_number/:episode_number',
+      name: 'TvSpace',
+      props: true,
+      component: SpaceTop,
+    },
+    {
+      path: '/tv_space/:space_id',
+      props: true,
+      component: SpaceTop,
+      children: [
+        {
+          path: 'chats',
+          name: 'subscribedTvSpace',
+          component: SpaceChats,
+        },
+        {
+          path: 'members',
+          name: 'subscribedTvSpace',
+          component: SpaceUsers,
+        },
+        {
+          path: 'reviews',
+          name: 'subscribedTvSpace',
+          // component: SpaceReviews,
+        },
+        {
+          path: 'news',
+          name: 'subscribedTvSpace',
+          // component: SpaceNews,
+        }
+      ]
     },
     {
       path: '/authorization',
