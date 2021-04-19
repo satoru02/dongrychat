@@ -16,6 +16,10 @@ import '@mdi/font/css/materialdesignicons.css';
 import HomeTop from '../components/Home/HomeTop';
 import DetailTop from '../components/Detail/DetailsTop';
 import SpaceTop from '../components/Space/SpaceTop';
+import SpaceChats from '../components/Space/SpaceChats';
+import SpaceUsers from '../components/Space/SpaceUsers';
+import SpaceReviews from '../components/Space/SpaceReviews';
+import SpaceNews from '../components/Space/SpaceNews';
 import ChartTop from '../components/Chart/ChartTop';
 import Authorization from '../components/Authorization/AuthorizationTop';
 import AccountActivation from '../components/Authorization/AccountActivation';
@@ -172,28 +176,112 @@ const router = new VueRouter({
       component: DetailTop
     },
     {
-      path: '/tv_space/:name/:season_number/:episode_number',
-      name: 'TvSpace',
-      props: true,
-      component: SpaceTop
-    },
-    {
       path: '/mv_space/m/:name',
-      name: 'MvSpace',
       props: true,
-      component: SpaceTop
-    },
-    {
-      path: '/tv_space/:space_id',
-      name: 'subscribedTvSpace',
-      props: true,
-      component: SpaceTop
+      component: SpaceTop,
+      children: [
+        {
+          path: 'chats',
+          name: 'MvSpace',
+          component: SpaceChats,
+        },
+        {
+          path: 'members',
+          name: 'MvSpaceMembers',
+          component: SpaceUsers,
+        },
+        {
+          path: 'reviews',
+          name: 'MvSpaceReviews',
+          component: SpaceReviews,
+        },
+        {
+          path: 'news',
+          name: 'MvSpaceNews',
+          component: SpaceNews,
+        }
+      ]
     },
     {
       path: '/mv_space/:space_id',
-      name: 'subscribedMvSpace',
       props: true,
-      component: SpaceTop
+      component: SpaceTop,
+      children: [
+        {
+          path: 'chats',
+          name: 'subscribedMvSpace',
+          component: SpaceChats,
+        },
+        {
+          path: 'members',
+          name: 'subscribedMvSpaceMembers',
+          component: SpaceUsers,
+        },
+        {
+          path: 'reviews',
+          name: 'subscribedMvSpaceReviews',
+          component: SpaceReviews,
+        },
+        {
+          path: 'news',
+          name: 'subscribedMvSpaceNews',
+          component: SpaceNews,
+        }
+      ]
+    },
+    {
+      path: '/tv_space/:name/:season_number/:episode_number',
+      props: true,
+      component: SpaceTop,
+      children: [
+        {
+          path: 'chats',
+          name: 'TvSpace',
+          component: SpaceChats,
+        },
+        {
+          path: 'members',
+          name: 'TvSpaceMembers',
+          component: SpaceUsers,
+        },
+        {
+          path: 'reviews',
+          name: 'TvSpaceReviews',
+          component: SpaceReviews,
+        },
+        {
+          path: 'news',
+          name: 'TvSpaceNews',
+          component: SpaceNews,
+        }
+      ]
+    },
+    {
+      path: '/tv_space/:space_id',
+      props: true,
+      component: SpaceTop,
+      children: [
+        {
+          path: 'chats',
+          name: 'subscribedTvSpace',
+          component: SpaceChats,
+        },
+        {
+          path: 'members',
+          name: 'subscribedTvSpaceMembers',
+          component: SpaceUsers,
+        },
+        {
+          path: 'reviews',
+          name: 'subscribedTvSpaceReviews',
+          component: SpaceReviews,
+        },
+        {
+          path: 'news',
+          name: 'subscribedTvSpaceNews',
+          component: SpaceNews,
+        }
+      ]
     },
     {
       path: '/authorization',

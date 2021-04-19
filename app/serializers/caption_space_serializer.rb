@@ -7,7 +7,6 @@ class CaptionSpaceSerializer
   end
 
   attribute :latest_comment do |space|
-    # LatestCommentSerializer.new(space.comments.last)
     space.comments.last
   end
 end
