@@ -13,9 +13,9 @@
               <v-col md=6 lg=6 xl=6 v-text="user.name" />
               <v-col md=6 lg=6 xl=6 v-if="user.id !== this.$store.state.currentUser.id">
                 <v-btn small elevation=0 v-if="this.$store.state.currentUser.id != user.id" :class="roundClass"
-                  :style="dialogFollowed ? followingStyle : unfollowStyle"
-                  @click="dialogFollowed ? unfollow(user.id) : follow(user.id)">
-                  {{ dialogFollowed ? followingText : unfollowText }}
+                  :style="followed ? followingStyle : unfollowStyle"
+                  @click="followed ? unfollow(user.id) : follow(user.id)">
+                  {{ followed ? followingText : unfollowText }}
                 </v-btn>
               </v-col>
             </v-row>
@@ -157,7 +157,7 @@
           followed_id: user_id
         }).then(res => {
           this.$store.commit('follow', user_id)
-          this.dialogFollowed = true
+          this.followed = true
         })
       },
       unfollow(user_id) {
@@ -168,7 +168,7 @@
           }
         }).then(res => {
           this.$store.commit('unfollow', user_id)
-          this.dialogFollowed = false
+          this.followed = false
         })
       },
       movePath(user_id, relationship) {

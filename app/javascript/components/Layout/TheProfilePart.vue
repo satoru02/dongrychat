@@ -10,18 +10,20 @@
       <v-col md=10 lg=10 xl=10 :class='grid.profileText'>
         <v-row :class="grid.profileName">
           <v-col md=12 lg=12 xl=12>
-            <div :style="style.name" v-text="this.$store.state.currentUser.name" />
+            <div class="ml-4 mt-n2" :style="style.name" v-text="this.$store.state.currentUser.name" />
           </v-col>
         </v-row>
         <v-row :class="grid.relationships">
-          <v-col md=6 lg=6 xl=6>
-            <div :style="style.relationships"
+          <v-col md=6 lg=12 xl=6>
+            <div class="ml-4 mt-n2" :style="style.relationships"
               v-text="followHeader + blank + this.$store.state.currentUser.following.length" />
-          </v-col>
-          <v-col md=6 lg=6 xl=6 :class="grid.followers">
-            <div :style="style.relationships"
+            <div class="ml-4 mt-1" :style="style.relationships"
               v-text="followerHeader + blank + this.$store.state.currentUser.follower.length" />
           </v-col>
+          <!-- <v-col md=6 lg=6 xl=6 :class="grid.followers">
+            <div :style="style.relationships"
+              v-text="followerHeader + blank + this.$store.state.currentUser.follower.length" />
+          </v-col> -->
         </v-row>
       </v-col>
     </v-row>
@@ -58,7 +60,7 @@
           relationships: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '7px',
+            fontSize: '6px',
             color: '#6c757d'
           },
         },
@@ -77,8 +79,8 @@
           round: 'rounded-lg',
         },
         profile: {
-          size: 55,
-          height: 55,
+          size: 50,
+          height: 50,
         },
       }
     },

@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <v-list two-line>
-      <v-list-item v-for="(user, index) in users" :key="index">
-        <v-list-item-avatar @click="showDialog(user.attributes)">
+      <v-list-item @click="showDialog(user.attributes)" v-for="(user, index) in users" :key="index">
+        <v-list-item-avatar>
           <v-img :src="user.attributes.avatar_url" />
         </v-list-item-avatar>
         <v-list-item-content>
