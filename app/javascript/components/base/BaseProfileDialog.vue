@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="change" :width="width" v-if="user">
+  <v-dialog v-model="change" :width="width" v-if="(user) && (followed === true || followed === false)">
     <v-card>
       <v-card-text :style="style.Name">
         <v-row>
@@ -13,9 +13,9 @@
               <v-col md=6 lg=6 xl=6 v-text="user.name" />
               <v-col md=6 lg=6 xl=6 v-if="user.id !== this.$store.state.currentUser.id">
                 <v-btn small elevation=0 v-if="this.$store.state.currentUser.id != user.id" :class="roundClass"
-                  :style="followed ? followingStyle : unfollowStyle"
-                  @click="followed ? unfollow(user.id) : follow(user.id)">
-                  {{ followed ? followingText : unfollowText }}
+                  :style="dialogFollowed ? followingStyle : unfollowStyle"
+                  @click="dialogFollowed ? unfollow(user.id) : follow(user.id)">
+                  {{ dialogFollowed ? followingText : unfollowText }}
                 </v-btn>
               </v-col>
             </v-row>
@@ -63,7 +63,6 @@
     props: {
       user: {
         type: Object,
-        // required: true
       },
       passDialog: {
         type: Boolean
@@ -91,6 +90,7 @@
         followerHeader: 'フォロワー',
         followingsArg: 'followings',
         followersArg: 'followers',
+        dialogFollowed: this.followed,
         grid: {
           avatar: 'mt-8 ml-3',
           name: 'ml-5 mt-5',
@@ -157,7 +157,7 @@
           followed_id: user_id
         }).then(res => {
           this.$store.commit('follow', user_id)
-          this.followed = true
+          this.dialogFollowed = true
         })
       },
       unfollow(user_id) {
@@ -168,7 +168,7 @@
           }
         }).then(res => {
           this.$store.commit('unfollow', user_id)
-          this.followed = false
+          this.dialogFollowed = false
         })
       },
       movePath(user_id, relationship) {

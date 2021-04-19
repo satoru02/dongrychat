@@ -10,7 +10,7 @@
       </v-tab>
     </v-tabs>
     <v-divider />
-    <router-view v-if="this.space_data" :spaceId="this.space_data.id" />
+    <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" />
   </v-container>
 </template>
 
@@ -142,6 +142,11 @@
     watch: {
       $route: 'setSpace'
     },
+    // updated(){
+    //   if(this.space_data === ''){
+    //     this.setSpace()
+    //   }
+    // },
     methods: {
       setSpace(){
         secureAxios.get(this.endpoint, {
@@ -160,7 +165,7 @@
         if(menu_name === 'チャット'){
           return this.space_data.comments_count
         } else if(menu_name === 'ユーザー'){
-          return this.space_data.users.length
+          return this.space_data.users.data.length
         } else if(menu_name === 'レビュー'){
           return 0
         } else if(menu_name === 'ニュース') {
