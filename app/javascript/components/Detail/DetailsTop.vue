@@ -9,7 +9,7 @@
       <v-col md=7 lg=9 xl=7>
         <v-row>
           <v-col md=12 lg=9 xl=12 :class="heading_part.title.position" :style="heading_part.title.style">
-            <h3 v-if="media === 'tv'" v-text="this.$route.params.tv_name + '（2021）'" />
+            <h3 v-if="media === 'tv'" v-text="this.$route.params.tv_name" />
             <h3 v-else v-text="this.$route.params.mv_name" />
           </v-col>
           <v-col lg=2>
@@ -26,29 +26,15 @@
             <div :style="heading_part.details.style" v-text="details.overview" />
           </v-col>
         </v-row>
-        <v-row class="mt-2">
+        <v-row class="mt-3">
           　<v-col lg=2 :style="heading_part.personHeader.style" :class="heading_part.person.position">
-            　 監督
+            　 クレジット
             　</v-col>
-          　<v-col lg=7 :style="heading_part.person.style" class="ml-n11">
-            　 大畑勇
-            　</v-col>
+          　<v-col lg=8 :style="heading_part.person.style" class="ml-n7">
+            　 <v-html class="mr-3" v-for="(credit, index) in overall.created_by" :key="index">{{credit.name}}</v-html>
+            </v-col>
         </v-row>
-        <v-row class="mt-n3">
-          　<v-col lg=2 :style="heading_part.personHeader.style" :class="heading_part.person.position">
-            　 出演者
-            　</v-col>
-          　<v-col lg=2 :style="heading_part.person.style" class="ml-n11">
-            　 崎山ひろゆき
-            　</v-col>
-          <v-col lg=2 :style="heading_part.person.style" class="ml-n10">
-            　 　のどか夢
-            　</v-col>
-          <v-col lg=2 :style="heading_part.person.style" class="ml-n10">
-            　 田和村ごえ
-            　</v-col>
-        </v-row>
-        <v-row class="mt-n7">
+        <v-row class="mt-n1">
           　<v-col lg=2 :style="heading_part.personHeader.style" class="ml-1 mt-1">
             　 ジャンル
             　</v-col>
@@ -202,7 +188,7 @@
               fontSize: '12px',
               fontWeight: 'bold',
               color: '#2d3135',
-              height: '70px',
+              height: '90px',
               maxHeight: '90px',
               overflow: 'scroll',
               overflowY: 'scroll',
