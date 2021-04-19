@@ -1,8 +1,8 @@
 <template>
-  <v-row :class="grid.header">
+  <v-row :class="grid.header" v-if="space_data">
     <v-col md=2 lg=2 xl=2>
       <v-avatar :class="avatar.round" :size="avatar.size" :height='avatar.height' tile>
-        <v-img :src="base_tmdb_img_url + space_data.image_path" />
+        <v-img :src="posterImg()" />
       </v-avatar>
     </v-col>
     <v-col md=10 lg=10 xl=10>
@@ -22,9 +22,6 @@
             :style="subscribed === true ? style.subscribedBtn : style.unsubscribedBtn"
             v-text="subscribed === true ? btn.subscribedText : btn.unsubscribedText" />
         </v-col>
-        <!-- <v-col md=1 lg=1 xl=1 :class="grid.mdi">
-          <v-icon v-text="mdi.dotsVertical" size="22" />
-        </v-col> -->
       </v-row>
       <v-row dense>
         <v-col md=12 lg=12 xl=12>
@@ -40,13 +37,11 @@
             v-text="'Movie'" />
         </v-col>
       </v-row>
-
       <v-row>
         <v-col md=12 lg=12 xl=12 :class="grid.summary">
           <div :style="style.summary" v-text="space_data.overview != null ? space_data.overview : dummyText" />
         </v-col>
       </v-row>
-
       <v-row class="mt-n1">
         <v-col md=12 lg=12 xl=12 :style="style.tag" small>
           <v-chip class="mr-2" v-for="(tag, index) in space_data.tag_list" :key="index" color="#293241" :style="style.tag" small v-text="'#' + tag" />
@@ -66,12 +61,7 @@
     components: {
       'base-label': BaseLabel
     },
-    props: {
-      space_data: {
-        type: Object,
-        required: true,
-      },
-    },
+    props: ['space_data'],
     created() {
       setTimeout(() => {
         this.subscribed = this.space_data.subscribed
@@ -207,7 +197,7 @@
         secureAxios.delete(this.api.for_subscription + `/${this.space_data.id}` +
             `/${this.$store.state.currentUser.id}`)
           .then(res => this.unsubscribeSuccessful(res))
-          .catch(err => this.Failed(err))
+          .catch(err => this.failed(err))
       },
       subscribeSuccessful(res) {
         this.subscribed = true
@@ -215,9 +205,12 @@
       unsubscribeSuccessful(res) {
         this.subscribed = false
       },
-      Failed(err) {
+      failed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
       },
+      posterImg(){
+        return this.base_tmdb_img_url + this.space_data.image_path
+      }
     }
   }
 </script>
