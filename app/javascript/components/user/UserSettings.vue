@@ -262,7 +262,7 @@
       },
       checkSignedIn() {
         if (!this.$store.state.signedIn) {
-          this.$router.replace('/')
+          this.$router.replace('/login')
         }
       },
     }

@@ -49,6 +49,7 @@
     <infinite-loading spinner="circles" @infinite="infiniteHandler">
       <span slot="no-more" />
     </infinite-loading>
+
     <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
       <v-card color="#ffffff" height="250" class="rounded-lg">
         <v-row>
@@ -77,6 +78,7 @@
           </v-row>
       </v-card>
     </v-dialog>
+
   </v-container>
 </template>
 
@@ -219,14 +221,6 @@
       }
     },
     methods: {
-      checkSignedIn() {
-        if (!this.$store.state.signedIn) {
-          this.loginDialog = true
-        }
-      },
-      offDialog(value) {
-        this.loginDialog = value
-      },
       forceRerender() {
         this.componentKey += 1
       },
