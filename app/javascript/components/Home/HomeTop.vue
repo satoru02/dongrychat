@@ -71,8 +71,8 @@
           body: 'list-body mt-n5',
         },
         listAvatar: {
-          size: 70,
-          height: 90,
+          size: 45,
+          height: 45,
           round: 'rounded-lg',
         },
         avatar: {

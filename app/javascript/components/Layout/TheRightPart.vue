@@ -4,7 +4,6 @@
       <v-col md=12 lg=12 xl=12>
         <v-text-field v-model="query" dense background-color="#e7ecef" solo flat @keypress="setQuery()" @keydown.enter="search(query)" :prepend-inner-icon="mdi.magnify"
           :class="textField.round" :max-width="textField.width" :placeholder="textField.placeholder" />
-        <!-- <the-search-field /> -->
       </v-col>
     </v-row>
 
@@ -65,7 +64,7 @@
         grid: {
           rightPart: 'ml-n7 mt-n3',
           onlinePart: 'mt-7',
-          username: 'mt-3'
+          username: 'mt-2 ml-n1'
         },
         textField: {
           placeholder: '検索',
@@ -74,12 +73,12 @@
         },
         onlineTitle: 'Online',
         avatar: {
-          size: 45,
-          height: 45,
+          size: 35,
+          height: 35,
         },
         profile: {
-          size: 55,
-          height: 55,
+          size: 50,
+          height: 50,
         },
       }
     },

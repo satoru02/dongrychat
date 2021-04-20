@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="change" :width="width" v-if="user">
+  <v-dialog v-model="change" :width="width" v-if="(user) && (followed === true || followed === false)">
     <v-card>
       <v-card-text :style="style.Name">
         <v-row>
@@ -63,7 +63,6 @@
     props: {
       user: {
         type: Object,
-        // required: true
       },
       passDialog: {
         type: Boolean
@@ -91,6 +90,7 @@
         followerHeader: 'フォロワー',
         followingsArg: 'followings',
         followersArg: 'followers',
+        dialogFollowed: this.followed,
         grid: {
           avatar: 'mt-8 ml-3',
           name: 'ml-5 mt-5',

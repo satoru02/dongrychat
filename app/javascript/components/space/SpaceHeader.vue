@@ -11,7 +11,7 @@
           <div :style="style.title">
             {{space_data.name}}
             <v-chip :color="colors.yellow" :style="style.chip" class="mt-n1 ml-2" small>
-              {{space_data.users.length}}
+              {{space_data.users.data.length}}
             </v-chip>
           </div>
         </v-col>

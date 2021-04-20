@@ -1,85 +1,105 @@
 <template>
   <v-container>
     <v-progress-linear v-if="sendingMail == true" color="deep-purple accent-4" indeterminate rounded height="6" />
-    <v-row class="top-part" />
-    <v-row>
-      <v-col cols=1 />
-      <v-col cols=10>
-        <v-text-field v-model="email" :type="'email'" background-color="#ffffff" class="rounded-xl inp-text"
-          label="Eメール" outlined :rules="[rules.requiredEmail, rules.testMail]" />
-      </v-col>
-    </v-row>
-    <v-row class="mt-n6">
-      <v-col cols=1 />
-      <v-col cols=10>
-        <v-text-field v-model="name" :type="'email'" background-color="#ffffff" class="rounded-xl inp-text"
-          :rules="[rules.requiredName, rules.minName]" label="ユーザーネーム" outlined />
-      </v-col>
-    </v-row>
-    <v-row class="mt-n6">
-      <v-col cols=1 />
-      <v-col cols=10>
-        <v-text-field v-model="password" @click="visible = false" :type="visible ? 'text' : 'password'"
-          background-color="#ffffff" class="rounded-xl inp-text" label="パスワード" outlined
-          :rules="[rules.requiredPassword, rules.minPassword]" />
-      </v-col>
-    </v-row>
-    <v-row class="mt-n6">
-      <v-col cols=1 />
-      <v-col cols=10>
-        <v-text-field v-model="password_confirmation" :value="password_confirmation" @click="visible = false"
-          :type="visible ? 'text': 'password'" background-color="#ffffff" class="rounded-xl inp-text" label="パスワードの確認"
-          outlined :rules="[rules.matchPassword]" />
-      </v-col>
-    </v-row>
-    <v-row class="mt-n7">
-      <v-col cols=1 />
-      <v-col cols=10>
-        <v-btn v-if="inputComplete === false" disabled x-large class="rounded-xl" block>
-          <div class="reg-text">アカウント登録</div>
-        </v-btn>
-        <v-btn v-if="inputComplete === true" @click="signup()" x-large class="rounded-xl" color="#000000" dark block
-          :style="afterInput">
-          <div class="reg-text">アカウント登録</div>
-        </v-btn>
-      </v-col>
-    </v-row>
-    <v-row class="mt-5">
-      <v-col cols=1 />
-      <v-col cols=4>
-        <v-divider />
-      </v-col>
-      <v-col cols=3>
-        <div class="setting-text mt-n2">snsで会員登録</div>
-      </v-col>
-      <v-col cols=4 class="ml-n10">
-        <v-divider />
-      </v-col>
+    <v-row :style="$vuetify.breakpoint.width < 600 ? topPartMobile : topPartStyle">
+      <v-col cols=12 sm=12 md=12 lg=12 xl=12 />
     </v-row>
     <v-row>
-      <v-col cols=2 class="ml-2" />
-      <v-col cols=3>
-        <v-btn class="sns-btn rounded-s" dark icon x-large>
-          <v-icon>mdi-google</v-icon>
-        </v-btn>
+      <v-col cols=1 sm=2 md=2 lg=4 xl=4 />
+      <v-col cols=10 sm=8 md=8 lg=5 xl=5>
+        <v-card :color="signupCard.color" :class="signupCard.position" :elevation="signupCard.elevation" outlined
+          :height="signupCard.height" :width="signupCard.width">
+          <v-row class="mt-4">
+            <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
+            <v-col cols=9 sm=9 md=9 lg=9 xl=9 :class="$vuetify.breakpoint.width < 600 ? 'ml-n5' : 'ml-n3'">
+              <div :style="signupCard.headerTitleStyle" v-text="signupCard.headerText" />
+            </v-col>
+          </v-row>
+          <v-row class="mt-2">
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+            <v-col cols=10 sm=10 md=10 lg=10 xl=10>
+              <v-btn @click="authenticate(signupCard.googleArg)" :color="signupCard.googleColor"
+                :style="signupCard.btnStyle" elevation=0 block>
+                <v-icon class="mr-4 ml-n3" size=11 v-text="signupCard.googleIcon" />{{signupCard.googleBtn}}
+              </v-btn>
+            </v-col>
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+          </v-row>
+          <v-row class="mt-n1">
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+            <v-col cols=10 sm=10 md=10 lg=10 xl=10>
+              <v-btn @click="authenticate(signupCard.facebookArg)" :color="signupCard.facebookColor"
+                :style="signupCard.btnStyle" elevation=0 block>
+                <v-icon class="mr-4 ml-1" size=11 v-text="signupCard.facebookIcon" />{{signupCard.facebookBtn}}
+              </v-btn>
+            </v-col>
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+          </v-row>
+          <v-row class="mt-n1">
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+            <v-col cols=10 sm=10 md=10 lg=10 xl=10>
+              <v-divider />
+            </v-col>
+          </v-row>
+          <v-row class="mt-n1">
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+            <v-col cols=10 sm=10 md=10 lg=10 xl=10>
+              <v-text-field v-model="email" :background-color="signupCard.textFieldColor" dense outlined
+                :placeholder="signupCard.emailText" :rules="[rules.requiredEmail, rules.testMail]" />
+            </v-col>
+          </v-row>
+          <v-row class="mt-n7">
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+            <v-col cols=10 sm=10 md=10 lg=10 xl=10>
+              <v-text-field v-model="name" dense :background-color="signupCard.textFieldColor"
+                :placeholder="signupCard.nameText" outlined :rules="[rules.requiredName, rules.minName]" />
+            </v-col>
+          </v-row>
+          <v-row class="mt-n7">
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+            <v-col cols=10 sm=10 md=10 lg=10 xl=10>
+              <v-text-field :type="visible ? 'text' : 'password'" v-model="password" dense
+                :background-color="signupCard.textFieldColor" :placeholder="signupCard.passwordText" outlined
+                :rules="[rules.requiredPassword, rules.minPassword]" />
+            </v-col>
+          </v-row>
+          <v-row class="mt-n7">
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+            <v-col cols=10 sm=10 md=10 lg=10 xl=10>
+              <v-text-field v-model="password_confirmation" :value="password_confirmation" @click="visible = false"
+                :type="visible ? 'text' : 'password'" dense :background-color="signupCard.textFieldColor"
+                :placeholder="signupCard.secondPasswordText" outlined :rules="[rules.matchPassword]" />
+            </v-col>
+          </v-row>
+          <v-row class="mt-n7">
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+            <v-col cols=10 sm=10 md=10 lg=10 xl=10>
+              <v-btn v-if="inputComplete === false" disabled block elevation=0>
+                <div :style="signupCard.signupTextStyle" v-text="signupCard.signupText" />
+              </v-btn>
+              <v-btn :color="signupCard.loginBtnColor" v-if="inputComplete === true" @click="signup()"
+                :style="afterInput" dark elevation=0 block>
+                <div :style="signupCard.signupTextStyle" v-text="signupCard.signupText" />
+              </v-btn>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols=7 sm=7 md=7 lg=8 xl=7 />
+            <v-col :class="$vuetify.breakpoint.width < 600 ? 'ml-2 mt-n3' : 'mt-n3 ml-n1'" cols=4 sm=5 md=5 lg=4 xl=5
+              @click="haveAccount()">
+              <div :style="signupCard.loginStyle" v-text="signupCard.loginText" />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
+            <v-col :class="$vuetify.breakpoint.width < 600 ? 'mt-n1 ml-n5' : 'ml-n1 mt-n2'" cols=8 sm=8 md=8 lg=8 xl=8>
+              <div :style="signupCard.policyStyle" v-text="signupCard.policyText" />
+            </v-col>
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+          </v-row>
+        </v-card>
       </v-col>
-      <v-col cols=3>
-        <v-btn class="sns-btn rounded-s" dark icon x-large>
-          <v-icon>mdi-apple</v-icon>
-        </v-btn>
-      </v-col>
-      <v-col cols=2>
-        <v-btn class="sns-btn rounded-s" dark icon x-large>
-          <v-icon>mdi-facebook</v-icon>
-        </v-btn>
-      </v-col>
-    </v-row>
-    <v-row class="bottom-part" />
-    <v-row>
-      <v-col cols=9 />
-      <v-col cols=3>
-        <div @click="haveAccount()" class="switch-text">ログイン</div>
-      </v-col>
+      <v-col cols=1 sm=2 md=2 lg=3 xl=3 />
     </v-row>
 
     <v-snackbar top v-model="errorbar" color="black">
@@ -138,6 +158,71 @@
         },
         afterInput: {
           backgroundColor: "#000000"
+        },
+        topPartStyle: {
+          height: '125px'
+        },
+        topPartMobile: {
+          height: '135px'
+        },
+        signupCard: {
+          headerText: 'DEVIOにようこそ！',
+          googleArg: 'google',
+          googleBtn: 'Googleアカウントで登録',
+          googleColor: '#000000',
+          googleIcon: 'mdi-google',
+          facebookArg: 'facebook',
+          facebookBtn: 'Facebookアカウントで登録',
+          facebookColor: '#2962ff',
+          facebookIcon: 'mdi-facebook',
+          textFieldColor: '#ffffff',
+          loginBtnColor: 'green',
+          emailText: 'Eメール',
+          nameText: 'ユーザーネーム',
+          passwordText: 'パスワード',
+          secondPasswordText: 'パスワードの確認',
+          signupText: 'アカウント登録',
+          loginText: 'ログインはこちら',
+          policyText: 'プライバシーポリシーと利用規約について',
+          color: "#edf2f4",
+          height: '550px',
+          width: '550px',
+          position: 'rounded-lg',
+          elevation: 0,
+          headerTitleStyle: {
+            color: '#000000',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '23px',
+          },
+          btnStyle: {
+            color: '#ffffff',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '12px',
+          },
+          forgotTextStyle: {
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '3px',
+            color: '#adb5bd'
+          },
+          signupTextStyle: {
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '11px',
+          },
+          loginStyle: {
+            color: 'green',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '10px',
+          },
+          policyStyle: {
+            color: '#6c757d',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '8px',
+          }
         }
       }
     },
@@ -214,56 +299,32 @@
         this.$router.push({
           name: 'Login'
         })
+      },
+      authenticate: function (provider) {
+        this.$auth.authenticate(provider).then(res => {
+          this.$store.commit('setCurrentUser', {
+            currentUser: res.data.user.data.attributes,
+            csrf: res.data.csrf,
+            token: res.data.access_token
+          })
+          this.$router.replace('/')
+        })
       }
     }
   }
 </script>
 
 <style scoped>
-  .top-part {
-    height: 320px;
-  }
-
-  .theme--light.v-text-field>.v-input__control>.v-input__slot:before {
-    border-color: orange;
+  * {
+    text-transform: none !important;
   }
 
   .v-text-field--outlined>>>fieldset {
     border-color: #e9ecef;
   }
 
-  .reg-text {
-    font-weight: bold;
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 11px;
+  .theme--light.v-divider {
+    border-color: rgba(0, 1, 1, .06);
   }
 
-  .setting-text {
-    font-weight: bold;
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 3px;
-    color: #adb5bd;
-  }
-
-  .switch-text {
-    font-weight: bold;
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 8px;
-    color: #4361ee;
-  }
-
-  .inp-text {
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 17px;
-    color: #dee2e6;
-  }
-
-  .bottom-part {
-    height: 70px;
-  }
-
-  .sns-btn {
-    background-color: #000000;
-    font-weight: bold;
-  }
 </style>

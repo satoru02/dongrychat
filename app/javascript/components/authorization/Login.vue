@@ -1,75 +1,95 @@
 <template>
   <v-container>
-    <v-row class="top-part" />
-    <v-row>
-      <v-col cols=1 />
-      <v-col cols=10>
-        <v-text-field
-          v-model="email" background-color="#ffffff" class="rounded-xl inp-text" label="Eメール" outlined
-          :rules="[rules.requiredEmail, rules.testMail]"
-         />
-      </v-col>
-    </v-row>
-    <v-row class="mt-n10">
-      <v-col cols=1 />
-      <v-col cols=10>
-        <v-text-field :type="visible ? 'text' : 'password'" v-model="password" background-color="#ffffff"
-          class="rounded-xl inp-text" label="パスワード" outlined :rules="[rules.requiredPassword, rules.minPassword]" />
-      </v-col>
-    </v-row>
-    <v-row class="mt-n9">
-      <v-col cols=6 />
-      <v-col cols=5 class="ml-7">
-        <div @click="forgetPassword()" class="setting-text">パスワードを忘れた場合はこちら</div>
-      </v-col>
-    </v-row>
-    <v-row class="mt-n2">
-      <v-col cols=1 />
-      <v-col cols=10>
-        <v-btn v-if="inputComplete === false" disabled x-large class="rounded-xl" block>
-          <div class="login-text">ログイン</div>
-        </v-btn>
-        <v-btn v-if="inputComplete === true" @click="signIn()" x-large class="rounded-xl" :style="afterInput" dark block>
-          <div class="login-text">ログイン</div>
-        </v-btn>
-      </v-col>
-    </v-row>
-    <v-row class="mt-5">
-      <v-col cols=1 />
-      <v-col cols=4>
-        <v-divider />
-      </v-col>
-      <v-col cols=3>
-        <div class="setting-text mt-n2">snsでログイン</div>
-      </v-col>
-      <v-col cols=4 class="ml-n10">
-        <v-divider />
-      </v-col>
+    <v-row :style="$vuetify.breakpoint.width < 600 ? topPartMobile : topPartStyle">
+      <v-col cols=12 sm=12 md=12 lg=12 xl=12 />
     </v-row>
     <v-row>
-      <v-col cols=2 class="ml-2" />
-      <v-col cols=3>
-        <v-btn @click="authenticate('google')" class="sns-btn rounded-s" dark icon x-large>
-          <v-icon>mdi-google</v-icon>
-        </v-btn>
+      <v-col cols=1 sm=2 md=2 lg=4 xl=4 />
+      <v-col cols=10 sm=8 md=8 lg=5 xl=5>
+        <v-card :color="loginCard.color" :class="loginCard.position" :elevation="loginCard.elevation" outlined
+          :height="loginCard.height" :width="loginCard.width">
+          <v-row class="mt-4">
+            <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
+            <v-col cols=9 sm=9 md=9 lg=9 xl=9 :class="$vuetify.breakpoint.width < 600 ? 'ml-n5' : 'ml-n3'">
+              <div :style="loginCard.headerTitleStyle" v-text="loginCard.headerText" />
+            </v-col>
+          </v-row>
+          <v-row class="mt-2">
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+            <v-col cols=10 sm=10 md=10 lg=10 xl=10>
+              <v-btn @click="authenticate(loginCard.googleArg)" :color="loginCard.googleColor"
+                :style="loginCard.btnStyle" elevation=0 block>
+                <v-icon class="mr-4 ml-n3" size=11 v-text="loginCard.googleIcon" />{{loginCard.googleBtn}}
+              </v-btn>
+            </v-col>
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+          </v-row>
+          <v-row class="mt-n1">
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+            <v-col cols=10 sm=10 md=10 lg=10 xl=10>
+              <v-btn @click="authenticate(loginCard.facebookArg)" :color="loginCard.facebookColor"
+                :style="loginCard.btnStyle" elevation=0 block>
+                <v-icon class="mr-4 ml-1" size=11 v-text="loginCard.facebookIcon" />{{loginCard.facebookBtn}}
+              </v-btn>
+            </v-col>
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+          </v-row>
+          <v-row class="mt-n1">
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+            <v-col cols=10 sm=10 md=10 lg=10 xl=10>
+              <v-divider />
+            </v-col>
+          </v-row>
+          <v-row class="mt-n1">
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+            <v-col cols=10 sm=10 md=10 lg=10 xl=10>
+              <v-text-field v-model="email" :background-color="loginCard.textFieldColor" dense outlined
+                :placeholder="loginCard.emailText" :rules="[rules.requiredEmail, rules.testMail]" />
+            </v-col>
+          </v-row>
+          <v-row class="mt-n7">
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+            <v-col cols=10 sm=10 md=10 lg=10 xl=10>
+              <v-text-field :type="visible ? 'text' : 'password'" v-model="password" dense
+                :background-color="loginCard.textFieldColor" :placeholder="loginCard.passwordText" outlined
+                :rules="[rules.requiredPassword, rules.minPassword]" />
+            </v-col>
+          </v-row>
+          <v-row :class="$vuetify.breakpoint.width < 600 ? 'mt-n9 mr-n16' : 'mt-n9 mr-n8'">
+            <v-col cols=6 sm=7 md=7 lg=7 xl=6 />
+            <v-col :class="$vuetify.breakpoint.width < 600 ? 'mt-n2 mb-3' : 'mt-n2 mb-3'" cols=6 sm=5 md=5 lg=5 xl=6>
+              <div @click="forgetPassword()" :style="loginCard.forgotTextStyle" v-text="loginCard.forgotPasswordText" />
+            </v-col>
+          </v-row>
+          <v-row class="mt-n7">
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+            <v-col cols=10 sm=10 md=10 lg=10 xl=10>
+              <v-btn v-if="inputComplete === false" disabled block elevation=0>
+                <div :style="loginCard.loginTextStyle" v-text="loginCard.loginText" />
+              </v-btn>
+              <v-btn :color="loginCard.loginBtnColor" v-if="inputComplete === true" @click="signIn()"
+                :style="afterInput" dark elevation=0 block>
+                <div :style="loginCard.loginTextStyle" v-text="loginCard.loginText" />
+              </v-btn>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols=6 sm=7 md=7 lg=7 xl=7 />
+            <v-col :class="$vuetify.breakpoint.width < 600 ? 'ml-2 mt-n3' : 'mt-n3 ml-n1'" cols=5 sm=5 md=5 lg=5 xl=5
+              @click="makeAccount()">
+              <div :style="loginCard.signupStyle" v-text="loginCard.signupText" />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
+            <v-col :class="$vuetify.breakpoint.width < 600 ? 'mt-n1 ml-n5' : 'ml-n1 mt-n2'" cols=8 sm=8 md=8 lg=8 xl=8>
+              <div :style="loginCard.policyStyle" v-text="loginCard.policyText" />
+            </v-col>
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+          </v-row>
+        </v-card>
       </v-col>
-      <v-col cols=3>
-        <v-btn @click="authenticate('facebook')" class="sns-btn rounded-s" dark icon x-large>
-          <v-icon>mdi-facebook</v-icon>
-        </v-btn>
-      </v-col>
-      <v-col cols=2>
-        <v-btn class="sns-btn rounded-s" dark icon x-large>
-          <v-icon>mdi-twitter</v-icon>
-        </v-btn>
-      </v-col>
-    </v-row>
-    <v-row class="bottom-part" />
-    <v-row>
-      <v-col cols=8 />
-      <v-col cols=3 class="ml-7">
-        <div @click="makeAccount()" class="switch-text">アカウント登録</div>
-      </v-col>
+      <v-col cols=1 sm=2 md=2 lg=3 xl=3 />
     </v-row>
     <v-snackbar top color="black" v-model="snackbar">
       <li v-for="error in errors" :key="error.id">{{ error }}</li>
@@ -102,7 +122,7 @@
         notify_text: null,
         reg: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         rules: {
-          requiredEmail: (v) => !!v || `メールアドレスを入力してください。`,
+          requiredEmail: (v) => !!v || `Eメールを入力してください。`,
           requiredPassword: (v) => !!v || 'パスワードを入力してください。',
           minPassword: (v) => v.length >= 6 || '最低6文字以上のパスワードを入力してください。',
           testMail: (v) => this.reg.test(v) || `メールの形式が正しくありません。`
@@ -112,6 +132,70 @@
         },
         afterInput: {
           backgroundColor: "#000000"
+        },
+        topPartStyle: {
+          height: '155px'
+        },
+        topPartMobile: {
+          height: '135px'
+        },
+        loginCard: {
+          headerText: 'DEVIOにようこそ！',
+          googleArg: 'google',
+          googleBtn: 'Googleでログイン',
+          googleColor: '#000000',
+          googleIcon: 'mdi-google',
+          facebookArg: 'facebook',
+          facebookBtn: 'Facebookでログイン',
+          facebookColor: '#2962ff',
+          facebookIcon: 'mdi-facebook',
+          textFieldColor: '#ffffff',
+          loginBtnColor: 'green',
+          emailText: 'Eメール',
+          passwordText: 'パスワード',
+          forgotPasswordText: 'パスワードを忘れた',
+          loginText: 'ログイン',
+          signupText: 'アカウント登録はこちら',
+          policyText: 'プライバシーポリシーと利用規約について',
+          color: "#edf2f4",
+          height: '430px',
+          width: '550px',
+          position: 'rounded-lg',
+          elevation: 0,
+          headerTitleStyle: {
+            color: '#000000',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '23px',
+          },
+          btnStyle: {
+            color: '#ffffff',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '12px',
+          },
+          forgotTextStyle: {
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '3px',
+            color: '#adb5bd'
+          },
+          loginTextStyle: {
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '11px',
+          },
+          signupStyle: {
+            color: 'green',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '10px',
+          },
+          policyStyle: {
+            color: '#6c757d',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '8px',
+          }
         }
       }
     },
@@ -198,12 +282,11 @@
       },
       authenticate: function (provider) {
         this.$auth.authenticate(provider).then(res => {
-          console.log(res)
           this.$store.commit('setCurrentUser', {
-              currentUser: res.data.user.data.attributes,
-              csrf: res.data.csrf,
-              token: res.data.access_token
-            })
+            currentUser: res.data.user.data.attributes,
+            csrf: res.data.csrf,
+            token: res.data.access_token
+          })
           this.$router.replace('/')
         })
       }
@@ -212,44 +295,15 @@
 </script>
 
 <style scoped>
-  .top-part {
-    height: 320px;
-  }
-
-  .theme--light.v-text-field>.v-input__control>.v-input__slot:before {
-    border-color: orange;
+  * {
+    text-transform: none !important;
   }
 
   .v-text-field--outlined>>>fieldset {
     border-color: #e9ecef;
   }
 
-  .login-text {
-    font-weight: bold;
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 11px;
-  }
-
-  .setting-text {
-    font-weight: bold;
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 3px;
-    color: #adb5bd;
-  }
-
-  .switch-text {
-    font-weight: bold;
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 8px;
-    color: #4361ee;
-  }
-
-  .bottom-part {
-    height: 70px;
-  }
-
-  .sns-btn {
-    background-color: #000000;
-    font-weight: bold;
+  .theme--light.v-divider {
+    border-color: rgba(0, 1, 1, .06);
   }
 </style>

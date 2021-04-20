@@ -20,11 +20,15 @@
 class SpaceSerializer
   include JSONAPI::Serializer
   set_type :space
-  attributes :id, :name, :media, :season, :episode, :episode_title, :image_path, :tmdb_tv_id, :tmdb_mv_id, :users, :created_at, :overview, :tag_list
+  attributes :id, :name, :media, :season, :episode, :episode_title, :image_path, :tmdb_tv_id, :tmdb_mv_id, :created_at, :overview, :tag_list
   attribute :subscribed do |space, params|
     params[:condition]
   end
   attribute :comments_count do |space|
     space.comments.length
+  end
+
+  attribute :users do |space|
+    UserSerializer.new(space.users)
   end
 end

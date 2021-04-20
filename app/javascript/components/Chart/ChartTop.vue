@@ -76,8 +76,8 @@
         query_media: 'tv',
         error: '',
         avatar: {
-          size: 50,
-          height: 50,
+          size: 45,
+          height: 45,
           round: "rounded-lg"
         },
         icon: {

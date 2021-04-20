@@ -1,28 +1,53 @@
 <template>
   <v-container>
-    <v-row class="top-part" />
-    <v-row>
-      <v-col cols=1 />
-      <v-col cols=10>
-        <v-text-field :type="visible ? 'text' : 'password'" v-model="password" background-color="#ffffff"
-          class="rounded-xl inp-text" label="パスワード" outlined />
-      </v-col>
+    <v-row :style="$vuetify.breakpoint.width < 600 ? topPartMobile : topPartStyle">
+      <v-col cols=12 sm=12 md=12 lg=12 xl=12 />
     </v-row>
     <v-row>
-      <v-col cols=1 />
-      <v-col cols=10>
-        <v-text-field :type="visible ? 'text' : 'password'" v-model="password_confirmation" background-color="#ffffff"
-          class="rounded-xl inp-text" label="パスワードの再入力" outlined />
+      <v-col cols=1 sm=2 md=2 lg=4 xl=4 />
+      <v-col cols=10 sm=8 md=8 lg=5 xl=5>
+        <v-card :color="card.color" :class="card.position" :elevation="card.elevation" outlined :height="card.height"
+          :width="card.width">
+          <v-row class="mt-4">
+            <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
+            <v-col cols=9 sm=9 md=9 lg=9 xl=9 :class="$vuetify.breakpoint.width < 600 ? 'ml-n5' : 'ml-n3'">
+              <div :style="card.headerStyle" v-text="card.headerText" />
+            </v-col>
+          </v-row>
+          <v-row class="mt-n1">
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+            <v-col cols=10 sm=10 md=10 lg=10 xl=10>
+              <v-text-field :type="visible ? 'text' : 'password'" v-model="password"
+                :background-color="card.textFieldColor" dense outlined :placeholder="card.emailText" />
+            </v-col>
+          </v-row>
+          <v-row class="mt-n1">
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+            <v-col cols=10 sm=10 md=10 lg=10 xl=10>
+              <v-text-field :type="visible ? 'text' : 'password'" v-model="password_confirmation"
+                :background-color="card.textFieldColor" dense outlined :placeholder="card.emailText" />
+            </v-col>
+          </v-row>
+          <v-row class="mt-n7">
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+            <v-col cols=10 sm=10 md=10 lg=10 xl=10>
+              <v-btn @click="resetPassword()" :color="card.btnColor" :style="afterInput" dark elevation=0 block>
+                <div :style="card.textStyle" v-text="card.sendText" />
+              </v-btn>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
+            <v-col :class="$vuetify.breakpoint.width < 600 ? 'mt-n1 ml-n5' : 'ml-n1 mt-1'" cols=8 sm=8 md=8 lg=8 xl=8>
+              <div :style="card.policyStyle" v-text="card.policyText" />
+            </v-col>
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+          </v-row>
+        </v-card>
       </v-col>
+      <v-col cols=1 sm=2 md=2 lg=3 xl=3 />
     </v-row>
-    <v-row class="mt-n8">
-      <v-col cols=1 />
-      <v-col cols=10>
-        <v-btn @click="resetPassword()" x-large class="rounded-xl" color="#000000" dark block>
-          <div class="login-text">再設定する</div>
-        </v-btn>
-      </v-col>
-    </v-row>
+
     <v-snackbar top v-model="errorbar" color="black">
       <li v-for="error in errors" :key="error.id">{{error}}</li>
       <template v-slot:action="{attrs}">
@@ -62,6 +87,41 @@
         counter: 235,
         notify_text: null,
         visible: false,
+        topPartStyle: {
+          height: '155px'
+        },
+        topPartMobile: {
+          height: '135px'
+        },
+        card: {
+          headerText: 'パスワードの再設定',
+          textFieldColor: '#ffffff',
+          btnColor: 'green',
+          emailText: 'Eメール',
+          sendText: 'メールを送信する',
+          policyText: 'プライバシーポリシーと利用規約について',
+          color: "#edf2f4",
+          height: '230px',
+          width: '550px',
+          position: 'rounded-lg',
+          elevation: 0,
+          headerStyle: {
+            color: '#000000',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '23px',
+          },
+          textStyle: {
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '11px',
+          },
+          policyStyle: {
+            color: '#6c757d',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '8px',
+          }
+        }
       }
     },
     created() {
@@ -128,20 +188,11 @@
 </script>
 
 <style scoped>
-  .top-part {
-    height: 320px;
+  .v-text-field--outlined>>>fieldset {
+    border-color: #e9ecef;
   }
 
-  .login-text {
-    font-weight: bold;
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 11px;
-  }
-
-  .switch-text {
-    font-weight: bold;
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 8px;
-    color: #4361ee;
+  .theme--light.v-divider {
+    border-color: rgba(0, 1, 1, .06);
   }
 </style>
