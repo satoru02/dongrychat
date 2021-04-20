@@ -16,38 +16,67 @@
       <v-list-item-group :active-class="colors.listItemGroupActive" :class="grid.listItemGroup" multiple>
         <template v-for="(item, index) in items">
           <v-list-item class="mt-n2 mb-n2" :key="index" @click="enterSpace(item.attributes)">
-              <div :style="style.ranking" :class="grid.ranking">
-                <v-btn icon text-color="#6c757d" style="background-color: #dee2e6;" x-small elevation=0>{{index + 1}}</v-btn>
-                <!-- <v-icon :color="colors.rankIcon" :class="grid.icon" :size="icon.size" v-text="icon.mdi" /> -->
-              </div>
-              <v-list-item-avatar :size="avatar.size" :height="avatar.height" tile :class="avatar.round">
-                <base-image :img="base_tmdb_img_url + item.attributes.image_path" :height="avatar.height" />
-              </v-list-item-avatar>
-              <v-list-item-content :class="grid.listItemContent">
-                <v-list-item-title :style="style.listItemTitle" v-text="item.attributes.name" />
-                <v-list-item-subtitle :style="style.listItemSubtitle" :class="grid.listItemSubtitle">
-                  <base-label :x_small="true" v-if="item.attributes.media === media.tv" :color="colors.chip" :text-color="colors.chip"
-                    :season="item.attributes.season" :episode="item.attributes.episode"
-                    :title="item.attributes.episode_title" />
-                </v-list-item-subtitle>
-              </v-list-item-content>
-              <v-list-item-action :class="grid.notifyBadge" v-if="item.attributes.users.length > 0">
-                <v-badge :class="grid.notifyDot" dot :color="colors.notifyBadge" />
-              </v-list-item-action>
-              <v-list-item-action v-if="item.attributes.users.length > 0">
-                <div class=ml-2 :style="style.listItemAction" v-text="item.attributes.users.length" />
-              </v-list-item-action>
+            <div :style="style.ranking" :class="grid.ranking">
+              <v-btn icon text-color="#6c757d" style="background-color: #dee2e6;" x-small elevation=0>{{index + 1}}
+              </v-btn>
+              <!-- <v-icon :color="colors.rankIcon" :class="grid.icon" :size="icon.size" v-text="icon.mdi" /> -->
+            </div>
+            <v-list-item-avatar :size="avatar.size" :height="avatar.height" tile :class="avatar.round">
+              <base-image :img="base_tmdb_img_url + item.attributes.image_path" :height="avatar.height" />
+            </v-list-item-avatar>
+            <v-list-item-content :class="grid.listItemContent">
+              <v-list-item-title :style="style.listItemTitle" v-text="item.attributes.name" />
+              <v-list-item-subtitle :style="style.listItemSubtitle" :class="grid.listItemSubtitle">
+                <base-label :x_small="true" v-if="item.attributes.media === media.tv" :color="colors.chip"
+                  :text-color="colors.chip" :season="item.attributes.season" :episode="item.attributes.episode"
+                  :title="item.attributes.episode_title" />
+              </v-list-item-subtitle>
+            </v-list-item-content>
+            <v-list-item-action :class="grid.notifyBadge" v-if="item.attributes.users.length > 0">
+              <v-badge :class="grid.notifyDot" dot :color="colors.notifyBadge" />
+            </v-list-item-action>
+            <v-list-item-action v-if="item.attributes.users.length > 0">
+              <div class=ml-2 :style="style.listItemAction" v-text="item.attributes.users.length" />
+            </v-list-item-action>
           </v-list-item>
-                    <!-- <v-divider
+          <!-- <v-divider
             v-if="index < items.length - 1"
             :key="index + 1"
           ></v-divider> -->
-          </template>
+        </template>
       </v-list-item-group>
     </v-list>
     <infinite-loading spinner="circles" @infinite="infiniteHandler">
       <span slot="no-more" />
     </infinite-loading>
+    <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
+      <v-card color="#ffffff" height="250" class="rounded-lg">
+        <v-row>
+          <v-col lg=3 />
+          <v-col lg=7>
+            <div class="mt-9 ml-5" :style="dialog.headerStyle">Devioを使ってみる</div>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col lg=1 />
+          <v-col lg=10>
+            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="pink" elevation=0 v-text="'ログイン'"/>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col lg=1 />
+          <v-col lg=10>
+            <v-btn block @click="goSignup()" :style="dialog.btnStyle" color="blue" elevation=0 v-text="'アカウント作成'"/>
+          </v-col>
+        </v-row>
+        <v-row>
+            <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
+            <v-col cols=8 sm=8 md=8 lg=9 xl=8>
+              <div class="ml-1" :style="dialog.policyStyle" v-text="'利用規約とプライバシーポリシーはこちら'" />
+            </v-col>
+          </v-row>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -62,10 +91,11 @@
     name: 'ChartTop',
     components: {
       'base-image': BaseImage,
-      'base-label': BaseLabel
+      'base-label': BaseLabel,
     },
     data() {
       return {
+        loginDialog: false,
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
         trend_endpoint: `/api/v1/spaces/trend`,
         items: [],
@@ -153,6 +183,25 @@
             color: '#8f8f8f',
             letterSpacing: '3px'
           }
+        },
+        dialog: {
+          headerStyle: {
+            color: '#000000',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '17px',
+          },
+          btnStyle: {
+            color: '#ffffff',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '12px',
+          },
+          policyStyle: {
+            color: '#6c757d',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '4px',
+          }
         }
       }
     },
@@ -170,6 +219,14 @@
       }
     },
     methods: {
+      checkSignedIn() {
+        if (!this.$store.state.signedIn) {
+          this.loginDialog = true
+        }
+      },
+      offDialog(value) {
+        this.loginDialog = value
+      },
       forceRerender() {
         this.componentKey += 1
       },
@@ -194,37 +251,48 @@
         }, 150);
       },
       enterSpace(item) {
-        if (item.media === this.media.tv) {
-          this.$router.push({
-            name: this.tv.pathName,
-            params: {
-              season_number: item.season,
-              episode_number: item.episode,
-              name: item.name,
-              episode_title: item.episode_title,
-              tmdb_tv_id: item.tmdb_tv_id,
-              image_path: item.image_path,
-              media: item.media,
-            }
-          })
-        } else if (item.media === this.media.movie) {
-          this.$router.push({
-            name: this.movie.pathName,
-            params: {
-              image_path: item.image_path,
-              tmdb_mv_id: item.tmdb_mv_id,
-              name: item.name,
-              media: item.media,
-            }
-          })
+        // this.checkSignedIn()
+        if (this.$store.state.signedIn) {
+          if (item.media === this.media.tv) {
+            this.$router.push({
+              name: this.tv.pathName,
+              params: {
+                season_number: item.season,
+                episode_number: item.episode,
+                name: item.name,
+                episode_title: item.episode_title,
+                tmdb_tv_id: item.tmdb_tv_id,
+                image_path: item.image_path,
+                media: item.media,
+              }
+            })
+          } else if (item.media === this.media.movie) {
+            this.$router.push({
+              name: this.movie.pathName,
+              params: {
+                image_path: item.image_path,
+                tmdb_mv_id: item.tmdb_mv_id,
+                name: item.name,
+                media: item.media,
+              }
+            })
+          }
+        } else {
+          this.loginDialog = true
         }
+      },
+      goLogin(){
+        this.$router.replace('/login')
+      },
+      goSignup(){
+        this.$router.replace('/signup')
       }
     }
   }
 </script>
 
 <style scoped>
-.theme--light.v-divider {
-    border-color: rgba(0,1,1,.06);
-}
+  .theme--light.v-divider {
+    border-color: rgba(0, 1, 1, .06);
+  }
 </style>

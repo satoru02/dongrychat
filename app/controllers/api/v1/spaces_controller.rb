@@ -7,14 +7,12 @@ module Api
 
       def index
         @spaces = current_user.spaces.order_by_comments(current_user).paginate(:page => params[:page], :per_page => params[:per_page])
-
         serializer = set_home_space_serializer(@spaces)
         render_json(serializer)
       end
 
       def trend
         @spaces = Space.get_trend(params).paginate(:page => params[:page], :per_page => params[:per_page])
-
         serializer = set_trend_space_serializer(@spaces)
         render_json(serializer)
       end
@@ -27,14 +25,12 @@ module Api
         end
 
         @condition = current_user.subscribed?(@space.id)
-
         serializer = set_space_serializer(@space, @condition, params[:media])
         render_json(serializer)
       end
 
       def enter_from_subscription
         @condition = current_user.subscribed?(@space.id)
-
         serializer = set_space_serializer(@space, @condition, params[:media])
         render_json(serializer)
       end
