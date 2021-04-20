@@ -49,7 +49,7 @@
     },
     methods: {
       checkAuthorization() {
-        let validationRouter = ['Login', 'Signup', 'Authorization']
+        let validationRouter = ['Login', 'Signup', 'Authorization', 'ResetPassword', 'ForgotPassword']
         if (validationRouter.includes(this.$route.name)) {
           return false
         } else {
