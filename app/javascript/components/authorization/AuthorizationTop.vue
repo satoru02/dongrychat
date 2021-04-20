@@ -1,6 +1,10 @@
 <template>
   <v-container>
-    <v-row class="top-part" />
+    <v-card elevation="0" outlined>
+
+    </v-card>
+
+    <!-- <v-row class="top-part" />
     <v-row>
       <v-col cols=1 />
       <v-col cols=10>
@@ -76,7 +80,8 @@
           アカウント登録はこちら
         </div>
       </v-col>
-    </v-row>
+    </v-row> -->
+
   </v-container>
 </template>
 

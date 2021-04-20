@@ -4,17 +4,17 @@
       <v-main :class="grid.main">
         <v-row>
           <v-col md=3 lg=2 xl=3 class='ml-n11' v-if="$vuetify.breakpoint.width > 600">
-            <side-bar />
+            <side-bar v-if="this.checkAuthorization()" />
           </v-col>
-          <v-divider vertical class="mr-n4 ml-16" />
+          <v-divider vertical class="mr-n4 ml-16" v-if="this.checkAuthorization()" />
           <v-col sm=12 cols=12 md=6 lg=8 xl=6 :class="$vuetify.breakpoint.width > 600 ? grid.deskCenter : grid.mobileCenter">
             <!-- <keep-alive> -->
             <router-view />
             <!-- </keep-alive> -->
           </v-col>
-          <v-divider vertical class="ml-n8 mr-5" />
+          <v-divider vertical class="ml-n8 mr-5" v-if="this.checkAuthorization()" />
           <v-col md=3 lg=2 xl=3 :class="grid.rightPart" v-if="$vuetify.breakpoint.width > 600">
-            <right-part />
+            <right-part v-if="this.checkAuthorization()" />
           </v-col>
         </v-row>
       </v-main>
