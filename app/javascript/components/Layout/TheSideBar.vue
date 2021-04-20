@@ -105,7 +105,7 @@
           position: 'mt-15 ml-1',
           elevation: 0,
           round: 'rounded-lg',
-          color: 'orange',
+          color: 'black',
           height: 35,
           style: {
             position: 'fixed'

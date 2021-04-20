@@ -11,7 +11,7 @@
       </v-col>
       <v-col md=9 lg=9 xl=9 />
       <v-col md=1 lg=1 xl=1>
-        <v-switch v-model="switch1" :color="colors.orange" inset :class="switchPosition" />
+        <v-switch v-model="switch1" :color="colors.green" inset :class="switchPosition" />
       </v-col>
     </v-row>
 
@@ -102,7 +102,7 @@
         },
         colors: {
           blue: 'blue',
-          orange: 'orange'
+          green: 'green'
         },
         tv: {
           header: 'TV',
