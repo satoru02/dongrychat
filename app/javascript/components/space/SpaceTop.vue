@@ -121,10 +121,11 @@
           episode: this.$route.params.episode_number,
           media: this.media.tv,
           episode_title: this.$route.params.episode_title,
+          tmdb_comp_id: this.$route.params.tmdb_comp_id,
           tmdb_tv_id: this.$route.params.tmdb_tv_id,
           image_path: this.$route.params.image_path,
           overview: this.$route.params.overview,
-          tag_list: this.$route.params.tag_list
+          tag_list: this.$route.params.tag_list,
         }
       } else if (this.$route.name === this.space.movie.unsubscribed) {
         this.endpoint = this.api.from_search

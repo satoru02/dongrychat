@@ -14,6 +14,7 @@
 #  season          :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  tmdb_comp_id    :integer
 #  tmdb_mv_id      :integer
 #  tmdb_tv_id      :integer
 #
@@ -80,7 +81,8 @@ class Space < ApplicationRecord
       else
         @space = self.create!(
           name: space_params[:name], season: space_params[:season], episode: space_params[:episode], media: space_params[:media],
-          tmdb_tv_id: space_params[:tmdb_tv_id], episode_title: space_params[:episode_title], image_path: space_params[:image_path],
+          tmdb_comp_id: space_params[:tmdb_comp_id], tmdb_tv_id: space_params[:tmdb_tv_id],
+          episode_title: space_params[:episode_title], image_path: space_params[:image_path],
           overview: space_params[:overview], tag_list: space_params[:tag_list]
         )
         return @space

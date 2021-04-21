@@ -2,7 +2,7 @@
   <div>
     <v-app :class="grid.app">
       <v-app-bar flat fixed app color="#ffffff">
-        <v-toolbar-title class="ml-16" :style="logoStyle">DEVIO</v-toolbar-title>
+        <v-toolbar-title @click="goTop()" class="ml-16" :style="logoStyle">DEVIO</v-toolbar-title>
         <v-row>
           <v-col lg=2 class="ml-10" />
           <v-col lg=6>
@@ -121,6 +121,9 @@
       },
       goSignup(){
         this.$router.replace('/signup')
+      },
+      goTop(){
+        this.$router.replace('/')
       }
     }
   }

@@ -60,7 +60,7 @@
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
         resultsText: `「${this.$route.params.query}」の検索結果`,
         tmdb_api: {
-          search: `https://api.themoviedb.org/3/search/${this.$route.name}?api_key=${process.env.TMDB_API_KEY}&language=en-US&query=${this.$route.params.query}&page=1&include_adult=false`
+          search: `https://api.themoviedb.org/3/search/${this.$route.name}?api_key=${process.env.TMDB_API_KEY}&language=ja&query=${this.$route.params.query}&page=1&include_adult=false`
         },
         items: {
           type: '',
