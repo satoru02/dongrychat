@@ -1,11 +1,11 @@
 <template>
   <v-container class="ml-1">
-    <v-row :class="header_part.position">
+    <!-- <v-row :class="header_part.position">
       <v-col md=12 lg=12 xl=12 />
-    </v-row>
-    <v-row>
+    </v-row> -->
+    <!-- <v-row>
       <v-col md=12 lg=12 xl=12 :class="top_blank_space.position" />
-    </v-row>
+    </v-row> -->
     <v-list nav :class="list.position" :style="list.style">
       <v-list-item-group v-model="selectedItem">
         <v-list-item :class="list_item.position" v-for="(item, index) in menus" :key="index"
@@ -30,6 +30,36 @@
         </v-btn>
       </v-col>
     </v-row>
+
+    <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
+      <v-card color="#ffffff" height="250" class="rounded-lg">
+        <v-row>
+          <v-col lg=3 />
+          <v-col lg=7>
+            <div class="mt-9 ml-5" :style="dialog.headerStyle">Devioを使ってみる</div>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col lg=1 />
+          <v-col lg=10>
+            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="pink" elevation=0 v-text="'ログイン'" />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col lg=1 />
+          <v-col lg=10>
+            <v-btn block @click="goSignup()" :style="dialog.btnStyle" color="blue" elevation=0 v-text="'アカウント作成'" />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
+          <v-col cols=8 sm=8 md=8 lg=9 xl=8>
+            <div class="ml-1" :style="dialog.policyStyle" v-text="'利用規約とプライバシーポリシーはこちら'" />
+          </v-col>
+        </v-row>
+      </v-card>
+    </v-dialog>
+
   </v-container>
 </template>
 
@@ -38,10 +68,10 @@
     name: "TheSideBar",
     data() {
       return {
+        loginDialog: false,
         selectedItem: '',
         query: '',
-        menus: [
-          {
+        menus: [{
             text: 'Charts',
             icon: 'mdi-access-point',
             path_name: 'Chart'
@@ -76,7 +106,7 @@
         bottom_blank_space: {
           position: 'mt-15 ml-n6 mb-13',
           style: {
-            height: '490px'
+            height: '466px'
           }
         },
         list: {
@@ -105,14 +135,14 @@
           position: 'mt-15 ml-1',
           elevation: 0,
           round: 'rounded-lg',
-          color: 'orange',
+          color: 'black',
           height: 35,
           style: {
             position: 'fixed'
           }
         },
         btn_text: {
-          text: 'Michaoについて 👈',
+          text: 'DEVIOについて 👈',
           style: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
@@ -120,15 +150,51 @@
             width: '145px',
             color: '#ffffff',
           }
+        },
+        dialog: {
+          headerStyle: {
+            color: '#000000',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '17px',
+          },
+          btnStyle: {
+            color: '#ffffff',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '12px',
+          },
+          policyStyle: {
+            color: '#6c757d',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '4px',
+          }
         }
       }
     },
     methods: {
       changeRoute(path) {
-        this.$router.push({
-          name: path
-        })
+        if ((path === 'Home') || (path === 'Settings')) {
+          if (!this.$store.state.signedIn) {
+            this.loginDialog = true
+            return
+          } else {
+            this.$router.push({
+              name: path
+            })
+          }
+        } else {
+          this.$router.push({
+            name: path
+          })
+        }
       },
+      goLogin() {
+        this.$router.replace('/login')
+      },
+      goSignup() {
+        this.$router.replace('/signup')
+      }
     }
   }
 </script>

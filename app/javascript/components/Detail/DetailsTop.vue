@@ -32,24 +32,26 @@
             　</v-col>
           　<v-col lg=8 :style="heading_part.person.style" class="ml-n7">
             　 <v-html class="mr-3" v-for="(credit, index) in overall.created_by" :key="index">{{credit.name}}</v-html>
-            </v-col>
+          </v-col>
         </v-row>
         <v-row class="mt-n1">
           　<v-col lg=2 :style="heading_part.personHeader.style" class="ml-1 mt-1">
             　 ジャンル
             　</v-col>
           　<v-col lg=8 :style="heading_part.person.style" class="ml-n8">
-            　 <v-chip class="mr-4 mb-2" v-for="(genre, index) in this.genres" :key="index" color="#293241" :style="heading_part.tag.style" small>
+            　 <v-chip class="mr-4 mb-2" v-for="(genre, index) in this.genres" :key="index" color="#293241"
+              :style="heading_part.tag.style" small>
               {{genre}}
             </v-chip>
-            </v-col>
+          </v-col>
         </v-row>
       </v-col>
     </v-row>
 
     <v-tabs v-if="media === 'tv'" :style="tabs.style" :class="tabs.grid" :height="tabs.height" :width="tabs.width"
       :color="tabs.color">
-      <v-tab @click="changeSeason(index+1)" :style="tab.style" v-for="(season, index) in overall.seasons.length" :key="index">
+      <v-tab @click="changeSeason(index+1)" :style="tab.style" v-for="(season, index) in overall.seasons.length"
+        :key="index">
         シーズン{{index + 1}}
       </v-tab>
     </v-tabs>
@@ -113,6 +115,36 @@
         </v-list>
       </v-col>
     </v-row>
+
+    <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
+      <v-card color="#ffffff" height="250" class="rounded-lg">
+        <v-row>
+          <v-col lg=3 />
+          <v-col lg=7>
+            <div class="mt-9 ml-5" :style="dialog.headerStyle">Devioを使ってみる</div>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col lg=1 />
+          <v-col lg=10>
+            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="pink" elevation=0 v-text="'ログイン'" />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col lg=1 />
+          <v-col lg=10>
+            <v-btn block @click="goSignup()" :style="dialog.btnStyle" color="blue" elevation=0 v-text="'アカウント作成'" />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
+          <v-col cols=8 sm=8 md=8 lg=9 xl=8>
+            <div class="ml-1" :style="dialog.policyStyle" v-text="'利用規約とプライバシーポリシーはこちら'" />
+          </v-col>
+        </v-row>
+      </v-card>
+    </v-dialog>
+
   </v-container>
 </template>
 
@@ -128,6 +160,7 @@
     },
     data() {
       return {
+        loginDialog: false,
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
         tmdb_tv_overall: `https://api.themoviedb.org/3/tv/${this.$route.params.id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`,
         tmdb_mv: `https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=${process.env.TMDB_API_KEY}&language=ja`,
@@ -282,6 +315,25 @@
               fontSize: '10px'
             }
           }
+        },
+        dialog: {
+          headerStyle: {
+            color: '#000000',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '17px',
+          },
+          btnStyle: {
+            color: '#ffffff',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '12px',
+          },
+          policyStyle: {
+            color: '#6c757d',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '4px',
+          }
         }
       }
     },
@@ -304,7 +356,9 @@
     },
     methods: {
       getTvContents(number) {
-        tmdbAxios.get(`https://api.themoviedb.org/3/tv/${this.$route.params.id}/season/${number}?api_key=${process.env.TMDB_API_KEY}&language=ja`)
+        tmdbAxios.get(
+            `https://api.themoviedb.org/3/tv/${this.$route.params.id}/season/${number}?api_key=${process.env.TMDB_API_KEY}&language=ja`
+            )
           .then(res => this.setTvDetails(res))
           .catch(err => this.fetchFailed(err))
       },
@@ -326,54 +380,72 @@
           .catch(err => this.fetchFailed(err))
       },
       setOverall(res) {
-       this.overall = res.data
-       this.genres = this.setGenres(this.overall.genres)
+        this.overall = res.data
+        this.genres = this.setGenres(this.overall.genres)
       },
-      setGenres(content_genres){
-       var ary = []
-       for(var i = 0; i < content_genres.length; i++){
-         ary.push(content_genres[i].name)
-       }
-       return ary
+      setGenres(content_genres) {
+        var ary = []
+        for (var i = 0; i < content_genres.length; i++) {
+          ary.push(content_genres[i].name)
+        }
+        return ary
       },
       fetchFailed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
       },
-      changeSeason(number){
-        this.$router.replace({name: 'TvDetails', params: {
-          id: this.$route.params.id,
-          number: number,
-          tv_name: this.$route.params.tv_name
-        }})
+      changeSeason(number) {
+        this.$router.replace({
+          name: 'TvDetails',
+          params: {
+            id: this.$route.params.id,
+            number: number,
+            tv_name: this.$route.params.tv_name
+          }
+        })
       },
       enterTvSpace(tv_data) {
-        this.$router.push({
-          name: this.tv_space,
-          params: {
-            season_number: tv_data.season_number,
-            episode_number: tv_data.episode_number,
-            name: this.$route.params.tv_name,
-            episode_title: tv_data.name,
-            tmdb_tv_id: this.details.id,
-            image_path: this.details.poster_path,
-            media: this.media,
-            overview: tv_data.overview,
-            tag_list: this.genres
-          }
-        })
+        if (!this.$store.state.signedIn) {
+          this.loginDialog = true
+        } else {
+          this.$router.push({
+            name: this.tv_space,
+            params: {
+              season_number: tv_data.season_number,
+              episode_number: tv_data.episode_number,
+              name: this.$route.params.tv_name,
+              episode_title: tv_data.name,
+              tmdb_tv_id: this.details.id,
+              image_path: this.details.poster_path,
+              media: this.media,
+              overview: tv_data.overview,
+              tag_list: this.genres
+            }
+          })
+        }
       },
       enterMovieSpace(details) {
-        this.$router.push({
-          name: this.movie_space,
-          params: {
-            image_path: details.poster_path,
-            tmdb_mv_id: details.id,
-            name: this.$route.params.mv_name,
-            media: this.media,
-            overview: details.overview,
-            tag_list: this.genres
-          }
-        })
+        if (!this.$store.state.signedIn) {
+          this.loginDialog = true
+        } else {
+          this.$router.push({
+            name: this.movie_space,
+            params: {
+              image_path: details.poster_path,
+              tmdb_mv_id: details.id,
+              name: this.$route.params.mv_name,
+              media: this.media,
+              overview: details.overview,
+              tag_list: this.genres
+            }
+          })
+
+        }
+      },
+      goLogin() {
+        this.$router.replace('/login')
+      },
+      goSignup() {
+        this.$router.replace('/signup')
       }
     }
   }

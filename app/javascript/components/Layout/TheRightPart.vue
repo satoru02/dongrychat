@@ -1,11 +1,11 @@
 <template>
   <v-container :class="grid.rightPart">
-    <v-row>
+    <!-- <v-row>
       <v-col md=12 lg=12 xl=12>
         <v-text-field v-model="query" dense background-color="#e7ecef" solo flat @keypress="setQuery()" @keydown.enter="search(query)" :prepend-inner-icon="mdi.magnify"
           :class="textField.round" :max-width="textField.width" :placeholder="textField.placeholder" />
       </v-col>
-    </v-row>
+    </v-row> -->
 
     <the-profile-part />
 
@@ -62,7 +62,7 @@
           }
         },
         grid: {
-          rightPart: 'ml-n7 mt-n3',
+          rightPart: 'ml-2 mt-n2',
           onlinePart: 'mt-7',
           username: 'mt-2 ml-n1'
         },
