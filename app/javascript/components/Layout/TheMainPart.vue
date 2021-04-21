@@ -1,18 +1,33 @@
 <template>
   <div>
     <v-app :class="grid.app">
-      <v-main :class="grid.main">
+      <v-app-bar flat fixed app color="#ffffff">
+        <v-toolbar-title class="ml-16" :style="logoStyle">DEVIO</v-toolbar-title>
         <v-row>
-          <v-col md=3 lg=2 xl=3 class='ml-n11' v-if="$vuetify.breakpoint.width > 600">
+          <v-col lg=2 class="ml-10" />
+          <v-col lg=6>
+            <v-text-field
+            @keypress="setQuery()" @keydown.enter="search(query)" v-model="query" height="10" v-if="this.checkAuthorization()"
+             :prepend-inner-icon="'mdi-magnify'"
+              dense background-color="#e9ecef" solo flat width="250" :class="textField.round"
+             />
+          </v-col>
+        </v-row>
+      </v-app-bar>
+
+      <v-main :class="'mt-2'">
+        <v-row>
+          <v-col md=3 lg=2 xl=3 class='ml-n11 mt-3' v-if="$vuetify.breakpoint.width > 600">
             <side-bar v-if="this.checkAuthorization()" />
           </v-col>
-          <v-divider vertical class="mr-n4 ml-16" v-if="this.checkAuthorization()" />
-          <v-col sm=12 cols=12 md=6 lg=8 xl=6 :class="$vuetify.breakpoint.width > 600 ? grid.deskCenter : grid.mobileCenter">
+          <!-- <v-divider vertical class="mr-n4 ml-16" v-if="this.checkAuthorization()" /> -->
+          <v-col sm=12 cols=12 md=6 lg=8 xl=6
+            :class="$vuetify.breakpoint.width > 600 ? grid.deskCenter : grid.mobileCenter">
             <!-- <keep-alive> -->
             <router-view />
             <!-- </keep-alive> -->
           </v-col>
-          <v-divider vertical class="ml-n8 mr-5" v-if="this.checkAuthorization()" />
+          <!-- <v-divider vertical class="ml-n8 mr-5" v-if="this.checkAuthorization()" /> -->
           <v-col md=3 lg=2 xl=3 :class="grid.rightPart" v-if="$vuetify.breakpoint.width > 600">
             <right-part v-if="this.checkAuthorization()" />
           </v-col>
@@ -35,15 +50,28 @@
       'side-bar': SideBar,
       'right-part': RightPart
     },
-    data(){
+    data() {
       return {
+        query: '',
+        canSubmit: false,
         grid: {
-          app: 'overflow-hidden',
+          app: 'overflow-hidden ml-3',
           // // main: 'mt-5 ml-n3',
           // sidebar: ' mr-2 mt-n5',
-          // deskCenter: ' mt-n4',
+          deskCenter: ' ml-14',
           // mobileCenter: 'ml-n4',
-          rightPart: 'mt-3'
+          rightPart: 'mt-3 ml-n9'
+        },
+        textField: {
+          placeholder: '検索',
+          round: 'rounded-lg mt-7',
+          width: 150,
+        },
+        logoStyle: {
+          fontWeight: 'bold',
+          fontFamily: 'Helvetica Neue, sans-serif',
+          fontSize: '25px',
+          color: '#000000'
         }
       }
     },
@@ -55,13 +83,36 @@
         } else {
           return true
         }
+      },
+      setQuery(){
+        this.canSubmit = true
+      },
+      search(query) {
+        if(!this.canSubmit){
+          return
+        }
+
+        this.$router.replace({
+          name: 'multi',
+          params: {
+            query: query
+          }
+        })
+        this.query = ''
+        this.canSubmit = false
       }
     }
   }
 </script>
 
 <style scoped>
-.theme--light.v-divider {
-    border-color: rgba(0,1,1,.06);
-}
+  .theme--light.v-divider {
+    border-color: rgba(0, 1, 1, .06);
+  }
+
+   .v-text-field .v-input__control .v-input__slot {
+    min-height: auto !important;
+    display: flex !important;
+    align-items: center !important;
+  }
 </style>

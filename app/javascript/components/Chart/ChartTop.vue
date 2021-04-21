@@ -108,8 +108,8 @@
         query_media: 'tv',
         error: '',
         avatar: {
-          size: 45,
-          height: 45,
+          size: 65,
+          height: 65,
           round: "rounded-lg"
         },
         icon: {

@@ -5,7 +5,7 @@
       <v-col cols=12 sm=12 md=12 lg=12 xl=12 />
     </v-row>
     <v-row>
-      <v-col cols=1 sm=2 md=2 lg=4 xl=4 />
+      <v-col cols=1 sm=2 md=2 lg=3 xl=4 />
       <v-col cols=10 sm=8 md=8 lg=5 xl=5>
         <v-card :color="signupCard.color" :class="signupCard.position" :elevation="signupCard.elevation" outlined
           :height="signupCard.height" :width="signupCard.width">
@@ -160,7 +160,7 @@
           backgroundColor: "#000000"
         },
         topPartStyle: {
-          height: '125px'
+          height: '35px'
         },
         topPartMobile: {
           height: '135px'

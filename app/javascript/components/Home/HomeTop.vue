@@ -71,8 +71,8 @@
           body: 'list-body mt-n5',
         },
         listAvatar: {
-          size: 45,
-          height: 45,
+          size: 65,
+          height: 65,
           round: 'rounded-lg',
         },
         avatar: {
@@ -88,7 +88,7 @@
           notifyBtn: 'red'
         },
         grid: {
-          topPart: 'ml-n2 mt-n1',
+          topPart: 'ml-n2 mt-3',
           header: 'mb-5 ml-3',
           listItemSubtitle: 'mt-1',
           listItemAction: 'ml-n16 mt-7 mb-5',

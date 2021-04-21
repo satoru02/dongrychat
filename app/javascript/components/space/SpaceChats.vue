@@ -42,8 +42,8 @@
         canSubmit: false,
         wrapper: {
           style: {
-            maxHeight: '450px',
-            height: '450px',
+            maxHeight: '380px',
+            height: '380px',
             overflow: 'scroll'
           }
         },

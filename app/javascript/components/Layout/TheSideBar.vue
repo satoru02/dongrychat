@@ -1,11 +1,11 @@
 <template>
   <v-container class="ml-1">
-    <v-row :class="header_part.position">
+    <!-- <v-row :class="header_part.position">
       <v-col md=12 lg=12 xl=12 />
-    </v-row>
-    <v-row>
+    </v-row> -->
+    <!-- <v-row>
       <v-col md=12 lg=12 xl=12 :class="top_blank_space.position" />
-    </v-row>
+    </v-row> -->
     <v-list nav :class="list.position" :style="list.style">
       <v-list-item-group v-model="selectedItem">
         <v-list-item :class="list_item.position" v-for="(item, index) in menus" :key="index"
@@ -106,7 +106,7 @@
         bottom_blank_space: {
           position: 'mt-15 ml-n6 mb-13',
           style: {
-            height: '490px'
+            height: '466px'
           }
         },
         list: {
@@ -142,7 +142,7 @@
           }
         },
         btn_text: {
-          text: 'Michaoについて 👈',
+          text: 'DEVIOについて 👈',
           style: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
