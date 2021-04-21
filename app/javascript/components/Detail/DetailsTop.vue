@@ -162,7 +162,7 @@
       return {
         loginDialog: false,
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
-        tmdb_tv_overall: `https://api.themoviedb.org/3/tv/${this.$route.params.id}?api_key=${process.env.TMDB_API_KEY}&language=en-US`,
+        tmdb_tv_overall: `https://api.themoviedb.org/3/tv/${this.$route.params.id}?api_key=${process.env.TMDB_API_KEY}&language=ja`,
         tmdb_mv: `https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=${process.env.TMDB_API_KEY}&language=ja`,
         details: [],
         overall: [],
@@ -414,11 +414,12 @@
               episode_number: tv_data.episode_number,
               name: this.$route.params.tv_name,
               episode_title: tv_data.name,
+              tmdb_comp_id: this.overall.id,
               tmdb_tv_id: this.details.id,
               image_path: this.details.poster_path,
               media: this.media,
               overview: tv_data.overview,
-              tag_list: this.genres
+              tag_list: this.genres,
             }
           })
         }

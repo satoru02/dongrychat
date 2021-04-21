@@ -25,7 +25,9 @@
       </v-row>
       <v-row dense>
         <v-col md=12 lg=12 xl=12>
-          <div :class="grid.subName" :style="style.subName" v-text="'@' + space_data.name" />
+          <div
+           @click="space_data.media === media.tv ? moveDetails(space_data.tmdb_comp_id, space_data.name, space_data.season, 'Tv') : moveDetails(space_data.tmdb_mv_id, space_data.name, null, 'Mv')"
+           :class="grid.subName" :style="style.subName" v-text="'@' + space_data.name" />
         </v-col>
       </v-row>
       <v-row dense style="max-height: 35px;">
@@ -70,6 +72,7 @@
     data() {
       return {
         dummyText: '',
+        params: {},
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w200`,
         subscribed: Boolean,
         api: {
@@ -210,6 +213,20 @@
       },
       posterImg(){
         return this.base_tmdb_img_url + this.space_data.image_path
+      },
+      moveDetails(id, name, season, media){
+        if(media === 'Tv'){
+          this.params = {
+          id: id,
+          tv_name: name,
+          number: season,
+        }} else if(media === 'Mv'){
+          this.params = {
+            id: id,
+            mv_name: name,
+          }
+        }
+        this.$router.push({name: `${media}Details`, params: this.params})
       }
     }
   }

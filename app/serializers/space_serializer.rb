@@ -14,13 +14,14 @@
 #  season          :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  tmdb_comp_id    :integer
 #  tmdb_mv_id      :integer
 #  tmdb_tv_id      :integer
 #
 class SpaceSerializer
   include JSONAPI::Serializer
   set_type :space
-  attributes :id, :name, :media, :season, :episode, :episode_title, :image_path, :tmdb_tv_id, :tmdb_mv_id, :created_at, :overview, :tag_list
+  attributes :id, :name, :media, :season, :episode, :episode_title, :image_path, :tmdb_comp_id, :tmdb_tv_id, :tmdb_mv_id, :created_at, :overview, :tag_list
   attribute :subscribed do |space, params|
     params[:condition]
   end
