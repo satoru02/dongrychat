@@ -12,6 +12,16 @@
               dense background-color="#e9ecef" solo flat width="250" :class="textField.round"
              />
           </v-col>
+          <v-col lg=1>
+          </v-col>
+          <v-col lg=1>
+            <v-btn v-if="(this.checkAuthorization()) && !$store.state.signedIn"
+             @click="goLogin()" outlined small color="orange" elevation=0 class="mt-9" :style="loginStyle">ログイン</v-btn>
+          </v-col>
+          <v-col lg=1 class="ml-n3">
+            <v-btn v-if="(this.checkAuthorization()) && !$store.state.signedIn"
+             @click="goSignup()" small color="orange" elevation=0 class="mt-9" :style="loginStyle">アカウント登録</v-btn>
+          </v-col>
         </v-row>
       </v-app-bar>
 
@@ -72,6 +82,12 @@
           fontFamily: 'Helvetica Neue, sans-serif',
           fontSize: '25px',
           color: '#000000'
+        },
+        loginStyle: {
+          fontWeight: 'bold',
+          fontFamily: 'Helvetica Neue, sans-serif',
+          fontSize: '12px',
+          color: '#ffffff'
         }
       }
     },
@@ -91,7 +107,6 @@
         if(!this.canSubmit){
           return
         }
-
         this.$router.replace({
           name: 'multi',
           params: {
@@ -100,6 +115,12 @@
         })
         this.query = ''
         this.canSubmit = false
+      },
+      goLogin(){
+        this.$router.replace('/login')
+      },
+      goSignup(){
+        this.$router.replace('/signup')
       }
     }
   }
