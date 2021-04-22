@@ -11,7 +11,7 @@
           :height="signupCard.height" :width="signupCard.width">
           <v-row class="mt-4">
             <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
-            <v-col cols=9 sm=9 md=9 lg=9 xl=9 :class="$vuetify.breakpoint.width < 600 ? 'ml-n5' : 'ml-n3'">
+            <v-col cols=9 sm=9 md=9 lg=9 xl=9 :class="$vuetify.breakpoint.width < 600 ? 'ml-n5' : 'ml-n10'">
               <div :style="signupCard.headerTitleStyle" v-text="signupCard.headerText" />
             </v-col>
           </v-row>
@@ -166,7 +166,7 @@
           height: '135px'
         },
         signupCard: {
-          headerText: 'DEVIOにようこそ！',
+          headerText: 'DongryChatにようこそ！',
           googleArg: 'google',
           googleBtn: 'Googleアカウントで登録',
           googleColor: '#000000',
