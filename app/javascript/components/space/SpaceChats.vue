@@ -66,10 +66,15 @@
         connected() {},
         rejected() {},
         received(data) {
-          console.log(data)
-          if (data) {
-            if (data.attributes.space_id === this.spaceId) {
-              this.comments.unshift(data)
+          try {
+            if (data) {
+              if (data.attributes.space_id === this.spaceId) {
+                this.comments.unshift(data)
+              }
+            }
+          } catch(e) {
+            if(e instanceof TypeError){
+              // console.log(e)
             }
           }
         },
