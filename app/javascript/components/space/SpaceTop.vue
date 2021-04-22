@@ -174,7 +174,7 @@
         }
       },
       changeMenu(menu_name){
-        this.$router.push(({path: menu_name}))
+        this.$router.push(({path: menu_name})).catch(()=> {});
       }
     }
   }

@@ -66,6 +66,7 @@
         connected() {},
         rejected() {},
         received(data) {
+          console.log(data)
           if (data) {
             if (data.attributes.space_id === this.spaceId) {
               this.comments.unshift(data)
