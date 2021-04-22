@@ -46,9 +46,7 @@
         </template>
       </v-list-item-group>
     </v-list>
-    <infinite-loading spinner="circles" @infinite="infiniteHandler">
-      <span slot="no-more" />
-    </infinite-loading>
+    <base-loader :handler="infiniteHandler" :wrapper="true" :text="loaderText" />
 
     <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
       <v-card color="#ffffff" height="250" class="rounded-lg">
@@ -88,18 +86,21 @@
   } from '../../backend/axios';
   import BaseImage from '../Base/BaseImage';
   import BaseLabel from '../Base/BaseLabel';
+  import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
 
   export default {
     name: 'ChartTop',
     components: {
       'base-image': BaseImage,
       'base-label': BaseLabel,
+      'base-loader': BaseInfiniteLoader
     },
     data() {
       return {
         loginDialog: false,
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
         trend_endpoint: `/api/v1/spaces/trend`,
+        loaderText: '現在チャット中のスペースはありません。',
         items: [],
         switch1: false,
         page: 1,
