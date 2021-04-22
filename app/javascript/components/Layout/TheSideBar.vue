@@ -36,7 +36,7 @@
         <v-row>
           <v-col lg=3 />
           <v-col lg=7>
-            <div class="mt-9 ml-5" :style="dialog.headerStyle">Devioを使ってみる</div>
+            <div class="mt-9" :style="dialog.headerStyle">DongryChatを使ってみる</div>
           </v-col>
         </v-row>
         <v-row>
@@ -142,7 +142,7 @@
           }
         },
         btn_text: {
-          text: 'DEVIOについて 👈',
+          text: 'DongryChatについて 👈',
           style: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
