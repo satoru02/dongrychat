@@ -182,7 +182,7 @@
                 number: 1,
                 tv_name: item.name
               }
-            })
+            }).catch(()=> {});
           } else if (item.media_type === this.movie.arg) {
             this.$router.push({
               name: this.movie.details,
@@ -190,7 +190,7 @@
                 id: item.id,
                 mv_name: item.title
               }
-            })
+            }).catch(()=> {});
           }
         } else if (this.items.type === this.tv.arg) {
           this.$router.push({
@@ -200,7 +200,7 @@
               number: 1,
               tv_name: item.name
             }
-          })
+          }).catch(()=> {});
         } else if (this.items.type === this.movie.arg) {
           this.$router.push({
             name: this.movie.details,
@@ -208,7 +208,7 @@
               id: item.id,
               mv_name: item.name
             }
-          })
+          }).catch(()=> {});
         } else if (this.items.type === this.person.arg) {
           // actors component
         } else if (this.items.type === this.company.arg) {
@@ -218,7 +218,7 @@
       movePath(path_name) {
         this.$router.replace({
           name: path_name
-        })
+        }).catch(()=> {});
       }
     }
   }

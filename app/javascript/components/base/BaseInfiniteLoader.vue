@@ -1,10 +1,9 @@
 <template>
   <infinite-loading spinner="circles" @infinite="handler" :force-use-infinite-wrapper="wrapper">
     <span slot="no-more" :style="textStyle">
-      <!-- <v-divider></v-divider> -->
     </span>
     <span slot="no-results" :style="textStyle" class="ml-n13">
-      このスペースにはまだコメントがありません。😴
+      {{text}}
     </span>
   </infinite-loading>
 </template>
@@ -15,10 +14,14 @@ export default {
   props: {
     handler: {
       type: Function,
+      required: true,
     },
     wrapper: {
       type: Boolean,
-      default: 'False',
+    },
+    text: {
+      type: String,
+      required: true,
     }
   },
   data(){

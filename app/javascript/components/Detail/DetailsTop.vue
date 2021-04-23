@@ -27,11 +27,11 @@
           </v-col>
         </v-row>
         <v-row class="mt-3">
-          　<v-col lg=2 :style="heading_part.personHeader.style" :class="heading_part.person.position">
-            　 クレジット
-            　</v-col>
-          　<v-col lg=8 :style="heading_part.person.style" class="ml-n7">
-            　 <v-html class="mr-3" v-for="(credit, index) in overall.created_by" :key="index">{{credit.name}}</v-html>
+          <v-col lg=2 :style="heading_part.personHeader.style" :class="heading_part.person.position">
+            クレジット
+          </v-col>
+          <v-col lg=3 :style="heading_part.person.style" class="ml-n10" v-for="(credit, index) in overall.created_by" :key="index">
+            {{credit.name}}
           </v-col>
         </v-row>
         <v-row class="mt-n1">
@@ -48,8 +48,8 @@
       </v-col>
     </v-row>
 
-    <v-tabs v-if="media === 'tv'" :style="tabs.style" :class="tabs.grid" :height="tabs.height" :width="tabs.width"
-      :color="tabs.color">
+    <v-tabs v-if="(media === 'tv') && (overall.seasons)" :style="tabs.style" :class="tabs.grid" :height="tabs.height"
+      :width="tabs.width" :color="tabs.color">
       <v-tab @click="changeSeason(index+1)" :style="tab.style" v-for="(season, index) in overall.seasons.length"
         :key="index">
         シーズン{{index + 1}}
@@ -206,7 +206,7 @@
             }
           },
           person: {
-            position: 'ml-1',
+            position: 'ml-5',
             style: {
               fontWeight: 'bold',
               fontFamily: 'Helvetica Neue sans-serif',
@@ -358,7 +358,7 @@
       getTvContents(number) {
         tmdbAxios.get(
             `https://api.themoviedb.org/3/tv/${this.$route.params.id}/season/${number}?api_key=${process.env.TMDB_API_KEY}&language=ja`
-            )
+          )
           .then(res => this.setTvDetails(res))
           .catch(err => this.fetchFailed(err))
       },

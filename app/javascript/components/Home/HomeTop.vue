@@ -30,7 +30,7 @@
         </v-list-item>
       </v-list-item-group>
     </v-list>
-    <base-loader :handler="infiniteHandler" />
+    <base-loader :handler="infiniteHandler" :text="loaderText" />
   </v-container>
 </template>
 
@@ -54,6 +54,7 @@
       return {
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
         spaces_endpoint: `/api/v1/spaces`,
+        loaderText: '気になるドラマのチャットに参加してみよう！',
         media: {
           tv: 'tv',
           movie: 'mv'

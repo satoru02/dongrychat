@@ -181,12 +181,12 @@
           } else {
             this.$router.push({
               name: path
-            })
+            }).catch(()=>{});
           }
         } else {
           this.$router.push({
             name: path
-          })
+          }).catch(()=> {});
         }
       },
       goLogin() {

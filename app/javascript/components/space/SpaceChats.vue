@@ -2,7 +2,7 @@
   <v-container>
     <div infinite-wrapper :style="wrapper.style">
       <space-comments :comments="comments" />
-      <base-loader :handler="infiniteHandler" :wrapper="true" />
+      <base-loader :handler="infiniteHandler" :wrapper="true" :text="loaderText" />
     </div>
     <v-text-field clearable :style="textField.style" :class="textField.grid" :background-color="textField.color"
       v-model="content" @keypress="setMessage()" @keyup.enter="sendComment(content)" dense
@@ -34,6 +34,7 @@
         pageSize: 10,
         comments: [],
         content: '',
+        loaderText: 'このスペースにはまだコメントがありません。',
         params: {
           id: this.spaceId,
           page: '',
@@ -65,9 +66,15 @@
         connected() {},
         rejected() {},
         received(data) {
-          if (data) {
-            if (data.attributes.space_id === this.spaceId) {
-              this.comments.unshift(data)
+          try {
+            if (data) {
+              if (data.attributes.space_id === this.spaceId) {
+                this.comments.unshift(data)
+              }
+            }
+          } catch(e) {
+            if(e instanceof TypeError){
+              // console.log(e)
             }
           }
         },
