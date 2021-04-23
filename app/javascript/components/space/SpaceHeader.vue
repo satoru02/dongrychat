@@ -20,7 +20,9 @@
             small :color="subscribed === true ? colors.blue : colors.black"
             :outlined="subscribed === true ? false : true"
             :style="subscribed === true ? style.subscribedBtn : style.unsubscribedBtn"
-            v-text="subscribed === true ? btn.subscribedText : btn.unsubscribedText" />
+            >
+            {{subscribed === true ? btn.subscribedText : btn.unsubscribedText}}
+          </v-btn>
         </v-col>
       </v-row>
       <v-row dense>
