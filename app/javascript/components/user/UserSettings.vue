@@ -148,9 +148,6 @@
         },
       }
     },
-    created() {
-      this.checkSignedIn()
-    },
     methods: {
       validURL(url) {
         return this.url_reg.test(url)
@@ -259,12 +256,7 @@
       updateFailed(err) {
         this.errors.push('入力内容に間違いがあります。')
         this.error_bar = true
-      },
-      checkSignedIn() {
-        if (!this.$store.state.signedIn) {
-          this.$router.replace('/login')
-        }
-      },
+      }
     }
   }
 </script>

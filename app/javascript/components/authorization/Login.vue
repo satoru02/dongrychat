@@ -199,12 +199,6 @@
         }
       }
     },
-    created() {
-      this.checkSignedIn()
-    },
-    updated() {
-      this.checkSignedIn()
-    },
     computed: {
       inputComplete() {
         if ((this.email) && (this.password.length > 6)) {
@@ -215,11 +209,6 @@
       }
     },
     methods: {
-      checkSignedIn() {
-        if (this.$store.state.signedIn) {
-          this.$router.replace('/')
-        }
-      },
       validEmail(email) {
         return this.reg.test(email);
       },

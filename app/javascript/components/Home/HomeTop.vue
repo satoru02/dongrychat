@@ -163,15 +163,9 @@
       }
     },
     created() {
-      this.checkSignedIn()
       this.createCable()
     },
     methods: {
-      checkSignedIn(){
-        if (!this.$store.state.signedIn) {
-          this.$router.replace('/login')
-        }
-      },
       createCable() {
         this.$cable.subscribe({
           channel: 'TopsubChannel',

@@ -152,9 +152,66 @@ const store = new Vuex.Store({
   plugins: [createPersistedState()]
 })
 
+function guardMyroute(to, from, next){
+  if(store.state.signedIn){
+    next();
+  } else {
+    next('/login')
+  }
+}
+
+function guardMultiLogin(to, from, next){
+  if(!store.state.signedIn){
+    next();
+  } else {
+    next('/')
+  }
+}
+
 const router = new VueRouter({
   mode: 'history',
   routes: [
+    {
+      path: '/authorization',
+      name: 'Authorization',
+      component: Authorization,
+      beforeEnter: guardMultiLogin
+    },
+    {
+      path: "/account_activations/:token",
+      name: "AccountActivation",
+      component: AccountActivation,
+      beforeEnter: guardMultiLogin
+    },
+    {
+      path: "/password_resets/:token",
+      name: "ResetPassword",
+      component: ResetPassword,
+      beforeEnter: guardMultiLogin
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login,
+      beforeEnter: guardMultiLogin
+    },
+    {
+      path: '/logout',
+      name: 'Logout',
+      component: Logout
+    },
+    {
+      path: '/signup',
+      name: 'Signup',
+      component: Signup,
+      beforeEnter: guardMultiLogin
+    },
+    {
+      path: '/forgot_password',
+      name: 'ForgotPassword',
+      component: ForgotPassword,
+      beforeEnter: guardMultiLogin
+    },
     {
       path: '/',
       name: 'Chart',
@@ -163,6 +220,7 @@ const router = new VueRouter({
     {
       path: '/home',
       name: 'Home',
+      beforeEnter: guardMyroute,
       component: HomeTop
     },
     {
@@ -179,6 +237,7 @@ const router = new VueRouter({
       path: '/mv_space/m/:name',
       props: true,
       component: SpaceTop,
+      beforeEnter: guardMyroute,
       children: [
         {
           path: 'chats',
@@ -206,6 +265,7 @@ const router = new VueRouter({
       path: '/mv_space/:space_id',
       props: true,
       component: SpaceTop,
+      beforeEnter: guardMyroute,
       children: [
         {
           path: 'chats',
@@ -233,6 +293,7 @@ const router = new VueRouter({
       path: '/tv_space/:name/:season_number/:episode_number',
       props: true,
       component: SpaceTop,
+      beforeEnter: guardMyroute,
       children: [
         {
           path: 'chats',
@@ -260,6 +321,7 @@ const router = new VueRouter({
       path: '/tv_space/:space_id',
       props: true,
       component: SpaceTop,
+      beforeEnter: guardMyroute,
       children: [
         {
           path: 'chats',
@@ -284,41 +346,6 @@ const router = new VueRouter({
       ]
     },
     {
-      path: '/authorization',
-      name: 'Authorization',
-      component: Authorization
-    },
-    {
-      path: "/account_activations/:token",
-      name: "AccountActivation",
-      component: AccountActivation
-    },
-    {
-      path: "/password_resets/:token",
-      name: "ResetPassword",
-      component: ResetPassword
-    },
-    {
-      path: '/login',
-      name: 'Login',
-      component: Login
-    },
-    {
-      path: '/logout',
-      name: 'Logout',
-      component: Logout
-    },
-    {
-      path: '/signup',
-      name: 'Signup',
-      component: Signup
-    },
-    {
-      path: '/forgot_password',
-      name: 'ForgotPassword',
-      component: ForgotPassword
-    },
-    {
       path: '/users/:id/followings',
       name: 'Followings',
       component: UserFollowings
@@ -331,6 +358,7 @@ const router = new VueRouter({
     {
       path: '/settings',
       name: 'Settings',
+      beforeEnter: guardMyroute,
       component: UserSettings
     },
     {
