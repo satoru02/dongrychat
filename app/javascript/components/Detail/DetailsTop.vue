@@ -354,6 +354,23 @@
         this.getTvContents(this.$route.params.number)
       }
     },
+    beforeRouteEnter(to, from, next){
+      next(vm => {
+        if(vm.media === 'tv'){
+          document.title = `${vm.$route.params.tv_name} - DongryChat` || 'DongryChat';
+        } else {
+          document.title = `${vm.$route.params.mv_name} - DongryChat` || 'DongryChat';
+        }
+      })
+    },
+    beforeRouteUpdate(to, from, next){
+        if(this.media === 'tv'){
+          document.title = `${this.$route.params.tv_name} - DongryChat` || 'DongryChat';
+        } else {
+          document.title = `${this.$route.params.mv_name} - DongryChat` || 'DongryChat';
+        }
+      next()
+    },
     methods: {
       getTvContents(number) {
         tmdbAxios.get(

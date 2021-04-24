@@ -159,7 +159,6 @@ function guardMyroute(to, from, next){
     next('/login')
   }
 }
-
 function guardMultiLogin(to, from, next){
   if(!store.state.signedIn){
     next();
@@ -215,18 +214,24 @@ const router = new VueRouter({
     {
       path: '/',
       name: 'Chart',
-      component: ChartTop
+      component: ChartTop,
+      meta: {
+        title: '今週の注目チャット - DongryChat'
+      }
     },
     {
       path: '/home',
       name: 'Home',
       beforeEnter: guardMyroute,
-      component: HomeTop
+      component: HomeTop,
+      meta: {
+        title: 'ホーム - DongryChat'
+      }
     },
     {
       path: '/tv/:id/:tv_name/season/:number',
       name: 'TvDetails',
-      component: DetailTop
+      component: DetailTop,
     },
     {
       path: '/mv/:id/:mv_name',
@@ -348,49 +353,76 @@ const router = new VueRouter({
     {
       path: '/users/:id/followings',
       name: 'Followings',
-      component: UserFollowings
+      component: UserFollowings,
+      meta: {
+        title: 'フォロー - DongryChat'
+      }
     },
     {
       path: '/users/:id/followers',
       name: 'Followers',
-      component: UserFollowers
+      component: UserFollowers,
+      meta: {
+        title: 'フォロワー - DongryChat'
+      }
     },
     {
       path: '/settings',
       name: 'Settings',
       beforeEnter: guardMyroute,
-      component: UserSettings
+      component: UserSettings,
+      meta: {
+        title: 'アカウント設定 - DongryChat'
+      }
     },
     {
       path: '/search',
       name: 'Search',
-      component: Search
+      component: Search,
+      meta: {
+        title: '気になる作品を探す - DongryChat'
+      }
     },
     {
       path: '/trending',
       name: 'trending',
-      component: SearchList
+      component: SearchList,
+      meta: {
+        title: '注目の作品 - DongryChat'
+      }
     },
     {
       path: '/popular',
       name: 'popular',
-      component: SearchList
+      component: SearchList,
+      meta: {
+        title: '人気の作品 - DongryChat'
+      }
     },
     {
       path: '/top-rated',
       name: 'topRated',
-      component: SearchList
+      component: SearchList,
+      meta: {
+        title: '評価の高い作品 - DongryChat'
+      }
     },
     {
       path: '/upcoming',
       name: 'upcoming',
-      component: SearchList
+      component: SearchList,
+      meta: {
+        title: '公開・配信予定の作品 - DongryChat'
+      }
     },
     {
       path: '/results/:query',
       name: 'multi',
       props: true,
       component: Results,
+      meta: {
+        title: '検索結果 - DongryChat'
+      },
       children: [
         {
           path: "person",
@@ -428,6 +460,11 @@ const router = new VueRouter({
     }
   ]
 })
+
+router.beforeEach((to, from ,next) => {
+  document.title = to.meta.title || 'DongryChat';
+  next();
+});
 
 const app = new Vue({
   el: '#app',
