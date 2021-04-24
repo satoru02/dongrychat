@@ -143,11 +143,17 @@
     watch: {
       $route: 'setSpace'
     },
-    // updated(){
-    //   if(this.space_data === ''){
-    //     this.setSpace()
-    //   }
-    // },
+    beforeRouteEnter(to, from, next){
+      next(vm => {
+        setTimeout(() =>{
+          document.title = `${vm.space_data.name} - DongryChat` || 'DongryChat';
+        }, 1000)
+      })
+    },
+    beforeRouteUpdate(to, from, next){
+      document.title = `${this.space_data.name} - DongryChat` || 'DongryChat';
+      next()
+    },
     methods: {
       setSpace(){
         secureAxios.get(this.endpoint, {

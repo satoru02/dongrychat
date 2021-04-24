@@ -126,17 +126,8 @@
     },
     created() {
       this.checkPasswordToken()
-      this.checkSignedIn()
-    },
-    updated() {
-      this.checkSignedIn()
     },
     methods: {
-      checkSignedIn() {
-        if (this.$store.state.signedIn) {
-          this.$router.replace('/')
-        }
-      },
       checkPasswordValidation() {
         this.errors = [];
 

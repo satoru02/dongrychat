@@ -11,15 +11,11 @@
   export default {
     name: 'AccountActivation',
     created() {
-      this.checkSignedIn()
       simpleAxios.post(ACTIVATION_URL, {
           token: this.$route.params.token
         })
         .then(response => this.activationSuccessful(response))
         .catch(err => this.activationFailed(err))
-    },
-    updated() {
-      this.checkSignedIn()
     },
     methods: {
       activationSuccessful(response) {
@@ -46,11 +42,6 @@
         this.error = (error.response && error.response.data && error.response.data.error) || ""
         this.$store.commit('unsetCurrentUser')
       },
-      checkSignedIn() {
-        if (this.$store.state.signedIn) {
-          this.$router.replace('/')
-        }
-      }
     }
   }
 </script>

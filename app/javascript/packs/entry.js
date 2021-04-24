@@ -152,23 +152,86 @@ const store = new Vuex.Store({
   plugins: [createPersistedState()]
 })
 
+function guardMyroute(to, from, next){
+  if(store.state.signedIn){
+    next();
+  } else {
+    next('/login')
+  }
+}
+function guardMultiLogin(to, from, next){
+  if(!store.state.signedIn){
+    next();
+  } else {
+    next('/')
+  }
+}
+
 const router = new VueRouter({
   mode: 'history',
   routes: [
     {
+      path: '/authorization',
+      name: 'Authorization',
+      component: Authorization,
+      beforeEnter: guardMultiLogin
+    },
+    {
+      path: "/account_activations/:token",
+      name: "AccountActivation",
+      component: AccountActivation,
+      beforeEnter: guardMultiLogin
+    },
+    {
+      path: "/password_resets/:token",
+      name: "ResetPassword",
+      component: ResetPassword,
+      beforeEnter: guardMultiLogin
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login,
+      beforeEnter: guardMultiLogin
+    },
+    {
+      path: '/logout',
+      name: 'Logout',
+      component: Logout
+    },
+    {
+      path: '/signup',
+      name: 'Signup',
+      component: Signup,
+      beforeEnter: guardMultiLogin
+    },
+    {
+      path: '/forgot_password',
+      name: 'ForgotPassword',
+      component: ForgotPassword,
+      beforeEnter: guardMultiLogin
+    },
+    {
       path: '/',
       name: 'Chart',
-      component: ChartTop
+      component: ChartTop,
+      meta: {
+        title: '今週の注目チャット - DongryChat'
+      }
     },
     {
       path: '/home',
       name: 'Home',
-      component: HomeTop
+      beforeEnter: guardMyroute,
+      component: HomeTop,
+      meta: {
+        title: 'ホーム - DongryChat'
+      }
     },
     {
       path: '/tv/:id/:tv_name/season/:number',
       name: 'TvDetails',
-      component: DetailTop
+      component: DetailTop,
     },
     {
       path: '/mv/:id/:mv_name',
@@ -179,6 +242,7 @@ const router = new VueRouter({
       path: '/mv_space/m/:name',
       props: true,
       component: SpaceTop,
+      beforeEnter: guardMyroute,
       children: [
         {
           path: 'chats',
@@ -206,6 +270,7 @@ const router = new VueRouter({
       path: '/mv_space/:space_id',
       props: true,
       component: SpaceTop,
+      beforeEnter: guardMyroute,
       children: [
         {
           path: 'chats',
@@ -233,6 +298,7 @@ const router = new VueRouter({
       path: '/tv_space/:name/:season_number/:episode_number',
       props: true,
       component: SpaceTop,
+      beforeEnter: guardMyroute,
       children: [
         {
           path: 'chats',
@@ -260,6 +326,7 @@ const router = new VueRouter({
       path: '/tv_space/:space_id',
       props: true,
       component: SpaceTop,
+      beforeEnter: guardMyroute,
       children: [
         {
           path: 'chats',
@@ -284,85 +351,78 @@ const router = new VueRouter({
       ]
     },
     {
-      path: '/authorization',
-      name: 'Authorization',
-      component: Authorization
-    },
-    {
-      path: "/account_activations/:token",
-      name: "AccountActivation",
-      component: AccountActivation
-    },
-    {
-      path: "/password_resets/:token",
-      name: "ResetPassword",
-      component: ResetPassword
-    },
-    {
-      path: '/login',
-      name: 'Login',
-      component: Login
-    },
-    {
-      path: '/logout',
-      name: 'Logout',
-      component: Logout
-    },
-    {
-      path: '/signup',
-      name: 'Signup',
-      component: Signup
-    },
-    {
-      path: '/forgot_password',
-      name: 'ForgotPassword',
-      component: ForgotPassword
-    },
-    {
       path: '/users/:id/followings',
       name: 'Followings',
-      component: UserFollowings
+      component: UserFollowings,
+      meta: {
+        title: 'フォロー - DongryChat'
+      }
     },
     {
       path: '/users/:id/followers',
       name: 'Followers',
-      component: UserFollowers
+      component: UserFollowers,
+      meta: {
+        title: 'フォロワー - DongryChat'
+      }
     },
     {
       path: '/settings',
       name: 'Settings',
-      component: UserSettings
+      beforeEnter: guardMyroute,
+      component: UserSettings,
+      meta: {
+        title: 'アカウント設定 - DongryChat'
+      }
     },
     {
       path: '/search',
       name: 'Search',
-      component: Search
+      component: Search,
+      meta: {
+        title: '気になる作品を探す - DongryChat'
+      }
     },
     {
       path: '/trending',
       name: 'trending',
-      component: SearchList
+      component: SearchList,
+      meta: {
+        title: '注目の作品 - DongryChat'
+      }
     },
     {
       path: '/popular',
       name: 'popular',
-      component: SearchList
+      component: SearchList,
+      meta: {
+        title: '人気の作品 - DongryChat'
+      }
     },
     {
       path: '/top-rated',
       name: 'topRated',
-      component: SearchList
+      component: SearchList,
+      meta: {
+        title: '評価の高い作品 - DongryChat'
+      }
     },
     {
       path: '/upcoming',
       name: 'upcoming',
-      component: SearchList
+      component: SearchList,
+      meta: {
+        title: '公開・配信予定の作品 - DongryChat'
+      }
     },
     {
       path: '/results/:query',
       name: 'multi',
       props: true,
       component: Results,
+      meta: {
+        title: '検索結果 - DongryChat'
+      },
       children: [
         {
           path: "person",
@@ -400,6 +460,11 @@ const router = new VueRouter({
     }
   ]
 })
+
+router.beforeEach((to, from ,next) => {
+  document.title = to.meta.title || 'DongryChat';
+  next();
+});
 
 const app = new Vue({
   el: '#app',
