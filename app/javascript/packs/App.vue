@@ -4,10 +4,31 @@
 
 <script>
   import MainPart from '../components/Layout/TheMainPart'
+
   export default {
     name: 'App',
     components: {
       'main-part': MainPart
+    },
+    created(){
+      this.createCable()
+    },
+    channels: {
+      AppearanceChannel: {
+        connected(){},
+        rejected(){},
+        received(data){
+          console.log(data)
+        },
+        disconnected(){}
+      }
+    },
+    methods: {
+      createCable(){
+        this.$cable.subscribe({
+          channel: 'AppearanceChannel',
+        })
+      }
     }
   }
 </script>

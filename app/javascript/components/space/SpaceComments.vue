@@ -2,10 +2,12 @@
   <v-container>
     <v-row :class="comment_part.row" v-for="(comment, index) in comments" :key="index">
       <v-col md=1 lg=1 xl=1 :class="comment_part.col">
-        <v-avatar @click="showDialog(comment.attributes.user.data.attributes)" :class="comment_part.avatar.class" tile
-          :size='comment_part.avatar.size' :height='comment_part.avatar.height'>
-          <img :src="comment.attributes.user.data.attributes.avatar_url">
-        </v-avatar>
+        <v-badge bordered bottom :color="comment.attributes.user.data.attributes.appearance === true ? 'green accent-4' : 'red'" dot offset-x="8" offset-y="8">
+          <v-avatar @click="showDialog(comment.attributes.user.data.attributes)" :class="comment_part.avatar.class" tile
+            :size='comment_part.avatar.size' :height='comment_part.avatar.height'>
+            <img :src="comment.attributes.user.data.attributes.avatar_url">
+          </v-avatar>
+        </v-badge>
       </v-col>
       <v-col md=11 lg=11 xl=11 :class="comment_part.inner_col">
         <v-row>
@@ -24,7 +26,8 @@
         </v-row>
       </v-col>
     </v-row>
-    <base-profile-dialog v-if="user" v-on:input="offDialog()" :passDialog="dialog" :user="user" :followed="this.followed" />
+    <base-profile-dialog v-if="user" v-on:input="offDialog()" :passDialog="dialog" :user="user"
+      :followed="this.followed" />
   </v-container>
 </template>
 
@@ -40,7 +43,7 @@
       comments: {
         type: Array,
         required: true
-      }
+      },
     },
     data() {
       return {
@@ -110,7 +113,7 @@
       },
       formalizeTime(time) {
         return moment(time).format("hh:mm")
-      },
+      }
     }
   }
 </script>

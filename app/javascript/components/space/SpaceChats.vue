@@ -14,6 +14,7 @@
   import { secureAxios } from '../../backend/axios';
   import SpaceComments from './SpaceComments';
   import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
+  import redis from 'redis'
 
   export default {
     name: 'SpaceChats',
@@ -25,7 +26,7 @@
       spaceId: {
         type: Number,
         required: true
-      }
+      },
     },
     data: function () {
       return {
@@ -68,13 +69,26 @@
         received(data) {
           try {
             if (data) {
+
+              //  コメントデータの処理
               if (data.attributes.space_id === this.spaceId) {
                 this.comments.unshift(data)
               }
+
+              // 　オンラインデータの処理
+              // else if() {
+                // user = users.filter(user => user.id === data.user_id)
+                // user.online = true
+                // this.userAppearance = data.user_id
+
+              // 　オフラインデータの処理
+
+              // } else if() {
+
+              // }
             }
           } catch(e) {
             if(e instanceof TypeError){
-              // console.log(e)
             }
           }
         },

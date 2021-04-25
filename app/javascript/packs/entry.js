@@ -3,6 +3,7 @@ import App from './App.vue';
 import Vuetify from 'vuetify';
 import axios from 'axios';
 import Vuex from 'vuex';
+
 import VueAxios from 'vue-axios';
 import VueAuthenticate from 'vue-authenticate';
 import createPersistedState from 'vuex-persistedstate';
@@ -106,7 +107,7 @@ const store = new Vuex.Store({
   state: {
     currentUser: {},
     signedIn: false,
-    csrf: null
+    csrf: null,
   },
   getters: {
     isAdmin: state => {
@@ -123,7 +124,7 @@ const store = new Vuex.Store({
     setCurrentUser(state, {
       currentUser,
       csrf,
-      token
+      token,
     }) {
       state.currentUser = currentUser
       state.signedIn = true
