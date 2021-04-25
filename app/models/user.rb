@@ -58,8 +58,14 @@ class User < ApplicationRecord
       length.times{ key += source[rand(source.size)].to_s }
       return key
     end
+  end
 
-    def online
+  def is_online?
+    redis = set_redis
+    if redis.get("user_#{self.id}_online")
+      true
+    else
+      false
     end
   end
 
@@ -130,5 +136,9 @@ class User < ApplicationRecord
 
     def downcase_email
       self.email = email.downcase
+    end
+
+    def set_redis
+      redis = Redis.new
     end
 end

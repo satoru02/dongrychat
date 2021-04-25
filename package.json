@@ -10,6 +10,7 @@
     "actioncable-vue": "^2.4.6",
     "axios": "^0.21.1",
     "moment": "^2.29.1",
+    "redis": "^3.1.2",
     "turbolinks": "^5.2.0",
     "vue": "^2.6.12",
     "vue-authenticate": "^1.4.1",
@@ -22,7 +23,8 @@
     "vuelidate": "^0.7.6",
     "vuetify": "^2.4.5",
     "vuex": "^3.6.2",
-    "vuex-persistedstate": "^4.0.0-beta.3"
+    "vuex-persistedstate": "^4.0.0-beta.3",
+    "ws": "^7.4.5"
   },
   "version": "0.1.0",
   "devDependencies": {
