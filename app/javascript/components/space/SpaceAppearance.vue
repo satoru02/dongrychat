@@ -19,7 +19,7 @@ export default {
       connected() {},
       rejected() {},
       received(data) {
-        console.log(data)
+        // console.log(data)
       },
       disconnected() {}
     }

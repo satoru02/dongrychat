@@ -222,6 +222,11 @@
       }
     },
     methods: {
+      track(){
+        this.$gtag.pageview({
+          page_path: '/'
+        })
+      },
       forceRerender() {
         this.componentKey += 1
       },

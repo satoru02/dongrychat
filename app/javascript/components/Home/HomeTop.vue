@@ -166,6 +166,16 @@
       this.createCable()
     },
     methods: {
+      track(){
+        this.$gtag.time({
+          'name': 'load',
+          'value': 3549,
+          'event_category': 'JS Dependencies'
+        }),
+        this.$gtag.pageview({
+          page_path: '/home'
+        })
+      },
       createCable() {
         this.$cable.subscribe({
           channel: 'TopsubChannel',
