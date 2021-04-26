@@ -98,10 +98,12 @@ if (process.env.NODE_ENV === "development") {
   });
 }
 
-// Vue.use(VueGtag, {
-//   config: {id: process.env.GA_ID},
-//   router
-// })
+Vue.use(VueGtag, {
+  config: {id: process.env.GA_ID},
+  app_name: process.env.GA_APP_NAME,
+  pageTrackerScreenviewEnabled: true,
+  router
+})
 
 const store = new Vuex.Store({
   state: {

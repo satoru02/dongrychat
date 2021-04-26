@@ -18,12 +18,19 @@
         connected(){},
         rejected(){},
         received(data){
-          console.log(data)
+          // console.log(data)
         },
         disconnected(){}
       }
     },
     methods: {
+      track(){
+        this.$gtag.time({
+          'name': 'load',
+          'value': 3549,
+          'event_category': 'JS Dependencies'
+        })
+      },
       createCable(){
         this.$cable.subscribe({
           channel: 'AppearanceChannel',

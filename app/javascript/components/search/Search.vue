@@ -145,6 +145,11 @@
       }
     },
     methods: {
+      track(){
+        this.$gtag.pageview({
+          page_path: '/search',
+        })
+      },
       getTrendTvs() {
         return tmdbAxios.get(this.tmdb_api.tv.trending)
       },

@@ -155,6 +155,11 @@
       next()
     },
     methods: {
+      track(){
+        this.$gtag.pageview({
+          page_path: '/tv_space/:space_id',
+        })
+      },
       setSpace(){
         secureAxios.get(this.endpoint, {
           params: this.params
