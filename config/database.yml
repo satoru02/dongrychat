@@ -23,3 +23,4 @@ production:
   database: living_room_production
   username: <%= ENV["PG_PRODUCTION_USER_NAME"] %>
   password: <%= ENV['PG_PASSWORD'] %>
+  host: <%= ENV['PG_HOST'] %>
