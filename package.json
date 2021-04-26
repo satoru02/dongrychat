@@ -15,7 +15,7 @@
     "vue": "^2.6.12",
     "vue-authenticate": "^1.4.1",
     "vue-google-oauth2": "^1.5.8",
-    "vue-gtag": "^1.11.0",
+    "vue-gtag": "^1.14.0",
     "vue-infinite-loading": "^2.4.5",
     "vue-loader": "^15.9.6",
     "vue-router": "^3.5.1",
