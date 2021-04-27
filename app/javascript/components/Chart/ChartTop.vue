@@ -12,6 +12,54 @@
         <v-switch v-model="switch1" :color="colors.switchButton" inset :class="grid.switch" />
       </v-col>
     </v-row>
+
+    <v-card @click="enterSpace(item.attributes)" v-for="(item, index) in items" :key="index"
+      style="background-color: #161b22;" elevation=0 class="rounded-lg mb-6" height="100px">
+      <v-row>
+        <v-col lg=1 class="ml-6 mt-8" :style="style.ranking">
+          {{index + 1}}
+        </v-col>
+        <v-col lg=1 class="ml-n9">
+          <v-avatar :size="avatar.size" :height="avatar.height" tile :class="avatar.round">
+            <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
+          </v-avatar>
+        </v-col>
+
+        <v-col lg=10>
+          <v-row dense>
+            <v-col lg=1></v-col>
+            <v-col lg=10 :style="style.listItemTitle" class="ml-n6 mt-1">
+              <base-label :x_small="true" class="ml-1 mr-3" :outlined="true" :label="true"
+                v-if="item.attributes.media === media.tv" :color="'blue'" :text-color="'#ced4da'"
+                :season="item.attributes.season" :episode="item.attributes.episode"
+                :title="item.attributes.episode_title" />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col lg=10 />
+            <v-col lg=1 class="ml-10 mt-n1">
+              <v-badge dot green />
+            </v-col>
+            <v-col lg=1 class="mt-n4 ml-n10" :style="style.notifyText">
+              {{item.attributes.users.length}}
+            </v-col>
+          </v-row>
+          <v-row class=mt-n11>
+            <v-col lg=1 />
+            <v-col lg=10 :style="style.listItemTitle" class="ml-n5">
+              {{item.attributes.name}}
+            </v-col>
+          </v-row>
+          <v-row class="mt-n4 ml-6">
+          <v-col md=12 lg=12 xl=12 :style="style.tag" small>
+          <v-chip class="mr-2" v-for="(tag, index) in item.attributes.tag_list" :key="index" color="#293241"
+            :style="style.tag" x-small v-text="'#' + tag" />
+        </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+    </v-card>
+    <!-- 
     <v-list two-line>
       <v-list-item-group :active-class="colors.listItemGroupActive" :class="grid.listItemGroup" multiple>
         <template v-for="(item, index) in items">
@@ -19,7 +67,6 @@
             <div :style="style.ranking" :class="grid.ranking">
               <v-btn icon text-color="#6c757d" style="background-color: #dee2e6;" x-small elevation=0>{{index + 1}}
               </v-btn>
-              <!-- <v-icon :color="colors.rankIcon" :class="grid.icon" :size="icon.size" v-text="icon.mdi" /> -->
             </div>
             <v-list-item-avatar :size="avatar.size" :height="avatar.height" tile :class="avatar.round">
               <base-image :img="base_tmdb_img_url + item.attributes.image_path" :height="avatar.height" />
@@ -39,13 +86,10 @@
               <div class=ml-2 :style="style.listItemAction" v-text="item.attributes.users.length" />
             </v-list-item-action>
           </v-list-item>
-          <!-- <v-divider
-            v-if="index < items.length - 1"
-            :key="index + 1"
-          ></v-divider> -->
         </template>
       </v-list-item-group>
-    </v-list>
+    </v-list> -->
+
     <base-loader :handler="infiniteHandler" :wrapper="true" :text="loaderText" />
 
     <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
@@ -59,21 +103,21 @@
         <v-row>
           <v-col lg=1 />
           <v-col lg=10>
-            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="pink" elevation=0 v-text="'ログイン'"/>
+            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="pink" elevation=0 v-text="'ログイン'" />
           </v-col>
         </v-row>
         <v-row>
           <v-col lg=1 />
           <v-col lg=10>
-            <v-btn block @click="goSignup()" :style="dialog.btnStyle" color="blue" elevation=0 v-text="'アカウント作成'"/>
+            <v-btn block @click="goSignup()" :style="dialog.btnStyle" color="blue" elevation=0 v-text="'アカウント作成'" />
           </v-col>
         </v-row>
         <v-row>
-            <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
-            <v-col cols=8 sm=8 md=8 lg=9 xl=8>
-              <div class="ml-1" :style="dialog.policyStyle" v-text="'利用規約とプライバシーポリシーはこちら'" />
-            </v-col>
-          </v-row>
+          <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
+          <v-col cols=8 sm=8 md=8 lg=9 xl=8>
+            <div class="ml-1" :style="dialog.policyStyle" v-text="'利用規約とプライバシーポリシーはこちら'" />
+          </v-col>
+        </v-row>
       </v-card>
     </v-dialog>
 
@@ -109,8 +153,8 @@
         query_media: 'tv',
         error: '',
         avatar: {
-          size: 65,
-          height: 65,
+          size: 80,
+          height: 77,
           round: "rounded-lg"
         },
         icon: {
@@ -155,10 +199,17 @@
             fontWeight: 'bold',
             color: '#8f8f8f',
           },
+                    tag: {
+            color: '#ffffff',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '6px'
+          },
           listItemTitle: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '14px',
+            fontSize: '15px',
+            color: '#ced4da'
           },
           listItemAction: {
             fontFamily: 'Helvetica Neue, sans-serif',
@@ -178,6 +229,12 @@
             fontWeight: 'bold',
             color: '#000000',
             letterSpacing: '3px'
+          },
+          notifyText: {
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '13px',
+            fontWeight: 'bold',
+            color: '#ffffff'
           },
           inactive: {
             fontFamily: 'Helvetica Neue, sans-serif',
@@ -222,7 +279,7 @@
       }
     },
     methods: {
-      track(){
+      track() {
         this.$gtag.pageview({
           page_path: '/'
         })
@@ -281,10 +338,10 @@
           this.loginDialog = true
         }
       },
-      goLogin(){
+      goLogin() {
         this.$router.replace('/login')
       },
-      goSignup(){
+      goSignup() {
         this.$router.replace('/signup')
       }
     }

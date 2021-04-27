@@ -1,6 +1,7 @@
 <template>
   <v-container :class="grid.topPart">
     <h3 :class="grid.header" :style="style.headerPart" v-text="headerCaption" />
+
     <v-card @click="enterSpace(item)" v-for="(item, index) in items" :key="index" style="background-color: #161b22;"
       elevation=0 class="rounded-lg mb-6" height="108px">
       <v-row>
@@ -18,24 +19,15 @@
                 v-if="item.attributes.media === media.tv" :color="'blue'" :text-color="colors.chip"
                 :season="item.attributes.season" :episode="item.attributes.episode"
                 :title="item.attributes.episode_title" />
-              <!-- <v-col lg=1 class="ml-n16"> -->
-              <!-- <v-avatar v-if="item.attributes.unconfirmed_comments > 0" :class="grid.notifyBtn"
-                :color="colors.notifyBtn" :size="notify_btn.size">
-                <span :style="style.notifyText" v-text="item.attributes.unconfirmed_comments" />
-              </v-avatar> -->
-              <!-- <v-badge dot :class="grid.notifyBtn"
-                 :size="notify_btn.size">
-              </v-badge> -->
-              <!-- </v-col> -->
             </v-col>
           </v-row>
           <v-row>
             <v-col lg=10 />
             <v-col lg=1 class="ml-10">
-              <v-badge dot green />
+              <v-badge v-if="item.attributes.unconfirmed_comments > 0" dot green />
             </v-col>
             <v-col lg=1 class="mt-n3 ml-n10" :style="style.notifyText">
-              13
+              {{item.attributes.unconfirmed_comment}}
             </v-col>
           </v-row>
           <v-row class="mt-n6">
