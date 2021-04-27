@@ -1,20 +1,14 @@
 <template>
   <v-container class="ml-1">
-    <!-- <v-row :class="header_part.position">
-      <v-col md=12 lg=12 xl=12 />
-    </v-row> -->
-    <!-- <v-row>
-      <v-col md=12 lg=12 xl=12 :class="top_blank_space.position" />
-    </v-row> -->
-    <v-list nav :class="list.position" :style="list.style">
+    <v-list nav :class="list.position" :style="list.style" color="#0e0e10">
       <v-list-item-group v-model="selectedItem">
-        <v-list-item :class="list_item.position" v-for="(item, index) in menus" :key="index"
+        <v-list-item color="#ffffff" :class="list_item.position" v-for="(item, index) in menus" :key="index"
           @click="changeRoute(item.path_name)">
           <v-list-item-icon>
             <v-icon :size="icon.size" v-text="item.icon" :color="icon.color" />
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title v-text="item.text" :style="list_item_title.style" />
+            <v-list-item-title v-text="item.text" :style="list_item_title.style" color="#ffffff" />
           </v-list-item-content>
         </v-list-item>
       </v-list-item-group>
@@ -106,7 +100,7 @@
         bottom_blank_space: {
           position: 'mt-15 ml-n6 mb-13',
           style: {
-            height: '466px'
+            height: '496px'
           }
         },
         list: {
@@ -121,14 +115,14 @@
         },
         icon: {
           size: 20,
-          color: '#000000'
+          color: '#c9d1d9'
         },
         list_item_title: {
           style: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '15px',
-            color: '#011627'
+            color: '#ced4da'
           }
         },
         btn: {

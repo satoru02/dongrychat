@@ -49,13 +49,13 @@
         blank: ' ',
         style: {
           profilePart: {
-            backgroundColor: '#ffffff',
+            backgroundColor: '#161b22',
           },
           name: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '14px',
-            color: '#011627'
+            color: '#ced4da'
           },
           relationships: {
             fontWeight: 'bold',
