@@ -1,5 +1,5 @@
 <template>
-  <v-container class="ml-1">
+  <v-container class="ml-1 mt-3">
     <v-list nav :class="list.position" :style="list.style" color="#0e0e10">
       <v-list-item-group v-model="selectedItem">
         <v-list-item color="#ffffff" :class="list_item.position" v-for="(item, index) in menus" :key="index"
@@ -92,7 +92,7 @@
           },
         ],
         header_part: {
-          position: 'mt-n8 ml-n4 mr-3',
+          position: 'mt-n5 ml-n4 mr-3',
         },
         top_blank_space: {
           position: 'mt-13'
@@ -100,7 +100,7 @@
         bottom_blank_space: {
           position: 'mt-15 ml-n6 mb-13',
           style: {
-            height: '496px'
+            height: '474px'
           }
         },
         list: {
@@ -129,7 +129,7 @@
           position: 'mt-15 ml-1',
           elevation: 0,
           round: 'rounded-lg',
-          color: 'black',
+          color: 'blue',
           height: 35,
           style: {
             position: 'fixed'

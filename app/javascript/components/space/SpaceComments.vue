@@ -77,11 +77,11 @@
               fontSize: '7px'
             },
             content: {
-              color: '#000000',
+              color: '#ced4da',
               // fontFamily: 'monospace',
               fontFamily: 'Helvetica Neue, sans-serif',
               fontSize: '13px',
-              // fontWeight: 'bold',
+              fontWeight: 'bold',
             },
             tabs: {
               color: '#000000',

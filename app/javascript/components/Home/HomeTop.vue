@@ -3,7 +3,7 @@
     <h3 :class="grid.header" :style="style.headerPart" v-text="headerCaption" />
 
     <v-card @click="enterSpace(item)" v-for="(item, index) in items" :key="index" style="background-color: #161b22;"
-      elevation=0 class="rounded-lg mb-6" height="108px">
+      elevation=0 class="rounded-lg mb-8" height="108px">
       <v-row>
         <v-col lg=1 class="ml-5">
           <v-avatar :size="listAvatar.size" :height="listAvatar.height" tile :class="listAvatar.round">
@@ -19,6 +19,8 @@
                 v-if="item.attributes.media === media.tv" :color="'blue'" :text-color="colors.chip"
                 :season="item.attributes.season" :episode="item.attributes.episode"
                 :title="item.attributes.episode_title" />
+              <v-chip :class="grid.label" v-if="item.attributes.media === media.movie" small outlined label :color="'yellow'" :style="style.movieTitle"
+            v-text="'Movie'" />
             </v-col>
           </v-row>
           <v-row>
@@ -143,8 +145,8 @@
           notifyBtn: 'red'
         },
         grid: {
-          topPart: 'ml-n2 mt-3',
-          header: 'mb-5 ml-3',
+          topPart: 'ml-n2 mt-n6',
+          header: 'mb-8 ml-1',
           listItemSubtitle: 'mt-1 ml-3',
           listItemAction: 'ml-n16 mt-7 mb-5',
           details: 'mt-n1',
@@ -204,6 +206,11 @@
             fontSize: '13px',
             fontWeight: 'bold',
             color: '#ffffff'
+          },
+          movieTitle: {
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '10px',
+            fontWeight: 'bold',
           }
         }
       }

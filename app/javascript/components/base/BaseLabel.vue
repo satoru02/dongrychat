@@ -14,7 +14,7 @@
           fontWeight: 'bold',
           fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
           fontSize: '9px',
-          color: '#ced4da'
+          color: '#ffffff'
         }
       }
     },

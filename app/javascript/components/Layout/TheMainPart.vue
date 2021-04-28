@@ -27,19 +27,17 @@
 
       <v-main :class="'mt-2'">
         <v-row>
-          <v-col md=3 lg=3 xl=3 class='ml-n16 mt-3' v-if="$vuetify.breakpoint.width > 600">
+          <v-col md=3 lg=3 xl=3 class='ml-n6 mt-3' v-if="$vuetify.breakpoint.width > 600">
             <side-bar v-if="this.checkAuthorization()" />
           </v-col>
-          <!-- <v-divider vertical class="mr-n4 ml-16" v-if="this.checkAuthorization()" /> -->
-          <v-col sm=12 cols=12 md=6 lg=7 xl=6
+          <v-col sm=12 cols=12 md=6 :lg="this.checkRouter() ?  '7' : '9' " xl=6
             :class="$vuetify.breakpoint.width > 600 ? grid.deskCenter : grid.mobileCenter">
             <!-- <keep-alive> -->
             <router-view />
             <!-- </keep-alive> -->
           </v-col>
-          <!-- <v-divider vertical class="ml-n8 mr-5" v-if="this.checkAuthorization()" /> -->
           <v-col md=3 lg=2 xl=3 :class="grid.rightPart" v-if="$vuetify.breakpoint.width > 600">
-            <right-part v-if="this.checkAuthorization()" />
+            <right-part v-if="this.checkAuthorization() && this.checkRouter()" />
           </v-col>
         </v-row>
       </v-main>
@@ -68,9 +66,9 @@
           app: 'overflow-hidden ml-6',
           // // main: 'mt-5 ml-n3',
           // sidebar: ' mr-2 mt-n5',
-          deskCenter: ' ml-3',
+          deskCenter: ' ml-n4',
           // mobileCenter: 'ml-n4',
-          rightPart: 'mt-3 ml-5'
+          rightPart: 'mt-3 ml-2'
         },
         textField: {
           placeholder: '検索',
@@ -95,6 +93,31 @@
       checkAuthorization() {
         let validationRouter = ['Login', 'Signup', 'Authorization', 'ResetPassword', 'ForgotPassword']
         if (validationRouter.includes(this.$route.name)) {
+          return false
+        } else {
+          return true
+        }
+      },
+      checkRouter(){
+        let spaceRoute = [
+          'subscribedTvSpace',
+          'subscribedTvSpaceMembers',
+          'subscribedTvSpaceReviews',
+          'subscribedTvSpaceNews',
+          'subscribedMvSpace',
+          'subscribedMvSpaceMembers',
+          'subscribedMvSpaceReviews',
+          'subscribedMvSpaceNews',
+          'MvSpace',
+          'TvSpace',
+          'MvSpaceMembers',
+          'MvSpaceReviews',
+          'MvSpaceNews',
+          'TvSpaceMembers',
+          'TvSpaceReviews',
+          'TvSpaceNews',
+         ]
+        if (spaceRoute.includes(this.$route.name)) {
           return false
         } else {
           return true
