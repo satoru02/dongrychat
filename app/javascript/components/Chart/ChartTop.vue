@@ -1,6 +1,6 @@
 <template>
   <v-container :class="grid.header" :key="componentKey">
-    <v-row class="ml-2">
+    <v-row class="mb-n5 mt-2">
       <v-col md=1 lg=1 xl=1>
         <div :style="switch1 === false ? style.active : style.inactive" v-text="tv.header" />
       </v-col>
@@ -9,7 +9,7 @@
       </v-col>
       <v-col md=9 lg=9 xl=9 />
       <v-col md=1 lg=1 xl=1>
-        <v-switch v-model="switch1" :color="colors.switchButton" inset :class="grid.switch" />
+        <v-switch v-model="switch1" inset :class="grid.switch" />
       </v-col>
     </v-row>
 
@@ -181,8 +181,8 @@
           listItemGroupActive: 'orange'
         },
         grid: {
-          switch: 'mt-2 ml-n4',
-          header: 'mt-n1 ml-n2',
+          switch: 'mt-1 ml-n1',
+          header: 'mt-n5 ml-16',
           ranking: 'mr-6',
           icon: 'ml-2',
           listItemContent: 'ml-4',
@@ -225,9 +225,9 @@
           },
           active: {
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '25px',
+            fontSize: '18px',
             fontWeight: 'bold',
-            color: '#000000',
+            color: '#ced4da',
             letterSpacing: '3px'
           },
           notifyText: {
@@ -238,7 +238,7 @@
           },
           inactive: {
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '25px',
+            fontSize: '18px',
             fontWeight: 'bold',
             color: '#8f8f8f',
             letterSpacing: '3px'

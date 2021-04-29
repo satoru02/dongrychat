@@ -51,11 +51,12 @@
           }
         },
         textField: {
-          grid: 'mt-1 ml-6 mr-6 rounded-lg',
+          grid: 'mt-2 ml-6 mr-6 rounded-s',
           color: '#495057',
           placeholder: '#メッセージを送信',
           style: {
-            position: 'static'
+            position: 'static',
+            // color: '#ffffff'
           }
         }
       }

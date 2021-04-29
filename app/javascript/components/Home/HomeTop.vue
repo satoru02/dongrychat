@@ -145,7 +145,7 @@
           notifyBtn: 'red'
         },
         grid: {
-          topPart: 'ml-n2 mt-n6',
+          topPart: 'ml-16 mt-n6',
           header: 'mb-8 ml-1',
           listItemSubtitle: 'mt-1 ml-3',
           listItemAction: 'ml-n16 mt-7 mb-5',

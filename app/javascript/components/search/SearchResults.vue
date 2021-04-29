@@ -1,22 +1,23 @@
 <template>
-  <v-container class="ml-n2">
+  <v-container class="ml-n2" style="background-color: #0e0e10;">
     <v-row>
       <v-col md=12 lg=12 xl=12>
         <div :style="resultsStyle" v-text="resultsText" />
       </v-col>
     </v-row>
-    <v-row>
+    <v-row class="mt-n3">
       <v-col md=12 lg=12 xl=12>
-        <v-tabs hide-slider dense :background-color="tabColor">
+        <v-tabs grow :background-color="tabColor">
           <v-tab :style="listStyle" :active-class="tabActive" v-text="keyword.text" @click="movePath(keyword.arg)" />
           <v-tab :style="listStyle" :active-class="tabActive" v-text="tv.text" @click="movePath(tv.arg)" />
           <v-tab :style="listStyle" :active-class="tabActive" v-text="movie.text" @click="movePath(movie.arg)" />
           <v-tab :style="listStyle" :active-class="tabActive" v-text="person.text" @click="movePath(person.arg)" />
           <v-tab :style="listStyle" :active-class="tabActive" v-text="company.text" @click="movePath(company.arg)" />
         </v-tabs>
+        <v-divider />
       </v-col>
     </v-row>
-    <v-list two-line>
+    <v-list two-line style="background-color: #0e0e10;">
       <v-list-item-group :active-class="listActive" multiple>
         <template v-for="(item, index) in items.contents">
           <v-list-item :key="index" @click="showContents(item)">
@@ -89,23 +90,26 @@
           arg: 'company'
         },
         // for css --------------------------------------------
-        tabColor: '#ffffff',
-        tabActive: 'black--text',
+        tabColor: '#0e0e10',
+        tabActive: 'white--text',
         listActive: 'orange--text',
         resultsStyle: {
           fontSize: "18px",
           fontFamily: 'Helvetica Neue, sans-serif',
           fontWeight: 'bold',
+          color: '#ced4da'
         },
         listStyle: {
           fontSize: '13px',
           fontFamily: 'Helvetica Neue, sans-serif',
           fontWeight: 'bold',
+          color: '#6c757d'
         },
         listItemStyle: {
           fontWeight: 'bold',
           fontFamily: 'Helvetica Neue, sans-serif',
-          fontSize: '15px'
+          fontSize: '15px',
+          color: '#ced4da'
         },
         subtitleStyle: {
           fontFamily: 'Helvetica Neue, sans-serif',
@@ -225,4 +229,7 @@
 </script>
 
 <style scoped>
+  .theme--light.v-divider {
+    border-color: rgba(201, 204, 204, 0.06);
+  }
 </style>

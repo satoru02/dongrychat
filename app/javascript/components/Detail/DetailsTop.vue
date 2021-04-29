@@ -48,9 +48,9 @@
       </v-col>
     </v-row>
 
-    <v-tabs v-if="(media === 'tv') && (overall.seasons)" :style="tabs.style" :class="tabs.grid" :height="tabs.height"
-      :width="tabs.width" :color="tabs.color">
-      <v-tab @click="changeSeason(index+1)" :style="tab.style" v-for="(season, index) in overall.seasons.length"
+    <v-tabs background-color='#0e0e10' v-if="(media === 'tv') && (overall.seasons)" :style="tabs.style" :class="tabs.grid" :height="'40'"
+      :width="tabs.width" :color="'blue'">
+      <v-tab :active-class="tabActive" @click="changeSeason(index+1)" :style="tab.style" v-for="(season, index) in overall.seasons.length"
         :key="index">
         シーズン{{index + 1}}
       </v-tab>
@@ -59,7 +59,7 @@
 
     <v-row v-if="media === 'tv'">
       <v-col md=12 lg=12 xl=12 :class="list_part.position">
-        <v-list>
+        <v-list style="background-color: #0e0e10;">
           <v-list-item-group :active-class="list_part.active">
             <template v-for="(episode, index) in details.episodes">
               <v-list-item :key="index" @click="enterTvSpace(episode)">
@@ -71,10 +71,10 @@
                   </v-list-item-avatar>
                   <v-list-item-content :class='list_part.title.position'>
                     <v-list-item-title :style="details_title">
-                      #{{index + 1}} {{episode.name}}
+                      <span :style="captionStyle" class="mr-2">{{index + 1}}</span> {{episode.name}}
                       <!-- <v-btn icon class="ml-3" color="#000000" style="background-color: yellow;" x-small elevation=0>1</v-btn> -->
                     </v-list-item-title>
-                    <v-list-item-subtitle :style="overviewStyle" class="mt-1">
+                    <v-list-item-subtitle :style="overviewStyle" class="mt-2">
                       {{episode.overview}}
                     </v-list-item-subtitle>
                   </v-list-item-content>
@@ -82,6 +82,7 @@
                   </v-list-item-action>
                 </template>
               </v-list-item>
+            <v-divider :key="index" />
             </template>
           </v-list-item-group>
         </v-list>
@@ -90,7 +91,7 @@
 
     <v-row v-else>
       <v-col md=12 lg=12 xl=12 :class="list_part.position">
-        <v-list>
+        <v-list style="background-color: #0e0e10;">
           <v-list-item-group :active-class="list_part.active">
             <template>
               <v-list-item @click="enterMovieSpace(details)">
@@ -110,6 +111,7 @@
                   </v-list-item-action>
                 </template>
               </v-list-item>
+              <v-divider :key="index" />
             </template>
           </v-list-item-group>
         </v-list>
@@ -172,6 +174,13 @@
         media: 'tv',
         tv_space: 'TvSpace',
         movie_space: 'MvSpace',
+        tabActive: 'white--text',
+        captionStyle: {
+          fontFamily: 'Helvetica Neue, sans-serif',
+          fontSize: '15px',
+          fontWeight: 'bold',
+          color: '#6c757d'
+        },
         heading_part: {
           position: 'mt-7 ml-n7',
           avatar: {
@@ -184,7 +193,8 @@
             style: {
               fontWeight: 'bold',
               fontFamily: 'Helvetica Neue sans-serif',
-              fontSize: '16px'
+              fontSize: '16px',
+              color: '#ced4da'
             }
           },
           subTitle: {
@@ -211,7 +221,7 @@
               fontWeight: 'bold',
               fontFamily: 'Helvetica Neue sans-serif',
               fontSize: '12px',
-              color: '#000000',
+              color: '#ced4da',
             }
           },
           details: {
@@ -220,7 +230,7 @@
               fontFamily: 'Helvetica Neue, sans-serif',
               fontSize: '12px',
               fontWeight: 'bold',
-              color: '#2d3135',
+              color: '#ced4da',
               height: '90px',
               maxHeight: '90px',
               overflow: 'scroll',
@@ -267,20 +277,20 @@
             round: 'rounded-lg'
           },
           title: {
-            position: 'ml-1 mt-n5'
+            position: 'ml-1'
           }
         },
         details_title: {
           fontFamily: 'Helvetica Neue, sans-serif',
           fontSize: '14px',
           fontWeight: 'bold',
-          color: '#0a0a0a',
+          color: '#ffffff',
         },
         overviewStyle: {
           fontFamily: 'Helvetica Neue, sans-serif',
           fontSize: '11px',
           fontWeight: 'bold',
-          color: '#6c757d',
+          color: '#b3b3b3',
         },
         tabs: {
           chat: 'チャット',
@@ -288,15 +298,15 @@
           members: 'メンバー',
           news: 'ニュース',
           relationship: '関連作',
-          grid: 'mt-2 ml-n2',
+          grid: 'mt-6 ml-n2',
           height: '48px',
           width: '70px',
-          color: '#000000',
+          color: '#0e0e10',
           btnGrid: 'ml-1 rounded-xl',
           btnColor: '#e9ecef',
           btnElevation: 0,
           style: {
-            color: '#000000',
+            color: '#0e0e10',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '13px',
@@ -306,7 +316,8 @@
           style: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '11px'
+            fontSize: '11px',
+            color: '#6c757d'
           },
           btn: {
             style: {
@@ -471,6 +482,6 @@
 
 <style scoped>
   .theme--light.v-divider {
-    border-color: rgba(0, 1, 1, .06);
+    border-color: rgba(201, 204, 204, 0.06);
   }
 </style>

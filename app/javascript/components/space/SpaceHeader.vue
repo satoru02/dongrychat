@@ -97,19 +97,19 @@
           yellow: '#f7e733',
         },
         avatar: {
-          size: '100',
+          size: '110',
           height: '160',
           round: 'rounded-lg'
         },
         grid: {
           header: 'mt-7',
-          titlePart: 'mt-n2 ml-n13',
+          titlePart: 'mt-n2 ml-n15',
           title: 'ml-n4',
           chip: 'ml-n16 mt-1',
           btn: 'mt-1 ml-14',
-          subName: 'mt-n4 ml-n14',
-          label: 'ml-n14',
-          summary: 'mt-n3 ml-n14',
+          subName: 'mt-n4 ml-n16',
+          label: 'ml-n16',
+          summary: 'mt-n3 ml-n16',
           mdi: 'ml-5 mr-n16 mt-1'
         },
         mdi: {

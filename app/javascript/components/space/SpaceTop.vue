@@ -1,23 +1,23 @@
 <template>
   <v-container :class="space_top.position">
-    <v-sheet height="745" style="background-color: #151a21;" class="rounded-lg">
+    <v-sheet height="740" style="background-color: #151a21;" class="rounded-lg">
     <space-header :space_data="this.space_data" />
     <v-tabs
       v-if="space_data"
       background-color='#151a21'
       :class="tabs.grid"
-      :height="tabs.height"
-      :width="tabs.width"
+      :height="'40'"
+      grow
       >
-      <v-tab @click="changeMenu(menu.path)" :style="tab.style" v-for="(menu, index) in menus" :key="index">
+      <v-tab :active-class="tabActive" @click="changeMenu(menu.path)" :style="tab.style" v-for="(menu, index) in menus" :key="index">
         {{menu.name}}
-        <v-chip rounded :text-color="'#ffffff'" :style="tab.btn.style" :elevation="tabs.btnElevation" :class="tabs.btnGrid"
+        <v-chip rounded :text-color="'#aaaaaa'" :style="tab.btn.style" :elevation="tabs.btnElevation" :class="tabs.btnGrid"
           :color="tabs.btnColor" x-small>
           {{setCount(menu.name)}}
         </v-chip>
       </v-tab>
     </v-tabs>
-    <v-divider color="#343a40" />
+    <v-divider />
     <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" />
     </v-sheet>
   </v-container>
@@ -75,6 +75,7 @@
             path: 'members'
           },
         ],
+        tabActive: 'white--text',
         tabs: {
           grid: 'mt-2',
           height: '48px',
@@ -96,18 +97,18 @@
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '11px',
-            color: '#ffffff'
+            color: '#6c757d'
           },
           btn: {
             style: {
               fontWeight: 'bold',
               fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '10px'
+              fontSize: '10px',
             }
           }
         },
         space_top: {
-          position: 'mt-n11 ml-n9',
+          position: 'mt-n9',
         },
       }
     },
@@ -204,7 +205,7 @@
 
 <style scoped>
   .theme--light.v-divider {
-    border-color: rgba(0, 1, 1, .06);
+    border-color: rgba(201, 204, 204, 0.06);
   }
   .v-input__slot::before {
     border-style: none !important;

@@ -27,10 +27,10 @@
 
       <v-main :class="'mt-2'">
         <v-row>
-          <v-col md=3 lg=3 xl=3 class='ml-n6 mt-3' v-if="$vuetify.breakpoint.width > 600">
+          <v-col md=3 lg=2 xl=3 class='ml-n6 mt-3' v-if="$vuetify.breakpoint.width > 600">
             <side-bar v-if="this.checkAuthorization()" />
           </v-col>
-          <v-col sm=12 cols=12 md=6 :lg="this.checkRouter() ?  '7' : '9' " xl=6
+          <v-col sm=12 cols=12 md=6 :lg="this.checkRouter() ?  '7' : '10' " xl=6
             :class="$vuetify.breakpoint.width > 600 ? grid.deskCenter : grid.mobileCenter">
             <!-- <keep-alive> -->
             <router-view />
@@ -66,9 +66,9 @@
           app: 'overflow-hidden ml-6',
           // // main: 'mt-5 ml-n3',
           // sidebar: ' mr-2 mt-n5',
-          deskCenter: ' ml-n4',
+          deskCenter: ' ml-6',
           // mobileCenter: 'ml-n4',
-          rightPart: 'mt-3 ml-2'
+          rightPart: 'mt-3 ml-16'
         },
         textField: {
           placeholder: '検索',
@@ -100,27 +100,13 @@
       },
       checkRouter(){
         let spaceRoute = [
-          'subscribedTvSpace',
-          'subscribedTvSpaceMembers',
-          'subscribedTvSpaceReviews',
-          'subscribedTvSpaceNews',
-          'subscribedMvSpace',
-          'subscribedMvSpaceMembers',
-          'subscribedMvSpaceReviews',
-          'subscribedMvSpaceNews',
-          'MvSpace',
-          'TvSpace',
-          'MvSpaceMembers',
-          'MvSpaceReviews',
-          'MvSpaceNews',
-          'TvSpaceMembers',
-          'TvSpaceReviews',
-          'TvSpaceNews',
+          'Home',
+          'Chart'
          ]
         if (spaceRoute.includes(this.$route.name)) {
-          return false
-        } else {
           return true
+        } else {
+          return false
         }
       },
       setQuery(){

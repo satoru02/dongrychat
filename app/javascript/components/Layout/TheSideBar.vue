@@ -1,5 +1,5 @@
 <template>
-  <v-container class="ml-1 mt-3">
+  <v-container class="ml-n6 mt-3">
     <v-list nav :class="list.position" :style="list.style" color="#0e0e10">
       <v-list-item-group v-model="selectedItem">
         <v-list-item color="#ffffff" :class="list_item.position" v-for="(item, index) in menus" :key="index"
@@ -76,6 +76,11 @@
             path_name: 'Home'
           },
           {
+            text: 'Watch',
+            icon: 'mdi-television',
+            path_name: 'Search'
+          },
+          {
             text: 'Discover',
             icon: 'mdi-magnify',
             path_name: 'Search'
@@ -100,7 +105,7 @@
         bottom_blank_space: {
           position: 'mt-15 ml-n6 mb-13',
           style: {
-            height: '474px'
+            height: '476px'
           }
         },
         list: {

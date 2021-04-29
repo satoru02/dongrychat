@@ -55,7 +55,7 @@
         comment_part: {
           row: 'ml-1 mt-n3',
           col: ' mt-n3',
-          inner_col: 'ml-n6',
+          inner_col: 'ml-n10 mt-n1',
           countClass: 'mr-n6',
           text_row: 'mt-n6',
           avatar: {
@@ -81,7 +81,7 @@
               // fontFamily: 'monospace',
               fontFamily: 'Helvetica Neue, sans-serif',
               fontSize: '13px',
-              fontWeight: 'bold',
+              // fontWeight: 'bold',
             },
             tabs: {
               color: '#000000',
