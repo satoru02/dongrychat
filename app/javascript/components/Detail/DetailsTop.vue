@@ -35,7 +35,7 @@
           </v-col>
         </v-row>
         <v-row class="mt-n1">
-          　<v-col lg=2 :style="heading_part.personHeader.style" class="ml-1 mt-1">
+          　<v-col lg=2 :style="heading_part.personHeader.style" class="ml-n6 mt-1">
             　 ジャンル
             　</v-col>
           　<v-col lg=8 :style="heading_part.person.style" class="ml-n8">
@@ -111,7 +111,7 @@
                   </v-list-item-action>
                 </template>
               </v-list-item>
-              <v-divider :key="index" />
+              <!-- <v-divider :key="index" /> -->
             </template>
           </v-list-item-group>
         </v-list>
@@ -119,7 +119,7 @@
     </v-row>
 
     <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
-      <v-card color="#ffffff" height="250" class="rounded-lg">
+      <v-card color="#161b22" height="250" class="rounded-lg">
         <v-row>
           <v-col lg=3 />
           <v-col lg=7>
@@ -129,7 +129,7 @@
         <v-row>
           <v-col lg=1 />
           <v-col lg=10>
-            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="pink" elevation=0 v-text="'ログイン'" />
+            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="blue" outlined elevation=0 v-text="'ログイン'" />
           </v-col>
         </v-row>
         <v-row>
@@ -189,7 +189,7 @@
             height: '235',
           },
           title: {
-            position: 'mt-4 ml-4',
+            position: 'mt-4 ml-n2',
             style: {
               fontWeight: 'bold',
               fontFamily: 'Helvetica Neue sans-serif',
@@ -198,7 +198,7 @@
             }
           },
           subTitle: {
-            position: 'mt-2 ml-4',
+            position: 'mt-2 ml-n2',
             style: {
               fontWeight: 'bold',
               fontFamily: 'Helvetica Neue sans-serif',
@@ -216,7 +216,7 @@
             }
           },
           person: {
-            position: 'ml-5',
+            position: 'ml-n2',
             style: {
               fontWeight: 'bold',
               fontFamily: 'Helvetica Neue sans-serif',
@@ -225,7 +225,7 @@
             }
           },
           details: {
-            position: 'mt-n2 ml-5',
+            position: 'mt-n2 ml-n2',
             style: {
               fontFamily: 'Helvetica Neue, sans-serif',
               fontSize: '12px',
@@ -261,7 +261,7 @@
         },
         list_part: {
           position: 'ml-n2',
-          active: 'orange--text',
+          active: 'black--text',
           ranking: {
             position: 'mr-5',
             style: {
@@ -277,7 +277,7 @@
             round: 'rounded-lg'
           },
           title: {
-            position: 'ml-1'
+            position: ''
           }
         },
         details_title: {
@@ -329,7 +329,7 @@
         },
         dialog: {
           headerStyle: {
-            color: '#000000',
+            color: '#ced4da',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '17px',

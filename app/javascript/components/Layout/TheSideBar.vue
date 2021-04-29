@@ -26,7 +26,7 @@
     </v-row>
 
     <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
-      <v-card color="#ffffff" height="250" class="rounded-lg">
+      <v-card color="#161b22" height="250" class="rounded-lg">
         <v-row>
           <v-col lg=3 />
           <v-col lg=7>
@@ -36,7 +36,7 @@
         <v-row>
           <v-col lg=1 />
           <v-col lg=10>
-            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="pink" elevation=0 v-text="'ログイン'" />
+            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="blue" outlined elevation=0 v-text="'ログイン'" />
           </v-col>
         </v-row>
         <v-row>
@@ -152,7 +152,7 @@
         },
         dialog: {
           headerStyle: {
-            color: '#000000',
+            color: '#ced4da',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '17px',

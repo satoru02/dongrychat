@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="change" :width="width" v-if="(user) && (followed === true || followed === false)">
-    <v-card>
+    <v-card style="background-color: #242c37;">
       <v-card-text :style="style.Name">
         <v-row>
           <v-col md=2 lg=2 xl=2>
@@ -105,7 +105,7 @@
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '14px',
-            color: '#011627'
+            color: '#ced4da'
           }
         },
         color: {
@@ -124,7 +124,7 @@
         },
         followingText: 'フォロー中',
         followingStyle: {
-          backgroundColor: "#343a40",
+          backgroundColor: "#000000",
           fontWeight: "bold",
           fontSize: "6px",
           color: '#ffffff',
@@ -133,7 +133,7 @@
         },
         unfollowText: 'フォローする',
         unfollowStyle: {
-          backgroundColor: "#2d00f7",
+          backgroundColor: "blue",
           fontWeight: "bold",
           fontSize: "6px",
           color: '#ffffff',
@@ -147,7 +147,7 @@
           fontWeight: 'bold',
           fontFamily: 'Helvetica Neue, sans-serif',
           fontSize: '7px',
-          color: '#6c757d'
+          color: '#ced4da'
         }
       }
     },

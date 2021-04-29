@@ -16,11 +16,11 @@
           </v-col>
           <v-col lg=1>
             <v-btn v-if="(this.checkAuthorization()) && !$store.state.signedIn"
-             @click="goLogin()" outlined small color="orange" elevation=0 class="mt-9" :style="loginStyle">ログイン</v-btn>
+             @click="goLogin()" outlined small color="blue" elevation=0 class="mt-9" :style="loginStyle">ログイン</v-btn>
           </v-col>
           <v-col lg=1 class="ml-n3">
             <v-btn v-if="(this.checkAuthorization()) && !$store.state.signedIn"
-             @click="goSignup()" small color="orange" elevation=0 class="mt-9" :style="loginStyle">アカウント登録</v-btn>
+             @click="goSignup()" small color="blue" elevation=0 class="mt-9" :style="loginStyle">アカウント登録</v-btn>
           </v-col>
         </v-row>
       </v-app-bar>

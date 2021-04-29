@@ -4,8 +4,8 @@
       <v-col cols=12 sm=12 md=12 lg=12 xl=12 />
     </v-row>
      <v-row>
-      <v-col cols=1 sm=2 md=2 lg=4 xl=4 />
-      <v-col cols=10 sm=8 md=8 lg=5 xl=5>
+      <v-col cols=1 sm=2 md=2 lg=2 xl=4 />
+      <v-col cols=10 sm=8 md=8 lg=5 xl=5 class="ml-13">
         <v-card :color="card.color" :class="card.position" :elevation="card.elevation" outlined
           :height="card.height" :width="card.width">
           <v-row class="mt-4">
@@ -25,7 +25,7 @@
             <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
             <v-col cols=10 sm=10 md=10 lg=10 xl=10>
               <v-btn @click="resetPassword()" :color="card.btnColor"
-                :style="afterInput" dark elevation=0 block>
+                 dark elevation=0 block>
                 <div :style="card.textStyle" v-text="card.sendText" />
               </v-btn>
             </v-col>
@@ -88,17 +88,17 @@
         card: {
           headerText: 'パスワードの再設定',
           textFieldColor: '#ffffff',
-          btnColor: 'green',
+          btnColor: '#02c39a',
           emailText: 'Eメール',
           sendText: 'メールを送信する',
           policyText: 'プライバシーポリシーと利用規約について',
-          color: "#edf2f4",
+          color: "#161b22",
           height: '230px',
-          width: '550px',
+          width: '380px',
           position: 'rounded-lg',
-          elevation: 0,
+          elevation: 10,
           headerStyle: {
-            color: '#000000',
+            color: '#ced4da',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '23px',
