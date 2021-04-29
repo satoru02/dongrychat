@@ -1,13 +1,13 @@
 <template>
   <v-row :class="grid.header" v-if="space_data">
-    <v-col md=2 lg=2 xl=2>
+    <v-col md=2 lg=2 xl=2 class="ml-5 mt-1">
       <v-avatar :class="avatar.round" :size="avatar.size" :height='avatar.height' tile>
         <v-img :src="posterImg()" />
       </v-avatar>
     </v-col>
-    <v-col md=10 lg=10 xl=10>
+    <v-col md=10 lg=9 xl=10>
       <v-row :class='grid.titlePart'>
-        <v-col md=8 lg=9 xl=8 :class='grid.title'>
+        <v-col md=8 lg=10 xl=8 :class='grid.title'>
           <div :style="style.title">
             {{space_data.name}}
             <v-chip :color="colors.yellow" :style="style.chip" class="mt-n1 ml-2" small>
@@ -34,10 +34,10 @@
       </v-row>
       <v-row dense style="max-height: 35px;">
         <v-col md=12 lg=12 xl=12 :class="grid.label">
-          <base-label v-if="space_data.media === media.tv" :small="true" :style="style.label" :color="colors.black"
-            :text-color="colors.chip" :season="space_data.season" :episode="space_data.episode"
+          <base-label v-if="space_data.media === media.tv" :label="true" :small="true" :color="'blue'" :outlined="true"
+            :text-color="'#ffffff'" :season="space_data.season" :episode="space_data.episode"
             :title="space_data.episode_title" />
-          <v-chip v-if="space_data.media === media.mv" small outlined label :color="colors.black" :style="style.label"
+          <v-chip v-if="space_data.media === media.mv" small outlined label :color="colors.yellow" :style="style.label"
             v-text="'Movie'" />
         </v-col>
       </v-row>
@@ -46,10 +46,10 @@
           <div :style="style.summary" v-text="space_data.overview != null ? space_data.overview : dummyText" />
         </v-col>
       </v-row>
-      <v-row class="mt-n1">
+      <v-row class="mt-n4 ml-n16">
         <v-col md=12 lg=12 xl=12 :style="style.tag" small>
           <v-chip class="mr-2" v-for="(tag, index) in space_data.tag_list" :key="index" color="#293241"
-            :style="style.tag" small v-text="'#' + tag" />
+            :style="style.tag" x-small v-text="'#' + tag" />
         </v-col>
       </v-row>
     </v-col>
@@ -83,8 +83,8 @@
           for_subscription: `/api/v1/subscriptions`
         },
         btn: {
-          subscribedText: 'チャットに参加中',
-          unsubscribedText: 'チャットに参加',
+          subscribedText: 'スペースに参加中',
+          unsubscribedText: 'スペースに参加',
           elevation: 0
         },
         media: {
@@ -92,24 +92,24 @@
           mv: 'mv',
         },
         colors: {
-          black: '#000000',
+          black: '#ced4da',
           blue: 'blue',
           yellow: '#f7e733',
         },
         avatar: {
-          size: '135',
-          height: '205',
+          size: '110',
+          height: '160',
           round: 'rounded-lg'
         },
         grid: {
-          header: 'ml-1 mt-7',
-          titlePart: 'mt-n2 ml-n14',
-          title: 'ml-9',
-          chip: 'ml-n3 mt-1',
-          btn: '',
-          subName: 'mt-n3 ml-n2',
-          label: 'mt-1 ml-n2',
-          summary: 'mt-n2 ml-n2',
+          header: 'mt-7',
+          titlePart: 'mt-n2 ml-n15',
+          title: 'ml-n4',
+          chip: 'ml-n16 mt-1',
+          btn: 'mt-1 ml-14',
+          subName: 'mt-n4 ml-n16',
+          label: 'ml-n16',
+          summary: 'mt-n3 ml-n16',
           mdi: 'ml-5 mr-n16 mt-1'
         },
         mdi: {
@@ -117,10 +117,10 @@
         },
         style: {
           title: {
-            color: '#000000',
+            color: '#ced4da',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '16px',
+            fontSize: '15px',
             // lineHeight: '2.3'
             // letterSpacing: 'px'
             // width: '270px',
@@ -133,7 +133,7 @@
             fontSize: '11px',
           },
           unsubscribedBtn: {
-            color: '#000000',
+            color: '#ced4da',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '11px'
@@ -142,7 +142,7 @@
             color: '#6c757d',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '11px',
+            fontSize: '8px',
           },
           year: {
             color: '#000000',
@@ -151,19 +151,19 @@
             fontSize: '14px'
           },
           label: {
-            color: '#000000',
+            // color: '#000000',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '11px',
             // height: '25px',
           },
           summary: {
-            color: '#000000',
+            color: '#ced4da',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '12px',
-            height: '70px',
-            maxHeight: '70px',
+            fontSize: '11px',
+            height: '50px',
+            maxHeight: '50px',
             overflow: 'scroll',
             overflowY: 'scroll',
           },

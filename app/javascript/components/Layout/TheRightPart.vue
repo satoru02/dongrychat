@@ -52,17 +52,17 @@
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '14px',
-            color: '#011627'
+            color: '#ced4da'
           },
           online: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '20px',
-            color: '#011627'
+            color: '#ced4da'
           }
         },
         grid: {
-          rightPart: 'ml-2 mt-n2',
+          rightPart: 'ml-11 mt-4',
           onlinePart: 'mt-7',
           username: 'mt-2 ml-n1'
         },

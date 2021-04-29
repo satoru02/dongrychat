@@ -1,10 +1,65 @@
 <template>
   <v-container :class="grid.topPart">
     <h3 :class="grid.header" :style="style.headerPart" v-text="headerCaption" />
-    <v-list two-line>
+
+    <v-card @click="enterSpace(item)" v-for="(item, index) in items" :key="index" style="background-color: #161b22;"
+      elevation=0 class="rounded-lg mb-8" height="108px">
+      <v-row>
+        <v-col lg=1 class="ml-5">
+          <v-avatar :size="listAvatar.size" :height="listAvatar.height" tile :class="listAvatar.round">
+            <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
+          </v-avatar>
+        </v-col>
+        <v-col lg=10>
+          <v-row dense>
+            <v-col lg=1></v-col>
+            <v-col lg=10 :style="style.listItemTitle" class="ml-n5">
+              {{item.attributes.name}}
+              <base-label :small="true" :class="grid.label" :outlined="true" :label="true"
+                v-if="item.attributes.media === media.tv" :color="'blue'" :text-color="colors.chip"
+                :season="item.attributes.season" :episode="item.attributes.episode"
+                :title="item.attributes.episode_title" />
+              <v-chip :class="grid.label" v-if="item.attributes.media === media.movie" small outlined label :color="'yellow'" :style="style.movieTitle"
+            v-text="'Movie'" />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col lg=10 />
+            <v-col lg=1 class="ml-10">
+              <v-badge v-if="item.attributes.unconfirmed_comments > 0" dot green />
+            </v-col>
+            <v-col lg=1 class="mt-n3 ml-n10" :style="style.notifyText">
+              {{item.attributes.unconfirmed_comment}}
+            </v-col>
+          </v-row>
+          <v-row class="mt-n6">
+            <!-- <v-col lg=1 /> -->
+            <v-col lg=1>
+              <v-avatar :size="'28'" :height="'28'" tile :class="'ml-10 rounded-lg'">
+                <v-img :src="'https://cdn.vuetifyjs.com/images/john.jpg'" />
+              </v-avatar>
+            </v-col>
+            <v-col lg=10 :style="style.username" class="ml-6 mt-n1">
+              <v-row>
+                <v-col lg=12>
+                  satoru0021
+                </v-col>
+              </v-row>
+              <v-row class="mt-n6 ml-n6">
+                <v-col lg=12 v-if="item.attributes.latest_comment !== null" :style="style.listItemSubtitle"
+                  :class="grid.listItemSubtitle">
+                  {{item.attributes.latest_comment.content}}
+                </v-col>
+              </v-row>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+    </v-card>
+
+    <!-- <v-list two-line style="background-color: #0e0e10;">
       <v-list-item-group multiple :class="listPart.body">
-        <v-list-item class="mt-n2 mb-n2" v-for="(item, index) in items" :key="index" @click="enterSpace(item)">
-          <template v-slot:default="{}">
+        <v-list-item class="" v-for="(item, index) in items" :key="index" @click="enterSpace(item)">
             <v-list-item-avatar :size="listAvatar.size" :height="listAvatar.height" tile :class="listAvatar.round">
               <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
             </v-list-item-avatar>
@@ -26,10 +81,11 @@
                 <span :style="style.notifyText" v-text="item.attributes.unconfirmed_comments" />
               </v-avatar>
             </v-list-item-action>
-          </template>
         </v-list-item>
+                <v-divider />
       </v-list-item-group>
-    </v-list>
+    </v-list> -->
+
     <base-loader :handler="infiniteHandler" :text="loaderText" />
   </v-container>
 </template>
@@ -72,8 +128,8 @@
           body: 'list-body mt-n5',
         },
         listAvatar: {
-          size: 65,
-          height: 65,
+          size: 85,
+          height: 85,
           round: 'rounded-lg',
         },
         avatar: {
@@ -85,17 +141,17 @@
           size: 22
         },
         colors: {
-          chip: 'black',
+          chip: '#ffffff',
           notifyBtn: 'red'
         },
         grid: {
-          topPart: 'ml-n2 mt-3',
-          header: 'mb-5 ml-3',
-          listItemSubtitle: 'mt-1',
+          topPart: 'ml-16 mt-n6',
+          header: 'mb-8 ml-1',
+          listItemSubtitle: 'mt-1 ml-3',
           listItemAction: 'ml-n16 mt-7 mb-5',
           details: 'mt-n1',
           avatar: 'mr-1',
-          notifyBtn: 'mr-1 mt-n4',
+          notifyBtn: 'mr-1 mt-n4 ml-16',
           label: 'ml-2'
         },
         style: {
@@ -103,13 +159,13 @@
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '22px',
-            color: '#011627'
+            color: '#ced4da'
           },
           listItemTitle: {
             fontWeight: 'bold',
             fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
             fontSize: '14px',
-            color: '#000000'
+            color: '#ced4da'
           },
           details: {
             fontWeight: 'bold',
@@ -124,7 +180,14 @@
             fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
             fontSize: '11px',
             color: '#6c757d',
-            lineHeight: '16px',
+            lineHeight: 'px',
+            maxWidth: "950px",
+          },
+          username: {
+            fontWeight: 'bold',
+            fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
+            fontSize: '6px',
+            color: '#ffffff',
             maxWidth: "450px",
           },
           listTime: {
@@ -140,9 +203,14 @@
           },
           notifyText: {
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '11px',
+            fontSize: '13px',
             fontWeight: 'bold',
             color: '#ffffff'
+          },
+          movieTitle: {
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '10px',
+            fontWeight: 'bold',
           }
         }
       }
@@ -166,15 +234,15 @@
       this.createCable()
     },
     methods: {
-      track(){
+      track() {
         this.$gtag.time({
-          'name': 'load',
-          'value': 3549,
-          'event_category': 'JS Dependencies'
-        }),
-        this.$gtag.pageview({
-          page_path: '/home'
-        })
+            'name': 'load',
+            'value': 3549,
+            'event_category': 'JS Dependencies'
+          }),
+          this.$gtag.pageview({
+            page_path: '/home'
+          })
       },
       createCable() {
         this.$cable.subscribe({

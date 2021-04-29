@@ -1,20 +1,14 @@
 <template>
-  <v-container class="ml-1">
-    <!-- <v-row :class="header_part.position">
-      <v-col md=12 lg=12 xl=12 />
-    </v-row> -->
-    <!-- <v-row>
-      <v-col md=12 lg=12 xl=12 :class="top_blank_space.position" />
-    </v-row> -->
-    <v-list nav :class="list.position" :style="list.style">
+  <v-container class="ml-n6 mt-3">
+    <v-list nav :class="list.position" :style="list.style" color="#0e0e10">
       <v-list-item-group v-model="selectedItem">
-        <v-list-item :class="list_item.position" v-for="(item, index) in menus" :key="index"
+        <v-list-item color="#ffffff" :class="list_item.position" v-for="(item, index) in menus" :key="index"
           @click="changeRoute(item.path_name)">
           <v-list-item-icon>
             <v-icon :size="icon.size" v-text="item.icon" :color="icon.color" />
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title v-text="item.text" :style="list_item_title.style" />
+            <v-list-item-title v-text="item.text" :style="list_item_title.style" color="#ffffff" />
           </v-list-item-content>
         </v-list-item>
       </v-list-item-group>
@@ -32,7 +26,7 @@
     </v-row>
 
     <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
-      <v-card color="#ffffff" height="250" class="rounded-lg">
+      <v-card color="#161b22" height="250" class="rounded-lg">
         <v-row>
           <v-col lg=3 />
           <v-col lg=7>
@@ -42,7 +36,7 @@
         <v-row>
           <v-col lg=1 />
           <v-col lg=10>
-            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="pink" elevation=0 v-text="'ログイン'" />
+            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="blue" outlined elevation=0 v-text="'ログイン'" />
           </v-col>
         </v-row>
         <v-row>
@@ -82,6 +76,11 @@
             path_name: 'Home'
           },
           {
+            text: 'Watch',
+            icon: 'mdi-television',
+            path_name: 'Search'
+          },
+          {
             text: 'Discover',
             icon: 'mdi-magnify',
             path_name: 'Search'
@@ -98,7 +97,7 @@
           },
         ],
         header_part: {
-          position: 'mt-n8 ml-n4 mr-3',
+          position: 'mt-n5 ml-n4 mr-3',
         },
         top_blank_space: {
           position: 'mt-13'
@@ -106,7 +105,7 @@
         bottom_blank_space: {
           position: 'mt-15 ml-n6 mb-13',
           style: {
-            height: '466px'
+            height: '476px'
           }
         },
         list: {
@@ -121,21 +120,21 @@
         },
         icon: {
           size: 20,
-          color: '#000000'
+          color: '#c9d1d9'
         },
         list_item_title: {
           style: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '15px',
-            color: '#011627'
+            color: '#ced4da'
           }
         },
         btn: {
           position: 'mt-15 ml-1',
           elevation: 0,
           round: 'rounded-lg',
-          color: 'black',
+          color: 'blue',
           height: 35,
           style: {
             position: 'fixed'
@@ -153,7 +152,7 @@
         },
         dialog: {
           headerStyle: {
-            color: '#000000',
+            color: '#ced4da',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '17px',

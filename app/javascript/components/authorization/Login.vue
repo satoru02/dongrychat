@@ -4,8 +4,8 @@
       <v-col cols=12 sm=12 md=12 lg=12 xl=12 />
     </v-row>
     <v-row>
-      <v-col cols=1 sm=2 md=2 lg=3 xl=4 />
-      <v-col cols=10 sm=8 md=8 lg=5 xl=5>
+      <v-col cols=1 sm=2 md=2 lg=2 xl=4 />
+      <v-col cols=10 sm=8 md=8 lg=5 xl=5 class="ml-13">
         <v-card :color="loginCard.color" :class="loginCard.position" :elevation="loginCard.elevation" outlined
           :height="loginCard.height" :width="loginCard.width">
           <v-row class="mt-4">
@@ -75,7 +75,7 @@
           </v-row>
           <v-row>
             <v-col cols=6 sm=7 md=7 lg=7 xl=7 />
-            <v-col :class="$vuetify.breakpoint.width < 600 ? 'ml-2 mt-n3' : 'mt-n3 ml-n1'" cols=5 sm=5 md=5 lg=5 xl=5
+            <v-col :class="$vuetify.breakpoint.width < 600 ? 'ml-2 mt-n3' : 'mt-n4 ml-n1'" cols=5 sm=5 md=5 lg=5 xl=5
               @click="makeAccount()">
               <div :style="loginCard.signupStyle" v-text="loginCard.signupText" />
             </v-col>
@@ -131,7 +131,7 @@
           backgroundColor: "#134563"
         },
         afterInput: {
-          backgroundColor: "#000000"
+          backgroundColor: "#02c39a"
         },
         topPartStyle: {
           height: '105px'
@@ -150,20 +150,20 @@
           facebookColor: '#2962ff',
           facebookIcon: 'mdi-facebook',
           textFieldColor: '#ffffff',
-          loginBtnColor: 'green',
+          loginBtnColor: '#2e2e2e',
           emailText: 'Eメール',
           passwordText: 'パスワード',
           forgotPasswordText: 'パスワードを忘れた',
           loginText: 'ログイン',
           signupText: 'アカウント登録はこちら',
           policyText: 'プライバシーポリシーと利用規約について',
-          color: "#edf2f4",
+          color: "#161b22",
           height: '430px',
-          width: '550px',
+          width: '380px',
           position: 'rounded-lg',
-          elevation: 0,
+          elevation: 10,
           headerTitleStyle: {
-            color: '#000000',
+            color: '#ced4da',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '23px',
@@ -186,10 +186,10 @@
             fontSize: '11px',
           },
           signupStyle: {
-            color: 'green',
+            color: '#adb5bd',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '10px',
+            fontSize: '3px',
           },
           policyStyle: {
             color: '#6c757d',

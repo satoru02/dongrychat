@@ -5,8 +5,8 @@
       <v-col cols=12 sm=12 md=12 lg=12 xl=12 />
     </v-row>
     <v-row>
-      <v-col cols=1 sm=2 md=2 lg=3 xl=4 />
-      <v-col cols=10 sm=8 md=8 lg=5 xl=5>
+      <v-col cols=1 sm=2 md=2 lg=2 xl=4 />
+      <v-col cols=10 sm=8 md=8 lg=5 xl=5 class="ml-13">
         <v-card :color="signupCard.color" :class="signupCard.position" :elevation="signupCard.elevation" outlined
           :height="signupCard.height" :width="signupCard.width">
           <v-row class="mt-4">
@@ -77,7 +77,7 @@
               <v-btn v-if="inputComplete === false" disabled block elevation=0>
                 <div :style="signupCard.signupTextStyle" v-text="signupCard.signupText" />
               </v-btn>
-              <v-btn :color="signupCard.loginBtnColor" v-if="inputComplete === true" @click="signup()"
+              <v-btn v-if="inputComplete === true" @click="signup()"
                 :style="afterInput" dark elevation=0 block>
                 <div :style="signupCard.signupTextStyle" v-text="signupCard.signupText" />
               </v-btn>
@@ -157,7 +157,7 @@
           backgroundColor: "#134563"
         },
         afterInput: {
-          backgroundColor: "#000000"
+          backgroundColor: "#02c39a"
         },
         topPartStyle: {
           height: '35px'
@@ -184,13 +184,13 @@
           signupText: 'アカウント登録',
           loginText: 'ログインはこちら',
           policyText: 'プライバシーポリシーと利用規約について',
-          color: "#edf2f4",
+          color: "#161b22",
           height: '550px',
-          width: '550px',
+          width: '380px',
           position: 'rounded-lg',
-          elevation: 0,
+          elevation: 10,
           headerTitleStyle: {
-            color: '#000000',
+            color: '#ced4da',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '23px',
@@ -213,7 +213,7 @@
             fontSize: '11px',
           },
           loginStyle: {
-            color: 'green',
+            color: '#adb5bd',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '10px',

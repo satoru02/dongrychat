@@ -27,7 +27,7 @@ export default {
   data(){
     return {
       textStyle: {
-        color: '#000000',
+        color: '#ced4da',
         fontWeight: 'bold',
         fontFamily: 'Helvetica Neue, sans-serif',
         fontSize: '11px',

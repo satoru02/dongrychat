@@ -1,16 +1,25 @@
 <template>
   <v-container :class="space_top.position">
+    <v-sheet height="740" style="background-color: #151a21;" class="rounded-lg">
     <space-header :space_data="this.space_data" />
-    <v-tabs v-if="space_data" :style="tabs.style" :class="tabs.grid" :height="tabs.height" :width="tabs.width"
-      :color="tabs.color">
-      <v-tab @click="changeMenu(menu.path)" :style="tab.style" v-for="(menu, index) in menus" :key="index">
+    <v-tabs
+      v-if="space_data"
+      background-color='#151a21'
+      :class="tabs.grid"
+      :height="'40'"
+      grow
+      >
+      <v-tab :active-class="tabActive" @click="changeMenu(menu.path)" :style="tab.style" v-for="(menu, index) in menus" :key="index">
         {{menu.name}}
-        <v-btn rounded :style="tab.btn.style" :elevation="tabs.btnElevation" :class="tabs.btnGrid"
-          :color="tabs.btnColor" x-small v-text="setCount(menu.name)" />
+        <v-chip rounded :text-color="'#aaaaaa'" :style="tab.btn.style" :elevation="tabs.btnElevation" :class="tabs.btnGrid"
+          :color="tabs.btnColor" x-small>
+          {{setCount(menu.name)}}
+        </v-chip>
       </v-tab>
     </v-tabs>
     <v-divider />
     <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" />
+    </v-sheet>
   </v-container>
 </template>
 
@@ -58,45 +67,48 @@
             path: 'reviews'
           },
           {
+            name: 'シェアウォッチ',
+            path: 'news'
+          },
+          {
             name: 'ユーザー',
             path: 'members'
           },
-          {
-            name: 'ニュース',
-            path: 'news'
-          }
         ],
+        tabActive: 'white--text',
         tabs: {
           grid: 'mt-2',
           height: '48px',
           width: '70px',
-          color: '#000000',
-          btnGrid: 'ml-1 rounded-xl',
-          btnColor: '#e9ecef',
+          color: '#0e0e10',
+          btnGrid: 'ml-3 rounded-xl',
+          btnColor: '#2e2e2e',
           btnElevation: 0,
           style: {
-            color: '#000000',
-            fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '13px',
+            // color: '#0e0e10',
+            // fontWeight: 'bold',
+            // fontFamily: 'Helvetica Neue, sans-serif',
+            // fontSize: '13px',
+            backgroundColor: '#0e0e10'
           },
         },
         tab: {
           style: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '11px'
+            fontSize: '11px',
+            color: '#6c757d'
           },
           btn: {
             style: {
               fontWeight: 'bold',
               fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '10px'
+              fontSize: '10px',
             }
           }
         },
         space_top: {
-          position: 'mt-n10 ml-n2',
+          position: 'mt-n9',
         },
       }
     },
@@ -180,7 +192,7 @@
           return this.space_data.users.data.length
         } else if(menu_name === 'レビュー'){
           return 0
-        } else if(menu_name === 'ニュース') {
+        } else if(menu_name === 'シェアウォッチ') {
           return 0
         }
       },
@@ -193,7 +205,7 @@
 
 <style scoped>
   .theme--light.v-divider {
-    border-color: rgba(0, 1, 1, .06);
+    border-color: rgba(201, 204, 204, 0.06);
   }
   .v-input__slot::before {
     border-style: none !important;

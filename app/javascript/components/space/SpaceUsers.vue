@@ -1,9 +1,9 @@
 <template>
   <v-container>
-    <v-list two-line>
+    <v-list two-line style="background-color: #151a21;">
       <v-list-item @click="showDialog(user.attributes)" v-for="(user, index) in users" :key="index">
-        <v-list-item-avatar>
-          <v-img :src="user.attributes.avatar_url" />
+        <v-list-item-avatar :style="avatarStyle">
+          <img :src="user.attributes.avatar_url" />
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title :style="nameStyle">
@@ -68,7 +68,7 @@
           fontWeight: 'bold',
           fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
           fontSize: '14px',
-          color: '#000000'
+          color: '#ced4da'
         },
         aboutStyle: {
           fontWeight: 'bold',
@@ -83,6 +83,10 @@
           fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
           fontSize: '10px',
           color: '#ffffff'
+        },
+        avatarStyle: {
+            size: '49',
+            height: '40'
         }
       }
     },

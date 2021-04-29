@@ -1,6 +1,7 @@
 <template>
   <v-container>
-    <v-list-item-group v-for="(user, index) in relationships" :key="index" active-class="orange--text" multiple class="list-body">
+    <v-list-item-group style="background-color: #0e0e10;"
+     v-for="(user, index) in relationships" :key="index" multiple class="list-body">
         <v-list-item >
           <template v-slot:default="{}">
             <v-list-item-avatar size=58 height=58 tile class="rounded-lg">
@@ -40,22 +41,21 @@
     data() {
       return {
         followed: false,
-        followingText: 'following',
+        followingText: 'フォロー中',
         followingStyle: {
           backgroundColor: "#000000",
           fontWeight: "bold",
           fontSize: "10px",
-          width: 100,
-          height: 40,
-          elevation: 0
+          elevation: 0,
+          color: '#ced4da'
         },
-        unfollowText: 'follow',
+        unfollowText: 'フォローする',
         unfollowStyle: {
-          backgroundColor: "#2d00f7",
+          backgroundColor: "blue",
           fontWeight: "bold",
           fontSize: "10px",
-          width: 120,
-          height: 25
+          elevation: 0,
+          color: '#ced4da'
         },
       }
     },
@@ -99,7 +99,7 @@
     font-weight: bold;
     font-family: 'Helvetica Neue', sans-serif;
     font-size: 15px;
-    color: #000000;
+    color: #ced4da;
   }
 
   .head-title {

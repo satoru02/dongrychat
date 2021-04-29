@@ -1,5 +1,6 @@
 <template>
-  <v-chip :small="small" :x-small="x_small" outlined label v-text="displayDetails()" :color="color" :text-color="textColor" />
+  <v-chip :small="small" :style="textStyle"
+   :x-small="x_small" :outlined="outlined" :label="label" v-text="displayDetails()" :color="color" :text-color="textColor" />
 </template>
 <script>
   export default {
@@ -8,10 +9,24 @@
       return {
         seasonHeader: 'シーズン',
         episodeHeader: '第',
-        episodeFooter: '話'
+        episodeFooter: '話',
+        textStyle: {
+          fontWeight: 'bold',
+          fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
+          fontSize: '9px',
+          color: '#ffffff'
+        }
       }
     },
     props: {
+      label: {
+        type: Boolean,
+        default: false
+      },
+      outlined: {
+        type: Boolean,
+        default: false,
+      },
       color: {
         type: String,
         default: '#000000'

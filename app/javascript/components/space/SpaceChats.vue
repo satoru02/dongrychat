@@ -1,5 +1,6 @@
 <template>
   <v-container>
+  <!-- <v-container style="background-color: #212529;"> -->
     <div infinite-wrapper :style="wrapper.style">
       <space-comments :comments="comments" />
       <base-loader :handler="infiniteHandler" :wrapper="true" :text="loaderText" />
@@ -44,17 +45,18 @@
         canSubmit: false,
         wrapper: {
           style: {
-            maxHeight: '380px',
-            height: '380px',
-            overflow: 'scroll'
+            maxHeight: '445px',
+            height: '445px',
+            overflow: 'scroll',
           }
         },
         textField: {
-          grid: 'mt-1 ml-6 mr-6 rounded-lg',
-          color: '#e9ecef',
+          grid: 'mt-2 ml-6 mr-6 rounded-s',
+          color: '#495057',
           placeholder: '#メッセージを送信',
           style: {
-            position: 'static'
+            position: 'static',
+            // color: '#ffffff'
           }
         }
       }

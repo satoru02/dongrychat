@@ -1,45 +1,43 @@
 <template>
   <div>
-    <v-app :class="grid.app">
-      <v-app-bar flat fixed app color="#ffffff">
+    <v-app :class="grid.app" style="background-color: #0e0e10;">
+      <v-app-bar flat fixed app color="#0e0e10">
         <v-toolbar-title @click="goTop()" class="ml-16" :style="logoStyle">DongryChat</v-toolbar-title>
         <v-row>
-          <v-col lg=2 class="ml-10" />
+          <v-col lg=2 class="ml-6" />
           <v-col lg=6>
             <v-text-field
             @keypress="setQuery()" @keydown.enter="search(query)" v-model="query" height="10" v-if="this.checkAuthorization()"
              :prepend-inner-icon="'mdi-magnify'"
-              dense background-color="#e9ecef" solo flat width="250" :class="textField.round"
+              dense background-color="#242c37" solo flat width="250" :class="textField.round"
              />
           </v-col>
           <v-col lg=1>
           </v-col>
           <v-col lg=1>
             <v-btn v-if="(this.checkAuthorization()) && !$store.state.signedIn"
-             @click="goLogin()" outlined small color="orange" elevation=0 class="mt-9" :style="loginStyle">ログイン</v-btn>
+             @click="goLogin()" outlined small color="blue" elevation=0 class="mt-9" :style="loginStyle">ログイン</v-btn>
           </v-col>
           <v-col lg=1 class="ml-n3">
             <v-btn v-if="(this.checkAuthorization()) && !$store.state.signedIn"
-             @click="goSignup()" small color="orange" elevation=0 class="mt-9" :style="loginStyle">アカウント登録</v-btn>
+             @click="goSignup()" small color="blue" elevation=0 class="mt-9" :style="loginStyle">アカウント登録</v-btn>
           </v-col>
         </v-row>
       </v-app-bar>
 
       <v-main :class="'mt-2'">
         <v-row>
-          <v-col md=3 lg=2 xl=3 class='ml-n11 mt-3' v-if="$vuetify.breakpoint.width > 600">
+          <v-col md=3 lg=2 xl=3 class='ml-n6 mt-3' v-if="$vuetify.breakpoint.width > 600">
             <side-bar v-if="this.checkAuthorization()" />
           </v-col>
-          <!-- <v-divider vertical class="mr-n4 ml-16" v-if="this.checkAuthorization()" /> -->
-          <v-col sm=12 cols=12 md=6 lg=8 xl=6
+          <v-col sm=12 cols=12 md=6 :lg="this.checkRouter() ?  '7' : '10' " xl=6
             :class="$vuetify.breakpoint.width > 600 ? grid.deskCenter : grid.mobileCenter">
             <!-- <keep-alive> -->
             <router-view />
             <!-- </keep-alive> -->
           </v-col>
-          <!-- <v-divider vertical class="ml-n8 mr-5" v-if="this.checkAuthorization()" /> -->
           <v-col md=3 lg=2 xl=3 :class="grid.rightPart" v-if="$vuetify.breakpoint.width > 600">
-            <right-part v-if="this.checkAuthorization()" />
+            <right-part v-if="this.checkAuthorization() && this.checkRouter()" />
           </v-col>
         </v-row>
       </v-main>
@@ -65,12 +63,12 @@
         query: '',
         canSubmit: false,
         grid: {
-          app: 'overflow-hidden ml-3',
+          app: 'overflow-hidden ml-6',
           // // main: 'mt-5 ml-n3',
           // sidebar: ' mr-2 mt-n5',
-          deskCenter: ' ml-14',
+          deskCenter: ' ml-6',
           // mobileCenter: 'ml-n4',
-          rightPart: 'mt-3 ml-n9'
+          rightPart: 'mt-3 ml-16'
         },
         textField: {
           placeholder: '検索',
@@ -81,7 +79,7 @@
           fontWeight: 'bold',
           fontFamily: 'Helvetica Neue, sans-serif',
           fontSize: '25px',
-          color: '#000000'
+          color: '#ced4da'
         },
         loginStyle: {
           fontWeight: 'bold',
@@ -98,6 +96,17 @@
           return false
         } else {
           return true
+        }
+      },
+      checkRouter(){
+        let spaceRoute = [
+          'Home',
+          'Chart'
+         ]
+        if (spaceRoute.includes(this.$route.name)) {
+          return true
+        } else {
+          return false
         }
       },
       setQuery(){
