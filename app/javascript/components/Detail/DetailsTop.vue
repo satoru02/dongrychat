@@ -1,84 +1,73 @@
 <template>
-  <v-container class="mt-n12">
-    <v-row :class="heading_part.position">
-      <v-col md=4 lg=2 xl=4 :class="heading_part.avatar.position">
-        <v-avatar tile :size="heading_part.avatar.size" :height="heading_part.avatar.height" class="rounded-lg">
+  <v-container :class="'mt-n12'">
+    <v-row :class="'mt-7 ml-n7'">
+      <v-col cols=2 sm=2 md=2 lg=2 xl=2 :class="'ml-4 mt-3'">
+        <v-avatar :class="'rounded-lg'" :size="heading.avatar.size" :height="heading.avatar.height">
           <v-img v-if="details.poster_path" :src="base_tmdb_img_url + details.poster_path" />
         </v-avatar>
       </v-col>
-      <v-col md=7 lg=9 xl=7>
+      <v-col cols=9 sm=9 md=9 lg=9 xl=9>
         <v-row>
-          <v-col md=12 lg=9 xl=12 :class="heading_part.title.position" :style="heading_part.title.style">
+          <v-col cols=9 sm=9 md=9 lg=9 xl=9 :class="'mt-4 ml-n2'" :style="style.contentsTitle">
             <h3 v-if="media === 'tv'" v-text="this.$route.params.tv_name" />
             <h3 v-else v-text="this.$route.params.mv_name" />
           </v-col>
-          <v-col lg=2>
-          </v-col>
+          <v-col cols=2 sm=2 md=2 lg=2 xl=2 />
         </v-row>
-        <v-row dense class="mt-n6">
-          <v-col md=12 lg=12 xl=12 :style="heading_part.subTitle.style" :class="heading_part.subTitle.position">
+        <v-row dense :class="'mt-n6'">
+          <v-col cols=12 sm=12 md=12 lg=12 xl=12 :class="'mt-2 ml-n2'" :style="style.subContentsTitle">
             <h3 v-if="media === 'tv'" v-text="'@' + this.$route.params.tv_name" />
             <h3 v-else v-text="'@' + this.$route.params.mv_name" />
           </v-col>
         </v-row>
         <v-row>
-          <v-col md=10 lg=12 xl=10 :class="heading_part.details.position">
-            <div :style="heading_part.details.style" v-text="details.overview" />
+          <v-col cols=12 sm=12 md=12 lg=12 xl=12 :class="'mt-n2 ml-n2'">
+            <div :style="style.contentsDetails" v-text="details.overview" />
           </v-col>
         </v-row>
-        <v-row class="mt-3">
-          <v-col lg=2 :style="heading_part.personHeader.style" :class="heading_part.person.position">
-            クレジット
-          </v-col>
-          <v-col lg=3 :style="heading_part.person.style" class="ml-n10" v-for="(credit, index) in overall.created_by" :key="index">
-            {{credit.name}}
-          </v-col>
+        <v-row :class="'mt-3'">
+          <v-col cols=2 sm=2 md=2 lg=2 xl=2 :class="'ml-n2'" :style="style.credit" v-text="text.credit" />
+          <v-col cols=3 sm=3 md=3 lg=3 xl=3 :class="'ml-n10'" :style="style.person"
+            v-for="(credit, index) in overall.created_by" :key="index" v-text="credit.name" />
         </v-row>
-        <v-row class="mt-n1">
-          　<v-col lg=2 :style="heading_part.personHeader.style" class="ml-n6 mt-1">
-            　 ジャンル
-            　</v-col>
-          　<v-col lg=8 :style="heading_part.person.style" class="ml-n8">
-            　 <v-chip class="mr-4 mb-2" v-for="(genre, index) in this.genres" :key="index" color="#293241"
-              :style="heading_part.tag.style" small>
-              {{genre}}
-            </v-chip>
+        <v-row :class="'mt-n1 ml-1'">
+          <v-col cols=2 sm=2 md=2 lg=2 xl=2 :class="'ml-n6 mt-1'" :style="style.credit" v-text="text.genre" />
+          <v-col cols=8 sm=8 md=8 lg=8 xl=8 :class="'ml-n10'">
+            <v-chip :class="'mr-4 mb-2'" :style="style.tag" v-for="(genre, index) in this.genres" :key="index"
+              :color="style.chip" small v-text="genre" />
           </v-col>
         </v-row>
       </v-col>
     </v-row>
 
-    <v-tabs background-color='#121214' v-if="(media === 'tv') && (overall.seasons)" :style="tabs.style" :class="tabs.grid" :height="'40'"
-      :width="tabs.width" :color="'blue'">
-      <v-tab :active-class="tabActive" @click="changeSeason(index+1)" :style="tab.style" v-for="(season, index) in overall.seasons.length"
-        :key="index">
-        シーズン{{index + 1}}
+    <v-tabs v-if="(media === 'tv') && (overall.seasons)" :class="'mt-6 ml-n2'" :style="style.tabs"
+      background-color='#121214' :height="'40'" :width="tabs.width" :color="'blue'">
+      <v-tab :active-class="tabActive" :style="style.tab" @click="changeSeason(index+1)"
+        v-for="(season, index) in overall.seasons.length" :key="index">
+        {{text.season}} {{index + 1}}
       </v-tab>
     </v-tabs>
-    <v-divider class="ml-n2" v-if="media === 'tv'" />
+    <v-divider v-if="media === 'tv'" :class="'ml-n2'" />
 
     <v-row v-if="media === 'tv'">
-      <v-col md=12 lg=12 xl=12 :class="list_part.position">
-        <v-list style="background-color: #121214;">
+      <v-col cols=12 sm=12 md=12 lg=12 xl=12 :class="'ml-n2'">
+        <v-list :style="style.list">
           <v-list-item-group v-for="(episode, index) in details.episodes" :key="index" :active-class="list_part.active">
             <v-hover v-slot="{hover}">
-              <v-list-item :class="'rounded-lg'" @click="enterTvSpace(episode)" :style="hover ? 'background-color: #1a212d;' : 'background-color: #121214;'">
-                  <v-list-item-avatar :size="list_part.avatar.size" :height="list_part.avatar.height" tile
-                    :class="list_part.avatar.round">
-                    <v-img :src="base_tmdb_img_url + episode.still_path" />
-                  </v-list-item-avatar>
-                  <v-list-item-content :class='list_part.title.position'>
-                    <v-list-item-title :style="details_title">
-                      <span :style="captionStyle" class="mr-2">{{index + 1}}</span> {{episode.name}}
-                    </v-list-item-title>
-                    <v-list-item-subtitle :style="overviewStyle" class="mt-2">
-                      {{episode.overview}}
-                    </v-list-item-subtitle>
-                  </v-list-item-content>
-                  <v-list-item-action>
-                  </v-list-item-action>
+              <v-list-item :class="'rounded-lg'" :style="hover ? style.hoverList : style.list"
+                @click="enterTvSpace(episode)">
+                <v-list-item-avatar :class="list_part.avatar.round" :size="list_part.avatar.size"
+                  :height="list_part.avatar.height">
+                  <v-img :src="base_tmdb_img_url + episode.still_path" />
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title :style="style.episodeDetails">
+                    <span :class="'mr-2'" :style="style.caption">{{index + 1}}</span> {{episode.name}}
+                  </v-list-item-title>
+                  <v-list-item-subtitle :class="'mt-2'" :style="style.overview" v-text="episode.overview" />
+                </v-list-item-content>
               </v-list-item>
-              </v-hover>
+            </v-hover>
             <v-divider :key="index" />
           </v-list-item-group>
         </v-list>
@@ -86,24 +75,20 @@
     </v-row>
 
     <v-row v-else>
-      <v-col md=12 lg=12 xl=12 :class="list_part.position">
-        <v-list style="background-color: #121214;">
+      <v-col cols=12 sm=12 md=12 lg=12 xl=12 :class="'ml-n2'">
+        <v-list :style="style.list">
           <v-list-item-group :active-class="list_part.active">
             <v-hover v-slot="{hover}">
-              <v-list-item :class="'rounded-lg'" :style="hover ? 'background-color: #1a212d;' : 'background-color: #121214;'" @click="enterMovieSpace(details)">
-                  <!-- <div :class="list_part.ranking.position" :style="list_part.ranking.style" v-text="1" /> -->
-                  <v-list-item-avatar :size="list_part.avatar.size" :height="list_part.avatar.height" tile
-                    :class="list_part.avatar.round">
-                    <v-img :src="base_tmdb_img_url + details.backdrop_path" />
-                  </v-list-item-avatar>
-                  <v-list-item-content :class='list_part.title.position'>
-                    <v-list-item-title v-text="details.title" :style="details_title" />
-                    <v-list-item-subtitle :style="overviewStyle" class="mt-1">
-                      {{details.overview}}
-                    </v-list-item-subtitle>
-                  </v-list-item-content>
-                  <v-list-item-action>
-                  </v-list-item-action>
+              <v-list-item :class="'rounded-lg'" :style="hover ? style.hoverList : style.list"
+                @click="enterMovieSpace(details)">
+                <v-list-item-avatar :class="list_part.avatar.round" :size="list_part.avatar.size"
+                  :height="list_part.avatar.height">
+                  <v-img :src="base_tmdb_img_url + details.backdrop_path" />
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title :style="style.episodeDetails" v-text="details.title" />
+                  <v-list-item-subtitle :class="'mt-1'" :style="style.overview" v-text="details.overview" />
+                </v-list-item-content>
               </v-list-item>
             </v-hover>
           </v-list-item-group>
@@ -112,29 +97,30 @@
     </v-row>
 
     <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
-      <v-card color="#161b22" height="250" class="rounded-lg">
+      <v-card :class="'rounded-lg'" color="#161b22" height="250">
         <v-row>
-          <v-col lg=3 />
-          <v-col lg=7>
-            <div class="mt-9 ml-5" :style="dialog.headerStyle">Devioを使ってみる</div>
+          <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
+          <v-col cols=7 sm=7 md=7 lg=7 xl=7>
+            <div :class="'mt-9 ml-5'" :style="dialog.headerStyle" v-text="'Devioを使ってみる'"/>
           </v-col>
         </v-row>
         <v-row>
-          <v-col lg=1 />
-          <v-col lg=10>
-            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="blue" outlined elevation=0 v-text="'ログイン'" />
+          <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+          <v-col cols=10 sm=10 md=10 lg=10 xl=10>
+            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="blue" outlined elevation=0
+              v-text="'ログイン'" />
           </v-col>
         </v-row>
         <v-row>
-          <v-col lg=1 />
-          <v-col lg=10>
+          <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+          <v-col cols=10 sm=10 md=10 lg=10 xl=10>
             <v-btn block @click="goSignup()" :style="dialog.btnStyle" color="blue" elevation=0 v-text="'アカウント作成'" />
           </v-col>
         </v-row>
         <v-row>
           <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
           <v-col cols=8 sm=8 md=8 lg=9 xl=8>
-            <div class="ml-1" :style="dialog.policyStyle" v-text="'利用規約とプライバシーポリシーはこちら'" />
+            <div :class="'ml-1'" :style="dialog.policyStyle" v-text="'利用規約とプライバシーポリシーはこちら'" />
           </v-col>
         </v-row>
       </v-card>
@@ -147,18 +133,15 @@
   import {
     tmdbAxios
   } from '../../backend/axios';
-  import BaseContentSheet from '../Base/BaseContentSheet';
+
   export default {
     name: 'DetailsTop',
-    components: {
-      'base-content-sheet': BaseContentSheet
-    },
     data() {
       return {
-        loginDialog: false,
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
         tmdb_tv_overall: `https://api.themoviedb.org/3/tv/${this.$route.params.id}?api_key=${process.env.TMDB_API_KEY}&language=ja`,
         tmdb_mv: `https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=${process.env.TMDB_API_KEY}&language=ja`,
+        loginDialog: false,
         details: [],
         overall: [],
         genres: [],
@@ -168,157 +151,106 @@
         tv_space: 'TvSpace',
         movie_space: 'MvSpace',
         tabActive: 'white--text',
-        captionStyle: {
-          fontFamily: 'Helvetica Neue, sans-serif',
-          fontSize: '15px',
-          fontWeight: 'bold',
-          color: '#6c757d'
-        },
-        heading_part: {
-          position: 'mt-7 ml-n7',
+        heading: {
           avatar: {
-            position: 'ml-4 mt-3',
             size: '165',
             height: '235',
           },
-          title: {
-            position: 'mt-4 ml-n2',
-            style: {
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue sans-serif',
-              fontSize: '16px',
-              color: '#ced4da'
-            }
-          },
-          subTitle: {
-            position: 'mt-2 ml-n2',
-            style: {
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue sans-serif',
-              fontSize: '10px',
-              color: '#6c757d',
-            }
-          },
-          personHeader: {
-            position: 'ml-1',
-            style: {
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue sans-serif',
-              fontSize: '12px',
-              color: '#6c757d',
-            }
-          },
-          person: {
-            position: 'ml-n2',
-            style: {
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue sans-serif',
-              fontSize: '12px',
-              color: '#ced4da',
-            }
-          },
-          details: {
-            position: 'mt-n2 ml-n2',
-            style: {
-              fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '12px',
-              fontWeight: 'bold',
-              color: '#ced4da',
-              height: '90px',
-              maxHeight: '90px',
-              overflow: 'scroll',
-              overflowY: 'scroll',
-            }
-          },
-          btn: {
-            style: {
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue sans-serif',
-              fontSize: '12px',
-              color: '#000000',
-            }
-          },
-          tag: {
-            style: {
-              color: '#ffffff',
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '11px'
-            }
-          }
-        },
-        chip: {
-          color: '#000000',
-          fontWeight: 'bold',
-          fontFamily: 'Helvetica Neue, sans-serif',
         },
         list_part: {
-          position: 'ml-n2',
           active: 'black--text',
-          ranking: {
-            position: 'mr-5',
-            style: {
-              fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '12px',
-              fontWeight: 'bold',
-              color: '#0a0a0a',
-            }
-          },
           avatar: {
             size: '80',
             height: '80',
             round: 'rounded-lg'
           },
-          title: {
-            position: ''
-          }
-        },
-        details_title: {
-          fontFamily: 'Helvetica Neue, sans-serif',
-          fontSize: '14px',
-          fontWeight: 'bold',
-          color: '#ffffff',
-        },
-        overviewStyle: {
-          fontFamily: 'Helvetica Neue, sans-serif',
-          fontSize: '11px',
-          fontWeight: 'bold',
-          color: '#b3b3b3',
         },
         tabs: {
-          chat: 'チャット',
-          review: 'レビュー',
-          members: 'メンバー',
-          news: 'ニュース',
-          relationship: '関連作',
-          grid: 'mt-6 ml-n2',
-          height: '48px',
           width: '70px',
-          color: '#0e0e10',
-          btnGrid: 'ml-1 rounded-xl',
-          btnColor: '#e9ecef',
-          btnElevation: 0,
-          style: {
-            color: '#0e0e10',
+        },
+        text: {
+          credit: 'クレジット',
+          genre: 'ジャンル',
+          season: 'シーズン'
+        },
+        style: {
+          caption: {
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '15px',
+            fontWeight: 'bold',
+            color: '#6c757d'
+          },
+          contentsTitle: {
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue sans-serif',
+            fontSize: '16px',
+            color: '#ced4da'
+          },
+          subContentsTitle: {
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue sans-serif',
+            fontSize: '10px',
+            color: '#6c757d',
+          },
+          contentsDetails: {
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '12px',
+            fontWeight: 'bold',
+            color: '#ced4da',
+            height: '90px',
+            maxHeight: '90px',
+            overflow: 'scroll',
+            overflowY: 'scroll',
+          },
+          credit: {
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue sans-serif',
+            fontSize: '12px',
+            color: '#6c757d',
+          },
+          person: {
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue sans-serif',
+            fontSize: '12px',
+            color: '#ced4da',
+          },
+          tag: {
+            color: '#ffffff',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '13px',
+            fontSize: '11px'
           },
-        },
-        tab: {
-          style: {
+          tab: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '11px',
             color: '#6c757d'
           },
-          btn: {
-            style: {
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '10px'
-            }
-          }
+          tabs: {
+            color: '#0e0e10',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '13px',
+          },
+          episodeDetails: {
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            color: '#ffffff',
+          },
+          overview: {
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '11px',
+            fontWeight: 'bold',
+            color: '#b3b3b3',
+          },
+          list: {
+            backgroundColor: '#121214'
+          },
+          hoverList: {
+            backgroundColor: '#1a212d'
+          },
+          chip: '#293241'
         },
         dialog: {
           headerStyle: {
@@ -358,21 +290,21 @@
         this.getTvContents(this.$route.params.number)
       }
     },
-    beforeRouteEnter(to, from, next){
+    beforeRouteEnter(to, from, next) {
       next(vm => {
-        if(vm.media === 'tv'){
+        if (vm.media === 'tv') {
           document.title = `${vm.$route.params.tv_name} - Devio` || 'Devio';
         } else {
           document.title = `${vm.$route.params.mv_name} - Devio` || 'Devio';
         }
       })
     },
-    beforeRouteUpdate(to, from, next){
-        if(this.media === 'tv'){
-          document.title = `${this.$route.params.tv_name} - Devio` || 'Devio';
-        } else {
-          document.title = `${this.$route.params.mv_name} - Devio` || 'Devio';
-        }
+    beforeRouteUpdate(to, from, next) {
+      if (this.media === 'tv') {
+        document.title = `${this.$route.params.tv_name} - Devio` || 'Devio';
+      } else {
+        document.title = `${this.$route.params.mv_name} - Devio` || 'Devio';
+      }
       next()
     },
     methods: {
