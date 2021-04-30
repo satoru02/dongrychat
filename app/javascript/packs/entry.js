@@ -173,12 +173,24 @@ function guardMultiLogin(to, from, next){
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    // {
-    //   path: '/authorization',
-    //   name: 'Authorization',
-    //   component: Authorization,
-    //   beforeEnter: guardMultiLogin
-    // },
+    {
+      path: '/signup',
+      name: 'Signup',
+      component: Signup,
+      beforeEnter: guardMultiLogin,
+      meta: {
+        title: 'アカウント登録'
+      }
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login,
+      beforeEnter: guardMultiLogin,
+      meta: {
+        title: 'ログイン'
+      }
+    },
     {
       path: "/account_activations/:token",
       name: "AccountActivation",
@@ -186,40 +198,34 @@ const router = new VueRouter({
       beforeEnter: guardMultiLogin
     },
     {
+      path: '/forgot_password',
+      name: 'ForgotPassword',
+      component: ForgotPassword,
+      beforeEnter: guardMultiLogin,
+      meta: {
+        title: 'パスワードを忘れた'
+      }
+    },
+    {
       path: "/password_resets/:token",
       name: "ResetPassword",
       component: ResetPassword,
-      beforeEnter: guardMultiLogin
-    },
-    {
-      path: '/login',
-      name: 'Login',
-      component: Login,
-      beforeEnter: guardMultiLogin
+      beforeEnter: guardMultiLogin,
+      meta: {
+        title: 'パスワードの再設定'
+      }
     },
     {
       path: '/logout',
       name: 'Logout',
-      component: Logout
-    },
-    {
-      path: '/signup',
-      name: 'Signup',
-      component: Signup,
-      beforeEnter: guardMultiLogin
-    },
-    {
-      path: '/forgot_password',
-      name: 'ForgotPassword',
-      component: ForgotPassword,
-      beforeEnter: guardMultiLogin
+      component: Logout,
     },
     {
       path: '/',
       name: 'Chart',
       component: ChartTop,
       meta: {
-        title: '今週の注目チャット - Devio'
+        title: '今週の注目チャット'
       }
     },
     {
@@ -228,7 +234,7 @@ const router = new VueRouter({
       beforeEnter: guardMyroute,
       component: HomeTop,
       meta: {
-        title: 'ホーム - Devio'
+        title: 'ホーム'
       }
     },
     {
@@ -358,7 +364,7 @@ const router = new VueRouter({
       name: 'Followings',
       component: UserFollowings,
       meta: {
-        title: 'フォロー - Devio'
+        title: 'フォロー'
       }
     },
     {
@@ -366,7 +372,7 @@ const router = new VueRouter({
       name: 'Followers',
       component: UserFollowers,
       meta: {
-        title: 'フォロワー - Devio'
+        title: 'フォロワー '
       }
     },
     {
@@ -375,7 +381,7 @@ const router = new VueRouter({
       beforeEnter: guardMyroute,
       component: UserSettings,
       meta: {
-        title: 'アカウント設定 - Devio'
+        title: 'アカウント設定'
       }
     },
     {
@@ -383,7 +389,7 @@ const router = new VueRouter({
       name: 'Search',
       component: Search,
       meta: {
-        title: '気になる作品を探す - Devio'
+        title: '気になる作品を探す'
       }
     },
     {
@@ -391,7 +397,7 @@ const router = new VueRouter({
       name: 'trending',
       component: SearchList,
       meta: {
-        title: '注目の作品 - Devio'
+        title: '注目の作品'
       }
     },
     {
@@ -399,7 +405,7 @@ const router = new VueRouter({
       name: 'popular',
       component: SearchList,
       meta: {
-        title: '人気の作品 - Devio'
+        title: '人気の作品'
       }
     },
     {
@@ -407,7 +413,7 @@ const router = new VueRouter({
       name: 'topRated',
       component: SearchList,
       meta: {
-        title: '評価の高い作品 - Devio'
+        title: '評価の高い作品'
       }
     },
     {
@@ -415,7 +421,7 @@ const router = new VueRouter({
       name: 'upcoming',
       component: SearchList,
       meta: {
-        title: '公開・配信予定の作品 - Devio'
+        title: '公開・配信予定の作品'
       }
     },
     {
@@ -424,7 +430,7 @@ const router = new VueRouter({
       props: true,
       component: Results,
       meta: {
-        title: '検索結果 - Devio'
+        title: '検索結果'
       },
       children: [
         {
@@ -465,7 +471,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from ,next) => {
-  document.title = to.meta.title || 'Devio';
+  document.title = to.meta.title + ' - Devio' || 'Devio';
   next();
 });
 

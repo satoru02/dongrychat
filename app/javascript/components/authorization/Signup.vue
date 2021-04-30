@@ -9,13 +9,13 @@
       <v-col cols=10 sm=8 md=8 lg=5 xl=5 class="ml-13">
         <v-card :color="signupCard.color" :class="signupCard.position" :elevation="signupCard.elevation" outlined
           :height="signupCard.height" :width="signupCard.width">
-          <v-row class="mt-4">
+          <v-row class="mt-2">
             <v-col cols=3 sm=3 md=3 lg=4 xl=3 />
             <v-col cols=9 sm=9 md=9 lg=8 xl=9 :class="$vuetify.breakpoint.width < 600 ? 'ml-n5' : 'ml-n9'">
               <div :style="signupCard.headerTitleStyle" v-text="signupCard.headerText" />
             </v-col>
           </v-row>
-          <v-row class="mt-2">
+          <v-row class="mt-1">
             <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
             <v-col cols=10 sm=10 md=10 lg=10 xl=10>
               <v-btn @click="authenticate(signupCard.googleArg)" :color="signupCard.googleColor"
@@ -92,7 +92,7 @@
           </v-row>
           <v-row>
             <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
-            <v-col :class="$vuetify.breakpoint.width < 600 ? 'mt-n1 ml-n5' : 'ml-n1 mt-n2'" cols=8 sm=8 md=8 lg=8 xl=8>
+            <v-col :class="$vuetify.breakpoint.width < 600 ? 'mt-n1 ml-n5' : 'ml-n1 mt-n3'" cols=8 sm=8 md=8 lg=8 xl=8>
               <div :style="signupCard.policyStyle" v-text="signupCard.policyText" />
             </v-col>
             <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
@@ -160,7 +160,7 @@
           backgroundColor: "#02c39a"
         },
         topPartStyle: {
-          height: '35px'
+          height: '60px'
         },
         topPartMobile: {
           height: '135px'
@@ -185,7 +185,7 @@
           loginText: 'ログインはこちら',
           policyText: 'プライバシーポリシーと利用規約について',
           color: "#161b22",
-          height: '550px',
+          height: '530px',
           width: '380px',
           position: 'rounded-lg',
           elevation: 10,
@@ -217,6 +217,7 @@
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '10px',
+            cursor: 'pointer'
           },
           policyStyle: {
             color: '#6c757d',
