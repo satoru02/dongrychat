@@ -106,13 +106,13 @@
   import {
     simpleAxios
   } from '../../backend/axios';
-  const LOGIN_URL = '/api/v1/login'
-  const USER_INFO_URL = '/api/v1/users/me'
 
   export default {
     name: 'Login',
     data() {
       return {
+        login_url: '/api/v1/login',
+        user_info_url: '/api/v1/users/me',
         email: '',
         password: '',
         errors: [],
@@ -237,7 +237,7 @@
       signIn() {
         this.checkInputValidation()
         if (!this.errors.length) {
-          simpleAxios.post(LOGIN_URL, {
+          simpleAxios.post(this.login_url, {
               email: this.email,
               password: this.password
             })
@@ -251,7 +251,7 @@
           return
         }
         simpleAxios.defaults.headers.common['Authorization'] = `Bearer ${res.data.access_token}`
-        simpleAxios.get(USER_INFO_URL)
+        simpleAxios.get(this.user_info_url)
           .then(me_response => {
             this.$store.commit('setCurrentUser', {
               currentUser: me_response.data.data.attributes,

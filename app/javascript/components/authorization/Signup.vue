@@ -126,12 +126,12 @@
   import {
     simpleAxios
   } from '../../backend/axios';
-  const SIGNUP_URL = '/api/v1/signup';
 
   export default {
     name: 'Signup',
     data() {
       return {
+        signup_url: '/api/v1/signup',
         email: '',
         name: '',
         password: '',
@@ -273,7 +273,7 @@
       signup() {
         this.checkFormValidation()
         if (!this.errors.length) {
-          simpleAxios.post(SIGNUP_URL, {
+          simpleAxios.post(this.signup_url, {
               name: this.name,
               email: this.email,
               password: this.password,

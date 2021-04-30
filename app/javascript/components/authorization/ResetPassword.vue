@@ -71,12 +71,12 @@
   import {
     simpleAxios
   } from '../../backend/axios.js'
-  const PASSWORD_RESET_URL = '/api/v1/password_resets'
 
   export default {
     name: 'ResetPassword',
     data() {
       return {
+        password_reset_url: '/api/v1/password_resets',
         password: null,
         password_confirmation: null,
         errors: [],
@@ -146,7 +146,7 @@
       resetPassword() {
         this.checkPasswordValidation()
         if (!this.errors.length) {
-          simpleAxios.patch(PASSWORD_RESET_URL + `/` + `${this.$route.params.token}`, {
+          simpleAxios.patch(this.password_reset_url + `/` + `${this.$route.params.token}`, {
               password: this.password,
               password_confirmation: this.password_confirmation
             })

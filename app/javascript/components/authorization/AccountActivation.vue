@@ -5,13 +5,17 @@
   import {
     simpleAxios
   } from '../../backend/axios';
-  const ACTIVATION_URL = '/api/v1/account_activations';
-  const USER_INFO_URL = '/api/v1/users/me';
 
   export default {
     name: 'AccountActivation',
+    data(){
+      return {
+        activation_url: '/api/v1/account_activations',
+        user_info_url: '/api/v1/users/me'
+      }
+    },
     created() {
-      simpleAxios.post(ACTIVATION_URL, {
+      simpleAxios.post(this.activation_url, {
           token: this.$route.params.token
         })
         .then(response => this.activationSuccessful(response))
@@ -24,7 +28,7 @@
           return
         }
         simpleAxios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access_token}`
-        simpleAxios.get(USER_INFO_URL)
+        simpleAxios.get(this.user_info_url)
           .then(me_response => {
             this.$store.commit('setCurrentUser', {
               currentUser: me_response.data.data.attributes,
