@@ -116,7 +116,7 @@
         <v-row>
           <v-col lg=3 />
           <v-col lg=7>
-            <div class="mt-9" :style="dialog.headerStyle">DongryChatを使ってみる</div>
+            <div class="mt-9" :style="dialog.headerStyle">Devioを使ってみる</div>
           </v-col>
         </v-row>
         <v-row>
@@ -361,17 +361,17 @@
     beforeRouteEnter(to, from, next){
       next(vm => {
         if(vm.media === 'tv'){
-          document.title = `${vm.$route.params.tv_name} - DongryChat` || 'DongryChat';
+          document.title = `${vm.$route.params.tv_name} - Devio` || 'Devio';
         } else {
-          document.title = `${vm.$route.params.mv_name} - DongryChat` || 'DongryChat';
+          document.title = `${vm.$route.params.mv_name} - Devio` || 'Devio';
         }
       })
     },
     beforeRouteUpdate(to, from, next){
         if(this.media === 'tv'){
-          document.title = `${this.$route.params.tv_name} - DongryChat` || 'DongryChat';
+          document.title = `${this.$route.params.tv_name} - Devio` || 'Devio';
         } else {
-          document.title = `${this.$route.params.mv_name} - DongryChat` || 'DongryChat';
+          document.title = `${this.$route.params.mv_name} - Devio` || 'Devio';
         }
       next()
     },

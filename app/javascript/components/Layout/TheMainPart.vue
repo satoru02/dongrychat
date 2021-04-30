@@ -2,9 +2,9 @@
   <div>
     <v-app :class="grid.app" style="background-color: #0e0e10;">
       <v-app-bar flat fixed app color="#0e0e10">
-        <v-toolbar-title @click="goTop()" class="ml-16" :style="logoStyle">DongryChat</v-toolbar-title>
+        <v-toolbar-title @click="goTop()" class="ml-16" :style="logoStyle">Devio</v-toolbar-title>
         <v-row>
-          <v-col lg=2 class="ml-6" />
+          <v-col lg=2 class="ml-16" />
           <v-col lg=6>
             <v-text-field
             @keypress="setQuery()" @keydown.enter="search(query)" v-model="query" height="10" v-if="this.checkAuthorization()"

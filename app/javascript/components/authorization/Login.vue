@@ -9,8 +9,8 @@
         <v-card :color="loginCard.color" :class="loginCard.position" :elevation="loginCard.elevation" outlined
           :height="loginCard.height" :width="loginCard.width">
           <v-row class="mt-4">
-            <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
-            <v-col cols=9 sm=9 md=9 lg=9 xl=9 :class="$vuetify.breakpoint.width < 600 ? 'ml-n5' : 'ml-n10'">
+            <v-col cols=3 sm=3 md=3 lg=4 xl=3 />
+            <v-col cols=9 sm=9 md=9 lg=8 xl=9 :class="$vuetify.breakpoint.width < 600 ? 'ml-n5' : 'ml-n9'">
               <div :style="loginCard.headerTitleStyle" v-text="loginCard.headerText" />
             </v-col>
           </v-row>
@@ -140,7 +140,7 @@
           height: '135px'
         },
         loginCard: {
-          headerText: 'DongryChatにようこそ！',
+          headerText: 'Devioにようこそ！',
           googleArg: 'google',
           googleBtn: 'Googleでログイン',
           googleColor: '#000000',

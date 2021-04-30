@@ -219,7 +219,7 @@ const router = new VueRouter({
       name: 'Chart',
       component: ChartTop,
       meta: {
-        title: '今週の注目チャット - DongryChat'
+        title: '今週の注目チャット - Devio'
       }
     },
     {
@@ -228,7 +228,7 @@ const router = new VueRouter({
       beforeEnter: guardMyroute,
       component: HomeTop,
       meta: {
-        title: 'ホーム - DongryChat'
+        title: 'ホーム - Devio'
       }
     },
     {
@@ -358,7 +358,7 @@ const router = new VueRouter({
       name: 'Followings',
       component: UserFollowings,
       meta: {
-        title: 'フォロー - DongryChat'
+        title: 'フォロー - Devio'
       }
     },
     {
@@ -366,7 +366,7 @@ const router = new VueRouter({
       name: 'Followers',
       component: UserFollowers,
       meta: {
-        title: 'フォロワー - DongryChat'
+        title: 'フォロワー - Devio'
       }
     },
     {
@@ -375,7 +375,7 @@ const router = new VueRouter({
       beforeEnter: guardMyroute,
       component: UserSettings,
       meta: {
-        title: 'アカウント設定 - DongryChat'
+        title: 'アカウント設定 - Devio'
       }
     },
     {
@@ -383,7 +383,7 @@ const router = new VueRouter({
       name: 'Search',
       component: Search,
       meta: {
-        title: '気になる作品を探す - DongryChat'
+        title: '気になる作品を探す - Devio'
       }
     },
     {
@@ -391,7 +391,7 @@ const router = new VueRouter({
       name: 'trending',
       component: SearchList,
       meta: {
-        title: '注目の作品 - DongryChat'
+        title: '注目の作品 - Devio'
       }
     },
     {
@@ -399,7 +399,7 @@ const router = new VueRouter({
       name: 'popular',
       component: SearchList,
       meta: {
-        title: '人気の作品 - DongryChat'
+        title: '人気の作品 - Devio'
       }
     },
     {
@@ -407,7 +407,7 @@ const router = new VueRouter({
       name: 'topRated',
       component: SearchList,
       meta: {
-        title: '評価の高い作品 - DongryChat'
+        title: '評価の高い作品 - Devio'
       }
     },
     {
@@ -415,7 +415,7 @@ const router = new VueRouter({
       name: 'upcoming',
       component: SearchList,
       meta: {
-        title: '公開・配信予定の作品 - DongryChat'
+        title: '公開・配信予定の作品 - Devio'
       }
     },
     {
@@ -424,7 +424,7 @@ const router = new VueRouter({
       props: true,
       component: Results,
       meta: {
-        title: '検索結果 - DongryChat'
+        title: '検索結果 - Devio'
       },
       children: [
         {
@@ -465,7 +465,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from ,next) => {
-  document.title = to.meta.title || 'DongryChat';
+  document.title = to.meta.title || 'Devio';
   next();
 });
 

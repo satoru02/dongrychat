@@ -2,15 +2,17 @@
   <v-container class="ml-n6 mt-3">
     <v-list nav flat :class="list.position" :style="list.style" color="#0e0e10" dark>
       <v-list-item-group v-model="selectedItem" color="#4361ee">
-        <v-list-item :class="list_item.position" v-for="(item, index) in menus" :key="index"
+        <v-hover v-slot="{hover}" v-for="(item, index) in menus" :key="index">
+        <v-list-item :class="list_item.position" :elevation="hover ? 10: 0"
           @click="changeRoute(item.path_name)">
           <v-list-item-icon>
             <v-icon :size="icon.size" v-text="item.icon" />
           </v-list-item-icon>
-          <v-list-item-content :color="list_item_title.color">
+          <v-list-item-content>
             <v-list-item-title v-text="item.text" :style="list_item_title.style" />
           </v-list-item-content>
         </v-list-item>
+        </v-hover>
       </v-list-item-group>
     </v-list>
     <v-row :class="bottom_blank_space.position" :style="bottom_blank_space.style">
@@ -30,7 +32,7 @@
         <v-row>
           <v-col lg=3 />
           <v-col lg=7>
-            <div class="mt-9" :style="dialog.headerStyle">DongryChatを使ってみる</div>
+            <div class="mt-9 ml-5" :style="dialog.headerStyle">Devioを使ってみる</div>
           </v-col>
         </v-row>
         <v-row>
@@ -124,6 +126,12 @@
         },
         list_item_title: {
           color: '#ced4da',
+          hoverStyle: {
+            fontWeight: '#4361ee',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '15px',
+            color: 'blue'
+          },
           style: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
@@ -142,7 +150,7 @@
           }
         },
         btn_text: {
-          text: 'DongryChatについて 👈',
+          text: 'Devioについて 👈',
           style: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
