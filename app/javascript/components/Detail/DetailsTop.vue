@@ -116,7 +116,7 @@
         <v-row>
           <v-col lg=3 />
           <v-col lg=7>
-            <div class="mt-9" :style="dialog.headerStyle">Devioを使ってみる</div>
+            <div class="mt-9 ml-5" :style="dialog.headerStyle">Devioを使ってみる</div>
           </v-col>
         </v-row>
         <v-row>

@@ -1,21 +1,20 @@
 <template>
   <v-row :class="heading.position">
     <v-col md=12 lg=12 xl=12 class="ml-1 mt-n6">
-      <!-- <v-card :elevation="heading.elevation" :class="heading.round" :height="heading.height" outlined> -->
         <v-row :class="heading.innderHeading.position">
-          <v-col md=3 lg=3 xl=3>
+          <v-col md=3 lg=2 xl=3>
             <div :class="heading.innderHeading.titlePosition" :style="heading.innderHeading.titleStyle"
               v-text="title" />
           </v-col>
-          <v-col md=7 lg=7 xl=7 />
+          <v-col md=7 lg=8 xl=7 />
           <v-col md=2 lg=2 xl=2 :class="heading.innderSubHeading.titlePosition">
-            <div
+            <div class="ml-10"
              @click="movePath()"
               :style="heading.innderSubHeading.titleStyle" v-text="heading.innderSubHeading.title" />
           </v-col>
         </v-row>
-        <v-row>
-          <v-col md=2 lg=2 xl=2 v-for="(item, index) in items" :class="heading.img.position" :key="index">
+        <v-row class="ml-n8">
+          <v-col md=2 lg=1 xl=2 v-for="(item, index) in items" :class="heading.img.position" :key="index">
             <v-row>
               <v-col md=12 lg=12 xl=12>
                 <v-avatar @click="showContents(item)" :class="heading.img.avatar.position" :size="heading.img.avatar.size"
@@ -25,14 +24,9 @@
               </v-col>
             </v-row>
             <v-row>
-              <!-- <v-col md=12 lg=12 xl=12>
-                <div :style="heading.img.titleStyle" :class="heading.img.titlePosition"
-                  v-text="media === tv.type ? item.name : item.title" />
-              </v-col> -->
             </v-row>
           </v-col>
         </v-row>
-      <!-- </v-card> -->
     </v-col>
   </v-row>
 </template>
@@ -86,29 +80,29 @@
           innderHeading: {
             position: 'mt-3',
             title: '今週のおすすめ',
-            titlePosition: 'ml-10 mt-6',
+            titlePosition: 'ml-9 mt-6',
             titleStyle: {
               fontFamily: 'Helvetica Neue, sans-serif',
               fontSize: '15px',
               fontWeight: 'bold',
-              color: '#484b4d'
+              color: '#6c757d'
             }
           },
           innderSubHeading: {
             position: 'mt-n1',
             title: 'もっとみる',
-            titlePosition: 'ml-n1 mt-6',
+            titlePosition: 'mt-6',
             titleStyle: {
               fontFamily: 'Helvetica Neue, sans-serif',
               fontSize: '13px',
               fontWeight: 'bold',
-              color: '#484b4d'
+              color: '#6c757d'
             }
           },
           img: {
-            position: 'mt-n10 ml-4',
+            position: 'mt-n10 ml-14',
             avatar: {
-              position: 'ml-6 mt-7 rounded-lg',
+              position: 'mt-7 rounded-lg',
               size: '125',
               height: '195'
             },

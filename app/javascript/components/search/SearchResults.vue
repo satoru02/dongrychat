@@ -23,7 +23,6 @@
       :active-class="listActive" multiple>
       <v-hover v-slot="{hover}">
           <v-list-item
-          
           :class="'rounded-lg'"
            @click="showContents(item)"
             :style="hover ? 'background-color: #1a212d;' : 'background-color: #0e0e10;'">
@@ -34,16 +33,16 @@
                 <v-img v-else :src="base_tmdb_img_url + item.poster_path" />
               </v-list-item-avatar>
               <v-list-item-content v-if="items.type === keyword.arg">
-                <v-list-item-title v-if="item.media_type === tv.arg" :style="listItemStyle" v-text="item.name" />
-                <v-list-item-title v-if="item.media_type === movie.arg" :style="listItemStyle" v-text="item.title" />
+                <v-list-item-title class="mb-2" v-if="item.media_type === tv.arg" :style="listItemStyle" v-text="item.name" />
+                <v-list-item-title class="mb-2" v-if="item.media_type === movie.arg" :style="listItemStyle" v-text="item.title" />
                 <v-list-item-subtitle :style="subtitleStyle" v-text="item.overview" />
               </v-list-item-content>
               <v-list-item-content v-if="items.type === tv.arg">
-                <v-list-item-title :style="listItemStyle" v-text="item.name" />
+                <v-list-item-title class="mb-2" :style="listItemStyle" v-text="item.name" />
                 <v-list-item-subtitle :style="subtitleStyle" v-text="item.overview" />
               </v-list-item-content>
               <v-list-item-content v-if="items.type === movie.arg">
-                <v-list-item-title :style="listItemStyle" v-text="item.title" />
+                <v-list-item-title class="mb-2" :style="listItemStyle" v-text="item.title" />
                 <v-list-item-subtitle :style="subtitleStyle" v-text="item.overview" />
               </v-list-item-content>
               <v-list-item-content v-if="items.type === person.arg">

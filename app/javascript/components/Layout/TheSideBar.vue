@@ -32,7 +32,7 @@
         <v-row>
           <v-col lg=3 />
           <v-col lg=7>
-            <div class="mt-9 ml-5" :style="dialog.headerStyle">Devioを使ってみる</div>
+            <div class="mt-9 ml-6" :style="dialog.headerStyle">Devioを使ってみる</div>
           </v-col>
         </v-row>
         <v-row>
@@ -77,11 +77,11 @@
             icon: 'mdi-home-outline',
             path_name: 'Home'
           },
-          {
-            text: 'Watch',
-            icon: 'mdi-television',
-            path_name: 'Search'
-          },
+          // {
+          //   text: 'Watch',
+          //   icon: 'mdi-television',
+          //   path_name: 'Search'
+          // },
           {
             text: 'Discover',
             icon: 'mdi-magnify',
@@ -107,7 +107,7 @@
         bottom_blank_space: {
           position: 'mt-15 ml-n6 mb-13',
           style: {
-            height: '476px'
+            height: '450px'
           }
         },
         list: {
