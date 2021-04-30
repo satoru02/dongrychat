@@ -48,7 +48,7 @@
       </v-col>
     </v-row>
 
-    <v-tabs background-color='#0e0e10' v-if="(media === 'tv') && (overall.seasons)" :style="tabs.style" :class="tabs.grid" :height="'40'"
+    <v-tabs background-color='#121214' v-if="(media === 'tv') && (overall.seasons)" :style="tabs.style" :class="tabs.grid" :height="'40'"
       :width="tabs.width" :color="'blue'">
       <v-tab :active-class="tabActive" @click="changeSeason(index+1)" :style="tab.style" v-for="(season, index) in overall.seasons.length"
         :key="index">
@@ -59,10 +59,10 @@
 
     <v-row v-if="media === 'tv'">
       <v-col md=12 lg=12 xl=12 :class="list_part.position">
-        <v-list style="background-color: #0e0e10;">
+        <v-list style="background-color: #121214;">
           <v-list-item-group v-for="(episode, index) in details.episodes" :key="index" :active-class="list_part.active">
             <v-hover v-slot="{hover}">
-              <v-list-item :class="'rounded-lg'" @click="enterTvSpace(episode)" :style="hover ? 'background-color: #1a212d;' : 'background-color: #0e0e10;'">
+              <v-list-item :class="'rounded-lg'" @click="enterTvSpace(episode)" :style="hover ? 'background-color: #1a212d;' : 'background-color: #121214;'">
                   <v-list-item-avatar :size="list_part.avatar.size" :height="list_part.avatar.height" tile
                     :class="list_part.avatar.round">
                     <v-img :src="base_tmdb_img_url + episode.still_path" />
@@ -87,10 +87,10 @@
 
     <v-row v-else>
       <v-col md=12 lg=12 xl=12 :class="list_part.position">
-        <v-list style="background-color: #0e0e10;">
+        <v-list style="background-color: #121214;">
           <v-list-item-group :active-class="list_part.active">
             <v-hover v-slot="{hover}">
-              <v-list-item :class="'rounded-lg'" :style="hover ? 'background-color: #1a212d;' : 'background-color: #0e0e10;'" @click="enterMovieSpace(details)">
+              <v-list-item :class="'rounded-lg'" :style="hover ? 'background-color: #1a212d;' : 'background-color: #121214;'" @click="enterMovieSpace(details)">
                   <!-- <div :class="list_part.ranking.position" :style="list_part.ranking.style" v-text="1" /> -->
                   <v-list-item-avatar :size="list_part.avatar.size" :height="list_part.avatar.height" tile
                     :class="list_part.avatar.round">

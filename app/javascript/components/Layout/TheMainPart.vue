@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-app :class="grid.app" style="background-color: #0e0e10;">
-      <v-app-bar flat fixed app color="#0e0e10">
+    <v-app :class="grid.app" style="background-color: #121214;">
+      <v-app-bar flat fixed app color="#121214">
         <v-toolbar-title style="cursor: pointer" @click="goTop()" class="ml-16 mt-2" :style="logoStyle">Devio</v-toolbar-title>
         <v-row>
           <v-col lg=2 class="ml-16" />
@@ -147,5 +147,6 @@
     min-height: auto !important;
     display: flex !important;
     align-items: center !important;
+    /* color: #141922 */
   }
 </style>

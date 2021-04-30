@@ -1,10 +1,10 @@
 <template>
   <v-container :class="space_top.position">
-    <v-sheet height="740" style="background-color: #151a21;" class="rounded-lg">
+    <v-sheet height="740" style="background-color: #161b22;" class="rounded-lg">
     <space-header :space_data="this.space_data" />
     <v-tabs
       v-if="space_data"
-      background-color='#151a21'
+      background-color='#161b22'
       :class="tabs.grid"
       :height="'40'"
       grow

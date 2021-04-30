@@ -225,7 +225,7 @@ const router = new VueRouter({
       name: 'Chart',
       component: ChartTop,
       meta: {
-        title: '今週の注目チャット'
+        title: 'チャート'
       }
     },
     {

@@ -13,84 +13,56 @@
       </v-col>
     </v-row>
 
-  <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
-    <v-card hover @click="enterSpace(item.attributes)"
-      :style="hover ? 'background-color: #1a212d;' : 'background-color: #161b22;'" :elevation='hover ? 15: 0' :class="'rounded-lg mb-8'" height="100px">
-      <v-row>
-        <v-col lg=1 class="ml-6 mt-8" :style="style.ranking">
-          {{index + 1}}
-        </v-col>
-        <v-col lg=1 class="ml-n9">
-          <v-avatar :size="avatar.size" :height="avatar.height" tile :class="avatar.round">
-            <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
-          </v-avatar>
-        </v-col>
+    <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
+      <v-card @click="enterSpace(item.attributes)"
+        :style="hover ? card.hoverStyle : card.unhoverStyle"
+        :elevation='hover ? 10 : 0'
+        :class="'rounded-lg mb-8'" height="100px">
+        <v-row>
+          <v-col lg=1 class="ml-6 mt-8" :style="style.ranking">
+            {{index + 1}}
+          </v-col>
+          <v-col lg=1 class="ml-n9">
+            <v-avatar :size="avatar.size" :height="avatar.height" tile :class="avatar.round">
+              <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
+            </v-avatar>
+          </v-col>
 
-        <v-col lg=10>
-          <v-row dense>
-            <v-col lg=1></v-col>
-            <v-col lg=10 :style="style.listItemTitle" class="ml-n6 mt-1">
-              <base-label :x_small="true" class="ml-1 mr-3" :outlined="true" :label="true"
-                v-if="item.attributes.media === media.tv" :color="'blue'" :text-color="'#ced4da'"
-                :season="item.attributes.season" :episode="item.attributes.episode"
-                :title="item.attributes.episode_title" />
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col lg=10 />
-            <v-col lg=1 class="ml-10 mt-n1">
-              <v-badge dot green />
-            </v-col>
-            <v-col lg=1 class="mt-n4 ml-n10" :style="style.notifyText">
-              {{item.attributes.users.length}}
-            </v-col>
-          </v-row>
-          <v-row class=mt-n11>
-            <v-col lg=1 />
-            <v-col lg=10 :style="style.listItemTitle" class="ml-n5">
-              {{item.attributes.name}}
-            </v-col>
-          </v-row>
-          <v-row class="mt-n4 ml-6">
-          <v-col md=12 lg=12 xl=12 :style="style.tag" small>
-          <v-chip class="mr-2" v-for="(tag, index) in item.attributes.tag_list" :key="index" color="#293241"
-            :style="style.tag" x-small v-text="'#' + tag" />
-        </v-col>
-          </v-row>
-        </v-col>
-      </v-row>
-    </v-card>
-    </v-hover>
-    <!-- 
-    <v-list two-line>
-      <v-list-item-group :active-class="colors.listItemGroupActive" :class="grid.listItemGroup" multiple>
-        <template v-for="(item, index) in items">
-          <v-list-item class="mt-n2 mb-n2" :key="index" @click="enterSpace(item.attributes)">
-            <div :style="style.ranking" :class="grid.ranking">
-              <v-btn icon text-color="#6c757d" style="background-color: #dee2e6;" x-small elevation=0>{{index + 1}}
-              </v-btn>
-            </div>
-            <v-list-item-avatar :size="avatar.size" :height="avatar.height" tile :class="avatar.round">
-              <base-image :img="base_tmdb_img_url + item.attributes.image_path" :height="avatar.height" />
-            </v-list-item-avatar>
-            <v-list-item-content :class="grid.listItemContent">
-              <v-list-item-title :style="style.listItemTitle" v-text="item.attributes.name" />
-              <v-list-item-subtitle :style="style.listItemSubtitle" :class="grid.listItemSubtitle">
-                <base-label :x_small="true" v-if="item.attributes.media === media.tv" :color="colors.chip"
-                  :text-color="colors.chip" :season="item.attributes.season" :episode="item.attributes.episode"
+          <v-col lg=10>
+            <v-row dense>
+              <v-col lg=1 />
+              <v-col lg=10 :style="style.listItemTitle" class="ml-n6 mt-1">
+                <base-label :x_small="true" class="ml-1 mr-3" :outlined="true" :label="true"
+                  v-if="item.attributes.media === media.tv" :color="'blue'" :text-color="'#ced4da'"
+                  :season="item.attributes.season" :episode="item.attributes.episode"
                   :title="item.attributes.episode_title" />
-              </v-list-item-subtitle>
-            </v-list-item-content>
-            <v-list-item-action :class="grid.notifyBadge" v-if="item.attributes.users.length > 0">
-              <v-badge :class="grid.notifyDot" dot :color="colors.notifyBadge" />
-            </v-list-item-action>
-            <v-list-item-action v-if="item.attributes.users.length > 0">
-              <div class=ml-2 :style="style.listItemAction" v-text="item.attributes.users.length" />
-            </v-list-item-action>
-          </v-list-item>
-        </template>
-      </v-list-item-group>
-    </v-list> -->
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col lg=10 />
+              <v-col lg=1 class="ml-10 mt-n1">
+                <v-badge dot />
+              </v-col>
+              <v-col lg=1 class="mt-n4 ml-n10" :style="style.notifyText">
+                {{item.attributes.users.length}}
+              </v-col>
+            </v-row>
+            <v-row class='mt-n11'>
+              <v-col lg=1 />
+              <v-col lg=10 :style="style.listItemTitle" class="ml-n5">
+                {{item.attributes.name}}
+              </v-col>
+            </v-row>
+            <v-row class="mt-n4 ml-6">
+              <v-col md=12 lg=12 xl=12 :style="style.tag">
+                <v-chip class="mr-2" v-for="(tag, index) in item.attributes.tag_list" :key="index" color="#293241"
+                  :style="style.tag" x-small v-text="'#' + tag" />
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+      </v-card>
+    </v-hover>
 
     <base-loader :handler="infiniteHandler" :wrapper="true" :text="loaderText" />
 
@@ -105,7 +77,8 @@
         <v-row>
           <v-col lg=1 />
           <v-col lg=10>
-            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="blue" outlined elevation=0 v-text="'ログイン'" />
+            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="blue" outlined elevation=0
+              v-text="'ログイン'" />
           </v-col>
         </v-row>
         <v-row>
@@ -184,7 +157,7 @@
         },
         grid: {
           switch: 'mt-1 ml-n1',
-          header: 'mt-n5 ml-16',
+          header: 'mt-n8 ml-16',
           ranking: 'mr-6',
           icon: 'ml-2',
           listItemContent: 'ml-4',
@@ -194,15 +167,23 @@
           notifyBadge: 'mr-n6',
           notifyDot: 'mt-1'
         },
+        card: {
+          hoverStyle: {
+            backgroundColor: '#1a212d'
+          },
+          unhoverStyle: {
+            backgroundColor: '#161b22'
+          }
+        },
         style: {
           ranking: {
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '12px',
             fontWeight: 'bold',
-            color: '#8f8f8f',
+            color: '#6c757d',
           },
-                    tag: {
-            color: '#ffffff',
+          tag: {
+            color: '#ced4da',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '6px'
@@ -236,7 +217,7 @@
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '13px',
             fontWeight: 'bold',
-            color: '#ffffff'
+            color: '#ced4da'
           },
           inactive: {
             fontFamily: 'Helvetica Neue, sans-serif',
@@ -307,10 +288,9 @@
                 $state.complete();
               }
             })
-        }, 150);
+        }, 100);
       },
       enterSpace(item) {
-        // this.checkSignedIn()
         if (this.$store.state.signedIn) {
           if (item.media === this.media.tv) {
             this.$router.push({

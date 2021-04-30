@@ -1,6 +1,6 @@
 <template>
-  <v-container class="ml-n6 mt-3">
-    <v-list nav flat :class="list.position" :style="list.style" color="#0e0e10" dark>
+  <v-container class="ml-n6 mt-4">
+    <v-list nav flat :class="list.position" :style="list.style" color="#121214" dark>
       <v-list-item-group v-model="selectedItem" color="#4361ee">
         <v-hover v-slot="{hover}" v-for="(item, index) in menus" :key="index">
         <v-list-item :class="list_item.position" :elevation="hover ? 10: 0"
@@ -68,7 +68,7 @@
         selectedItem: '',
         query: '',
         menus: [{
-            text: 'Charts',
+            text: 'Chart',
             icon: 'mdi-access-point',
             path_name: 'Chart'
           },
