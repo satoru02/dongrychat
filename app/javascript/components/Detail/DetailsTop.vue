@@ -60,11 +60,9 @@
     <v-row v-if="media === 'tv'">
       <v-col md=12 lg=12 xl=12 :class="list_part.position">
         <v-list style="background-color: #0e0e10;">
-          <v-list-item-group :active-class="list_part.active">
-            <template v-for="(episode, index) in details.episodes">
-              <v-list-item :key="index" @click="enterTvSpace(episode)">
-                <template v-slot:default="{}">
-                  <!-- <div :class="list_part.ranking.position" :style="list_part.ranking.style" v-text="index + 1" /> -->
+          <v-list-item-group v-for="(episode, index) in details.episodes" :key="index" :active-class="list_part.active">
+            <v-hover v-slot="{hover}">
+              <v-list-item :class="'rounded-lg'" @click="enterTvSpace(episode)" :style="hover ? 'background-color: #1a212d;' : 'background-color: #0e0e10;'">
                   <v-list-item-avatar :size="list_part.avatar.size" :height="list_part.avatar.height" tile
                     :class="list_part.avatar.round">
                     <v-img :src="base_tmdb_img_url + episode.still_path" />
@@ -72,7 +70,6 @@
                   <v-list-item-content :class='list_part.title.position'>
                     <v-list-item-title :style="details_title">
                       <span :style="captionStyle" class="mr-2">{{index + 1}}</span> {{episode.name}}
-                      <!-- <v-btn icon class="ml-3" color="#000000" style="background-color: yellow;" x-small elevation=0>1</v-btn> -->
                     </v-list-item-title>
                     <v-list-item-subtitle :style="overviewStyle" class="mt-2">
                       {{episode.overview}}
@@ -80,10 +77,9 @@
                   </v-list-item-content>
                   <v-list-item-action>
                   </v-list-item-action>
-                </template>
               </v-list-item>
+              </v-hover>
             <v-divider :key="index" />
-            </template>
           </v-list-item-group>
         </v-list>
       </v-col>
@@ -93,9 +89,8 @@
       <v-col md=12 lg=12 xl=12 :class="list_part.position">
         <v-list style="background-color: #0e0e10;">
           <v-list-item-group :active-class="list_part.active">
-            <template>
-              <v-list-item @click="enterMovieSpace(details)">
-                <template v-slot:default="{}">
+            <v-hover v-slot="{hover}">
+              <v-list-item :class="'rounded-lg'" :style="hover ? 'background-color: #1a212d;' : 'background-color: #0e0e10;'" @click="enterMovieSpace(details)">
                   <!-- <div :class="list_part.ranking.position" :style="list_part.ranking.style" v-text="1" /> -->
                   <v-list-item-avatar :size="list_part.avatar.size" :height="list_part.avatar.height" tile
                     :class="list_part.avatar.round">
@@ -109,10 +104,8 @@
                   </v-list-item-content>
                   <v-list-item-action>
                   </v-list-item-action>
-                </template>
               </v-list-item>
-              <!-- <v-divider :key="index" /> -->
-            </template>
+            </v-hover>
           </v-list-item-group>
         </v-list>
       </v-col>

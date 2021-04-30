@@ -8,8 +8,13 @@
     <v-col md=10 lg=9 xl=10>
       <v-row :class='grid.titlePart'>
         <v-col md=8 lg=10 xl=8 :class='grid.title'>
-          <div :style="style.title">
-            {{space_data.name}}
+          <!-- <v-hover v-slot="{hover}"> -->
+          <div>
+          <v-hover v-slot="{hover}">
+            <span
+             @click="space_data.media === media.tv ? moveDetails(space_data.tmdb_comp_id, space_data.name, space_data.season, 'Tv') : moveDetails(space_data.tmdb_mv_id, space_data.name, null, 'Mv')"
+             style="cursor: pointer" :style="hover ? style.hoverTitle : style.title">{{space_data.name}}</span>
+          </v-hover>
             <v-chip :color="colors.yellow" :style="style.chip" class="mt-n1 ml-2" small>
               {{space_data.users.data.length}}
             </v-chip>
@@ -27,9 +32,10 @@
       </v-row>
       <v-row dense>
         <v-col md=12 lg=12 xl=12>
-          <div
-            @click="space_data.media === media.tv ? moveDetails(space_data.tmdb_comp_id, space_data.name, space_data.season, 'Tv') : moveDetails(space_data.tmdb_mv_id, space_data.name, null, 'Mv')"
+          <!-- <v-hover v-slot="{hover}"> -->
+        <div
             :class="grid.subName" :style="style.subName" v-text="'@' + space_data.name" />
+          <!-- </v-hover> -->
         </v-col>
       </v-row>
       <v-row dense style="max-height: 35px;">
@@ -121,10 +127,12 @@
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '15px',
-            // lineHeight: '2.3'
-            // letterSpacing: 'px'
-            // width: '270px',
-            // maxWidth: '300px',
+          },
+          hoverTitle: {
+            color: '#3a86ff',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '15px',
           },
           subscribedBtn: {
             color: '#ffffff',
@@ -137,6 +145,12 @@
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '11px'
+          },
+          hoverSubName: {
+            color: '#52b788',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '8px',
           },
           subName: {
             color: '#6c757d',

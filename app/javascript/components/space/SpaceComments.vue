@@ -3,7 +3,9 @@
     <v-row :class="comment_part.row" v-for="(comment, index) in comments" :key="index">
       <v-col md=1 lg=1 xl=1 :class="comment_part.col">
         <v-badge bordered bottom :color="comment.attributes.user.data.attributes.appearance === true ? 'green accent-4' : 'red'" dot offset-x="8" offset-y="8">
-          <v-avatar @click="showDialog(comment.attributes.user.data.attributes)" :class="comment_part.avatar.class" tile
+          <v-avatar @click="showDialog(comment.attributes.user.data.attributes)" :class="comment_part.avatar.class"
+          style="cursor: pointer"
+           tile
             :size='comment_part.avatar.size' :height='comment_part.avatar.height'>
             <img :src="comment.attributes.user.data.attributes.avatar_url">
           </v-avatar>

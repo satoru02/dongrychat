@@ -9,12 +9,13 @@
       </v-col>
       <v-col md=9 lg=9 xl=9 />
       <v-col md=1 lg=1 xl=1>
-        <v-switch v-model="switch1" inset :class="grid.switch" />
+        <v-switch dense color="blue" dark v-model="switch1" inset :class="grid.switch" />
       </v-col>
     </v-row>
 
-    <v-card @click="enterSpace(item.attributes)" v-for="(item, index) in items" :key="index"
-      style="background-color: #161b22;" elevation=0 class="rounded-lg mb-8" height="100px">
+  <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
+    <v-card hover @click="enterSpace(item.attributes)"
+      :style="hover ? 'background-color: #1a212d;' : 'background-color: #161b22;'" :elevation='hover ? 15: 0' :class="'rounded-lg mb-8'" height="100px">
       <v-row>
         <v-col lg=1 class="ml-6 mt-8" :style="style.ranking">
           {{index + 1}}
@@ -59,6 +60,7 @@
         </v-col>
       </v-row>
     </v-card>
+    </v-hover>
     <!-- 
     <v-list two-line>
       <v-list-item-group :active-class="colors.listItemGroupActive" :class="grid.listItemGroup" multiple>
@@ -227,7 +229,7 @@
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '18px',
             fontWeight: 'bold',
-            color: '#ced4da',
+            color: '#ffffff',
             letterSpacing: '3px'
           },
           notifyText: {
@@ -240,7 +242,7 @@
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '18px',
             fontWeight: 'bold',
-            color: '#8f8f8f',
+            color: '#6c757d',
             letterSpacing: '3px'
           }
         },

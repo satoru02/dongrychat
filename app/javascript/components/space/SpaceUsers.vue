@@ -1,7 +1,11 @@
 <template>
   <v-container>
     <v-list two-line style="background-color: #151a21;">
-      <v-list-item @click="showDialog(user.attributes)" v-for="(user, index) in users" :key="index">
+      <v-hover v-slot="{hover}" v-for="(user, index) in users" :key="index">
+      <v-list-item @click="showDialog(user.attributes)"
+       :class="'rounded-lg'"
+       style="cursor: pointer"
+       :style="hover ? 'background-color: #292d33;' : 'background-color: #151a21;'" :elevation='hover ? 15: 0'>
         <v-list-item-avatar :style="avatarStyle">
           <img :src="user.attributes.avatar_url" />
         </v-list-item-avatar>
@@ -21,6 +25,7 @@
           </v-btn> -->
         </v-list-item-icon>
       </v-list-item>
+      </v-hover>
     </v-list>
     <base-profile-dialog v-if="user" v-on:input="offDialog()" :passDialog="dialog" :user="user"
       :followed="this.spaceFollowed" />

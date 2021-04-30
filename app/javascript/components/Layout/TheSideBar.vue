@@ -1,14 +1,14 @@
 <template>
   <v-container class="ml-n6 mt-3">
-    <v-list nav :class="list.position" :style="list.style" color="#0e0e10">
-      <v-list-item-group v-model="selectedItem">
-        <v-list-item color="#ffffff" :class="list_item.position" v-for="(item, index) in menus" :key="index"
+    <v-list nav flat :class="list.position" :style="list.style" color="#0e0e10" dark>
+      <v-list-item-group v-model="selectedItem" color="#4361ee">
+        <v-list-item :class="list_item.position" v-for="(item, index) in menus" :key="index"
           @click="changeRoute(item.path_name)">
           <v-list-item-icon>
-            <v-icon :size="icon.size" v-text="item.icon" :color="icon.color" />
+            <v-icon :size="icon.size" v-text="item.icon" />
           </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.text" :style="list_item_title.style" color="#ffffff" />
+          <v-list-item-content :color="list_item_title.color">
+            <v-list-item-title v-text="item.text" :style="list_item_title.style" />
           </v-list-item-content>
         </v-list-item>
       </v-list-item-group>
@@ -120,14 +120,15 @@
         },
         icon: {
           size: 20,
-          color: '#c9d1d9'
+          color: '#3a0ca3'
         },
         list_item_title: {
+          color: '#ced4da',
           style: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '15px',
-            color: '#ced4da'
+            // color: '#ced4da'
           }
         },
         btn: {
