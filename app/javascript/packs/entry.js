@@ -19,10 +19,10 @@ import DetailTop from '../components/Detail/DetailsTop';
 import SpaceTop from '../components/Space/SpaceTop';
 import SpaceChats from '../components/Space/SpaceChats';
 import SpaceUsers from '../components/Space/SpaceUsers';
-import SpaceReviews from '../components/Space/SpaceReviews';
-import SpaceNews from '../components/Space/SpaceNews';
+// import SpaceReviews from '../components/Space/SpaceReviews';
+// import SpaceNews from '../components/Space/SpaceNews';
 import ChartTop from '../components/Chart/ChartTop';
-import Authorization from '../components/Authorization/AuthorizationTop';
+
 import AccountActivation from '../components/Authorization/AccountActivation';
 import ResetPassword from '../components/Authorization/ResetPassword';
 import Login from '../components/Authorization/Login';
@@ -173,12 +173,12 @@ function guardMultiLogin(to, from, next){
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    {
-      path: '/authorization',
-      name: 'Authorization',
-      component: Authorization,
-      beforeEnter: guardMultiLogin
-    },
+    // {
+    //   path: '/authorization',
+    //   name: 'Authorization',
+    //   component: Authorization,
+    //   beforeEnter: guardMultiLogin
+    // },
     {
       path: "/account_activations/:token",
       name: "AccountActivation",
@@ -260,12 +260,12 @@ const router = new VueRouter({
         {
           path: 'reviews',
           name: 'MvSpaceReviews',
-          component: SpaceReviews,
+          // component: SpaceReviews,
         },
         {
           path: 'news',
           name: 'MvSpaceNews',
-          component: SpaceNews,
+          // component: SpaceNews,
         }
       ]
     },
@@ -288,12 +288,12 @@ const router = new VueRouter({
         {
           path: 'reviews',
           name: 'subscribedMvSpaceReviews',
-          component: SpaceReviews,
+          // component: SpaceReviews,
         },
         {
           path: 'news',
           name: 'subscribedMvSpaceNews',
-          component: SpaceNews,
+          // component: SpaceNews,
         }
       ]
     },
@@ -316,12 +316,12 @@ const router = new VueRouter({
         {
           path: 'reviews',
           name: 'TvSpaceReviews',
-          component: SpaceReviews,
+          // component: SpaceReviews,
         },
         {
           path: 'news',
           name: 'TvSpaceNews',
-          component: SpaceNews,
+          // component: SpaceNews,
         }
       ]
     },
@@ -344,12 +344,12 @@ const router = new VueRouter({
         {
           path: 'reviews',
           name: 'subscribedTvSpaceReviews',
-          component: SpaceReviews,
+          // component: SpaceReviews,
         },
         {
           path: 'news',
           name: 'subscribedTvSpaceNews',
-          component: SpaceNews,
+          // component: SpaceNews,
         }
       ]
     },
