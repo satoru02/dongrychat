@@ -1,11 +1,11 @@
 <template>
   <v-container>
-    <v-list two-line style="background-color: #151a21;">
+    <v-list two-line style="background-color: #161b22;">
       <v-hover v-slot="{hover}" v-for="(user, index) in users" :key="index">
       <v-list-item @click="showDialog(user.attributes)"
        :class="'rounded-lg'"
        style="cursor: pointer"
-       :style="hover ? 'background-color: #292d33;' : 'background-color: #151a21;'" :elevation='hover ? 15: 0'>
+       :style="hover ? 'background-color: #292d33;' : 'background-color: #161b22;'" :elevation='hover ? 15 : 0'>
         <v-list-item-avatar :style="avatarStyle">
           <img :src="user.attributes.avatar_url" />
         </v-list-item-avatar>
