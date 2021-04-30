@@ -1,17 +1,15 @@
 <template>
   <v-container>
     <v-row>
-      <v-col md=1 lg=1 xl=1>
+      <v-col md=1 lg=1 xl=1 class="ml-10">
         <div :style="switch1 === false ? active : inactive" v-text="tv.header" />
-        <!-- <v-avatar :color="colors.blue" :size="5" v-if="switch1 === false" :class="tv.avatar" /> -->
       </v-col>
-      <v-col md=1 lg=1 xl=1>
+      <v-col md=1 lg=1 xl=1 class="ml-n8">
         <div :style="switch1 === true ? active : inactive" v-text="movie.header" />
-        <!-- <v-avatar :color="colors.blue" :size="5" v-if="switch1 === true" :class="movie.avatar" /> -->
       </v-col>
-      <v-col md=9 lg=9 xl=9 />
-      <v-col md=1 lg=1 xl=1>
-        <v-switch v-model="switch1" :color="colors.orange" inset :class="switchPosition" />
+      <v-col md=9 lg=8 xl=9 />
+      <v-col md=1 lg=1 xl=1 class="ml-n6">
+        <v-switch dense dark v-model="switch1" :color="colors.blue" inset :class="switchPosition" />
       </v-col>
     </v-row>
     <v-row>
@@ -25,12 +23,6 @@
             </v-avatar>
           </v-col>
         </v-row>
-        <!-- <v-row>
-          <v-col md=12 lg=12 xl=12>
-            <div :style="listItem.img.titleStyle" :class="listItem.img.titlePosition"
-              v-text="media === tv.type ? item.name : item.title" />
-          </v-col>
-        </v-row> -->
       </v-col>
     </v-row>
   </v-container>
@@ -90,15 +82,15 @@
         },
         active: {
           fontFamily: 'Helvetica Neue, sans-serif',
-          fontSize: '25px',
+          fontSize: '20px',
           fontWeight: 'bold',
-          color: '#000000'
+          color: '#FFFFFF'
         },
         inactive: {
           fontFamily: 'Helvetica Neue, sans-serif',
-          fontSize: '25px',
+          fontSize: '20px',
           fontWeight: 'bold',
-          color: '#8f8f8f'
+          color: '#6c757d'
         },
         listItem: {
           position: 'mt-n3',

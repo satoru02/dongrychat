@@ -158,12 +158,12 @@
     beforeRouteEnter(to, from, next){
       next(vm => {
         setTimeout(() =>{
-          document.title = `${vm.space_data.name} - DongryChat` || 'DongryChat';
+          document.title = `${vm.space_data.name} - Devio` || 'Devio';
         }, 1000)
       })
     },
     beforeRouteUpdate(to, from, next){
-      document.title = `${this.space_data.name} - DongryChat` || 'DongryChat';
+      document.title = `${this.space_data.name} - Devio` || 'Devio';
       next()
     },
     methods: {

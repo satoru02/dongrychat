@@ -2,22 +2,20 @@
   <v-container fluid>
     <v-row>
       <v-col md=1 lg=1 xl=1>
-        <div class="ml-6" :style="switch1 === false ? active : inactive" v-text="tv.header" />
-        <!-- <v-avatar :color="colors.blue" :size="5" v-if="switch1 === false" :class="tv.avatar" /> -->
+        <div class="ml-10" :style="switch1 === false ? active : inactive" v-text="tv.header" />
       </v-col>
       <v-col md=1 lg=1 xl=1>
         <div :style="switch1 === true ? active : inactive" v-text="movie.header" />
-        <!-- <v-avatar :color="colors.blue" :size="5" v-if="switch1 === true" :class="movie.avatar" /> -->
       </v-col>
       <v-col md=9 lg=9 xl=9 />
-      <v-col md=1 lg=1 xl=1>
-        <v-switch v-model="switch1" :color="colors.green" inset :class="switchPosition" />
+      <v-col md=1 lg=1 xl=1 class="ml-n7">
+        <v-switch dark dense v-model="switch1" :color="colors.blue" inset :class="switchPosition" />
       </v-col>
     </v-row>
 
     <trend-part class="mt-n10" v-if="this.switch1 === false" :items="weekly_trend_tvs" :media="media.tv" :title="weekly_title"
       :endpoint="endpoint.trending" />
-    <trend-part v-else :items="weekly_trend_mvs" :media="media.mv" :title="weekly_title"
+    <trend-part class="mt-n10" v-else :items="weekly_trend_mvs" :media="media.mv" :title="weekly_title"
       :endpoint="endpoint.trending" />
     <!-- <v-row :class="multiple_part.position">
       <v-col md=6 lg=6 xl=6 v-for="(n,index) in 2" :key="index">
@@ -114,15 +112,15 @@
         },
         active: {
           fontFamily: 'Helvetica Neue, sans-serif',
-          fontSize: '25px',
+          fontSize: '20px',
           fontWeight: 'bold',
-          color: '#000000'
+          color: '#ffffff'
         },
         inactive: {
           fontFamily: 'Helvetica Neue, sans-serif',
-          fontSize: '25px',
+          fontSize: '20px',
           fontWeight: 'bold',
-          color: '#8f8f8f'
+          color: '#6c757d'
         }
          // ------------------------------------------
       }
@@ -174,18 +172,18 @@
       getTvContents() {
         Promise.all([this.getTrendTvs(), this.getPopularTvs(), this.getTopratedTvs()])
           .then((res) => {
-            this.weekly_trend_tvs = res[0].data.results.slice(0, 5)
-            this.todays_popular_tvs = res[1].data.results.slice(0, 5)
-            this.top_rated_tvs = res[2].data.results.slice(0, 5)
+            this.weekly_trend_tvs = res[0].data.results.slice(0, 7)
+            this.todays_popular_tvs = res[1].data.results.slice(0, 7)
+            this.top_rated_tvs = res[2].data.results.slice(0, 7)
           })
       },
       getMvContents() {
         Promise.all([this.getTrendMvs(), this.getPopularMvs(), this.getTopratedMvs(), this.getUpcomingMvs()])
           .then((res) => {
-            this.weekly_trend_mvs = res[0].data.results.slice(0, 5)
-            this.todays_popular_mvs = res[1].data.results.slice(0, 5)
-            this.top_rated_mvs = res[2].data.results.slice(0, 5)
-            this.upcoming_mvs = res[3].data.results.slice(0, 5)
+            this.weekly_trend_mvs = res[0].data.results.slice(0, 7)
+            this.todays_popular_mvs = res[1].data.results.slice(0, 7)
+            this.top_rated_mvs = res[2].data.results.slice(0, 7)
+            this.upcoming_mvs = res[3].data.results.slice(0, 7)
           })
       },
     }
