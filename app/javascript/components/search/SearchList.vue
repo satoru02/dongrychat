@@ -18,7 +18,8 @@
       <v-col md=2 lg=2 xl=2 v-for="(item, index) in items" :class="listItem.img.position" :key="index">
         <v-row class=mb-2>
           <v-col md=12 lg=12 xl=12>
-            <v-avatar @click="showContents(item)" :class="listItem.img.avatar.position" :size="listItem.img.avatar.size"
+            <v-avatar
+             @click="showContents(item)" :class="listItem.img.avatar.position" :size="listItem.img.avatar.size"
               :width="listItem.img.avatar.width" :height="listItem.img.avatar.height" tile>
               <v-img :src="base_tmdb_img_url + item.poster_path" />
             </v-avatar>

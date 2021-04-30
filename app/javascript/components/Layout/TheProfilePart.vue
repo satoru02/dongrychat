@@ -1,7 +1,9 @@
 <template>
-  <v-card @click="showDialog()" :elevation="profilePart.elavation" outlined :width="profilePart.width"
+<!-- <v-hover v-slot="{hover}"> -->
+  <v-card
+   @click="showDialog()" :elevation="profilePart.elavation" :width="profilePart.width"
     :height="profilePart.height" :style="style.profilePart" :class="profilePart.round">
-    <v-row>
+    <v-row class="mt-n3">
       <v-col md=2 lg=2 xl=2>
         <v-avatar :class="grid.profile" :size="profile.size" :height="profile.height" :style="profile.style">
           <base-avatar :img="'https://cdn.vuetifyjs.com/images/john.jpg'" />
@@ -29,6 +31,7 @@
     </v-row>
     <base-profile-dialog v-on:input="offDialog()" :passDialog="dialog" :user="this.$store.state.currentUser" />
   </v-card>
+  <!-- </v-hover> -->
 </template>
 
 <script>
@@ -66,9 +69,9 @@
         },
         grid: {
           profilePart: 'mt-n3',
-          profile: 'ml-3 mt-6',
+          profile: 'ml-3 mt-1',
           profileText: 'mt-1',
-          profileName: 'ml-5 mt-2',
+          profileName: 'ml-5 mt-n1',
           relationships: 'ml-5 mt-2',
           followers: 'ml-n5',
         },

@@ -20,9 +20,9 @@
               </v-col>
             </v-row>
             <v-row :class="grid.relationship" :style="realtionshipsStyle">
-              <v-col md=6 lg=6 xl=6 @click="movePath(user.id, followingsArg)"
+              <v-col style="cursor: pointer" md=6 lg=6 xl=6 @click="movePath(user.id, followingsArg)"
                 v-text="followHeader + blank + user.following.length" />
-              <v-col md=6 lg=6 xl=6 @click="movePath(user.id, followersArg)" :class='grid.Relationship'
+              <v-col style="cursor: pointer" md=6 lg=6 xl=6 @click="movePath(user.id, followersArg)" :class='grid.Relationship'
                 v-text="followerHeader + blank + user.follower.length" />
             </v-row>
             <v-row :class="grid.about">

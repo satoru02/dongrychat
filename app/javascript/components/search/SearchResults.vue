@@ -18,10 +18,16 @@
       </v-col>
     </v-row>
     <v-list two-line style="background-color: #0e0e10;">
-      <v-list-item-group :active-class="listActive" multiple>
-        <template v-for="(item, index) in items.contents">
-          <v-list-item :key="index" @click="showContents(item)">
-            <template v-slot:default="{}">
+      <v-list-item-group v-for="(item, index) in items.contents"
+      :key="index"
+      :active-class="listActive" multiple>
+      <v-hover v-slot="{hover}">
+          <v-list-item
+          
+          :class="'rounded-lg'"
+           @click="showContents(item)"
+            :style="hover ? 'background-color: #1a212d;' : 'background-color: #0e0e10;'">
+
               <v-list-item-avatar :size='avatar.size' :width='avatar.width' :height='avatar.height'
                 :class="avatar.rounded">
                 <v-img v-if="items.type === person.arg" :src="base_tmdb_img_url + item.profile_path" />
@@ -43,9 +49,8 @@
               <v-list-item-content v-if="items.type === person.arg">
                 <v-list-item-title :style="listItemStyle" v-text="item.name" />
               </v-list-item-content>
-            </template>
           </v-list-item>
-        </template>
+            </v-hover>
       </v-list-item-group>
     </v-list>
   </v-container>

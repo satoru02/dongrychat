@@ -2,8 +2,10 @@
   <v-container :class="grid.topPart">
     <h3 :class="grid.header" :style="style.headerPart" v-text="headerCaption" />
 
-    <v-card @click="enterSpace(item)" v-for="(item, index) in items" :key="index" style="background-color: #161b22;"
-      elevation=0 class="rounded-lg mb-8" height="108px">
+  <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
+    <v-card @click="enterSpace(item)"
+    :style="hover ? 'background-color: #1a212d;' : 'background-color: #161b22;'" :elevation='hover ? 15: 0'
+      class="rounded-lg mb-8" height="108px">
       <v-row>
         <v-col lg=1 class="ml-5">
           <v-avatar :size="listAvatar.size" :height="listAvatar.height" tile :class="listAvatar.round">
@@ -56,6 +58,7 @@
         </v-col>
       </v-row>
     </v-card>
+    </v-hover>
 
     <!-- <v-list two-line style="background-color: #0e0e10;">
       <v-list-item-group multiple :class="listPart.body">
