@@ -1,6 +1,6 @@
 <template>
 <!-- <v-hover v-slot="{hover}"> -->
-  <v-card
+  <v-sheet
    @click="showDialog()" :elevation="profilePart.elavation" :width="profilePart.width"
     :height="profilePart.height" :style="style.profilePart" :class="profilePart.round">
     <v-row class="mt-n3">
@@ -30,7 +30,7 @@
       </v-col>
     </v-row>
     <base-profile-dialog v-on:input="offDialog()" :passDialog="dialog" :user="this.$store.state.currentUser" />
-  </v-card>
+  </v-sheet>
   <!-- </v-hover> -->
 </template>
 
@@ -53,6 +53,7 @@
         style: {
           profilePart: {
             backgroundColor: '#161b22',
+            cursor: 'pointer'
           },
           name: {
             fontWeight: 'bold',
@@ -77,8 +78,8 @@
         },
         profilePart: {
           elevation: 0,
-          width: 350,
-          height: 100,
+          width: 200,
+          height: 111,
           round: 'rounded-lg',
         },
         profile: {

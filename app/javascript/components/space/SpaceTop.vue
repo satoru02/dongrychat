@@ -1,30 +1,25 @@
 <template>
-  <v-container :class="space_top.position">
-    <v-sheet height="740" style="background-color: #151a21;" class="rounded-lg">
-    <space-header :space_data="this.space_data" />
-    <v-tabs
-      v-if="space_data"
-      background-color='#151a21'
-      :class="tabs.grid"
-      :height="'40'"
-      grow
-      >
-      <v-tab :active-class="tabActive" @click="changeMenu(menu.path)" :style="tab.style" v-for="(menu, index) in menus" :key="index">
-        {{menu.name}}
-        <v-chip rounded :text-color="'#aaaaaa'" :style="tab.btn.style" :elevation="tabs.btnElevation" :class="tabs.btnGrid"
-          :color="tabs.btnColor" x-small>
-          {{setCount(menu.name)}}
-        </v-chip>
-      </v-tab>
-    </v-tabs>
-    <v-divider />
-    <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" />
+  <v-container class="mt-n9">
+    <v-sheet class="rounded-lg" :style="vSheet.style" :height="vSheet.height">
+      <space-header :space_data="this.space_data" />
+      <v-tabs class="mt-2" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height" grow>
+        <v-tab :active-class="vTab.activeText" @click="changeMenu(menu.path)" :style="vTab.style"
+          v-for="(menu, index) in menus" :key="index">
+          {{menu.name}}
+          <v-chip class="ml-3 rounded-xl" :style="vChip.style" :text-color="vChip.textColor" :elevation="vChip.elevation"
+            :color="vChip.color" x-small v-text="setCount(menu.name)" />
+        </v-tab>
+      </v-tabs>
+      <v-divider />
+      <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" />
     </v-sheet>
   </v-container>
 </template>
 
 <script>
-  import { secureAxios } from '../../backend/axios';
+  import {
+    secureAxios
+  } from '../../backend/axios';
   import SpaceHeader from './SpaceHeader';
 
   export default {
@@ -75,41 +70,35 @@
             path: 'members'
           },
         ],
-        tabActive: 'white--text',
-        tabs: {
-          grid: 'mt-2',
-          height: '48px',
-          width: '70px',
-          color: '#0e0e10',
-          btnGrid: 'ml-3 rounded-xl',
-          btnColor: '#2e2e2e',
-          btnElevation: 0,
+        vSheet: {
+          height: '740',
           style: {
-            // color: '#0e0e10',
-            // fontWeight: 'bold',
-            // fontFamily: 'Helvetica Neue, sans-serif',
-            // fontSize: '13px',
-            backgroundColor: '#0e0e10'
-          },
+            backgroundColor: '#161b22'
+          }
         },
-        tab: {
+        vTabs: {
+          backgroundColor: '#161b22',
+          height: '40'
+        },
+        vTab: {
+          activeText: 'white--text',
           style: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '11px',
             color: '#6c757d'
-          },
-          btn: {
-            style: {
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '10px',
-            }
           }
         },
-        space_top: {
-          position: 'mt-n9',
-        },
+        vChip: {
+          textColor: '#aaaaaa',
+          elevation: 0,
+          color: '#2e2e2e',
+          style: {
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '10px',
+          }
+        }
       }
     },
     created() {
@@ -155,49 +144,51 @@
     watch: {
       $route: 'setSpace'
     },
-    beforeRouteEnter(to, from, next){
+    beforeRouteEnter(to, from, next) {
       next(vm => {
-        setTimeout(() =>{
+        setTimeout(() => {
           document.title = `${vm.space_data.name} - Devio` || 'Devio';
         }, 1000)
       })
     },
-    beforeRouteUpdate(to, from, next){
+    beforeRouteUpdate(to, from, next) {
       document.title = `${this.space_data.name} - Devio` || 'Devio';
       next()
     },
     methods: {
-      track(){
+      track() {
         this.$gtag.pageview({
           page_path: '/tv_space/:space_id',
         })
       },
-      setSpace(){
+      setSpace() {
         secureAxios.get(this.endpoint, {
-          params: this.params
-        })
-        .then(res => this.successful(res))
-        .catch(err => this.failed(err))
+            params: this.params
+          })
+          .then(res => this.successful(res))
+          .catch(err => this.failed(err))
       },
-      successful(res){
+      successful(res) {
         this.space_data = res.data.data.attributes
       },
-      failed(err){
+      failed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
       },
-      setCount(menu_name){
-        if(menu_name === 'チャット'){
+      setCount(menu_name) {
+        if (menu_name === 'チャット') {
           return this.space_data.comments_count
-        } else if(menu_name === 'ユーザー'){
+        } else if (menu_name === 'ユーザー') {
           return this.space_data.users.data.length
-        } else if(menu_name === 'レビュー'){
+        } else if (menu_name === 'レビュー') {
           return 0
-        } else if(menu_name === 'シェアウォッチ') {
+        } else if (menu_name === 'シェアウォッチ') {
           return 0
         }
       },
-      changeMenu(menu_name){
-        this.$router.push(({path: menu_name})).catch(()=> {});
+      changeMenu(menu_name) {
+        this.$router.push(({
+          path: menu_name
+        })).catch(() => {});
       }
     }
   }
@@ -207,6 +198,7 @@
   .theme--light.v-divider {
     border-color: rgba(201, 204, 204, 0.06);
   }
+
   .v-input__slot::before {
     border-style: none !important;
   }

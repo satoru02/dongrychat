@@ -1,128 +1,90 @@
 <template>
-  <v-container :class="grid.header" :key="componentKey">
+  <v-container class="mt-n8 ml-16" :key="componentKey">
     <v-row class="mb-n5 mt-2">
-      <v-col md=1 lg=1 xl=1>
-        <div :style="switch1 === false ? style.active : style.inactive" v-text="tv.header" />
+      <v-col cols=1 sm=1 md=1 lg=1 xl=1>
+        <div :style="switcher === false ? switchBtn.active : switchBtn.inactive" v-text="tv.header" />
       </v-col>
-      <v-col md=1 lg=1 xl=1>
-        <div :style="switch1 === true ? style.active : style.inactive" v-text="movie.header" />
+      <v-col cols=1 sm=1 md=1 lg=1 xl=1>
+        <div :style="switcher === true ? switchBtn.active : switchBtn.inactive" v-text="movie.header" />
       </v-col>
-      <v-col md=9 lg=9 xl=9 />
-      <v-col md=1 lg=1 xl=1>
-        <v-switch dense color="blue" dark v-model="switch1" inset :class="grid.switch" />
+      <v-col cols=9 sm=9 md=9 lg=9 xl=9 />
+      <v-col cols=1 sm=1 md=1 lg=1 xl=1>
+        <v-switch class="mt-1 ml-n1" v-model="switcher" color="blue" dense dark inset />
       </v-col>
     </v-row>
-
-  <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
-    <v-card hover @click="enterSpace(item.attributes)"
-      :style="hover ? 'background-color: #1a212d;' : 'background-color: #161b22;'" :elevation='hover ? 15: 0' :class="'rounded-lg mb-8'" height="100px">
-      <v-row>
-        <v-col lg=1 class="ml-6 mt-8" :style="style.ranking">
-          {{index + 1}}
-        </v-col>
-        <v-col lg=1 class="ml-n9">
-          <v-avatar :size="avatar.size" :height="avatar.height" tile :class="avatar.round">
-            <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
-          </v-avatar>
-        </v-col>
-
-        <v-col lg=10>
-          <v-row dense>
-            <v-col lg=1></v-col>
-            <v-col lg=10 :style="style.listItemTitle" class="ml-n6 mt-1">
-              <base-label :x_small="true" class="ml-1 mr-3" :outlined="true" :label="true"
-                v-if="item.attributes.media === media.tv" :color="'blue'" :text-color="'#ced4da'"
-                :season="item.attributes.season" :episode="item.attributes.episode"
-                :title="item.attributes.episode_title" />
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col lg=10 />
-            <v-col lg=1 class="ml-10 mt-n1">
-              <v-badge dot green />
-            </v-col>
-            <v-col lg=1 class="mt-n4 ml-n10" :style="style.notifyText">
-              {{item.attributes.users.length}}
-            </v-col>
-          </v-row>
-          <v-row class=mt-n11>
-            <v-col lg=1 />
-            <v-col lg=10 :style="style.listItemTitle" class="ml-n5">
-              {{item.attributes.name}}
-            </v-col>
-          </v-row>
-          <v-row class="mt-n4 ml-6">
-          <v-col md=12 lg=12 xl=12 :style="style.tag" small>
-          <v-chip class="mr-2" v-for="(tag, index) in item.attributes.tag_list" :key="index" color="#293241"
-            :style="style.tag" x-small v-text="'#' + tag" />
-        </v-col>
-          </v-row>
-        </v-col>
-      </v-row>
-    </v-card>
-    </v-hover>
-    <!-- 
-    <v-list two-line>
-      <v-list-item-group :active-class="colors.listItemGroupActive" :class="grid.listItemGroup" multiple>
-        <template v-for="(item, index) in items">
-          <v-list-item class="mt-n2 mb-n2" :key="index" @click="enterSpace(item.attributes)">
-            <div :style="style.ranking" :class="grid.ranking">
-              <v-btn icon text-color="#6c757d" style="background-color: #dee2e6;" x-small elevation=0>{{index + 1}}
-              </v-btn>
-            </div>
-            <v-list-item-avatar :size="avatar.size" :height="avatar.height" tile :class="avatar.round">
-              <base-image :img="base_tmdb_img_url + item.attributes.image_path" :height="avatar.height" />
-            </v-list-item-avatar>
-            <v-list-item-content :class="grid.listItemContent">
-              <v-list-item-title :style="style.listItemTitle" v-text="item.attributes.name" />
-              <v-list-item-subtitle :style="style.listItemSubtitle" :class="grid.listItemSubtitle">
-                <base-label :x_small="true" v-if="item.attributes.media === media.tv" :color="colors.chip"
-                  :text-color="colors.chip" :season="item.attributes.season" :episode="item.attributes.episode"
+    <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
+      <v-card class="rounded-lg mb-8" @click="enterSpace(item.attributes)"
+        :style="hover ? card.hoverStyle : card.unhoverStyle" :elevation='hover ? 10 : 0' height="100px">
+        <v-row>
+          <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-6 mt-8" :style="ranking.style">
+            {{index + 1}}
+          </v-col>
+          <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-n9">
+            <v-avatar :class="avatar.round" :size="avatar.size" :height="avatar.height" tile>
+              <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
+            </v-avatar>
+          </v-col>
+          <v-col cols=10 sm=10 md=10 lg=10 xl=10>
+            <v-row dense>
+              <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+              <v-col cols=10 sm=10 md=10 lg=10 xl=10 class="ml-n6 mt-1" :style="label.style">
+                <base-label class="ml-1 mr-3" :x_small="true" :outlined="true" :label="true"
+                  v-if="item.attributes.media === media.tv" :color="'blue'" :text-color="'#ced4da'"
+                  :season="item.attributes.season" :episode="item.attributes.episode"
                   :title="item.attributes.episode_title" />
-              </v-list-item-subtitle>
-            </v-list-item-content>
-            <v-list-item-action :class="grid.notifyBadge" v-if="item.attributes.users.length > 0">
-              <v-badge :class="grid.notifyDot" dot :color="colors.notifyBadge" />
-            </v-list-item-action>
-            <v-list-item-action v-if="item.attributes.users.length > 0">
-              <div class=ml-2 :style="style.listItemAction" v-text="item.attributes.users.length" />
-            </v-list-item-action>
-          </v-list-item>
-        </template>
-      </v-list-item-group>
-    </v-list> -->
-
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols=10 sm=10 md=10 lg=10 xl=10 />
+              <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-10 mt-n1">
+                <v-badge dot />
+              </v-col>
+              <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="mt-n4 ml-n10" :style="userCount.style" v-text="item.attributes.users.length" />
+            </v-row>
+            <v-row class='mt-n11'>
+              <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+              <v-col cols=10 sm=10 md=10 lg=10 xl=10 class="ml-n5" :style="listItemTitle.style" v-text="item.attributes.name" />
+            </v-row>
+            <v-row class="mt-n4 ml-6">
+              <v-col cols=12 sm=12 md=12 lg=12 xl=12 :style="tags.style">
+                <v-chip class="mr-2" :style="tags.style" v-for="(tag, index) in item.attributes.tag_list" :key="index"
+                  color="#293241" v-text="'#' + tag" x-small />
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+      </v-card>
+    </v-hover>
     <base-loader :handler="infiniteHandler" :wrapper="true" :text="loaderText" />
-
     <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
       <v-card color="#161b22" height="250" class="rounded-lg">
         <v-row>
-          <v-col lg=3 />
-          <v-col lg=7>
-            <div class="mt-9 ml-6" :style="dialog.headerStyle">Devioを使ってみる</div>
+          <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
+          <v-col cols=7 sm=7 md=7 lg=7 xl=7>
+            <div class="mt-9 ml-6" :style="dialog.headerStyle" v-text="'Devioを使ってみる'" />
           </v-col>
         </v-row>
         <v-row>
-          <v-col lg=1 />
-          <v-col lg=10>
-            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="blue" outlined elevation=0 v-text="'ログイン'" />
+          <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+          <v-col cols=10 sm=10 md=10 lg=10 xl=10>
+            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="blue" outlined elevation=0
+              v-text="'ログイン'" />
           </v-col>
         </v-row>
         <v-row>
-          <v-col lg=1 />
-          <v-col lg=10>
+          <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+          <v-col cols=10 sm=10 md=10 lg=10 xl=10>
             <v-btn block @click="goSignup()" :style="dialog.btnStyle" color="blue" elevation=0 v-text="'アカウント作成'" />
           </v-col>
         </v-row>
         <v-row>
           <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
-          <v-col cols=8 sm=8 md=8 lg=9 xl=8>
+          <v-col cols=9 sm=9 md=9 lg=9 xl=9>
             <div class="ml-1" :style="dialog.policyStyle" v-text="'利用規約とプライバシーポリシーはこちら'" />
           </v-col>
         </v-row>
       </v-card>
     </v-dialog>
-
   </v-container>
 </template>
 
@@ -130,25 +92,23 @@
   import {
     secureAxios
   } from '../../backend/axios';
-  import BaseImage from '../Base/BaseImage';
   import BaseLabel from '../Base/BaseLabel';
   import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
 
   export default {
     name: 'ChartTop',
     components: {
-      'base-image': BaseImage,
       'base-label': BaseLabel,
       'base-loader': BaseInfiniteLoader
     },
     data() {
       return {
-        loginDialog: false,
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
         trend_endpoint: `/api/v1/spaces/trend`,
         loaderText: '現在チャット中のスペースはありません。',
         items: [],
-        switch1: false,
+        switcher: false,
+        loginDialog: false,
         page: 1,
         pageSize: 10,
         componentKey: 0,
@@ -175,56 +135,15 @@
           header: 'MOVIE',
           pathName: 'MvSpace'
         },
-        colors: {
-          switchButton: 'orange',
-          rankIcon: 'green',
-          chip: 'black',
-          notifyBadge: 'red',
-          listItemGroupActive: 'orange'
+        card: {
+          hoverStyle: {
+            backgroundColor: '#1a212d'
+          },
+          unhoverStyle: {
+            backgroundColor: '#161b22'
+          }
         },
-        grid: {
-          switch: 'mt-1 ml-n1',
-          header: 'mt-n5 ml-16',
-          ranking: 'mr-6',
-          icon: 'ml-2',
-          listItemContent: 'ml-4',
-          listItemAction: 'mt-1',
-          listItemSubtitle: 'mt-1',
-          listItemGroup: 'list-body mt-n6',
-          notifyBadge: 'mr-n6',
-          notifyDot: 'mt-1'
-        },
-        style: {
-          ranking: {
-            fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '12px',
-            fontWeight: 'bold',
-            color: '#8f8f8f',
-          },
-                    tag: {
-            color: '#ffffff',
-            fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '6px'
-          },
-          listItemTitle: {
-            fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '15px',
-            color: '#ced4da'
-          },
-          listItemAction: {
-            fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '11px',
-            fontWeight: 'bold',
-            color: '#484b4d'
-          },
-          listItemSubtitle: {
-            fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '12px',
-            fontWeight: 'bold',
-            color: '#6c757d'
-          },
+        switchBtn: {
           active: {
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '18px',
@@ -232,18 +151,52 @@
             color: '#ffffff',
             letterSpacing: '3px'
           },
-          notifyText: {
-            fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '13px',
-            fontWeight: 'bold',
-            color: '#ffffff'
-          },
           inactive: {
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '18px',
             fontWeight: 'bold',
             color: '#6c757d',
             letterSpacing: '3px'
+          }
+        },
+        ranking: {
+          style: {
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '12px',
+            fontWeight: 'bold',
+            color: '#6c757d',
+          }
+        },
+        label: {
+          style: {
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '15px',
+            color: '#ced4da'
+          }
+        },
+        userCount: {
+          style: {
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '13px',
+            fontWeight: 'bold',
+            color: '#ced4da'
+          }
+        },
+        listItemTitle: {
+          style: {
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '15px',
+            color: '#ced4da'
+          }
+        },
+        tags: {
+          style: {
+            color: '#ced4da',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '6px'
           }
         },
         dialog: {
@@ -268,13 +221,13 @@
       }
     },
     watch: {
-      switch1: function () {
+      switcher: function () {
         this.page = 1
         this.items = []
-        if (this.switch1 === false) {
+        if (this.switcher === false) {
           this.query_media = this.media.tv
           this.forceRerender()
-        } else if (this.switch1 === true) {
+        } else if (this.switcher === true) {
           this.query_media = this.media.movie
           this.forceRerender()
         }
@@ -307,10 +260,9 @@
                 $state.complete();
               }
             })
-        }, 150);
+        }, 100);
       },
       enterSpace(item) {
-        // this.checkSignedIn()
         if (this.$store.state.signedIn) {
           if (item.media === this.media.tv) {
             this.$router.push({

@@ -1,5 +1,5 @@
 <template>
-  <v-container class="ml-n2" style="background-color: #0e0e10;">
+  <v-container class="ml-n2" style="background-color: #121214;">
     <v-row>
       <v-col md=12 lg=12 xl=12>
         <div :style="resultsStyle" v-text="resultsText" />
@@ -17,7 +17,7 @@
         <v-divider />
       </v-col>
     </v-row>
-    <v-list two-line style="background-color: #0e0e10;">
+    <v-list two-line style="background-color: #121214;">
       <v-list-item-group v-for="(item, index) in items.contents"
       :key="index"
       :active-class="listActive" multiple>
@@ -25,7 +25,7 @@
           <v-list-item
           :class="'rounded-lg'"
            @click="showContents(item)"
-            :style="hover ? 'background-color: #1a212d;' : 'background-color: #0e0e10;'">
+            :style="hover ? 'background-color: #1a212d;' : 'background-color: #121214;'">
 
               <v-list-item-avatar :size='avatar.size' :width='avatar.width' :height='avatar.height'
                 :class="avatar.rounded">
@@ -94,7 +94,7 @@
           arg: 'company'
         },
         // for css --------------------------------------------
-        tabColor: '#0e0e10',
+        tabColor: '#121214',
         tabActive: 'white--text',
         listActive: 'orange--text',
         resultsStyle: {

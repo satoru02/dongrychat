@@ -4,17 +4,17 @@
       <v-col cols=12 sm=12 md=12 lg=12 xl=12 />
     </v-row>
     <v-row>
-      <v-col cols=1 sm=2 md=2 lg=2 xl=4 />
-      <v-col cols=10 sm=8 md=8 lg=5 xl=5 class="ml-13">
-        <v-card :color="loginCard.color" :class="loginCard.position" :elevation="loginCard.elevation" outlined
+      <v-col cols=1 sm=2 md=2 lg=2 xl=4 class="ml-2" />
+      <v-col cols=10 sm=8 md=8 lg=5 xl=5 class="ml-16">
+        <v-card :color="loginCard.color" :class="loginCard.position" :elevation="loginCard.elevation"
           :height="loginCard.height" :width="loginCard.width">
           <v-row class="mt-4">
             <v-col cols=3 sm=3 md=3 lg=4 xl=3 />
-            <v-col cols=9 sm=9 md=9 lg=8 xl=9 :class="$vuetify.breakpoint.width < 600 ? 'ml-n5' : 'ml-n9'">
+            <v-col cols=9 sm=9 md=9 lg=8 xl=9 :class="$vuetify.breakpoint.width < 600 ? 'ml-n5' : 'ml-n10 mt-4'">
               <div :style="loginCard.headerTitleStyle" v-text="loginCard.headerText" />
             </v-col>
           </v-row>
-          <v-row class="mt-2">
+          <v-row class="mt-3">
             <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
             <v-col cols=10 sm=10 md=10 lg=10 xl=10>
               <v-btn @click="authenticate(loginCard.googleArg)" :color="loginCard.googleColor"
@@ -95,7 +95,7 @@
       <li v-for="error in errors" :key="error.id">{{ error }}</li>
       <template v-slot:action="{attrs}">
         <v-btn color="white" text v-bind="attrs" @click="snackbar = false">
-          閉じる
+          {{ close }}
         </v-btn>
       </template>
     </v-snackbar>
@@ -106,13 +106,13 @@
   import {
     simpleAxios
   } from '../../backend/axios';
-  const LOGIN_URL = '/api/v1/login'
-  const USER_INFO_URL = '/api/v1/users/me'
 
   export default {
     name: 'Login',
     data() {
       return {
+        login_url: '/api/v1/login',
+        user_info_url: '/api/v1/users/me',
         email: '',
         password: '',
         errors: [],
@@ -120,12 +120,18 @@
         visible: false,
         snackbar: false,
         notify_text: null,
+        close: '閉じる',
         reg: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         rules: {
           requiredEmail: (v) => !!v || `Eメールを入力してください。`,
           requiredPassword: (v) => !!v || 'パスワードを入力してください。',
           minPassword: (v) => v.length >= 6 || '最低6文字以上のパスワードを入力してください。',
           testMail: (v) => this.reg.test(v) || `メールの形式が正しくありません。`
+        },
+        inputValidation: {
+          noMail: 'メールアドレスが入力されていません。',
+          invalidMail: 'メールアドレスが有効な形式ではありません。',
+          noPassword: 'パスワードが入力されていません。'
         },
         beforeInput: {
           backgroundColor: "#134563"
@@ -134,7 +140,7 @@
           backgroundColor: "#02c39a"
         },
         topPartStyle: {
-          height: '105px'
+          height: '85px'
         },
         topPartMobile: {
           height: '135px'
@@ -178,7 +184,8 @@
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '3px',
-            color: '#adb5bd'
+            color: '#adb5bd',
+            cursor: 'pointer'
           },
           loginTextStyle: {
             fontWeight: 'bold',
@@ -190,6 +197,7 @@
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '3px',
+            cursor: 'pointer'
           },
           policyStyle: {
             color: '#6c757d',
@@ -215,12 +223,12 @@
       checkInputValidation() {
         this.errors = [];
         if (!this.email) {
-          this.errors.push('メールアドレスが入力されていません。')
+          this.errors.push(this.inputValidation.noMail)
         } else if (!this.validEmail(this.email)) {
-          this.errors.push('メールアドレスが有効な形式ではありません。')
+          this.errors.push(this.inputValidation.invalidMail)
         }
         if (!this.password) {
-          this.errors.push('パスワードが入力されていません。')
+          this.errors.push(this.inputValidation.noPassword)
         }
         if (this.errors.length) {
           return this.snackbar = true
@@ -229,7 +237,7 @@
       signIn() {
         this.checkInputValidation()
         if (!this.errors.length) {
-          simpleAxios.post(LOGIN_URL, {
+          simpleAxios.post(this.login_url, {
               email: this.email,
               password: this.password
             })
@@ -243,7 +251,7 @@
           return
         }
         simpleAxios.defaults.headers.common['Authorization'] = `Bearer ${res.data.access_token}`
-        simpleAxios.get(USER_INFO_URL)
+        simpleAxios.get(this.user_info_url)
           .then(me_response => {
             this.$store.commit('setCurrentUser', {
               currentUser: me_response.data.data.attributes,
@@ -290,9 +298,5 @@
 
   .v-text-field--outlined>>>fieldset {
     border-color: #e9ecef;
-  }
-
-  .theme--light.v-divider {
-    border-color: rgba(0, 1, 1, .06);
   }
 </style>

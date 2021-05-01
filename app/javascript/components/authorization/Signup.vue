@@ -5,17 +5,17 @@
       <v-col cols=12 sm=12 md=12 lg=12 xl=12 />
     </v-row>
     <v-row>
-      <v-col cols=1 sm=2 md=2 lg=2 xl=4 />
-      <v-col cols=10 sm=8 md=8 lg=5 xl=5 class="ml-13">
-        <v-card :color="signupCard.color" :class="signupCard.position" :elevation="signupCard.elevation" outlined
+      <v-col cols=1 sm=2 md=2 lg=2 xl=4 class="ml-2" />
+      <v-col cols=10 sm=8 md=8 lg=5 xl=5 class="ml-16">
+        <v-card :color="signupCard.color" :class="signupCard.position" :elevation="signupCard.elevation"
           :height="signupCard.height" :width="signupCard.width">
-          <v-row class="mt-4">
+          <v-row class="mt-1">
             <v-col cols=3 sm=3 md=3 lg=4 xl=3 />
-            <v-col cols=9 sm=9 md=9 lg=8 xl=9 :class="$vuetify.breakpoint.width < 600 ? 'ml-n5' : 'ml-n9'">
+            <v-col cols=9 sm=9 md=9 lg=8 xl=9 :class="$vuetify.breakpoint.width < 600 ? 'ml-n5' : 'ml-n9 mt-3'">
               <div :style="signupCard.headerTitleStyle" v-text="signupCard.headerText" />
             </v-col>
           </v-row>
-          <v-row class="mt-2">
+          <v-row class="mt-1">
             <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
             <v-col cols=10 sm=10 md=10 lg=10 xl=10>
               <v-btn @click="authenticate(signupCard.googleArg)" :color="signupCard.googleColor"
@@ -92,7 +92,7 @@
           </v-row>
           <v-row>
             <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
-            <v-col :class="$vuetify.breakpoint.width < 600 ? 'mt-n1 ml-n5' : 'ml-n1 mt-n2'" cols=8 sm=8 md=8 lg=8 xl=8>
+            <v-col :class="$vuetify.breakpoint.width < 600 ? 'mt-n1 ml-n5' : 'ml-n1 mt-n3'" cols=8 sm=8 md=8 lg=8 xl=8>
               <div :style="signupCard.policyStyle" v-text="signupCard.policyText" />
             </v-col>
             <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
@@ -106,7 +106,7 @@
       <li v-for="error in errors" :key="error.id">{{error}}</li>
       <template v-slot:action="{attrs}">
         <v-btn color="white" text v-bind="attrs" @click="errorbar = false">
-          閉じる
+          {{ close }}
         </v-btn>
       </template>
     </v-snackbar>
@@ -115,7 +115,7 @@
       {{ notify_text }}
       <template v-slot:action="{attrs}">
         <v-btn color="white" text v-bind="attrs" @click="snackbar = false">
-          閉じる
+          {{ close }}
         </v-btn>
       </template>
     </v-snackbar>
@@ -126,12 +126,12 @@
   import {
     simpleAxios
   } from '../../backend/axios';
-  const SIGNUP_URL = '/api/v1/signup';
 
   export default {
     name: 'Signup',
     data() {
       return {
+        signup_url: '/api/v1/signup',
         email: '',
         name: '',
         password: '',
@@ -142,6 +142,7 @@
         error: '',
         visible: true,
         sendingMail: false,
+        close: '閉じる',
         reg: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         rules: {
           requiredEmail: (v) => !!v || `メールアドレスを入力してください。`,
@@ -152,7 +153,15 @@
           matchPassword: (v) => v === this.password || `パスワードが一致しません。`,
           testMail: (v) => this.reg.test(v) || `メールの形式が正しくありません。`
         },
+        inputValidation: {
+          noMail: 'メールアドレスが入力されていません。',
+          invalidMail: 'メールアドレスが有効な形式ではありません。',
+          noName: '名前が入力されていません。',
+          noPassword: 'パスワードが入力されていません。',
+          noConfirmation: 'パスワード確認の項目が入力されていません。'
+        },
         notify_text: 'アカウント登録のメールを送信しました！メールボックスを確認ください。',
+        notify_account: '入力されたアドレスで登録されたユーザーがすでに存在します。',
         beforeInput: {
           backgroundColor: "#134563"
         },
@@ -160,7 +169,7 @@
           backgroundColor: "#02c39a"
         },
         topPartStyle: {
-          height: '35px'
+          height: '40px'
         },
         topPartMobile: {
           height: '135px'
@@ -185,7 +194,7 @@
           loginText: 'ログインはこちら',
           policyText: 'プライバシーポリシーと利用規約について',
           color: "#161b22",
-          height: '550px',
+          height: '530px',
           width: '380px',
           position: 'rounded-lg',
           elevation: 10,
@@ -217,6 +226,7 @@
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '10px',
+            cursor: 'pointer'
           },
           policyStyle: {
             color: '#6c757d',
@@ -243,18 +253,18 @@
       checkFormValidation() {
         this.errors = [];
         if (!this.email) {
-          this.errors.push('メールアドレスが入力されていません。')
+          this.errors.push(this.inputValidation.noPassword)
         } else if (!this.validEmail(this.email)) {
-          this.errors.push('メールアドレスが有効な形式ではありません。')
+          this.errors.push(this.inputValidation.invalidMail)
         }
         if (!this.name) {
-          this.errors.push('名前が入力されていません。')
+          this.errors.push(this.inputValidation.noName)
         }
         if (!this.password) {
-          this.errors.push('パスワードが入力されていません。')
+          this.errors.push(this.inputValidation.noPassword)
         }
         if (!this.password_confirmation) {
-          this.errors.push('パスワード確認の項目が入力されていません。')
+          this.errors.push(this.inputValidation.noConfirmation)
         }
         if (this.errors.length) {
           return this.errorbar = true
@@ -263,7 +273,7 @@
       signup() {
         this.checkFormValidation()
         if (!this.errors.length) {
-          simpleAxios.post(SIGNUP_URL, {
+          simpleAxios.post(this.signup_url, {
               name: this.name,
               email: this.email,
               password: this.password,
@@ -280,7 +290,7 @@
       },
       signupFailed(err) {
         this.sendingMail = false,
-          this.errors.push('入力されたアドレスで登録されたユーザーがすでに存在します。')
+        this.errors.push(this.notify_account)
         this.errorbar = true
         this.error = (err.response && err.response.data && err.response.data.error) || ''
       },
@@ -307,13 +317,7 @@
   * {
     text-transform: none !important;
   }
-
   .v-text-field--outlined>>>fieldset {
     border-color: #e9ecef;
   }
-
-  .theme--light.v-divider {
-    border-color: rgba(0, 1, 1, .06);
-  }
-
 </style>

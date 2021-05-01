@@ -5,16 +5,20 @@
   import {
     secureAxios
   } from '../../backend/axios';
-  const LOGOUT_URL = '/api/v1/login';
 
   export default {
     name: 'Logout',
+    data(){
+      return {
+        logout_url: '/api/v1/login'
+      }
+    },
     created() {
       this.logout()
     },
     methods: {
       logout() {
-        secureAxios.delete(LOGOUT_URL + `/` + `${this.$store.state.currentUser.id}`)
+        secureAxios.delete(this.logout_url + `/` + `${this.$store.state.currentUser.id}`)
           .then(res => this.logoutSuccessful())
           .catch(error => this.setError(error, 'Cannot log out.'))
       },

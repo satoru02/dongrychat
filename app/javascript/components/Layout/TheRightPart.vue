@@ -29,14 +29,14 @@
 </template>
 
 <script>
-  import TheSearchField from './TheSearchField';
+  // import TheSearchField from './TheSearchField';
   import BaseAvatar from '../Base/BaseAvatar';
   import TheProfilePart from '../Layout/TheProfilePart';
 
   export default {
     name: "RightPart",
     components: {
-      'the-search-field': TheSearchField,
+      // 'the-search-field': TheSearchField,
       'base-avatar': BaseAvatar,
       'the-profile-part': TheProfilePart
     },
@@ -62,7 +62,7 @@
           }
         },
         grid: {
-          rightPart: 'ml-11 mt-4',
+          rightPart: 'ml-9 mt-7',
           onlinePart: 'mt-7',
           username: 'mt-2 ml-n1'
         },
