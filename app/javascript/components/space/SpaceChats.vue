@@ -1,21 +1,21 @@
 <template>
   <v-container>
-  <!-- <v-container style="background-color: #212529;"> -->
     <div infinite-wrapper :style="wrapper.style">
       <space-comments :comments="comments" />
-      <base-loader :handler="infiniteHandler" :wrapper="true" :text="loaderText" />
+      <base-loader :handler="infiniteHandler" :wrapper="true" :text="loader.text" />
     </div>
-    <v-text-field clearable :style="textField.style" :class="textField.grid" :background-color="textField.color"
+    <v-text-field class="mt-2 ml-6 mr-6 rounded-s" clearable :style="textField.style" :background-color="textField.color"
       v-model="content" @keypress="setMessage()" @keyup.enter="sendComment(content)" dense
       :placeholder="textField.placeholder" solo flat />
   </v-container>
 </template>
 
 <script>
-  import { secureAxios } from '../../backend/axios';
+  import {
+    secureAxios
+  } from '../../backend/axios';
   import SpaceComments from './SpaceComments';
   import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
-  import redis from 'redis'
 
   export default {
     name: 'SpaceChats',
@@ -36,13 +36,15 @@
         pageSize: 10,
         comments: [],
         content: '',
-        loaderText: 'このスペースにはまだコメントがありません。',
+        canSubmit: false,
+        loader: {
+          text: 'このスペースにはまだコメントがありません。',
+        },
         params: {
           id: this.spaceId,
           page: '',
           per_page: ''
         },
-        canSubmit: false,
         wrapper: {
           style: {
             maxHeight: '445px',
@@ -51,12 +53,10 @@
           }
         },
         textField: {
-          grid: 'mt-2 ml-6 mr-6 rounded-s',
           color: '#495057',
           placeholder: '#メッセージを送信',
           style: {
             position: 'static',
-            // color: '#ffffff'
           }
         }
       }
@@ -71,34 +71,19 @@
         received(data) {
           try {
             if (data) {
-
-              //  コメントデータの処理
               if (data.attributes.space_id === this.spaceId) {
                 this.comments.unshift(data)
               }
-
-              // 　オンラインデータの処理
-              // else if() {
-                // user = users.filter(user => user.id === data.user_id)
-                // user.online = true
-                // this.userAppearance = data.user_id
-
-              // 　オフラインデータの処理
-
-              // } else if() {
-
-              // }
             }
-          } catch(e) {
-            if(e instanceof TypeError){
-            }
+          } catch (e) {
+            if (e instanceof TypeError) {}
           }
         },
         disconnected() {}
       }
     },
     methods: {
-      infiniteHandler($state){
+      infiniteHandler($state) {
         setTimeout(() => {
           this.params.page = this.page
           this.params.per_page = this.pageSize
@@ -116,20 +101,20 @@
             })
         }, 50);
       },
-      createCable(){
+      createCable() {
         this.$cable.subscribe({
           channel: 'SpaceChannel',
           space: this.spaceId
         })
       },
-      setMessage(){
+      setMessage() {
         this.canSubmit = true
       },
-      sendComment(content){
-        if(!this.canSubmit){
+      sendComment(content) {
+        if (!this.canSubmit) {
           return
         }
-        if(content){
+        if (content) {
           this.$cable.perform({
             channel: 'SpaceChannel',
             action: 'speak',

@@ -1,30 +1,25 @@
 <template>
   <v-container>
-    <v-row :class="comment_part.row" v-for="(comment, index) in comments" :key="index">
-      <v-col md=1 lg=1 xl=1 :class="comment_part.col">
-        <v-badge bordered bottom :color="comment.attributes.user.data.attributes.appearance === true ? 'green accent-4' : 'red'" dot offset-x="8" offset-y="8">
-          <v-avatar @click="showDialog(comment.attributes.user.data.attributes)" :class="comment_part.avatar.class"
-          style="cursor: pointer"
-           tile
-            :size='comment_part.avatar.size' :height='comment_part.avatar.height'>
+    <v-row class="ml-1 mb-1" v-for="(comment, index) in comments" :key="index">
+      <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="mt-n3">
+        <v-badge :color="comment.attributes.user.data.attributes.appearance === true ? 'green accent-4' : 'red'"
+          offset-x="6" offset-y="6" bordered bottom dot overlap>
+          <v-avatar class="rounded-lg mt-3" @click="showDialog(comment.attributes.user.data.attributes)"
+            :style="avatar.style" :size='avatar.size' :height='avatar.height' tile>
             <img :src="comment.attributes.user.data.attributes.avatar_url">
           </v-avatar>
         </v-badge>
       </v-col>
-      <v-col md=11 lg=11 xl=11 :class="comment_part.inner_col">
+      <v-col cols=11 sm=11 md=11 lg=11 xl=11 class="ml-n9 mt-n1">
         <v-row>
-          <v-col md=2 lg=2 xl=2>
-            <div :style="comment_part.style.username" v-text="comment.attributes.user.data.attributes.name" />
-          </v-col>
-          <v-col md=7 lg=9 xl=7 />
-          <v-col md=2 lg=1 xl=2 :class="comment_part.countClass">
-            <div :style="comment_part.style.count" v-text="formalizeTime(comment.attributes.created_at)" />
-          </v-col>
+          <v-col cols=2 sm=2 md=2 lg=2 xl=2 :style="username.style"
+            v-text="comment.attributes.user.data.attributes.name" />
+          <v-col cols=9 sm=9 md=9 lg=9 xl=9 />
+          <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="mr-n16" :style="time.style"
+            v-text="formalizeTime(comment.attributes.created_at)" />
         </v-row>
-        <v-row :class="comment_part.text_row">
-          <v-col md=12 lg=12 xl=12>
-            <div :style="comment_part.style.content" v-text="comment.attributes.content" />
-          </v-col>
+        <v-row class="mt-n5">
+          <v-col cols=12 sm=12 md=12 lg=12 xl=12 :style="content.style" v-text="comment.attributes.content" />
         </v-row>
       </v-col>
     </v-row>
@@ -54,50 +49,36 @@
         user: '',
         follower_length: '',
         following_length: '',
-        comment_part: {
-          row: 'ml-1 mt-n3',
-          col: ' mt-n3',
-          inner_col: 'ml-n10 mt-n1',
-          countClass: 'mr-n6',
-          text_row: 'mt-n6',
-          avatar: {
-            class: 'rounded-lg mt-3',
-            size: '40',
-            height: '40'
-          },
+        avatar: {
+          size: '40',
+          height: '40',
           style: {
-            username: {
-              color: '#6c757d',
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '11px'
-            },
-            count: {
-              color: '#6c757d',
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '7px'
-            },
-            content: {
-              color: '#ced4da',
-              // fontFamily: 'monospace',
-              fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '13px',
-              // fontWeight: 'bold',
-            },
-            tabs: {
-              color: '#000000',
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '13px'
-            },
-            tab: {
-              fontWeight: 'bold',
-              fontFamily: 'Helvetica Neue, sans-serif',
-              fontSize: '12px'
-            }
+            cursor: 'pointer'
           }
         },
+        username: {
+          style: {
+            color: '#6c757d',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '11px'
+          }
+        },
+        time: {
+          style: {
+            color: '#6c757d',
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '7px'
+          }
+        },
+        content: {
+          style: {
+            color: '#ced4da',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '13px',
+          }
+        }
       }
     },
     methods: {

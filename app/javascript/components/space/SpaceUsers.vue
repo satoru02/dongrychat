@@ -1,30 +1,24 @@
 <template>
   <v-container>
-    <v-list two-line style="background-color: #161b22;">
+    <v-list two-line :style="vList.style">
       <v-hover v-slot="{hover}" v-for="(user, index) in users" :key="index">
-      <v-list-item @click="showDialog(user.attributes)"
-       :class="'rounded-lg'"
-       style="cursor: pointer"
-       :style="hover ? 'background-color: #292d33;' : 'background-color: #161b22;'" :elevation='hover ? 15 : 0'>
-        <v-list-item-avatar :style="avatarStyle">
-          <img :src="user.attributes.avatar_url" />
-        </v-list-item-avatar>
-        <v-list-item-content>
-          <v-list-item-title :style="nameStyle">
-            {{user.attributes.name}}
-          </v-list-item-title>
-          <v-list-item-subtitle :style="aboutStyle">
-            {{user.attributes.about}}
-          </v-list-item-subtitle>
-        </v-list-item-content>
-        <v-list-item-icon v-if="$store.state.currentUser.id != user.id">
-          <!-- <v-btn small elevation=0
+        <v-list-item :class="'rounded-lg'" @click="showDialog(user.attributes)"
+          :style="hover ? vList.hoverStyle : vList.style" :elevation='hover ? 15 : 0'>
+          <v-list-item-avatar :style="avatar.style">
+            <img :src="user.attributes.avatar_url" />
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title :style="name.style" v-text="user.attributes.name" />
+            <v-list-item-subtitle :style="about.style" v-text="user.attributes.about" />
+          </v-list-item-content>
+          <!-- <v-list-item-icon v-if="$store.state.currentUser.id != user.id">
+          <v-btn small elevation=0
             :style="checkRelationship(user) ? followingStyle : unfollowStyle"
             @click="checkRelationship(user) ? unfollow(user.attributes.id) : follow(user.attributes.id)">
             {{ checkRelationship(user) ? followingText : unfollowText }}
-          </v-btn> -->
-        </v-list-item-icon>
-      </v-list-item>
+          </v-btn>
+        </v-list-item-icon> -->
+        </v-list-item>
       </v-hover>
     </v-list>
     <base-profile-dialog v-if="user" v-on:input="offDialog()" :passDialog="dialog" :user="user"
@@ -51,48 +45,66 @@
         spaceFollowed: Boolean,
         btnFollowed: false,
         user: '',
-        followingText: 'フォロー中',
-        followingStyle: {
-          backgroundColor: "green",
-          fontWeight: "bold",
-          fontSize: "10px",
-          width: 100,
-          height: 25,
-          elevation: 0
+        vList: {
+          style: {
+            cursor: 'pointer',
+            backgroundColor: '#161b22'
+          },
+          hoverStyle: {
+            cursor: 'pointer',
+            backgroundColor: '#292d33'
+          }
         },
-        unfollowText: 'フォローする',
-        unfollowStyle: {
-          backgroundColor: "blue",
-          fontWeight: "bold",
-          color: "#ffffff",
-          fontSize: "10px",
-          width: 100,
-          height: 25
+        name: {
+          style: {
+            fontWeight: 'bold',
+            fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
+            fontSize: '14px',
+            color: '#ced4da'
+          }
         },
-        nameStyle: {
-          fontWeight: 'bold',
-          fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
-          fontSize: '14px',
-          color: '#ced4da'
+        about: {
+          style: {
+            fontWeight: 'bold',
+            fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
+            fontSize: '11px',
+            color: '#6c757d',
+            lineHeight: '16px',
+            maxWidth: "450px",
+          }
         },
-        aboutStyle: {
-          fontWeight: 'bold',
-          fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
-          fontSize: '11px',
-          color: '#6c757d',
-          lineHeight: '16px',
-          maxWidth: "450px",
-        },
-        relationshipStyle: {
-          fontWeight: 'bold',
-          fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
-          fontSize: '10px',
-          color: '#ffffff'
-        },
-        avatarStyle: {
+        avatar: {
+          style: {
             size: '49',
             height: '40'
+          }
         }
+        // followingText: 'フォロー中',
+        // relationship: {
+        //   style: {
+        //     fontWeight: 'bold',
+        //     fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
+        //     fontSize: '10px',
+        //     color: '#ffffff'
+        //   }
+        // },
+        // followingStyle: {
+        //   backgroundColor: "green",
+        //   fontWeight: "bold",
+        //   fontSize: "10px",
+        //   width: 100,
+        //   height: 25,
+        //   elevation: 0
+        // },
+        // unfollowText: 'フォローする',
+        // unfollowStyle: {
+        //   backgroundColor: "blue",
+        //   fontWeight: "bold",
+        //   color: "#ffffff",
+        //   fontSize: "10px",
+        //   width: 100,
+        //   height: 25
+        // },
       }
     },
     methods: {

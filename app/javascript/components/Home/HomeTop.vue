@@ -1,42 +1,42 @@
 <template>
-  <v-container :class="'ml-16 mt-n6'">
-    <h3 :class="'mb-8 ml-1'" :style="style.headerPart" v-text="text.home" />
+  <v-container class="ml-16 mt-n6">
+    <h3 class="mb-8 ml-1" :style="style.headerPart" v-text="text.home" />
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
-      <v-card :class="'rounded-lg mb-8'" :style="hover ? card.hoverStyle : card.unhoverStyle" @click="enterSpace(item)"
+      <v-card class="rounded-lg mb-8" :style="hover ? card.hoverStyle : card.unhoverStyle" @click="enterSpace(item)"
         :elevation='hover ? 15 : 0' :height="card.height">
         <v-row>
-          <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="'ml-5'">
-            <v-avatar :class="'rounded-lg'" :size="listAvatar.size" :height="listAvatar.height">
+          <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-5">
+            <v-avatar class="rounded-lg" :size="listAvatar.size" :height="listAvatar.height">
               <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
             </v-avatar>
           </v-col>
           <v-col cols=10 sm=10 md=10 lg=10 xl=10>
             <v-row>
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
-              <v-col cols=10 sm=10 md=10 lg=10 xl=10 :class="'ml-n5 mt-1'" :style="style.name">
+              <v-col cols=10 sm=10 md=10 lg=10 xl=10 class="ml-n5 mt-1" :style="style.name">
                 <base-label :x_small="true" :outlined="true" :label="true" v-if="item.attributes.media === media.tv"
-                  :color="'blue'" :text-color="'#ffffff'" :season="item.attributes.season"
+                  color="blue" text-color="#ffffff" :season="item.attributes.season"
                   :episode="item.attributes.episode" :title="item.attributes.episode_title" />
                 <v-chip :style="style.movieLabel" v-if="item.attributes.media === media.movie" x-small outlined label
-                  :color="'yellow'" v-text="text.movie" />
+                  color="yellow" v-text="text.movie" />
               </v-col>
             </v-row>
             <v-row>
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
-              <v-col cols=9 sm=9 md=9 lg=9 xl=9 :class="'ml-n5 mt-n3'" :style="style.name">
+              <v-col cols=9 sm=9 md=9 lg=9 xl=9 class="ml-n5 mt-n3" :style="style.name">
                 {{item.attributes.name}}
               </v-col>
-              <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="'ml-14'">
+              <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-14">
                 <v-badge v-if="item.attributes.unconfirmed_comments > 0" dot />
               </v-col>
-              <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="'mt-n3 ml-n10'" :style="style.notifyText"
+              <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="mt-n3 ml-n10" :style="style.notifyText"
                 v-if="item.attributes.unconfirmed_comments > 0">
                 {{item.attributes.unconfirmed_comments}}
               </v-col>
             </v-row>
-            <v-row :class="'mt-n3'">
+            <v-row class="mt-n3">
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
-              <v-col cols=11 sm=11 md=11 lg=11 xl=11 :class="'ml-n5'" v-if="item.attributes.latest_comment !== null">
+              <v-col cols=11 sm=11 md=11 lg=11 xl=11 class="ml-n5" v-if="item.attributes.latest_comment !== null">
                 <div :style="style.comment">{{item.attributes.latest_comment.content}}</div>
               </v-col>
             </v-row>
@@ -53,14 +53,13 @@
     secureAxios
   } from '../../backend/axios';
   import moment from 'moment';
-  import BaseImage from '../Base/BaseImage';
+
   import BaseLabel from '../Base/BaseLabel';
   import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
 
   export default {
     name: 'HomeTop',
     components: {
-      'base-image': BaseImage,
       'base-label': BaseLabel,
       'base-loader': BaseInfiniteLoader
     },
