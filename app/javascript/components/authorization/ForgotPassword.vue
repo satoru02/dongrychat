@@ -4,8 +4,8 @@
       <v-col cols=12 sm=12 md=12 lg=12 xl=12 />
     </v-row>
      <v-row>
-      <v-col cols=1 sm=2 md=2 lg=2 xl=4 class="ml-2" />
-      <v-col cols=10 sm=8 md=8 lg=5 xl=5 class="ml-16">
+      <v-col cols=2 sm=2 md=2 lg=2 xl=4 class="ml-2" />
+      <v-col cols=8 sm=8 md=8 lg=5 xl=5 class="ml-16">
         <v-card :color="card.color" :class="card.position" :elevation="card.elevation" outlined
           :height="card.height" :width="card.width">
           <v-row class="mt-4">

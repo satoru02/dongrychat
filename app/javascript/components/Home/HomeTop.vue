@@ -1,6 +1,8 @@
 <template>
-  <v-container class="ml-16 mt-n6">
-    <h3 class="mb-8 ml-1" :style="style.headerPart" v-text="text.home" />
+  <v-container class="ml-16 mt-n3">
+    <h3
+    :class="$vuetify.breakpoint.width > 600 ? 'mb-8 ml-1' : 'mb-5 ml-1'"
+    :style="style.headerPart" v-text="text.home" />
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
       <v-card class="rounded-lg mb-8" :style="hover ? card.hoverStyle : card.unhoverStyle" @click="enterSpace(item)"
         :elevation='hover ? 15 : 0' :height="card.height">
@@ -13,7 +15,9 @@
           <v-col cols=10 sm=10 md=10 lg=10 xl=10>
             <v-row>
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
-              <v-col cols=10 sm=10 md=10 lg=10 xl=10 class="ml-n5 mt-1" :style="style.name">
+              <v-col cols=10 sm=10 md=10 lg=10 xl=10
+              :class="$vuetify.breakpoint.width > 600 ? 'ml-n5 mt-1' : 'mt-1 ml-6'"
+              :style="style.name">
                 <base-label :x_small="true" :outlined="true" :label="true" v-if="item.attributes.media === media.tv"
                   color="blue" text-color="#ffffff" :season="item.attributes.season"
                   :episode="item.attributes.episode" :title="item.attributes.episode_title" />
@@ -23,7 +27,9 @@
             </v-row>
             <v-row>
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
-              <v-col cols=9 sm=9 md=9 lg=9 xl=9 class="ml-n5 mt-n3" :style="style.name">
+              <v-col cols=9 sm=9 md=9 lg=9 xl=9
+               :class="$vuetify.breakpoint.width > 600 ? 'ml-n5 mt-n3' : 'mt-n3 ml-6'"
+              :style="style.name">
                 {{item.attributes.name}}
               </v-col>
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-14">
@@ -34,9 +40,11 @@
                 {{item.attributes.unconfirmed_comments}}
               </v-col>
             </v-row>
-            <v-row class="mt-n3">
+            <v-row :class="$vuetify.breakpoint.width > 600 ? 'mt-n3' : 'mt-n16'" >
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
-              <v-col cols=11 sm=11 md=11 lg=11 xl=11 class="ml-n5" v-if="item.attributes.latest_comment !== null">
+              <v-col cols=10 sm=11 md=11 lg=11 xl=11
+              :class="$vuetify.breakpoint.width > 600 ? 'ml-n5' : 'ml-15'"
+               v-if="item.attributes.latest_comment !== null">
                 <div :style="style.comment">{{item.attributes.latest_comment.content}}</div>
               </v-col>
             </v-row>

@@ -1,24 +1,24 @@
 <template>
-  <div>
+  <!-- <div> -->
     <v-app :class="grid.app" style="background-color: #121214;">
-      <v-app-bar flat fixed app color="#121214">
+      <v-app-bar flat fixed app color="#121214" v-if="$vuetify.breakpoint.width > 600">
         <v-toolbar-title style="cursor: pointer" @click="goTop()" class="ml-16 mt-2" :style="logoStyle">Devio</v-toolbar-title>
         <v-row>
-          <v-col lg=2 class="ml-16" />
-          <v-col lg=6 class="mt-3">
+          <v-col cols=1 lg=2 class="ml-16" />
+          <v-col cols=7 lg=6 class="mt-3">
             <v-text-field
             @keypress="setQuery()" @keydown.enter="search(query)" v-model="query" height="10" v-if="this.checkAuthorization()"
              :prepend-inner-icon="'mdi-magnify'"
               dense background-color="#242c37" solo flat width="250" :class="textField.round"
              />
           </v-col>
-          <v-col lg=1>
+          <v-col cols=1 lg=1>
           </v-col>
-          <v-col lg=1>
+          <v-col cols=1 lg=1>
             <v-btn v-if="(this.checkAuthorization()) && !$store.state.signedIn"
              @click="goLogin()" outlined small color="blue" elevation=0 class="mt-11" :style="loginStyle">ログイン</v-btn>
           </v-col>
-          <v-col lg=1 class="ml-n3">
+          <v-col cols=1 lg=1 class="ml-n3">
             <v-btn v-if="(this.checkAuthorization()) && !$store.state.signedIn"
              @click="goSignup()" small color="blue" elevation=0 class="mt-11" :style="loginStyle">アカウント登録</v-btn>
           </v-col>
@@ -41,9 +41,11 @@
           </v-col>
         </v-row>
       </v-main>
+    <base-bottom-bar v-if="this.checkAuthorization() " />
+
     </v-app>
-    <base-bottom-bar v-if="this.checkAuthorization()" />
-  </div>
+    <!-- <base-bottom-bar v-if="this.checkAuthorization() " /> -->
+  <!-- </div> -->
 </template>
 
 <script>
@@ -67,7 +69,7 @@
           // // main: 'mt-5 ml-n3',
           // sidebar: ' mr-2 mt-n5',
           deskCenter: ' ml-6',
-          // mobileCenter: 'ml-n4',
+          mobileCenter: 'ml-n16',
           rightPart: 'mt-3 ml-16'
         },
         textField: {

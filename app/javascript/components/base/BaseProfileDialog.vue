@@ -3,15 +3,15 @@
     <v-card style="background-color: #242c37;">
       <v-card-text :style="style.Name">
         <v-row>
-          <v-col md=2 lg=2 xl=2>
+          <v-col cols=2 sm=2 md=2 lg=2 xl=2>
             <v-avatar :class="grid.avatar" :size="avatar.size" :height="avatar.height">
               <base-avatar :img="user.avatar_url" />
             </v-avatar>
           </v-col>
-          <v-col md=10 lg=10 xl=10>
+          <v-col cols=10 sm=10 md=10 lg=10 xl=10>
             <v-row :class="grid.name">
-              <v-col md=6 lg=6 xl=6 v-text="user.name" />
-              <v-col md=6 lg=6 xl=6 v-if="user.id !== this.$store.state.currentUser.id">
+              <v-col cols=6 sm=6 md=6 lg=6 xl=6 v-text="user.name" />
+              <v-col cols=6 sm=6 md=6 lg=6 xl=6 v-if="user.id !== this.$store.state.currentUser.id">
                 <v-btn small elevation=0 v-if="this.$store.state.currentUser.id != user.id" :class="roundClass"
                   :style="followed ? followingStyle : unfollowStyle"
                   @click="followed ? unfollow(user.id) : follow(user.id)">
@@ -20,25 +20,25 @@
               </v-col>
             </v-row>
             <v-row :class="grid.relationship" :style="realtionshipsStyle">
-              <v-col style="cursor: pointer" md=6 lg=6 xl=6 @click="movePath(user.id, followingsArg)"
+              <v-col style="cursor: pointer" cols=6 sm=6 md=6 lg=6 xl=6 @click="movePath(user.id, followingsArg)"
                 v-text="followHeader + blank + user.following.length" />
-              <v-col style="cursor: pointer" md=6 lg=6 xl=6 @click="movePath(user.id, followersArg)" :class='grid.Relationship'
+              <v-col style="cursor: pointer" cols=6 sm=6 md=6 lg=6 xl=6 @click="movePath(user.id, followersArg)" :class='grid.Relationship'
                 v-text="followerHeader + blank + user.follower.length" />
             </v-row>
             <v-row :class="grid.about">
-              <v-col md=12 lg=12 xl=12 v-text="user.about" />
+              <v-col cols=12 sm=12 md=12 lg=12 xl=12 v-text="user.about" />
             </v-row>
             <v-row :class="grid.sns">
-              <v-col md=1 lg=1 xl=1>
+              <v-col cols=1 sm=1 md=1 lg=1 xl=1>
                 <v-icon :size="mdi.size" v-text="mdi.twitter" />
               </v-col>
-              <v-col md=1 lg=1 xl=1 :class="grid.mdi">
+              <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="grid.mdi">
                 <v-icon :size="mdi.size" v-text="mdi.instagram" />
               </v-col>
-              <v-col md=1 lg=1 xl=1 :class="grid.mdi">
+              <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="grid.mdi">
                 <v-icon :size="mdi.size" v-text="mdi.facebook" />
               </v-col>
-              <v-col md=1 lg=1 xl=1 :class="grid.mdi">
+              <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="grid.mdi">
                 <v-icon :size="mdi.size" v-text="mdi.youtube" />
               </v-col>
             </v-row>

@@ -1,8 +1,8 @@
 <template>
-  <v-container>
-    <v-list-item-group style="background-color: #0e0e10;"
+  <v-container :class="this.$vuetify.breakpoint.width < 600 ? 'ml-16' : ''">
+    <v-list-item-group style="background-color: #121214;"
      v-for="(user, index) in relationships" :key="index" multiple class="list-body">
-        <v-list-item >
+        <v-list-item>
           <template v-slot:default="{}">
             <v-list-item-avatar size=58 height=58 tile class="rounded-lg">
               <v-img :src="user.attributes.avatar_url" />

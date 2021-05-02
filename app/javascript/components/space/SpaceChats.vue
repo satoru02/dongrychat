@@ -4,8 +4,19 @@
       <space-comments :comments="comments" />
       <base-loader :handler="infiniteHandler" :wrapper="true" :text="loader.text" />
     </div>
-    <v-text-field class="mt-2 ml-6 mr-6 rounded-s" clearable :style="textField.style" :background-color="textField.color"
+    <v-text-field
+      v-if="$vuetify.breakpoint.width > 600"
+      :class="textFieldGrid"
+      clearable :style="textField.style" :background-color="textField.color"
       v-model="content" @keypress="setMessage()" @keyup.enter="sendComment(content)" dense
+      :placeholder="textField.placeholder" solo flat />
+    <v-text-field
+      v-else
+      :append-outer-icon="'mdi-send'"
+      :class="textFieldGrid"
+      clearable :style="textField.style" :background-color="textField.color"
+      @click:append-outer="{setMessage(), sendComment(content)}"
+      v-model="content" dense
       :placeholder="textField.placeholder" solo flat />
   </v-container>
 </template>
@@ -128,6 +139,17 @@
           })
           this.content = ''
           this.canSubmit = false
+        }
+      }
+    },
+    computed: {
+      textFieldGrid(){
+        switch(this.$vuetify.breakpoint.name) {
+          case 'xs' : return 'mt-n2 rounded-s'
+          case 'sm' : return 'mt-7'
+          case 'md' : return 'mt-7'
+          case 'lg' : return 'mt-n4 ml-6 mr-6 rounded-s'
+          case 'xl' : return 'mt-2 ml-6 mr-6 rounded-s'
         }
       }
     }

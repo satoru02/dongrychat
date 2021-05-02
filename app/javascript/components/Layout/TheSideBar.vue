@@ -1,5 +1,5 @@
 <template>
-  <v-container class="ml-n6 mt-4">
+  <v-container class="ml-n6 mt-7">
     <v-list nav flat :class="list.position" :style="list.style" color="#121214" dark>
       <v-list-item-group v-model="selectedItem" color="#4361ee">
         <v-hover v-slot="{hover}" v-for="(item, index) in menus" :key="index">
@@ -107,7 +107,7 @@
         bottom_blank_space: {
           position: 'mt-15 ml-n6 mb-13',
           style: {
-            height: '450px'
+            height: '430px'
           }
         },
         list: {
