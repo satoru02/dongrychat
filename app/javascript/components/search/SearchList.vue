@@ -63,7 +63,6 @@
         switch1: false,
         media: 'tv',
         endpoint: '',
-         // for css------------------------------------------
         switchPosition: 'mt-1',
         colors: {
           blue: 'blue',
@@ -114,7 +113,6 @@
             }
           }
         }
-        // ------------------------------------------
       }
     },
     watch: {

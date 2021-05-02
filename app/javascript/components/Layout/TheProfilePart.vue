@@ -1,5 +1,4 @@
 <template>
-<!-- <v-hover v-slot="{hover}"> -->
   <v-sheet
    @click="showDialog()" :elevation="profilePart.elavation" :width="profilePart.width"
     :height="profilePart.height" :style="style.profilePart" :class="profilePart.round">
@@ -22,16 +21,11 @@
             <div class="ml-4 mt-1" :style="style.relationships"
               v-text="followerHeader + blank + this.$store.state.currentUser.follower.length" />
           </v-col>
-          <!-- <v-col md=6 lg=6 xl=6 :class="grid.followers">
-            <div :style="style.relationships"
-              v-text="followerHeader + blank + this.$store.state.currentUser.follower.length" />
-          </v-col> -->
         </v-row>
       </v-col>
     </v-row>
     <base-profile-dialog v-on:input="offDialog()" :passDialog="dialog" :user="this.$store.state.currentUser" />
   </v-sheet>
-  <!-- </v-hover> -->
 </template>
 
 <script>

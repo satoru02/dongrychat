@@ -13,7 +13,6 @@
             <h3 v-if="media === 'tv'" v-text="this.$route.params.tv_name" />
             <h3 v-else v-text="this.$route.params.mv_name" />
           </v-col>
-          <!-- <v-col cols=2 sm=2 md=2 lg=2 xl=2 /> -->
         </v-row>
         <v-row dense :class="'mt-n6'">
           <v-col cols=12 sm=12 md=12 lg=12 xl=12 :class="vColSubNameGrid" :style="style.subContentsTitle">

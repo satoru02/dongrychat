@@ -96,7 +96,6 @@
       <v-col lg=8>
         <v-btn block color="primary" @click="updateProfile()">更新</v-btn>
       </v-col>
-      <!-- <v-col lg=1 /> -->
     </v-row>
     <v-snackbar top color="black" v-model="error_bar">
       <li v-for="error in errors" :key="error.id">{{ error }}</li>
@@ -172,26 +171,6 @@
         if (this.name.length <= 4) {
           this.errors.push('4文字以上の名前を入力してください。')
         };
-        // if (this.sns_links[0] != "") {
-        //   if (!this.validURL(this.sns_links[0])) {
-        //     this.errors.push('YoutubeのURLが有効な形式ではありません。')
-        //   } else if (this.sns_links[0] === "") {};
-        // };
-        // if (this.sns_links[1] != "") {
-        //   if (!this.validURL(this.sns_links[1])) {
-        //     this.errors.push('InstagramのURLが有効な形式ではありません。')
-        //   } else if (this.sns_links[1] === "") {};
-        // };
-        // if (this.sns_links[2] != "") {
-        //   if (!this.validURL(this.sns_links[2])) {
-        //     this.errors.push('TwitterのURLが有効な形式ではありません。')
-        //   } else if (this.sns_links[2] === "") {};
-        // }
-        // if (this.sns_links[3] != "") {
-        //   if (!this.validURL(this.sns_links[3])) {
-        //     this.errors.push('FacebookのURLが有効な形式ではありません。')
-        //   } else if (this.sns_links[3] === "") {};
-        // }
       },
       getPresignedURI() {
         secureAxios.get(GET_PRESIGNED_URL + `/` + `presigned_url`, {
@@ -218,7 +197,6 @@
               }
             })
             .then((response) => {
-              // console.log(response)
             })
         })
       },

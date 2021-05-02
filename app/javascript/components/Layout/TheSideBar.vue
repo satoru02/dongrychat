@@ -77,11 +77,6 @@
             icon: 'mdi-home-outline',
             path_name: 'Home'
           },
-          // {
-          //   text: 'Watch',
-          //   icon: 'mdi-television',
-          //   path_name: 'Search'
-          // },
           {
             text: 'Discover',
             icon: 'mdi-magnify',
@@ -136,7 +131,6 @@
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '15px',
-            // color: '#ced4da'
           }
         },
         btn: {

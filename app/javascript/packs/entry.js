@@ -19,8 +19,6 @@ import DetailTop from '../components/Detail/DetailsTop';
 import SpaceTop from '../components/Space/SpaceTop';
 import SpaceChats from '../components/Space/SpaceChats';
 import SpaceUsers from '../components/Space/SpaceUsers';
-// import SpaceReviews from '../components/Space/SpaceReviews';
-// import SpaceNews from '../components/Space/SpaceNews';
 import ChartTop from '../components/Chart/ChartTop';
 
 import AccountActivation from '../components/Authorization/AccountActivation';
@@ -54,7 +52,6 @@ const productionOptions = {
   debug: true,
   debugLevel: 'error',
   connectionUrl: `wss://dongrychat.com/cable`,
-  // connectionUrl: `wss://${process.env.SERVICE_DOMAIN}/cable`,
   connectImmediately: true
 };
 
@@ -294,12 +291,10 @@ const router = new VueRouter({
         {
           path: 'reviews',
           name: 'subscribedMvSpaceReviews',
-          // component: SpaceReviews,
         },
         {
           path: 'news',
           name: 'subscribedMvSpaceNews',
-          // component: SpaceNews,
         }
       ]
     },
@@ -322,12 +317,10 @@ const router = new VueRouter({
         {
           path: 'reviews',
           name: 'TvSpaceReviews',
-          // component: SpaceReviews,
         },
         {
           path: 'news',
           name: 'TvSpaceNews',
-          // component: SpaceNews,
         }
       ]
     },
@@ -350,12 +343,10 @@ const router = new VueRouter({
         {
           path: 'reviews',
           name: 'subscribedTvSpaceReviews',
-          // component: SpaceReviews,
         },
         {
           path: 'news',
           name: 'subscribedTvSpaceNews',
-          // component: SpaceNews,
         }
       ]
     },
