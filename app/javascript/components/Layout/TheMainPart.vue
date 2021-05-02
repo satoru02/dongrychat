@@ -1,5 +1,4 @@
 <template>
-  <!-- <div> -->
     <v-app :class="grid.app" style="background-color: #121214;">
       <v-app-bar flat fixed app color="#121214" v-if="$vuetify.breakpoint.width > 600">
         <v-toolbar-title style="cursor: pointer" @click="goTop()" class="ml-16 mt-2" :style="logoStyle">Devio</v-toolbar-title>
@@ -24,7 +23,6 @@
           </v-col>
         </v-row>
       </v-app-bar>
-
       <v-main :class="'mt-2'">
         <v-row>
           <v-col md=3 lg=2 xl=3 class='ml-n6 mt-3' v-if="$vuetify.breakpoint.width > 600">
@@ -42,10 +40,7 @@
         </v-row>
       </v-main>
     <base-bottom-bar v-if="this.checkAuthorization() " />
-
     </v-app>
-    <!-- <base-bottom-bar v-if="this.checkAuthorization() " /> -->
-  <!-- </div> -->
 </template>
 
 <script>
@@ -66,8 +61,6 @@
         canSubmit: false,
         grid: {
           app: 'overflow-hidden ml-6',
-          // // main: 'mt-5 ml-n3',
-          // sidebar: ' mr-2 mt-n5',
           deskCenter: ' ml-6',
           mobileCenter: 'ml-n16',
           rightPart: 'mt-3 ml-16'
@@ -149,6 +142,5 @@
     min-height: auto !important;
     display: flex !important;
     align-items: center !important;
-    /* color: #141922 */
   }
 </style>

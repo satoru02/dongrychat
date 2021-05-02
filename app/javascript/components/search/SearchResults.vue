@@ -89,29 +89,6 @@
             path: 'company'
           }
         ],
-        // keyword: {
-        //   text: 'キーワード',
-        //   arg: 'multi'
-        // },
-        // tv: {
-        //   text: 'テレビ',
-        //   arg: 'tv',
-        //   details: 'TvDetails'
-        // },
-        // movie: {
-        //   text: '映画',
-        //   arg: 'movie',
-        //   details: 'MvDetails'
-        // },
-        // person: {
-        //   text: '出演者・スタッフ',
-        //   arg: 'person'
-        // },
-        // company: {
-        //   text: '企業',
-        //   arg: 'company'
-        // },
-        // for css --------------------------------------------
         tabColor: '#121214',
         tabActive: 'white--text',
         listActive: 'orange--text',
@@ -145,7 +122,6 @@
           height: '135',
           rounded: 'rounded-lg'
         }
-        // --------------------------------------------
       }
     },
     watch: {
@@ -236,9 +212,7 @@
             }
           }).catch(()=> {});
         } else if (this.items.type === 'person') {
-          // actors component
         } else if (this.items.type === 'company') {
-          // company component
         }
       },
       movePath(path_name) {

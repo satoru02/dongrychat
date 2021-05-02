@@ -83,7 +83,6 @@
         error: null,
         snackbar: false,
         errorbar: false,
-        // password_rules: [v => v.length >= 6 && v.length <=100],
         counter: 235,
         notify_text: null,
         visible: false,

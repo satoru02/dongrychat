@@ -11,13 +11,6 @@
             <v-list-item-title :style="name.style" v-text="user.attributes.name" />
             <v-list-item-subtitle :style="about.style" v-text="user.attributes.about" />
           </v-list-item-content>
-          <!-- <v-list-item-icon v-if="$store.state.currentUser.id != user.id">
-          <v-btn small elevation=0
-            :style="checkRelationship(user) ? followingStyle : unfollowStyle"
-            @click="checkRelationship(user) ? unfollow(user.attributes.id) : follow(user.attributes.id)">
-            {{ checkRelationship(user) ? followingText : unfollowText }}
-          </v-btn>
-        </v-list-item-icon> -->
         </v-list-item>
       </v-hover>
     </v-list>
@@ -79,32 +72,6 @@
             height: '40'
           }
         }
-        // followingText: 'フォロー中',
-        // relationship: {
-        //   style: {
-        //     fontWeight: 'bold',
-        //     fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
-        //     fontSize: '10px',
-        //     color: '#ffffff'
-        //   }
-        // },
-        // followingStyle: {
-        //   backgroundColor: "green",
-        //   fontWeight: "bold",
-        //   fontSize: "10px",
-        //   width: 100,
-        //   height: 25,
-        //   elevation: 0
-        // },
-        // unfollowText: 'フォローする',
-        // unfollowStyle: {
-        //   backgroundColor: "blue",
-        //   fontWeight: "bold",
-        //   color: "#ffffff",
-        //   fontSize: "10px",
-        //   width: 100,
-        //   height: 25
-        // },
       }
     },
     methods: {

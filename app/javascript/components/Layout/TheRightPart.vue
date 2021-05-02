@@ -1,14 +1,6 @@
 <template>
   <v-container :class="grid.rightPart">
-    <!-- <v-row>
-      <v-col md=12 lg=12 xl=12>
-        <v-text-field v-model="query" dense background-color="#e7ecef" solo flat @keypress="setQuery()" @keydown.enter="search(query)" :prepend-inner-icon="mdi.magnify"
-          :class="textField.round" :max-width="textField.width" :placeholder="textField.placeholder" />
-      </v-col>
-    </v-row> -->
-
     <the-profile-part />
-
     <v-row :class="grid.onlinePart">
       <v-col md=12 lg=12 xl=12>
         <h3 :style="style.online" v-text="onlineTitle" />
@@ -29,14 +21,12 @@
 </template>
 
 <script>
-  // import TheSearchField from './TheSearchField';
   import BaseAvatar from '../Base/BaseAvatar';
   import TheProfilePart from '../Layout/TheProfilePart';
 
   export default {
     name: "RightPart",
     components: {
-      // 'the-search-field': TheSearchField,
       'base-avatar': BaseAvatar,
       'the-profile-part': TheProfilePart
     },
