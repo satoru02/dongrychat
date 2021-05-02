@@ -1,22 +1,22 @@
 <template>
   <v-row :class="heading.position">
-    <v-col md=12 lg=12 xl=12 class="ml-1 mt-n6">
+    <v-col cols=12 sm=12 md=12 lg=12 xl=12 class="ml-1 mt-n6">
         <v-row :class="heading.innderHeading.position">
-          <v-col md=3 lg=2 xl=3>
+          <v-col cols=2 sm=2 md=2 lg=2 xl=2>
             <div :class="heading.innderHeading.titlePosition" :style="heading.innderHeading.titleStyle"
               v-text="title" />
           </v-col>
-          <v-col md=7 lg=8 xl=7 />
-          <v-col md=2 lg=2 xl=2 :class="heading.innderSubHeading.titlePosition">
+          <v-col cols=8 sm=8 md=8 lg=8 xl=8 />
+          <v-col cols=2 sm=2 md=2 lg=2 xl=2 :class="heading.innderSubHeading.titlePosition">
             <div class="ml-10"
              @click="movePath()"
               :style="heading.innderSubHeading.titleStyle" v-text="heading.innderSubHeading.title" />
           </v-col>
         </v-row>
         <v-row class="ml-n8">
-          <v-col md=2 lg=1 xl=2 v-for="(item, index) in items" :class="heading.img.position" :key="index">
+          <v-col cols=1 sm=1 md=1 lg=1 xl=1 v-for="(item, index) in items" :class="heading.img.position" :key="index">
             <v-row>
-              <v-col md=12 lg=12 xl=12>
+              <v-col cols=12 sm=12 md=12 lg=12 xl=12>
                 <v-avatar @click="showContents(item)" :class="heading.img.avatar.position" :size="heading.img.avatar.size"
                   :width="heading.img.avatar.width" :height="heading.img.avatar.height" tile>
                   <v-img :src="base_tmdb_img_url + item.poster_path" />

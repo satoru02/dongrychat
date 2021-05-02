@@ -1,12 +1,13 @@
 <template>
-  <v-container class="mt-n9">
+  <v-container :class="vContainerGrid" >
     <v-sheet class="rounded-lg" :style="vSheet.style" :height="vSheet.height">
       <space-header :space_data="this.space_data" />
       <v-tabs class="mt-2" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height" grow>
-        <v-tab :active-class="vTab.activeText" @click="changeMenu(menu.path)" :style="vTab.style"
+        <v-tab
+         :active-class="vTab.activeText" @click="changeMenu(menu.path)" :style="vTab.style"
           v-for="(menu, index) in menus" :key="index">
           {{menu.name}}
-          <v-chip class="ml-3 rounded-xl" :style="vChip.style" :text-color="vChip.textColor" :elevation="vChip.elevation"
+          <v-chip v-if="$vuetify.breakpoint.width > 600" class="ml-3 rounded-xl" :style="vChip.style" :text-color="vChip.textColor" :elevation="vChip.elevation"
             :color="vChip.color" x-small v-text="setCount(menu.name)" />
         </v-tab>
       </v-tabs>
@@ -190,6 +191,17 @@
           path: menu_name
         })).catch(() => {});
       }
+    },
+    computed: {
+      vContainerGrid(){
+        switch(this.$vuetify.breakpoint.name) {
+          case 'xs' : return 'ml-16 mt-n9'
+          case 'sm' : return 'mt-7'
+          case 'md' : return 'mt-7'
+          case 'lg' : return 'mt-n9'
+          case 'xl' : return 'mt-n9'
+        }
+      }
     }
   }
 </script>
@@ -198,7 +210,6 @@
   .theme--light.v-divider {
     border-color: rgba(201, 204, 204, 0.06);
   }
-
   .v-input__slot::before {
     border-style: none !important;
   }

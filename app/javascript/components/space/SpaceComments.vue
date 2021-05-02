@@ -1,7 +1,7 @@
 <template>
-  <v-container>
-    <v-row class="ml-1 mb-1" v-for="(comment, index) in comments" :key="index">
-      <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="mt-n3">
+  <v-container :class="vContainer">
+    <v-row class="ml-1 mb-n3" v-for="(comment, index) in comments" :key="index">
+      <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="vColAvatarGrid">
         <v-badge :color="comment.attributes.user.data.attributes.appearance === true ? 'green accent-4' : 'red'"
           offset-x="6" offset-y="6" bordered bottom dot overlap>
           <v-avatar class="rounded-lg mt-3" @click="showDialog(comment.attributes.user.data.attributes)"
@@ -10,16 +10,15 @@
           </v-avatar>
         </v-badge>
       </v-col>
-      <v-col cols=11 sm=11 md=11 lg=11 xl=11 class="ml-n9 mt-n1">
+      <v-col cols=11 sm=11 md=11 lg=11 xl=11 :class="vColNameGrid">
         <v-row>
-          <v-col cols=2 sm=2 md=2 lg=2 xl=2 :style="username.style"
-            v-text="comment.attributes.user.data.attributes.name" />
-          <v-col cols=9 sm=9 md=9 lg=9 xl=9 />
-          <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="mr-n16" :style="time.style"
-            v-text="formalizeTime(comment.attributes.created_at)" />
+          <v-col cols=12 sm=12 md=12 lg=12 xl=12 :style="username.style"
+          >
+            {{comment.attributes.user.data.attributes.name}}・{{formalizeTime(comment.attributes.created_at)}}
+          </v-col>
         </v-row>
-        <v-row class="mt-n5">
-          <v-col cols=12 sm=12 md=12 lg=12 xl=12 :style="content.style" v-text="comment.attributes.content" />
+        <v-row>
+          <v-col cols=12 sm=12 md=12 lg=12 xl=12 :class="vRowContentGrid" :style="content.style" v-text="comment.attributes.content" />
         </v-row>
       </v-col>
     </v-row>
@@ -61,7 +60,7 @@
             color: '#6c757d',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '11px'
+            fontSize: '13px'
           }
         },
         time: {
@@ -96,6 +95,45 @@
       },
       formalizeTime(time) {
         return moment(time).format("hh:mm")
+      }
+    },
+    computed:{
+      vContainer(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return 'ml-n4'
+          case 'sm' : return 'mt-7'
+          case 'md' : return 'mt-7'
+          case 'lg' : return ''
+          case 'xl' : return 'mt-n9'
+        }
+
+      },
+      vRowContentGrid(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return 'mt-n5'
+          case 'sm' : return 'mt-7'
+          case 'md' : return 'mt-7'
+          case 'lg' : return 'mt-n5'
+          case 'xl' : return 'mt-n9'
+        }
+      },
+      vColNameGrid(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return 'mt-n16 ml-11'
+          case 'sm' : return 'mt-7'
+          case 'md' : return 'mt-7'
+          case 'lg' : return 'ml-n9 mt-n1'
+          case 'xl' : return 'mt-n9'
+        }
+      },
+      vColAvatarGrid(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return 'mt-n3 ml-n2'
+          case 'sm' : return 'mt-7'
+          case 'md' : return 'mt-7'
+          case 'lg' : return 'mt-n3'
+          case 'xl' : return 'mt-n9'
+        }
       }
     }
   }

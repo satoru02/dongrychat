@@ -1,14 +1,14 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col md=1 lg=1 xl=1>
-        <div class="ml-10" :style="switch1 === false ? active : inactive" v-text="tv.header" />
+      <v-col cols=3 sm=1 md=1 lg=1 xl=1>
+        <div :class="vColTvGrid" :style="switch1 === false ? active : inactive" v-text="tv.header" />
       </v-col>
-      <v-col md=1 lg=1 xl=1>
+      <v-col cols=1 sm=1 md=1 lg=1 xl=1>
         <div :style="switch1 === true ? active : inactive" v-text="movie.header" />
       </v-col>
-      <v-col md=9 lg=9 xl=9 />
-      <v-col md=1 lg=1 xl=1 class="ml-n7">
+      <v-col cols=5 sm=7 md=9 lg=9 xl=9 />
+      <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="vColSwitchGrid">
         <v-switch dark dense v-model="switch1" :color="colors.blue" inset :class="switchPosition" />
       </v-col>
     </v-row>
@@ -186,6 +186,26 @@
             this.upcoming_mvs = res[3].data.results.slice(0, 7)
           })
       },
+    },
+    computed: {
+      vColTvGrid(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return 'ml-16'
+          case 'sm' : return ''
+          case 'md' : return ''
+          case 'lg' : return 'ml-10'
+          case 'xl' : return ''
+        }
+      },
+      vColSwitchGrid(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return 'ml-16'
+          case 'sm' : return ''
+          case 'md' : return ''
+          case 'lg' : return 'ml-n7'
+          case 'xl' : return ''
+        }
+      }
     }
   }
 </script>

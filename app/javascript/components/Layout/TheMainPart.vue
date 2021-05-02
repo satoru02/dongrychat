@@ -1,11 +1,11 @@
 <template>
   <div>
     <v-app :class="grid.app" style="background-color: #121214;">
-      <v-app-bar flat fixed app color="#121214">
+      <v-app-bar flat fixed app color="#121214" v-if="$vuetify.breakpoint.width > 600">
         <v-toolbar-title style="cursor: pointer" @click="goTop()" class="ml-16 mt-2" :style="logoStyle">Devio</v-toolbar-title>
         <v-row>
-          <v-col lg=2 class="ml-16" />
-          <v-col lg=6 class="mt-3">
+          <v-col cols=1 lg=2 class="ml-16" />
+          <v-col cols=6 lg=6 class="mt-3">
             <v-text-field
             @keypress="setQuery()" @keydown.enter="search(query)" v-model="query" height="10" v-if="this.checkAuthorization()"
              :prepend-inner-icon="'mdi-magnify'"
@@ -42,7 +42,7 @@
         </v-row>
       </v-main>
     </v-app>
-    <base-bottom-bar v-if="this.checkAuthorization()" />
+    <base-bottom-bar v-if="this.checkAuthorization() " />
   </div>
 </template>
 
@@ -67,7 +67,7 @@
           // // main: 'mt-5 ml-n3',
           // sidebar: ' mr-2 mt-n5',
           deskCenter: ' ml-6',
-          // mobileCenter: 'ml-n4',
+          mobileCenter: 'ml-n16',
           rightPart: 'mt-3 ml-16'
         },
         textField: {

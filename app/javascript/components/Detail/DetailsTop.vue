@@ -1,37 +1,38 @@
 <template>
-  <v-container :class="'mt-n12'">
-    <v-row :class="'mt-7 ml-n7'">
-      <v-col cols=2 sm=2 md=2 lg=2 xl=2 :class="'ml-4 mt-3'">
+  <v-container :class="vContainerGrid">
+    <v-row :class="vRowContentsGrid">
+      <v-col cols=2 sm=2 md=2 lg=2 xl=2 :class="vAvatarGrid">
         <v-avatar :class="'rounded-lg'" :size="heading.avatar.size" :height="heading.avatar.height">
           <v-img v-if="details.poster_path" :src="base_tmdb_img_url + details.poster_path" />
         </v-avatar>
       </v-col>
-      <v-col cols=9 sm=9 md=9 lg=9 xl=9>
+      <v-col v-if="this.$vuetify.breakpoint.width < 600" cols=2 />
+      <v-col cols=7 sm=9 md=9 lg=9 xl=9>
         <v-row>
-          <v-col cols=9 sm=9 md=9 lg=9 xl=9 :class="'mt-4 ml-n2'" :style="style.contentsTitle">
+          <v-col cols=12 sm=9 md=9 lg=9 xl=9 :class="vColNameGrid" :style="style.contentsTitle">
             <h3 v-if="media === 'tv'" v-text="this.$route.params.tv_name" />
             <h3 v-else v-text="this.$route.params.mv_name" />
           </v-col>
-          <v-col cols=2 sm=2 md=2 lg=2 xl=2 />
+          <!-- <v-col cols=2 sm=2 md=2 lg=2 xl=2 /> -->
         </v-row>
         <v-row dense :class="'mt-n6'">
-          <v-col cols=12 sm=12 md=12 lg=12 xl=12 :class="'mt-2 ml-n2'" :style="style.subContentsTitle">
+          <v-col cols=12 sm=12 md=12 lg=12 xl=12 :class="vColSubNameGrid" :style="style.subContentsTitle">
             <h3 v-if="media === 'tv'" v-text="'@' + this.$route.params.tv_name" />
             <h3 v-else v-text="'@' + this.$route.params.mv_name" />
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols=12 sm=12 md=12 lg=12 xl=12 :class="'mt-n2 ml-n2'">
+          <v-col cols=12 sm=12 md=12 lg=12 xl=12 :class="vColDetailsGrid">
             <div :style="style.contentsDetails" v-text="details.overview" />
           </v-col>
         </v-row>
-        <v-row :class="'mt-3'">
-          <v-col cols=2 sm=2 md=2 lg=2 xl=2 :class="'ml-n2'" :style="style.credit" v-text="text.credit" />
+        <v-row :class="'mt-3'" v-if="this.$vuetify.breakpoint.width > 600">
+          <v-col cols=5 sm=2 md=2 lg=2 xl=2 :class="vColCreditGrid" :style="style.credit" v-text="text.credit" />
           <v-col cols=3 sm=3 md=3 lg=3 xl=3 :class="'ml-n10'" :style="style.person"
             v-for="(credit, index) in overall.created_by" :key="index" v-text="credit.name" />
         </v-row>
-        <v-row :class="'mt-n1 ml-1'">
-          <v-col cols=2 sm=2 md=2 lg=2 xl=2 :class="'ml-n6 mt-1'" :style="style.credit" v-text="text.genre" />
+        <v-row :class="'mt-n1 ml-1'" v-if="this.$vuetify.breakpoint.width > 600">
+          <v-col cols=4 sm=2 md=2 lg=2 xl=2 :class="vColGenreGrid" :style="style.credit" v-text="text.genre" />
           <v-col cols=8 sm=8 md=8 lg=8 xl=8 :class="'ml-n10'">
             <v-chip :class="'mr-4 mb-2'" :style="style.tag" v-for="(genre, index) in this.genres" :key="index"
               :color="style.chip" small v-text="genre" />
@@ -40,17 +41,24 @@
       </v-col>
     </v-row>
 
-    <v-tabs v-if="(media === 'tv') && (overall.seasons)" :class="'mt-6 ml-n2'" :style="style.tabs"
+    <v-row v-if="this.$vuetify.breakpoint.width < 600">
+      <v-col cols=12>
+        <v-chip :class="'mr-4 mt-n2'" :style="style.tag" v-for="(genre, index) in this.genres" :key="index"
+          :color="style.chip" small v-text="genre" />
+        </v-col>
+    </v-row>
+
+    <v-tabs v-if="(media === 'tv') && (overall.seasons)" :class="vTabsGrid" :style="style.tabs"
       background-color='#121214' :height="'40'" :width="tabs.width" :color="'blue'">
       <v-tab :active-class="tabActive" :style="style.tab" @click="changeSeason(index+1)"
         v-for="(season, index) in overall.seasons.length" :key="index">
         {{text.season}} {{index + 1}}
       </v-tab>
     </v-tabs>
-    <v-divider v-if="media === 'tv'" :class="'ml-n2'" />
+    <v-divider v-if="media === 'tv'" />
 
     <v-row v-if="media === 'tv'">
-      <v-col cols=12 sm=12 md=12 lg=12 xl=12 :class="'ml-n2'">
+      <v-col cols=12 sm=12 md=12 lg=12 xl=12>
         <v-list :style="style.list">
           <v-list-item-group v-for="(episode, index) in details.episodes" :key="index" :active-class="list_part.active">
             <v-hover v-slot="{hover}">
@@ -74,8 +82,8 @@
       </v-col>
     </v-row>
 
-    <v-row v-else>
-      <v-col cols=12 sm=12 md=12 lg=12 xl=12 :class="'ml-n2'">
+    <v-row v-else class="mt-n3">
+      <v-col cols=12 sm=12 md=12 lg=12 xl=12>
         <v-list :style="style.list">
           <v-list-item-group :active-class="list_part.active">
             <v-hover v-slot="{hover}">
@@ -400,6 +408,89 @@
       },
       goSignup() {
         this.$router.replace('/signup')
+      }
+    },
+    computed: {
+      vContainerGrid(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return 'mt-n12 ml-16'
+          case 'sm' : return ''
+          case 'md' : return ''
+          case 'lg' : return 'mt-n12'
+          case 'xl' : return ''
+        }
+      },
+      vRowContentsGrid(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return 'mt-6 ml-n6'
+          case 'sm' : return ''
+          case 'md' : return ''
+          case 'lg' : return 'mt-7 ml-n7'
+          case 'xl' : return ''
+        }
+      },
+      vAvatarGrid(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return 'ml-4 mt-3'
+          case 'sm' : return ''
+          case 'md' : return ''
+          case 'lg' : return 'ml-6 mt-3'
+          case 'xl' : return ''
+        }
+      },
+      vColNameGrid(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return 'mt-4 ml-2'
+          case 'sm' : return ''
+          case 'md' : return ''
+          case 'lg' : return 'mt-4 ml-n2'
+          case 'xl' : return ''
+        }
+      },
+      vColSubNameGrid(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return 'mt-2 ml-2'
+          case 'sm' : return ''
+          case 'md' : return ''
+          case 'lg' : return 'mt-2 ml-n2'
+          case 'xl' : return ''
+        }
+      },
+      vColDetailsGrid(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return 'mt-n2 ml-2'
+          case 'sm' : return ''
+          case 'md' : return ''
+          case 'lg' : return 'mt-n2 ml-n2'
+          case 'xl' : return ''
+        }
+      },
+      vColCreditGrid(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return 'ml-2'
+          case 'sm' : return ''
+          case 'md' : return ''
+          case 'lg' : return 'ml-n2'
+          case 'xl' : return ''
+        }
+      },
+      vColGenreGrid(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return 'mt-1'
+          case 'sm' : return ''
+          case 'md' : return ''
+          case 'lg' : return 'ml-n6 mt-1'
+          case 'xl' : return ''
+        }
+      },
+      vTabsGrid(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return 'mt-2'
+          case 'sm' : return ''
+          case 'md' : return ''
+          case 'lg' : return 'mt-6'
+          case 'xl' : return ''
+        }
       }
     }
   }

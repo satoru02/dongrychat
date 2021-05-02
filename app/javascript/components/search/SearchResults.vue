@@ -1,18 +1,15 @@
 <template>
-  <v-container class="ml-n2" style="background-color: #121214;">
+  <v-container :class="vContainerGrid" style="background-color: #121214;">
     <v-row>
-      <v-col md=12 lg=12 xl=12>
+      <v-col cols=12 sm=12 md=12 lg=12 xl=12>
         <div :style="resultsStyle" v-text="resultsText" />
       </v-col>
     </v-row>
     <v-row class="mt-n3">
-      <v-col md=12 lg=12 xl=12>
+      <v-col cols=12 sm=12 md=12 lg=12 xl=12>
         <v-tabs grow :background-color="tabColor">
-          <v-tab :style="listStyle" :active-class="tabActive" v-text="keyword.text" @click="movePath(keyword.arg)" />
-          <v-tab :style="listStyle" :active-class="tabActive" v-text="tv.text" @click="movePath(tv.arg)" />
-          <v-tab :style="listStyle" :active-class="tabActive" v-text="movie.text" @click="movePath(movie.arg)" />
-          <v-tab :style="listStyle" :active-class="tabActive" v-text="person.text" @click="movePath(person.arg)" />
-          <v-tab :style="listStyle" :active-class="tabActive" v-text="company.text" @click="movePath(company.arg)" />
+          <v-tab v-for="(menu, index) in menus" :key="index"
+          :style="listStyle" :active-class="tabActive" v-text="menu.name" @click="movePath(menu.path)" />
         </v-tabs>
         <v-divider />
       </v-col>
@@ -26,26 +23,25 @@
           :class="'rounded-lg'"
            @click="showContents(item)"
             :style="hover ? 'background-color: #1a212d;' : 'background-color: #121214;'">
-
               <v-list-item-avatar :size='avatar.size' :width='avatar.width' :height='avatar.height'
                 :class="avatar.rounded">
-                <v-img v-if="items.type === person.arg" :src="base_tmdb_img_url + item.profile_path" />
+                <v-img v-if="items.type === 'person'" :src="base_tmdb_img_url + item.profile_path" />
                 <v-img v-else :src="base_tmdb_img_url + item.poster_path" />
               </v-list-item-avatar>
-              <v-list-item-content v-if="items.type === keyword.arg">
-                <v-list-item-title class="mb-2" v-if="item.media_type === tv.arg" :style="listItemStyle" v-text="item.name" />
-                <v-list-item-title class="mb-2" v-if="item.media_type === movie.arg" :style="listItemStyle" v-text="item.title" />
+              <v-list-item-content v-if="items.type === 'multi'">
+                <v-list-item-title class="mb-2" v-if="item.media_type === 'tv'" :style="listItemStyle" v-text="item.name" />
+                <v-list-item-title class="mb-2" v-if="item.media_type === 'movie'" :style="listItemStyle" v-text="item.title" />
                 <v-list-item-subtitle :style="subtitleStyle" v-text="item.overview" />
               </v-list-item-content>
-              <v-list-item-content v-if="items.type === tv.arg">
+              <v-list-item-content v-if="items.type === 'tv'">
                 <v-list-item-title class="mb-2" :style="listItemStyle" v-text="item.name" />
                 <v-list-item-subtitle :style="subtitleStyle" v-text="item.overview" />
               </v-list-item-content>
-              <v-list-item-content v-if="items.type === movie.arg">
+              <v-list-item-content v-if="items.type === 'movie'">
                 <v-list-item-title class="mb-2" :style="listItemStyle" v-text="item.title" />
                 <v-list-item-subtitle :style="subtitleStyle" v-text="item.overview" />
               </v-list-item-content>
-              <v-list-item-content v-if="items.type === person.arg">
+              <v-list-item-content v-if="items.type === 'person'">
                 <v-list-item-title :style="listItemStyle" v-text="item.name" />
               </v-list-item-content>
           </v-list-item>
@@ -71,28 +67,50 @@
           type: '',
           contents: []
         },
-        keyword: {
-          text: 'キーワード',
-          arg: 'multi'
-        },
-        tv: {
-          text: 'テレビ',
-          arg: 'tv',
-          details: 'TvDetails'
-        },
-        movie: {
-          text: '映画',
-          arg: 'movie',
-          details: 'MvDetails'
-        },
-        person: {
-          text: '出演者・スタッフ',
-          arg: 'person'
-        },
-        company: {
-          text: '企業',
-          arg: 'company'
-        },
+        menus: [
+          {
+            name: 'キーワード',
+            path: 'multi'
+          },
+          {
+            name: 'テレビ',
+            path: 'tv',
+          },
+          {
+            name: '映画',
+            path: 'movie',
+          },
+          {
+            name: '出演者・スタッフ',
+            path: 'person'
+          },
+          {
+            name: '企業',
+            path: 'company'
+          }
+        ],
+        // keyword: {
+        //   text: 'キーワード',
+        //   arg: 'multi'
+        // },
+        // tv: {
+        //   text: 'テレビ',
+        //   arg: 'tv',
+        //   details: 'TvDetails'
+        // },
+        // movie: {
+        //   text: '映画',
+        //   arg: 'movie',
+        //   details: 'MvDetails'
+        // },
+        // person: {
+        //   text: '出演者・スタッフ',
+        //   arg: 'person'
+        // },
+        // company: {
+        //   text: '企業',
+        //   arg: 'company'
+        // },
         // for css --------------------------------------------
         tabColor: '#121214',
         tabActive: 'white--text',
@@ -104,7 +122,7 @@
           color: '#ced4da'
         },
         listStyle: {
-          fontSize: '13px',
+          fontSize: '10px',
           fontFamily: 'Helvetica Neue, sans-serif',
           fontWeight: 'bold',
           color: '#6c757d'
@@ -150,29 +168,29 @@
           .catch(err => this.searchFailed(err))
       },
       searchSuccessful(res) {
-        if (this.$route.name === this.keyword.arg) {
+        if (this.$route.name === 'multi') {
           this.items = {
-            type: this.keyword.arg,
+            type: 'multi',
             contents: res.data.results
           }
-        } else if (this.$route.name === this.tv.arg) {
+        } else if (this.$route.name === 'tv') {
           this.items = {
-            type: this.tv.arg,
+            type: 'tv',
             contents: res.data.results
           }
-        } else if (this.$route.name === this.movie.arg) {
+        } else if (this.$route.name === 'movie') {
           this.items = {
-            type: this.movie.arg,
+            type: 'movie',
             contents: res.data.results
           }
-        } else if (this.$route.name === this.person.arg) {
+        } else if (this.$route.name === 'person') {
           this.items = {
-            type: this.person.arg,
+            type: 'person',
             contents: res.data.results
           }
-        } else if (this.$route.name === this.company.arg) {
+        } else if (this.$route.name === 'company') {
           this.items = {
-            type: this.company.arg,
+            type: 'comapny',
             contents: res.data.results
           }
         }
@@ -181,45 +199,45 @@
         this.error = (err.response && err.response.data && err.response.data.error) || ''
       },
       showContents(item) {
-        if (this.items.type === this.keyword.arg) {
-          if (item.media_type === this.tv.arg) {
+        if (this.items.type === 'multi') {
+          if (item.media_type === 'tv') {
             this.$router.push({
-              name: this.tv.details,
+              name: 'TvDetails',
               params: {
                 id: item.id,
                 number: 1,
                 tv_name: item.name
               }
             }).catch(()=> {});
-          } else if (item.media_type === this.movie.arg) {
+          } else if (item.media_type === 'movie') {
             this.$router.push({
-              name: this.movie.details,
+              name: 'MvDetails',
               params: {
                 id: item.id,
                 mv_name: item.title
               }
             }).catch(()=> {});
           }
-        } else if (this.items.type === this.tv.arg) {
+        } else if (this.items.type === 'tv') {
           this.$router.push({
-            name: this.tv.details,
+            name: 'TvDetails',
             params: {
               id: item.id,
               number: 1,
               tv_name: item.name
             }
           }).catch(()=> {});
-        } else if (this.items.type === this.movie.arg) {
+        } else if (this.items.type === 'movie') {
           this.$router.push({
-            name: this.movie.details,
+            name: 'MvDetails',
             params: {
               id: item.id,
               mv_name: item.name
             }
           }).catch(()=> {});
-        } else if (this.items.type === this.person.arg) {
+        } else if (this.items.type === 'person') {
           // actors component
-        } else if (this.items.type === this.company.arg) {
+        } else if (this.items.type === 'company') {
           // company component
         }
       },
@@ -227,6 +245,17 @@
         this.$router.replace({
           name: path_name
         }).catch(()=> {});
+      }
+    },
+    computed: {
+      vContainerGrid(){
+        switch(this.$vuetify.breakpoint.name) {
+          case 'xs' : return 'ml-16'
+          case 'sm' : return 'mt-7'
+          case 'md' : return 'mt-7'
+          case 'lg' : return 'ml-n2'
+          case 'xl' : return 'mt-n9'
+        }
       }
     }
   }

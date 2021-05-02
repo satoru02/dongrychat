@@ -1,25 +1,27 @@
 <template>
   <v-container class="mt-n8 ml-16" :key="componentKey">
     <v-row class="mb-n5 mt-2">
-      <v-col cols=1 sm=1 md=1 lg=1 xl=1>
+      <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="$vuetify.breakpoint.width > 600 ? 'mt-4' : 'mt-1'">
         <div :style="switcher === false ? switchBtn.active : switchBtn.inactive" v-text="tv.header" />
       </v-col>
-      <v-col cols=1 sm=1 md=1 lg=1 xl=1>
+      <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="$vuetify.breakpoint.width > 600 ? 'mt-4' : 'mt-1'">
         <div :style="switcher === true ? switchBtn.active : switchBtn.inactive" v-text="movie.header" />
       </v-col>
-      <v-col cols=9 sm=9 md=9 lg=9 xl=9 />
-      <v-col cols=1 sm=1 md=1 lg=1 xl=1>
-        <v-switch class="mt-1 ml-n1" v-model="switcher" color="blue" dense dark inset />
+      <v-col cols=8 sm=9 md=9 lg=9 xl=9 />
+      <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="$vuetify.breakpoint.width > 600 ? '' : 'mt-n3 ml-4'">
+        <v-switch v-model="switcher" color="blue" dense dark inset />
       </v-col>
     </v-row>
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
       <v-card class="rounded-lg mb-8" @click="enterSpace(item.attributes)"
         :style="hover ? card.hoverStyle : card.unhoverStyle" :elevation='hover ? 10 : 0' height="100px">
         <v-row>
-          <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-6 mt-8" :style="ranking.style">
+          <v-col cols=1 sm=1 md=1 lg=1 xl=1
+          :class="$vuetify.breakpoint.width > 600 ? 'ml-6 mt-8' : 'mt-8 ml-3 mr-4'" :style="ranking.style">
             {{index + 1}}
           </v-col>
-          <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-n9">
+          <v-col cols=1 sm=1 md=1 lg=1 xl=1
+          :class="$vuetify.breakpoint.width > 600 ? 'ml-n9' : 'ml-n10'">
             <v-avatar :class="avatar.round" :size="avatar.size" :height="avatar.height" tile>
               <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
             </v-avatar>
@@ -27,7 +29,9 @@
           <v-col cols=10 sm=10 md=10 lg=10 xl=10>
             <v-row dense>
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
-              <v-col cols=10 sm=10 md=10 lg=10 xl=10 class="ml-n6 mt-1" :style="label.style">
+              <v-col cols=10 sm=10 md=10 lg=10 xl=10
+              :class="$vuetify.breakpoint.width > 600 ? 'ml-n6 mt-1' : 'ml-4 mt-1'"
+              :style="label.style">
                 <base-label class="ml-1 mr-3" :x_small="true" :outlined="true" :label="true"
                   v-if="item.attributes.media === media.tv" :color="'blue'" :text-color="'#ced4da'"
                   :season="item.attributes.season" :episode="item.attributes.episode"
@@ -35,19 +39,22 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols=10 sm=10 md=10 lg=10 xl=10 />
+              <v-col cols=9 sm=10 md=10 lg=10 xl=10 />
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-10 mt-n1">
                 <v-badge dot />
               </v-col>
-              <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="mt-n4 ml-n10" :style="userCount.style" v-text="item.attributes.users.length" />
+              <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="$vuetify.breakpoint.width > 600 ? 'mt-n4 ml-n10' : 'mt-n4 ml-n4'"
+                 :style="userCount.style" v-text="item.attributes.users.length" />
             </v-row>
             <v-row class='mt-n11'>
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
-              <v-col cols=10 sm=10 md=10 lg=10 xl=10 class="ml-n5" :style="listItemTitle.style" v-text="item.attributes.name" />
+              <v-col cols=9 sm=10 md=10 lg=10 xl=10 :class="$vuetify.breakpoint.width > 600 ? 'ml-n5' : 'ml-5'" :style="listItemTitle.style" v-text="item.attributes.name" />
             </v-row>
-            <v-row class="mt-n4 ml-6">
+            <v-row
+            :class="$vuetify.breakpoint.width > 600 ? 'mt-n4 ml-6' : 'mt-n4 ml-10'">
               <v-col cols=12 sm=12 md=12 lg=12 xl=12 :style="tags.style">
-                <v-chip class="mr-2" :style="tags.style" v-for="(tag, index) in item.attributes.tag_list" :key="index"
+                <v-chip
+                :class="$vuetify.breakpoint.width > 600 ? 'mr-2' : 'mr-2'" :style="tags.style" v-for="(tag, index) in item.attributes.tag_list" :key="index"
                   color="#293241" v-text="'#' + tag" x-small />
               </v-col>
             </v-row>
