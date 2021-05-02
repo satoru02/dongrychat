@@ -148,7 +148,7 @@
           case 'xs' : return 'mt-n2 rounded-s'
           case 'sm' : return 'mt-7'
           case 'md' : return 'mt-7'
-          case 'lg' : return 'mt-n2 ml-6 mr-6 rounded-s'
+          case 'lg' : return 'mt-n4 ml-6 mr-6 rounded-s'
           case 'xl' : return 'mt-2 ml-6 mr-6 rounded-s'
         }
       }

@@ -1,12 +1,12 @@
 <template>
   <v-bottom-navigation v-if="$vuetify.breakpoint.width < 600 && this.checkRoute()" dark :background-color="color" fixed>
-    <v-btn>
+    <v-btn @click="movePath('Chart')">
       <v-icon>mdi-access-point</v-icon>
     </v-btn>
-    <v-btn>
+    <v-btn @click="movePath('Home')">
       <v-icon>mdi-home</v-icon>
     </v-btn>
-    <v-btn>
+    <v-btn @click="movePath('Search')">
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
     <v-btn>
@@ -51,6 +51,9 @@
         } else {
           return true
         }
+      },
+      movePath(path_name){
+        this.$router.push({name: path_name})
       }
     }
   }

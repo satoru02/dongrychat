@@ -43,7 +43,7 @@
       </v-row>
       <v-row :class="vRowTagsGrid">
         <v-col cols=12 sm=12 md=12 lg=12 xl=12 :style="vColTags.style" small>
-          <v-chip class="mr-2 mb-2" :style="vChip.tags.style" v-for="(tag, index) in space_data.tag_list"
+          <v-chip class="mr-2 mb-2" :style="vChip.tags.style" v-for="(tag, index) in space_data.tag_list.slice(0, 3)"
             :key="index" :color="vChip.tags.color" x-small v-text="'#' + tag" />
         </v-col>
       </v-row>

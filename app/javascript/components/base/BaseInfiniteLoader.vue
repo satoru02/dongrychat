@@ -2,7 +2,7 @@
   <infinite-loading spinner="circles" @infinite="handler" :force-use-infinite-wrapper="wrapper">
     <span slot="no-more" :style="textStyle">
     </span>
-    <span slot="no-results" :style="textStyle" class="ml-n13">
+    <span slot="no-results" :style="textStyle" class="ml-5">
       {{text}}
     </span>
   </infinite-loading>

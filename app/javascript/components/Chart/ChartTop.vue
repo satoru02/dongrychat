@@ -54,7 +54,7 @@
             :class="$vuetify.breakpoint.width > 600 ? 'mt-n4 ml-6' : 'mt-n4 ml-10'">
               <v-col cols=12 sm=12 md=12 lg=12 xl=12 :style="tags.style">
                 <v-chip
-                :class="$vuetify.breakpoint.width > 600 ? 'mr-2' : 'mr-2'" :style="tags.style" v-for="(tag, index) in item.attributes.tag_list" :key="index"
+                :class="$vuetify.breakpoint.width > 600 ? 'mr-2' : 'mr-2'" :style="tags.style" v-for="(tag, index) in item.attributes.tag_list.slice(0, 2)" :key="index"
                   color="#293241" v-text="'#' + tag" x-small />
               </v-col>
             </v-row>

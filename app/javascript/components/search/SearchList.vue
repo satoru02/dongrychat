@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-10">
+    <v-row :class="vRowHeader">
+      <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="vColTvHeader">
         <div :style="switch1 === false ? active : inactive" v-text="tv.header" />
       </v-col>
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-n8">
@@ -12,8 +12,9 @@
         <v-switch dense dark v-model="switch1" :color="colors.blue" inset :class="switchPosition" />
       </v-col>
     </v-row>
-    <v-row>
-      <v-col cols=2 sm=2 md=2 lg=2 xl=2 v-for="(item, index) in items" :class="listItem.img.position" :key="index">
+    <v-row :class="vRowContents">
+      <v-col cols=3 sm=2 md=2 lg=2 xl=2 :class="vColContents"
+       v-for="(item, index) in items" :key="index">
         <v-row class=mb-2>
           <v-col cols=12 sm=12 md=12 lg=12 xl=12>
             <v-avatar
@@ -188,7 +189,46 @@
             }
           })
         }
+      }
+    },
+    computed: {
+      vRowHeader(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return 'ml-10 mt-n6'
+          case 'sm' : return ''
+          case 'md' : return ''
+          case 'lg' : return ''
+          case 'xl' : return ''
+        }
       },
+      vColTvHeader(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return 'ml-10 mr-13'
+          case 'sm' : return ''
+          case 'md' : return ''
+          case 'lg' : return 'ml-10'
+          case 'xl' : return ''
+        }
+
+      },
+      vRowContents(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return 'ml-6'
+          case 'sm' : return ''
+          case 'md' : return ''
+          case 'lg' : return ''
+          case 'xl' : return ''
+        }
+      },
+      vColContents(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return 'ml-8 mt-n10'
+          case 'sm' : return ''
+          case 'md' : return ''
+          case 'lg' : return 'mt-n10 ml-4'
+          case 'xl' : return ''
+        }
+      }
     }
   }
 </script>

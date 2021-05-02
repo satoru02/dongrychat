@@ -1,5 +1,5 @@
 <template>
-  <v-container class="ml-16 mt-n6">
+  <v-container class="ml-16 mt-n3">
     <h3
     :class="$vuetify.breakpoint.width > 600 ? 'mb-8 ml-1' : 'mb-5 ml-1'"
     :style="style.headerPart" v-text="text.home" />
