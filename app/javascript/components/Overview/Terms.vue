@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="mt-3 ml-16 privacy-part" width="1000px" rounded elevation=0 color="#ffffff">
+  <v-sheet class="mt-3 ml-16 privacy-part rounded-lg" width="1000px" color="#ffffff" elevation=0>
     <v-row>
       <v-col cols=10 sm=10 md=10 lg=10 xl=10 />
     </v-row>
@@ -33,35 +33,30 @@
         <h3>第2条（利用登録）</h3>
       </v-col>
     </v-row>
-
     <v-row v-for="(article, index) in chapter_two" :key='index'>
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
       <v-col cols=10 sm=10 md=10 lg=10 xl=10>
         {{article}}
       </v-col>
     </v-row>
-
     <v-row>
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
       <v-col cols=10 sm=10 md=10 lg=10 xl=10>
         ・利用登録の申請に際して虚偽の事項を届け出た場合
       </v-col>
     </v-row>
-
     <v-row>
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
       <v-col cols=10 sm=10 md=10 lg=10 xl=10>
         ・本規約に違反したことがある者からの申請である場合
       </v-col>
     </v-row>
-
     <v-row>
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
       <v-col cols=10 sm=10 md=10 lg=10 xl=10>
         ・その他，当社が利用登録を相当でないと判断した場合
       </v-col>
     </v-row>
-
     <v-row>
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
       <v-col cols=10 sm=10 md=10 lg=10 xl=10 style="font-weight: bold;">
@@ -161,7 +156,7 @@
         <h3>第8条（保証の否認および免責事項）</h3>
       </v-col>
     </v-row>
-    <v-row dense v-for="(article, index) in chapter_eight" :key='index'>
+    <v-row v-for="(article, index) in chapter_eight" :key='index'>
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
       <v-col cols=10 sm=10 md=10 lg=10 xl=10>
         {{article}}
@@ -248,6 +243,9 @@
       <v-col cols=10 sm=10 md=10 lg=10 xl=10>
         2. 本サービスに関して紛争が生じた場合には，当社の本店所在地を管轄する裁判所を専属的合意管轄とします。
       </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols=10 sm=10 md=10 lg=10 xl=10 />
     </v-row>
   </v-sheet>
 </template>

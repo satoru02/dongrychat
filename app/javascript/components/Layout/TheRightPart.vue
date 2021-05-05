@@ -16,6 +16,33 @@
       <v-col md=8 lg=8 xl=8 :class="grid.username">
         <h3 :style="style.name" v-text="'username'" />
       </v-col>
+   </v-row>
+
+    <v-row no-gutters class="mt-10">
+      <v-hover v-slot="{hover}">
+        <v-col lg=4 :style="hover ? style.unhoverlink : style.hoverlink" @click="movePath('Terms')">
+          利用規約
+        </v-col>
+      </v-hover>
+      <v-hover v-slot="{hover}">
+      <v-col lg=8 :style="hover ? style.unhoverlink : style.hoverlink" class="ml-n4" @click="movePath('Privacy')">
+        プライバシーポリシー
+      </v-col>
+      </v-hover>
+    </v-row>
+    <v-row no-gutters>
+      <v-hover v-slot="{hover}">
+      <v-col lg=4 :style="hover ? style.unhoverlink : style.hoverlink">
+        お問い合わせ
+      </v-col>
+      </v-hover>
+      <v-hover v-slot="{hover}">
+
+      <v-col lg=8 :style="hover ? style.unhoverlink : style.hoverlink">
+        © 2021 Devio
+      </v-col>
+      </v-hover>
+
     </v-row>
   </v-container>
 </template>
@@ -49,6 +76,20 @@
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '20px',
             color: '#ced4da'
+          },
+          hoverlink: {
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '9px',
+            color: '#6c757d',
+            cursor: 'pointer',
+          },
+          unhoverlink: {
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '9px',
+            color: '#ffffff',
+            cursor: 'pointer',
           }
         },
         grid: {
@@ -89,6 +130,9 @@
         })
         this.query = ''
         this.canSubmit = false
+      },
+      movePath(link){
+        this.$router.push({name: link})
       }
     }
   }
