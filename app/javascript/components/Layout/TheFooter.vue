@@ -1,6 +1,6 @@
 <template>
-  <v-footer color="#fafaf9" height="160">
-    <v-row no-gutters >
+  <v-footer color="#fafaf9">
+    <v-row no-gutters>
       <v-col lg=3 />
       <v-col lg=9>
       <v-btn

@@ -33,6 +33,8 @@ import Results from '../components/Search/SearchResults';
 import UserFollowings from '../components/User/UserFollowings';
 import UserFollowers from '../components/User/UserFollowers';
 import SearchList from '../components/Search/SearchList';
+import Privacy from '../components/Overview/Privacy';
+import Terms from '../components/Overview//Terms';
 
 Vue.use(Vuetify);
 Vue.use(VueRouter);
@@ -457,6 +459,22 @@ const router = new VueRouter({
           })
         }
       ]
+    },
+    {
+      path: "/privacy",
+      name: "Privacy",
+      component: Privacy,
+      meta: {
+        title: 'プライバシーポリシー'
+      }
+    },
+    {
+      path: "/terms",
+      name: "Terms",
+      component: Terms,
+      meta: {
+        title: '利用規約'
+      }
     }
   ]
 })
