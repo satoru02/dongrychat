@@ -39,6 +39,7 @@
           </v-col>
         </v-row>
       </v-main>
+    <!-- <base-footer /> -->
     <base-bottom-bar v-if="this.checkAuthorization() " />
     </v-app>
 </template>
@@ -46,14 +47,16 @@
 <script>
   import BaseBottomBar from '../Base/BaseBottomBar'
   import SideBar from '../../components/Layout/TheSideBar'
-  import RightPart from '../Layout/TheRightPart';
+  import RightPart from '../Layout/TheRightPart'
+  import Footer from '../Layout/TheFooter'
 
   export default {
     name: 'TheMainPart',
     components: {
       'base-bottom-bar': BaseBottomBar,
       'side-bar': SideBar,
-      'right-part': RightPart
+      'right-part': RightPart,
+      'base-footer': Footer
     },
     data() {
       return {
