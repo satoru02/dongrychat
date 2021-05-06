@@ -71,6 +71,7 @@
         secureAxios.post(RELATIONSHOP_URL, {
           followed_id: user_id
         }).then(res => {
+          console.log(res)
           this.$store.commit('follow', user_id)
           this.followed = true
         })

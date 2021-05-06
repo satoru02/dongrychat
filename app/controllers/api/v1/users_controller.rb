@@ -46,10 +46,10 @@ module Api
         render_json(serializer)
       end
 
-      def online_following
-        # users = current_user.following
-        # serializer = UserSerializer.new(users)
-        # render_json(serializer)
+      def online
+        users = current_user.online_followings
+        serializer = FollowingSerializer.new(users)
+        render_json(serializer)
       end
 
       private

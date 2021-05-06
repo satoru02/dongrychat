@@ -6,15 +6,17 @@
         <h3 :style="style.online" v-text="onlineTitle" />
       </v-col>
     </v-row>
-    <v-row v-for="(n,index) in 5" :key="index">
+    <v-row v-for="(following, index) in online_followings" :key="index">
       <v-col md=1 lg=1 xl=1>
+        <v-badge offset-x="6" offset-y="6" bordered bottom dot overlap>
         <v-avatar :size="avatar.size" :height="avatar.height">
-          <base-avatar :img="'https://cdn.vuetifyjs.com/images/john.jpg'" />
+          <base-avatar :img="following.attributes.avatar_url" />
         </v-avatar>
+        </v-badge>
       </v-col>
       <v-col md=1 lg=1 xl=1 />
       <v-col md=8 lg=8 xl=8 :class="grid.username">
-        <h3 :style="style.name" v-text="'username'" />
+        <h3 :style="style.name" v-text="following.attributes.name" />
       </v-col>
    </v-row>
 
@@ -48,6 +50,7 @@
 </template>
 
 <script>
+  import { secureAxios } from '../../backend/axios';
   import BaseAvatar from '../Base/BaseAvatar';
   import TheProfilePart from '../Layout/TheProfilePart';
 
@@ -61,6 +64,8 @@
       return {
         query: '',
         canSubmit: false,
+        online_endpoint: `/api/v1/users/`,
+        online_followings: ``,
         mdi: {
           magnify: 'mdi-magnify'
         },
@@ -113,7 +118,22 @@
         },
       }
     },
+    created(){
+      this.getOnlineFollowings()
+    },
     methods: {
+      getOnlineFollowings(){
+        secureAxios.get(this.online_endpoint + `${this.$store.state.currentUser.id}` + `/online`)
+        .then(res => this.Successful(res))
+        .catch(err => this.Failed(err))
+      },
+      Successful(res) {
+        console.log(res)
+        this.online_followings = res.data.data
+      },
+      Failed(error) {
+        this.error = (error.response && error.response.data && error.response.data.error) || ""
+      },
       setQuery(){
         this.canSubmit = true
       },
@@ -121,7 +141,6 @@
         if(!this.canSubmit){
           return
         }
-
         this.$router.replace({
           name: 'multi',
           params: {

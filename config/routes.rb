@@ -107,7 +107,7 @@ Rails.application.routes.draw do
           get :me
         end
         member do
-          get :following, :followers, :online_following
+          get :following, :followers, :online
         end
       end
 

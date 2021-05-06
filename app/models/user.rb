@@ -111,6 +111,13 @@ class User < ApplicationRecord
     active_relationships.find_by(followed_id: other_user.id).destroy
   end
 
+  def online_followings
+    redis = set_redis
+    online_users = []
+    following.each { |following_user| online_users << following_user if redis.get("user_#{following_user.id}_online") }
+    online_users
+  end
+
   def following? other_user
     following.include? other_user
   end
