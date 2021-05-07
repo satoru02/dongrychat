@@ -128,7 +128,6 @@
         .catch(err => this.Failed(err))
       },
       Successful(res) {
-        console.log(res)
         this.online_followings = res.data.data
       },
       Failed(error) {

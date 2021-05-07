@@ -4,11 +4,11 @@
       <space-header :space_data="this.space_data" />
       <v-tabs class="mt-2" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height" grow>
         <v-tab
-         :active-class="vTab.activeText" @click="changeMenu(menu.path)" :style="vTab.style"
-          v-for="(menu, index) in menus" :key="index">
-          {{menu.name}}
+         :active-class="vTab.activeText" @click="changeTab(tablist.path)" :style="vTab.style"
+          v-for="(tablist, index) in tablists" :key="index">
+          {{tablist.title}}
           <v-chip v-if="$vuetify.breakpoint.width > 600" class="ml-3 rounded-xl" :style="vChip.style" :text-color="vChip.textColor" :elevation="vChip.elevation"
-            :color="vChip.color" x-small v-text="setCount(menu.name)" />
+            :color="vChip.color" x-small v-text="setCount(tablist.title)" />
         </v-tab>
       </v-tabs>
       <v-divider />
@@ -53,21 +53,21 @@
             unsubscribed: 'MvSpace'
           }
         },
-        menus: [
+        tablists: [
           {
-            name: 'チャット',
+            title: 'チャット',
             path: 'chats'
           },
           {
-            name: 'レビュー',
+            title: 'レビュー',
             path: 'reviews'
           },
           {
-            name: 'シェアウォッチ',
+            title: 'シェアウォッチ',
             path: 'news'
           },
           {
-            name: 'ユーザー',
+            title: 'ユーザー',
             path: 'members'
           },
         ],
@@ -103,41 +103,53 @@
       }
     },
     created() {
-      if (this.$route.name === this.space.tv.subscribed) {
-        this.endpoint = this.api.from_subscription
-        this.params = {
-          space_id: this.$route.params.space_id,
-          media: this.media.tv
+      switch(this.$route.name) {
+        case 'subscribedTvSpace' :  {
+          this.endpoint = this.api.from_subscription
+          this.params = {
+            space_id: this.$route.params.space_id,
+            media: this.media.tv
+          }
         }
-      } else if (this.$route.name === this.space.movie.subscribed) {
-        this.endpoint = this.api.from_subscription
-        this.params = {
-          space_id: this.$route.params.space_id,
-          media: this.media.mv
+        break;
+        case 'subscribedMvSpace' : {
+          this.endpoint = this.api.from_subscription
+          this.params = {
+            space_id: this.$route.params.space_id,
+            media: this.media.mv
+          }
         }
-      } else if (this.$route.name === this.space.tv.unsubscribed) {
-        this.endpoint = this.api.from_search
-        this.params = {
-          name: this.$route.params.name,
-          season: this.$route.params.season_number,
-          episode: this.$route.params.episode_number,
-          media: this.media.tv,
-          episode_title: this.$route.params.episode_title,
-          tmdb_comp_id: this.$route.params.tmdb_comp_id,
-          tmdb_tv_id: this.$route.params.tmdb_tv_id,
-          image_path: this.$route.params.image_path,
-          overview: this.$route.params.overview,
-          tag_list: this.$route.params.tag_list,
+        break;
+        case  'TvSpace' : {
+          this.endpoint = this.api.from_search
+          this.params = {
+            name: this.$route.params.name,
+            season: this.$route.params.season_number,
+            episode: this.$route.params.episode_number,
+            media: this.media.tv,
+            episode_title: this.$route.params.episode_title,
+            tmdb_comp_id: this.$route.params.tmdb_comp_id,
+            tmdb_tv_id: this.$route.params.tmdb_tv_id,
+            image_path: this.$route.params.image_path,
+            overview: this.$route.params.overview,
+            tag_list: this.$route.params.tag_list,
+          }
         }
-      } else if (this.$route.name === this.space.movie.unsubscribed) {
-        this.endpoint = this.api.from_search
-        this.params = {
-          name: this.$route.params.name,
-          media: this.media.mv,
-          image_path: this.$route.params.image_path,
-          tmdb_mv_id: this.$route.params.tmdb_mv_id,
-          overview: this.$route.params.overview,
-          tag_list: this.$route.params.tag_list
+        break;
+        case 'MvSpace' : {
+          this.endpoint = this.api.from_search
+          this.params = {
+            name: this.$route.params.name,
+            media: this.media.mv,
+            image_path: this.$route.params.image_path,
+            tmdb_mv_id: this.$route.params.tmdb_mv_id,
+            overview: this.$route.params.overview,
+            tag_list: this.$route.params.tag_list
+          }
+        }
+        break;
+        default: {
+          this.$router.replace('/')
         }
       }
       this.setSpace()
@@ -175,20 +187,18 @@
       failed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
       },
-      setCount(menu_name) {
-        if (menu_name === 'チャット') {
-          return this.space_data.comments_count
-        } else if (menu_name === 'ユーザー') {
-          return this.space_data.users.data.length
-        } else if (menu_name === 'レビュー') {
-          return 0
-        } else if (menu_name === 'シェアウォッチ') {
-          return 0
+      setCount(tabListName) {
+        switch(tabListName){
+          case 'チャット' : return this.space_data.comments_count;
+          case 'ユーザー' : return this.space_data.users.data.length;
+          case 'レビュー' : return 0;
+          case 'シェアウォッチ' : return 0;
+          default: return 0;
         }
       },
-      changeMenu(menu_name) {
+      changeTab(tabListPath) {
         this.$router.push(({
-          path: menu_name
+          path: tabListPath
         })).catch(() => {});
       }
     },
