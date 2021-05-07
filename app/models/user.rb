@@ -115,7 +115,8 @@ class User < ApplicationRecord
     redis = set_redis
     online_users = []
     following.each { |following_user| online_users << following_user if redis.get("user_#{following_user.id}_online") }
-    online_users
+    # fix
+    online_users[0..5]
   end
 
   def following? other_user
