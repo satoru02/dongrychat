@@ -25,7 +25,6 @@ class Space < ApplicationRecord
   has_many :confirmations, dependent: :destroy
   has_many :users, through: :subscriptions
   acts_as_taggable_on :tags
-  # has_many :users, ->{ includes(avatar_attachment: :blob) }, through: :subscriptions
   scope :get_trend, -> (query){
      includes(:users, :confirmations, :comments)
      .where(media: query[:media])

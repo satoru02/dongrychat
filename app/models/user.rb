@@ -33,20 +33,24 @@ class User < ApplicationRecord
   has_many :passive_relationships, class_name: "Relationship",
            foreign_key: "followed_id",
            dependent: :destroy
+  has_many :active_notifications, class_name: 'Notification',
+           foreign_key: 'sender_id',
+           dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification',
+           foreign_key: 'receiver_id',
+           dependent: :destroy
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :confirmations, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
-  has_many :notifications, dependent: :destroy
   has_many :spaces, -> {includes :comments, :users, :confirmations}, through: :subscriptions
-  has_one_attached :avatar
+  has_one_attached :avatar, dependent: :destroy
   has_secure_password
   enum role: %i[user manager admin].freeze
   before_save :downcase_email
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :name, presence: true
   validates :password, presence: true, length: { minimum: 6 }, allow_nil:true
-  # 1.Youtube 2.Instagram 3.Twitter 4.Facebook -> fix?
   validates :sns_links, url: true
   validates :email, presence: true, length: { maximum: 235 },
              format: { with: VALID_EMAIL_REGEX },
@@ -110,6 +114,14 @@ class User < ApplicationRecord
 
   def unfollow other_user
     active_relationships.find_by(followed_id: other_user.id).destroy
+  end
+
+  # fix -> abstraction
+  def create_active_notification(following)
+    if Notification.exist(following.id, self.id).blank?
+      active_notification = active_notifications.new(receiver_id: following.id)
+      active_notification.save if active_notification.valid?
+    end
   end
 
   def online_followings
