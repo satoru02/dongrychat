@@ -6,6 +6,7 @@ module Api
       def create
         user = User.find(params[:followed_id])
         current_user.follow(user)
+        current_user.create_active_notification(user)
       end
 
       def destroy

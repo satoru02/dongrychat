@@ -99,7 +99,8 @@
       checkRouter(){
         let spaceRoute = [
           'Home',
-          'Chart'
+          'Chart',
+          'Notifications'
          ]
         if (spaceRoute.includes(this.$route.name)) {
           return true

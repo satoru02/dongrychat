@@ -89,6 +89,10 @@ Rails.application.routes.draw do
       resources :login, only: [:create, :destroy]
       resources :refresh, only: [:create]
       resources :signup, only: [:create]
+      resources :relationships, only: [:create, :destroy]
+      resources :notifications, only: [:index]
+      resources :comments, only: [:index]
+
       resources :account_activations, only: [:create] do
         collection do
           post ':token', action: :create
@@ -111,7 +115,6 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :relationships, only: [:create, :destroy]
       resources :subscriptions do
         collection do
           post :create
@@ -119,7 +122,6 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :comments, only: [:index]
       resources :spaces do
         collection do
           get :enter

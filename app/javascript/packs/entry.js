@@ -35,6 +35,7 @@ import UserFollowers from '../components/User/UserFollowers';
 import SearchList from '../components/Search/SearchList';
 import Privacy from '../components/Overview/Privacy';
 import Terms from '../components/Overview//Terms';
+import Notifications from '../components/Notification/Notifications';
 
 Vue.use(Vuetify);
 Vue.use(VueRouter);
@@ -474,6 +475,14 @@ const router = new VueRouter({
       component: Terms,
       meta: {
         title: '利用規約'
+      }
+    },
+    {
+      path: "/notifications",
+      name: "Notifications",
+      component: Notifications,
+      meta: {
+        title: '通知'
       }
     }
   ]

@@ -110,7 +110,7 @@
           {
             text: 'Notifications',
             icon: 'mdi-bell-outline',
-            path_name: ''
+            path_name: 'Notifications'
           },
           {
             text: 'Settings',
