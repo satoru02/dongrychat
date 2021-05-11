@@ -9,7 +9,7 @@ module Api
         if @subscription && @subscription.save!
           successed
         else
-          failed_subscribe
+          failed_subscription
         end
       end
 
@@ -17,7 +17,7 @@ module Api
         if @subscription && @subscription.destroy!
           successed
         else
-          failed_unsubscribe
+          failed_unsubscription
         end
       end
 
@@ -35,11 +35,11 @@ module Api
           render json: :ok
         end
 
-        def failed_subscribe
+        def failed_subscription
           render json: { error: "You has already subscribed this space." }, status: :not_found
         end
 
-        def failed_unsubscribe
+        def failed_unsubscription
           render json: { error: "error no subscription found" }, status: :not_found
         end
     end
