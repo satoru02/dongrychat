@@ -3,7 +3,6 @@ module Api
     class CommentsController < ApplicationController
       before_action :authorize_access_request!
       before_action :set_space, only: [:index]
-      require 'will_paginate/array'
 
       def index
         @condition = current_user.subscribed?(@space.id)
