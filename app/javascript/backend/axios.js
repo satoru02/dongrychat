@@ -1,7 +1,9 @@
+import Vue from 'vue';
 import axios from 'axios';
-import {
-  store
-} from '../packs/entry';
+import VueAxios from 'vue-axios';
+import { store } from '../packs/store';
+
+Vue.use(VueAxios, axios);
 
 const simpleAxios = axios.create({
   withCredentials: true,
@@ -9,7 +11,6 @@ const simpleAxios = axios.create({
     'Content-Type': 'application/json'
   }
 });
-
 
 const tmdbAxios = axios.create({
   withCredentials: false,
