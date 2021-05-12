@@ -32,7 +32,7 @@
   import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
 
   export default {
-    name: "Notifications",
+    name: "NotificationTop",
     components: {
       'base-loader': BaseInfiniteLoader
     },

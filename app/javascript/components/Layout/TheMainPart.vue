@@ -100,7 +100,7 @@
         let spaceRoute = [
           'Home',
           'Chart',
-          'Notifications'
+          'NotificationTop'
          ]
         if (spaceRoute.includes(this.$route.name)) {
           return true

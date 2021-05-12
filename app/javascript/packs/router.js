@@ -22,7 +22,7 @@ import UserFollowers from '../components/User/UserFollowers';
 import SearchList from '../components/Search/SearchList';
 import Privacy from '../components/Overview/Privacy';
 import Terms from '../components/Overview//Terms';
-import Notifications from '../components/Notification/Notifications';
+import NotificationTop from '../components/Notification/NotificationTop';
 
 Vue.use(VueRouter);
 Vue.use(VueGtag, {
@@ -356,8 +356,8 @@ const router = new VueRouter({
     },
     {
       path: "/notifications",
-      name: "Notifications",
-      component: Notifications,
+      name: "NotificationTop",
+      component: NotificationTop,
       meta: {
         title: '通知'
       }
