@@ -29,12 +29,8 @@
 </template>
 
 <script>
-  import BaseContentSheet from '../Base/BaseContentSheet';
   export default {
     name: 'SearchTopRatedPart',
-    components: {
-      'base-content-sheet': BaseContentSheet
-    },
     props: {
       media: {
         type: String,

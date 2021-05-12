@@ -5,7 +5,7 @@
         <v-row>
           <v-col cols=2 sm=2 md=2 lg=2 xl=2>
             <v-avatar :class="grid.avatar" :size="avatar.size" :height="avatar.height">
-              <base-avatar :img="user.avatar_url" />
+              <v-img :src="user.avatar_url" />
             </v-avatar>
           </v-col>
           <v-col cols=10 sm=10 md=10 lg=10 xl=10>
@@ -54,12 +54,8 @@
     secureAxios
   } from '../../backend/axios';
   const RELATIONSHOP_URL = `/api/v1/relationships`;
-  import BaseAvatar from '../Base/BaseAvatar';
   export default {
     name: 'BaseProfileDialog',
-    components: {
-      'base-avatar': BaseAvatar
-    },
     props: {
       user: {
         type: Object,

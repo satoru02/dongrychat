@@ -31,12 +31,8 @@
 
 <script>
   import { tmdbAxios } from '../../backend/axios';
-  import BaseContentSheet from '../Base/BaseContentSheet';
   export default {
     name: 'SearchList',
-    components: {
-      'base-content-sheet': BaseContentSheet
-    },
     data() {
       return {
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w200`,

@@ -5,7 +5,7 @@
     <v-row class="mt-n3">
       <v-col md=2 lg=2 xl=2>
         <v-avatar :class="grid.profile" :size="profile.size" :height="profile.height" :style="profile.style">
-          <base-avatar :img="'https://cdn.vuetifyjs.com/images/john.jpg'" />
+          <v-img :src="'https://cdn.vuetifyjs.com/images/john.jpg'" />
         </v-avatar>
       </v-col>
       <v-col md=10 lg=10 xl=10 :class='grid.profileText'>
@@ -30,13 +30,11 @@
 
 <script>
   import BaseProfileDialog from '../Base/BaseProfileDialog';
-  import BaseAvatar from '../Base/BaseAvatar';
 
   export default {
     name: 'TheProfilePart',
     components: {
       'base-profile-dialog': BaseProfileDialog,
-      'base-avatar': BaseAvatar,
     },
     data() {
       return {

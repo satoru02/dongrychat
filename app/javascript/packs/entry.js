@@ -4,7 +4,6 @@ import InfiniteLoading from 'vue-infinite-loading';
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 import '@mdi/font/css/materialdesignicons.css';
-
 import { store } from './store';
 import { router } from './router';
 import './cable';

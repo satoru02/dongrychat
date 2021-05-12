@@ -10,7 +10,7 @@
       <v-col md=1 lg=1 xl=1>
         <v-badge offset-x="6" offset-y="6" bordered bottom dot overlap>
         <v-avatar :size="avatar.size" :height="avatar.height">
-          <base-avatar :img="following.attributes.avatar_url" />
+          <v-img :src="following.attributes.avatar_url" />
         </v-avatar>
         </v-badge>
       </v-col>
@@ -51,13 +51,11 @@
 
 <script>
   import { secureAxios } from '../../backend/axios';
-  import BaseAvatar from '../Base/BaseAvatar';
   import TheProfilePart from '../Layout/TheProfilePart';
 
   export default {
     name: "RightPart",
     components: {
-      'base-avatar': BaseAvatar,
       'the-profile-part': TheProfilePart
     },
     data() {
