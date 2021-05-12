@@ -1,19 +1,17 @@
 <template>
-  <v-container :class="vContainerGrid" >
-    <v-sheet class="rounded-lg" :style="vSheet.style" :height="vSheet.height">
-      <space-header :space_data="this.space_data" />
-      <v-tabs class="mt-2" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height" grow>
-        <v-tab
-         :active-class="vTab.activeText" @click="changeTab(tablist.path)" :style="vTab.style"
-          v-for="(tablist, index) in tablists" :key="index">
-          {{tablist.title}}
-          <v-chip v-if="$vuetify.breakpoint.width > 600" class="ml-3 rounded-xl" :style="vChip.style" :text-color="vChip.textColor" :elevation="vChip.elevation"
-            :color="vChip.color" x-small v-text="setCount(tablist.title)" />
-        </v-tab>
-      </v-tabs>
-      <v-divider />
-      <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" />
-    </v-sheet>
+  <v-container>
+    <space-header :space_data="this.space_data" />
+    <v-tabs class="mt-2" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height" grow>
+      <v-tab
+       :active-class="vTab.activeText" @click="changeTab(tablist.path)" :style="vTab.style"
+        v-for="(tablist, index) in tablists" :key="index">
+        {{tablist.title}}
+        <v-chip v-if="$vuetify.breakpoint.width > 600" class="ml-3 rounded-xl" :style="vChip.style" :text-color="vChip.textColor" :elevation="vChip.elevation"
+          :color="vChip.color" x-small v-text="setCount(tablist.title)" />
+      </v-tab>
+    </v-tabs>
+    <v-divider />
+    <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" />
   </v-container>
 </template>
 
@@ -78,11 +76,11 @@
           }
         },
         vTabs: {
-          backgroundColor: '#161b22',
+          backgroundColor: '#f6f6f9',
           height: '40'
         },
         vTab: {
-          activeText: 'white--text',
+          activeText: '#111111',
           style: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',

@@ -4,7 +4,7 @@
       <space-comments :comments="comments" />
       <base-loader :handler="infiniteHandler" :wrapper="true" :text="loader.text" />
     </div>
-    <v-text-field
+    <!-- <v-text-field
       v-if="$vuetify.breakpoint.width > 600"
       :class="textFieldGrid"
       clearable :style="textField.style" :background-color="textField.color"
@@ -17,7 +17,7 @@
       clearable :style="textField.style" :background-color="textField.color"
       @click:append-outer="{setMessage(), sendComment(content)}"
       v-model="content" dense
-      :placeholder="textField.placeholder" solo flat />
+      :placeholder="textField.placeholder" solo flat /> -->
   </v-container>
 </template>
 

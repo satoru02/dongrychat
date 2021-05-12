@@ -1,16 +1,16 @@
 <template>
-  <v-app :class="grid.app" style="background-color: #121214;">
+  <v-app style="background-color: #f6f6f9;">
     <the-header />
-    <v-main class="mt-2">
+    <v-main>
       <v-row>
-        <v-col md=3 lg=2 xl=3 class='ml-n6 mt-3' v-if="$vuetify.breakpoint.width > 600">
-          <the-left-bar v-if="this.checkAuthorization()" />
+        <v-col lg=3 v-if="$vuetify.breakpoint.width > 600">
+          <the-left-bar v-if="this.checkAuthorization() && this.checkRouter()" />
         </v-col>
-        <v-col sm=12 cols=12 md=6 :lg="this.checkRouter() ?  '7' : '10' " xl=6
+        <v-col :lg="this.checkRouter() ?  '6' : '8' "
           :class="$vuetify.breakpoint.width > 600 ? grid.deskCenter : grid.mobileCenter">
           <router-view />
         </v-col>
-        <v-col md=3 lg=2 xl=3 :class="grid.rightPart" v-if="$vuetify.breakpoint.width > 600">
+        <v-col lg=3 v-if="$vuetify.breakpoint.width > 600">
           <the-right-bar v-if="this.checkAuthorization() && this.checkRouter()" />
         </v-col>
       </v-row>
@@ -36,8 +36,7 @@
     data() {
       return {
         grid: {
-          app: 'overflow-hidden ml-6',
-          deskCenter: ' ml-6',
+          deskCenter: '',
           mobileCenter: 'ml-n16',
           rightPart: 'mt-3 ml-16'
         }
@@ -67,6 +66,3 @@
     }
   }
 </script>
-
-<style scoped>
-</style>

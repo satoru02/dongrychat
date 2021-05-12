@@ -1,27 +1,27 @@
 <template>
-  <v-container class="ml-16 mt-n3">
+  <v-container>
     <h3
     :class="$vuetify.breakpoint.width > 600 ? 'mb-8 ml-1' : 'mb-5 ml-1'"
     :style="style.headerPart" v-text="text.home" />
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
-      <v-card class="rounded-lg mb-8" :style="hover ? card.hoverStyle : card.unhoverStyle" @click="enterSpace(item)"
-        :elevation='hover ? 15 : 0' :height="card.height">
+      <v-card class="rounded-lg mb-7" :style="card.unhoverStyle" @click="enterSpace(item)"
+        :elevation='hover ? 5 : 0' :height="card.height">
         <v-row>
           <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-5">
             <v-avatar class="rounded-lg" :size="listAvatar.size" :height="listAvatar.height">
               <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
             </v-avatar>
           </v-col>
-          <v-col cols=10 sm=10 md=10 lg=10 xl=10>
+          <v-col cols=10 sm=10 md=10 lg=10 xl=10 class="ml-5">
             <v-row>
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
               <v-col cols=10 sm=10 md=10 lg=10 xl=10
               :class="$vuetify.breakpoint.width > 600 ? 'ml-n5 mt-1' : 'mt-1 ml-6'"
               :style="style.name">
-                <base-label :x_small="true" :outlined="true" :label="true" v-if="item.attributes.media === media.tv"
-                  color="blue" text-color="#ffffff" :season="item.attributes.season"
+                <base-label :x_small="true" :outlined="false" :label="true" v-if="item.attributes.media === media.tv"
+                  color="#016aff" :season="item.attributes.season"
                   :episode="item.attributes.episode" :title="item.attributes.episode_title" />
-                <v-chip :style="style.movieLabel" v-if="item.attributes.media === media.movie" x-small outlined label
+                <v-chip :style="style.movieLabel" v-if="item.attributes.media === media.movie" x-small label
                   color="yellow" v-text="text.movie" />
               </v-col>
             </v-row>
@@ -88,7 +88,7 @@
           movie: 'subscribedMvSpace'
         },
         text: {
-          home: 'Home',
+          home: 'ホーム',
           movie: 'Movie',
           loading: '気になるドラマのチャットに参加してみよう！'
         },
@@ -110,21 +110,21 @@
             backgroundColor: '#1a212d'
           },
           unhoverStyle: {
-            backgroundColor: '#161b22'
+            backgroundColor: '#ffffff'
           }
         },
         style: {
           headerPart: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '22px',
-            color: '#ced4da'
+            fontSize: '17px',
+            color: '#111111'
           },
           name: {
             fontWeight: 'bold',
             fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
-            fontSize: '15px',
-            color: '#ced4da'
+            fontSize: '16px',
+            color: '#111111'
           },
           comment: {
             fontWeight: 'bold',
@@ -144,7 +144,8 @@
           movieLabel: {
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '10px',
-            fontWeight: 'bold',
+            // fontWeight: 'bold',
+            color: '#111111'
           }
         }
       }

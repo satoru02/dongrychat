@@ -44,14 +44,14 @@
         blank: ' ',
         style: {
           profilePart: {
-            backgroundColor: '#161b22',
+            backgroundColor: '#ffffff',
             cursor: 'pointer'
           },
           name: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '14px',
-            color: '#ced4da'
+            color: '#000000'
           },
           relationships: {
             fontWeight: 'bold',

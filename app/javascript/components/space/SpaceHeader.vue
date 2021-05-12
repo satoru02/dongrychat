@@ -1,13 +1,13 @@
 <template>
-  <v-row :class="vRowTopGrid" v-if="space_data">
+  <v-row v-if="space_data">
     <v-col cols=2 sm=2 md=2 lg=2 xl=2 :class="vColAvatarGrid">
       <v-avatar class="rounded-lg" :size="vAvatar.size" :height='vAvatarHeight'>
         <v-img :src="posterImg()" />
       </v-avatar>
     </v-col>
     <v-col cols=9 sm=9 md=9 lg=9 xl=9>
-      <v-row :class="vRowNameGrid">
-        <v-col cols=8 sm=10 md=10 lg=10 xl=10 :class='vColNameGrid'>
+      <v-row>
+        <v-col cols=8 sm=10 md=10 lg=10 xl=10>
           <v-hover v-slot="{ hover }">
             <span
               @click="space_data.media === media.tv ? moveDetails(space_data.tmdb_comp_id, space_data.name, space_data.season, 'Tv') : moveDetails(space_data.tmdb_mv_id, space_data.name, null, 'Mv')"
@@ -17,7 +17,7 @@
             v-text="space_data.users.data.length" />
         </v-col>
         <v-col cols=2 sm=2 md=2 lg=2 xl=2>
-          <v-btn :class="vBtnGrid" :style="subscribed === true ? vBtn.subscribedStyle : vBtn.unsubscribedStyle"
+          <v-btn :style="subscribed === true ? vBtn.subscribedStyle : vBtn.unsubscribedStyle"
             @click="subscribed === true ? unsubscribe() : subscribe()" :elevation='vBtn.elevation' small
             :color="subscribed === true ? vBtn.blue : vBtn.black" :outlined="subscribed === true ? false : true">
             {{subscribed === true ? vBtn.subscribedText : vBtn.unsubscribedText}}
@@ -25,11 +25,11 @@
         </v-col>
       </v-row>
       <v-row dense>
-        <v-col cols=12 sm=12 md=12 lg=12 xl=12 :class="vColSubTitleGrid" :style="vColSubTitle.style"
+        <v-col cols=12 sm=12 md=12 lg=12 xl=12 :style="vColSubTitle.style"
           v-text="'@' + space_data.name" />
       </v-row>
       <v-row dense :style="vRowLabel.style">
-        <v-col cols=12 sm=12 md=12 lg=12 xl=12 :class="vColLabelGrid">
+        <v-col cols=12 sm=12 md=12 lg=12 xl=12>
           <base-label v-if="space_data.media === media.tv" :label="true" :small="true" :color="vColLabel.blue"
             :outlined="true" :text-color="vColLabel.white" :season="space_data.season" :episode="space_data.episode"
             :title="space_data.episode_title" />
@@ -38,12 +38,12 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols=11 sm=12 md=12 lg=12 xl=12 :class="vColSummaryGrid" :style="vColSummaryStyle"
+        <v-col cols=11 sm=12 md=12 lg=12 xl=12 :style="vColSummaryStyle"
           v-text="space_data.overview != null ? space_data.overview : dummyText" />
       </v-row>
-      <v-row :class="vRowTagsGrid">
+      <v-row>
         <v-col cols=12 sm=12 md=12 lg=12 xl=12 :style="vColTags.style" small>
-          <v-chip class="mr-2 mb-2" :style="vChip.tags.style" v-for="(tag, index) in space_data.tag_list.slice(0, 3)"
+          <v-chip label class="mr-2 mb-2" :style="vChip.tags.style" v-for="(tag, index) in space_data.tag_list.slice(0, 3)"
             :key="index" :color="vChip.tags.color" x-small v-text="'#' + tag" />
         </v-col>
       </v-row>
@@ -81,7 +81,7 @@
         },
         vColTitle: {
           style: {
-            color: '#ced4da',
+            color: '#111111',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '15px',
@@ -330,7 +330,7 @@
       vColSummaryStyle(){
         switch(this.$vuetify.breakpoint.name) {
           case 'xs' || 'sm' || 'md' : return {
-            color: '#ced4da',
+            color: '#111111',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '11px',
@@ -340,7 +340,7 @@
             overflowY: 'scroll',
           }
           case 'lg' || 'xl' : return {
-            color: '#ced4da',
+            color: '#111111',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '11px',

@@ -71,14 +71,14 @@
           name: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '14px',
-            color: '#ced4da'
+            fontSize: '11px',
+            color: '#374151'
           },
           online: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '20px',
-            color: '#ced4da'
+            color: '#111111'
           },
           hoverlink: {
             fontWeight: 'bold',
@@ -96,7 +96,7 @@
           }
         },
         grid: {
-          rightPart: 'ml-9 mt-9',
+          rightPart: 'ml-9 mt-14',
           onlinePart: 'mt-7',
           username: 'mt-2 ml-n1'
         },

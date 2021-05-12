@@ -73,9 +73,9 @@
         },
         content: {
           style: {
-            color: '#ced4da',
+            color: '#111111',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '13px',
+            fontSize: '17px',
           }
         }
       }

@@ -1,28 +1,38 @@
 <template>
-  <v-container class="ml-n6 mt-7">
-    <v-list nav flat :class="list.position" :style="list.style" color="#121214" dark>
+  <v-container class=mt-5>
+    <v-list nav flat :style="list.style" color="#f6f6f9" dark class=ml-16>
+      <v-subheader :style="category">カテゴリー</v-subheader>
       <v-list-item-group v-model="selectedItem" color="#4361ee">
         <v-hover v-slot="{hover}" v-for="(item, index) in menus" :key="index">
-          <v-list-item :class="list_item.position" :elevation="hover ? 10: 0" @click="changeRoute(item.path_name)">
+          <v-list-item :elevation="hover ? 10: 0" @click="changeRoute(item.path_name)" class="ml-2 mb-n2">
             <v-list-item-icon>
-              <v-icon :size="icon.size" v-text="item.icon" />
+              <v-icon :size="icon.size" v-text="item.icon" color="#111111" />
             </v-list-item-icon>
-            <v-list-item-content>
+            <v-list-item-content class="ml-n6">
               <v-list-item-title v-text="item.text" :style="list_item_title.style" />
             </v-list-item-content>
           </v-list-item>
         </v-hover>
       </v-list-item-group>
+      <v-list-item-group v-model="selectedItem" color="#4361ee" class="mt-10">
+      <v-subheader :style="category">人気のタグ</v-subheader>
+        <v-hover v-slot="{hover}" v-for="(item, index) in tags" :key="index">
+          <v-list-item :elevation="hover ? 10: 0" @click="changeRoute(item.path_name)" class="mb-n2 ml-2">
+            <v-list-item-content>
+              <v-list-item-title v-text="item" :style="tag.style" />
+            </v-list-item-content>
+          </v-list-item>
+        </v-hover>
+      </v-list-item-group>
     </v-list>
-    <v-row :class="bottom_blank_space.position" :style="bottom_blank_space.style">
-      <v-col md=12 lg=12 xl=12 />
-    </v-row>
 
-    <v-row :class="btn.position" :style="btn.style">
+    <!-- <v-row>
+      <v-col md=12 lg=12 xl=12 />
+    </v-row> -->
+    <!-- <v-row :style="btn.style">
       <v-col md=3 lg=3 xl=3 />
       <v-col md=8 lg=8 xl=8>
         <v-dialog v-model="aboutDialog" width="500">
-        <!-- <v-dialog fullscreen v-model="aboutDialog" width="500"> -->
           <template v-slot:activator="{on, attrs}">
             <v-btn block v-bind="attrs" v-on="on" :elevation="btn.elevation" :class="btn.round" :color="btn.color"
               :height="btn.height">
@@ -36,18 +46,12 @@
             <v-card-text>
               {{ overviewText }}
             </v-card-text>
-            <!-- <v-divider></v-divider> -->
             <v-card-actions>
-              <!-- <v-spacer></v-spacer>
-                <v-btn color="primary" text @click="aboutDialog = false">
-                　close
-                </v-btn> -->
-              </v-card-actions>
+          </v-card-actions>
           </v-card>
         </v-dialog>
       </v-col>
-    </v-row>
-
+    </v-row> -->
     <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
       <v-card color="#161b22" height="250" class="rounded-lg">
         <v-row>
@@ -92,28 +96,48 @@
         query: '',
         overviewText:
         'Devioは、最新の配信ドラマから往年のクラシック映画まで自由に会話できるオープンコミュニティです。見たばかりの感動や興奮を、共有できる場所を目指しています。',
+        tags: [
+          '# love',
+          '# サイエンス',
+          '# action',
+          '# ドラマ',
+          '# ホラー',
+          '# love',
+          '# アドベンチャー',
+          '# love',
+        ],
         menus: [{
-            text: 'Chart',
+            text: 'ランキング',
             icon: 'mdi-access-point',
             path_name: 'Chart'
           },
           {
-            text: 'Home',
+            text: 'ホーム',
             icon: 'mdi-home-outline',
             path_name: 'Home'
           },
           {
-            text: 'Discover',
-            icon: 'mdi-magnify',
-            path_name: 'Search'
-          },
-          {
-            text: 'Notifications',
+            text: 'パーティ',
             icon: 'mdi-bell-outline',
             path_name: 'NotificationTop'
           },
           {
-            text: 'Settings',
+            text: '検索',
+            icon: 'mdi-magnify',
+            path_name: 'Search'
+          },
+          {
+            text: '通知',
+            icon: 'mdi-bell-outline',
+            path_name: 'NotificationTop'
+          },
+          {
+            text: 'トピック',
+            icon: 'mdi-bell-outline',
+            path_name: 'NotificationTop'
+          },
+          {
+            text: '設定',
             icon: 'mdi-wrench-outline',
             path_name: 'Settings'
           },
@@ -131,7 +155,7 @@
           }
         },
         list: {
-          position: 'ml-16 mt-n6',
+          position: '',
           style: {
             position: 'fixed',
             color: '#ced4da'
@@ -142,20 +166,35 @@
         },
         icon: {
           size: 20,
-          color: '#3a0ca3'
+          color: '#000000'
+        },
+        tag: {
+          style: {
+            fontWeight: 'bold',
+             color: '#111111',
+            fontFamily: 'Helvetica Neue, sans-serif',
+            fontSize: '14px',
+          }
+        },
+        category: {
+          fontWeight: 'bold',
+          fontFamily: 'Helvetica Neue, sans-serif',
+          fontSize: '12px',
+          color: '#111111',
         },
         list_item_title: {
-          color: '#ced4da',
+          color: '#111111',
           hoverStyle: {
             fontWeight: '#4361ee',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '15px',
+            fontSize: '14px',
             color: 'blue'
           },
           style: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '15px',
+            fontSize: '14px',
+            color: '#111111'
           }
         },
         btn: {
@@ -225,3 +264,4 @@
     }
   }
 </script>
+

@@ -1,16 +1,16 @@
 <template>
-  <v-app-bar flat app color="#121214" v-if="$vuetify.breakpoint.width > 600">
+  <v-app-bar flat app color="#ffffff" v-if="$vuetify.breakpoint.width > 600">
     <v-toolbar-title style="cursor: pointer" @click="goTop()" class="ml-16" :style="logoStyle">Devio</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-text-field @keypress="setQuery()" @keydown.enter="search(query)" v-model="query" height="10"
-      v-if="this.checkAuthorization()" :prepend-inner-icon="'mdi-magnify'" dense background-color="#242c37" solo flat
-      width="250" :class="textField.round" />
+      v-if="this.checkAuthorization()" :prepend-inner-icon="'mdi-magnify'" dense background-color="#f6f6f9" solo flat
+      :class="textField.round" />
     <v-spacer></v-spacer>
     <v-btn v-if="(this.checkAuthorization()) && !$store.state.signedIn" @click="goLogin()" outlined small color="blue"
       elevation=0 class="mt-11" :style="loginStyle">ログイン</v-btn>
     <v-btn v-if="(this.checkAuthorization()) && !$store.state.signedIn" @click="goSignup()" small color="blue"
       elevation=0 class="mt-11" :style="loginStyle">アカウント登録</v-btn>
-    <v-avatar size="36" class="mr-5">
+    <v-avatar size="36" class="mr-16">
       <v-img :src="$store.state.currentUser.avatar_url" />
     </v-avatar>
   </v-app-bar>
@@ -32,7 +32,7 @@ export default {
         fontWeight: 'bold',
         fontFamily: 'Helvetica Neue, sans-serif',
         fontSize: '25px',
-        color: '#ced4da'
+        color: '#000000'
       },
       loginStyle: {
         fontWeight: 'bold',
