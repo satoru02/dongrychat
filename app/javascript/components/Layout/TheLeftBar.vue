@@ -1,21 +1,21 @@
 <template>
-  <v-container class=mt-5>
-    <v-list nav flat :style="list.style" color="#f6f6f9" dark class=ml-16>
-      <v-subheader :style="category">カテゴリー</v-subheader>
-      <v-list-item-group v-model="selectedItem" color="#4361ee">
+  <v-container class=mt-n4>
+    <v-list nav flat :style="list.style" color="#ffffff" dark class="ml-16 rounded-lg">
+      <v-subheader :style="category" class="mb-n2">カテゴリー</v-subheader>
+      <v-list-item-group v-model="selectedItem">
         <v-hover v-slot="{hover}" v-for="(item, index) in menus" :key="index">
           <v-list-item :elevation="hover ? 10: 0" @click="changeRoute(item.path_name)" class="ml-2 mb-n2">
             <v-list-item-icon>
-              <v-icon :size="icon.size" v-text="item.icon" color="#111111" />
+              <v-icon :size="icon.size" v-text="item.icon" :color="hover ? '#02e98d' : '#111111'" />
             </v-list-item-icon>
             <v-list-item-content class="ml-n6">
-              <v-list-item-title v-text="item.text" :style="list_item_title.style" />
+              <v-list-item-title v-text="item.text" :style="hover ? list_item_title.hoverStyle : list_item_title.style" />
             </v-list-item-content>
           </v-list-item>
         </v-hover>
       </v-list-item-group>
-      <v-list-item-group v-model="selectedItem" color="#4361ee" class="mt-10">
-      <v-subheader :style="category">人気のタグ</v-subheader>
+      <v-list-item-group v-model="selectedItem" class="mt-10">
+      <v-subheader :style="category" class="mb-n1">人気のタグ</v-subheader>
         <v-hover v-slot="{hover}" v-for="(item, index) in tags" :key="index">
           <v-list-item :elevation="hover ? 10: 0" @click="changeRoute(item.path_name)" class="mb-n2 ml-2">
             <v-list-item-content>
@@ -52,6 +52,7 @@
         </v-dialog>
       </v-col>
     </v-row> -->
+
     <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
       <v-card color="#161b22" height="250" class="rounded-lg">
         <v-row>
@@ -117,7 +118,17 @@
             path_name: 'Home'
           },
           {
-            text: 'パーティ',
+            text: 'トピックス',
+            icon: 'mdi-bell-outline',
+            path_name: 'NotificationTop'
+          },
+          {
+            text: 'コラム',
+            icon: 'mdi-pen',
+            path_name: 'NotificationTop'
+          },
+          {
+            text: 'パーティリンク',
             icon: 'mdi-bell-outline',
             path_name: 'NotificationTop'
           },
@@ -128,11 +139,6 @@
           },
           {
             text: '通知',
-            icon: 'mdi-bell-outline',
-            path_name: 'NotificationTop'
-          },
-          {
-            text: 'トピック',
             icon: 'mdi-bell-outline',
             path_name: 'NotificationTop'
           },
@@ -158,7 +164,8 @@
           position: '',
           style: {
             position: 'fixed',
-            color: '#ced4da'
+            color: '#ced4da',
+            width: "200px"
           }
         },
         list_item: {
@@ -166,34 +173,34 @@
         },
         icon: {
           size: 20,
-          color: '#000000'
+          color: '#6c757d'
         },
         tag: {
           style: {
             fontWeight: 'bold',
              color: '#111111',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '14px',
+            fontSize: '13px',
           }
         },
         category: {
           fontWeight: 'bold',
           fontFamily: 'Helvetica Neue, sans-serif',
           fontSize: '12px',
-          color: '#111111',
+          color: '#666666',
         },
         list_item_title: {
           color: '#111111',
           hoverStyle: {
-            fontWeight: '#4361ee',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '14px',
-            color: 'blue'
+            color: '#02e98d',
+            fontWeight: 'bold',
           },
           style: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '14px',
+            fontSize: '13px',
             color: '#111111'
           }
         },

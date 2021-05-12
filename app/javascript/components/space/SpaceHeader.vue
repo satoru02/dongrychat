@@ -1,5 +1,5 @@
 <template>
-  <v-row v-if="space_data">
+  <v-row v-if="space_data" class="mt-3">
     <v-col cols=2 sm=2 md=2 lg=2 xl=2 :class="vColAvatarGrid">
       <v-avatar class="rounded-lg" :size="vAvatar.size" :height='vAvatarHeight'>
         <v-img :src="posterImg()" />
@@ -19,21 +19,21 @@
         <v-col cols=2 sm=2 md=2 lg=2 xl=2>
           <v-btn :style="subscribed === true ? vBtn.subscribedStyle : vBtn.unsubscribedStyle"
             @click="subscribed === true ? unsubscribe() : subscribe()" :elevation='vBtn.elevation' small
-            :color="subscribed === true ? vBtn.blue : vBtn.black" :outlined="subscribed === true ? false : true">
+            :color="subscribed === true ? vBtn.blue : vBtn.black" :outlined="subscribed === true ? false : false">
             {{subscribed === true ? vBtn.subscribedText : vBtn.unsubscribedText}}
           </v-btn>
         </v-col>
       </v-row>
-      <v-row dense>
+      <v-row dense class="mt-n5">
         <v-col cols=12 sm=12 md=12 lg=12 xl=12 :style="vColSubTitle.style"
           v-text="'@' + space_data.name" />
       </v-row>
       <v-row dense :style="vRowLabel.style">
         <v-col cols=12 sm=12 md=12 lg=12 xl=12>
           <base-label v-if="space_data.media === media.tv" :label="true" :small="true" :color="vColLabel.blue"
-            :outlined="true" :text-color="vColLabel.white" :season="space_data.season" :episode="space_data.episode"
+            :outlined="false" :text-color="vColLabel.white" :season="space_data.season" :episode="space_data.episode"
             :title="space_data.episode_title" />
-          <v-chip v-if="space_data.media === media.mv" small outlined label :color="vChip.label.yellow"
+          <v-chip v-if="space_data.media === media.mv" small label :color="vChip.label.yellow"
             :style="vChip.label.style" v-text="vChip.label.movie" />
         </v-col>
       </v-row>
@@ -41,9 +41,9 @@
         <v-col cols=11 sm=12 md=12 lg=12 xl=12 :style="vColSummaryStyle"
           v-text="space_data.overview != null ? space_data.overview : dummyText" />
       </v-row>
-      <v-row>
+      <v-row class="mt-6">
         <v-col cols=12 sm=12 md=12 lg=12 xl=12 :style="vColTags.style" small>
-          <v-chip label class="mr-2 mb-2" :style="vChip.tags.style" v-for="(tag, index) in space_data.tag_list.slice(0, 3)"
+          <v-chip label outlined class="mr-2 mb-2" :style="vChip.tags.style" v-for="(tag, index) in space_data.tag_list.slice(0, 3)"
             :key="index" :color="vChip.tags.color" x-small v-text="'#' + tag" />
         </v-col>
       </v-row>
@@ -76,7 +76,7 @@
         params: {},
         subscribed: Boolean,
         vAvatar: {
-          size: '110',
+          size: '140',
           // height: '180',
         },
         vColTitle: {
@@ -122,9 +122,9 @@
             }
           },
           tags: {
-            color: '#293241',
+            color: '#111111',
             style: {
-              color: '#ffffff',
+              color: '#111111',
               fontWeight: 'bold',
               fontFamily: 'Helvetica Neue, sans-serif',
               fontSize: '11px'
@@ -134,7 +134,7 @@
         vBtn: {
           elevation: 0,
           blue: 'blue',
-          black: '#ced4da',
+          black: '#000000',
           subscribedText: 'スペースに参加中',
           unsubscribedText: 'スペースに参加',
           subscribedStyle: {
@@ -144,7 +144,7 @@
             fontSize: '11px',
           },
           unsubscribedStyle: {
-            color: '#ced4da',
+            color: '#ffffff',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '11px'
@@ -153,10 +153,11 @@
         vRowLabel: {
           style: {
             maxHeight: '35px',
+            fontWeight: 'bold',
           }
         },
         vColLabel: {
-          blue: 'blue',
+          blue: '#016aff',
           white: '#ffffff',
         },
         vColTags: {
@@ -323,7 +324,7 @@
           case 'xs' : return '180'
           case 'sm' : return '160'
           case 'md' : return '160'
-          case 'lg' : return '180'
+          case 'lg' : return '200'
           case 'xl' : return '180'
         }
       },

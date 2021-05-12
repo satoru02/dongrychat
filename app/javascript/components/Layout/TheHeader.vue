@@ -6,13 +6,13 @@
       v-if="this.checkAuthorization()" :prepend-inner-icon="'mdi-magnify'" dense background-color="#f6f6f9" solo flat
       :class="textField.round" />
     <v-spacer></v-spacer>
-    <v-btn v-if="(this.checkAuthorization()) && !$store.state.signedIn" @click="goLogin()" outlined small color="blue"
-      elevation=0 class="mt-11" :style="loginStyle">ログイン</v-btn>
-    <v-btn v-if="(this.checkAuthorization()) && !$store.state.signedIn" @click="goSignup()" small color="blue"
-      elevation=0 class="mt-11" :style="loginStyle">アカウント登録</v-btn>
     <v-avatar size="36" class="mr-16">
       <v-img :src="$store.state.currentUser.avatar_url" />
     </v-avatar>
+        <v-btn v-if="(this.checkAuthorization()) && !$store.state.signedIn" @click="goLogin()" outlined small color="#f6f6f9"
+      elevation=0 class="mr-4" :style="loginStyle">ログイン</v-btn>
+    <v-btn v-if="(this.checkAuthorization()) && !$store.state.signedIn" @click="goSignup()" small color="#016aff"
+      elevation=0 class="" :style="signupStyle">アカウント登録</v-btn>
   </v-app-bar>
 </template>
 
@@ -32,9 +32,15 @@ export default {
         fontWeight: 'bold',
         fontFamily: 'Helvetica Neue, sans-serif',
         fontSize: '25px',
-        color: '#000000'
+        color: '#111111'
       },
       loginStyle: {
+        fontWeight: 'bold',
+        fontFamily: 'Helvetica Neue, sans-serif',
+        fontSize: '12px',
+        color: '#111111'
+      },
+      signupStyle: {
         fontWeight: 'bold',
         fontFamily: 'Helvetica Neue, sans-serif',
         fontSize: '12px',

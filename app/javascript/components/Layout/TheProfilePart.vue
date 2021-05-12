@@ -2,7 +2,7 @@
   <v-sheet
    @click="showDialog()" :elevation="profilePart.elavation" :width="profilePart.width"
     :height="profilePart.height" :style="style.profilePart" :class="profilePart.round">
-    <v-row class="mt-n3">
+    <v-row>
       <v-col md=2 lg=2 xl=2>
         <v-avatar :class="grid.profile" :size="profile.size" :height="profile.height" :style="profile.style">
           <v-img :src="$store.state.currentUser.avatar_url" />
@@ -44,7 +44,7 @@
         blank: ' ',
         style: {
           profilePart: {
-            backgroundColor: '#ffffff',
+            backgroundColor: '#f6f6f9',
             cursor: 'pointer'
           },
           name: {
@@ -72,7 +72,7 @@
           elevation: 0,
           width: 200,
           height: 111,
-          round: 'rounded-lg',
+          round: 'rounded-lg mt-2',
         },
         profile: {
           size: 50,
@@ -90,3 +90,12 @@
     }
   }
 </script>
+
+<style scoped>
+  .theme--light.v-divider {
+    border-color: rgba(0, 1, 1, .06);
+  }
+  .theme--light.v-sheet--outlined {
+    border: thin solid rgba(0,0,0, .06);
+}
+</style>

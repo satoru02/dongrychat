@@ -96,7 +96,7 @@
           }
         },
         grid: {
-          rightPart: 'ml-9 mt-14',
+          rightPart: 'ml-9 mt-12',
           onlinePart: 'mt-7',
           username: 'mt-2 ml-n1'
         },

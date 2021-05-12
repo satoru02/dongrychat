@@ -1,12 +1,14 @@
 <template>
   <v-container>
-    <h3
-    :class="$vuetify.breakpoint.width > 600 ? 'mb-8 ml-1' : 'mb-5 ml-1'"
-    :style="style.headerPart" v-text="text.home" />
+    <sub-header class=mb-n2>
+      <template v-slot:home_header="subHeaderProps">
+        <h3 :style="style.headerPart">{{subHeaderProps.sub_header}}</h3>
+      </template>
+    </sub-header>
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
-      <v-card class="rounded-lg mb-7" :style="card.unhoverStyle" @click="enterSpace(item)"
-        :elevation='hover ? 5 : 0' :height="card.height">
-        <v-row>
+      <v-card outlined class="rounded-lg mb-4" :style="card.unhoverStyle" @click="enterSpace(item)"
+        :elevation='hover ? 5 : 0' :height="'115'">
+        <v-row class="mt-1">
           <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-5">
             <v-avatar class="rounded-lg" :size="listAvatar.size" :height="listAvatar.height">
               <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
@@ -64,12 +66,14 @@
 
   import BaseLabel from '../Base/BaseLabel';
   import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
+  import TheSubHeader from '../Layout/TheSubHeader';
 
   export default {
     name: 'HomeTop',
     components: {
       'base-label': BaseLabel,
-      'base-loader': BaseInfiniteLoader
+      'base-loader': BaseInfiniteLoader,
+      'sub-header': TheSubHeader
     },
     data() {
       return {
@@ -105,7 +109,7 @@
           size: 22
         },
         card: {
-          height: '108px',
+          height: '100px',
           hoverStyle: {
             backgroundColor: '#1a212d'
           },
@@ -226,3 +230,13 @@
     }
   }
 </script>
+
+<style scoped>
+  .theme--light.v-divider {
+    border-color: rgba(0, 1, 1, .06);
+    /* color: #02e98d */
+  }
+  .theme--light.v-sheet--outlined {
+    border: thin solid rgba(0,0,0, .06);
+}
+</style>

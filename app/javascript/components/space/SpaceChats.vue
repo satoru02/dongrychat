@@ -4,7 +4,7 @@
       <space-comments :comments="comments" />
       <base-loader :handler="infiniteHandler" :wrapper="true" :text="loader.text" />
     </div>
-    <!-- <v-text-field
+    <v-text-field
       v-if="$vuetify.breakpoint.width > 600"
       :class="textFieldGrid"
       clearable :style="textField.style" :background-color="textField.color"
@@ -17,7 +17,7 @@
       clearable :style="textField.style" :background-color="textField.color"
       @click:append-outer="{setMessage(), sendComment(content)}"
       v-model="content" dense
-      :placeholder="textField.placeholder" solo flat /> -->
+      :placeholder="textField.placeholder" solo flat />
   </v-container>
 </template>
 
@@ -58,13 +58,13 @@
         },
         wrapper: {
           style: {
-            maxHeight: '445px',
-            height: '445px',
+            maxHeight: '395px',
+            height: '395px',
             overflow: 'scroll',
           }
         },
         textField: {
-          color: '#495057',
+          color: '#f6f6f9',
           placeholder: '#メッセージを送信',
           style: {
             position: 'static',

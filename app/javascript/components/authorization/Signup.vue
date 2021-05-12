@@ -5,7 +5,7 @@
       <v-col cols=12 sm=12 md=12 lg=12 xl=12 />
     </v-row>
     <v-row>
-      <v-col cols=2 sm=2 md=2 lg=2 xl=4 class="ml-2" />
+      <v-col cols=2 sm=2 md=2 lg=2 xl=4 class="ml-14" />
       <v-col cols=8 sm=8 md=8 lg=5 xl=5 class="ml-16">
         <v-card :color="signupCard.color" :class="signupCard.position" :elevation="signupCard.elevation"
           :height="signupCard.height" :width="signupCard.width">
@@ -193,13 +193,13 @@
           signupText: 'アカウント登録',
           loginText: 'ログインはこちら',
           policyText: 'プライバシーポリシーと利用規約について',
-          color: "#161b22",
+          color: "#edf2f4",
           height: '530px',
           width: '380px',
           position: 'rounded-lg',
-          elevation: 10,
+          elevation: 0,
           headerTitleStyle: {
-            color: '#ced4da',
+            color: '#111111',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '23px',

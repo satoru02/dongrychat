@@ -1,9 +1,9 @@
 <template>
-  <v-app style="background-color: #f6f6f9;">
+  <v-app style="background-color: #ffffff;">
     <the-header />
     <v-main>
       <v-row>
-        <v-col lg=3 v-if="$vuetify.breakpoint.width > 600">
+        <v-col :lg="this.checkRouter() ? '3' : '2'" v-if="$vuetify.breakpoint.width > 600">
           <the-left-bar v-if="this.checkAuthorization() && this.checkRouter()" />
         </v-col>
         <v-col :lg="this.checkRouter() ?  '6' : '8' "

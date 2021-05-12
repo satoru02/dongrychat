@@ -1,6 +1,6 @@
 <template>
-  <v-container :key="componentKey">
-    <v-row class="mb-n5 mt-2">
+  <v-container :key="componentKey" class="mt-n4">
+    <v-row dense class="">
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="$vuetify.breakpoint.width > 600 ? 'mt-4' : 'mt-1'">
         <div :style="switcher === false ? switchBtn.active : switchBtn.inactive" v-text="tv.header" />
       </v-col>
@@ -13,15 +13,15 @@
       </v-col>
     </v-row>
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
-      <v-card class="rounded-lg mb-7" @click="enterSpace(item.attributes)"
-        :style="card.unhoverStyle" :elevation='hover ? 5 : 0' height="100px">
-        <v-row>
+      <v-card outlined class="rounded-lg mb-3" @click="enterSpace(item.attributes)"
+        :style="card.unhoverStyle" :elevation='hover ? 3 : 0' height="110px">
+        <v-row class="mt-1">
           <v-col cols=1 sm=1 md=1 lg=1 xl=1
-          :class="$vuetify.breakpoint.width > 600 ? 'ml-6 mt-8' : 'mt-8 ml-3 mr-4'" :style="ranking.style">
+          :class="$vuetify.breakpoint.width > 600 ? 'ml-4 mt-8' : 'mt-8 ml-3 mr-4'" :style="ranking.style">
             {{index + 1}}
           </v-col>
           <v-col cols=1 sm=1 md=1 lg=1 xl=1
-          :class="$vuetify.breakpoint.width > 600 ? 'ml-n9' : 'ml-n10'">
+          :class="$vuetify.breakpoint.width > 600 ? 'ml-n8' : 'ml-n10'">
             <v-avatar :class="avatar.round" :size="avatar.size" :height="avatar.height" tile>
               <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
             </v-avatar>
@@ -41,7 +41,7 @@
             <v-row>
               <v-col cols=9 sm=10 md=10 lg=10 xl=10 />
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-9 mt-n1">
-                <v-badge dot />
+                <v-badge color="#02e98d" dot />
               </v-col>
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="$vuetify.breakpoint.width > 600 ? 'mt-n4 ml-n9' : 'mt-n4 ml-n4'"
                  :style="userCount.style" v-text="item.attributes.users.length" />
@@ -313,4 +313,7 @@
   .theme--light.v-divider {
     border-color: rgba(0, 1, 1, .06);
   }
+  .theme--light.v-sheet--outlined {
+    border: thin solid rgba(0,0,0, .05);
+}
 </style>

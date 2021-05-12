@@ -75,7 +75,7 @@
           style: {
             color: '#111111',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '17px',
+            fontSize: '15px',
           }
         }
       }
@@ -122,7 +122,7 @@
           case 'xs' : return 'mt-n16 ml-11'
           case 'sm' : return 'mt-7'
           case 'md' : return 'mt-7'
-          case 'lg' : return 'ml-n9 mt-n1'
+          case 'lg' : return 'ml-n6 mt-n1'
           case 'xl' : return 'mt-n9'
         }
       },
