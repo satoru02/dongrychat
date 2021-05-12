@@ -51,10 +51,10 @@
 
 <script>
   import { secureAxios } from '../../backend/axios';
-  import TheProfilePart from '../Layout/TheProfilePart';
+  import TheProfilePart from './TheProfilePart';
 
   export default {
-    name: "RightPart",
+    name: "TheRightBar",
     components: {
       'the-profile-part': TheProfilePart
     },

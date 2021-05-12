@@ -8,7 +8,7 @@
     <v-col cols=9 sm=9 md=9 lg=9 xl=9>
       <v-row :class="vRowNameGrid">
         <v-col cols=8 sm=10 md=10 lg=10 xl=10 :class='vColNameGrid'>
-          <v-hover v-slot="{hover}">
+          <v-hover v-slot="{ hover }">
             <span
               @click="space_data.media === media.tv ? moveDetails(space_data.tmdb_comp_id, space_data.name, space_data.season, 'Tv') : moveDetails(space_data.tmdb_mv_id, space_data.name, null, 'Mv')"
               :style="hover ? vColTitle.hoverStyle : vColTitle.style" v-text="space_data.name" />

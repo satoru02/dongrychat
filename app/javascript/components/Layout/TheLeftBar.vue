@@ -83,7 +83,7 @@
 
 <script>
   export default {
-    name: "TheSideBar",
+    name: "TheLeftBar",
     data() {
       return {
         loginDialog: false,
