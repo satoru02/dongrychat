@@ -1,6 +1,6 @@
 <template>
-  <v-container :key="componentKey" class="mt-n4">
-    <v-row dense class="">
+  <v-container :key="componentKey" class="mt-n6">
+    <v-row dense class="mt-2">
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="$vuetify.breakpoint.width > 600 ? 'mt-4' : 'mt-1'">
         <div :style="switcher === false ? switchBtn.active : switchBtn.inactive" v-text="tv.header" />
       </v-col>
@@ -13,8 +13,8 @@
       </v-col>
     </v-row>
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
-      <v-card outlined class="rounded-lg mb-3" @click="enterSpace(item.attributes)"
-        :style="card.unhoverStyle" :elevation='hover ? 3 : 0' height="110px">
+      <v-card class="rounded-lg mb-8 mt-n4" @click="enterSpace(item.attributes)"
+        :style="hover ? card.hoverStyle : card.unhoverStyle" :elevation='hover ? 0 : 0' height="100px">
         <v-row class="mt-1">
           <v-col cols=1 sm=1 md=1 lg=1 xl=1
           :class="$vuetify.breakpoint.width > 600 ? 'ml-4 mt-8' : 'mt-8 ml-3 mr-4'" :style="ranking.style">
@@ -55,7 +55,7 @@
               <v-col cols=12 sm=12 md=12 lg=12 xl=12 :style="tags.style">
                 <v-chip label
                 :class="$vuetify.breakpoint.width > 600 ? 'mr-2' : 'mr-2'" :style="tags.style" v-for="(tag, index) in item.attributes.tag_list.slice(0, 2)" :key="index"
-                  color="#f6f6f9" v-text="'#' + tag" x-small />
+                  color="#dee2e6" v-text="'#' + tag" x-small />
               </v-col>
             </v-row>
           </v-col>
@@ -64,7 +64,7 @@
     </v-hover>
     <base-loader :handler="infiniteHandler" :wrapper="true" :text="loaderText" />
     <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
-      <v-card color="#161b22" height="250" class="rounded-lg">
+      <v-card color="#ffffff" height="250" class="rounded-lg">
         <v-row>
           <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
           <v-col cols=7 sm=7 md=7 lg=7 xl=7>
@@ -74,14 +74,14 @@
         <v-row>
           <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
           <v-col cols=10 sm=10 md=10 lg=10 xl=10>
-            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="blue" outlined elevation=0
+            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="black" outlined elevation=0
               v-text="'ログイン'" />
           </v-col>
         </v-row>
         <v-row>
           <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
           <v-col cols=10 sm=10 md=10 lg=10 xl=10>
-            <v-btn block @click="goSignup()" :style="dialog.btnStyle" color="blue" elevation=0 v-text="'アカウント作成'" />
+            <v-btn block @click="goSignup()" :style="dialog.btnStyle" color="#016aff" elevation=0 v-text="'アカウント作成'" />
           </v-col>
         </v-row>
         <v-row>
@@ -144,10 +144,10 @@
         },
         card: {
           hoverStyle: {
-            backgroundColor: '#1a212d'
+            backgroundColor: '#f1f1f6'
           },
           unhoverStyle: {
-            backgroundColor: '#ffffff'
+            backgroundColor: '#f6f6f9'
           }
         },
         switchBtn: {
@@ -200,15 +200,15 @@
         },
         tags: {
           style: {
-            color: '#666666',
+            color: '#495057',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '6px'
+            fontSize: '5px'
           }
         },
         dialog: {
           headerStyle: {
-            color: '#ced4da',
+            color: '#111111',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '17px',

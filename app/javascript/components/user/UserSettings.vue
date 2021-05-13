@@ -1,99 +1,97 @@
 <template>
   <v-container>
-    <h2 class="mb-3 mr-n3 head-title">アカウント設定</h2>
+    <sub-header class="ml-n8 mb-n5 head-title">
+      <template v-slot:account_header="subHeaderProps">
+        <h3>{{subHeaderProps.sub_header}}</h3>
+      </template>
+    </sub-header>
     <v-row class="mt-n2 ml-n11">
-      <v-col lg=1 md=1 xl=1 />
-      <v-col lg=1 md=2 xl=2>
+      <v-col lg=2 md=2 xl=2>
         <h3 class="setting-title mt-2 ml-1">名前</h3>
       </v-col>
-      <v-col lg=7 md=8 xl=8>
-        <v-text-field dark :rules="[rules.minName]" background-color="#242c37" color="red"
+      <v-col lg=10 md=8 xl=8>
+        <v-text-field :rules="[rules.minName]" background-color="#f6f6f9" color="red"
          :placeholder="this.$store.state.currentUser.name" solo filled dense flat
           v-model="name" />
       </v-col>
     </v-row>
     <v-row class="mt-n8 ml-n11">
-      <v-col lg=1 md=1 xl=1 />
-      <v-col lg=1 md=2 xl=2>
+      <v-col lg=2 md=2 xl=2>
         <h3 class="setting-title ml-1">自己紹介</h3>
       </v-col>
-      <v-col lg=7 md=8 xl=8>
-        <v-textarea dark background-color="#242c37" solo flat :placeholder="this.$store.state.currentUser.about" filled dense v-model="about" />
+      <v-col lg=10 md=8 xl=8>
+        <v-textarea background-color="#f6f6f9" solo flat :placeholder="this.$store.state.currentUser.about" filled dense v-model="about" />
       </v-col>
     </v-row>
     <v-row class="mt-n8 ml-n11">
       <v-col lg=2></v-col>
-      <v-col lg=7 md=12 xl=8>
-        <v-file-input dark background-color="#242c37" filled dense flat solo v-model="picture" @change="getPresignedURI()" />
+      <v-col lg=10 md=12 xl=8>
+        <v-file-input background-color="#f6f6f9" filled dense flat solo v-model="picture" @change="getPresignedURI()" />
       </v-col>
     </v-row>
 
     <v-row class="mt-n8 ml-n11">
-      <v-col lg=1 md=1 xl=1 />
-      <v-col lg=1 md=2 xl=2>
+      <!-- <v-col lg=1 md=1 xl=1 /> -->
+      <v-col lg=2 md=2 xl=2>
         <h3 class="setting-title mt-3 ml-1">Eメール</h3>
       </v-col>
-      <v-col lg=7 md=8 xl=8>
-        <v-text-field dark background-color="#242c37" solo flat :rules="[rules.testMail]" :placeholder="this.$store.state.currentUser.email" filled dense
+      <v-col lg=10 md=8 xl=8>
+        <v-text-field background-color="#f6f6f9" solo flat :rules="[rules.testMail]" :placeholder="this.$store.state.currentUser.email" filled dense
           v-model="email" />
       </v-col>
     </v-row>
     <v-row class="mt-n8 ml-n11">
-      <v-col lg=1 md=1 xl=1 />
-      <v-col lg=1 md=2 xl=2>
+      <!-- <v-col lg=1 md=1 xl=1 /> -->
+      <v-col lg=2 md=2 xl=2>
         <h3 class="setting-title mt-3 ml-1">住所</h3>
       </v-col>
-      <v-col lg=7 md=8 xl=8>
-        <v-text-field dark background-color="#242c37" solo flat :placeholder="this.$store.state.currentUser.location" filled dense v-model="location" />
+      <v-col lg=10 md=8 xl=8>
+        <v-text-field background-color="#f6f6f9" solo flat :placeholder="this.$store.state.currentUser.location" filled dense v-model="location" />
       </v-col>
     </v-row>
     <v-row class="mt-n8 ml-n11">
-      <v-col lg=1 md=1 xl=1 />
-      <v-col lg=1 md=2 xl=2>
+      <v-col lg=2 md=2 xl=2>
         <h3 class="setting-title mt-3 ml-1">Youtube</h3>
       </v-col>
-      <v-col lg=7 md=8 xl=8>
-        <v-text-field dark background-color="#242c37" solo flat :rules="[rules.testURL]"
+      <v-col lg=10 md=8 xl=8>
+        <v-text-field background-color="#f6f6f9" solo flat :rules="[rules.testURL]"
           :placeholder="sns_links[0] == '' ? 'https://youtube.com/username' : sns_links[0]" filled dense
           v-model="sns_links[0]" />
       </v-col>
     </v-row>
     <v-row class="mt-n8 ml-n11">
-      <v-col lg=1 md=1 xl=1 />
-      <v-col lg=1 md=2 xl=2>
+      <v-col lg=2 md=2 xl=2>
         <h3 class="setting-title mt-3 ml-1">Instagram</h3>
       </v-col>
-      <v-col lg=7 md=8 xl=8>
-        <v-text-field dark background-color="#242c37" solo flat :rules="[rules.testURL]"
+      <v-col lg=10 md=8 xl=8>
+        <v-text-field background-color="#f6f6f9" solo flat :rules="[rules.testURL]"
           :placeholder="sns_links[1] == '' ? 'https://instagram.com/username' : sns_links[1]" filled dense
           v-model="sns_links[1]" />
       </v-col>
     </v-row>
     <v-row class="mt-n8 ml-n11">
-      <v-col lg=1 md=1 xl=1 />
-      <v-col lg=1 md=2 xl=2>
+      <v-col lg=2 md=2 xl=2>
         <h3 class="setting-title mt-3 ml-1">Twitter</h3>
       </v-col>
-      <v-col lg=7 md=8 xl=8>
-        <v-text-field dark background-color="#242c37" solo flat :rules="[rules.testURL]"
+      <v-col lg=10 md=8 xl=8>
+        <v-text-field background-color="#f6f6f9" solo flat :rules="[rules.testURL]"
           :placeholder="sns_links[2] == '' ? 'https://twitter.com/username' : sns_links[2]" filled dense
           v-model="sns_links[2]" />
       </v-col>
     </v-row>
     <v-row class="mt-n8 ml-n11">
-      <v-col lg=1 md=1 xl=1 />
-      <v-col lg=1 md=2 xl=2>
+      <v-col lg=2 md=2 xl=2>
         <h3 class="setting-title mt-3 ml-1">Facebook</h3>
       </v-col>
-      <v-col lg=7 md=8 xl=8>
-        <v-text-field dark background-color="#242c37" solo flat :rules="[rules.testURL]"
+      <v-col lg=10 md=8 xl=8>
+        <v-text-field background-color="#f6f6f9" solo flat :rules="[rules.testURL]"
           :placeholder="sns_links[3] == '' ? 'https://facebook.com/username' : sns_links[3]" filled dense
           v-model="sns_links[3]" />
       </v-col>
     </v-row>
     <v-row class="mt-n6 ml-n10">
-      <v-col lg=1 />
-      <v-col lg=8>
+      <!-- <v-col lg=1 /> -->
+      <v-col lg=12>
         <v-btn block color="primary" @click="updateProfile()">更新</v-btn>
       </v-col>
     </v-row>
@@ -121,11 +119,15 @@
     secureAxios,
     simpleAxios
   } from '../../backend/axios';
+  import TheSubHeader from '../Layout/TheSubHeader';
   const UPDATE_ENDPOINT = '/api/v1/users'
   const GET_PRESIGNED_URL = '/api/v1/avatar'
 
   export default {
     name: 'Settings',
+    components: {
+      'sub-header': TheSubHeader
+    },
     data() {
       return {
         name: this.$store.state.currentUser.name,
@@ -244,15 +246,15 @@
   .head-title {
     font-weight: bold;
     font-family: 'Helvetica Neue', sans-serif;
-    font-size: 18px;
-    color: #ced4da;
+    font-size: 15px;
+    color: #111111;
   }
 
   .setting-title {
     font-weight: bold;
     font-family: 'Helvetica Neue', sans-serif;
     font-size: 13px;
-    color: #ced4da;
+    color: #111111;
   }
 
 </style>

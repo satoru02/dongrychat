@@ -77,7 +77,7 @@
               fontFamily: 'Helvetica Neue, sans-serif',
               fontSize: '15px',
               fontWeight: 'bold',
-              color: '#ffffff'
+              color: '#111111'
             }
           },
           innderSubHeading: {

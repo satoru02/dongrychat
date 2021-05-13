@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="mt-3 ml-16 privacy-part rounded-lg" width="1000px" color="#ffffff" elevation=0>
+  <v-sheet class="mt-3 privacy-part rounded-lg" width="1000px" color="#ffffff" elevation=0>
     <v-row>
       <v-col cols=10 sm=10 md=10 lg=10 xl=10 />
     </v-row>

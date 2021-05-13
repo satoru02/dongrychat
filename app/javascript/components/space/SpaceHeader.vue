@@ -344,7 +344,7 @@
             color: '#111111',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '11px',
+            fontSize: '12px',
             height: '80px',
             maxHeight: '80px',
             overflow: 'scroll',

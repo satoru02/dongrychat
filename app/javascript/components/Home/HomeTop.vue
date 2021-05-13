@@ -1,20 +1,20 @@
 <template>
   <v-container>
-    <sub-header class=mb-n2>
+    <sub-header class="mb-n2 ml-1">
       <template v-slot:home_header="subHeaderProps">
         <h3 :style="style.headerPart">{{subHeaderProps.sub_header}}</h3>
       </template>
     </sub-header>
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
-      <v-card outlined class="rounded-lg mb-4" :style="card.unhoverStyle" @click="enterSpace(item)"
-        :elevation='hover ? 5 : 0' :height="'115'">
-        <v-row class="mt-1">
+      <v-card class="rounded-lg mb-7" :style="hover ? card.hoverStyle : card.unhoverStyle" @click="enterSpace(item)"
+        :elevation='hover ? 0 : 0' :height="'100'">
+        <v-row>
           <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-5">
             <v-avatar class="rounded-lg" :size="listAvatar.size" :height="listAvatar.height">
               <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
             </v-avatar>
           </v-col>
-          <v-col cols=10 sm=10 md=10 lg=10 xl=10 class="ml-5">
+          <v-col cols=10 sm=10 md=10 lg=10 xl=10 class="ml-1">
             <v-row>
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
               <v-col cols=10 sm=10 md=10 lg=10 xl=10
@@ -30,7 +30,7 @@
             <v-row>
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
               <v-col cols=9 sm=9 md=9 lg=9 xl=9
-               :class="$vuetify.breakpoint.width > 600 ? 'ml-n5 mt-n3' : 'mt-n3 ml-6'"
+               :class="$vuetify.breakpoint.width > 600 ? 'ml-n5 mt-n4' : 'mt-n3 ml-6'"
               :style="style.name">
                 {{item.attributes.name}}
               </v-col>
@@ -42,7 +42,7 @@
                 {{item.attributes.unconfirmed_comments}}
               </v-col>
             </v-row>
-            <v-row :class="$vuetify.breakpoint.width > 600 ? 'mt-n3' : 'mt-n16'" >
+            <v-row :class="$vuetify.breakpoint.width > 600 ? 'mt-n5' : 'mt-n16'" >
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
               <v-col cols=10 sm=11 md=11 lg=11 xl=11
               :class="$vuetify.breakpoint.width > 600 ? 'ml-n5' : 'ml-15'"
@@ -97,8 +97,8 @@
           loading: '気になるドラマのチャットに参加してみよう！'
         },
         listAvatar: {
-          size: 85,
-          height: 85,
+          size: 77,
+          height: 77,
         },
         avatar: {
           size: 28,
@@ -111,10 +111,10 @@
         card: {
           height: '100px',
           hoverStyle: {
-            backgroundColor: '#1a212d'
+            backgroundColor: '#f1f1f6'
           },
           unhoverStyle: {
-            backgroundColor: '#ffffff'
+            backgroundColor: '#f6f6f9'
           }
         },
         style: {

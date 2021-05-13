@@ -88,7 +88,7 @@
         card: {
           headerText: 'パスワードの再設定',
           textFieldColor: '#ffffff',
-          btnColor: '#02c39a',
+          btnColor: '#016aff',
           emailText: 'Eメール',
           sendText: 'メールを送信する',
           policyText: 'プライバシーポリシーと利用規約について',

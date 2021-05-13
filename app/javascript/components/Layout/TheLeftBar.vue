@@ -14,7 +14,8 @@
           </v-list-item>
         </v-hover>
       </v-list-item-group>
-      <v-list-item-group v-model="selectedItem" class="mt-10">
+      <v-divider color="#f6f6f9" class="mt-5 ml-3" />
+      <v-list-item-group v-model="selectedItem" class="mt-3">
       <v-subheader :style="category" class="mb-n1">人気のタグ</v-subheader>
         <v-hover v-slot="{hover}" v-for="(item, index) in tags" :key="index">
           <v-list-item :elevation="hover ? 10: 0" @click="changeRoute(item.path_name)" class="mb-n2 ml-2">
@@ -54,7 +55,7 @@
     </v-row> -->
 
     <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
-      <v-card color="#161b22" height="250" class="rounded-lg">
+      <v-card color="#ffffff" height="250" class="rounded-lg">
         <v-row>
           <v-col lg=3 />
           <v-col lg=7>
@@ -64,14 +65,14 @@
         <v-row>
           <v-col lg=1 />
           <v-col lg=10>
-            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="blue" outlined elevation=0
+            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="black" outlined elevation=0
               v-text="'ログイン'" />
           </v-col>
         </v-row>
         <v-row>
           <v-col lg=1 />
           <v-col lg=10>
-            <v-btn block @click="goSignup()" :style="dialog.btnStyle" color="blue" elevation=0 v-text="'アカウント作成'" />
+            <v-btn block @click="goSignup()" :style="dialog.btnStyle" color="#016aff" elevation=0 v-text="'アカウント作成'" />
           </v-col>
         </v-row>
         <v-row>
@@ -108,7 +109,7 @@
           '# love',
         ],
         menus: [{
-            text: 'ランキング',
+            text: 'チャート',
             icon: 'mdi-access-point',
             path_name: 'Chart'
           },
@@ -118,27 +119,27 @@
             path_name: 'Home'
           },
           {
-            text: 'トピックス',
-            icon: 'mdi-bell-outline',
-            path_name: 'NotificationTop'
-          },
-          {
-            text: 'コラム',
-            icon: 'mdi-pen',
-            path_name: 'NotificationTop'
-          },
-          {
-            text: 'パーティリンク',
-            icon: 'mdi-bell-outline',
-            path_name: 'NotificationTop'
-          },
-          {
             text: '検索',
             icon: 'mdi-magnify',
             path_name: 'Search'
           },
           {
             text: '通知',
+            icon: 'mdi-bell-outline',
+            path_name: 'NotificationTop'
+          },
+          {
+            text: '未定',
+            icon: 'mdi-bell-outline',
+            path_name: 'NotificationTop'
+          },
+          {
+            text: '未定',
+            icon: 'mdi-pen',
+            path_name: 'NotificationTop'
+          },
+          {
+            text: '未定',
             icon: 'mdi-bell-outline',
             path_name: 'NotificationTop'
           },
@@ -226,7 +227,7 @@
         },
         dialog: {
           headerStyle: {
-            color: '#ced4da',
+            color: '#111111',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '17px',
@@ -272,3 +273,11 @@
   }
 </script>
 
+<style scoped>
+  .v-divider {
+    border-color: rgba(5, 5, 5, 0.06);
+  }
+  .v-input__slot::before {
+    border-style: none !important;
+  }
+</style>

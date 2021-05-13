@@ -166,7 +166,7 @@
           backgroundColor: "#134563"
         },
         afterInput: {
-          backgroundColor: "#02c39a"
+          backgroundColor: "#016aff"
         },
         topPartStyle: {
           height: '40px'

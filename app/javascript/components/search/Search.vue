@@ -19,7 +19,7 @@
       </v-col>
       <v-col cols=5 sm=7 md=9 lg=9 xl=9 />
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="vColSwitchGrid">
-        <v-switch dark dense v-model="switch1" :color="colors.blue" inset :class="switchPosition" />
+        <v-switch dense v-model="switch1" :color="colors.blue" inset :class="switchPosition" />
       </v-col>
     </v-row>
     <v-row>
@@ -120,7 +120,7 @@
           fontFamily: 'Helvetica Neue, sans-serif',
           fontSize: '20px',
           fontWeight: 'bold',
-          color: '#ffffff'
+          color: '#000000'
         },
         inactive: {
           fontFamily: 'Helvetica Neue, sans-serif',

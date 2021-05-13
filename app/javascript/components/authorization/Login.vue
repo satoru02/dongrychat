@@ -137,7 +137,7 @@
           backgroundColor: "#134563"
         },
         afterInput: {
-          backgroundColor: "#02c39a"
+          backgroundColor: "#016aff"
         },
         topPartStyle: {
           height: '85px'
@@ -156,7 +156,7 @@
           facebookColor: '#2962ff',
           facebookIcon: 'mdi-facebook',
           textFieldColor: '#ffffff',
-          loginBtnColor: '#02e98d',
+          loginBtnColor: '#016aff',
           emailText: 'Eメール',
           passwordText: 'パスワード',
           forgotPasswordText: 'パスワードを忘れた',
