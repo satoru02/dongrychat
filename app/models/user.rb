@@ -119,7 +119,7 @@ class User < ApplicationRecord
   # fix -> abstraction
   def create_active_notification(following)
     if Notification.exist(following.id, self.id).blank?
-      active_notification = active_notifications.new(receiver_id: following.id)
+      active_notification = active_notifications.build(receiver_id: following.id)
       active_notification.save if active_notification.valid?
     end
   end

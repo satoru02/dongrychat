@@ -73,52 +73,22 @@
 #                  rails_direct_uploads POST   /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
 
 Rails.application.routes.draw do
-  root to: 'home#index'
-  mount ActionCable.server => "/cable"
-
-  resources :auth, only: [:create] do
-    collection do
-      post ':provider', action: :create
-    end
-  end
-
   namespace 'api' do
     namespace 'v1' do
-      get '/avatar/presigned_url', to: 'avatar#presigned_url'
-      resources :signup, only: [:create]
       resources :login, only: [:create, :destroy]
-      resources :refresh, only: [:create]
-      resources :signup, only: [:create]
       resources :relationships, only: [:create, :destroy]
-      resources :notifications, only: [:index]
-      resources :comments, only: [:index]
-
-      resources :account_activations, only: [:create] do
-        collection do
-          post ':token', action: :create
-        end
-      end
-
-      resources :password_resets, only: [:create] do
-        collection do
-          get ':token', action: :edit, as: :edit
-          patch ':token', action: :update
-        end
+      resources :refresh, only: :create
+      resources :signup, only: :create
+      resources :notifications, only: :index
+      resources :comments, only: :index
+      resources :avatar do
+        get 'presigned_url', on: :collection
       end
 
       resources :users do
-        collection do
-          get :me
-        end
+        get 'me', on: :collection
         member do
           get :following, :followers, :online
-        end
-      end
-
-      resources :subscriptions do
-        collection do
-          post :create
-          delete ':space_id/:user_id', action: :destroy, as: :destroy
         end
       end
 
@@ -129,8 +99,31 @@ Rails.application.routes.draw do
           get :trend
         end
       end
+
+      resources :account_activations do
+        post ':token', action: :create, on: :collection
+      end
+
+      resources :password_resets do
+        collection do
+          get ':token', action: :edit
+          patch ':token', action: :update
+        end
+      end
+
+      resources :subscriptions do
+        collection do
+          post :create
+          delete ':space_id/:user_id', action: :destroy
+        end
+      end
     end
   end
 
+  root to: 'home#index'
   get '*path', to: 'home#index'
+  mount ActionCable.server => "/cable"
+  resources :auth do
+    post ':provider', action: :create, on: :collection
+  end
 end

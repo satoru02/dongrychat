@@ -41,11 +41,11 @@
         vList: {
           style: {
             cursor: 'pointer',
-            backgroundColor: '#161b22'
+            backgroundColor: '#ffffff'
           },
           hoverStyle: {
             cursor: 'pointer',
-            backgroundColor: '#292d33'
+            backgroundColor: '#f6f6f9'
           }
         },
         name: {
@@ -53,7 +53,7 @@
             fontWeight: 'bold',
             fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
             fontSize: '14px',
-            color: '#ced4da'
+            color: '#111111'
           }
         },
         about: {

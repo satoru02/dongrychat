@@ -7,7 +7,7 @@
         </v-avatar>
       </v-col>
       <v-col v-if="this.$vuetify.breakpoint.width < 600" cols=2 />
-      <v-col cols=7 sm=9 md=9 lg=9 xl=9>
+      <v-col cols=7 sm=9 md=9 lg=9 xl=9 class="ml-10">
         <v-row>
           <v-col cols=12 sm=9 md=9 lg=9 xl=9 :class="vColNameGrid" :style="style.contentsTitle">
             <h3 v-if="media === 'tv'" v-text="this.$route.params.tv_name" />
@@ -47,9 +47,9 @@
         </v-col>
     </v-row>
 
-    <v-tabs v-if="(media === 'tv') && (overall.seasons)" :class="vTabsGrid" :style="style.tabs"
-      background-color='#121214' :height="'40'" :width="tabs.width" :color="'blue'">
-      <v-tab :active-class="tabActive" :style="style.tab" @click="changeSeason(index+1)"
+    <v-tabs hide-slider v-if="(media === 'tv') && (overall.seasons)" :class="vTabsGrid" :style="style.tabs"
+      background-color='#ffffff' :height="'40'" :width="tabs.width" :color="'blue'">
+      <v-tab :active-class="'black--text'" :style="style.tab" @click="changeSeason(index+1)"
         v-for="(season, index) in overall.seasons.length" :key="index">
         {{text.season}} {{index + 1}}
       </v-tab>
@@ -104,7 +104,7 @@
     </v-row>
 
     <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
-      <v-card :class="'rounded-lg'" color="#161b22" height="250">
+      <v-card :class="'rounded-lg'" color="#ffffff" height="250">
         <v-row>
           <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
           <v-col cols=7 sm=7 md=7 lg=7 xl=7>
@@ -114,14 +114,14 @@
         <v-row>
           <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
           <v-col cols=10 sm=10 md=10 lg=10 xl=10>
-            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="blue" outlined elevation=0
+            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="black" outlined elevation=0
               v-text="'ログイン'" />
           </v-col>
         </v-row>
         <v-row>
           <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
           <v-col cols=10 sm=10 md=10 lg=10 xl=10>
-            <v-btn block @click="goSignup()" :style="dialog.btnStyle" color="blue" elevation=0 v-text="'アカウント作成'" />
+            <v-btn block @click="goSignup()" :style="dialog.btnStyle" color="#016aff" elevation=0 v-text="'アカウント作成'" />
           </v-col>
         </v-row>
         <v-row>
@@ -185,13 +185,13 @@
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '15px',
             fontWeight: 'bold',
-            color: '#6c757d'
+            color: '#111111'
           },
           contentsTitle: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue sans-serif',
             fontSize: '16px',
-            color: '#ced4da'
+            color: '#111111'
           },
           subContentsTitle: {
             fontWeight: 'bold',
@@ -203,7 +203,7 @@
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '12px',
             fontWeight: 'bold',
-            color: '#ced4da',
+            color: '#111111',
             height: '90px',
             maxHeight: '90px',
             overflow: 'scroll',
@@ -219,7 +219,7 @@
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue sans-serif',
             fontSize: '12px',
-            color: '#ced4da',
+            color: '#111111',
           },
           tag: {
             color: '#ffffff',
@@ -243,25 +243,25 @@
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '14px',
             fontWeight: 'bold',
-            color: '#ffffff',
+            color: '#111111',
           },
           overview: {
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '11px',
             fontWeight: 'bold',
-            color: '#b3b3b3',
+            color: '#666666',
           },
           list: {
-            backgroundColor: '#121214'
+            backgroundColor: '#ffffff'
           },
           hoverList: {
-            backgroundColor: '#1a212d'
+            backgroundColor: '#f6f6f9'
           },
           chip: '#293241'
         },
         dialog: {
           headerStyle: {
-            color: '#ced4da',
+            color: '#111111',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '17px',
@@ -497,6 +497,6 @@
 
 <style scoped>
   .theme--light.v-divider {
-    border-color: rgba(201, 204, 204, 0.06);
+    border-color: rgba(73, 73, 73, 0.06);
   }
 </style>

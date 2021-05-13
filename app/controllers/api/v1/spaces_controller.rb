@@ -3,7 +3,6 @@ module Api
     class SpacesController < ApplicationController
       before_action :authorize_access_request!, only: [:index, :enter, :enter_from_subscription]
       before_action :set_space, only: [:enter_from_subscription]
-      require 'will_paginate/array'
 
       def index
         @spaces = current_user.spaces.order_by_comments(current_user).paginate(:page => params[:page], :per_page => params[:per_page])

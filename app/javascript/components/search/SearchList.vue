@@ -9,7 +9,7 @@
       </v-col>
       <v-col cols=8 sm=8 md=8 lg=8 xl=8 />
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-n6">
-        <v-switch dense dark v-model="switch1" :color="colors.blue" inset :class="switchPosition" />
+        <v-switch dense v-model="switch1" :color="colors.blue" inset :class="switchPosition" />
       </v-col>
     </v-row>
     <v-row :class="vRowContents">
@@ -31,12 +31,8 @@
 
 <script>
   import { tmdbAxios } from '../../backend/axios';
-  import BaseContentSheet from '../Base/BaseContentSheet';
   export default {
     name: 'SearchList',
-    components: {
-      'base-content-sheet': BaseContentSheet
-    },
     data() {
       return {
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w200`,
@@ -84,7 +80,7 @@
           fontFamily: 'Helvetica Neue, sans-serif',
           fontSize: '20px',
           fontWeight: 'bold',
-          color: '#FFFFFF'
+          color: '#000000'
         },
         inactive: {
           fontFamily: 'Helvetica Neue, sans-serif',

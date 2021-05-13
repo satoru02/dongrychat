@@ -29,12 +29,8 @@
 </template>
 
 <script>
-  import BaseContentSheet from '../Base/BaseContentSheet';
   export default {
     name: 'SearchTopRatedPart',
-    components: {
-      'base-content-sheet': BaseContentSheet
-    },
     props: {
       media: {
         type: String,
@@ -81,7 +77,7 @@
               fontFamily: 'Helvetica Neue, sans-serif',
               fontSize: '15px',
               fontWeight: 'bold',
-              color: '#ffffff'
+              color: '#111111'
             }
           },
           innderSubHeading: {

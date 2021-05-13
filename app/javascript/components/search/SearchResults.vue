@@ -1,5 +1,5 @@
 <template>
-  <v-container :class="vContainerGrid" style="background-color: #121214;">
+  <v-container :class="vContainerGrid" style="background-color: #ffffff;">
     <v-row>
       <v-col cols=12 sm=12 md=12 lg=12 xl=12>
         <div :style="resultsStyle" v-text="resultsText" />
@@ -7,14 +7,14 @@
     </v-row>
     <v-row class="mt-n3">
       <v-col cols=12 sm=12 md=12 lg=12 xl=12>
-        <v-tabs grow :background-color="tabColor">
+        <v-tabs hide-slider grow :background-color="tabColor">
           <v-tab v-for="(menu, index) in menus" :key="index"
           :style="listStyle" :active-class="tabActive" v-text="menu.name" @click="movePath(menu.path)" />
         </v-tabs>
         <v-divider />
       </v-col>
     </v-row>
-    <v-list two-line style="background-color: #121214;">
+    <v-list two-line style="background-color: #ffffff;">
       <v-list-item-group v-for="(item, index) in items.contents"
       :key="index"
       :active-class="listActive" multiple>
@@ -22,7 +22,7 @@
           <v-list-item
           :class="'rounded-lg'"
            @click="showContents(item)"
-            :style="hover ? 'background-color: #1a212d;' : 'background-color: #121214;'">
+            :style="hover ? 'background-color: #f6f6f9;' : 'background-color: #ffffff;'">
               <v-list-item-avatar :size='avatar.size' :width='avatar.width' :height='avatar.height'
                 :class="avatar.rounded">
                 <v-img v-if="items.type === 'person'" :src="base_tmdb_img_url + item.profile_path" />
@@ -89,17 +89,17 @@
             path: 'company'
           }
         ],
-        tabColor: '#121214',
-        tabActive: 'white--text',
+        tabColor: '#ffffff',
+        tabActive: 'black--text',
         listActive: 'orange--text',
         resultsStyle: {
           fontSize: "18px",
           fontFamily: 'Helvetica Neue, sans-serif',
           fontWeight: 'bold',
-          color: '#ced4da'
+          color: '#111111'
         },
         listStyle: {
-          fontSize: '10px',
+          fontSize: '12px',
           fontFamily: 'Helvetica Neue, sans-serif',
           fontWeight: 'bold',
           color: '#6c757d'
@@ -108,7 +108,7 @@
           fontWeight: 'bold',
           fontFamily: 'Helvetica Neue, sans-serif',
           fontSize: '15px',
-          color: '#ced4da'
+          color: '#111111'
         },
         subtitleStyle: {
           fontFamily: 'Helvetica Neue, sans-serif',

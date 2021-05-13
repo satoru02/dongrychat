@@ -1,6 +1,6 @@
 <template>
-  <v-container class="mt-n8 ml-16" :key="componentKey">
-    <v-row class="mb-n5 mt-2">
+  <v-container :key="componentKey" class="mt-n6">
+    <v-row dense class="mt-2">
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="$vuetify.breakpoint.width > 600 ? 'mt-4' : 'mt-1'">
         <div :style="switcher === false ? switchBtn.active : switchBtn.inactive" v-text="tv.header" />
       </v-col>
@@ -9,41 +9,41 @@
       </v-col>
       <v-col cols=8 sm=9 md=9 lg=9 xl=9 />
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="$vuetify.breakpoint.width > 600 ? '' : 'mt-n3 ml-4'">
-        <v-switch v-model="switcher" color="blue" dense dark inset />
+        <v-switch v-model="switcher" color="blue" dense inset />
       </v-col>
     </v-row>
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
-      <v-card class="rounded-lg mb-8" @click="enterSpace(item.attributes)"
-        :style="hover ? card.hoverStyle : card.unhoverStyle" :elevation='hover ? 10 : 0' height="100px">
-        <v-row>
+      <v-card class="rounded-lg mb-8 mt-n4" @click="enterSpace(item.attributes)"
+        :style="hover ? card.hoverStyle : card.unhoverStyle" :elevation='hover ? 0 : 0' height="100px">
+        <v-row class="mt-1">
           <v-col cols=1 sm=1 md=1 lg=1 xl=1
-          :class="$vuetify.breakpoint.width > 600 ? 'ml-6 mt-8' : 'mt-8 ml-3 mr-4'" :style="ranking.style">
+          :class="$vuetify.breakpoint.width > 600 ? 'ml-4 mt-8' : 'mt-8 ml-3 mr-4'" :style="ranking.style">
             {{index + 1}}
           </v-col>
           <v-col cols=1 sm=1 md=1 lg=1 xl=1
-          :class="$vuetify.breakpoint.width > 600 ? 'ml-n9' : 'ml-n10'">
+          :class="$vuetify.breakpoint.width > 600 ? 'ml-n8' : 'ml-n10'">
             <v-avatar :class="avatar.round" :size="avatar.size" :height="avatar.height" tile>
               <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
             </v-avatar>
           </v-col>
-          <v-col cols=10 sm=10 md=10 lg=10 xl=10>
+          <v-col cols=10 sm=10 md=10 lg=10 xl=10 class="ml-3">
             <v-row dense>
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
               <v-col cols=10 sm=10 md=10 lg=10 xl=10
               :class="$vuetify.breakpoint.width > 600 ? 'ml-n6 mt-1' : 'ml-4 mt-1'"
               :style="label.style">
-                <base-label class="ml-1 mr-3" :x_small="true" :outlined="true" :label="true"
-                  v-if="item.attributes.media === media.tv" :color="'blue'" :text-color="'#ced4da'"
+                <base-label class="ml-1 mr-3" :x_small="true" :outlined="false" :label="true"
+                  v-if="item.attributes.media === media.tv" :color="'#016aff'" :text-color="'#ffffff'"
                   :season="item.attributes.season" :episode="item.attributes.episode"
                   :title="item.attributes.episode_title" />
               </v-col>
             </v-row>
             <v-row>
               <v-col cols=9 sm=10 md=10 lg=10 xl=10 />
-              <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-10 mt-n1">
-                <v-badge dot />
+              <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-9 mt-n1">
+                <v-badge color="#02e98d" dot />
               </v-col>
-              <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="$vuetify.breakpoint.width > 600 ? 'mt-n4 ml-n10' : 'mt-n4 ml-n4'"
+              <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="$vuetify.breakpoint.width > 600 ? 'mt-n4 ml-n9' : 'mt-n4 ml-n4'"
                  :style="userCount.style" v-text="item.attributes.users.length" />
             </v-row>
             <v-row class='mt-n11'>
@@ -51,11 +51,11 @@
               <v-col cols=9 sm=10 md=10 lg=10 xl=10 :class="$vuetify.breakpoint.width > 600 ? 'ml-n5' : 'ml-5'" :style="listItemTitle.style" v-text="item.attributes.name" />
             </v-row>
             <v-row
-            :class="$vuetify.breakpoint.width > 600 ? 'mt-n4 ml-6' : 'mt-n4 ml-10'">
+            :class="$vuetify.breakpoint.width > 600 ? 'mt-n4 ml-4' : 'mt-n4 ml-10'">
               <v-col cols=12 sm=12 md=12 lg=12 xl=12 :style="tags.style">
-                <v-chip
+                <v-chip label
                 :class="$vuetify.breakpoint.width > 600 ? 'mr-2' : 'mr-2'" :style="tags.style" v-for="(tag, index) in item.attributes.tag_list.slice(0, 2)" :key="index"
-                  color="#293241" v-text="'#' + tag" x-small />
+                  color="#dee2e6" v-text="'#' + tag" x-small />
               </v-col>
             </v-row>
           </v-col>
@@ -64,7 +64,7 @@
     </v-hover>
     <base-loader :handler="infiniteHandler" :wrapper="true" :text="loaderText" />
     <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
-      <v-card color="#161b22" height="250" class="rounded-lg">
+      <v-card color="#ffffff" height="250" class="rounded-lg">
         <v-row>
           <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
           <v-col cols=7 sm=7 md=7 lg=7 xl=7>
@@ -74,14 +74,14 @@
         <v-row>
           <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
           <v-col cols=10 sm=10 md=10 lg=10 xl=10>
-            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="blue" outlined elevation=0
+            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="black" outlined elevation=0
               v-text="'ログイン'" />
           </v-col>
         </v-row>
         <v-row>
           <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
           <v-col cols=10 sm=10 md=10 lg=10 xl=10>
-            <v-btn block @click="goSignup()" :style="dialog.btnStyle" color="blue" elevation=0 v-text="'アカウント作成'" />
+            <v-btn block @click="goSignup()" :style="dialog.btnStyle" color="#016aff" elevation=0 v-text="'アカウント作成'" />
           </v-col>
         </v-row>
         <v-row>
@@ -144,10 +144,10 @@
         },
         card: {
           hoverStyle: {
-            backgroundColor: '#1a212d'
+            backgroundColor: '#f1f1f6'
           },
           unhoverStyle: {
-            backgroundColor: '#161b22'
+            backgroundColor: '#f6f6f9'
           }
         },
         switchBtn: {
@@ -155,7 +155,7 @@
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '18px',
             fontWeight: 'bold',
-            color: '#ffffff',
+            color: '#000000',
             letterSpacing: '3px'
           },
           inactive: {
@@ -187,28 +187,28 @@
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '13px',
             fontWeight: 'bold',
-            color: '#ced4da'
+            color: '#6c757d'
           }
         },
         listItemTitle: {
           style: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '15px',
-            color: '#ced4da'
+            fontSize: '16px',
+            color: '#111111'
           }
         },
         tags: {
           style: {
-            color: '#ced4da',
+            color: '#495057',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '6px'
+            fontSize: '5px'
           }
         },
         dialog: {
           headerStyle: {
-            color: '#ced4da',
+            color: '#111111',
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '17px',
@@ -313,4 +313,7 @@
   .theme--light.v-divider {
     border-color: rgba(0, 1, 1, .06);
   }
+  .theme--light.v-sheet--outlined {
+    border: thin solid rgba(0,0,0, .05);
+}
 </style>

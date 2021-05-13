@@ -1,6 +1,6 @@
 <template>
   <v-container :class="this.$vuetify.breakpoint.width < 600 ? 'ml-16' : ''">
-    <v-list-item-group style="background-color: #121214;"
+    <v-list-item-group style="background-color: #ffffff;"
      v-for="(user, index) in relationships" :key="index" multiple class="list-body">
         <v-list-item>
           <template v-slot:default="{}">
@@ -100,7 +100,7 @@
     font-weight: bold;
     font-family: 'Helvetica Neue', sans-serif;
     font-size: 15px;
-    color: #ced4da;
+    color: #111111;
   }
 
   .head-title {

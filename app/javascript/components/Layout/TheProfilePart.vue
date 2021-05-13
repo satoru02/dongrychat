@@ -2,10 +2,10 @@
   <v-sheet
    @click="showDialog()" :elevation="profilePart.elavation" :width="profilePart.width"
     :height="profilePart.height" :style="style.profilePart" :class="profilePart.round">
-    <v-row class="mt-n3">
+    <v-row>
       <v-col md=2 lg=2 xl=2>
         <v-avatar :class="grid.profile" :size="profile.size" :height="profile.height" :style="profile.style">
-          <base-avatar :img="'https://cdn.vuetifyjs.com/images/john.jpg'" />
+          <v-img :src="$store.state.currentUser.avatar_url" />
         </v-avatar>
       </v-col>
       <v-col md=10 lg=10 xl=10 :class='grid.profileText'>
@@ -30,13 +30,11 @@
 
 <script>
   import BaseProfileDialog from '../Base/BaseProfileDialog';
-  import BaseAvatar from '../Base/BaseAvatar';
 
   export default {
     name: 'TheProfilePart',
     components: {
       'base-profile-dialog': BaseProfileDialog,
-      'base-avatar': BaseAvatar,
     },
     data() {
       return {
@@ -46,14 +44,14 @@
         blank: ' ',
         style: {
           profilePart: {
-            backgroundColor: '#161b22',
+            backgroundColor: '#f6f6f9',
             cursor: 'pointer'
           },
           name: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
             fontSize: '14px',
-            color: '#ced4da'
+            color: '#000000'
           },
           relationships: {
             fontWeight: 'bold',
@@ -74,7 +72,7 @@
           elevation: 0,
           width: 200,
           height: 111,
-          round: 'rounded-lg',
+          round: 'rounded-lg mt-2',
         },
         profile: {
           size: 50,
@@ -92,3 +90,12 @@
     }
   }
 </script>
+
+<style scoped>
+  .theme--light.v-divider {
+    border-color: rgba(0, 1, 1, .06);
+  }
+  .theme--light.v-sheet--outlined {
+    border: thin solid rgba(0,0,0, .06);
+}
+</style>

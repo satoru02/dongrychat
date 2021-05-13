@@ -9,12 +9,6 @@ module Api
         render_json(serializer)
       end
 
-      def index
-        user = User.online
-        serializer = UserSerializer.new(user)
-        render_json(serializer)
-      end
-
       def show
         serializer = UserSerializer.new(@user)
         render_json(serializer)
@@ -60,7 +54,7 @@ module Api
 
         def user_params
           params.require(:user).permit(
-            :name, :email, :about, :location, :password, :password_confirmation,  :sns_links => []
+            :name, :email, :about, :location, :password, :password_confirmation, :sns_links => []
           )
         end
     end

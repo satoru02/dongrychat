@@ -1,20 +1,18 @@
 <template>
-  <v-container :class="vContainerGrid" >
-    <v-sheet class="rounded-lg" :style="vSheet.style" :height="vSheet.height">
-      <space-header :space_data="this.space_data" />
-      <v-tabs class="mt-2" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height" grow>
-        <v-tab
-         :active-class="vTab.activeText" @click="changeTab(tablist.path)" :style="vTab.style"
-          v-for="(tablist, index) in tablists" :key="index">
-          {{tablist.title}}
-          <v-chip v-if="$vuetify.breakpoint.width > 600" class="ml-3 rounded-xl" :style="vChip.style" :text-color="vChip.textColor" :elevation="vChip.elevation"
-            :color="vChip.color" x-small v-text="setCount(tablist.title)" />
-        </v-tab>
-      </v-tabs>
-      <v-divider />
-      <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" />
-    </v-sheet>
-  </v-container>
+  <div class="ml-5">
+    <space-header :space_data="this.space_data" />
+    <v-tabs hide-slider class="mt-2" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height" grow>
+      <v-tab
+       :active-class="vTab.activeText" @click="changeTab(tablist.path)" :style="vTab.style"
+        v-for="(tablist, index) in tablists" :key="index">
+        {{tablist.title}}
+        <v-chip v-if="$vuetify.breakpoint.width > 600" class="ml-3 rounded-xl" :style="vChip.style" :text-color="vChip.textColor" :elevation="vChip.elevation"
+          :color="vChip.color" x-small v-text="setCount(tablist.title)" />
+      </v-tab>
+    </v-tabs>
+    <v-divider />
+    <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" />
+  </div>
 </template>
 
 <script>
@@ -74,26 +72,26 @@
         vSheet: {
           height: '740',
           style: {
-            backgroundColor: '#161b22'
+            backgroundColor: '#f6f6f9'
           }
         },
         vTabs: {
-          backgroundColor: '#161b22',
+          backgroundColor: '#ffffff',
           height: '40'
         },
         vTab: {
-          activeText: 'white--text',
+          activeText: 'black--text',
           style: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '11px',
-            color: '#6c757d'
+            fontSize: '12px',
+            color: '#666666'
           }
         },
         vChip: {
-          textColor: '#aaaaaa',
+          textColor: '#666666',
           elevation: 0,
-          color: '#2e2e2e',
+          color: '#f6f6f9',
           style: {
             fontWeight: 'bold',
             fontFamily: 'Helvetica Neue, sans-serif',
@@ -218,7 +216,7 @@
 
 <style scoped>
   .theme--light.v-divider {
-    border-color: rgba(201, 204, 204, 0.06);
+    border-color: rgba(94, 94, 94, 0.06);
   }
   .v-input__slot::before {
     border-style: none !important;

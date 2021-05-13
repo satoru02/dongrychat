@@ -58,13 +58,13 @@
         },
         wrapper: {
           style: {
-            maxHeight: '445px',
-            height: '445px',
+            maxHeight: '395px',
+            height: '395px',
             overflow: 'scroll',
           }
         },
         textField: {
-          color: '#495057',
+          color: '#f6f6f9',
           placeholder: '#メッセージを送信',
           style: {
             position: 'static',
