@@ -48,7 +48,7 @@
         pageSize: 10,
         textStyle: {
           fontWeight: 'bold',
-          fontFamily: 'Helvetica Neue, sans-serif',
+          fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
           color: '#111111'
         },
         text: {
@@ -57,7 +57,7 @@
         style: {
           headerPart: {
             fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '17px',
             color: '#111111'
           },

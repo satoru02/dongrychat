@@ -120,7 +120,7 @@
         style: {
           headerPart: {
             fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '17px',
             color: '#111111'
           },
@@ -132,7 +132,7 @@
           },
           comment: {
             fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '11px',
             color: '#6c757d',
             height: '15px',
@@ -140,13 +140,13 @@
             overflowY: 'auto'
           },
           notifyText: {
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '13px',
             fontWeight: 'bold',
             color: '#ffffff'
           },
           movieLabel: {
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '10px',
             // fontWeight: 'bold',
             color: '#111111'

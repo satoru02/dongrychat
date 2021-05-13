@@ -313,7 +313,7 @@
 
 <style scoped>
   .privacy-part {
-    font-family: 'Helvetica Neue, sans-serif';
+    font-family: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif';
     color: #000000;
     font-weight: 500;
   }

@@ -99,7 +99,7 @@
         style: {
           Name: {
             fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '14px',
             color: '#111111'
           }
@@ -141,7 +141,7 @@
         },
         realtionshipsStyle: {
           fontWeight: 'bold',
-          fontFamily: 'Helvetica Neue, sans-serif',
+          fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
           fontSize: '7px',
           color: '#111111'
         }

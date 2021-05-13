@@ -77,13 +77,13 @@
           details: 'MvDetails'
         },
         active: {
-          fontFamily: 'Helvetica Neue, sans-serif',
+          fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
           fontSize: '20px',
           fontWeight: 'bold',
           color: '#000000'
         },
         inactive: {
-          fontFamily: 'Helvetica Neue, sans-serif',
+          fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
           fontSize: '20px',
           fontWeight: 'bold',
           color: '#6c757d'

@@ -1,5 +1,5 @@
 <template>
-  <v-app style="background-color: #ffffff">
+  <v-app style="background-color: #fafafa">
     <the-header />
     <!-- <div class="mt-10"></div> -->
     <v-main>

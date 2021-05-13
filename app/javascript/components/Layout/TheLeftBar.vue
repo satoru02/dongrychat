@@ -1,12 +1,12 @@
 <template>
   <v-container class=mt-n4>
-    <v-list nav flat :style="list.style" color="#ffffff" dark class="ml-16 rounded-lg">
+    <v-list nav flat :style="list.style" color="#fafafa" dark class="ml-16 rounded-lg">
       <v-subheader :style="category" class="mb-n2">カテゴリー</v-subheader>
       <v-list-item-group v-model="selectedItem">
         <v-hover v-slot="{hover}" v-for="(item, index) in menus" :key="index">
           <v-list-item :elevation="hover ? 10: 0" @click="changeRoute(item.path_name)" class="ml-2 mb-n2">
             <v-list-item-icon>
-              <v-icon :size="icon.size" v-text="item.icon" :color="hover ? '#02e98d' : '#111111'" />
+              <v-icon :size="icon.size" v-text="item.icon" :color="hover ? '#02e98d' : '#011627'" />
             </v-list-item-icon>
             <v-list-item-content class="ml-n6">
               <v-list-item-title v-text="item.text" :style="hover ? list_item_title.hoverStyle : list_item_title.style" />
@@ -179,30 +179,30 @@
         tag: {
           style: {
             fontWeight: 'bold',
-             color: '#111111',
-            fontFamily: 'Helvetica Neue, sans-serif',
+             color: '#011627',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '13px',
           }
         },
         category: {
           fontWeight: 'bold',
-          fontFamily: 'Helvetica Neue, sans-serif',
+          fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
           fontSize: '12px',
-          color: '#666666',
+          color: '#6c757d',
         },
         list_item_title: {
-          color: '#111111',
+          color: '#011627',
           hoverStyle: {
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '14px',
             color: '#02e98d',
             fontWeight: 'bold',
           },
           style: {
             fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '13px',
-            color: '#111111'
+            color: '#011627'
           }
         },
         btn: {
@@ -219,7 +219,7 @@
           text: 'Devioについて 👈',
           style: {
             fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '3px',
             width: '145px',
             color: '#ffffff',
@@ -229,18 +229,18 @@
           headerStyle: {
             color: '#111111',
             fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '17px',
           },
           btnStyle: {
             color: '#ffffff',
             fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '12px',
           },
           policyStyle: {
             color: '#6c757d',
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '4px',
           }
         }
