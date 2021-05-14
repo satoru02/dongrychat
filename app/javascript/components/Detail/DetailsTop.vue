@@ -182,7 +182,7 @@
         },
         style: {
           caption: {
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '15px',
             fontWeight: 'bold',
             color: '#111111'
@@ -200,7 +200,7 @@
             color: '#6c757d',
           },
           contentsDetails: {
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '12px',
             fontWeight: 'bold',
             color: '#111111',
@@ -224,29 +224,29 @@
           tag: {
             color: '#ffffff',
             fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '11px'
           },
           tab: {
             fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '11px',
             color: '#6c757d'
           },
           tabs: {
             color: '#0e0e10',
             fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '13px',
           },
           episodeDetails: {
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '14px',
             fontWeight: 'bold',
             color: '#111111',
           },
           overview: {
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '11px',
             fontWeight: 'bold',
             color: '#666666',
@@ -263,18 +263,18 @@
           headerStyle: {
             color: '#111111',
             fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '17px',
           },
           btnStyle: {
             color: '#ffffff',
             fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '12px',
           },
           policyStyle: {
             color: '#6c757d',
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '4px',
           }
         }

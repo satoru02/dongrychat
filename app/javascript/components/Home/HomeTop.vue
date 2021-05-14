@@ -1,20 +1,21 @@
 <template>
   <v-container>
-    <sub-header class="mb-n2 ml-1">
+    <sub-header class="mb-n2 mt-1">
       <template v-slot:home_header="subHeaderProps">
         <h3 :style="style.headerPart">{{subHeaderProps.sub_header}}</h3>
       </template>
     </sub-header>
+    <v-divider class="mt-n6 mb-4" />
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
-      <v-card class="rounded-lg mb-7" :style="hover ? card.hoverStyle : card.unhoverStyle" @click="enterSpace(item)"
-        :elevation='hover ? 0 : 0' :height="'100'">
-        <v-row>
+      <v-card outlined class="rounded-lg mb-5" :style="hover ? card.hoverStyle : card.unhoverStyle" @click="enterSpace(item)"
+        :elevation='hover ? 0 : 0' :height="'95'">
+        <v-row class=mt-n1>
           <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-5">
             <v-avatar class="rounded-lg" :size="listAvatar.size" :height="listAvatar.height">
               <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
             </v-avatar>
           </v-col>
-          <v-col cols=10 sm=10 md=10 lg=10 xl=10 class="ml-1">
+          <v-col cols=10 sm=10 md=10 lg=10 xl=10 class="ml-1 mt-n1">
             <v-row>
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
               <v-col cols=10 sm=10 md=10 lg=10 xl=10
@@ -30,10 +31,24 @@
             <v-row>
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
               <v-col cols=9 sm=9 md=9 lg=9 xl=9
-               :class="$vuetify.breakpoint.width > 600 ? 'ml-n5 mt-n4' : 'mt-n3 ml-6'"
+               :class="$vuetify.breakpoint.width > 600 ? 'ml-n5 mt-n3' : 'mt-n3 ml-6'"
               :style="style.name">
                 {{item.attributes.name}}
               </v-col>
+              <!-- <v-col lg=3 class="mt-n4">
+                <v-avatar size="21">
+                  <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
+                </v-avatar>
+                <v-avatar size="21" class="ml-n2">
+                  <v-img src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460" />
+                </v-avatar>
+                <v-avatar size="21" class="ml-n2" color="red">
+                  <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
+                </v-avatar>
+                <v-avatar size="21" class="ml-n2" color="green">
+                  <v-img src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460" />
+                </v-avatar>
+              </v-col> -->
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-14">
                 <v-badge v-if="item.attributes.unconfirmed_comments > 0" dot />
               </v-col>
@@ -42,13 +57,20 @@
                 {{item.attributes.unconfirmed_comments}}
               </v-col>
             </v-row>
-            <v-row :class="$vuetify.breakpoint.width > 600 ? 'mt-n5' : 'mt-n16'" >
-              <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
-              <v-col cols=10 sm=11 md=11 lg=11 xl=11
+            <v-row :class="$vuetify.breakpoint.width > 600 ? 'mt-n4' : 'mt-n16'" >
+              <v-col cols=1 sm=1 md=1 lg=11 xl=1 class=ml-6 :style="style.comment">
+              <v-avatar size="20" class="mt-n1 ml-1">
+                <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
+               </v-avatar>
+               <span class="ml-1">
+                  {{item.attributes.latest_comment.content}}
+               </span>
+              </v-col>
+              <!-- <v-col cols=10 sm=11 md=11 lg=10 xl=11
               :class="$vuetify.breakpoint.width > 600 ? 'ml-n5' : 'ml-15'"
                v-if="item.attributes.latest_comment !== null">
                 <div :style="style.comment">{{item.attributes.latest_comment.content}}</div>
-              </v-col>
+              </v-col> -->
             </v-row>
           </v-col>
         </v-row>
@@ -109,44 +131,44 @@
           size: 22
         },
         card: {
-          height: '100px',
+          height: '90px',
           hoverStyle: {
-            backgroundColor: '#f1f1f6'
+            backgroundColor: '#f8f9fa'
           },
           unhoverStyle: {
-            backgroundColor: '#f6f6f9'
+            backgroundColor: '#ffffff'
           }
         },
         style: {
           headerPart: {
             fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '17px',
-            color: '#111111'
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
+            fontSize: '19px',
+            color: '#000000'
           },
           name: {
             fontWeight: 'bold',
             fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
-            fontSize: '16px',
+            fontSize: '15px',
             color: '#111111'
           },
           comment: {
-            fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
-            fontSize: '11px',
-            color: '#6c757d',
-            height: '15px',
-            maxHeight: '15px',
+            // fontWeight: 'bold',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
+            fontSize: '12px',
+            color: '#011627',
+            height: '33px',
+            maxHeight: '33px',
             overflowY: 'auto'
           },
           notifyText: {
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '13px',
             fontWeight: 'bold',
             color: '#ffffff'
           },
           movieLabel: {
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '10px',
             // fontWeight: 'bold',
             color: '#111111'
@@ -234,9 +256,9 @@
 <style scoped>
   .theme--light.v-divider {
     border-color: rgba(0, 1, 1, .06);
-    /* color: #02e98d */
   }
+
   .theme--light.v-sheet--outlined {
-    border: thin solid rgba(0,0,0, .06);
+    border: thin solid rgba(121, 121, 121, 0.12);
 }
 </style>

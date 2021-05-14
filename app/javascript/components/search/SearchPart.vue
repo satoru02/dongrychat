@@ -74,7 +74,7 @@
             title: '今週のおすすめ',
             titlePosition: 'ml-9 mt-6',
             titleStyle: {
-              fontFamily: 'Helvetica Neue, sans-serif',
+              fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
               fontSize: '15px',
               fontWeight: 'bold',
               color: '#111111'
@@ -85,7 +85,7 @@
             title: 'もっとみる',
             titlePosition: 'mt-6',
             titleStyle: {
-              fontFamily: 'Helvetica Neue, sans-serif',
+              fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
               fontSize: '13px',
               fontWeight: 'bold',
               color: '#6c757d'
@@ -100,7 +100,7 @@
             },
             titlePosition: 'mt-n3 ml-7',
             titleStyle: {
-              fontFamily: 'Helvetica Neue, sans-serif',
+              fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
               fontSize: '13px',
               fontWeight: 'bold',
               color: '#000000'

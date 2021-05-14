@@ -1,8 +1,8 @@
 <template>
-  <v-sheet
+  <v-sheet outlined
    @click="showDialog()" :elevation="profilePart.elavation" :width="profilePart.width"
     :height="profilePart.height" :style="style.profilePart" :class="profilePart.round">
-    <v-row>
+    <v-row class="mt-1">
       <v-col md=2 lg=2 xl=2>
         <v-avatar :class="grid.profile" :size="profile.size" :height="profile.height" :style="profile.style">
           <v-img :src="$store.state.currentUser.avatar_url" />
@@ -44,18 +44,18 @@
         blank: ' ',
         style: {
           profilePart: {
-            backgroundColor: '#f6f6f9',
+            backgroundColor: '#ffffff',
             cursor: 'pointer'
           },
           name: {
             fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '14px',
             color: '#000000'
           },
           relationships: {
             fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue, sans-serif',
+            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '6px',
             color: '#6c757d'
           },
@@ -72,7 +72,7 @@
           elevation: 0,
           width: 200,
           height: 111,
-          round: 'rounded-lg mt-2',
+          round: 'rounded-lg mt-n2',
         },
         profile: {
           size: 50,
@@ -95,7 +95,9 @@
   .theme--light.v-divider {
     border-color: rgba(0, 1, 1, .06);
   }
-  .theme--light.v-sheet--outlined {
-    border: thin solid rgba(0,0,0, .06);
-}
+  .theme--light.v-sheet--outlined[data-v-ceb3cba6] {
+    /* border: thin solid rgba(164, 164, 165, 0.12); */
+    border: thin solid rgba(121, 121, 121, 0.12);
+    
+  }
 </style>
