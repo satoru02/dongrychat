@@ -2,8 +2,8 @@
   <v-app-bar flat outlined app color="#ffffff" v-if="$vuetify.breakpoint.width > 600">
     <div class="ml-5"></div>
     <v-toolbar-title style="cursor: pointer" @click="goTop()" class="ml-16" :style="logoStyle">Devio</v-toolbar-title>
-    <v-divider vertical inset class="ml-2" />
-    <v-toolbar-title style="cursor: pointer" @click="goTop()" class="ml-2 mt-2" :style="logoTextStyle">
+    <v-divider vertical inset class="ml-3" />
+    <v-toolbar-title style="cursor: pointer" @click="goTop()" class="ml-3 mt-2" :style="logoTextStyle">
       β 0.5
     </v-toolbar-title>
     <!-- <v-toolbar-title style="cursor: pointer" @click="goTop()" class="ml-3 mt-2" :style="logoTextStyle">
