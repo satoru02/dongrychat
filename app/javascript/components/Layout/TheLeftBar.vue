@@ -1,5 +1,5 @@
 <template>
-  <v-container class=mt-n4>
+  <v-container class=mt-n5>
     <v-list nav flat :style="list.style" color="#ffffff" dark class="ml-16 rounded-lg">
       <v-subheader :style="category" class="mb-n2">カテゴリー</v-subheader>
       <v-list-item-group v-model="selectedItem">

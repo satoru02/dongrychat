@@ -70,7 +70,7 @@
         },
         profilePart: {
           elevation: 0,
-          width: 200,
+          width: 220,
           height: 111,
           round: 'rounded-lg mt-n2',
         },
