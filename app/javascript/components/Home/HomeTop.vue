@@ -1,11 +1,11 @@
 <template>
   <v-container>
-    <sub-header class="mb-n2 mt-1">
+    <sub-header class="mb-n2">
       <template v-slot:home_header="subHeaderProps">
         <h3 :style="style.headerPart">{{subHeaderProps.sub_header}}</h3>
       </template>
     </sub-header>
-    <v-divider class="mt-n6 mb-4" />
+    <v-divider class="mt-n4 mb-4" />
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
       <v-card outlined class="rounded-lg mb-5" :style="hover ? card.hoverStyle : card.unhoverStyle" @click="enterSpace(item)"
         :elevation='hover ? 0 : 0' :height="'95'">
