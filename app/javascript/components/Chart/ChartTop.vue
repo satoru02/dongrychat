@@ -1,19 +1,25 @@
 <template>
-  <v-container :key="componentKey" class="mt-n6">
-    <v-row dense class="mt-2">
+  <v-container :key="componentKey" class="mt-1">
+    <sub-header class="mb-n9">
+      <template v-slot:popular_header="subHeaderProps">
+        <h3 :style="headerPart">{{subHeaderProps.sub_header}}</h3>
+      </template>
+    </sub-header>
+    <v-divider class="mt-3" />
+    <v-row dense class="mt-n2">
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="$vuetify.breakpoint.width > 600 ? 'mt-4' : 'mt-1'">
         <div :style="switcher === false ? switchBtn.active : switchBtn.inactive" v-text="tv.header" />
       </v-col>
-      <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="$vuetify.breakpoint.width > 600 ? 'mt-4' : 'mt-1'">
+      <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="$vuetify.breakpoint.width > 600 ? 'mt-4 ml-4' : 'mt-1'">
         <div :style="switcher === true ? switchBtn.active : switchBtn.inactive" v-text="movie.header" />
       </v-col>
       <v-col cols=8 sm=9 md=9 lg=9 xl=9 />
-      <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="$vuetify.breakpoint.width > 600 ? '' : 'mt-n3 ml-4'">
+      <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="$vuetify.breakpoint.width > 600 ? 'ml-n4' : 'mt-n3 ml-4'">
         <v-switch v-model="switcher" color="blue" dense inset />
       </v-col>
     </v-row>
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
-      <v-card outlined class="rounded-lg mb-10 mt-n4" @click="enterSpace(item.attributes)"
+      <v-card outlined class="rounded-lg mb-6 mt-n3" @click="enterSpace(item.attributes)"
         :style="hover ? card.hoverStyle : card.unhoverStyle" :elevation='hover ? 0 : 0' height="200px">
         <v-row class="mt-1">
           <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="$vuetify.breakpoint.width > 600 ? 'ml-4 mt-8' : 'mt-8 ml-3 mr-4'"
@@ -48,8 +54,22 @@
             </v-row>
             <v-row class='mt-n12'>
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
-              <v-col cols=9 sm=10 md=10 lg=10 xl=10 :class="$vuetify.breakpoint.width > 600 ? 'ml-n5' : 'ml-5'"
+              <v-col cols=9 sm=10 md=10 lg=8 xl=10 :class="$vuetify.breakpoint.width > 600 ? 'ml-n5' : 'ml-5'"
                 :style="listItemTitle.style" v-text="item.attributes.name" />
+              <!-- <v-col lg=3>
+                <v-avatar size="21">
+                  <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
+                </v-avatar>
+                <v-avatar size="21" class="ml-n2">
+                  <v-img src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460" />
+                </v-avatar>
+                <v-avatar size="21" class="ml-n2" color="red">
+                  <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
+                </v-avatar>
+                <v-avatar size="21" class="ml-n2" color="green">
+                  <v-img src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460" />
+                </v-avatar>
+              </v-col> -->
             </v-row>
             <v-row :class="$vuetify.breakpoint.width > 600 ? 'mt-n3 ml-4' : 'mt-n4 ml-10'">
               <v-col cols=12 sm=12 md=12 lg=7 xl=12 :style="tags.style">
@@ -142,12 +162,14 @@
   } from '../../backend/axios';
   import BaseLabel from '../Base/BaseLabel';
   import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
+  import TheSubHeader from '../Layout/TheSubHeader';
 
   export default {
     name: 'ChartTop',
     components: {
       'base-label': BaseLabel,
-      'base-loader': BaseInfiniteLoader
+      'base-loader': BaseInfiniteLoader,
+      'sub-header': TheSubHeader
     },
     data() {
       return {
@@ -176,11 +198,11 @@
           movie: 'mv',
         },
         tv: {
-          header: 'TV',
+          header: 'テレビ',
           pathName: 'TvSpace'
         },
         movie: {
-          header: 'MOVIE',
+          header: '映画',
           pathName: 'MvSpace'
         },
         card: {
@@ -194,17 +216,17 @@
         switchBtn: {
           active: {
             fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
-            fontSize: '18px',
+            fontSize: '15px',
             fontWeight: 'bold',
             color: '#000000',
-            letterSpacing: '3px'
+            letterSpacing: '1px'
           },
           inactive: {
             fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
-            fontSize: '18px',
+            fontSize: '15px',
             fontWeight: 'bold',
-            color: '#6c757d',
-            letterSpacing: '3px'
+            color: '#98989b',
+            letterSpacing: '1px'
           }
         },
         ranking: {
@@ -236,7 +258,7 @@
             fontWeight: 'bold',
             fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '17px',
-            color: '#111111'
+            color: '#000000'
           }
         },
         tags: {
@@ -295,7 +317,13 @@
           fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
           fontSize: '11px',
           color: '#5d666e'
-        }
+        },
+        headerPart: {
+          fontWeight: 'bold',
+          fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
+          fontSize: '19px',
+          color: '#111111'
+        },
       }
     },
     watch: {
@@ -388,9 +416,11 @@
   .v-input__slot::before {
     border-style: none !important;
     color: #fafafa;
+    /* color: #98989b */
   }
 
   .theme--light.v-sheet--outlined {
-    border: thin solid rgba(164, 164, 165, 0.12);
-}
+    /* border: thin solid rgba(164, 164, 165, 0.12); */
+    border: thin solid rgba(121, 121, 121, 0.12);
+  }
 </style>

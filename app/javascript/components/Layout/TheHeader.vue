@@ -31,19 +31,19 @@ export default {
       },
       logoStyle: {
         fontWeight: 'bold',
-        fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
+        fontFamily: 'Helvetica Neue, sans-serif',
         fontSize: '25px',
         color: '#016aff'
       },
       loginStyle: {
         fontWeight: 'bold',
-        fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
+        fontFamily: 'Helvetica Neue, sans-serif',
         fontSize: '12px',
         color: '#111111'
       },
       signupStyle: {
         fontWeight: 'bold',
-        fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
+        fontFamily: 'Helvetica Neue, sans-serif',
         fontSize: '12px',
         color: '#ffffff'
       }

@@ -1,24 +1,31 @@
 <template>
   <v-container class=mt-n4>
-    <v-list nav flat :style="list.style" color="#fafafa" dark class="ml-16 rounded-lg">
+    <v-list nav flat :style="list.style" color="#ffffff" dark class="ml-16 rounded-lg">
       <v-subheader :style="category" class="mb-n2">カテゴリー</v-subheader>
       <v-list-item-group v-model="selectedItem">
         <v-hover v-slot="{hover}" v-for="(item, index) in menus" :key="index">
-          <v-list-item :elevation="hover ? 10: 0" @click="changeRoute(item.path_name)" class="ml-2 mb-n2">
+          <v-list-item dense :elevation="hover ? 10: 0" @click="changeRoute(item.path_name)" class="ml-2 mb-n2">
             <v-list-item-icon>
-              <v-icon :size="icon.size" v-text="item.icon" :color="hover ? '#02e98d' : '#011627'" />
+              <v-list-item-title :size="icon.size" v-text="item.icon" />
             </v-list-item-icon>
             <v-list-item-content class="ml-n6">
-              <v-list-item-title v-text="item.text" :style="hover ? list_item_title.hoverStyle : list_item_title.style" />
+              <v-list-item-title :active-class="'green--text'" :style="hover ? list_item_title.hoverStyle : list_item_title.style">
+                {{item.text}}
+                <span>
+                  <v-chip class="ml-3" v-if="item.text === 'お気に入り' || item.text === 'フォロー中'" x-small elevation=0
+                    color="#02e98d">34</v-chip>
+                </span>
+                <!-- <span><v-badge v-if="item.text === 'お気に入り'" dot color="#02e98d"></v-badge></span> -->
+              </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-hover>
       </v-list-item-group>
       <v-divider color="#f6f6f9" class="mt-5 ml-3" />
       <v-list-item-group v-model="selectedItem" class="mt-3">
-      <v-subheader :style="category" class="mb-n1">人気のタグ</v-subheader>
+        <v-subheader :style="category" class="mb-n1">人気のタグ</v-subheader>
         <v-hover v-slot="{hover}" v-for="(item, index) in tags" :key="index">
-          <v-list-item :elevation="hover ? 10: 0" @click="changeRoute(item.path_name)" class="mb-n2 ml-2">
+          <v-list-item dense :elevation="hover ? 10: 0" @click="changeRoute(item.path_name)" class="mb-2 ml-2 mt-n3">
             <v-list-item-content>
               <v-list-item-title v-text="item" :style="tag.style" />
             </v-list-item-content>
@@ -96,8 +103,7 @@
         aboutDialog: false,
         selectedItem: '',
         query: '',
-        overviewText:
-        'Devioは、最新の配信ドラマから往年のクラシック映画まで自由に会話できるオープンコミュニティです。見たばかりの感動や興奮を、共有できる場所を目指しています。',
+        overviewText: 'Devioは、最新の配信ドラマから往年のクラシック映画まで自由に会話できるオープンコミュニティです。見たばかりの感動や興奮を、共有できる場所を目指しています。',
         tags: [
           '# love',
           '# サイエンス',
@@ -109,43 +115,48 @@
           '# love',
         ],
         menus: [{
-            text: 'チャート',
-            icon: 'mdi-access-point',
+            text: '話題',
+            icon: '🎉',
             path_name: 'Chart'
           },
           {
-            text: 'ホーム',
-            icon: 'mdi-home-outline',
+            text: 'お気に入り',
+            icon: '✨',
             path_name: 'Home'
           },
           {
-            text: '検索',
-            icon: 'mdi-magnify',
+            text: 'フォロー中',
+            icon: '😉',
             path_name: 'Search'
           },
           {
+            text: '新着の作品',
+            icon: '🔎',
+            path_name: 'Search'
+          },
+          {
+            text: 'レビュー',
+            icon: '📖',
+            path_name: 'NotificationTop'
+          },
+          {
+            text: 'シェアウォッチ',
+            icon: '👏',
+            path_name: 'NotificationTop'
+          },
+          {
+            text: 'ニュース',
+            icon: '🗞',
+            path_name: 'NotificationTop'
+          },
+          {
             text: '通知',
-            icon: 'mdi-bell-outline',
-            path_name: 'NotificationTop'
-          },
-          {
-            text: '未定',
-            icon: 'mdi-bell-outline',
-            path_name: 'NotificationTop'
-          },
-          {
-            text: '未定',
-            icon: 'mdi-pen',
-            path_name: 'NotificationTop'
-          },
-          {
-            text: '未定',
-            icon: 'mdi-bell-outline',
+            icon: '📣',
             path_name: 'NotificationTop'
           },
           {
             text: '設定',
-            icon: 'mdi-wrench-outline',
+            icon: '☕️',
             path_name: 'Settings'
           },
         ],
@@ -173,13 +184,13 @@
           position: 'mt-1'
         },
         icon: {
-          size: 20,
+          size: 14,
           color: '#6c757d'
         },
         tag: {
           style: {
             fontWeight: 'bold',
-             color: '#011627',
+            color: '#011627',
             fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '13px',
           }
@@ -194,7 +205,7 @@
           color: '#011627',
           hoverStyle: {
             fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
-            fontSize: '14px',
+            fontSize: '13px',
             color: '#02e98d',
             fontWeight: 'bold',
           },
@@ -277,7 +288,25 @@
   .v-divider {
     border-color: rgba(5, 5, 5, 0.06);
   }
+
   .v-input__slot::before {
     border-style: none !important;
+  }
+
+  .v-chip {
+    width: 26px;
+    min-width: 26px;
+  }
+
+  .v-chip__content {
+    margin-left: -10px;
+  }
+
+  .v-chip.v-size--x-small {
+    border-radius: 5px;
+    font-size: 11px;
+    margin-right: 10px;
+    padding-right: 20px;
+    padding-left: 5;
   }
 </style>

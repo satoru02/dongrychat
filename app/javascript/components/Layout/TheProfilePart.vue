@@ -96,6 +96,8 @@
     border-color: rgba(0, 1, 1, .06);
   }
   .theme--light.v-sheet--outlined[data-v-ceb3cba6] {
-    border: thin solid rgba(164, 164, 165, 0.12);
+    /* border: thin solid rgba(164, 164, 165, 0.12); */
+    border: thin solid rgba(121, 121, 121, 0.12);
+    
   }
 </style>
