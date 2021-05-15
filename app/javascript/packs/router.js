@@ -19,6 +19,7 @@ import UserSettings from '../components/User/UserSettings';
 import Results from '../components/Search/SearchResults';
 import UserFollowings from '../components/User/UserFollowings';
 import UserFollowers from '../components/User/UserFollowers';
+import UserTop from '../components/User/UserTop';
 import SearchList from '../components/Search/SearchList';
 import Privacy from '../components/Overview/Privacy';
 import Terms from '../components/Overview//Terms';
@@ -244,6 +245,14 @@ const router = new VueRouter({
       component: UserFollowers,
       meta: {
         title: 'フォロワー '
+      }
+    },
+    {
+      path: '/users/1',
+      name: 'UserTop',
+      component: UserTop,
+      meta: {
+        title: 'ユーザー',
       }
     },
     {

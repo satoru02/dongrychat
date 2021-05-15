@@ -123,6 +123,9 @@
           case 'Followers':
             this.lgGrid = [3, 6, 3]
             break;
+          case 'UserTop':
+            this.lgGrid = [4, 5, 3]
+            break;
           default:
             this.lgGrid = [2, 8, 0]
             break;
@@ -147,7 +150,8 @@
           'movie',
           'Company',
           'Followings',
-          'Followers'
+          'Followers',
+          'UserTop'
         ]
         if (spaceRoute.includes(this.$route.name)) {
           return true
