@@ -115,7 +115,7 @@
             this.lgGrid = [3, 6, 3]
             break;
           case 'Settings':
-            this.lgGrid = [3, 6, 3]
+            this.lgGrid = [0, 12, 0]
             break;
           case 'Followings':
             this.lgGrid = [3, 6, 3]
@@ -151,7 +151,8 @@
           'Company',
           'Followings',
           'Followers',
-          'UserTop'
+          'UserTop',
+          // 'Settings'
         ]
         if (spaceRoute.includes(this.$route.name)) {
           return true
