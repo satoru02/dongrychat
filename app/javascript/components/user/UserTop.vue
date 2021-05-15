@@ -45,19 +45,27 @@
       <v-col lg=3 class="mt-n11 ml-n7">
         <span :style="countStyle">123</span><span :style="textStyle"> スペース</span>
       </v-col>
-      <v-col lg=3 class="mt-n11 ml-n11">
+      <!-- <v-col lg=3 class="mt-n11 ml-n11">
         <span :style="countStyle">13</span><span :style="textStyle"> レビュー</span>
-      </v-col>
-      <v-col lg=3 class="mt-n11 ml-n14">
+      </v-col> -->
+      <v-col lg=2 class="mt-n11 ml-n13">
         <span :style="countStyle">3</span><span :style="textStyle"> フォロー</span>
       </v-col>
-      <v-col lg=3 class="mt-n11 ml-n16">
+      <v-col lg=2 class="mt-n11 ml-n5">
         <span :style="countStyle">3</span><span :style="textStyle"> フォロワー</span>
+      </v-col>
+      <!-- <v-col lg=2>
+      </v-col> -->
+      <v-col lg=2 class="mt-n11 ml-n1">
+      <v-icon size=18 color="#6b7280">
+          mdi-map-marker-outline
+        </v-icon>
+        <span :style="textStyle">京都</span>
       </v-col>
     </v-row>
   </v-card>
     <v-tabs class="ml-n16 mt-4"
-      background-color='#ffffff' :height="'40'" :color="'blue'">
+      background-color='#ffffff' :height="'35'" :color="'#016aff'">
       <v-tab :style="tabStyle" :active-class="'blue--text'"
         v-for="(n,index) in items" :key="index">
         {{n}}
@@ -74,10 +82,10 @@
       return {
         items: [
           'プロフィール',
-          'ログ',
-          'レビュー',
-          'お気に入り',
-          'リンク',
+          '投稿',
+          // 'レビュー',
+          // 'お気に入り',
+          // 'リンク',
           // 'コミュニティ'
         ],
         nameStyle: {
@@ -137,6 +145,11 @@
 </script>
 
 <style scoped>
+  .v-tabs-slider-wrapper {
+    height: 0.6px;
+    left: 0px;
+    width: 307px;
+}
   .v-card__subtitle,
   .v-card__text,
   .v-card__title {
