@@ -1,5 +1,5 @@
 <template>
-<div style="height:55px;">
+<div class="sub-header">
   <slot name="home_header" :sub_header="home"></slot>
   <slot name="popular_header" :sub_header="popular"></slot>
   <slot name="notify_header" :sub_header="notifications"></slot>
@@ -22,3 +22,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+ .sub-header{
+   height: 55px;
+ }
+</style>

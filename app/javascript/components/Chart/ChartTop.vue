@@ -5,7 +5,7 @@
        <v-img class="rounded-lg" elevation="0" height="113" width="685" src="https://picsum.photos/510/300?random"></v-img>
       </v-col>
     </v-row> -->
-    <sub-header class="mb-n9">
+    <sub-header class="mb-n9 mt-1">
       <template v-slot:popular_header="subHeaderProps">
         <h3 :style="headerPart">{{subHeaderProps.sub_header}}</h3>
       </template>
@@ -24,7 +24,7 @@
       </v-col>
     </v-row>
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
-      <v-card outlined class="rounded-lg mb-7 mt-n3" @click="enterSpace(item.attributes)"
+      <v-card outlined class="rounded-lg mb-9 mt-n3" @click="enterSpace(item.attributes)"
         :style="hover ? card.hoverStyle : card.unhoverStyle" :elevation='hover ? 0 : 0' height="200px">
         <v-row class="mt-1">
           <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="$vuetify.breakpoint.width > 600 ? 'ml-4 mt-8' : 'mt-8 ml-3 mr-4'"
@@ -106,7 +106,7 @@
             </v-row>
           </v-col>
         </v-row>
-        <v-divider class=mt-3 />
+        <v-divider class="mt-3 mr-11 ml-11" />
         <v-row class="mt-2" dense>
           <v-col lg=1 class="ml-11 mt-n1">
             <v-avatar size="24">
@@ -212,10 +212,11 @@
         },
         card: {
           hoverStyle: {
-            backgroundColor: '#f8f9fa'
+            backgroundColor: '#edf2f4'
           },
           unhoverStyle: {
-            backgroundColor: '#ffffff'
+            backgroundColor: '#f8f9fa'
+
           }
         },
         switchBtn: {
@@ -415,19 +416,17 @@
 
 <style scoped>
   .v-divider {
-    border-color: rgba(102, 102, 102, 0.06);
+    border-color: rgba(226, 226, 226, 0.384);
+
   }
 
   .v-input__slot::before {
     border-style: none !important;
-    color: #fafafa;
+    color: #f3f6f7;
     /* color: #98989b */
   }
 
   .theme--light.v-sheet--outlined {
-    /* border: thin solid rgba(164, 164, 165, 0.12); */
-    /* border: thin solid rgba(121, 121, 121, 0.12); */
-    border: thin solid rgba(153, 153, 153, 0.12);
-
+    border: thin solid rgba(172, 172, 172, 0.12);
   }
 </style>

@@ -1,8 +1,8 @@
 <template>
   <v-app style="background-color: #ffffff">
     <the-header />
-    <!-- <div class="mt-10"></div> -->
-    <v-main>
+
+    <v-main class="ml-n5">
       <v-row>
         <v-col :cols="this.colsGrid[0]" :sm="this.smGrid[0]" :md="this.mdGrid[0]" :lg="this.lgGrid[0]"
           :xl="this.xlGrid[0]" v-if="$vuetify.breakpoint.width > 600">
@@ -115,15 +115,18 @@
             this.lgGrid = [3, 6, 3]
             break;
           case 'Settings':
-            this.lgGrid = [3, 6, 3]
-            break;
-          case 'Followings':
-            this.lgGrid = [3, 6, 3]
-            break;
-          case 'Followers':
-            this.lgGrid = [3, 6, 3]
+            this.lgGrid = [0, 12, 0]
             break;
           case 'UserTop':
+            this.lgGrid = [4, 5, 3]
+            break;
+          case 'UserPosts':
+            this.lgGrid = [4, 5, 3]
+            break;
+          case 'UserFollowings':
+            this.lgGrid = [4, 5, 3]
+            break;
+          case 'UserFollowers':
             this.lgGrid = [4, 5, 3]
             break;
           default:
@@ -151,7 +154,10 @@
           'Company',
           'Followings',
           'Followers',
-          'UserTop'
+          'UserTop',
+          'UserPosts',
+          'UserFollowings',
+          'UserFollowers'
         ]
         if (spaceRoute.includes(this.$route.name)) {
           return true
@@ -165,6 +171,6 @@
 
 <style scoped>
   .vappTop {
-    background-color: #fdfffc;
+    background-color: #fdfdfd;
   }
 </style>

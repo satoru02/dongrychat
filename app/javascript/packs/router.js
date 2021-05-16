@@ -15,11 +15,13 @@ import Logout from '../components/Authorization//Logout';
 import Signup from '../components/Authorization/Signup';
 import ForgotPassword from '../components/Authorization/ForgotPassword';
 import Search from '../components/Search/Search';
-import UserSettings from '../components/User/UserSettings';
 import Results from '../components/Search/SearchResults';
 import UserFollowings from '../components/User/UserFollowings';
 import UserFollowers from '../components/User/UserFollowers';
 import UserTop from '../components/User/UserTop';
+import UserPosts from '../components/User/UserPosts';
+import UserProfile from '../components/User/UserProfile';
+import UserSettings from '../components/User/UserSettings';
 import SearchList from '../components/Search/SearchList';
 import Privacy from '../components/Overview/Privacy';
 import Terms from '../components/Overview//Terms';
@@ -232,28 +234,31 @@ const router = new VueRouter({
       ]
     },
     {
-      path: '/users/:id/followings',
-      name: 'Followings',
-      component: UserFollowings,
-      meta: {
-        title: 'フォロー'
-      }
-    },
-    {
-      path: '/users/:id/followers',
-      name: 'Followers',
-      component: UserFollowers,
-      meta: {
-        title: 'フォロワー '
-      }
-    },
-    {
-      path: '/users/1',
-      name: 'UserTop',
+      path: '/:user_name',
       component: UserTop,
-      meta: {
-        title: 'ユーザー',
-      }
+      beforeEnter: guardMyroute,
+      children: [
+        {
+          path: '',
+          name: 'UserTop',
+          component: UserProfile,
+        },
+        {
+          path: 'posts',
+          name: 'UserPosts',
+          component: UserPosts,
+        },
+        {
+          path: 'followings',
+          name: 'UserFollowings',
+          component: UserFollowings,
+        },
+        {
+          path: 'followers',
+          name: 'UserFollowers',
+          component: UserFollowers,
+        },
+      ]
     },
     {
       path: '/settings',
