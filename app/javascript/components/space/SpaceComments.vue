@@ -4,7 +4,7 @@
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="vColAvatarGrid">
         <v-badge :color="comment.attributes.user.data.attributes.appearance === true ? 'green accent-4' : 'red'"
           offset-x="6" offset-y="6" bordered bottom dot overlap>
-          <v-avatar class="rounded-lg mt-3" @click="showDialog(comment.attributes.user.data.attributes)"
+          <v-avatar class="rounded-lg mt-3" @click="goUserPage(comment.attributes.user.data.attributes)"
             :style="avatar.style" :size='avatar.size' :height='avatar.height' tile>
             <img :src="comment.attributes.user.data.attributes.avatar_url">
           </v-avatar>
@@ -92,6 +92,12 @@
       },
       offDialog(value) {
         this.dialog = value
+      },
+      goUserPage(user){
+        this.$router.push({name: 'UserTop', params: {
+          user_name: user.name,
+          user_id: user.id
+        } })
       },
       formalizeTime(time) {
         return moment(time).format("hh:mm")

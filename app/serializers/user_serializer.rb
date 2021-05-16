@@ -43,6 +43,10 @@ class UserSerializer
     user.is_online?
   end
 
+  attribute :subscriptions do |user|
+    user.subscriptions.length
+  end
+
   attribute :avatar_url do |object|
     if object.avatar.attached?
       object.avatar_url(object.avatar.blob)
