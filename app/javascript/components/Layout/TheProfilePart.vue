@@ -1,5 +1,5 @@
 <template>
-  <v-sheet outlined
+  <v-sheet
    @click="showDialog()" :elevation="profilePart.elavation" :width="profilePart.width"
     :height="profilePart.height" :style="style.profilePart" :class="profilePart.round">
     <v-row class="mt-1">
@@ -44,7 +44,7 @@
         blank: ' ',
         style: {
           profilePart: {
-            backgroundColor: '#ffffff',
+            backgroundColor: '#f8f9fa',
             cursor: 'pointer'
           },
           name: {
@@ -61,17 +61,17 @@
           },
         },
         grid: {
-          profilePart: 'mt-n3',
+          profilePart: 'mt-n2',
           profile: 'ml-3 mt-1',
-          profileText: 'mt-1',
+          profileText: '',
           profileName: 'ml-5 mt-n1',
           relationships: 'ml-5 mt-2',
           followers: 'ml-n5',
         },
         profilePart: {
           elevation: 0,
-          width: 220,
-          height: 111,
+          width: 230,
+          height: 95,
           round: 'rounded-lg mt-n2',
         },
         profile: {

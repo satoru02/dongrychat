@@ -2,7 +2,7 @@
   <v-app style="background-color: #ffffff">
     <the-header />
     <!-- <div class="mt-10"></div> -->
-    <v-main>
+    <v-main class="ml-n5">
       <v-row>
         <v-col :cols="this.colsGrid[0]" :sm="this.smGrid[0]" :md="this.mdGrid[0]" :lg="this.lgGrid[0]"
           :xl="this.xlGrid[0]" v-if="$vuetify.breakpoint.width > 600">
@@ -166,6 +166,6 @@
 
 <style scoped>
   .vappTop {
-    background-color: #fdfffc;
+    background-color: #fdfdfd;
   }
 </style>

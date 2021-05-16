@@ -1,10 +1,11 @@
 <template>
   <v-app-bar flat outlined app color="#ffffff" v-if="$vuetify.breakpoint.width > 600">
     <div class="ml-5"></div>
-    <v-toolbar-title style="cursor: pointer" @click="goTop()" class="ml-16" :style="logoStyle">Devio</v-toolbar-title>
+    <v-toolbar-title style="cursor: pointer" @click="goTop()" class="ml-10" :style="logoStyle">devio</v-toolbar-title>
     <v-divider vertical inset class="ml-3" />
-    <v-toolbar-title style="cursor: pointer" @click="goTop()" class="ml-3 mt-2" :style="logoTextStyle">
+    <v-toolbar-title style="cursor: pointer" @click="goTop()" class="ml-3 mt-1" :style="logoTextStyle">
       β 0.5
+      <!-- / -->
     </v-toolbar-title>
     <!-- <v-toolbar-title style="cursor: pointer" @click="goTop()" class="ml-3 mt-2" :style="logoTextStyle">
       映画の話が出来る場所
@@ -47,8 +48,8 @@
         logoStyle: {
           fontWeight: 'bold',
           fontFamily: 'Helvetica Neue, sans-serif',
-          fontSize: '25px',
-          color: '#016aff'
+          fontSize: '22px',
+          color: '#011627'
         },
         logoTextStyle: {
           fontWeight: 'bold',

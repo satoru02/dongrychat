@@ -1,10 +1,10 @@
 <template>
-  <v-container class=mt-n5>
+  <v-container class=mt-n4>
     <v-list nav flat :style="list.style" color="#ffffff" dark class="ml-16 rounded-lg">
       <v-subheader :style="category" class="mb-n2">カテゴリー</v-subheader>
       <v-list-item-group v-model="selectedItem">
         <v-hover v-slot="{hover}" v-for="(item, index) in menus" :key="index">
-          <v-list-item dense :elevation="hover ? 10: 0" @click="changeRoute(item.path_name)" class="ml-2 mb-n2">
+          <v-list-item :elevation="hover ? 10: 0" @click="changeRoute(item.path_name)" class="ml-2 mb-n2">
             <v-list-item-icon>
               <v-list-item-title :size="icon.size" v-text="item.icon" />
             </v-list-item-icon>
@@ -149,16 +149,16 @@
             icon: '🗞',
             path_name: 'NotificationTop'
           },
-          {
-            text: '通知',
-            icon: '📣',
-            path_name: 'NotificationTop'
-          },
-          {
-            text: '設定',
-            icon: '☕️',
-            path_name: 'Settings'
-          },
+          // {
+          //   text: '通知',
+          //   icon: '📣',
+          //   path_name: 'NotificationTop'
+          // },
+          // {
+          //   text: '設定',
+          //   icon: '☕️',
+          //   path_name: 'Settings'
+          // },
         ],
         header_part: {
           position: 'mt-n5 ml-n4 mr-3',
@@ -287,6 +287,7 @@
 <style scoped>
   .v-divider {
     border-color: rgba(5, 5, 5, 0.06);
+    /* color: #fcfcfc */
   }
 
   .v-input__slot::before {
