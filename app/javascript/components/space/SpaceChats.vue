@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div class="mt-4">
     <div infinite-wrapper :style="wrapper.style">
       <space-comments :comments="comments" />
       <base-loader :handler="infiniteHandler" :wrapper="true" :text="loader.text" />
@@ -18,7 +18,7 @@
       @click:append-outer="{setMessage(), sendComment(content)}"
       v-model="content" dense
       :placeholder="textField.placeholder" solo flat />
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -148,7 +148,7 @@
           case 'xs' : return 'mt-n2 rounded-s'
           case 'sm' : return 'mt-7'
           case 'md' : return 'mt-7'
-          case 'lg' : return 'mt-n4 ml-6 mr-6 rounded-s'
+          case 'lg' : return 'mt-n4 rounded-s'
           case 'xl' : return 'mt-2 ml-6 mr-6 rounded-s'
         }
       }

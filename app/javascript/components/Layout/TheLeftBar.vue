@@ -12,7 +12,7 @@
               <v-list-item-title :active-class="'green--text'" :style="hover ? list_item_title.hoverStyle : list_item_title.style">
                 {{item.text}}
                 <span>
-                  <v-chip class="ml-3" v-if="item.text === 'お気に入り' || item.text === 'フォロー中'" x-small elevation=0
+                  <v-chip class="ml-3 mb-1" v-if="item.text === 'お気に入り' || item.text === 'フォロー中'" x-small elevation=0
                     color="#02e98d">34</v-chip>
                 </span>
                 <!-- <span><v-badge v-if="item.text === 'お気に入り'" dot color="#02e98d"></v-badge></span> -->
@@ -190,7 +190,7 @@
         tag: {
           style: {
             fontWeight: 'bold',
-            color: '#011627',
+            color: '#14171a',
             fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '13px',
           }
@@ -199,7 +199,7 @@
           fontWeight: 'bold',
           fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
           fontSize: '12px',
-          color: '#6c757d',
+          color: '#657786',
         },
         list_item_title: {
           color: '#011627',
@@ -286,8 +286,8 @@
 
 <style scoped>
   .v-divider {
-    border-color: rgba(5, 5, 5, 0.06);
-    /* color: #fcfcfc */
+    border-color: rgba(24, 23, 23, 0);
+    color: #dddddd
   }
 
   .v-input__slot::before {

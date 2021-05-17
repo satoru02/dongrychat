@@ -18,7 +18,7 @@
     <v-spacer></v-spacer>
     <v-text-field placeholder="検索..." @keypress="setQuery()" @keydown.enter="search(query)" v-model="query" height="10"
       :full-width="true" v-if="this.checkAuthorization()" :prepend-inner-icon="'mdi-magnify'" dense
-      background-color="#f6f6f9" solo flat :class="textField.round" style="max-width: 165px;" />
+      background-color="#e9ecef" solo flat :class="textField.round" style="max-width: 182px;" />
     <!-- <v-spacer></v-spacer> -->
     <!-- <v-btn icon>
       <v-icon class="ml-n4" color="#000000">mdi-bell-outline</v-icon>
@@ -55,7 +55,7 @@
           fontWeight: 'bold',
           fontFamily: '',
           fontSize: '12px',
-          color: '#5d666e'
+          color: '#657786'
         },
         loginStyle: {
           fontWeight: 'bold',

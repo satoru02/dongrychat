@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="profile-part rounded-lg mt-n2" color="#f8f9fa"
+  <v-sheet outlined class="profile-part rounded-lg mt-n2" color="#f5f8fa"
    @click="goUserPage($store.state.currentUser)" elevation="0" width="230"
     height='95'>
     <v-row class="mt-1">
@@ -69,7 +69,9 @@
   .theme--light.v-divider {
     border-color: rgba(0, 1, 1, .06);
   }
-  .theme--light.v-sheet--outlined[data-v-ceb3cba6] {
-    border: thin solid rgba(121, 121, 121, 0.12);
+  .theme--light.v-sheet--outlined {
+    /* border: thin solid rgba(121, 121, 121, 0.12); */
+    border: thin solid rgba(172, 172, 172, 0.12);
+
   }
 </style>

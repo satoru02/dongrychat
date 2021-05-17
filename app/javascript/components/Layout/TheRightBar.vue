@@ -50,7 +50,7 @@
         </v-sheet>
       </v-col>
     </v-row>
-    <v-sheet color="#f8f9fa" width="233px" class="rounded-lg">
+    <v-sheet color="#f5f8fa" width="233px" class="rounded-lg">
       <v-row class="mt-9 ml-1">
         <v-col lg=7>
           <h3 :style="style.online" v-text="'注目の作品'" />

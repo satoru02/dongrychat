@@ -1,6 +1,6 @@
 <template>
-  <v-container :class="vContainer">
-    <v-row class="ml-1 mb-n3" v-for="(comment, index) in comments" :key="index">
+  <div :class="vContainer">
+    <v-row class="mb-n3" v-for="(comment, index) in comments" :key="index">
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="vColAvatarGrid">
         <v-badge :color="comment.attributes.user.data.attributes.appearance === true ? 'green accent-4' : 'red'"
           offset-x="6" offset-y="6" bordered bottom dot overlap>
@@ -12,8 +12,7 @@
       </v-col>
       <v-col cols=11 sm=11 md=11 lg=11 xl=11 :class="vColNameGrid">
         <v-row>
-          <v-col cols=12 sm=12 md=12 lg=12 xl=12 :style="username.style"
-          >
+          <v-col cols=12 sm=12 md=12 lg=12 xl=12 :style="username.style" class="ml-4">
             {{comment.attributes.user.data.attributes.name}}・{{formalizeTime(comment.attributes.created_at)}}
           </v-col>
         </v-row>
@@ -24,7 +23,7 @@
     </v-row>
     <base-profile-dialog v-if="user" v-on:input="offDialog()" :passDialog="dialog" :user="user"
       :followed="this.followed" />
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -119,7 +118,7 @@
           case 'xs' : return 'mt-n5'
           case 'sm' : return 'mt-7'
           case 'md' : return 'mt-7'
-          case 'lg' : return 'mt-n5'
+          case 'lg' : return 'mt-n5 ml-4'
           case 'xl' : return 'mt-n9'
         }
       },
