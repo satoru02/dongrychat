@@ -215,7 +215,7 @@
             backgroundColor: '#edf2f4'
           },
           unhoverStyle: {
-            backgroundColor: '#f8f9fa'
+            backgroundColor: '#f5f8fa'
 
           }
         },
@@ -231,7 +231,7 @@
             fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '15px',
             fontWeight: 'bold',
-            color: '#98989b',
+            color: '#657786',
             letterSpacing: '1px'
           }
         },
@@ -240,7 +240,7 @@
             fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '12px',
             fontWeight: 'bold',
-            color: '#6c757d',
+            color: '#14171a',
           }
         },
         label: {
@@ -427,6 +427,6 @@
   }
 
   .theme--light.v-sheet--outlined {
-    border: thin solid rgba(172, 172, 172, 0.12);
+    border: thin solid rgba(206, 206, 206, 0.12);
   }
 </style>

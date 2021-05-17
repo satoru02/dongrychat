@@ -8,7 +8,7 @@
     <v-col cols=9 sm=9 md=9 lg=9 xl=9>
       <v-row>
         <v-col cols=8 sm=10 md=10 lg=10 xl=10>
-          <v-hover v-slot="{ hover }">
+          <v-hover v-slot="{ hover }" class="ml-10">
             <span
               @click="space_data.media === media.tv ? moveDetails(space_data.tmdb_comp_id, space_data.name, space_data.season, 'Tv') : moveDetails(space_data.tmdb_mv_id, space_data.name, null, 'Mv')"
               :style="hover ? vColTitle.hoverStyle : vColTitle.style" v-text="space_data.name" />
@@ -24,13 +24,13 @@
           </v-btn>
         </v-col>
       </v-row>
-      <v-row dense class="mt-n5">
+      <v-row dense class="mt-n5 ml-9">
         <v-col cols=12 sm=12 md=12 lg=12 xl=12 :style="vColSubTitle.style"
           v-text="'@' + space_data.name" />
       </v-row>
       <v-row dense :style="vRowLabel.style">
         <v-col cols=12 sm=12 md=12 lg=12 xl=12>
-          <base-label v-if="space_data.media === media.tv" :label="true" :small="true" :color="vColLabel.blue"
+          <base-label class="ml-10" v-if="space_data.media === media.tv" :label="true" :small="true" :color="vColLabel.blue"
             :outlined="false" :text-color="vColLabel.white" :season="space_data.season" :episode="space_data.episode"
             :title="space_data.episode_title" />
           <v-chip v-if="space_data.media === media.mv" small label :color="vChip.label.yellow"
@@ -38,10 +38,10 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols=11 sm=12 md=12 lg=12 xl=12 :style="vColSummaryStyle"
+        <v-col class="ml-10" cols=11 sm=12 md=12 lg=12 xl=12 :style="vColSummaryStyle"
           v-text="space_data.overview != null ? space_data.overview : dummyText" />
       </v-row>
-      <v-row class="mt-6">
+      <v-row class="mt-6 ml-7">
         <v-col cols=12 sm=12 md=12 lg=12 xl=12 :style="vColTags.style" small>
           <v-chip label outlined class="mr-2 mb-2" :style="vChip.tags.style" v-for="(tag, index) in space_data.tag_list.slice(0, 3)"
             :key="index" :color="vChip.tags.color" x-small v-text="'#' + tag" />
@@ -234,7 +234,7 @@
           case 'xs' : return 'ml-2 mt-1'
           case 'sm' : return 'mt-7'
           case 'md' : return 'mt-7'
-          case 'lg' : return 'ml-5 mt-1'
+          case 'lg' : return 'mt-1'
           case 'xl' : return 'ml-5 mt-1'
         }
       },

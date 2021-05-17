@@ -62,24 +62,29 @@
       changeGrid() {
         switch (this.$route.name) {
           case 'Home':
-            this.lgGrid = [3, 6, 3]
-            break;
           case 'Chart':
+          case 'subscribedTvSpace':
+          case 'subscribedTvSpaceMembers':
+          case 'subscribedTvSpaceReviews':
+          case 'subscribedTvSpaceNews':
+          case 'subscribedMvSpace':
+          case 'subscribedMvSpaceMembers':
+          case 'subscribedMvSpaceReviews':
+          case 'subscribedMvSpaceNews':
+          case 'TvSpace':
+          case 'TvSpaceMembers':
+          case 'TvSpaceReviews':
+          case 'TvSpaceNews':
+          case 'MvSpace':
+          case 'MvSpaceMembers':
+          case 'MvSpaceReviews':
+          case 'MvSpaceNews':
+          case 'multi':
+          case 'person':
+          case 'tv':
+          case 'movie':
+          case 'company':
             this.lgGrid = [3, 6, 3]
-            break;
-          case 'subscribedTvSpace' || 'subscribedTvSpaceMembers' || 'subscribedTvSpaceReviews' ||
-          'subscribedTvSpaceNews':
-            this.lgGrid = [2, 8, 2]
-            break;
-          case 'subscribedMvSpace' || 'subscribedMvSpaceMembers' || 'subscribedMvSpaceReviews' ||
-          'subscribedMvSpaceNews':
-            this.lgGrid = [2, 8, 2]
-            break;
-          case 'MvSpace' || 'MvSpaceMembers' || 'MvSpaceReviews' || 'MvSpaceNews':
-            this.lgGrid = [2, 8, 2]
-            break;
-          case 'TvSpace' || 'TvSpaceMembers' || 'TvSpaceReviews' || 'TvSpaceNews':
-            this.lgGrid = [2, 8, 2]
             break;
           case 'TvDetails':
             this.lgGrid = [2, 8, 0]
@@ -92,21 +97,6 @@
             break;
           case 'Terms':
             this.lgGrid = [2, 8, 0]
-            break;
-          case 'multi':
-            this.lgGrid = [3, 6, 3]
-            break;
-          case 'person':
-            this.lgGrid = [3, 6, 3]
-            break;
-          case 'tv':
-            this.lgGrid = [3, 6, 3]
-            break;
-          case 'movie':
-            this.lgGrid = [3, 6, 3]
-            break;
-          case 'Company':
-            this.lgGrid = [3, 6, 3]
             break;
           case 'Search':
             this.lgGrid = [2, 8, 2]
@@ -144,25 +134,11 @@
       },
       checkRouter() {
         let spaceRoute = [
-          'Home',
-          'Chart',
-          'NotificationTop',
-          'multi',
-          'person',
-          'tv',
-          'movie',
-          'Company',
-          'Followings',
-          'Followers',
-          'UserTop',
-          'UserPosts',
-          'UserFollowings',
-          'UserFollowers'
         ]
         if (spaceRoute.includes(this.$route.name)) {
-          return true
-        } else {
           return false
+        } else {
+          return true
         }
       }
     }

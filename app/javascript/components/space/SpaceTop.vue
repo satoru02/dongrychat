@@ -1,5 +1,19 @@
 <template>
-  <div class="ml-5">
+  <v-container>
+    <!-- <v-row>
+      <v-col lg=3>
+        <v-sheet height=700 outlined class="rounded-lg">
+          <v-row>
+            <v-col lg=12 class="mt-5 ml-5">
+              <v-avatar class="rounded-lg" size="80" height='130'>
+                <v-img :src="`https://image.tmdb.org/t/p/w500`+ this.space_data.image_path" />
+              </v-avatar>
+            </v-col>
+          </v-row>
+        </v-sheet>
+      </v-col>
+    </v-row> -->
+
     <space-header :space_data="this.space_data" />
     <v-tabs hide-slider class="mt-2" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height" grow>
       <v-tab
@@ -12,7 +26,7 @@
     </v-tabs>
     <v-divider />
     <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" />
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -51,8 +65,7 @@
             unsubscribed: 'MvSpace'
           }
         },
-        tablists: [
-          {
+        tablists: [{
             title: 'チャット',
             path: 'chats'
           },
@@ -101,8 +114,8 @@
       }
     },
     created() {
-      switch(this.$route.name) {
-        case 'subscribedTvSpace' :  {
+      switch (this.$route.name) {
+        case 'subscribedTvSpace': {
           this.endpoint = this.api.from_subscription
           this.params = {
             space_id: this.$route.params.space_id,
@@ -110,45 +123,45 @@
           }
         }
         break;
-        case 'subscribedMvSpace' : {
-          this.endpoint = this.api.from_subscription
-          this.params = {
-            space_id: this.$route.params.space_id,
-            media: this.media.mv
-          }
+      case 'subscribedMvSpace': {
+        this.endpoint = this.api.from_subscription
+        this.params = {
+          space_id: this.$route.params.space_id,
+          media: this.media.mv
         }
-        break;
-        case  'TvSpace' : {
-          this.endpoint = this.api.from_search
-          this.params = {
-            name: this.$route.params.name,
-            season: this.$route.params.season_number,
-            episode: this.$route.params.episode_number,
-            media: this.media.tv,
-            episode_title: this.$route.params.episode_title,
-            tmdb_comp_id: this.$route.params.tmdb_comp_id,
-            tmdb_tv_id: this.$route.params.tmdb_tv_id,
-            image_path: this.$route.params.image_path,
-            overview: this.$route.params.overview,
-            tag_list: this.$route.params.tag_list,
-          }
+      }
+      break;
+      case 'TvSpace': {
+        this.endpoint = this.api.from_search
+        this.params = {
+          name: this.$route.params.name,
+          season: this.$route.params.season_number,
+          episode: this.$route.params.episode_number,
+          media: this.media.tv,
+          episode_title: this.$route.params.episode_title,
+          tmdb_comp_id: this.$route.params.tmdb_comp_id,
+          tmdb_tv_id: this.$route.params.tmdb_tv_id,
+          image_path: this.$route.params.image_path,
+          overview: this.$route.params.overview,
+          tag_list: this.$route.params.tag_list,
         }
-        break;
-        case 'MvSpace' : {
-          this.endpoint = this.api.from_search
-          this.params = {
-            name: this.$route.params.name,
-            media: this.media.mv,
-            image_path: this.$route.params.image_path,
-            tmdb_mv_id: this.$route.params.tmdb_mv_id,
-            overview: this.$route.params.overview,
-            tag_list: this.$route.params.tag_list
-          }
+      }
+      break;
+      case 'MvSpace': {
+        this.endpoint = this.api.from_search
+        this.params = {
+          name: this.$route.params.name,
+          media: this.media.mv,
+          image_path: this.$route.params.image_path,
+          tmdb_mv_id: this.$route.params.tmdb_mv_id,
+          overview: this.$route.params.overview,
+          tag_list: this.$route.params.tag_list
         }
-        break;
-        default: {
-          this.$router.replace('/')
-        }
+      }
+      break;
+      default: {
+        this.$router.replace('/')
+      }
       }
       this.setSpace()
     },
@@ -186,12 +199,17 @@
         this.error = (err.response && err.response.data && err.response.data.error) || ''
       },
       setCount(tabListName) {
-        switch(tabListName){
-          case 'チャット' : return this.space_data.comments_count;
-          case 'ユーザー' : return this.space_data.users.data.length;
-          case 'レビュー' : return 0;
-          case 'シェアウォッチ' : return 0;
-          default: return 0;
+        switch (tabListName) {
+          case 'チャット':
+            return this.space_data.comments_count;
+          case 'ユーザー':
+            return this.space_data.users.data.length;
+          case 'レビュー':
+            return 0;
+          case 'シェアウォッチ':
+            return 0;
+          default:
+            return 0;
         }
       },
       changeTab(tabListPath) {
@@ -201,13 +219,18 @@
       }
     },
     computed: {
-      vContainerGrid(){
-        switch(this.$vuetify.breakpoint.name) {
-          case 'xs' : return 'ml-16 mt-n9'
-          case 'sm' : return 'mt-7'
-          case 'md' : return 'mt-7'
-          case 'lg' : return 'mt-n9'
-          case 'xl' : return 'mt-n9'
+      vContainerGrid() {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return 'ml-16 mt-n9'
+          case 'sm':
+            return 'mt-7'
+          case 'md':
+            return 'mt-7'
+          case 'lg':
+            return 'mt-n9'
+          case 'xl':
+            return 'mt-n9'
         }
       }
     }
@@ -218,6 +241,7 @@
   .theme--light.v-divider {
     border-color: rgba(94, 94, 94, 0.06);
   }
+
   .v-input__slot::before {
     border-style: none !important;
   }
