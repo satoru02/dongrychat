@@ -1,12 +1,20 @@
 <template>
   <v-container class=mt-n4>
+    <!-- <v-row>
+      <v-col lg=3></v-col>
+      <v-col lg=9>
+      <div :style="logoStyle" class="mt-4">
+        devio
+      </div>
+      </v-col>
+    </v-row> -->
     <v-list nav flat :style="list.style" color="#ffffff" dark class="ml-16 rounded-lg">
       <v-subheader :style="category" class="mb-n2">カテゴリー</v-subheader>
       <v-list-item-group v-model="selectedItem">
         <v-hover v-slot="{hover}" v-for="(item, index) in menus" :key="index">
           <v-list-item :elevation="hover ? 10: 0" @click="changeRoute(item.path_name)" class="ml-2 mb-n2">
             <v-list-item-icon>
-              <v-list-item-title :size="icon.size" v-text="item.icon" />
+              <v-list-item-subtitle :size="icon.size" v-text="item.icon" />
             </v-list-item-icon>
             <v-list-item-content class="ml-n6">
               <v-list-item-title :active-class="'green--text'" :style="hover ? list_item_title.hoverStyle : list_item_title.style">
@@ -103,6 +111,14 @@
         aboutDialog: false,
         selectedItem: '',
         query: '',
+        logoStyle: {
+          fontWeight: 'bold',
+          // position: 'fixed',
+          fontFamily: 'Helvetica Neue, sans-serif',
+          fontSize: '22px',
+          color: '#011627',
+          cursor: 'pointer'
+        },
         overviewText: 'Devioは、最新の配信ドラマから往年のクラシック映画まで自由に会話できるオープンコミュニティです。見たばかりの感動や興奮を、共有できる場所を目指しています。',
         tags: [
           '# love',
@@ -110,6 +126,9 @@
           '# action',
           '# ドラマ',
           '# ホラー',
+          '# love',
+          '# アドベンチャー',
+          '# love',
           '# love',
           '# アドベンチャー',
           '# love',

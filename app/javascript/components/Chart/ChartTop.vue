@@ -417,7 +417,6 @@
 <style scoped>
   .v-divider {
     border-color: rgba(226, 226, 226, 0.384);
-
   }
 
   .v-input__slot::before {
