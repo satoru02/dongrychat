@@ -1,18 +1,20 @@
 <template>
   <v-app style="background-color: #ffffff">
     <the-header />
+    <!-- <v-divider class="mt-16" /> -->
 
-    <v-main class="ml-n5">
+    <v-main class="">
       <v-row>
         <v-col :cols="this.colsGrid[0]" :sm="this.smGrid[0]" :md="this.mdGrid[0]" :lg="this.lgGrid[0]"
           :xl="this.xlGrid[0]" v-if="$vuetify.breakpoint.width > 600">
           <the-left-bar v-if="this.checkAuthorization() && this.checkRouter()" />
         </v-col>
+        <v-divider vertical class="ml-n13 mr-8" />
         <v-col :cols="this.colsGrid[1]" :sm="this.smGrid[1]" :md="this.mdGrid[1]" :lg="this.lgGrid[1]"
           :xl="this.xlGrid[1]" :class="$vuetify.breakpoint.width > 600 ? grid.deskCenter : grid.mobileCenter">
           <router-view />
         </v-col>
-        <v-col :cols="this.colsGrid[2]" :sm="this.smGrid[2]" :md="this.mdGrid[2]" :lg="this.lgGrid[2]"
+        <v-col class="ml-n4" :cols="this.colsGrid[2]" :sm="this.smGrid[2]" :md="this.mdGrid[2]" :lg="this.lgGrid[2]"
           :xl="this.xlGrid[2]" v-if="$vuetify.breakpoint.width > 600">
           <the-right-bar v-if="this.checkAuthorization() && this.checkRouter()" />
         </v-col>
@@ -84,6 +86,7 @@
           case 'tv':
           case 'movie':
           case 'company':
+          case 'UserTop':
             this.lgGrid = [3, 6, 3]
             break;
           case 'TvDetails':
@@ -106,9 +109,6 @@
             break;
           case 'Settings':
             this.lgGrid = [0, 12, 0]
-            break;
-          case 'UserTop':
-            this.lgGrid = [4, 5, 3]
             break;
           case 'UserPosts':
             this.lgGrid = [4, 5, 3]
@@ -149,4 +149,7 @@
   .vappTop {
     background-color: #fdfdfd;
   }
+.theme--light.v-divider {
+    border-color: rgba(0,0,0,.04);
+}
 </style>

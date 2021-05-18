@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <sub-header class="mb-n2">
+    <sub-header class="mb-n2 mt-1">
       <template v-slot:home_header="subHeaderProps">
         <h3 :style="style.headerPart">{{subHeaderProps.sub_header}}</h3>
       </template>
