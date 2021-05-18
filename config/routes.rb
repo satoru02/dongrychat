@@ -81,6 +81,7 @@ Rails.application.routes.draw do
       resources :signup, only: :create
       resources :notifications, only: :index
       resources :comments, only: :index
+      resources :tags, only: [:index, :show]
       resources :avatar do
         get 'presigned_url', on: :collection
       end
