@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import VueGtag from "vue-gtag";
 import { store } from './store';
 import HomeTop from '../components/Home/HomeTop';
 import DetailTop from '../components/Detail/DetailsTop';
@@ -29,12 +28,6 @@ import NotificationTop from '../components/Notification/NotificationTop';
 import TagTop from '../components/Tag/TagTop';
 
 Vue.use(VueRouter);
-Vue.use(VueGtag, {
-  config: {id: process.env.GA_ID},
-  app_name: process.env.GA_APP_NAME,
-  pageTrackerScreenviewEnabled: true,
-  router
-});
 
 function guardMyroute(to, from, next){
   if(store.state.signedIn){
