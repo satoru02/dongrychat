@@ -3,7 +3,7 @@
     <the-header />
     <!-- <v-divider class="mt-16" /> -->
 
-    <v-main class="">
+    <v-main>
       <v-row>
         <v-col :cols="this.colsGrid[0]" :sm="this.smGrid[0]" :md="this.mdGrid[0]" :lg="this.lgGrid[0]"
           :xl="this.xlGrid[0]" v-if="$vuetify.breakpoint.width > 600">
@@ -87,6 +87,7 @@
           case 'movie':
           case 'company':
           case 'UserTop':
+          case 'Tag':
             this.lgGrid = [3, 6, 3]
             break;
           case 'TvDetails':
@@ -149,7 +150,8 @@
   .vappTop {
     background-color: #fdfdfd;
   }
-.theme--light.v-divider {
+
+  .theme--light.v-divider {
     border-color: rgba(0,0,0,.04);
-}
+  }
 </style>

@@ -62,7 +62,7 @@
               <v-avatar size="20" class="mt-n1 ml-1">
                 <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
                </v-avatar>
-               <span class="ml-1">
+               <span class="ml-1" v-if="item.attributes.latest_comment">
                   {{item.attributes.latest_comment.content}}
                </span>
               </v-col>
@@ -85,7 +85,6 @@
     secureAxios
   } from '../../backend/axios';
   import moment from 'moment';
-
   import BaseLabel from '../Base/BaseLabel';
   import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
   import TheSubHeader from '../Layout/TheSubHeader';

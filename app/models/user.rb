@@ -42,7 +42,7 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :confirmations, dependent: :destroy
-  has_many :subscriptions, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy, counter_cache: true
   has_many :spaces, -> {includes :comments, :users, :confirmations}, through: :subscriptions
   has_one_attached :avatar, dependent: :destroy
   has_secure_password

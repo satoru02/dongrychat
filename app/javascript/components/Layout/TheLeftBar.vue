@@ -24,7 +24,7 @@
       <v-list-item-group v-model="selectedItem" class="mt-3">
         <v-subheader :style="category" class="mb-2">人気のカテゴリ</v-subheader>
         <v-hover v-slot="{hover}" v-for="(tag, index) in tags" :key="index">
-          <v-list-item dense :elevation="hover ? 10: 0" @click="changeRoute(tag.attributes.id)" class="mb-3 ml-2 mt-n3">
+          <v-list-item dense :elevation="hover ? 10: 0" @click="goTagPage(tag.attributes)" class="mb-3 ml-2 mt-n3">
             <v-list-item-content>
               <v-list-item-title :style="hover ? list_item_title.hoverStyle : list_item_title.style">
                 #{{tag.attributes.name}}
@@ -70,7 +70,7 @@
 
 <script>
   import { secureAxios } from '../../backend/axios';
-  const api_tag_url = `/api/v1/tags`
+  const api_tags_url = `/api/v1/tags`
 
   export default {
     name: "TheLeftBar",
@@ -217,12 +217,11 @@
     },
     methods: {
       fetchTags(){
-        secureAxios.get(api_tag_url)
+        secureAxios.get(api_tags_url)
           .then(res => this.fetchSuccessful(res))
           .catch(err => this.fetchFailed(err))
       },
       fetchSuccessful(res){
-        console.log(res.data.data)
         this.tags = res.data.data
       },
       changeRoute(path) {
@@ -246,6 +245,12 @@
       },
       goSignup() {
         this.$router.replace('/signup')
+      },
+      goTagPage(tag){
+        this.$router.push({name: 'Tag', params: {
+          id: tag.id,
+          name: tag.name,
+        }})
       }
     }
   }

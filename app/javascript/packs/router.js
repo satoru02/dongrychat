@@ -26,6 +26,7 @@ import SearchList from '../components/Search/SearchList';
 import Privacy from '../components/Overview/Privacy';
 import Terms from '../components/Overview//Terms';
 import NotificationTop from '../components/Notification/NotificationTop';
+import TagTop from '../components/Tag/TagTop';
 
 Vue.use(VueRouter);
 Vue.use(VueGtag, {
@@ -374,6 +375,14 @@ const router = new VueRouter({
       component: NotificationTop,
       meta: {
         title: '通知'
+      }
+    },
+    {
+      path: "/tag/:name",
+      name: "Tag",
+      component: TagTop,
+      meta: {
+        title: 'タグ'
       }
     }
   ]
