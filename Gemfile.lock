@@ -105,6 +105,8 @@ GEM
     faraday-net_http (1.0.1)
     ffi (1.14.2)
     foreman (0.87.2)
+    friendly_id (5.1.0)
+      activerecord (>= 4.0.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     i18n (1.8.9)
@@ -272,6 +274,7 @@ DEPENDENCIES
   dotenv-rails
   faraday
   foreman
+  friendly_id (~> 5.1.0)
   image_processing (~> 1.2)
   jbuilder (~> 2.7)
   jsonapi-serializer

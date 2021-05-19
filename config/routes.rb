@@ -81,7 +81,6 @@ Rails.application.routes.draw do
       resources :signup, only: :create
       resources :notifications, only: :index
       resources :comments, only: :index
-      resources :tags, only: [:index, :show]
       resources :avatar do
         get 'presigned_url', on: :collection
       end
@@ -91,6 +90,10 @@ Rails.application.routes.draw do
         member do
           get :following, :followers, :online
         end
+      end
+
+      resources :tags do
+        get 'members', on: :collection
       end
 
       resources :spaces do

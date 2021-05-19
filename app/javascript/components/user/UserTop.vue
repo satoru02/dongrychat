@@ -124,7 +124,7 @@
     },
     methods: {
       getUser() {
-        secureAxios.get(`/api/v1/users/${this.$route.params.user_id}`)
+        secureAxios.get(`/api/v1/users/${this.$route.params.user_name}`)
           .then(res => this.fetchSuccessful(res))
           .catch(err => this.fetchFailed(err))
       },

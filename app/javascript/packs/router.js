@@ -51,7 +51,7 @@ function guardMultiLogin(to, from, next){
   }
 }
 
-const router = new VueRouter({
+var router = new VueRouter({
   mode: 'history',
   routes: [
     {
@@ -106,7 +106,8 @@ const router = new VueRouter({
       name: 'Chart',
       component: ChartTop,
       meta: {
-        title: 'チャート'
+        title: 'チャート',
+        keepAlive: true,
       }
     },
     {
@@ -115,7 +116,8 @@ const router = new VueRouter({
       beforeEnter: guardMyroute,
       component: HomeTop,
       meta: {
-        title: 'ホーム'
+        title: 'ホーム',
+        keepAlive: true,
       }
     },
     {
@@ -358,7 +360,8 @@ const router = new VueRouter({
       name: "Privacy",
       component: Privacy,
       meta: {
-        title: 'プライバシーポリシー'
+        title: 'プライバシーポリシー',
+        keepAlive: true
       }
     },
     {
@@ -366,7 +369,8 @@ const router = new VueRouter({
       name: "Terms",
       component: Terms,
       meta: {
-        title: '利用規約'
+        title: '利用規約',
+        keepAlive: true
       }
     },
     {
@@ -374,7 +378,8 @@ const router = new VueRouter({
       name: "NotificationTop",
       component: NotificationTop,
       meta: {
-        title: '通知'
+        title: '通知',
+        keepAlive: true
       }
     },
     {
@@ -382,7 +387,7 @@ const router = new VueRouter({
       name: "Tag",
       component: TagTop,
       meta: {
-        title: 'タグ'
+        keepAlive: true
       }
     }
   ]

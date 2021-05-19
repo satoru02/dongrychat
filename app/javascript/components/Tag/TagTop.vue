@@ -1,5 +1,5 @@
 <template>
-  <v-container class="tag-container">
+  <v-container class="tag-container" :key="componentKey">
     <sub-header class="mb-n9 mt-1" :tag='this.$route.params.name'>
       <template v-slot:tag_header="subHeaderProps">
         <h3 class="sub-header">{{subHeaderProps.sub_header}}</h3>
@@ -30,6 +30,7 @@
     data() {
       return {
         spaces: [],
+        componentKey: 0,
         page: 1,
         pageSize: 10,
         error: '',
@@ -38,11 +39,32 @@
         }
       }
     },
+    watch: {
+      '$route.params.name'(){
+        this.page = 1
+        this.spaces = []
+        this.forceRerender()
+      }
+    },
+    // beforeRouteEnter(to, from, next) {
+    //   next(vm => {
+    //     setTimeout(() => {
+    //       document.title = `${vm.$route.params.name} - Devio` || 'Devio';
+    //     }, 1000)
+    //   })
+    // },
+    // beforeRouteUpdate(to, from, next) {
+    //   document.title = `${vm.$route.params.name} - Devio` || 'Devio';
+    // },
     methods: {
+      forceRerender() {
+        this.componentKey += 1
+      },
       infiniteHandler($state) {
         setTimeout(() => {
-          secureAxios.get(api_tag_url + `/` + this.$route.params.id, {
+          secureAxios.get(api_tag_url + `/members/`, {
               params: {
+                name: this.$route.params.name,
                 page: this.page,
                 per_page: this.pageSize
               }

@@ -28,10 +28,10 @@ class Space < ApplicationRecord
   acts_as_taggable_on :tags
 
   scope :get_trend, -> (query){
-     includes(:users, :comments, :tags)
+     includes(:users, :tags)
      .where(media: query[:media])
-     .where(comments: {created_at: Date.today.all_day})
-     .sort_by{|space| -space.comments.length}
+    #  .where(comments: {created_at: Date.today.all_day})
+    #  .sort_by{|space| -space.comments.length}
   }
   scope :order_by_comments, -> (user){
     sort_by{|space| -space.comments_unconfirmed_by(user)}

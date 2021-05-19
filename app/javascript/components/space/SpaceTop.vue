@@ -1,19 +1,5 @@
 <template>
   <v-container>
-    <!-- <v-row>
-      <v-col lg=3>
-        <v-sheet height=700 outlined class="rounded-lg">
-          <v-row>
-            <v-col lg=12 class="mt-5 ml-5">
-              <v-avatar class="rounded-lg" size="80" height='130'>
-                <v-img :src="`https://image.tmdb.org/t/p/w500`+ this.space_data.image_path" />
-              </v-avatar>
-            </v-col>
-          </v-row>
-        </v-sheet>
-      </v-col>
-    </v-row> -->
-
     <space-header :space_data="this.space_data" />
     <v-tabs hide-slider class="mt-2" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height" grow>
       <v-tab

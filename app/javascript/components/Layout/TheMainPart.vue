@@ -12,7 +12,10 @@
         <v-divider vertical class="ml-n13 mr-8" />
         <v-col :cols="this.colsGrid[1]" :sm="this.smGrid[1]" :md="this.mdGrid[1]" :lg="this.lgGrid[1]"
           :xl="this.xlGrid[1]" :class="$vuetify.breakpoint.width > 600 ? grid.deskCenter : grid.mobileCenter">
-          <router-view />
+          <keep-alive>
+            <router-view v-if="$route.meta.keepAlive" />
+          </keep-alive>
+          <router-view v-if="!$route.meta.keepAlive"/>
         </v-col>
         <v-col class="ml-n4" :cols="this.colsGrid[2]" :sm="this.smGrid[2]" :md="this.mdGrid[2]" :lg="this.lgGrid[2]"
           :xl="this.xlGrid[2]" v-if="$vuetify.breakpoint.width > 600">

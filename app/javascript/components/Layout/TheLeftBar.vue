@@ -247,8 +247,8 @@
         this.$router.replace('/signup')
       },
       goTagPage(tag){
-        this.$router.push({name: 'Tag', params: {
-          id: tag.id,
+        this.$router.replace({name: 'Tag', params: {
+          // id: tag.id,
           name: tag.name,
         }})
       }
