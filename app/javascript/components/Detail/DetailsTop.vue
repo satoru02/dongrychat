@@ -137,17 +137,14 @@
 </template>
 
 <script>
-  import {
-    tmdbAxios
-  } from '../../backend/axios';
+  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  const tmdbRepository = RepositoryFactory.get('tmdb');
 
   export default {
     name: 'DetailsTop',
     data() {
       return {
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
-        tmdb_tv_overall: `https://api.themoviedb.org/3/tv/${this.$route.params.id}?api_key=${process.env.TMDB_API_KEY}&language=ja`,
-        tmdb_mv: `https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=${process.env.TMDB_API_KEY}&language=ja`,
         loginDialog: false,
         details: [],
         overall: [],
@@ -182,7 +179,6 @@
         },
         style: {
           caption: {
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '15px',
             fontWeight: 'bold',
             color: '#111111'
@@ -200,7 +196,6 @@
             color: '#6c757d',
           },
           contentsDetails: {
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '12px',
             fontWeight: 'bold',
             color: '#111111',
@@ -224,29 +219,24 @@
           tag: {
             color: '#ffffff',
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '11px'
           },
           tab: {
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '11px',
             color: '#6c757d'
           },
           tabs: {
             color: '#0e0e10',
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '13px',
           },
           episodeDetails: {
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '14px',
             fontWeight: 'bold',
             color: '#111111',
           },
           overview: {
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '11px',
             fontWeight: 'bold',
             color: '#666666',
@@ -263,18 +253,15 @@
           headerStyle: {
             color: '#111111',
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '17px',
           },
           btnStyle: {
             color: '#ffffff',
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '12px',
           },
           policyStyle: {
             color: '#6c757d',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '4px',
           }
         }
@@ -316,14 +303,12 @@
     },
     methods: {
       getTvContents(number) {
-        tmdbAxios.get(
-            `https://api.themoviedb.org/3/tv/${this.$route.params.id}/season/${number}?api_key=${process.env.TMDB_API_KEY}&language=ja`
-          )
+        tmdbRepository.getTvInfo(this.$route.params.id, number)
           .then(res => this.setTvDetails(res))
           .catch(err => this.fetchFailed(err))
       },
       getMvContents() {
-        tmdbAxios.get(this.tmdb_mv)
+        tmdbRepository.getMvInfo(this.$route.params.id)
           .then(res => this.setMvDetails(res))
           .catch(err => this.fetchFailed(err))
       },
@@ -335,7 +320,7 @@
         this.genres = this.setGenres(this.details.genres)
       },
       getTvOverall() {
-        tmdbAxios.get(this.tmdb_tv_overall)
+        tmdbRepository.getOverall(this.$route.params.id)
           .then(res => this.setOverall(res))
           .catch(err => this.fetchFailed(err))
       },

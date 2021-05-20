@@ -1,6 +1,6 @@
 import { secureAxios } from '../backend/axios';
 
-const baseURL = `/api/v1/spaces/`;
+const baseURL = `/api/v1/spaces`;
 const trend_resource = `trend`;
 const comments_resource = `comments`;
 

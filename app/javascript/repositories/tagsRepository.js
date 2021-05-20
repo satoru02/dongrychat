@@ -1,6 +1,6 @@
 import { secureAxios } from '../backend/axios';
 
-const baseURL = `/api/v1/tags/`;
+const baseURL = `/api/v1/tags`;
 const spaceResource = `spaces`;
 
 export default {

@@ -1,6 +1,6 @@
 import { secureAxios } from '../backend/axios';
 
-const baseURL = `/api/v1/relationships/`;
+const baseURL = `/api/v1/relationships`;
 
 export default {
   follow(userParams){

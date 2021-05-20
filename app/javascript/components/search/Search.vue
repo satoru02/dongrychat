@@ -43,13 +43,14 @@
 </template>
 
 <script>
-  import {
-    tmdbAxios
-  } from '../../backend/axios';
   import SearchPopularPart from '../Search/SearchPart';
   import SearchTrendPart from '../Search/SearchPart';
   import SearchTopRatedPard from '../Search/SearchPart';
   import SearchUpcomingPart from '../Search/SearchPart';
+  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+
+  const tmdbRepository = RepositoryFactory.get('tmdb');
+
   export default {
     name: 'Search',
     components: {
@@ -69,19 +70,6 @@
         top_rated_tvs: [],
         top_rated_mvs: [],
         upcoming_mvs: [],
-        tmdb_api: {
-          tv: {
-            popular: `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`,
-            trending: `https://api.themoviedb.org/3/trending/tv/week?api_key=${process.env.TMDB_API_KEY}&language=ja`,
-            topRated: `https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`
-          },
-          movie: {
-            popular: `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`,
-            trending: `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.TMDB_API_KEY}&language=ja`,
-            topRated: `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`,
-            upcoming: `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.TMDB_API_KEY}&language=ja&page=1`
-          }
-        },
         switch1: false,
         media: {
           tv: 'tv',
@@ -117,13 +105,11 @@
           avatar: 'ml-10'
         },
         active: {
-          fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
           fontSize: '20px',
           fontWeight: 'bold',
           color: '#000000'
         },
         inactive: {
-          fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
           fontSize: '20px',
           fontWeight: 'bold',
           color: '#6c757d'
@@ -154,25 +140,25 @@
         })
       },
       getTrendTvs() {
-        return tmdbAxios.get(this.tmdb_api.tv.trending)
+        tmdbRepository.getTrendTvs()
       },
       getTrendMvs() {
-        return tmdbAxios.get(this.tmdb_api.movie.trending)
+        tmdbRepository.getTrendMvs()
       },
       getPopularTvs() {
-        return tmdbAxios.get(this.tmdb_api.tv.popular)
+        tmdbRepository.getPopularTvs()
       },
       getPopularMvs() {
-        return tmdbAxios.get(this.tmdb_api.movie.popular)
+        tmdbRepository.getPopularMvs()
       },
       getTopratedTvs() {
-        return tmdbAxios.get(this.tmdb_api.tv.topRated)
+        tmdbRepository.getTopratedTvs()
       },
       getTopratedMvs() {
-        return tmdbAxios.get(this.tmdb_api.movie.topRated)
+        tmdbRepository.getTopratedMvs()
       },
       getUpcomingMvs() {
-        return tmdbAxios.get(this.tmdb_api.movie.upcoming)
+        tmdbRepository.getUpcomingMvs()
       },
       getTvContents() {
         Promise.all([this.getTrendTvs(), this.getPopularTvs(), this.getTopratedTvs()])

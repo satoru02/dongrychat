@@ -1,6 +1,6 @@
 import { secureAxios } from '../backend/axios';
 
-const baseURL = `/api/v1/users/`;
+const baseURL = `/api/v1/users`;
 const subscriptionResource = `subscription`;
 const followersResource = `followers`;
 const followingResource = `following`;
