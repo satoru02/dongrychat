@@ -2,6 +2,7 @@ import spacesRepository from './spacesRepository';
 import usersRepository from './usersRepository';
 import relationshipsRepository from './relationshipsRepository';
 import tagsRepository from './tagsRepository';
+import subscriptionsRepository from './subscriptionsRepository';
 import tmdbRepository from './tmdbRepository';
 
 const repositories = {
@@ -9,7 +10,8 @@ const repositories = {
   users: usersRepository,
   relationships: relationshipsRepository,
   tags: tagsRepository,
-  tmdb: tmdbRepository
+  tmdb: tmdbRepository,
+  subscriptions: subscriptionsRepository,
 };
 
 export const RepositoryFactory = {
