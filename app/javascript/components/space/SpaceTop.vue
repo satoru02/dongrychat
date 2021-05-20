@@ -80,7 +80,6 @@
           activeText: 'black--text',
           style: {
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '12px',
             color: '#666666'
           }
@@ -91,7 +90,6 @@
           color: '#f6f6f9',
           style: {
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '10px',
           }
         }

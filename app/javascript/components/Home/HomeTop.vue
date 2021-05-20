@@ -184,7 +184,7 @@
       },
       infiniteHandler($state) {
         setTimeout(() => {
-          usersRepository.getSubscription(this.$store.state.currentUser.id, {
+          usersRepository.getSubscriptions(this.$store.state.currentUser.id, {
               page: this.page,
               per_page: this.pageSize
             })

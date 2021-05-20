@@ -49,7 +49,6 @@
         name: {
           style: {
             fontWeight: 'bold',
-            fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
             fontSize: '14px',
             color: '#111111'
           }
@@ -57,7 +56,6 @@
         about: {
           style: {
             fontWeight: 'bold',
-            fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
             fontSize: '11px',
             color: '#6c757d',
             lineHeight: '16px',

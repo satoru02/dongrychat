@@ -1,12 +1,12 @@
 import { secureAxios } from '../backend/axios';
 
 const baseURL = `/api/v1/users`;
-const subscriptionResource = `subscription`;
+const subscriptionResource = `subscriptions`;
 const followersResource = `followers`;
 const followingResource = `following`;
 
 export default {
-  getSubscription(userId, userParams){
+  getSubscriptions(userId, userParams){
     return secureAxios.get(`${baseURL}/${userId}/${subscriptionResource}`, { params: userParams });
   },
   getUserInfo(userName){
@@ -17,5 +17,8 @@ export default {
   },
   getFollowings(userId){
     return secureAxios.get(`${baseURL}/${userId}/${followingResource}`);
+  },
+  update(userId, userParams){
+    return secureAxios.patch(`${baseURL}/${userId}`, userParams);
   }
 };
