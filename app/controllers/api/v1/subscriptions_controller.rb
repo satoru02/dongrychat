@@ -7,17 +7,17 @@ module Api
 
       def create
         if @subscription && @subscription.save!
-          successed
+          response_success('Subscription', 'created')
         else
-          failed_subscription
+          response_bad_request
         end
       end
 
       def destroy
         if @subscription && @subscription.destroy!
-          successed
+          response_success('Subscription', 'destroyed')
         else
-          failed_unsubscription
+          response_bad_request
         end
       end
 
@@ -29,18 +29,6 @@ module Api
 
         def get_subscription
           @subscription = Subscription.find_by(user_id: params[:user_id], space_id: params[:space_id])
-        end
-
-        def successed
-          render json: :ok
-        end
-
-        def failed_subscription
-          render json: { error: "You has already subscribed this space." }, status: :not_found
-        end
-
-        def failed_unsubscription
-          render json: { error: "error no subscription found" }, status: :not_found
         end
     end
   end
