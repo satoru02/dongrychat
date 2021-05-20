@@ -1,5 +1,5 @@
 <template>
-  <v-container class="tag-container" :key="componentKey">
+  <v-container :key="componentKey">
     <sub-header class="mb-n9 mt-1" :tag='this.$route.params.name'>
       <template v-slot:tag_header="subHeaderProps">
         <h3 class="sub-header">{{subHeaderProps.sub_header}}</h3>
@@ -89,10 +89,6 @@
 </script>
 
 <style scoped>
-  .tag-container {
-    font-family: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif';
-  }
-
   .theme--light.v-divider {
     border-color: rgba(0,0,0,.04);
   }

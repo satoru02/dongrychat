@@ -178,7 +178,6 @@
 
 <style scoped>
   .user-top {
-    font-family: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif';
     line-height: 28px;
   }
 

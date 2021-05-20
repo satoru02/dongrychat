@@ -1,5 +1,5 @@
 <template>
-  <div class="base-card-container">
+  <div>
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
       <v-card class="rounded-lg mb-8 mt-n4" outlined @click="enterSpace(item.attributes)"
         :style="hover ? hoverStyle : unhoverStyle" height="200px">
@@ -40,7 +40,7 @@
               <v-col :class="$vuetify.breakpoint.width > 600 ? 'title-text ml-n5' : 'title-text ml-5'" cols=10 sm=10 md=10 lg=10 xl=10
                  v-text="item.attributes.name" />
             </v-row>
-            <v-row :class="$vuetify.breakpoint.width > 600 ? 'mt-n3 ml-4' : 'mt-n4 ml-10'">
+            <v-row v-if="item.attributes.tags" :class="$vuetify.breakpoint.width > 600 ? 'mt-n3 ml-4' : 'mt-n4 ml-10'">
               <v-col cols=12 sm=12 md=12 lg=7 xl=12>
                 <v-chip label :class="$vuetify.breakpoint.width > 600 ? 'tag-text mr-2' : 'tag-text mr-2'"
                   v-for="(tag, index) in item.attributes.tags.slice(0, 2)" :key="index" color="#e9ecef"
@@ -141,10 +141,6 @@
 </script>
 
 <style scoped>
-  .base-card-container {
-    font-family: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif';
-  }
-
   .ranking {
     font-size: 12px;
     font-weight: bold;

@@ -258,11 +258,6 @@
   }
 
   .theme--light.v-sheet--outlined {
-    /* border: thin solid rgba(121, 121, 121, 0.12); */
-    /* border: thin solid rgba(192, 192, 192, 0.404); */
     border: thin solid rgba(232, 236, 236, 0.336);
-
-
-
-}
+  }
 </style>

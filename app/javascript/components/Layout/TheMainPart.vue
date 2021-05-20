@@ -1,8 +1,6 @@
 <template>
-  <v-app style="background-color: #ffffff">
+  <v-app class="the-main-part">
     <the-header />
-    <!-- <v-divider class="mt-16" /> -->
-
     <v-main>
       <v-row>
         <v-col :cols="this.colsGrid[0]" :sm="this.smGrid[0]" :md="this.mdGrid[0]" :lg="this.lgGrid[0]"
@@ -150,8 +148,8 @@
 </script>
 
 <style scoped>
-  .vappTop {
-    background-color: #fdfdfd;
+  .the-main-part {
+    background-color: #ffffff;
   }
 
   .theme--light.v-divider {
