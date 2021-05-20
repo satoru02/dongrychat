@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar class="header-bar" elevation=1 outlined app color="#ffffff" v-if="$vuetify.breakpoint.width > 600">
+  <v-app-bar elevation=1 outlined app color="#ffffff" v-if="$vuetify.breakpoint.width > 600">
     <div class="ml-11"></div>
     <v-toolbar-title class="logo ml-10" @click="goTop()">devio</v-toolbar-title>
     <v-divider vertical inset class="ml-3" />
@@ -68,10 +68,6 @@
 </script>
 
 <style scoped>
-  .header-bar {
-    font-family: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif';
-  }
-
   .v-divider--vertical.v-divider--inset {
     margin-top: 8px;
     min-height: 0;

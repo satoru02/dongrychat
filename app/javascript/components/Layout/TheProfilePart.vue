@@ -41,7 +41,6 @@
       goUserPage(user) {
         this.$router.replace({name: 'UserTop', params: {
           user_name: user.name,
-          user_id: user.id
         } })
       }
     }
@@ -50,7 +49,6 @@
 
 <style scoped>
   .profile-part {
-    font-family: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif';
     cursor: pointer;
   }
 

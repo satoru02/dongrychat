@@ -24,21 +24,24 @@ class Space < ApplicationRecord
   has_many :subscriptions, dependent: :destroy
   has_many :confirmations, dependent: :destroy
   has_many :users, through: :subscriptions
+
   acts_as_taggable_on :tags
+
   scope :get_trend, -> (query){
-     includes(:users, :confirmations, :comments)
+     includes(:users, :tags)
      .where(media: query[:media])
-     .where(comments: {created_at: Date.today.all_day})
-     .sort_by{|space| -space.comments.length}
+    #  .where(comments: {created_at: Date.today.all_day})
+    #  .sort_by{|space| -space.comments.length}
   }
   scope :order_by_comments, -> (user){
     sort_by{|space| -space.comments_unconfirmed_by(user)}
   }
+
+  before_validation :create_resource_digest
   validates :name, presence: true
   validates :resource_token, presence: true
   validates :resource_digest, presence: true
   validates :media, presence: true
-  before_validation :create_resource_digest
   enum media: %i[mv tv].freeze
   with_options if: :mv? do |mv|
     mv.validates :tmdb_mv_id, presence: true, numericality: { only_integer: true }

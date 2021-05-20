@@ -16,6 +16,7 @@
 #  reset_password_token            :string
 #  reset_password_token_expires_at :datetime
 #  role                            :integer          default("user")
+#  slug                            :string
 #  sns_links                       :text             default([]), is an Array
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
@@ -25,6 +26,7 @@
 #  index_users_on_activation_token      (activation_token)
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token)
+#  index_users_on_slug                  (slug) UNIQUE
 #
 class User < ApplicationRecord
   has_many :active_relationships, class_name: "Relationship",
@@ -42,7 +44,7 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :confirmations, dependent: :destroy
-  has_many :subscriptions, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy, counter_cache: true
   has_many :spaces, -> {includes :comments, :users, :confirmations}, through: :subscriptions
   has_one_attached :avatar, dependent: :destroy
   has_secure_password
@@ -55,6 +57,8 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 235 },
              format: { with: VALID_EMAIL_REGEX },
              uniqueness: { case_sensitive: false }
+  extend FriendlyId
+  friendly_id :name, use: :slugged
 
   class << self
     def authName(length = rand(10))

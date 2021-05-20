@@ -16,6 +16,7 @@
 #  reset_password_token            :string
 #  reset_password_token_expires_at :datetime
 #  role                            :integer          default("user")
+#  slug                            :string
 #  sns_links                       :text             default([]), is an Array
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
@@ -25,6 +26,7 @@
 #  index_users_on_activation_token      (activation_token)
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token)
+#  index_users_on_slug                  (slug) UNIQUE
 #
 class UserSerializer
   include JSONAPI::Serializer

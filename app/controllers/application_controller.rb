@@ -1,7 +1,4 @@
 class ApplicationController < ActionController::API
-  # for basic_auth
-  # include ActionController::HttpAuthentication::Basic::ControllerMethods
-  # include ActionController::HttpAuthentication::Token::ControllerMethods
   include JWTSessions::RailsAuthorization
   rescue_from JWTSessions::Errors::Unauthorized, with: :not_authorized
   rescue_from JWTSessions::Errors::ClaimsVerification, with: :forbidden

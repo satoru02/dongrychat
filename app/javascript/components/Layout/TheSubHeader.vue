@@ -4,18 +4,23 @@
   <slot name="popular_header" :sub_header="popular"></slot>
   <slot name="notify_header" :sub_header="notifications"></slot>
   <slot name="account_header" :sub_header="accountSetting"></slot>
+  <slot name="tag_header" :sub_header="tag + tag_space"></slot>
 </div>
 </template>
 
 <script>
 export default {
   name: "TheSubHeader",
+  props: {
+    tag: ''
+  },
   data(){
     return{
       home: 'お気に入りのスペース一覧',
       popular: '話題のスペース一覧',
       notifications: '通知',
       accountSetting: 'アカウント設定',
+      tag_space: 'のスペース一覧',
       movie: 'MOVIE',
       tv: 'TV'
     }

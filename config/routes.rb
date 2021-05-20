@@ -92,6 +92,10 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :tags do
+        get 'members', on: :collection
+      end
+
       resources :spaces do
         collection do
           get :enter

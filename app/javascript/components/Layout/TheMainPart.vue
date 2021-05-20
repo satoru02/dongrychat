@@ -1,9 +1,7 @@
 <template>
-  <v-app style="background-color: #ffffff">
+  <v-app class="the-main-part">
     <the-header />
-    <!-- <v-divider class="mt-16" /> -->
-
-    <v-main class="">
+    <v-main>
       <v-row>
         <v-col :cols="this.colsGrid[0]" :sm="this.smGrid[0]" :md="this.mdGrid[0]" :lg="this.lgGrid[0]"
           :xl="this.xlGrid[0]" v-if="$vuetify.breakpoint.width > 600">
@@ -12,7 +10,10 @@
         <v-divider vertical class="ml-n13 mr-8" />
         <v-col :cols="this.colsGrid[1]" :sm="this.smGrid[1]" :md="this.mdGrid[1]" :lg="this.lgGrid[1]"
           :xl="this.xlGrid[1]" :class="$vuetify.breakpoint.width > 600 ? grid.deskCenter : grid.mobileCenter">
-          <router-view />
+          <keep-alive>
+            <router-view v-if="$route.meta.keepAlive" />
+          </keep-alive>
+          <router-view v-if="!$route.meta.keepAlive"/>
         </v-col>
         <v-col class="ml-n4" :cols="this.colsGrid[2]" :sm="this.smGrid[2]" :md="this.mdGrid[2]" :lg="this.lgGrid[2]"
           :xl="this.xlGrid[2]" v-if="$vuetify.breakpoint.width > 600">
@@ -87,6 +88,7 @@
           case 'movie':
           case 'company':
           case 'UserTop':
+          case 'Tag':
             this.lgGrid = [3, 6, 3]
             break;
           case 'TvDetails':
@@ -146,10 +148,11 @@
 </script>
 
 <style scoped>
-  .vappTop {
-    background-color: #fdfdfd;
+  .the-main-part {
+    background-color: #ffffff;
   }
-.theme--light.v-divider {
+
+  .theme--light.v-divider {
     border-color: rgba(0,0,0,.04);
-}
+  }
 </style>

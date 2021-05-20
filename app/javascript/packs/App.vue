@@ -1,5 +1,5 @@
 <template>
-  <main-part />
+  <main-part class="top-component" />
 </template>
 
 <script>
@@ -23,4 +23,7 @@
 </script>
 
 <style scoped>
+  .top-component {
+    font-family: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif';
+  }
 </style>

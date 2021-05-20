@@ -4,7 +4,7 @@
 #
 #  id          :bigint           not null, primary key
 #  checked     :boolean          default(FALSE), not null
-#  genre       :integer          default(0)
+#  genre       :integer          default("relationship")
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  receiver_id :integer          not null

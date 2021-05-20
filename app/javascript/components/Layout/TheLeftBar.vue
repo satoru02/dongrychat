@@ -1,15 +1,7 @@
 <template>
-  <v-container class=mt-n4>
-    <!-- <v-row>
-      <v-col lg=3></v-col>
-      <v-col lg=9>
-      <div :style="logoStyle" class="mt-4">
-        devio
-      </div>
-      </v-col>
-    </v-row> -->
+  <v-container class="left-bar mt-n4">
     <v-list nav flat :style="list.style" color="#ffffff" dark class="ml-16 rounded-lg">
-      <v-subheader :style="category" class="mb-n2">カテゴリー</v-subheader>
+      <v-subheader :style="category" class="mb-n2">メニュー</v-subheader>
       <v-list-item-group v-model="selectedItem">
         <v-hover v-slot="{hover}" v-for="(item, index) in menus" :key="index">
           <v-list-item :elevation="hover ? 10: 0" @click="changeRoute(item.path_name)" class="ml-2 mb-n2">
@@ -23,7 +15,6 @@
                   <v-chip class="ml-3 mb-1" v-if="item.text === 'お気に入り' || item.text === 'フォロー中'" x-small elevation=0
                     color="#02e98d">34</v-chip>
                 </span>
-                <!-- <span><v-badge v-if="item.text === 'お気に入り'" dot color="#02e98d"></v-badge></span> -->
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
@@ -31,43 +22,18 @@
       </v-list-item-group>
       <v-divider color="#f6f6f9" class="mt-5 ml-3" />
       <v-list-item-group v-model="selectedItem" class="mt-3">
-        <v-subheader :style="category" class="mb-n1">人気のタグ</v-subheader>
-        <v-hover v-slot="{hover}" v-for="(item, index) in tags" :key="index">
-          <v-list-item dense :elevation="hover ? 10: 0" @click="changeRoute(item.path_name)" class="mb-2 ml-2 mt-n3">
+        <v-subheader :style="category" class="mb-2">人気のカテゴリ</v-subheader>
+        <v-hover v-slot="{hover}" v-for="(tag, index) in tags" :key="index">
+          <v-list-item dense :elevation="hover ? 10: 0" @click="goTagPage(tag.attributes)" class="mb-3 ml-2 mt-n3">
             <v-list-item-content>
-              <v-list-item-title v-text="item" :style="tag.style" />
+              <v-list-item-title :style="hover ? list_item_title.hoverStyle : list_item_title.style">
+                #{{tag.attributes.name}}
+              </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-hover>
       </v-list-item-group>
     </v-list>
-
-    <!-- <v-row>
-      <v-col md=12 lg=12 xl=12 />
-    </v-row> -->
-    <!-- <v-row :style="btn.style">
-      <v-col md=3 lg=3 xl=3 />
-      <v-col md=8 lg=8 xl=8>
-        <v-dialog v-model="aboutDialog" width="500">
-          <template v-slot:activator="{on, attrs}">
-            <v-btn block v-bind="attrs" v-on="on" :elevation="btn.elevation" :class="btn.round" :color="btn.color"
-              :height="btn.height">
-              <div :style="btn_text.style" v-text="btn_text.text" />
-            </v-btn>
-          </template>
-          <v-card>
-            <v-card-title class="sub-headline lighten-2">
-              Devioについて
-            </v-card-title>
-            <v-card-text>
-              {{ overviewText }}
-            </v-card-text>
-            <v-card-actions>
-          </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-col>
-    </v-row> -->
 
     <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
       <v-card color="#ffffff" height="250" class="rounded-lg">
@@ -103,6 +69,9 @@
 </template>
 
 <script>
+  import { secureAxios } from '../../backend/axios';
+  const api_tags_url = `/api/v1/tags`
+
   export default {
     name: "TheLeftBar",
     data() {
@@ -113,26 +82,13 @@
         query: '',
         logoStyle: {
           fontWeight: 'bold',
-          // position: 'fixed',
           fontFamily: 'Helvetica Neue, sans-serif',
           fontSize: '22px',
           color: '#011627',
           cursor: 'pointer'
         },
         overviewText: 'Devioは、最新の配信ドラマから往年のクラシック映画まで自由に会話できるオープンコミュニティです。見たばかりの感動や興奮を、共有できる場所を目指しています。',
-        tags: [
-          '# love',
-          '# サイエンス',
-          '# action',
-          '# ドラマ',
-          '# ホラー',
-          '# love',
-          '# アドベンチャー',
-          '# love',
-          '# love',
-          '# アドベンチャー',
-          '# love',
-        ],
+        tags: [],
         menus: [{
             text: '話題',
             icon: '🎉',
@@ -168,16 +124,6 @@
             icon: '🗞',
             path_name: 'NotificationTop'
           },
-          // {
-          //   text: '通知',
-          //   icon: '📣',
-          //   path_name: 'NotificationTop'
-          // },
-          // {
-          //   text: '設定',
-          //   icon: '☕️',
-          //   path_name: 'Settings'
-          // },
         ],
         header_part: {
           position: 'mt-n5 ml-n4 mr-3',
@@ -206,31 +152,25 @@
           size: 14,
           color: '#6c757d'
         },
-        tag: {
-          style: {
-            fontWeight: 'bold',
-            color: '#14171a',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
-            fontSize: '13px',
-          }
+        tag_item: {
+          fontWeight: 'bold',
+          color: '#14171a',
+          fontSize: '13px',
         },
         category: {
           fontWeight: 'bold',
-          fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
           fontSize: '12px',
           color: '#657786',
         },
         list_item_title: {
           color: '#011627',
           hoverStyle: {
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '13px',
             color: '#02e98d',
             fontWeight: 'bold',
           },
           style: {
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '13px',
             color: '#011627'
           }
@@ -249,7 +189,6 @@
           text: 'Devioについて 👈',
           style: {
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '3px',
             width: '145px',
             color: '#ffffff',
@@ -259,24 +198,32 @@
           headerStyle: {
             color: '#111111',
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '17px',
           },
           btnStyle: {
             color: '#ffffff',
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '12px',
           },
           policyStyle: {
             color: '#6c757d',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '4px',
           }
         }
       }
     },
+    created(){
+      this.fetchTags()
+    },
     methods: {
+      fetchTags(){
+        secureAxios.get(api_tags_url)
+          .then(res => this.fetchSuccessful(res))
+          .catch(err => this.fetchFailed(err))
+      },
+      fetchSuccessful(res){
+        this.tags = res.data.data
+      },
       changeRoute(path) {
         if ((path === 'Home') || (path === 'Settings')) {
           if (!this.$store.state.signedIn) {
@@ -298,12 +245,22 @@
       },
       goSignup() {
         this.$router.replace('/signup')
+      },
+      goTagPage(tag){
+        this.$router.replace({name: 'Tag', params: {
+          // id: tag.id,
+          name: tag.name,
+        }})
       }
     }
   }
 </script>
 
 <style scoped>
+  .left-bar {
+    font-weight: bold;
+  }
+
   .v-divider {
     border-color: rgba(24, 23, 23, 0);
     color: #dddddd
@@ -328,5 +285,11 @@
     margin-right: 10px;
     padding-right: 20px;
     padding-left: 5;
+  }
+
+  .tag_item {
+    font-weight: bold;
+    color: #14171a;
+    font-size: '13px';
   }
 </style>

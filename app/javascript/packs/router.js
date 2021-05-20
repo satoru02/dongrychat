@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import VueGtag from "vue-gtag";
 import { store } from './store';
 import HomeTop from '../components/Home/HomeTop';
 import DetailTop from '../components/Detail/DetailsTop';
@@ -26,14 +25,9 @@ import SearchList from '../components/Search/SearchList';
 import Privacy from '../components/Overview/Privacy';
 import Terms from '../components/Overview//Terms';
 import NotificationTop from '../components/Notification/NotificationTop';
+import TagTop from '../components/Tag/TagTop';
 
 Vue.use(VueRouter);
-Vue.use(VueGtag, {
-  config: {id: process.env.GA_ID},
-  app_name: process.env.GA_APP_NAME,
-  pageTrackerScreenviewEnabled: true,
-  router
-});
 
 function guardMyroute(to, from, next){
   if(store.state.signedIn){
@@ -50,7 +44,7 @@ function guardMultiLogin(to, from, next){
   }
 }
 
-const router = new VueRouter({
+var router = new VueRouter({
   mode: 'history',
   routes: [
     {
@@ -105,7 +99,8 @@ const router = new VueRouter({
       name: 'Chart',
       component: ChartTop,
       meta: {
-        title: 'チャート'
+        title: 'チャート',
+        keepAlive: true,
       }
     },
     {
@@ -114,7 +109,8 @@ const router = new VueRouter({
       beforeEnter: guardMyroute,
       component: HomeTop,
       meta: {
-        title: 'ホーム'
+        title: 'ホーム',
+        keepAlive: true,
       }
     },
     {
@@ -357,7 +353,8 @@ const router = new VueRouter({
       name: "Privacy",
       component: Privacy,
       meta: {
-        title: 'プライバシーポリシー'
+        title: 'プライバシーポリシー',
+        keepAlive: true
       }
     },
     {
@@ -365,7 +362,8 @@ const router = new VueRouter({
       name: "Terms",
       component: Terms,
       meta: {
-        title: '利用規約'
+        title: '利用規約',
+        keepAlive: true
       }
     },
     {
@@ -373,7 +371,16 @@ const router = new VueRouter({
       name: "NotificationTop",
       component: NotificationTop,
       meta: {
-        title: '通知'
+        title: '通知',
+        keepAlive: true
+      }
+    },
+    {
+      path: "/tag/:name",
+      name: "Tag",
+      component: TagTop,
+      meta: {
+        keepAlive: true
       }
     }
   ]
