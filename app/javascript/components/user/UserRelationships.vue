@@ -1,26 +1,26 @@
 <template>
   <v-container :class="this.$vuetify.breakpoint.width < 600 ? 'ml-16' : ''">
-    <v-list-item-group style="background-color: #ffffff;"
-     v-for="(user, index) in relationships" :key="index" multiple class="list-body">
-        <v-list-item>
-          <template v-slot:default="{}">
-            <v-list-item-avatar size=58 height=58 tile class="rounded-lg">
-              <v-img :src="user.attributes.avatar_url" />
-            </v-list-item-avatar>
-            <v-list-item-content class=ml-1>
-              <v-list-item-title class="card-title">
-                {{user.attributes.name}}
-              </v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-action class="ml-n5">
-              <v-btn small elevation=0 v-if="$store.state.currentUser.id != user.id"
-                :style="checkRelationship(user) ? followingStyle : unfollowStyle"
-                @click="checkRelationship(user) ? unfollow(user.attributes.id) : follow(user.attributes.id)">
-                {{ checkRelationship(user) ? followingText : unfollowText }}
-              </v-btn>
-            </v-list-item-action>
-          </template>
-        </v-list-item>
+    <v-list-item-group style="background-color: #ffffff;" v-for="(user, index) in relationships" :key="index" multiple
+      class="list-body">
+      <v-list-item>
+        <template v-slot:default="{}">
+          <v-list-item-avatar size=58 height=58 tile class="rounded-lg">
+            <v-img :src="user.attributes.avatar_url" />
+          </v-list-item-avatar>
+          <v-list-item-content class=ml-1>
+            <v-list-item-title class="card-title">
+              {{user.attributes.name}}
+            </v-list-item-title>
+          </v-list-item-content>
+          <v-list-item-action class="ml-n5">
+            <v-btn small elevation=0 v-if="$store.state.currentUser.id != user.id"
+              :style="checkRelationship(user) ? followingStyle : unfollowStyle"
+              @click="checkRelationship(user) ? unfollow(user.attributes.id) : follow(user.attributes.id)">
+              {{ checkRelationship(user) ? followingText : unfollowText }}
+            </v-btn>
+          </v-list-item-action>
+        </template>
+      </v-list-item>
     </v-list-item-group>
   </v-container>
 </template>
@@ -30,6 +30,12 @@
     secureAxios
   } from '../../backend/axios';
   const RELATIONSHOP_URL = `/api/v1/relationships`;
+
+  import {
+    RepositoryFactory
+  } from '../../repositories/RepositoryFactory';
+  const usersRepository = RepositoryFactory.get('users');
+  const relationshipsRepository = RepositoryFactory.get('relationships');
   export default {
     name: "UserRelationships",
     props: {
@@ -60,7 +66,7 @@
       }
     },
     methods: {
-      checkRelationship(user){
+      checkRelationship(user) {
         if (this.$store.state.currentUser.following.includes(user.attributes.id)) {
           return true
         } else {
@@ -68,24 +74,24 @@
         }
       },
       follow(user_id) {
-        secureAxios.post(RELATIONSHOP_URL, {
-          followed_id: user_id
-        }).then(res => {
-          console.log(res)
-          this.$store.commit('follow', user_id)
-          this.followed = true
-        })
+        relationshipsRepository.follow({
+            followed_id: user_id
+          })
+          .then(res => {
+            console.log(res)
+            this.$store.commit('follow', user_id)
+            this.followed = true
+          })
       },
       unfollow(user_id) {
-        secureAxios.delete(RELATIONSHOP_URL + `/` + `${this.$store.state.currentUser.id}`, {
-          params: {
+        relationshipsRepository.unfollow(this.$store.state.currentUser.id, {
             id: this.$store.state.currentUser.id,
             followed_id: user_id
-          }
-        }).then(res => {
-          this.$store.commit('unfollow', user_id)
-          this.followed = false
-        })
+          })
+          .then(res => {
+            this.$store.commit('unfollow', user_id)
+            this.followed = false
+          })
       },
     }
   }

@@ -9,11 +9,10 @@
         <span class="user-name ml-3 mt-n8">{{user_info.name}}</span><span
           class="user-subname ml-2 mt-n7">@{{user_info.name}}</span>
         <v-spacer />
-        <v-btn class="user-relationBtn mt-n8"
-          :style="followed ? followingStyle : unfollowingStyle"
+        <v-btn class="user-relationBtn mt-n8" :style="followed ? followingStyle : unfollowingStyle"
           @click="followed ? unfollow(user_info.id) : follow(user_info.id)"
-          v-if="this.$store.state.currentUser.id !== user_info.id" small
-          elevation=0 outlined>{{followed ? followingText : unfollowingText}}</v-btn>
+          v-if="this.$store.state.currentUser.id !== user_info.id" small elevation=0 outlined>
+          {{followed ? followingText : unfollowingText}}</v-btn>
       </v-card-title>
 
       <!-- fix -->
@@ -50,20 +49,22 @@
       </v-row>
     </v-card>
     <v-tabs class="mt-4" background-color='#ffffff' :height="'35'" :color="'#016aff'">
-      <v-tab @click="changeTab(tab.name)" class="user-tab" :active-class="'blue--text'" v-for="(tab,index) in user_tabs" :key="index">
+      <v-tab @click="changeTab(tab.name)" class="user-tab" :active-class="'blue--text'" v-for="(tab,index) in user_tabs"
+        :key="index">
         {{tab.title}}
       </v-tab>
     </v-tabs>
     <v-divider />
-    <router-view :user_info="this.user_info"/>
+    <router-view :user_info="this.user_info" />
   </v-container>
 </template>
 
 <script>
   import {
-    secureAxios
-  } from '../../backend/axios';
-  const RELATIONSHOP_URL = `/api/v1/relationships`;
+    RepositoryFactory
+  } from '../../repositories/RepositoryFactory';
+  const usersRepository = RepositoryFactory.get('users');
+  const relationshipsRepository = RepositoryFactory.get('relationships');
 
   export default {
     name: "UserTop",
@@ -71,8 +72,7 @@
       return {
         user_info: '',
         default_avatar: `https://cdn.vuetifyjs.com/images/john.jpg`,
-        user_tabs: [
-          {
+        user_tabs: [{
             title: 'プロフィール',
             name: 'UserTop',
             path: 'posts',
@@ -109,7 +109,7 @@
         },
       }
     },
-    beforeRouteEnter (to, from, next) {
+    beforeRouteEnter(to, from, next) {
       next(vm => {
         vm.getUser()
         document.title = to.params.user_name
@@ -119,12 +119,12 @@
       document.title = this.user_info.name
       next()
     },
-    updated(){
+    updated() {
       this.follow_check(this.user_info)
     },
     methods: {
       getUser() {
-        secureAxios.get(`/api/v1/users/${this.$route.params.user_name}`)
+        usersRepository.getUserInfo(this.$route.params.user_name)
           .then(res => this.fetchSuccessful(res))
           .catch(err => this.fetchFailed(err))
       },
@@ -143,34 +143,36 @@
         }
       },
       setLink() {},
-      changeTab(path_name){
-        this.$router.push({name: path_name})
+      changeTab(path_name) {
+        this.$router.push({
+          name: path_name
+        })
       },
-      follow_check(user){
-        if(this.$store.state.currentUser.following.includes(user.id)){
+      follow_check(user) {
+        if (this.$store.state.currentUser.following.includes(user.id)) {
           this.followed = true
         } else {
           this.followed = false
         }
       },
       follow(user_id) {
-        secureAxios.post(RELATIONSHOP_URL, {
-          followed_id: user_id
-        }).then(res => {
-          this.$store.commit('follow', user_id)
-          this.followed = true
-        })
+        relationshipsRepository.follow({
+            followed_id: user_id
+          })
+          .then(res => {
+            this.$store.commit('follow', user_id)
+            this.followed = true
+          })
       },
       unfollow(user_id) {
-        secureAxios.delete(RELATIONSHOP_URL + `/` + `${this.$store.state.currentUser.id}`, {
-          params: {
+        relationshipsRepository.unfollow(this.$store.state.currentUser.id, {
             id: this.$store.state.currentUser.id,
             followed_id: user_id
-          }
-        }).then(res => {
-          this.$store.commit('unfollow', user_id)
-          this.followed = false
-        })
+          })
+          .then(res => {
+            this.$store.commit('unfollow', user_id)
+            this.followed = false
+          })
       },
     }
   }
