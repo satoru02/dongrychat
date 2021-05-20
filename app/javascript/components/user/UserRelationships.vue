@@ -27,14 +27,8 @@
 
 <script>
   import {
-    secureAxios
-  } from '../../backend/axios';
-  const RELATIONSHOP_URL = `/api/v1/relationships`;
-
-  import {
     RepositoryFactory
   } from '../../repositories/RepositoryFactory';
-  const usersRepository = RepositoryFactory.get('users');
   const relationshipsRepository = RepositoryFactory.get('relationships');
   export default {
     name: "UserRelationships",

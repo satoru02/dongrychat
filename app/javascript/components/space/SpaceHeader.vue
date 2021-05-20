@@ -52,9 +52,6 @@
 </template>
 
 <script>
-  import {
-    secureAxios
-  } from '../../backend/axios';
   import BaseLabel from '../Base/BaseLabel';
   import {
     RepositoryFactory

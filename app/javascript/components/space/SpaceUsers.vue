@@ -20,11 +20,9 @@
 </template>
 
 <script>
-  import {
-    secureAxios
-  } from '../../backend/axios';
   import BaseProfileDialog from '../Base/BaseProfileDialog';
-  const RELATIONSHOP_URL = `/api/v1/relationships`;
+  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  const relationshipsRepository = RepositoryFactory.get('relationships')
 
   export default {
     name: 'SpaceUsers',
@@ -95,20 +93,20 @@
         }
       },
       follow(user_id) {
-        secureAxios.post(RELATIONSHOP_URL, {
+        relationshipsRepository.follow({
           followed_id: user_id
-        }).then(res => {
+        })
+        .then(res => {
           this.$store.commit('follow', user_id)
           this.btnFollowed = true
         })
       },
       unfollow(user_id) {
-        secureAxios.delete(RELATIONSHOP_URL + `/` + `${this.$store.state.currentUser.id}`, {
-          params: {
+        relationshipsRepository.unfollow(this.$store.state.currentUser.id, {
             id: this.$store.state.currentUser.id,
             followed_id: user_id
-          }
-        }).then(res => {
+        })
+        .then(res => {
           this.$store.commit('unfollow', user_id)
           this.btnFollowed = false
         })
