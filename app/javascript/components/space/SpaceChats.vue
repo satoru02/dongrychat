@@ -42,7 +42,7 @@
     },
     data: function () {
       return {
-        comment_endpoint: `/api/v1/comments`,
+        comment_endpoint: `/api/v1/spaces/`,
         page: 1,
         pageSize: 10,
         comments: [],
@@ -98,7 +98,7 @@
         setTimeout(() => {
           this.params.page = this.page
           this.params.per_page = this.pageSize
-          secureAxios.get(this.comment_endpoint, {
+          secureAxios.get(this.comment_endpoint + `${this.spaceId}` + `/` + `comments`, {
               params: this.params
             })
             .then(res => {
