@@ -80,7 +80,7 @@
     data() {
       return {
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
-        spaces_endpoint: `/api/v1/spaces`,
+        users_subscription_endpoint: `/api/v1/users/`,
         items: [],
         page: 1,
         pageSize: 10,
@@ -186,7 +186,7 @@
       },
       infiniteHandler($state) {
         setTimeout(() => {
-          secureAxios.get(this.spaces_endpoint, {
+          secureAxios.get(this.users_subscription_endpoint + `${this.$store.state.currentUser.id}` + `/subscription`, {
               params: {
                 page: this.page,
                 per_page: this.pageSize

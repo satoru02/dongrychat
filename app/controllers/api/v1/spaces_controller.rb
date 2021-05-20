@@ -1,15 +1,9 @@
 module Api
   module V1
     class SpacesController < ApplicationController
-      before_action :authorize_access_request!, only: [:index, :public, :subscribed, :comments]
+      before_action :authorize_access_request!, only: [:public, :subscribed, :comments]
       before_action :set_space, only: [:subscribed, :comments]
       before_action :set_condition, only: [:subscribed, :comments]
-
-      def index
-        @spaces = current_user.spaces.order_by_comments(current_user).paginate(:page => params[:page], :per_page => params[:per_page])
-        serializer = set_home_space_serializer(@spaces)
-        render_json(serializer)
-      end
 
       def trend
         @spaces = Space.get_trend(params).paginate(:page => params[:page], :per_page => params[:per_page])
@@ -46,16 +40,8 @@ module Api
 
       private
 
-        def current_user_params
-          { params: { current_user: current_user } }
-        end
-
         def enter_params(condition, media)
           { params: { condition: condition, media: media } }
-        end
-
-        def set_home_space_serializer(spaces)
-          HomeSpaceSerializer.new(spaces, current_user_params)
         end
 
         def set_trend_space_serializer(spaces)

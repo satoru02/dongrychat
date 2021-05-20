@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       resources :users do
         get 'me', on: :collection
         member do
-          get :following, :followers, :online
+          get :following, :followers, :online, :subscription
         end
       end
 
