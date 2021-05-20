@@ -22,21 +22,15 @@ module Api
           )
           render json: { csrf: tokens[:csrf], access_token: tokens[:access] }
         else
-          not_found
+          response_not_found('Login')
         end
       end
 
       def destroy
         session = JWTSessions::Session.new(payload: payload, namespace: "user_#{payload['user_id']}")
         session.flush_by_access_payload
-        render json: :ok
+        response_success('Login', 'destroyed')
       end
-
-      private
-
-        def not_found
-          render json: { error: "Cannot find such email/password combination" }, status: :not_found
-        end
     end
   end
 end

@@ -33,7 +33,7 @@ class ApplicationController < ActionController::API
       render status: 401, json: { status: 401, message: 'Unauthorized' }
     end
 
-    def response_not_found(class_name = 'page')
+    def response_not_found(class_name)
       render status: 404, json: { status: 404, message: "#{class_name.capitalize} Not Found" }
     end
 
