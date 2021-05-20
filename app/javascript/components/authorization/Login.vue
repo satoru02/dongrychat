@@ -107,6 +107,9 @@
     simpleAxios
   } from '../../backend/axios';
 
+  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  const authRepository = RepositoryFactory.get('auth');
+
   export default {
     name: 'Login',
     data() {
@@ -171,37 +174,31 @@
           headerTitleStyle: {
             color: '#111111',
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '23px',
           },
           btnStyle: {
             color: '#ffffff',
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '12px',
           },
           forgotTextStyle: {
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '3px',
             color: '#adb5bd',
             cursor: 'pointer'
           },
           loginTextStyle: {
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '11px',
           },
           signupStyle: {
             color: '#adb5bd',
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '3px',
             cursor: 'pointer'
           },
           policyStyle: {
             color: '#6c757d',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '8px',
           }
         }
@@ -237,7 +234,7 @@
       signIn() {
         this.checkInputValidation()
         if (!this.errors.length) {
-          simpleAxios.post(this.login_url, {
+          authRepository.login({
               email: this.email,
               password: this.password
             })

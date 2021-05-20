@@ -123,15 +123,13 @@
 </template>
 
 <script>
-  import {
-    simpleAxios
-  } from '../../backend/axios';
+  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  const authRepository = RepositoryFactory.get('auth');
 
   export default {
     name: 'Signup',
     data() {
       return {
-        signup_url: '/api/v1/signup',
         email: '',
         name: '',
         password: '',
@@ -201,36 +199,30 @@
           headerTitleStyle: {
             color: '#111111',
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '23px',
           },
           btnStyle: {
             color: '#ffffff',
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '12px',
           },
           forgotTextStyle: {
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '3px',
             color: '#adb5bd'
           },
           signupTextStyle: {
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '11px',
           },
           loginStyle: {
             color: '#adb5bd',
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '10px',
             cursor: 'pointer'
           },
           policyStyle: {
             color: '#6c757d',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '8px',
           }
         }
@@ -256,29 +248,29 @@
           this.errors.push(this.inputValidation.noPassword)
         } else if (!this.validEmail(this.email)) {
           this.errors.push(this.inputValidation.invalidMail)
-        }
+        };
         if (!this.name) {
           this.errors.push(this.inputValidation.noName)
-        }
+        };
         if (!this.password) {
           this.errors.push(this.inputValidation.noPassword)
-        }
+        };
         if (!this.password_confirmation) {
           this.errors.push(this.inputValidation.noConfirmation)
-        }
+        };
         if (this.errors.length) {
           return this.errorbar = true
-        }
+        };
       },
       signup() {
         this.checkFormValidation()
         if (!this.errors.length) {
-          simpleAxios.post(this.signup_url, {
-              name: this.name,
-              email: this.email,
-              password: this.password,
-              password_confirmation: this.password_confirmation
-            })
+          authRepository.signup({
+            name: this.name,
+            email: this.email,
+            password: this.password,
+            password_confirmation: this.password_confirmation
+          })
             .then(this.sendingMail = true)
             .then(res => this.signupSuccessful(res))
             .catch(err => this.signupFailed(err))

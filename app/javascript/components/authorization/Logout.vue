@@ -2,15 +2,13 @@
 </template>
 
 <script>
-  import {
-    secureAxios
-  } from '../../backend/axios';
+  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  const authRepository = RepositoryFactory.get('auth');
 
   export default {
     name: 'Logout',
     data(){
       return {
-        logout_url: '/api/v1/login'
       }
     },
     created() {
@@ -18,11 +16,11 @@
     },
     methods: {
       logout() {
-        secureAxios.delete(this.logout_url + `/` + `${this.$store.state.currentUser.id}`)
-          .then(res => this.logoutSuccessful())
+        authRepository.logout(this.$store.state.currentUser.id)
+          .then(res => this.logoutSuccessful(res))
           .catch(error => this.setError(error, 'Cannot log out.'))
       },
-      logoutSuccessful() {
+      logoutSuccessful(res) {
         localStorage.removeItem('vuex')
         this.$store.commit('unsetCurrentUser')
         this.$router.replace('/')
