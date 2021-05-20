@@ -31,7 +31,7 @@ Rails.application.routes.draw do
         end
 
         collection do
-          get :public
+          get :unsubscribed
           get :subscribed
           get :trend
         end

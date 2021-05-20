@@ -36,7 +36,7 @@
           mv: 'mv',
         },
         api: {
-          from_search: `public`,
+          from_search: `unsubscribed`,
           from_subscription: `subscribed`,
         },
         space: {
