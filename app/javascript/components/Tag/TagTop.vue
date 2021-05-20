@@ -19,7 +19,7 @@
   import BaseCard from '../Base/BaseCard';
   import TheSubHeader from '../Layout/TheSubHeader';
 
-  const api_tag_url = `/api/v1/tags`
+  const api_tag_url = `/api/v1/tags/`
   export default {
     name: "TagTop",
     components: {
@@ -62,9 +62,8 @@
       },
       infiniteHandler($state) {
         setTimeout(() => {
-          secureAxios.get(api_tag_url + `/members/`, {
+          secureAxios.get(api_tag_url + `${this.$route.params.name}` + `/spaces`, {
               params: {
-                name: this.$route.params.name,
                 page: this.page,
                 per_page: this.pageSize
               }

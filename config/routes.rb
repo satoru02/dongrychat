@@ -17,8 +17,16 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :tags do
-        get 'members', on: :collection
+      resources :organizations, only: [:show], param: :username do
+        resources :users, only: [:index], to: "organizations#users"
+        resources :listings, only: [:index], to: "organizations#listings"
+        resources :articles, only: [:index], to: "organizations#articles"
+      end
+
+      resources :tags, only: [:index, :show], param: :name do
+        member do
+          get :spaces
+        end
       end
 
       resources :spaces do
