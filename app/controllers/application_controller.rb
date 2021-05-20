@@ -1,11 +1,11 @@
 class ApplicationController < ActionController::API
   include JWTSessions::RailsAuthorization
+  require 'will_paginate/array'
   rescue_from JWTSessions::Errors::Unauthorized, with: :not_authorized
   rescue_from JWTSessions::Errors::ClaimsVerification, with: :forbidden
   rescue_from ActionController::ParameterMissing, with: :response_bad_request
   rescue_from ActiveRecord::RecordNotFound, with: :response_not_found
   rescue_from ActiveRecord::RecordInvalid, with: :unprocessable_entity
-  require 'will_paginate/array'
 
   private
 
