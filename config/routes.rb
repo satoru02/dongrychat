@@ -6,21 +6,17 @@ Rails.application.routes.draw do
       resources :refresh, only: :create
       resources :signup, only: :create
       resources :notifications, only: :index
+
       resources :avatar do
         get 'presigned_url', on: :collection
       end
 
       resources :users do
         get 'me', on: :collection
+
         member do
           get :following, :followers, :online, :subscription
         end
-      end
-
-      resources :organizations, only: [:show], param: :username do
-        resources :users, only: [:index], to: "organizations#users"
-        resources :listings, only: [:index], to: "organizations#listings"
-        resources :articles, only: [:index], to: "organizations#articles"
       end
 
       resources :tags, only: [:index, :show], param: :name do
@@ -33,6 +29,7 @@ Rails.application.routes.draw do
         member do
           get :comments, to: "spaces#comments"
         end
+
         collection do
           get :public
           get :subscribed
@@ -63,6 +60,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
   get '*path', to: 'home#index'
   mount ActionCable.server => "/cable"
+
   resources :auth do
     post ':provider', action: :create, on: :collection
   end
