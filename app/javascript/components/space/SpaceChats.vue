@@ -22,11 +22,10 @@
 </template>
 
 <script>
-  import {
-    secureAxios
-  } from '../../backend/axios';
   import SpaceComments from './SpaceComments';
   import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
+  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  const spacesRepository = RepositoryFactory.get('spaces');
 
   export default {
     name: 'SpaceChats',
@@ -42,7 +41,6 @@
     },
     data: function () {
       return {
-        comment_endpoint: `/api/v1/spaces/`,
         page: 1,
         pageSize: 10,
         comments: [],
@@ -98,9 +96,7 @@
         setTimeout(() => {
           this.params.page = this.page
           this.params.per_page = this.pageSize
-          secureAxios.get(this.comment_endpoint + `${this.spaceId}` + `/` + `comments`, {
-              params: this.params
-            })
+          spacesRepository.getComments(this.spaceId, this.params)
             .then(res => {
               if (res.data.data.length) {
                 this.page += 1;

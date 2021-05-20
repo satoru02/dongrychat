@@ -16,10 +16,9 @@
 </template>
 
 <script>
-  import {
-    secureAxios
-  } from '../../backend/axios';
   import SpaceHeader from './SpaceHeader';
+  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  const spacesRepository = RepositoryFactory.get('spaces');
 
   export default {
     name: 'SpaceTop',
@@ -37,9 +36,8 @@
           mv: 'mv',
         },
         api: {
-          from_search: `/api/v1/spaces/public`,
-          from_subscription: `/api/v1/spaces/subscribed`,
-          for_subscription: `/api/v1/subscriptions`
+          from_search: `public`,
+          from_subscription: `subscribed`,
         },
         space: {
           tv: {
@@ -172,9 +170,7 @@
         })
       },
       setSpace() {
-        secureAxios.get(this.endpoint, {
-            params: this.params
-          })
+        spacesRepository.enterSpace(this.endpoint,this.params)
           .then(res => this.successful(res))
           .catch(err => this.failed(err))
       },
