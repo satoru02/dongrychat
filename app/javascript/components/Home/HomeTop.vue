@@ -35,20 +35,6 @@
               :style="style.name">
                 {{item.attributes.name}}
               </v-col>
-              <!-- <v-col lg=3 class="mt-n4">
-                <v-avatar size="21">
-                  <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-                </v-avatar>
-                <v-avatar size="21" class="ml-n2">
-                  <v-img src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460" />
-                </v-avatar>
-                <v-avatar size="21" class="ml-n2" color="red">
-                  <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-                </v-avatar>
-                <v-avatar size="21" class="ml-n2" color="green">
-                  <v-img src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460" />
-                </v-avatar>
-              </v-col> -->
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-14">
                 <v-badge v-if="item.attributes.unconfirmed_comments > 0" dot />
               </v-col>
@@ -66,11 +52,6 @@
                   {{item.attributes.latest_comment.content}}
                </span>
               </v-col>
-              <!-- <v-col cols=10 sm=11 md=11 lg=10 xl=11
-              :class="$vuetify.breakpoint.width > 600 ? 'ml-n5' : 'ml-15'"
-               v-if="item.attributes.latest_comment !== null">
-                <div :style="style.comment">{{item.attributes.latest_comment.content}}</div>
-              </v-col> -->
             </v-row>
           </v-col>
         </v-row>
@@ -99,7 +80,7 @@
     data() {
       return {
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
-        spaces_endpoint: `/api/v1/spaces`,
+        users_subscription_endpoint: `/api/v1/users/`,
         items: [],
         page: 1,
         pageSize: 10,
@@ -141,19 +122,15 @@
         style: {
           headerPart: {
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '19px',
             color: '#000000'
           },
           name: {
             fontWeight: 'bold',
-            fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
             fontSize: '15px',
             color: '#111111'
           },
           comment: {
-            // fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '12px',
             color: '#011627',
             height: '33px',
@@ -161,13 +138,11 @@
             overflowY: 'auto'
           },
           notifyText: {
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '13px',
             fontWeight: 'bold',
             color: '#ffffff'
           },
           movieLabel: {
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '10px',
             // fontWeight: 'bold',
             color: '#111111'
@@ -211,7 +186,7 @@
       },
       infiniteHandler($state) {
         setTimeout(() => {
-          secureAxios.get(this.spaces_endpoint, {
+          secureAxios.get(this.users_subscription_endpoint + `${this.$store.state.currentUser.id}` + `/subscription`, {
               params: {
                 page: this.page,
                 per_page: this.pageSize

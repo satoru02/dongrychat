@@ -1,14 +1,9 @@
 module Api
   module V1
     class SpacesController < ApplicationController
-      before_action :authorize_access_request!, only: [:index, :enter, :enter_from_subscription]
-      before_action :set_space, only: [:enter_from_subscription]
-
-      def index
-        @spaces = current_user.spaces.order_by_comments(current_user).paginate(:page => params[:page], :per_page => params[:per_page])
-        serializer = set_home_space_serializer(@spaces)
-        render_json(serializer)
-      end
+      before_action :authorize_access_request!, only: [:public, :subscribed, :comments]
+      before_action :set_space, only: [:subscribed, :comments]
+      before_action :set_condition, only: [:subscribed, :comments]
 
       def trend
         @spaces = Space.get_trend(params).paginate(:page => params[:page], :per_page => params[:per_page])
@@ -16,7 +11,7 @@ module Api
         render_json(serializer)
       end
 
-      def enter
+      def public
         if params[:media] === 'mv'
           @space = Space.create_or_search_mv(mv_space_params, current_user)
         elsif params[:media] === 'tv'
@@ -28,16 +23,25 @@ module Api
         render_json(serializer)
       end
 
-      def enter_from_subscription
-        @condition = current_user.subscribed?(@space.id)
+      def subscribed
         serializer = set_space_serializer(@space, @condition, params[:media])
+        render_json(serializer)
+      end
+
+      def comments
+        if (@condition === true) && (@space.comments_unconfirmed_by(current_user) > 0)
+          @space.comments_confirmed_by(current_user)
+        end
+
+        @comments = @space.comments.order_by_latest.paginate(:page => params[:page], :per_page => params[:per_page])
+        serializer = set_comment_serializer(@comments, @condition, params[:media])
         render_json(serializer)
       end
 
       private
 
-        def set_home_space_serializer(spaces)
-          HomeSpaceSerializer.new(spaces, current_user_params)
+        def enter_params(condition, media)
+          { params: { condition: condition, media: media } }
         end
 
         def set_trend_space_serializer(spaces)
@@ -48,8 +52,16 @@ module Api
           SpaceSerializer.new(space, enter_params(condition, media))
         end
 
+        def set_comment_serializer(comments, condition, media)
+          CommentSerializer.new(comments, enter_params(condition, media))
+        end
+
         def set_space
-          @space = Space.find_by(id: params[:space_id])
+          @space = Space.find_by(id: params[:id])
+        end
+
+        def set_condition
+          @condition = current_user.subscribed?(@space.id)
         end
 
         def mv_space_params
@@ -58,14 +70,6 @@ module Api
 
         def tv_space_params
           params.permit(:name, :season, :episode, :episode_title, :media, :tmdb_comp_id, :tmdb_tv_id, :image_path, :overview, :page, :per_page, :tag_list => [])
-        end
-
-        def current_user_params
-          { params: { current_user: current_user } }
-        end
-
-        def enter_params(condition, media)
-          { params: { condition: condition, media: media } }
         end
     end
   end

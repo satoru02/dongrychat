@@ -1,11 +1,11 @@
 class ApplicationController < ActionController::API
   include JWTSessions::RailsAuthorization
+  require 'will_paginate/array'
   rescue_from JWTSessions::Errors::Unauthorized, with: :not_authorized
   rescue_from JWTSessions::Errors::ClaimsVerification, with: :forbidden
   rescue_from ActionController::ParameterMissing, with: :response_bad_request
   rescue_from ActiveRecord::RecordNotFound, with: :response_not_found
   rescue_from ActiveRecord::RecordInvalid, with: :unprocessable_entity
-  require 'will_paginate/array'
 
   private
 
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::API
     end
 
     def response_success(class_name, action_name)
-      render status: 200, json: { status: 200, message: "Success #{class_name.capitalize} #{action_name.capitalize}" }
+      render status: 200, json: { status: 200, message: "Success. #{class_name.capitalize} is #{action_name.capitalize}." }
     end
 
     def response_bad_request
@@ -33,7 +33,7 @@ class ApplicationController < ActionController::API
       render status: 401, json: { status: 401, message: 'Unauthorized' }
     end
 
-    def response_not_found(class_name = 'page')
+    def response_not_found(class_name)
       render status: 404, json: { status: 404, message: "#{class_name.capitalize} Not Found" }
     end
 

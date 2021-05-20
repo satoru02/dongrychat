@@ -8,7 +8,7 @@ module Api
         render_json(serializer)
       end
 
-      def members
+      def spaces
         @spaces = Space.includes(:users, :tags).tagged_with(params[:name])
         @paged_spaces = @spaces.paginate(:page => params[:page], :per_page => params[:per_page])
         serializer = TrendSpaceSerializer.new(@paged_spaces)

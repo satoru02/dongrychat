@@ -37,8 +37,8 @@
           mv: 'mv',
         },
         api: {
-          from_search: `/api/v1/spaces/enter`,
-          from_subscription: `/api/v1/spaces/enter_from_subscription`,
+          from_search: `/api/v1/spaces/public`,
+          from_subscription: `/api/v1/spaces/subscribed`,
           for_subscription: `/api/v1/subscriptions`
         },
         space: {
@@ -104,7 +104,7 @@
         case 'subscribedTvSpace': {
           this.endpoint = this.api.from_subscription
           this.params = {
-            space_id: this.$route.params.space_id,
+            id: this.$route.params.space_id,
             media: this.media.tv
           }
         }
@@ -112,7 +112,7 @@
       case 'subscribedMvSpace': {
         this.endpoint = this.api.from_subscription
         this.params = {
-          space_id: this.$route.params.space_id,
+          id: this.$route.params.space_id,
           media: this.media.mv
         }
       }

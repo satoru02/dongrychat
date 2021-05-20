@@ -2,7 +2,7 @@ module Api
   module V1
     class UsersController < ApplicationController
       before_action :authorize_access_request!
-      before_action :set_user, only: [:show, :update, :following, :followers]
+      before_action :set_user, only: [:show, :update, :following, :followers, :subscription]
 
       def me
         serializer = UserSerializer.new(current_user)
@@ -46,11 +46,24 @@ module Api
         render_json(serializer)
       end
 
+      def subscription
+        @spaces = @user.spaces.order_by_comments(@user).paginate(:page => params[:page], :per_page => params[:per_page])
+        serializer = set_home_space_serializer(@spaces, @user)
+        render_json(serializer)
+      end
+
       private
 
         def set_user
-          #slug
           @user = User.friendly.find(params[:id])
+        end
+
+        def current_user_params(user)
+          { params: { current_user: user } }
+        end
+
+        def set_home_space_serializer(spaces, user)
+          HomeSpaceSerializer.new(spaces, current_user_params(user))
         end
 
         def user_params
