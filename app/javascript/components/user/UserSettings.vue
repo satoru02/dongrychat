@@ -41,6 +41,14 @@
             </v-col>
           </v-row>
           <v-row dense>
+            <v-col lg=3>
+              <h3 class="setting-title mt-3 ml-5">アイコン</h3>
+            </v-col>
+            <v-col lg=8 md=8 xl=8 class="mt-1 ml-5">
+              <v-file-input background-color="#ffffff" outlined filled dense flat solo v-model="picture" @change="getPresignedURI()" />
+            </v-col>
+          </v-row>
+          <v-row dense>
             <v-col lg=11 class="ml-5 mt-n3">
               <v-divider />
             </v-col>
@@ -192,13 +200,11 @@
 </template>
 
 <script>
-  import {
-    secureAxios,
-    simpleAxios
-  } from '../../backend/axios';
+  import { simpleAxios } from '../../backend/axios';
   import TheSubHeader from '../Layout/TheSubHeader';
-  const UPDATE_ENDPOINT = '/api/v1/users'
-  const GET_PRESIGNED_URL = '/api/v1/avatar'
+  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  const usersRepository = RepositoryFactory.get('users');
+  const avatarRepository = RepositoryFactory.get('avatar');
 
   export default {
     name: 'Settings',
@@ -253,12 +259,11 @@
         };
       },
       getPresignedURI() {
-        secureAxios.get(GET_PRESIGNED_URL + `/` + `presigned_url`, {
-          params: {
-            filename: this.picture.name,
-            filetype: this.picture.type
-          }
-        }).then(response => {
+        avatarRepository.get({
+          filename: this.picture.name,
+          filetype: this.picture.type
+        })
+        .then(response => {
           var formdata = new FormData()
           formdata.append("Content-Type", response.data.fields['Content-Type'])
           formdata.append("key", response.data.fields['key'])
@@ -270,7 +275,6 @@
           formdata.append("x-amz-meta-original-filename", response.data.fields['x-amz-meta-original-filename'])
           formdata.append("x-amz-signature", response.data.fields['x-amz-signature'])
           formdata.append("file", this.picture, "file.txt")
-
           simpleAxios.post(response.data.url, formdata, {
               headers: {
                 'Content-Type': 'multipart/form-data'
@@ -282,14 +286,14 @@
       updateProfile() {
         this.checkFormValidation()
         if (!this.errors.length) {
-          secureAxios.patch(UPDATE_ENDPOINT + `/` + `${this.$store.state.currentUser.id}`, {
-              name: this.name,
-              about: this.about,
-              email: this.email,
-              location: this.location,
-              sns_links: this.sns_links,
-              file_name: this.setPicture()
-            })
+          usersRepository.update(this.$store.state.currentUser.id, {
+            name: this.name,
+            about: this.about,
+            email: this.email,
+            location: this.location,
+            sns_links: this.sns_links,
+            file_name: this.setPicture()
+          })
             .then(res => this.updateSuccessful(res))
             .catch(err => this.updateFailed(err))
         } else {

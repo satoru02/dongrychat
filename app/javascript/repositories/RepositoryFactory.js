@@ -5,6 +5,7 @@ import tagsRepository from './tagsRepository';
 import subscriptionsRepository from './subscriptionsRepository';
 import tmdbRepository from './tmdbRepository';
 import authRepository from './authRepository';
+import avatarRepository from './avatarRepository';
 
 const repositories = {
   spaces: spacesRepository,
@@ -13,7 +14,8 @@ const repositories = {
   tags: tagsRepository,
   tmdb: tmdbRepository,
   subscriptions: subscriptionsRepository,
-  auth: authRepository
+  auth: authRepository,
+  avatar: avatarRepository
 };
 
 export const RepositoryFactory = {
