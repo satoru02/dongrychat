@@ -29,11 +29,13 @@
 </template>
 
 <script>
-  import {
-    secureAxios
-  } from '../../backend/axios';
   import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
   import TheSubHeader from '../Layout/TheSubHeader';
+  import {
+    RepositoryFactory
+  } from '../../repositories/RepositoryFactory';
+  const notificationsRepository = RepositoryFactory.get('notifications');
+
   export default {
     name: "NotificationTop",
     components: {
@@ -48,7 +50,6 @@
         pageSize: 10,
         textStyle: {
           fontWeight: 'bold',
-          fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
           color: '#111111'
         },
         text: {
@@ -57,7 +58,6 @@
         style: {
           headerPart: {
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '17px',
             color: '#111111'
           },
@@ -67,13 +67,12 @@
     methods: {
       infiniteHandler($state) {
         setTimeout(() => {
-          secureAxios.get(`/api/v1/notifications`, {
-              params: {
-                page: this.page,
-                per_page: this.pageSize
-              }
+          notificationsRepository.get({
+              page: this.page,
+              per_page: this.pageSize
             })
             .then(res => {
+              console.log(res)
               if (res.data.data.length) {
                 this.page += 1
                 this.notifications.push(res.data.data)
@@ -82,7 +81,7 @@
                 $state.complete();
               }
             })
-        }, 0);
+        }, 50);
       }
     }
   }

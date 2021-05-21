@@ -56,13 +56,12 @@
 </template>
 
 <script>
-  import {
-    secureAxios
-  } from '../../backend/axios';
   import TheSubHeader from '../Layout/TheSubHeader';
   import BaseLabel from '../Base/BaseLabel';
   import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
   import BaseCard from '../Base/BaseCard';
+  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  const spacesRepository = RepositoryFactory.get('spaces');
 
   export default {
     name: 'ChartTop',
@@ -74,7 +73,6 @@
     },
     data() {
       return {
-        trend_endpoint: `/api/v1/spaces/trend`,
         loaderText: '現在チャット中のスペースはありません。',
         items: [],
         switcher: false,
@@ -156,13 +154,11 @@
       },
       infiniteHandler($state) {
         setTimeout(() => {
-          secureAxios.get(this.trend_endpoint, {
-              params: {
-                page: this.page,
-                per_page: this.pageSize,
-                media: this.query_media
-              }
-            })
+          spacesRepository.getTrend({
+            page: this.page,
+            per_page: this.pageSize,
+            media: this.query_media
+          })
             .then(res => {
               if (res.data.data.length) {
                 this.page += 1
@@ -215,7 +211,6 @@
 </script>
 
 <style scoped>
-
   .theme--light.v-divider {
     border-color: rgba(0,0,0,.04);
   }

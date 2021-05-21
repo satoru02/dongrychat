@@ -15,7 +15,7 @@ Rails.application.routes.draw do
         get 'me', on: :collection
 
         member do
-          get :following, :followers, :online, :subscription
+          get :following, :followers, :online, :subscriptions
         end
       end
 
@@ -31,7 +31,7 @@ Rails.application.routes.draw do
         end
 
         collection do
-          get :public
+          get :unsubscribed
           get :subscribed
           get :trend
         end

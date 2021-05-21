@@ -16,10 +16,9 @@
 </template>
 
 <script>
-  import {
-    secureAxios
-  } from '../../backend/axios';
   import SpaceHeader from './SpaceHeader';
+  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  const spacesRepository = RepositoryFactory.get('spaces');
 
   export default {
     name: 'SpaceTop',
@@ -37,9 +36,8 @@
           mv: 'mv',
         },
         api: {
-          from_search: `/api/v1/spaces/public`,
-          from_subscription: `/api/v1/spaces/subscribed`,
-          for_subscription: `/api/v1/subscriptions`
+          from_search: `unsubscribed`,
+          from_subscription: `subscribed`,
         },
         space: {
           tv: {
@@ -82,7 +80,6 @@
           activeText: 'black--text',
           style: {
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '12px',
             color: '#666666'
           }
@@ -93,7 +90,6 @@
           color: '#f6f6f9',
           style: {
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '10px',
           }
         }
@@ -172,9 +168,7 @@
         })
       },
       setSpace() {
-        secureAxios.get(this.endpoint, {
-            params: this.params
-          })
+        spacesRepository.enterSpace(this.endpoint,this.params)
           .then(res => this.successful(res))
           .catch(err => this.failed(err))
       },

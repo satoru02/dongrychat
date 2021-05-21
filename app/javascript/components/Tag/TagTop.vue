@@ -12,14 +12,12 @@
 </template>
 
 <script>
-  import {
-    secureAxios
-  } from '../../backend/axios';
   import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
   import BaseCard from '../Base/BaseCard';
   import TheSubHeader from '../Layout/TheSubHeader';
+  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  const tagsRepository = RepositoryFactory.get('tags');
 
-  const api_tag_url = `/api/v1/tags/`
   export default {
     name: "TagTop",
     components: {
@@ -62,12 +60,7 @@
       },
       infiniteHandler($state) {
         setTimeout(() => {
-          secureAxios.get(api_tag_url + `${this.$route.params.name}` + `/spaces`, {
-              params: {
-                page: this.page,
-                per_page: this.pageSize
-              }
-            })
+         tagsRepository.getSpaces(this.$route.params.name,{page: this.page, per_page: this.pageSize})
             .then(res => {
               if (res.data.data.length) {
                 this.page += 1

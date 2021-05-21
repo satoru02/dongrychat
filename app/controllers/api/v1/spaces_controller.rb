@@ -1,7 +1,7 @@
 module Api
   module V1
     class SpacesController < ApplicationController
-      before_action :authorize_access_request!, only: [:public, :subscribed, :comments]
+      before_action :authorize_access_request!, only: [:unsubscribed, :subscribed, :comments]
       before_action :set_space, only: [:subscribed, :comments]
       before_action :set_condition, only: [:subscribed, :comments]
 
@@ -11,7 +11,7 @@ module Api
         render_json(serializer)
       end
 
-      def public
+      def unsubscribed
         if params[:media] === 'mv'
           @space = Space.create_or_search_mv(mv_space_params, current_user)
         elsif params[:media] === 'tv'

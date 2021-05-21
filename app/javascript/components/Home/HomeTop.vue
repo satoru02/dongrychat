@@ -7,8 +7,8 @@
     </sub-header>
     <v-divider class="mt-n4 mb-4" />
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
-      <v-card outlined class="rounded-lg mb-5" :style="hover ? card.hoverStyle : card.unhoverStyle" @click="enterSpace(item)"
-        :elevation='hover ? 0 : 0' :height="'95'">
+      <v-card outlined class="rounded-lg mb-5" :style="hover ? card.hoverStyle : card.unhoverStyle"
+        @click="enterSpace(item)" :elevation='hover ? 0 : 0' :height="'95'">
         <v-row class=mt-n1>
           <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-5">
             <v-avatar class="rounded-lg" :size="listAvatar.size" :height="listAvatar.height">
@@ -19,20 +19,18 @@
             <v-row>
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
               <v-col cols=10 sm=10 md=10 lg=10 xl=10
-              :class="$vuetify.breakpoint.width > 600 ? 'ml-n5 mt-1' : 'mt-1 ml-6'"
-              :style="style.name">
+                :class="$vuetify.breakpoint.width > 600 ? 'ml-n5 mt-1' : 'mt-1 ml-6'" :style="style.name">
                 <base-label :x_small="true" :outlined="false" :label="true" v-if="item.attributes.media === media.tv"
-                  color="#016aff" :season="item.attributes.season"
-                  :episode="item.attributes.episode" :title="item.attributes.episode_title" />
+                  color="#016aff" :season="item.attributes.season" :episode="item.attributes.episode"
+                  :title="item.attributes.episode_title" />
                 <v-chip :style="style.movieLabel" v-if="item.attributes.media === media.movie" x-small label
                   color="yellow" v-text="text.movie" />
               </v-col>
             </v-row>
             <v-row>
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
-              <v-col cols=9 sm=9 md=9 lg=9 xl=9
-               :class="$vuetify.breakpoint.width > 600 ? 'ml-n5 mt-n3' : 'mt-n3 ml-6'"
-              :style="style.name">
+              <v-col cols=9 sm=9 md=9 lg=9 xl=9 :class="$vuetify.breakpoint.width > 600 ? 'ml-n5 mt-n3' : 'mt-n3 ml-6'"
+                :style="style.name">
                 {{item.attributes.name}}
               </v-col>
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-14">
@@ -43,14 +41,14 @@
                 {{item.attributes.unconfirmed_comments}}
               </v-col>
             </v-row>
-            <v-row :class="$vuetify.breakpoint.width > 600 ? 'mt-n4' : 'mt-n16'" >
+            <v-row :class="$vuetify.breakpoint.width > 600 ? 'mt-n4' : 'mt-n16'">
               <v-col cols=1 sm=1 md=1 lg=11 xl=1 class=ml-6 :style="style.comment">
-              <v-avatar size="20" class="mt-n1 ml-1">
-                <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-               </v-avatar>
-               <span class="ml-1" v-if="item.attributes.latest_comment">
+                <v-avatar size="20" class="mt-n1 ml-1">
+                  <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
+                </v-avatar>
+                <span class="ml-1" v-if="item.attributes.latest_comment">
                   {{item.attributes.latest_comment.content}}
-               </span>
+                </span>
               </v-col>
             </v-row>
           </v-col>
@@ -62,13 +60,14 @@
 </template>
 
 <script>
-  import {
-    secureAxios
-  } from '../../backend/axios';
   import moment from 'moment';
   import BaseLabel from '../Base/BaseLabel';
   import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
   import TheSubHeader from '../Layout/TheSubHeader';
+  import {
+    RepositoryFactory
+  } from '../../repositories/RepositoryFactory';
+  const usersRepository = RepositoryFactory.get('users');
 
   export default {
     name: 'HomeTop',
@@ -80,7 +79,6 @@
     data() {
       return {
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
-        users_subscription_endpoint: `/api/v1/users/`,
         items: [],
         page: 1,
         pageSize: 10,
@@ -186,11 +184,9 @@
       },
       infiniteHandler($state) {
         setTimeout(() => {
-          secureAxios.get(this.users_subscription_endpoint + `${this.$store.state.currentUser.id}` + `/subscription`, {
-              params: {
-                page: this.page,
-                per_page: this.pageSize
-              }
+          usersRepository.getSubscriptions(this.$store.state.currentUser.id, {
+              page: this.page,
+              per_page: this.pageSize
             })
             .then(res => {
               if (res.data.data.length) {

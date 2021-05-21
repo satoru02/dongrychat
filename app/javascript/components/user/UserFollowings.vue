@@ -1,13 +1,13 @@
 <template>
-  <user-relationships
-    :relationships="followings"
-   />
+  <user-relationships :relationships="followings" />
 </template>
 
 <script>
-  import { secureAxios } from '../../backend/axios';
   import UserRelationships from './UserRelationships';
-  const  FOLLOWINGS_URL = '/api/v1/users/';
+  import {
+    RepositoryFactory
+  } from '../../repositories/RepositoryFactory';
+  const usersRepository = RepositoryFactory.get('users');
 
   export default {
     name: "Followings",
@@ -24,8 +24,8 @@
       this.getFollowings()
     },
     methods: {
-      getFollowings(){
-        secureAxios.get(FOLLOWINGS_URL + `${this.$route.params.id}` + `/following`)
+      getFollowings() {
+        usersRepository.getFollowers(this.$route.params.id)
           .then(res => this.Successful(res))
           .catch(error => this.Failed(error))
       },

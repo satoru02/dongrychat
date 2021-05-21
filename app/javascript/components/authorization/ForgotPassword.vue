@@ -62,15 +62,13 @@
 </template>
 
 <script>
-  import {
-    simpleAxios
-  } from '../../backend/axios.js'
+  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  const authRepository = RepositoryFactory.get('auth');
 
   export default {
     name: 'ForgotPassword',
     data() {
       return {
-        password_reset_url: '/api/v1/password_resets',
         email: null,
         errors: [],
         error: null,
@@ -100,17 +98,14 @@
           headerStyle: {
             color: '#111111',
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '23px',
           },
           textStyle: {
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '11px',
           },
           policyStyle: {
             color: '#6c757d',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '8px',
           }
         }
@@ -124,13 +119,11 @@
       },
       checkInputValidation() {
         this.errors = []
-
         if (!this.email) {
           this.errors.push('メールアドレスが入力されていません。')
         } else if (!this.validEmail(this.email)) {
           this.errors.push('メールアドレスが有効な形式ではありません。')
         }
-
         if (this.errors.length) {
           return this.errorbar = true
         }
@@ -138,9 +131,7 @@
       resetPassword() {
         this.checkInputValidation()
         if (!this.errors.length) {
-          simpleAxios.post(this.password_reset_url, {
-              email: this.email
-            })
+        　authRepository.forgot({email: this.email})
             .then(res => this.submitSuccessful(res))
             .catch(error => this.submitFailed(error))
         }

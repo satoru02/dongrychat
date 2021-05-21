@@ -6,18 +6,18 @@
     simpleAxios
   } from '../../backend/axios';
 
+  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  const authRepository = RepositoryFactory.get('auth');
+
   export default {
     name: 'AccountActivation',
     data(){
       return {
-        activation_url: '/api/v1/account_activations',
         user_info_url: '/api/v1/users/me'
       }
     },
     created() {
-      simpleAxios.post(this.activation_url, {
-          token: this.$route.params.token
-        })
+      authRepository.activate({token: this.$route.params.token})
         .then(response => this.activationSuccessful(response))
         .catch(err => this.activationFailed(err))
     },

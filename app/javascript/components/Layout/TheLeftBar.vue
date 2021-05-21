@@ -69,8 +69,8 @@
 </template>
 
 <script>
-  import { secureAxios } from '../../backend/axios';
-  const api_tags_url = `/api/v1/tags`
+  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  const tagsRepository = RepositoryFactory.get('tags');
 
   export default {
     name: "TheLeftBar",
@@ -217,7 +217,7 @@
     },
     methods: {
       fetchTags(){
-        secureAxios.get(api_tags_url)
+        tagsRepository.get()
           .then(res => this.fetchSuccessful(res))
           .catch(err => this.fetchFailed(err))
       },

@@ -69,14 +69,14 @@
 
 <script>
   import {
-    simpleAxios
-  } from '../../backend/axios.js'
+    RepositoryFactory
+  } from '../../repositories/RepositoryFactory';
+  const authRepository = RepositoryFactory.get('auth');
 
   export default {
     name: 'ResetPassword',
     data() {
       return {
-        password_reset_url: '/api/v1/password_resets',
         password: null,
         password_confirmation: null,
         errors: [],
@@ -107,45 +107,39 @@
           headerStyle: {
             color: '#111111',
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '23px',
           },
           textStyle: {
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '11px',
           },
           policyStyle: {
             color: '#6c757d',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '8px',
           }
         }
       }
     },
     created() {
-      this.checkPasswordToken()
+      // this.checkPasswordToken()
     },
     methods: {
       checkPasswordValidation() {
         this.errors = [];
-
         if (!this.password) {
           this.errors.push('パスワードが入力されていません。')
-        }
-
+        };
         if (!this.password_confirmation) {
           this.errors.push('パスワード確認の項目が入力されていません。')
-        }
-
+        };
         if (this.errors.length) {
           return this.errorbar = true
-        }
+        };
       },
       resetPassword() {
         this.checkPasswordValidation()
         if (!this.errors.length) {
-          simpleAxios.patch(this.password_reset_url + `/` + `${this.$route.params.token}`, {
+          authRepository.reset(this.$route.params.token, {
               password: this.password,
               password_confirmation: this.password_confirmation
             })
@@ -154,24 +148,24 @@
         }
       },
       resetSuccessful(response) {
-        this.notify_text = 'パスワードがリセットされました。'
-        this.error = null
-        this.password = null
-        this.password_confirmation = null
-        this.snackbar = true
-        this.$router.replace('/')
+        this.notify_text = 'パスワードがリセットされました。';
+        this.error = null;
+        this.password = null;
+        this.password_confirmation = null;
+        this.snackbar = true;
+        this.$router.replace('/');
       },
       resetFailed(error) {
-        this.error = (error.response && error.response.data && error.response.data.error) || 'Something went wrong'
+        this.error = (error.response && error.response.data && error.response.data.error) || 'Something went wrong';
       },
       checkPasswordToken() {
-        simpleAxios.get(PASSWORD_RESET_URL, {
+        authRepository.check({
             token: this.$route.params.token
           })
           .catch(error => {
             this.resetFailed(error)
             this.$router.replace('/')
-          })
+          });
       }
     }
   }

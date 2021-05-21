@@ -230,7 +230,7 @@ var router = new VueRouter({
       ]
     },
     {
-      path: '/:user_name',
+      path: '/users/:user_name',
       component: UserTop,
       beforeEnter: guardMyroute,
       children: [
