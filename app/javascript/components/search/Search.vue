@@ -3,11 +3,9 @@
     <v-row>
       <v-col cols=2></v-col>
       <v-col cols=8 class="ml-16">
-        <v-text-field v-if="$vuetify.breakpoint.width < 600"
-          @keypress="setQuery()" @keydown.enter="search(query)" v-model="query" height="10"
-           :prepend-inner-icon="'mdi-magnify'"
-            dense background-color="#242c37" solo flat width="250" class="rounded-lg"
-           />
+        <v-text-field v-if="$vuetify.breakpoint.width < 600" @keypress="setQuery()" @keydown.enter="search(query)"
+          v-model="query" height="10" :prepend-inner-icon="'mdi-magnify'" dense background-color="#242c37" solo flat
+          width="250" class="rounded-lg" />
       </v-col>
     </v-row>
     <v-row :class="vRowHeader">
@@ -24,8 +22,8 @@
     </v-row>
     <v-row>
       <v-col cols=12>
-        <trend-part class="mt-n10" v-if="this.switch1 === false" :items="weekly_trend_tvs" :media="media.tv" :title="weekly_title"
-          :endpoint="endpoint.trending" />
+        <trend-part class="mt-n10" v-if="this.switch1 === false" :items="weekly_trend_tvs" :media="media.tv"
+          :title="weekly_title" :endpoint="endpoint.trending" />
         <trend-part class="mt-n10" v-else :items="weekly_trend_mvs" :media="media.mv" :title="weekly_title"
           :endpoint="endpoint.trending" />
         <upcoming-part v-if="this.switch1 === true" :items="upcoming_mvs" :media="media.mv" :title="upcoming_title"
@@ -47,7 +45,9 @@
   import SearchTrendPart from '../Search/SearchPart';
   import SearchTopRatedPard from '../Search/SearchPart';
   import SearchUpcomingPart from '../Search/SearchPart';
-  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  import {
+    RepositoryFactory
+  } from '../../repositories/RepositoryFactory';
 
   const tmdbRepository = RepositoryFactory.get('tmdb');
 
@@ -117,7 +117,7 @@
       }
     },
     created() {
-      this.getTvContents()
+      this.fetchAllTvResource()
     },
     watch: {
       switch1: function () {
@@ -127,61 +127,49 @@
         this.todays_popular_tvs = []
         this.top_rated_tvs = []
         if (this.switch1 === false) {
-          this.getTvContents()
+          this.fetchAllTvResource()
         } else {
-          this.getMvContents()
+          this.fetchAllMvResource()
         }
       }
     },
     methods: {
-      track(){
+      track() {
         this.$gtag.pageview({
           page_path: '/search',
         })
       },
-      getTrendTvs() {
-        tmdbRepository.getTrendTvs()
+      async fetchAllTvResource() {
+        const res = await Promise.all(
+          [
+            tmdbRepository.getTrendTvs(),
+            tmdbRepository.getPopularTvs(),
+            tmdbRepository.getTopratedTvs()
+          ]
+        )
+        this.weekly_trend_tvs = res[0].data.results.slice(0, 20)
+        this.todays_popular_tvs = res[1].data.results.slice(0, 20)
+        this.top_rated_tvs = res[2].data.results.slice(0, 20)
       },
-      getTrendMvs() {
-        tmdbRepository.getTrendMvs()
+      async fetchAllMvResource() {
+        const res = await Promise.all(
+          [
+            tmdbRepository.getPopularMvs(),
+            tmdbRepository.getTopratedTvs(),
+            tmdbRepository.getTopratedMvs(),
+            tmdbRepository.getUpcomingMvs()
+          ]
+        )
+        this.weekly_trend_mvs = res[0].data.results.slice(0, 20)
+        this.todays_popular_mvs = res[1].data.results.slice(0, 20)
+        this.top_rated_mvs = res[2].data.results.slice(0, 20)
+        this.upcoming_mvs = res[3].data.results.slice(0, 20)
       },
-      getPopularTvs() {
-        tmdbRepository.getPopularTvs()
-      },
-      getPopularMvs() {
-        tmdbRepository.getPopularMvs()
-      },
-      getTopratedTvs() {
-        tmdbRepository.getTopratedTvs()
-      },
-      getTopratedMvs() {
-        tmdbRepository.getTopratedMvs()
-      },
-      getUpcomingMvs() {
-        tmdbRepository.getUpcomingMvs()
-      },
-      getTvContents() {
-        Promise.all([this.getTrendTvs(), this.getPopularTvs(), this.getTopratedTvs()])
-          .then((res) => {
-            this.weekly_trend_tvs = res[0].data.results.slice(0, 20)
-            this.todays_popular_tvs = res[1].data.results.slice(0, 20)
-            this.top_rated_tvs = res[2].data.results.slice(0, 20)
-          })
-      },
-      getMvContents() {
-        Promise.all([this.getTrendMvs(), this.getPopularMvs(), this.getTopratedMvs(), this.getUpcomingMvs()])
-          .then((res) => {
-            this.weekly_trend_mvs = res[0].data.results.slice(0, 20)
-            this.todays_popular_mvs = res[1].data.results.slice(0, 20)
-            this.top_rated_mvs = res[2].data.results.slice(0, 20)
-            this.upcoming_mvs = res[3].data.results.slice(0, 20)
-          })
-      },
-      setQuery(){
+      setQuery() {
         this.canSubmit = true
       },
       search(query) {
-        if(!this.canSubmit){
+        if (!this.canSubmit) {
           return
         }
         this.$router.replace({
@@ -195,31 +183,46 @@
       },
     },
     computed: {
-      vColTvGrid(){
-        switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return 'ml-16'
-          case 'sm' : return ''
-          case 'md' : return ''
-          case 'lg' : return 'ml-10'
-          case 'xl' : return ''
+      vColTvGrid() {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return 'ml-16'
+          case 'sm':
+            return ''
+          case 'md':
+            return ''
+          case 'lg':
+            return 'ml-10'
+          case 'xl':
+            return ''
         }
       },
-      vColSwitchGrid(){
-        switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return 'ml-16'
-          case 'sm' : return ''
-          case 'md' : return ''
-          case 'lg' : return 'ml-n7'
-          case 'xl' : return ''
+      vColSwitchGrid() {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return 'ml-16'
+          case 'sm':
+            return ''
+          case 'md':
+            return ''
+          case 'lg':
+            return 'ml-n7'
+          case 'xl':
+            return ''
         }
       },
-      vRowHeader(){
-        switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return 'ml-9 mb-n8 mt-n7'
-          case 'sm' : return ''
-          case 'md' : return ''
-          case 'lg' : return 'ml-3 mb-n5 mt-2'
-          case 'xl' : return ''
+      vRowHeader() {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return 'ml-9 mb-n8 mt-n7'
+          case 'sm':
+            return ''
+          case 'md':
+            return ''
+          case 'lg':
+            return 'ml-3 mb-n5 mt-2'
+          case 'xl':
+            return ''
         }
       }
     }
