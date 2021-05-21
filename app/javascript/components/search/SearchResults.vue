@@ -52,7 +52,8 @@
 </template>
 
 <script>
-  import { tmdbAxios } from '../../backend/axios';
+  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  const tmdbRepository = RepositoryFactory.get('tmdb');
 
   export default {
     name: 'SearchResults',
@@ -60,9 +61,6 @@
       return {
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
         resultsText: `「${this.$route.params.query}」の検索結果`,
-        tmdb_api: {
-          search: `https://api.themoviedb.org/3/search/${this.$route.name}?api_key=${process.env.TMDB_API_KEY}&language=ja&query=${this.$route.params.query}&page=1&include_adult=false`
-        },
         items: {
           type: '',
           contents: []
@@ -94,24 +92,20 @@
         listActive: 'orange--text',
         resultsStyle: {
           fontSize: "18px",
-          fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
           fontWeight: 'bold',
           color: '#111111'
         },
         listStyle: {
           fontSize: '12px',
-          fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
           fontWeight: 'bold',
           color: '#6c757d'
         },
         listItemStyle: {
           fontWeight: 'bold',
-          fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
           fontSize: '15px',
           color: '#111111'
         },
         subtitleStyle: {
-          fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
           fontSize: '12px',
           fontWeight: 'bold',
           color: '#6c757d'
@@ -139,7 +133,7 @@
     },
     methods: {
       getResults() {
-        tmdbAxios.get(this.tmdb_api.search)
+        tmdbRepository.search(this.$route.name, this.$route.params.query)
           .then(res => this.searchSuccessful(res))
           .catch(err => this.searchFailed(err))
       },

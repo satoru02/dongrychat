@@ -34,5 +34,8 @@ export default {
   },
   getUpcomingMvs(){
     return tmdbAxios.get(`${baseURL}/movie/upcoming?api_key=${apiKey}&language=${language}&page=1`);
+  },
+  search(name, query){
+    return tmdbAxios.get(`${baseURL}/search/${name}?api_key=${process.env.TMDB_API_KEY}&language=${language}&query=${query}/&page=1&include_adult=false`);
   }
 };
