@@ -171,7 +171,7 @@
         }, 0);
       },
       enterSpace(item) {
-        if (this.$store.state.signedIn) {
+        if (this.$store.state.user.signedIn) {
           if (item.media === this.media.tv) {
             this.$router.push({
               name: this.tv.pathName,

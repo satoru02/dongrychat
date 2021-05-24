@@ -1,14 +1,15 @@
 import Vue from 'vue';
-import { createStore } from 'vuex';
+import Vuex from 'vuex';
+import UserStore from './modules/user_store';
+import createPersistedState from 'vuex-persistedstate';
 
-Vue.use(createStore)
+Vue.use(Vuex);
 
-import UserStore from './stores/user_store';
-
-const store = createStore({
+const store = new Vuex.Store({
   modules: {
-    UserStore
-  }
+    user: UserStore
+  },
+  plugins: [createPersistedState()]
 });
 
 export { store };

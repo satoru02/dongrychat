@@ -127,8 +127,8 @@
             action: 'speak',
             data: {
               content: content,
-              user_id: this.$store.state.currentUser.id,
-              user_name: this.$store.state.currentUser.name,
+              user_id: this.$store.state.user.currentUser.id,
+              user_name: this.$store.state.user.currentUser.name,
               space_id: this.spaceId,
               avatar_url: ''
             }

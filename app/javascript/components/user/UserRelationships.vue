@@ -13,7 +13,7 @@
             </v-list-item-title>
           </v-list-item-content>
           <v-list-item-action class="ml-n5">
-            <v-btn small elevation=0 v-if="$store.state.currentUser.id != user.id"
+            <v-btn small elevation=0 v-if="$store.state.user.currentUser.id != user.id"
               :style="checkRelationship(user) ? followingStyle : unfollowStyle"
               @click="checkRelationship(user) ? unfollow(user.attributes.id) : follow(user.attributes.id)">
               {{ checkRelationship(user) ? followingText : unfollowText }}
@@ -61,7 +61,7 @@
     },
     methods: {
       checkRelationship(user) {
-        if (this.$store.state.currentUser.following.includes(user.attributes.id)) {
+        if (this.$store.state.user.currentUser.following.includes(user.attributes.id)) {
           return true
         } else {
           return false
@@ -73,17 +73,17 @@
           })
           .then(res => {
             console.log(res)
-            this.$store.commit('follow', user_id)
+            this.$store.commit('user/follow', user_id)
             this.followed = true
           })
       },
       unfollow(user_id) {
-        relationshipsRepository.unfollow(this.$store.state.currentUser.id, {
-            id: this.$store.state.currentUser.id,
+        relationshipsRepository.unfollow(this.$store.state.user.currentUser.id, {
+            id: this.$store.state.user.currentUser.id,
             followed_id: user_id
           })
           .then(res => {
-            this.$store.commit('unfollow', user_id)
+            this.$store.commit('user/unfollow', user_id)
             this.followed = false
           })
       },

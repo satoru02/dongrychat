@@ -30,7 +30,7 @@
         simpleAxios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access_token}`
         simpleAxios.get(this.user_info_url)
           .then(me_response => {
-            this.$store.commit('setCurrentUser', {
+            this.$store.commit('user/setCurrentUser', {
               currentUser: me_response.data.data.attributes,
               csrf: response.data.csrf,
               token: response.data.access_token
@@ -44,7 +44,7 @@
       },
       activationFailed(error) {
         this.error = (error.response && error.response.data && error.response.data.error) || ""
-        this.$store.commit('unsetCurrentUser')
+        this.$store.commit('user/unsetCurrentUser')
       },
     }
   }

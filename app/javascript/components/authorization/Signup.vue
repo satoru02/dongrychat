@@ -293,7 +293,7 @@
       },
       authenticate: function (provider) {
         this.$auth.authenticate(provider).then(res => {
-          this.$store.commit('setCurrentUser', {
+          this.$store.commit('user/setCurrentUser', {
             currentUser: res.data.user.data.attributes,
             csrf: res.data.csrf,
             token: res.data.access_token

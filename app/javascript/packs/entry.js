@@ -3,10 +3,10 @@ import App from './App.vue';
 import InfiniteLoading from 'vue-infinite-loading';
 import Vuetify from 'vuetify';
 import VueGtag from "vue-gtag";
-import { store } from './store';
-import { router } from '../router';
+import { store } from '../stores/index';
+import { router } from '../router/router';
 import 'vuetify/dist/vuetify.min.css';
-import '@mdi/font/css/materialdesignicons.css';
+// import '@mdi/font/css/materialdesignicons.css';
 import '../analytics/analytics';
 import '../channels/cable';
 

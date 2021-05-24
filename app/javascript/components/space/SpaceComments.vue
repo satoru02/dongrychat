@@ -78,7 +78,7 @@
     },
     methods: {
       showDialog(user) {
-        if (this.$store.state.currentUser.following.includes(user.id)) {
+        if (this.$store.state.user.currentUser.following.includes(user.id)) {
           this.followed = true
         } else {
           this.followed = false

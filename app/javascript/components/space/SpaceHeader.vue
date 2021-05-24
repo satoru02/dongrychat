@@ -168,14 +168,14 @@
     methods: {
       subscribe() {
         sbscRepository.subscribe({
-            user_id: this.$store.state.currentUser.id,
+            user_id: this.$store.state.user.currentUser.id,
             space_id: this.space_data.id
           })
           .then(res => this.subscribeSuccessful(res))
           .catch(err => this.Failed(err))
       },
       unsubscribe() {
-        sbscRepository.unsubscribe(this.space_data.id, this.$store.state.currentUser.id)
+        sbscRepository.unsubscribe(this.space_data.id, this.$store.state.user.currentUser.id)
           .then(res => this.unsubscribeSuccessful(res))
           .catch(err => this.failed(err))
       },

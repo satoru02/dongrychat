@@ -250,7 +250,7 @@
         simpleAxios.defaults.headers.common['Authorization'] = `Bearer ${res.data.access_token}`
         simpleAxios.get(this.user_info_url)
           .then(me_response => {
-            this.$store.commit('setCurrentUser', {
+            this.$store.commit('user/setCurrentUser', {
               currentUser: me_response.data.data.attributes,
               csrf: res.data.csrf,
               token: res.data.access_token
@@ -262,7 +262,7 @@
       },
       signinFailed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ""
-        this.$store.commit('unsetCurrentUser')
+        this.$store.commit('user/unsetCurrentUser')
       },
       makeAccount() {
         this.$router.push({
@@ -276,7 +276,7 @@
       },
       authenticate: function (provider) {
         this.$auth.authenticate(provider).then(res => {
-          this.$store.commit('setCurrentUser', {
+          this.$store.commit('user/setCurrentUser', {
             currentUser: res.data.user.data.attributes,
             csrf: res.data.csrf,
             token: res.data.access_token

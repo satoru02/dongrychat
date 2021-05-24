@@ -11,7 +11,7 @@
         <v-spacer />
         <v-btn class="user-relationBtn mt-n8" :style="followed ? followingStyle : unfollowingStyle"
           @click="followed ? unfollow(user_info.id) : follow(user_info.id)"
-          v-if="this.$store.state.currentUser.id !== user_info.id" small elevation=0 outlined>
+          v-if="this.$store.state.user.currentUser.id !== user_info.id" small elevation=0 outlined>
           {{followed ? followingText : unfollowingText}}</v-btn>
       </v-card-title>
 
@@ -149,7 +149,7 @@
         })
       },
       follow_check(user) {
-        if (this.$store.state.currentUser.following.includes(user.id)) {
+        if (this.$store.state.user.currentUser.following.includes(user.id)) {
           this.followed = true
         } else {
           this.followed = false
@@ -160,17 +160,17 @@
             followed_id: user_id
           })
           .then(res => {
-            this.$store.commit('follow', user_id)
+            this.$store.commit('user/follow', user_id)
             this.followed = true
           })
       },
       unfollow(user_id) {
-        relationshipsRepository.unfollow(this.$store.state.currentUser.id, {
-            id: this.$store.state.currentUser.id,
+        relationshipsRepository.unfollow(this.$store.state.user.currentUser.id, {
+            id: this.$store.state.user.currentUser.id,
             followed_id: user_id
           })
           .then(res => {
-            this.$store.commit('unfollow', user_id)
+            this.$store.commit('user/unfollow', user_id)
             this.followed = false
           })
       },

@@ -11,11 +11,11 @@
       :full-width="true" v-if="this.checkAuthorization()" :prepend-inner-icon="'mdi-magnify'" dense
       background-color="#e9ecef" solo flat class="text-field rounded-lg mt-7 ml-3 mr-8" />
     <v-avatar size="30" class="mr-5">
-      <v-img :src="$store.state.currentUser.avatar_url" />
+      <v-img :src="$store.state.user.currentUser.avatar_url" />
     </v-avatar>
-    <v-btn v-if="(this.checkAuthorization()) && !$store.state.signedIn" @click="goLogin()" outlined small
+    <v-btn v-if="(this.checkAuthorization()) && !$store.state.user.signedIn" @click="goLogin()" outlined small
       color="#f6f6f9" elevation=0 class="login mr-4">ログイン</v-btn>
-    <v-btn v-if="(this.checkAuthorization()) && !$store.state.signedIn" @click="goSignup()" small color="#016aff"
+    <v-btn v-if="(this.checkAuthorization()) && !$store.state.user.signedIn" @click="goSignup()" small color="#016aff"
       elevation=0 class="signup">アカウント登録</v-btn>
   </v-app-bar>
 </template>

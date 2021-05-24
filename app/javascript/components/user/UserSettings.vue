@@ -37,7 +37,7 @@
             </v-col>
             <v-col lg=8 md=8 xl=8 class="mt-1 ml-5">
               <v-text-field class="rounded-lg" outlined :rules="[rules.minName]" background-color="#ffffff" color="red"
-                :placeholder="this.$store.state.currentUser.name" solo filled dense flat v-model="name" />
+                :placeholder="this.$store.state.user.currentUser.name" solo filled dense flat v-model="name" />
             </v-col>
           </v-row>
           <v-row dense>
@@ -60,7 +60,7 @@
             </v-col>
             <v-col lg=8 md=8 xl=8 class="mt-1 ml-5">
               <v-textarea class="rounded-lg" outlined background-color="#ffffff" solo flat
-                :placeholder="this.$store.state.currentUser.about" filled dense v-model="about" />
+                :placeholder="this.$store.state.user.currentUser.about" filled dense v-model="about" />
             </v-col>
           </v-row>
           <v-row dense>
@@ -75,7 +75,7 @@
             </v-col>
             <v-col lg=8 md=8 xl=8 class="mt-1 ml-5">
               <v-text-field class="rounded-lg" outlined background-color="#ffffff" solo flat :rules="[rules.testMail]"
-                :placeholder="this.$store.state.currentUser.email" filled dense v-model="email" />
+                :placeholder="this.$store.state.user.currentUser.email" filled dense v-model="email" />
             </v-col>
           </v-row>
           <v-row dense>
@@ -90,7 +90,7 @@
             </v-col>
             <v-col lg=8 md=8 xl=8 class="mt-1 ml-5">
               <v-text-field class="rounded-lg" background-color="#ffffff" outlined solo flat
-                :placeholder="this.$store.state.currentUser.location" filled dense v-model="location" />
+                :placeholder="this.$store.state.user.currentUser.location" filled dense v-model="location" />
             </v-col>
           </v-row>
           <v-row dense>
@@ -213,11 +213,11 @@
     },
     data() {
       return {
-        name: this.$store.state.currentUser.name,
-        email: this.$store.state.currentUser.email,
-        about: this.$store.state.currentUser.about,
-        location: this.$store.state.currentUser.location,
-        sns_links: this.$store.state.currentUser.sns_links,
+        name: this.$store.state.user.currentUser.name,
+        email: this.$store.state.user.currentUser.email,
+        about: this.$store.state.user.currentUser.about,
+        location: this.$store.state.user.currentUser.location,
+        sns_links: this.$store.state.user.currentUser.sns_links,
         picture: null,
         error: '',
         errors: [],
@@ -286,7 +286,7 @@
       updateProfile() {
         this.checkFormValidation()
         if (!this.errors.length) {
-          usersRepository.update(this.$store.state.currentUser.id, {
+          usersRepository.update(this.$store.state.user.currentUser.id, {
             name: this.name,
             about: this.about,
             email: this.email,
@@ -308,10 +308,10 @@
         }
       },
       updateSuccessful(res) {
-        this.$store.commit('setCurrentUser', {
+        this.$store.commit('user/setCurrentUser', {
           currentUser: res.data.data.attributes,
-          csrf: this.$store.state.csrf,
-          token: this.$store.state.token
+          csrf: this.$store.state.user.csrf,
+          token: this.$store.state.user.token
         })
         this.snack_bar = true
       },

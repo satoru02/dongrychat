@@ -286,7 +286,7 @@
     },
     methods: {
       getOnlineFollowings() {
-        secureAxios.get(this.online_endpoint + `${this.$store.state.currentUser.id}` + `/online`)
+        secureAxios.get(this.online_endpoint + `${this.$store.state.user.currentUser.id}` + `/online`)
           .then(res => this.Successful(res))
           .catch(err => this.Failed(err))
       },

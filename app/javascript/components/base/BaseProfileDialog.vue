@@ -11,8 +11,8 @@
           <v-col cols=10 sm=10 md=10 lg=10 xl=10>
             <v-row :class="grid.name">
               <v-col cols=6 sm=6 md=6 lg=6 xl=6 v-text="user.name" />
-              <v-col cols=6 sm=6 md=6 lg=6 xl=6 v-if="user.id !== this.$store.state.currentUser.id">
-                <v-btn small elevation=0 v-if="this.$store.state.currentUser.id != user.id" :class="roundClass"
+              <v-col cols=6 sm=6 md=6 lg=6 xl=6 v-if="user.id !== this.$store.state.user.currentUser.id">
+                <v-btn small elevation=0 v-if="this.$store.state.user.currentUser.id != user.id" :class="roundClass"
                   :style="followed ? followingStyle : unfollowStyle"
                   @click="followed ? unfollow(user.id) : follow(user.id)">
                   {{ followed ? followingText : unfollowText }}
@@ -152,18 +152,18 @@
         secureAxios.post(RELATIONSHOP_URL, {
           followed_id: user_id
         }).then(res => {
-          this.$store.commit('follow', user_id)
+          this.$store.commit('user/follow', user_id)
           this.followed = true
         })
       },
       unfollow(user_id) {
-        secureAxios.delete(RELATIONSHOP_URL + `/` + `${this.$store.state.currentUser.id}`, {
+        secureAxios.delete(RELATIONSHOP_URL + `/` + `${this.$store.state.user.currentUser.id}`, {
           params: {
-            id: this.$store.state.currentUser.id,
+            id: this.$store.state.user.currentUser.id,
             followed_id: user_id
           }
         }).then(res => {
-          this.$store.commit('unfollow', user_id)
+          this.$store.commit('user/unfollow', user_id)
           this.followed = false
         })
       },

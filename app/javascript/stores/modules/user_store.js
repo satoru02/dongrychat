@@ -1,6 +1,5 @@
-import createPersistedState from 'vuex-persistedstate';
-
 const UserStore = {
+  namespaced: true,
   state: {
     currentUser: {},
     signedIn: false,
@@ -46,8 +45,7 @@ const UserStore = {
         following => following != user_id
       );
     }
-  },
-  plugins: [createPersistedState()]
+  }
 };
 
 export default UserStore;
