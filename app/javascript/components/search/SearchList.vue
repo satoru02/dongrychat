@@ -31,6 +31,7 @@
 
 <script>
   import { tmdbAxios } from '../../backend/axios';
+
   export default {
     name: 'SearchList',
     data() {

@@ -22,16 +22,14 @@
 </template>
 
 <script>
-  import SpaceComments from './SpaceComments';
-  import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
   import { RepositoryFactory } from '../../repositories/RepositoryFactory';
   const spacesRepository = RepositoryFactory.get('spaces');
 
   export default {
     name: 'SpaceChats',
     components: {
-      'space-comments': SpaceComments,
-      'base-loader': BaseInfiniteLoader,
+      'space-comments': () => import(/* webpackPrefetch: true */ './SpaceComments'),
+      'base-loader': () => import(/* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
     },
     props: {
       spaceId: {

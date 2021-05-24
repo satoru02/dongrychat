@@ -60,21 +60,18 @@
 </template>
 
 <script>
-  import moment from 'moment';
-  import BaseLabel from '../Base/BaseLabel';
-  import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
-  import TheSubHeader from '../Layout/TheSubHeader';
   import {
     RepositoryFactory
   } from '../../repositories/RepositoryFactory';
+  import moment from 'moment';
   const usersRepository = RepositoryFactory.get('users');
 
   export default {
     name: 'HomeTop',
     components: {
-      'base-label': BaseLabel,
-      'base-loader': BaseInfiniteLoader,
-      'sub-header': TheSubHeader
+      'base-label': () => import(/* webpackPrefetch: true */ '../Base/BaseLabel'),
+      'base-loader': () => import(/* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
+      'sub-header': () => import(/* webpackPrefetch: true */ '../Layout/TheSubHeader')
     },
     data() {
       return {

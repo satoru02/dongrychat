@@ -3,7 +3,6 @@
 </template>
 
 <script>
-  import UserRelationships from './UserRelationships';
   import {
     RepositoryFactory
   } from '../../repositories/RepositoryFactory';
@@ -12,7 +11,7 @@
   export default {
     name: "Followers",
     components: {
-      'user-relationships': UserRelationships
+      'user-relationships': () => import(/* webpackPrefetch: true */ './UserRelationships')
     },
     data() {
       return {

@@ -52,7 +52,6 @@
 </template>
 
 <script>
-  import BaseLabel from '../Base/BaseLabel';
   import {
     RepositoryFactory
   } from '../../repositories/RepositoryFactory';
@@ -60,7 +59,7 @@
   export default {
     name: 'SpaceHeader',
     components: {
-      'base-label': BaseLabel
+      'base-label': () => import(/* webpackPrefetch: true */ '../Base/BaseLabel'),
     },
     props: ['space_data'],
     data() {

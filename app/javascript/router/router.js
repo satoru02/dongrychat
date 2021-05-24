@@ -1,31 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import { store } from '../stores/index';
-import HomeTop from '../components/Home/HomeTop';
-import DetailTop from '../components/Detail/DetailsTop';
-import SpaceTop from '../components/Space/SpaceTop';
-import SpaceChats from '../components/Space/SpaceChats';
-import SpaceUsers from '../components/Space/SpaceUsers';
 import ChartTop from '../components/Chart/ChartTop';
-import AccountActivation from '../components/Authorization/AccountActivation';
-import ResetPassword from '../components/Authorization/ResetPassword';
-import Login from '../components/Authorization/Login';
-import Logout from '../components/Authorization//Logout';
-import Signup from '../components/Authorization/Signup';
-import ForgotPassword from '../components/Authorization/ForgotPassword';
-import Search from '../components/Search/Search';
-import Results from '../components/Search/SearchResults';
-import UserFollowings from '../components/User/UserFollowings';
-import UserFollowers from '../components/User/UserFollowers';
-import UserTop from '../components/User/UserTop';
-import UserPosts from '../components/User/UserPosts';
-import UserProfile from '../components/User/UserProfile';
-import UserSettings from '../components/User/UserSettings';
-import SearchList from '../components/Search/SearchList';
-import Privacy from '../components/Overview/Privacy';
-import Terms from '../components/Overview//Terms';
-import NotificationTop from '../components/Notification/NotificationTop';
-import TagTop from '../components/Tag/TagTop';
 
 Vue.use(VueRouter);
 
@@ -33,14 +9,14 @@ function guardMyroute(to, from, next){
   if(store.state.user.signedIn){
     next();
   } else {
-    next('/login')
+    next('/login');
   }
 }
 function guardMultiLogin(to, from, next){
   if(!store.state.user.signedIn){
     next();
   } else {
-    next('/')
+    next('/');
   }
 }
 
@@ -50,7 +26,7 @@ var router = new VueRouter({
     {
       path: '/signup',
       name: 'Signup',
-      component: Signup,
+      component: () => import('../components/Authorization/Signup'),
       beforeEnter: guardMultiLogin,
       meta: {
         title: 'アカウント登録'
@@ -59,7 +35,7 @@ var router = new VueRouter({
     {
       path: '/login',
       name: 'Login',
-      component: Login,
+      component: () => import('../components/Authorization/Login'),
       beforeEnter: guardMultiLogin,
       meta: {
         title: 'ログイン'
@@ -68,13 +44,13 @@ var router = new VueRouter({
     {
       path: "/account_activations/:token",
       name: "AccountActivation",
-      component: AccountActivation,
+      component: () => import('../components/Authorization/AccountActivation'),
       beforeEnter: guardMultiLogin
     },
     {
       path: '/forgot_password',
       name: 'ForgotPassword',
-      component: ForgotPassword,
+      component: () => import('../components/Authorization/ForgotPassword'),
       beforeEnter: guardMultiLogin,
       meta: {
         title: 'パスワードを忘れた'
@@ -83,7 +59,7 @@ var router = new VueRouter({
     {
       path: "/password_resets/:token",
       name: "ResetPassword",
-      component: ResetPassword,
+      component: () => import('../components/Authorization/ResetPassword'),
       beforeEnter: guardMultiLogin,
       meta: {
         title: 'パスワードの再設定'
@@ -92,7 +68,7 @@ var router = new VueRouter({
     {
       path: '/logout',
       name: 'Logout',
-      component: Logout,
+      component: () => import('../components/Authorization/Logout'),
     },
     {
       path: '/',
@@ -107,7 +83,7 @@ var router = new VueRouter({
       path: '/home',
       name: 'Home',
       beforeEnter: guardMyroute,
-      component: HomeTop,
+      component: () => import('../components/Home/HomeTop'),
       meta: {
         title: 'ホーム',
         keepAlive: true,
@@ -116,28 +92,28 @@ var router = new VueRouter({
     {
       path: '/tv/:id/:tv_name/season/:number',
       name: 'TvDetails',
-      component: DetailTop,
+      component: () => import('../components/Detail/DetailsTop'),
     },
     {
       path: '/mv/:id/:mv_name',
       name: 'MvDetails',
-      component: DetailTop
+      component: () => import('../components/Detail/DetailsTop'),
     },
     {
       path: '/mv_space/m/:name',
       props: true,
-      component: SpaceTop,
+      component: () => import('../components/Space/SpaceTop'),
       beforeEnter: guardMyroute,
       children: [
         {
           path: 'chats',
           name: 'MvSpace',
-          component: SpaceChats,
+          component: () => import('../components/Space/SpaceChats'),
         },
         {
           path: 'members',
           name: 'MvSpaceMembers',
-          component: SpaceUsers,
+          component: () => import('../components/Space/SpaceUsers'),
         },
         {
           path: 'reviews',
@@ -154,18 +130,18 @@ var router = new VueRouter({
     {
       path: '/mv_space/:space_id',
       props: true,
-      component: SpaceTop,
+      component: () => import('../components/Space/SpaceTop'),
       beforeEnter: guardMyroute,
       children: [
         {
           path: 'chats',
           name: 'subscribedMvSpace',
-          component: SpaceChats,
+          component: () => import('../components/Space/SpaceChats'),
         },
         {
           path: 'members',
           name: 'subscribedMvSpaceMembers',
-          component: SpaceUsers,
+          component: () => import('../components/Space/SpaceUsers'),
         },
         {
           path: 'reviews',
@@ -180,18 +156,18 @@ var router = new VueRouter({
     {
       path: '/tv_space/:name/:season_number/:episode_number',
       props: true,
-      component: SpaceTop,
+      component: () => import('../components/Space/SpaceTop'),
       beforeEnter: guardMyroute,
       children: [
         {
           path: 'chats',
           name: 'TvSpace',
-          component: SpaceChats,
+          component: () => import('../components/Space/SpaceChats'),
         },
         {
           path: 'members',
           name: 'TvSpaceMembers',
-          component: SpaceUsers,
+          component: () => import('../components/Space/SpaceUsers'),
         },
         {
           path: 'reviews',
@@ -206,18 +182,18 @@ var router = new VueRouter({
     {
       path: '/tv_space/:space_id',
       props: true,
-      component: SpaceTop,
+      component: () => import('../components/Space/SpaceTop'),
       beforeEnter: guardMyroute,
       children: [
         {
           path: 'chats',
           name: 'subscribedTvSpace',
-          component: SpaceChats,
+          component: () => import('../components/Space/SpaceChats'),
         },
         {
           path: 'members',
           name: 'subscribedTvSpaceMembers',
-          component: SpaceUsers,
+          component: () => import('../components/Space/SpaceUsers'),
         },
         {
           path: 'reviews',
@@ -231,28 +207,28 @@ var router = new VueRouter({
     },
     {
       path: '/users/:user_name',
-      component: UserTop,
+      component: () => import('../components/User/UserTop'),
       beforeEnter: guardMyroute,
       children: [
         {
           path: '',
           name: 'UserTop',
-          component: UserProfile,
+          component: () => import('../components/User/UserProfile'),
         },
         {
           path: 'posts',
           name: 'UserPosts',
-          component: UserPosts,
+          component: () => import('../components/User/UserPosts'),
         },
         {
           path: 'followings',
           name: 'UserFollowings',
-          component: UserFollowings,
+          component: () => import('../components/User/UserFollowings'),
         },
         {
           path: 'followers',
           name: 'UserFollowers',
-          component: UserFollowers,
+          component: () => import('../components/User/UserFollowers'),
         },
       ]
     },
@@ -260,7 +236,7 @@ var router = new VueRouter({
       path: '/settings',
       name: 'Settings',
       beforeEnter: guardMyroute,
-      component: UserSettings,
+      component: () => import('../components/User/UserSettings'),
       meta: {
         title: 'アカウント設定'
       }
@@ -268,7 +244,7 @@ var router = new VueRouter({
     {
       path: '/search',
       name: 'Search',
-      component: Search,
+      component: () => import('../components/Search/Search'),
       meta: {
         title: '気になる作品を探す'
       }
@@ -276,7 +252,7 @@ var router = new VueRouter({
     {
       path: '/trending',
       name: 'trending',
-      component: SearchList,
+      component: () => import('../components/Search/SearchList'),
       meta: {
         title: '注目の作品'
       }
@@ -284,7 +260,7 @@ var router = new VueRouter({
     {
       path: '/popular',
       name: 'popular',
-      component: SearchList,
+      component: () => import('../components/Search/SearchList'),
       meta: {
         title: '人気の作品'
       }
@@ -292,7 +268,7 @@ var router = new VueRouter({
     {
       path: '/top-rated',
       name: 'topRated',
-      component: SearchList,
+      component: () => import('../components/Search/SearchList'),
       meta: {
         title: '評価の高い作品'
       }
@@ -300,7 +276,7 @@ var router = new VueRouter({
     {
       path: '/upcoming',
       name: 'upcoming',
-      component: SearchList,
+      component: () => import('../components/Search/SearchList'),
       meta: {
         title: '公開・配信予定の作品'
       }
@@ -309,7 +285,7 @@ var router = new VueRouter({
       path: '/results/:query',
       name: 'multi',
       props: true,
-      component: Results,
+      component: () => import('../components/Search/SearchResults'),
       meta: {
         title: '検索結果'
       },
@@ -317,7 +293,7 @@ var router = new VueRouter({
         {
           path: "person",
           name: "person",
-          component: Results,
+          component: () => import('../components/Search/SearchResults'),
           props: (route) => ({
             query: route.query.status
           })
@@ -325,7 +301,7 @@ var router = new VueRouter({
         {
           path: "tv",
           name: "tv",
-          component: Results,
+          component: () => import('../components/Search/SearchResults'),
           props: (route) => ({
             query: route.query.status
           })
@@ -333,7 +309,7 @@ var router = new VueRouter({
         {
           path: "movie",
           name: "movie",
-          component: Results,
+          component: () => import('../components/Search/SearchResults'),
           props: (route) => ({
             query: route.query.status
           })
@@ -341,7 +317,7 @@ var router = new VueRouter({
         {
           path: "Company",
           name: "Company",
-          component: Results,
+          component: () => import('../components/Search/SearchResults'),
           props: (route) => ({
             query: route.query.status
           })
@@ -351,7 +327,7 @@ var router = new VueRouter({
     {
       path: "/privacy",
       name: "Privacy",
-      component: Privacy,
+      component: () => import('../components/Overview/Privacy'),
       meta: {
         title: 'プライバシーポリシー',
         keepAlive: true
@@ -360,7 +336,7 @@ var router = new VueRouter({
     {
       path: "/terms",
       name: "Terms",
-      component: Terms,
+      component: () => import('../components/Overview/Terms'),
       meta: {
         title: '利用規約',
         keepAlive: true
@@ -369,7 +345,7 @@ var router = new VueRouter({
     {
       path: "/notifications",
       name: "NotificationTop",
-      component: NotificationTop,
+      component: () => import('../components/Notification/NotificationTop'),
       meta: {
         title: '通知',
         keepAlive: true
@@ -378,7 +354,7 @@ var router = new VueRouter({
     {
       path: "/tag/:name",
       name: "Tag",
-      component: TagTop,
+      component: () => import('../components/Tag/TagTop'),
       meta: {
         keepAlive: true
       }

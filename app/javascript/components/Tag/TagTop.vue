@@ -12,18 +12,15 @@
 </template>
 
 <script>
-  import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
-  import BaseCard from '../Base/BaseCard';
-  import TheSubHeader from '../Layout/TheSubHeader';
   import { RepositoryFactory } from '../../repositories/RepositoryFactory';
   const tagsRepository = RepositoryFactory.get('tags');
 
   export default {
     name: "TagTop",
     components: {
-      'sub-header': TheSubHeader,
-      'base-loader': BaseInfiniteLoader,
-      'base-card': BaseCard
+      'sub-header': () => import(/* webpackPrefetch: true */ '../Layout/TheSubHeader'),
+      'base-loader': () => import(/* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
+      'base-card': () => import(/* webpackPrefetch: true */ '../Base/BaseCard')
     },
     data() {
       return {

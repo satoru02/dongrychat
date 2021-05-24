@@ -29,8 +29,6 @@
 </template>
 
 <script>
-  import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
-  import TheSubHeader from '../Layout/TheSubHeader';
   import {
     RepositoryFactory
   } from '../../repositories/RepositoryFactory';
@@ -39,8 +37,8 @@
   export default {
     name: "NotificationTop",
     components: {
-      'base-loader': BaseInfiniteLoader,
-      'sub-header': TheSubHeader
+      'base-loader': () => import(/* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
+      'sub-header': () => import(/* webpackPrefetch: true */ '../Layout/TheSubHeader')
     },
     data() {
       return {
