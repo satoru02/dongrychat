@@ -16,13 +16,13 @@
     },
     methods: {
       logout() {
-        authRepository.logout(this.$store.state.currentUser.id)
+        authRepository.logout(this.$store.state.user.currentUser.id)
           .then(res => this.logoutSuccessful(res))
           .catch(error => this.setError(error, 'Cannot log out.'))
       },
       logoutSuccessful(res) {
         localStorage.removeItem('vuex')
-        this.$store.commit('unsetCurrentUser')
+        this.$store.commit('user/unsetCurrentUser')
         this.$router.replace('/')
       }
     }

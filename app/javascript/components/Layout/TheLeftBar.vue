@@ -226,7 +226,7 @@
       },
       changeRoute(path) {
         if ((path === 'Home') || (path === 'Settings')) {
-          if (!this.$store.state.signedIn) {
+          if (!this.$store.state.user.signedIn) {
             this.loginDialog = true
             return
           } else {

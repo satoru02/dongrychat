@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import { store } from './store';
+import { store } from '../stores/index';
 import HomeTop from '../components/Home/HomeTop';
 import DetailTop from '../components/Detail/DetailsTop';
 import SpaceTop from '../components/Space/SpaceTop';
@@ -30,14 +30,14 @@ import TagTop from '../components/Tag/TagTop';
 Vue.use(VueRouter);
 
 function guardMyroute(to, from, next){
-  if(store.state.signedIn){
+  if(store.state.user.signedIn){
     next();
   } else {
     next('/login')
   }
 }
 function guardMultiLogin(to, from, next){
-  if(!store.state.signedIn){
+  if(!store.state.user.signedIn){
     next();
   } else {
     next('/')

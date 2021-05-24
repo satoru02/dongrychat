@@ -154,7 +154,7 @@
         rejected() {},
         received(data) {
           this.items.filter((item) => {
-            if ((item.attributes.id === data["space_id"]) && (this.$store.state.currentUser.id != data[
+            if ((item.attributes.id === data["space_id"]) && (this.$store.state.user.currentUser.id != data[
                 "user_id"])) {
               item.attributes.unconfirmed_comments += 1
             }
@@ -184,7 +184,7 @@
       },
       infiniteHandler($state) {
         setTimeout(() => {
-          usersRepository.getSubscriptions(this.$store.state.currentUser.id, {
+          usersRepository.getSubscriptions(this.$store.state.user.currentUser.id, {
               page: this.page,
               per_page: this.pageSize
             })
