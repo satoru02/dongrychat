@@ -21,5 +21,5 @@ const app = new Vue({
   render: h => h(App),
   vuetify: new Vuetify({}),
   router,
-  store
+  store,
 });

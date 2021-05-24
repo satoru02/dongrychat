@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import ChartTop from '../components/Chart/ChartTop.vue';
-import {
-  store
-} from '../stores/index';
-
+import { store } from '../stores/index';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+NProgress.configure({ easing: 'ease', speed: 300 });
 Vue.use(VueRouter);
 
 function guardMyroute(to, from, next) {
@@ -88,6 +88,7 @@ var router = new VueRouter({
       meta: {
         title: 'ホーム',
         keepAlive: true,
+        showProgressBar: true
       },
       component: () => import( /* webpackChunkName: "HomeTop" */ '../components/Home/HomeTop'),
     },
@@ -356,11 +357,15 @@ var router = new VueRouter({
   ]
 });
 
-
-
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title + ' - Devio' || 'Devio';
+  NProgress.start();
+  NProgress.set(0.0);
   next();
+});
+
+router.afterEach(() => {
+  NProgress.done();
 });
 
 export {
