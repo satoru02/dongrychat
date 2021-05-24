@@ -56,20 +56,16 @@
 </template>
 
 <script>
-  import TheSubHeader from '../Layout/TheSubHeader';
-  import BaseLabel from '../Base/BaseLabel';
-  import BaseInfiniteLoader from '../Base/BaseInfiniteLoader';
-  import BaseCard from '../Base/BaseCard';
   import { RepositoryFactory } from '../../repositories/RepositoryFactory';
   const spacesRepository = RepositoryFactory.get('spaces');
 
   export default {
     name: 'ChartTop',
     components: {
-      'sub-header': TheSubHeader,
-      'base-label': BaseLabel,
-      'base-loader': BaseInfiniteLoader,
-      'base-card': BaseCard,
+      'sub-header': () => import(/* webpackPrefetch: true */ '../Layout/TheSubHeader'),
+      'base-label': () => import(/* webpackPrefetch: true */ '../Base/BaseLabel'),
+      'base-loader': () => import(/* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
+      'base-card': () => import(/* webpackPrefetch: true */ '../Base/BaseCard'),
     },
     data() {
       return {
