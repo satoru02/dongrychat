@@ -16,14 +16,13 @@
 </template>
 
 <script>
-  import SpaceHeader from './SpaceHeader';
   import { RepositoryFactory } from '../../repositories/RepositoryFactory';
   const spacesRepository = RepositoryFactory.get('spaces');
 
   export default {
     name: 'SpaceTop',
     components: {
-      'space-header': SpaceHeader,
+      'space-header': () => import(/* webpackPrefetch: true */ './SpaceHeader')
     },
     data() {
       return {

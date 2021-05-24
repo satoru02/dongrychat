@@ -89,11 +89,10 @@
 </template>
 
 <script>
-  import Baselabel from '../Base/BaseLabel';
   export default {
     name: "BaseCard",
     components: {
-      'base-label': Baselabel
+      'base-label': () => import(/* webpackPrefetch: true */ '../Base/BaseLabel')
     },
     props: {
       items: '',

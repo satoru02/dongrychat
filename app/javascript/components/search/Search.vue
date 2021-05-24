@@ -41,10 +41,6 @@
 </template>
 
 <script>
-  import SearchPopularPart from '../Search/SearchPart';
-  import SearchTrendPart from '../Search/SearchPart';
-  import SearchTopRatedPard from '../Search/SearchPart';
-  import SearchUpcomingPart from '../Search/SearchPart';
   import {
     RepositoryFactory
   } from '../../repositories/RepositoryFactory';
@@ -54,10 +50,10 @@
   export default {
     name: 'Search',
     components: {
-      'popular-part': SearchPopularPart,
-      'top-rated': SearchTopRatedPard,
-      'trend-part': SearchTrendPart,
-      'upcoming-part': SearchUpcomingPart,
+      'popular-part': () => import(/* webpackPrefetch: true */ '../Search/SearchPart'),
+      'top-rated': () => import(/* webpackPrefetch: true */ '../Search/SearchPart'),
+      'trend-part': () => import(/* webpackPrefetch: true */ '../Search/SearchPart'),
+      'upcoming-part': () => import(/* webpackPrefetch: true */ '../Search/SearchPart'),
     },
     data() {
       return {

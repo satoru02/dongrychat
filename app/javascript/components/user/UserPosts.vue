@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import {secureAxios} from '../../backend/axios';
+// import {secureAxios} from '../../backend/axios';
 export default {
   name: "UserPosts",
   props: {

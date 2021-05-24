@@ -103,10 +103,7 @@
 </template>
 
 <script>
-  import {
-    simpleAxios
-  } from '../../backend/axios';
-
+  import { simpleAxios } from '../../backend/axios';
   import { RepositoryFactory } from '../../repositories/RepositoryFactory';
   const authRepository = RepositoryFactory.get('auth');
 

@@ -50,9 +50,7 @@
 </template>
 
 <script>
-  import {
-    secureAxios
-  } from '../../backend/axios';
+  import { secureAxios } from '../../backend/axios';
   const RELATIONSHOP_URL = `/api/v1/relationships`;
   export default {
     name: 'BaseProfileDialog',

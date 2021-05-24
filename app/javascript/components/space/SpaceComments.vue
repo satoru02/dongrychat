@@ -28,11 +28,10 @@
 
 <script>
   import moment from 'moment';
-  import BaseProfileDialog from '../Base/BaseProfileDialog';
   export default {
     name: 'SpaceComments',
     components: {
-      'base-profile-dialog': BaseProfileDialog
+      'base-profile-dialog': () => import(/* webpackPrefetch: true */ '../Base/BaseProfileDialog')
     },
     props: {
       comments: {

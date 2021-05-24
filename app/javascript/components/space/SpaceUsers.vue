@@ -20,7 +20,6 @@
 </template>
 
 <script>
-  import BaseProfileDialog from '../Base/BaseProfileDialog';
   import { RepositoryFactory } from '../../repositories/RepositoryFactory';
   const relationshipsRepository = RepositoryFactory.get('relationships')
 
@@ -28,7 +27,7 @@
     name: 'SpaceUsers',
     props: ['users'],
     components: {
-      'base-profile-dialog': BaseProfileDialog
+      'base-profile-dialog': () => import(/* webpackPrefetch: true */ '../Base/BaseProfileDialog')
     },
     data() {
       return {

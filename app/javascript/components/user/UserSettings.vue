@@ -201,7 +201,6 @@
 
 <script>
   import { simpleAxios } from '../../backend/axios';
-  import TheSubHeader from '../Layout/TheSubHeader';
   import { RepositoryFactory } from '../../repositories/RepositoryFactory';
   const usersRepository = RepositoryFactory.get('users');
   const avatarRepository = RepositoryFactory.get('avatar');
@@ -209,7 +208,7 @@
   export default {
     name: 'Settings',
     components: {
-      'sub-header': TheSubHeader
+      'sub-header': () => import(/* webpackPrefetch: true */ '../Layout/TheSubHeader')
     },
     data() {
       return {
