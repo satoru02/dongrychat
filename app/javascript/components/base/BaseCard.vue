@@ -1,7 +1,5 @@
 <template>
-  <v-container
-    fluid
-  >
+  <div>
 
     <v-hover
        v-slot="{ hover }"
@@ -168,7 +166,7 @@
                 >
                   <v-chip
                     label
-                    :class="$vuetify.breakpoint.width > 600 ? 'tag-text mr-2' : 'tag-text mr-2'"
+                    :class="$vuetify.breakpoint.width > 600 ? 'tag-text mr-2 mt-3' : 'tag-text mr-2'"
                     v-for="(tag, index) in item.attributes.tags.slice(0, 2)"
                     :key="index"
                     color="#e9ecef"
@@ -290,7 +288,7 @@
         </v-responsive>
       </v-card>
     </v-hover>
-  </v-container>
+  </div>
 </template>
 
 <script>

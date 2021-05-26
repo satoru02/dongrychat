@@ -1,12 +1,30 @@
 <template>
-  <v-container :key="componentKey">
-    <sub-header class="mb-n9 mt-1" :tag='this.$route.params.name'>
-      <template v-slot:tag_header="subHeaderProps">
-        <h3 class="sub-header">{{subHeaderProps.sub_header}}</h3>
+  <v-container
+    :key="componentKey"
+  >
+
+    <sub-header
+      class="mt-2"
+      :tag='this.$route.params.name'
+    >
+      <template
+        v-slot:tag_header="subHeaderProps"
+      >
+        <div
+          :class="gridSubHeader"
+        >
+        {{subHeaderProps.sub_header}}
+        </div>
       </template>
     </sub-header>
-    <v-divider class="mt-5 mb-10" />
-    <base-card :items='spaces' />
+
+    <v-divider
+      class="mt-5 mb-10"
+    />
+
+    <base-card
+      :items='spaces'
+    />
     <base-loader :handler="infiniteHandler" :text="text.loading" />
   </v-container>
 </template>
@@ -39,6 +57,17 @@
         this.page = 1
         this.spaces = []
         this.forceRerender()
+      }
+    },
+    gridSubHeader(){
+      switch(this.$vuetify.breakpoint.name){
+        case 'xs':
+          return 'sub-header mb-n5 mt-1 ml-2'
+        case 'sm':
+        case 'md':
+        case 'lg':
+        case 'xl':
+           return 'sub-header mb-2 mt-4'
       }
     },
     // beforeRouteEnter(to, from, next) {
@@ -84,7 +113,7 @@
 
   .sub-header {
     font-weight: bold;
-    font-size: 19px;
+    font-size: 15px;
     color: #111111;
   }
 </style>

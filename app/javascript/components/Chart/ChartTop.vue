@@ -224,7 +224,7 @@
       gridSwitcher(){
         switch(this.$vuetify.breakpoint.name){
           case 'xs':
-            return 'mt-n2 mb-3 ml-2'
+            return 'mt-n3 mb-5'
           case 'sm':
           case 'md':
           case 'lg':
@@ -235,7 +235,7 @@
       gridSubHeader(){
         switch(this.$vuetify.breakpoint.name){
           case 'xs':
-            return 'sub-header ml-3'
+            return 'sub-header'
           case 'sm':
           case 'md':
           case 'lg':

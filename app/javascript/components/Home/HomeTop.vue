@@ -3,7 +3,9 @@
     fluid
   >
 
-    <sub-header>
+    <sub-header
+      class="mt-2">
+
       <template
         v-slot:home_header="subHeaderProps">
         <div
@@ -258,12 +260,12 @@
       gridSubHeader(){
         switch(this.$vuetify.breakpoint.name){
           case 'xs':
-            return 'mb-n5 mt-1 ml-2'
+            return 'sub-header mb-n5 mt-1 ml-2'
           case 'sm':
           case 'md':
           case 'lg':
           case 'xl':
-             return 'mb-2 mt-1'
+             return 'sub-header mb-2 mt-1'
         }
       },
       gridCardWidth(){
