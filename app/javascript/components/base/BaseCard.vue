@@ -560,7 +560,7 @@
   }
 
   .theme--light.v-sheet--outlined {
-    border: thin solid rgba(128, 128, 128, 0.12);
+    border: thin solid rgba(172, 172, 172, 0.12);
   }
 
   .v-divider {
