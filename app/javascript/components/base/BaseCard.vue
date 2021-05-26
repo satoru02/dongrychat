@@ -12,7 +12,8 @@
         class="rounded-lg mb-8 mt-n4"
         outlined
         @click="enterSpace(item.attributes)"
-        :style="hover ? hoverStyle : unhoverStyle" height="200px"
+        :style="hover ? hoverStyle : unhoverStyle"
+        height="200px"
       >
 
         <v-responsive>
@@ -26,7 +27,7 @@
               xl=1
             >
               <span
-                v-if="$vuetify.breakpoint.width > 600"
+                v-if="$vuetify.breakpoint.name != 'xs'"
                 class="ranking">
                 {{index + 1}}
               </span>
@@ -69,7 +70,7 @@
                   xl=1
                 />
                 <v-col
-                  :class="$vuetify.breakpoint.width > 600 ? 'label ml-n6' : 'label ml-4 mt-1'"
+                  :class="gridLabel"
                   cols=10
                   sm=10
                   md=10
@@ -98,7 +99,7 @@
                 </v-col>
               </v-row>
 
-              <v-row class=mt-5>
+              <v-row class="mt-5">
                 <v-col
                   cols=9
                   sm=9
@@ -115,7 +116,7 @@
                   xl=1
                 >
                   <v-badge
-                    v-if="$vuetify.breakpoint.width > 600"
+                    v-if="$vuetify.breakpoint.name != 'xs'"
                     color="#02e98d"
                     dot
                   />
@@ -128,12 +129,12 @@
                   lg=1
                   xl=1
                 >
-                  <span v-if="$vuetify.breakpoint.width > 600">{{item.attributes.users.length}}</span>
+                  <span v-if="$vuetify.breakpoint.name != 'xs'">{{item.attributes.users.length}}</span>
                 </v-col>
               </v-row>
 
               <v-row
-                class='mt-n12'
+                class="mt-n12"
                 :style="$vuetify.breakpoint.width > 600 ? descWidth : mobileWidth">
                 <v-col
                   cols=1
@@ -143,7 +144,7 @@
                   xl=1
                 />
                 <v-col
-                  :class="$vuetify.breakpoint.width > 600 ? 'ml-n5' : 'ml-5'"
+                  :class="gridName"
                   :style="$vuetify.breakpoint.width > 600 ? descText : mobileText"
                   cols=8
                   sm=10
@@ -160,7 +161,7 @@
                 :class="$vuetify.breakpoint.width > 600 ? 'mt-n3 ml-4' : 'mt-n1 ml-16'">
                 <v-col
                   cols=2
-                  sm=7
+                  sm=3
                   md=7
                   lg=7
                   xl=7
@@ -177,7 +178,7 @@
                 </v-col>
                 <v-col
                   cols=2
-                  sm=1
+                  sm=3
                   md=1
                   lg=1
                   xl=1
@@ -185,7 +186,7 @@
                 <v-col
                   :class="gridNumber"
                   cols=8
-                  sm=4
+                  sm=6
                   md=4
                   lg=4
                   xl=4
@@ -200,7 +201,7 @@
                   <span>123</span>
                   <v-icon
                     color="#5d666e"
-                    size=12
+                    size="12"
                     class="ml-2"
                   >
                     mdi-note-outline
@@ -208,7 +209,7 @@
                   <span>63</span>
                   <v-icon
                     color="#5d666e"
-                    size=12
+                    size="12"
                     class="ml-2"
                   >
                     mdi-television-classic
@@ -220,7 +221,7 @@
           </v-row>
 
           <v-divider
-            class=mt-3
+            class="mt-3"
           />
           <v-row
             :class="gridBottom"
@@ -248,13 +249,18 @@
               xl=10
               :class="gridTime"
             >
-              <span class="user-name">ボニ語ろう</span><span class="time-text"> 2日前</span>
+              <span class="user-name">
+                ボニ語ろう
+              </span>
+              <span class="time-text">
+                 2日前
+              </span>
             </v-col>
           </v-row>
 
           <v-row
             dense
-            class=mt-n3>
+            class="mt-n3">
             <v-col
               cols=1
               sm=1
@@ -291,7 +297,7 @@
   import '@mdi/font/css/materialdesignicons.css';
 
   export default {
-    name: "BaseCard",
+    name: 'BaseCard',
     components: {
       'base-label': () => import( /* webpackPrefetch: true */ '../Base/BaseLabel')
     },
@@ -331,49 +337,69 @@
       gridRank() {
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
-            return `mt-8 ml-2 mr-4`
+            return 'mt-8 ml-2 mr-4'
+          case 'sm':
+          case 'md':
           case 'lg':
-            return `ml-4 mt-8`
+          case 'xl':
+            return 'ml-4 mt-8'
         }
       },
       gridAvatar() {
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
-            return `ml-n10`
+            return 'ml-n10'
+          case 'sm':
+          case 'md':
           case 'lg':
-            return `ml-n8`
+          case 'xl':
+            return 'ml-n8'
         }
       },
       gridRight() {
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
-            return `ml-3 mt-n1`
+            return 'ml-3 mt-n1'
+          case 'sm':
+            return 'ml-4 mt-n1'
+          case 'md':
           case 'lg':
-            return `ml-3`
+          case 'xl':
+            return 'ml-3'
         }
       },
       gridIcon() {
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
-            return `ml-5`
+            return 'ml-5'
+          case 'sm':
+          case 'md':
           case 'lg':
-            return `ml-11 mt-n1`
+          case 'xl':
+            return 'ml-11 mt-n1'
         }
       },
       gridTime() {
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
-            return `ml-n1 mt-1`
+            return 'ml-1 mt-1'
+          case 'sm':
+          case 'md':
+            return 'ml-n4'
           case 'lg':
-            return `ml-n7`
+          case 'xl':
+            return 'ml-n6'
         }
       },
       gridComment() {
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
-            return `desc-text mt-1 ml-2`
+            return 'desc-text mt-1 ml-2'
+          case 'sm':
+          case 'md':
           case 'lg':
-            return `desc-text mt-1 ml-2`
+          case 'xl':
+            return 'desc-text mt-1 ml-2'
         }
       },
       gridNumberText(){
@@ -383,7 +409,10 @@
               fontSize: '8px',
               color: '#5d666e'
             }
+          case 'sm':
+          case 'md':
           case 'lg':
+          case 'xl':
             return {
               fontSize: '10px',
               fontWeight: 'bold',
@@ -394,19 +423,48 @@
       gridNumber(){
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
-            return `mt-2 ml-n1`
+            return 'mt-2 ml-n1'
+          case 'sm':
+          case 'md':
           case 'lg':
-            return `mt-3 ml-n5`
+          case 'xl':
+            return 'mt-3 ml-n5'
         }
       },
       gridBottom(){
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
-            return `mt-1`
+            return 'mt-1'
+          case 'sm':
+          case 'md':
           case 'lg':
-            return `mt-2`
+          case 'xl':
+            return 'mt-2'
         }
-
+      },
+      gridLabel(){
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return 'label ml-5 mt-1'
+          case 'sm':
+            return 'label ml-1 mt-1'
+          case 'md':
+          case 'lg':
+          case 'xl':
+            return 'label ml-n6'
+        }
+      },
+      gridName(){
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return 'ml-6'
+          case 'sm':
+            return 'ml-2'
+          case 'md':
+          case 'lg':
+          case 'xl':
+            return 'ml-n5'
+        }
       }
     },
     methods: {
