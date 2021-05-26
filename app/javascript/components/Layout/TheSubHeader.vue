@@ -30,6 +30,6 @@ export default {
 
 <style scoped>
  .sub-header{
-   height: 55px;
+   height: 10px;
  }
 </style>

@@ -96,11 +96,17 @@ var router = new VueRouter({
       path: '/tv/:id/:tv_name/season/:number',
       name: 'TvDetails',
       component: () => import( /* webpackChunkName: "DetailsTop" */ '../components/Detail/DetailsTop'),
+      meta: {
+        keepAlive: false,
+      }
     },
     {
       path: '/mv/:id/:mv_name',
       name: 'MvDetails',
       component: () => import( /* webpackChunkName: "DetailsTop" */ '../components/Detail/DetailsTop'),
+      meta: {
+        keepAlive: false,
+      }
     },
     {
       path: '/mv_space/m/:name',
@@ -111,19 +117,31 @@ var router = new VueRouter({
           path: 'chats',
           name: 'MvSpace',
           component: () => import( /* webpackChunkName: "SpaceChats" */ '../components/Space/SpaceChats'),
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'members',
           name: 'MvSpaceMembers',
           component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceUsers'),
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'reviews',
           name: 'MvSpaceReviews',
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'news',
           name: 'MvSpaceNews',
+          meta: {
+            keepAlive: false,
+          }
         }
       ]
     },
@@ -136,19 +154,31 @@ var router = new VueRouter({
           path: 'chats',
           name: 'subscribedMvSpace',
           component: () => import( /* webpackChunkName: "SpaceChats" */ '../components/Space/SpaceChats'),
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'members',
           name: 'subscribedMvSpaceMembers',
           component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceUsers'),
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'reviews',
           name: 'subscribedMvSpaceReviews',
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'news',
           name: 'subscribedMvSpaceNews',
+          meta: {
+            keepAlive: false,
+          }
         }
       ]
     },
@@ -161,19 +191,31 @@ var router = new VueRouter({
           path: 'chats',
           name: 'TvSpace',
           component: () => import( /* webpackChunkName: "SpaceChats" */ '../components/Space/SpaceChats'),
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'members',
           name: 'TvSpaceMembers',
           component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceUsers'),
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'reviews',
           name: 'TvSpaceReviews',
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'news',
           name: 'TvSpaceNews',
+          meta: {
+            keepAlive: false,
+          }
         }
       ]
     },
@@ -186,19 +228,31 @@ var router = new VueRouter({
           path: 'chats',
           name: 'subscribedTvSpace',
           component: () => import( /* webpackChunkName: "SpaceChats" */ '../components/Space/SpaceChats'),
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'members',
           name: 'subscribedTvSpaceMembers',
           component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceUsers'),
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'reviews',
           name: 'subscribedTvSpaceReviews',
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'news',
           name: 'subscribedTvSpaceNews',
+          meta: {
+            keepAlive: false,
+          }
         }
       ]
     },

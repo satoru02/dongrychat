@@ -9,8 +9,13 @@
 </template>
 
 <script>
+// import InfiniteLoading from 'vue-infinite-loading';
+
 export default {
   name: 'BaseInfiniteLoader',
+  // components: {
+  //   'infinite-loading': () => import('vue-infinite-loading')
+  // },
   props: {
     handler: {
       type: Function,

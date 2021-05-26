@@ -44,7 +44,6 @@
   import {
     RepositoryFactory
   } from '../../repositories/RepositoryFactory';
-
   const tmdbRepository = RepositoryFactory.get('tmdb');
 
   export default {

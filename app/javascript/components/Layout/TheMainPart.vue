@@ -1,24 +1,32 @@
 <template>
   <v-app class="the-main-part">
     <the-header />
+
     <v-main>
       <v-row>
+        <keep-alive>
         <v-col :cols="this.colsGrid[0]" :sm="this.smGrid[0]" :md="this.mdGrid[0]" :lg="this.lgGrid[0]"
           :xl="this.xlGrid[0]" v-if="$vuetify.breakpoint.width > 600">
           <the-left-bar v-if="this.checkAuthorization() && this.checkRouter()" />
         </v-col>
-        <v-divider vertical class="ml-n13 mr-8" />
+        </keep-alive>
+
+        <v-divider vertical class="ml-n13 mr-8" v-if="$vuetify.breakpoint.width > 600" />
+
         <v-col :cols="this.colsGrid[1]" :sm="this.smGrid[1]" :md="this.mdGrid[1]" :lg="this.lgGrid[1]"
-          :xl="this.xlGrid[1]" :class="$vuetify.breakpoint.width > 600 ? grid.deskCenter : grid.mobileCenter">
+          :xl="this.xlGrid[1]">
           <keep-alive>
             <router-view v-if="$route.meta.keepAlive" />
           </keep-alive>
           <router-view v-if="!$route.meta.keepAlive"/>
         </v-col>
+
+      <keep-alive>
         <v-col class="ml-n4" :cols="this.colsGrid[2]" :sm="this.smGrid[2]" :md="this.mdGrid[2]" :lg="this.lgGrid[2]"
           :xl="this.xlGrid[2]" v-if="$vuetify.breakpoint.width > 600">
           <the-right-bar v-if="this.checkAuthorization() && this.checkRouter()" />
         </v-col>
+      </keep-alive>
       </v-row>
     </v-main>
     <base-bottom-bar v-if="this.checkAuthorization() " />
@@ -47,8 +55,6 @@
         lgGrid: '',
         xlGrid: '',
         grid: {
-          deskCenter: '',
-          mobileCenter: 'ml-n16',
           rightPart: 'mt-3 ml-16'
         }
       }
@@ -64,65 +70,20 @@
     methods: {
       changeGrid() {
         switch (this.$route.name) {
-          case 'Home':
-          case 'Chart':
-          case 'subscribedTvSpace':
-          case 'subscribedTvSpaceMembers':
-          case 'subscribedTvSpaceReviews':
-          case 'subscribedTvSpaceNews':
-          case 'subscribedMvSpace':
-          case 'subscribedMvSpaceMembers':
-          case 'subscribedMvSpaceReviews':
-          case 'subscribedMvSpaceNews':
-          case 'TvSpace':
-          case 'TvSpaceMembers':
-          case 'TvSpaceReviews':
-          case 'TvSpaceNews':
-          case 'MvSpace':
-          case 'MvSpaceMembers':
-          case 'MvSpaceReviews':
-          case 'MvSpaceNews':
-          case 'multi':
-          case 'person':
-          case 'tv':
-          case 'movie':
-          case 'company':
-          case 'UserTop':
-          case 'Tag':
-            this.lgGrid = [3, 6, 3]
-            break;
           case 'TvDetails':
-            this.lgGrid = [2, 8, 0]
-            break;
           case 'MvDetails':
-            this.lgGrid = [2, 8, 0]
-            break;
-          case 'Privacy':
-            this.lgGrid = [2, 8, 0]
-            break;
-          case 'Terms':
-            this.lgGrid = [2, 8, 0]
-            break;
           case 'Search':
-            this.lgGrid = [2, 8, 2]
-            break;
-          case 'NotificationTop':
-            this.lgGrid = [3, 6, 3]
-            break;
+            return this.lgGrid = [3, 9, 0]
+          case 'Privacy':
+          case 'Terms':
           case 'Settings':
-            this.lgGrid = [0, 12, 0]
-            break;
-          case 'UserPosts':
-            this.lgGrid = [4, 5, 3]
-            break;
-          case 'UserFollowings':
-            this.lgGrid = [4, 5, 3]
-            break;
-          case 'UserFollowers':
-            this.lgGrid = [4, 5, 3]
-            break;
+            return this.lgGrid = [0, 12, 0]
           default:
-            this.lgGrid = [2, 8, 0]
+            this.colsGrid = [0, 12, 0]
+            this.smGrid = [4, 8, 0]
+            this.mdGrid = [4, 8, 0]
+            this.lgGrid = [3, 6, 3]
+            this.xlGrid = [3, 6, 3]
             break;
         }
       },
