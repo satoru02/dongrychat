@@ -29,7 +29,7 @@
       </keep-alive>
       </v-row>
     </v-main>
-    <base-bottom-bar v-if="this.checkAuthorization() " />
+    <!-- <base-bottom-bar v-if="this.checkAuthorization() " /> -->
   </v-app>
 </template>
 
@@ -37,7 +37,7 @@
   import TheHeader from './TheHeader';
   import TheLeftBar from './TheLeftBar';
   import TheRightBar from './TheRightBar';
-  import BaseBottomBar from '../Base/BaseBottomBar';
+  // import BaseBottomBar from '../Base/BaseBottomBar';
 
   export default {
     name: 'TheMainPart',
@@ -45,7 +45,7 @@
       'the-header': TheHeader,
       'the-left-bar': TheLeftBar,
       'the-right-bar': TheRightBar,
-      'base-bottom-bar': BaseBottomBar
+      // 'base-bottom-bar': BaseBottomBar
     },
     data() {
       return {
