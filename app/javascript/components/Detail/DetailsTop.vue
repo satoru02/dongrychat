@@ -375,7 +375,7 @@
         }
       },
       enterMovieSpace(details) {
-        if (!this.$store.state.signedIn) {
+        if (!this.$store.state.user.signedIn) {
           this.loginDialog = true
         } else {
           this.$router.push({
