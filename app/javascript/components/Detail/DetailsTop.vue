@@ -42,7 +42,7 @@
 
     <v-row v-if="this.$vuetify.breakpoint.width < 600">
       <v-col cols=12>
-        <v-chip :class="'mr-4 mt-n2'" :style="style.tag" v-for="(genre, index) in this.genres.slice(0, 3)" :key="index"
+        <v-chip :class="'mr-4 mt-n2'" :style="style.tag" v-for="(genre, index) in this.genres.slice(0, 2)" :key="index"
           :color="style.chip" small v-text="genre" />
         </v-col>
     </v-row>

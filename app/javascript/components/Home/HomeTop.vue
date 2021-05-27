@@ -1,6 +1,5 @@
 <template>
   <v-container
-    fluid
   >
 
     <sub-header

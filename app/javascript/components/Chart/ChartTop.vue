@@ -1,7 +1,6 @@
 <template>
   <v-container
     :key="componentKey"
-    fluid
   >
 
     <sub-header>
