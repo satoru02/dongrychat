@@ -26,10 +26,10 @@ export default {
   getPopularMvs(){
     return tmdbAxios.get(`${baseURL}/movie/popular?api_key=${apiKey}&language=${language}&page=1`);
   },
-  getTopratedTvs(){
+  getTopRatedTvs(){
     return tmdbAxios.get(`${baseURL}/tv/top_rated?api_key=${apiKey}&language=${language}&page=1`);
   },
-  getTopratedMvs(){
+  getTopRatedMvs(){
     return tmdbAxios.get(`${baseURL}/movie/top_rated?api_key=${apiKey}&language=${language}&page=1`);
   },
   getUpcomingMvs(){

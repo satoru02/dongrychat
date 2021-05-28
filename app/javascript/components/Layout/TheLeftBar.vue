@@ -105,25 +105,25 @@
             path_name: 'Search'
           },
           {
-            text: '新着の作品',
-            icon: '🔎',
-            path_name: 'Search'
-          },
-          {
-            text: 'レビュー',
+            text: '人気',
             icon: '📖',
-            path_name: 'NotificationTop'
+            path_name: 'Popular'
           },
           {
-            text: 'シェアウォッチ',
+            text: '新着',
+            icon: '🔎',
+            path_name: 'Trend'
+          },
+          {
+            text: '評価',
             icon: '👏',
-            path_name: 'NotificationTop'
+            path_name: 'TopRated'
           },
-          {
-            text: 'ニュース',
-            icon: '🗞',
-            path_name: 'NotificationTop'
-          },
+          // {
+          //   text: '話題',
+          //   icon: '🗞',
+          //   path_name: 'Upcoming'
+          // },
         ],
         header_part: {
           position: 'mt-n5 ml-n4 mr-3',

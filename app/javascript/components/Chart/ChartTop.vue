@@ -1,26 +1,87 @@
 <template>
-  <v-container :key="componentKey">
-    <sub-header class="mb-n9 mt-1">
-      <template v-slot:popular_header="subHeaderProps">
-        <h3 class="sub-header">{{subHeaderProps.sub_header}}</h3>
+  <v-container
+    :key="componentKey"
+  >
+
+    <sub-header>
+      <template
+         v-slot:popular_header="subHeaderProps">
+        <div
+          :class="gridSubHeader"
+        >
+          {{subHeaderProps.sub_header}}
+        </div>
       </template>
     </sub-header>
-    <v-divider class="mt-5" />
-    <v-row class="mt-n2" dense>
-      <v-col :class="$vuetify.breakpoint.width > 600 ? 'mt-4' : 'mt-1'" cols=1 sm=1 md=1 lg=1 xl=1>
-        <div :style="switcher === false ? switchBtn.active : switchBtn.inactive" v-text="tv.header" />
+
+    <v-divider
+      class="mt-5"
+    />
+
+    <v-row
+      :class="gridSwitcher"
+      dense>
+      <v-col
+        :class="gridTv"
+        cols=3
+        sm=2
+        md=2
+        lg=2
+        xl=1
+      >
+        <div
+          :style="switcher === false ? switchBtn.active : switchBtn.inactive"
+        >
+        シリーズ
+        </div>
       </v-col>
-      <v-col :class="$vuetify.breakpoint.width > 600 ? 'mt-4 ml-4' : 'mt-1'" cols=1 sm=1 md=1 lg=1 xl=1>
-        <div :style="switcher === true ? switchBtn.active : switchBtn.inactive" v-text="movie.header" />
+      <v-col
+        :class="gridMv"
+        cols=2
+        sm=2
+        md=1
+        lg=1
+        xl=1
+      >
+        <div
+          :style="switcher === true ? switchBtn.active : switchBtn.inactive"
+        >
+        映画
+        </div>
       </v-col>
-      <v-col cols=9 sm=9 md=9 lg=9 xl=9 />
-      <v-col :class="$vuetify.breakpoint.width > 600 ? 'ml-n4' : 'mt-n3 ml-4'" cols=1 sm=1 md=1 lg=1 xl=1>
-        <v-switch v-model="switcher" color="blue" dense inset />
+      <v-col
+        cols=6
+        sm=7
+        md=8
+        lg=8
+        xl=9
+      />
+      <v-col
+        class='ml-2'
+        v-if="$vuetify.breakpoint.name != 'xs'"
+        cols=1
+        sm=1
+        md=1
+        lg=1
+        xl=1
+      >
+        <v-switch
+          v-model="switcher"
+          color='blue'
+          dense
+          inset
+        />
       </v-col>
     </v-row>
 
-    <base-card :items='items'/>
-    <base-loader :handler="infiniteHandler" :wrapper="true" :text="loaderText" />
+    <base-card
+      :items="items"
+    />
+    <base-loader
+      :handler="infiniteHandler"
+      :wrapper="true"
+      :text="loaderText"
+    />
 
     <!-- to component -->
     <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
@@ -52,6 +113,7 @@
         </v-row>
       </v-card>
     </v-dialog>
+
   </v-container>
 </template>
 
@@ -78,10 +140,6 @@
         componentKey: 0,
         query_media: 'tv',
         error: '',
-        icon: {
-          size: 22,
-          mdi: 'mdi-menu-up'
-        },
         media: {
           tv: 'tv',
           movie: 'mv',
@@ -139,6 +197,52 @@
         }
       }
     },
+    computed: {
+      gridTv(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs':
+            return 'mt-4'
+          case 'sm':
+          case 'md':
+          case 'lg':
+          case 'xl':
+             return 'mt-5'
+        }
+      },
+      gridMv(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs':
+            return 'mt-4'
+          case 'sm':
+          case 'md':
+          case 'lg':
+          case 'xl':
+            return 'mt-5 ml-n4'
+        }
+      },
+      gridSwitcher(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs':
+            return 'mt-n3 mb-5'
+          case 'sm':
+          case 'md':
+          case 'lg':
+          case 'xl':
+            return 'mt-n2 mb-n1 ml-2'
+        }
+      },
+      gridSubHeader(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs':
+            return 'sub-header'
+          case 'sm':
+          case 'md':
+          case 'lg':
+          case 'xl':
+            return 'sub-header ml-3 mt-2'
+        }
+      }
+    },
     methods: {
       track() {
         this.$gtag.pageview({
@@ -193,14 +297,14 @@
             })
           }
         } else {
-          this.loginDialog = true
+          this.loginDialog = true;
         }
       },
       goLogin() {
-        this.$router.replace('/login')
+        this.$router.replace('/login');
       },
       goSignup() {
-        this.$router.replace('/signup')
+        this.$router.replace('/signup');
       }
     }
   }
@@ -213,7 +317,7 @@
 
   .sub-header {
     font-weight: bold;
-    font-size: 19px;
+    font-size: 15px;
     color: #111111;
   }
 </style>

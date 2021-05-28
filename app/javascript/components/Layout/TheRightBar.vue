@@ -167,25 +167,25 @@
 
     <v-row no-gutters class="mt-10">
       <v-hover v-slot="{hover}">
-        <v-col lg=4 :style="hover ? style.unhoverlink : style.hoverlink" @click="movePath('Terms')">
+        <v-col lg=4 :style="hover ? style.hoverlink : style.unhoverlink" @click="movePath('Terms')">
           利用規約
         </v-col>
       </v-hover>
       <v-hover v-slot="{hover}">
-        <v-col lg=8 :style="hover ? style.unhoverlink : style.hoverlink" class="ml-n4" @click="movePath('Privacy')">
+        <v-col lg=8 :style="hover ? style.hoverlink : style.unhoverlink" class="ml-n4" @click="movePath('Privacy')">
           プライバシーポリシー
         </v-col>
       </v-hover>
     </v-row>
     <v-row no-gutters>
       <v-hover v-slot="{hover}">
-        <v-col lg=4 :style="hover ? style.unhoverlink : style.hoverlink">
+        <v-col lg=4 :style="hover ? style.hoverlink : style.unhoverlink">
           お問い合わせ
         </v-col>
       </v-hover>
       <v-hover v-slot="{hover}">
 
-        <v-col lg=8 :style="hover ? style.unhoverlink : style.hoverlink">
+        <v-col lg=8 :style="hover ? style.hoverlink : style.unhoverlink">
           © 2021 Devio
         </v-col>
       </v-hover>
@@ -249,14 +249,14 @@
             fontWeight: 'bold',
             fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '9px',
-            color: '#6c757d',
+            color: '#374151',
             cursor: 'pointer',
           },
           unhoverlink: {
             fontWeight: 'bold',
             fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '9px',
-            color: '#ffffff',
+            color: '#6c757d',
             cursor: 'pointer',
           }
         },

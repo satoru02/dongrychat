@@ -1,5 +1,5 @@
 <template>
-  <v-container :class="vContainerGrid" style="background-color: #ffffff;">
+  <v-container>
     <v-row>
       <v-col cols=12 sm=12 md=12 lg=12 xl=12>
         <div :style="resultsStyle" v-text="resultsText" />
@@ -7,7 +7,7 @@
     </v-row>
     <v-row class="mt-n3">
       <v-col cols=12 sm=12 md=12 lg=12 xl=12>
-        <v-tabs hide-slider grow :background-color="tabColor">
+        <v-tabs mobile-breakpoint="xs" hide-slider grow :background-color="tabColor">
           <v-tab v-for="(menu, index) in menus" :key="index"
           :style="listStyle" :active-class="tabActive" v-text="menu.name" @click="movePath(menu.path)" />
         </v-tabs>
@@ -23,7 +23,7 @@
           :class="'rounded-lg'"
            @click="showContents(item)"
             :style="hover ? 'background-color: #f6f6f9;' : 'background-color: #ffffff;'">
-              <v-list-item-avatar :size='avatar.size' :width='avatar.width' :height='avatar.height'
+              <v-list-item-avatar :size='55' :width='55'
                 :class="avatar.rounded">
                 <v-img v-if="items.type === 'person'" :src="base_tmdb_img_url + item.profile_path" />
                 <v-img v-else :src="base_tmdb_img_url + item.poster_path" />
@@ -57,6 +57,9 @@
 
   export default {
     name: 'SearchResults',
+    components: {
+      'base-list': () => import(/* webpackPrefetch: true */ '../Base/BaseList')
+    },
     data() {
       return {
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
@@ -216,15 +219,15 @@
       }
     },
     computed: {
-      vContainerGrid(){
-        switch(this.$vuetify.breakpoint.name) {
-          case 'xs' : return 'ml-16'
-          case 'sm' : return 'mt-7'
-          case 'md' : return 'mt-7'
-          case 'lg' : return 'ml-n2'
-          case 'xl' : return 'mt-n9'
-        }
-      }
+      // vContainerGrid(){
+      //   switch(this.$vuetify.breakpoint.name) {
+      //     case 'xs' : return 'ml-16'
+      //     case 'sm' : return 'mt-7'
+      //     case 'md' : return 'mt-7'
+      //     case 'lg' : return 'ml-n2'
+      //     case 'xl' : return 'mt-n9'
+      //   }
+      // }
     }
   }
 </script>

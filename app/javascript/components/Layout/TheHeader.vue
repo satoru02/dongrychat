@@ -1,7 +1,7 @@
 <template>
-  <v-app-bar elevation=1 outlined app color="#ffffff" v-if="$vuetify.breakpoint.width > 600">
-    <div class="ml-11"></div>
-    <v-toolbar-title class="logo ml-10" @click="goTop()">devio</v-toolbar-title>
+  <v-app-bar elevation=1 outlined app color="#ffffff">
+    <div :class="headerL" />
+    <v-toolbar-title :class="headerTitle" @click="goTop()">devio</v-toolbar-title>
     <v-divider vertical inset class="ml-3" />
     <v-toolbar-title @click="goTop()" class="beta-logo ml-3 mt-1">
       β 0.5
@@ -10,7 +10,7 @@
     <v-text-field placeholder="検索..." @keypress="setQuery()" @keydown.enter="search(query)" v-model="query" height="10"
       :full-width="true" v-if="this.checkAuthorization()" :prepend-inner-icon="'mdi-magnify'" dense
       background-color="#e9ecef" solo flat class="text-field rounded-lg mt-7 ml-3 mr-8" />
-    <v-avatar size="30" class="mr-5">
+    <v-avatar size="30" class="mr-1">
       <v-img :src="$store.state.user.currentUser.avatar_url" />
     </v-avatar>
     <v-btn v-if="(this.checkAuthorization()) && !$store.state.user.signedIn" @click="goLogin()" outlined small
@@ -28,6 +28,25 @@
         query: '',
         canSubmit: false,
       }
+    },
+    computed: {
+      headerL(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs':
+            return `ml-1`
+          default:
+            return `ml-11`
+        }
+      },
+      headerTitle(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs':
+            return `logo`
+          default:
+            return `logo ml-10`
+        }
+      }
+
     },
     methods: {
       checkAuthorization() {
@@ -81,7 +100,7 @@
 
   .logo {
     font-weight: bold;
-    font-size: 22px;
+    font-size: 19px;
     color: #011627;
     cursor: pointer;
   }

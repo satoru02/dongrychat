@@ -2,14 +2,14 @@
   <v-container :class="vContainerGrid">
     <v-row :class="vRowContentsGrid">
       <v-col cols=2 sm=2 md=2 lg=2 xl=2 :class="vAvatarGrid">
-        <v-avatar :class="'rounded-lg'" :size="heading.avatar.size" :height="heading.avatar.height">
+        <v-avatar :class="'rounded-lg'" :size="bindHeadingSize" :height="bindHeadingHeight">
           <v-img v-if="details.poster_path" :src="base_tmdb_img_url + details.poster_path" />
         </v-avatar>
       </v-col>
-      <v-col v-if="this.$vuetify.breakpoint.width < 600" cols=2 />
-      <v-col cols=7 sm=9 md=9 lg=9 xl=9 class="ml-10">
+      <v-col cols=2 sm=2 md=2 lg=1 xl=2 />
+      <v-col cols=7 sm=9 md=9 lg=9 xl=9>
         <v-row>
-          <v-col cols=12 sm=9 md=9 lg=9 xl=9 :class="vColNameGrid" :style="style.contentsTitle">
+          <v-col cols=12 sm=9 md=9 lg=9 xl=9 :class="vColNameGrid" :style="bindTitle">
             <h3 v-if="media === 'tv'" v-text="this.$route.params.tv_name" />
             <h3 v-else v-text="this.$route.params.mv_name" />
           </v-col>
@@ -22,32 +22,35 @@
         </v-row>
         <v-row>
           <v-col cols=12 sm=12 md=12 lg=12 xl=12 :class="vColDetailsGrid">
-            <div :style="style.contentsDetails" v-text="details.overview" />
+            <div :style="bindContentsDetails" v-text="details.overview" />
           </v-col>
         </v-row>
-        <v-row :class="'mt-3'" v-if="this.$vuetify.breakpoint.width > 600">
+        <!-- <v-row :class="'mt-3'" v-if="this.$vuetify.breakpoint.width > 600">
           <v-col cols=5 sm=2 md=2 lg=2 xl=2 :class="vColCreditGrid" :style="style.credit" v-text="text.credit" />
           <v-col cols=3 sm=3 md=3 lg=3 xl=3 :class="'ml-n10'" :style="style.person"
             v-for="(credit, index) in overall.created_by" :key="index" v-text="credit.name" />
         </v-row>
         <v-row :class="'mt-n1 ml-1'" v-if="this.$vuetify.breakpoint.width > 600">
           <v-col cols=4 sm=2 md=2 lg=2 xl=2 :class="vColGenreGrid" :style="style.credit" v-text="text.genre" />
-          <v-col cols=8 sm=8 md=8 lg=8 xl=8 :class="'ml-n10'">
-            <v-chip :class="'mr-4 mb-2'" :style="style.tag" v-for="(genre, index) in this.genres" :key="index"
+          <v-col cols=8 sm=8 md=8 lg=10 xl=8 :class="'ml-n7'">
+            <v-chip :class="'mr-4 mb-2'" :style="style.tag" v-for="(genre, index) in this.genres.slice(0,3)" :key="index"
               :color="style.chip" small v-text="genre" />
           </v-col>
-        </v-row>
+        </v-row> -->
       </v-col>
     </v-row>
 
     <v-row v-if="this.$vuetify.breakpoint.width < 600">
       <v-col cols=12>
-        <v-chip :class="'mr-4 mt-n2'" :style="style.tag" v-for="(genre, index) in this.genres" :key="index"
+        <v-chip :class="'mr-4 mt-n2'" :style="style.tag" v-for="(genre, index) in this.genres.slice(0, 2)" :key="index"
           :color="style.chip" small v-text="genre" />
         </v-col>
     </v-row>
 
-    <v-tabs hide-slider v-if="(media === 'tv') && (overall.seasons)" :class="vTabsGrid" :style="style.tabs"
+    <v-tabs
+      next-icon="mdi-arrow-right-bold-box-outline"
+      prev-icon="mdi-arrow-left-bold-box-outline"
+      mobile-breakpoint="xs" v-if="(media === 'tv') && (overall.seasons)" :class="vTabsGrid" :style="style.tabs"
       background-color='#ffffff' :height="'40'" :width="tabs.width" :color="'blue'">
       <v-tab :active-class="'black--text'" :style="style.tab" @click="changeSeason(index+1)"
         v-for="(season, index) in overall.seasons.length" :key="index">
@@ -56,22 +59,24 @@
     </v-tabs>
     <v-divider v-if="media === 'tv'" />
 
-    <v-row v-if="media === 'tv'">
+    <v-row v-if="media === 'tv'" no-gutters>
       <v-col cols=12 sm=12 md=12 lg=12 xl=12>
         <v-list :style="style.list">
           <v-list-item-group v-for="(episode, index) in details.episodes" :key="index" :active-class="list_part.active">
             <v-hover v-slot="{hover}">
               <v-list-item :class="'rounded-lg'" :style="hover ? style.hoverList : style.list"
                 @click="enterTvSpace(episode)">
-                <v-list-item-avatar :class="list_part.avatar.round" :size="list_part.avatar.size"
-                  :height="list_part.avatar.height">
+                <v-list-item-avatar :class="list_part.avatar.round"
+                  :size="bindList"
+                  :height="bindList">
                   <v-img :src="base_tmdb_img_url + episode.still_path" />
                 </v-list-item-avatar>
                 <v-list-item-content>
-                  <v-list-item-title :style="style.episodeDetails">
-                    <span :class="'mr-2'" :style="style.caption">{{index + 1}}</span> {{episode.name}}
+                  <v-list-item-title :style="bindName">
+                    <span :class="'mr-2'">{{index + 1}}</span>
+                     <span>{{episode.name}}</span>
                   </v-list-item-title>
-                  <v-list-item-subtitle :class="'mt-2'" :style="style.overview" v-text="episode.overview" />
+                  <v-list-item-subtitle :class="'mt-2'" :style="bindOverview" v-text="episode.overview" />
                 </v-list-item-content>
               </v-list-item>
             </v-hover>
@@ -81,15 +86,15 @@
       </v-col>
     </v-row>
 
-    <v-row v-else class="mt-n3">
+    <v-row v-else class="mt-4" no-gutters>
       <v-col cols=12 sm=12 md=12 lg=12 xl=12>
         <v-list :style="style.list">
           <v-list-item-group :active-class="list_part.active">
             <v-hover v-slot="{hover}">
               <v-list-item :class="'rounded-lg'" :style="hover ? style.hoverList : style.list"
                 @click="enterMovieSpace(details)">
-                <v-list-item-avatar :class="list_part.avatar.round" :size="list_part.avatar.size"
-                  :height="list_part.avatar.height">
+                <v-list-item-avatar :class="list_part.avatar.round" :size="bindList"
+                  :height="bindList">
                   <v-img :src="base_tmdb_img_url + details.backdrop_path" />
                 </v-list-item-avatar>
                 <v-list-item-content>
@@ -370,7 +375,7 @@
         }
       },
       enterMovieSpace(details) {
-        if (!this.$store.state.signedIn) {
+        if (!this.$store.state.user.signedIn) {
           this.loginDialog = true
         } else {
           this.$router.push({
@@ -395,65 +400,83 @@
       }
     },
     computed: {
+      bindHeadingSize(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return '120'
+          case 'sm' : 
+          case 'md' : 
+          case 'lg' : return '125'
+          case 'xl' : return ''
+        }
+      },
+      bindHeadingHeight(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return '175'
+          case 'sm' : 
+          case 'md' : 
+          case 'lg' : return '175'
+          case 'xl' : return ''
+        }
+      },
       vContainerGrid(){
         switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return 'mt-n12 ml-16'
-          case 'sm' : return ''
-          case 'md' : return ''
-          case 'lg' : return 'mt-n12'
+          case 'xs' : return 'mt-n10'
+          case 'sm' : 
+          case 'md' : 
+          case 'lg' : return 'mt-n10'
           case 'xl' : return ''
         }
       },
       vRowContentsGrid(){
         switch(this.$vuetify.breakpoint.name){
           case 'xs' : return 'mt-6 ml-n6'
-          case 'sm' : return ''
-          case 'md' : return ''
-          case 'lg' : return 'mt-7 ml-n7'
+          case 'sm' : 
+          case 'md' : 
+          case 'lg' : return 'mt-7 ml-n1'
           case 'xl' : return ''
         }
       },
       vAvatarGrid(){
         switch(this.$vuetify.breakpoint.name){
           case 'xs' : return 'ml-4 mt-3'
-          case 'sm' : return ''
-          case 'md' : return ''
-          case 'lg' : return 'ml-6 mt-3'
+          case 'sm' : 
+          case 'md' : 
+          case 'lg' : return 'mt-3'
           case 'xl' : return ''
         }
       },
       vColNameGrid(){
         switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return 'mt-4 ml-2'
-          case 'sm' : return ''
-          case 'md' : return ''
-          case 'lg' : return 'mt-4 ml-n2'
+          case 'xs' : return 'mt-3 ml-n2'
+          case 'sm' : 
+          case 'md' : 
+          case 'lg' : return 'mt-4 ml-n6'
           case 'xl' : return ''
         }
       },
       vColSubNameGrid(){
         switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return 'mt-2 ml-2'
-          case 'sm' : return ''
-          case 'md' : return ''
-          case 'lg' : return 'mt-2 ml-n2'
+          case 'xs' : return 'mt-2 ml-n2'
+          case 'sm' : 
+          case 'md' : 
+          case 'lg' : return 'mt-2 ml-n6'
           case 'xl' : return ''
         }
       },
       vColDetailsGrid(){
         switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return 'mt-n2 ml-2'
-          case 'sm' : return ''
-          case 'md' : return ''
-          case 'lg' : return 'mt-n2 ml-n2'
+          case 'xs' : return 'mt-n2 ml-n2'
+          case 'sm' :
+          case 'md' :
+          case 'lg' : return 'mt-n2 ml-n6'
           case 'xl' : return ''
         }
       },
       vColCreditGrid(){
         switch(this.$vuetify.breakpoint.name){
           case 'xs' : return 'ml-2'
-          case 'sm' : return ''
-          case 'md' : return ''
+          case 'sm' : 
+          case 'md' : 
           case 'lg' : return 'ml-n2'
           case 'xl' : return ''
         }
@@ -461,8 +484,8 @@
       vColGenreGrid(){
         switch(this.$vuetify.breakpoint.name){
           case 'xs' : return 'mt-1'
-          case 'sm' : return ''
-          case 'md' : return ''
+          case 'sm' : 
+          case 'md' : 
           case 'lg' : return 'ml-n6 mt-1'
           case 'xl' : return ''
         }
@@ -470,9 +493,96 @@
       vTabsGrid(){
         switch(this.$vuetify.breakpoint.name){
           case 'xs' : return 'mt-2'
-          case 'sm' : return ''
-          case 'md' : return ''
+          case 'sm' : 
+          case 'md' : 
           case 'lg' : return 'mt-6'
+          case 'xl' : return ''
+        }
+      },
+      bindList(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return '40'
+          case 'sm' : 
+          case 'md' : 
+          case 'lg' : return '50'
+          case 'xl' : return ''
+        }
+      },
+      bindName(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return {
+            fontSize: '11px',
+            fontWeight: 'bold',
+            color: '#111111'
+          }
+          case 'sm' : 
+          case 'md' : 
+          case 'lg' : return {
+            fontSize: '15px',
+            fontWeight: 'bold',
+            color: '#111111'
+          }
+          case 'xl' : return ''
+        }
+      },
+      bindOverview(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return {
+            fontSize: '9px',
+            fontWeight: 'bold',
+            color: '#666666',
+          }
+          case 'sm' : 
+          case 'md' : 
+          case 'lg' : return  {
+            fontSize: '11px',
+            fontWeight: 'bold',
+            color: '#666666',
+          }
+          case 'xl' : return ''
+        }
+      },
+      bindTitle(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return  {
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue sans-serif',
+            fontSize: '14px',
+            color: '#111111'
+          }
+          case 'sm' : 
+          case 'md' : 
+          case 'lg' : return   {
+            fontWeight: 'bold',
+            fontFamily: 'Helvetica Neue sans-serif',
+            fontSize: '16px',
+            color: '#111111'
+          }
+          case 'xl' : return ''
+        }
+      },
+      bindContentsDetails(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs' : return {
+            fontSize: '10px',
+            fontWeight: 'bold',
+            color: '#111111',
+            height: '75px',
+            maxHeight: '75px',
+            overflow: 'scroll',
+            overflowY: 'scroll',
+          }
+          case 'sm' : 
+          case 'md' : 
+          case 'lg' : return  {
+            fontSize: '12px',
+            fontWeight: 'bold',
+            color: '#111111',
+            height: '90px',
+            maxHeight: '90px',
+            overflow: 'scroll',
+            overflowY: 'scroll',
+          }
           case 'xl' : return ''
         }
       }

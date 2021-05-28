@@ -1,52 +1,169 @@
 <template>
-  <v-container>
-    <sub-header class="mb-n2 mt-1">
-      <template v-slot:home_header="subHeaderProps">
-        <h3 :style="style.headerPart">{{subHeaderProps.sub_header}}</h3>
+  <v-container
+  >
+
+    <sub-header
+      class="mt-2">
+
+      <template
+        v-slot:home_header="subHeaderProps">
+        <div
+          :class="gridSubHeader"
+        >
+           {{subHeaderProps.sub_header}}
+        </div>
       </template>
     </sub-header>
-    <v-divider class="mt-n4 mb-4" />
-    <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
-      <v-card outlined class="rounded-lg mb-5" :style="hover ? card.hoverStyle : card.unhoverStyle"
-        @click="enterSpace(item)" :elevation='hover ? 0 : 0' :height="'95'">
-        <v-row class=mt-n1>
-          <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-5">
-            <v-avatar class="rounded-lg" :size="listAvatar.size" :height="listAvatar.height">
-              <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
+
+    <v-divider
+       class="mt-4 mb-4"
+    />
+
+    <v-hover
+      v-slot="{ hover }"
+      v-for="(item, index) in items"
+      :key="index">
+      <v-card
+        outlined
+        class="rounded-lg mb-5"
+        :style="hover ? card.hoverStyle : card.unhoverStyle"
+        @click="enterSpace(item)"
+        :elevation='hover ? 0 : 0'
+        :height="gridCardHeight"
+        :width="gridCardWidth"
+      >
+        <v-row class="mt-n1">
+          <v-col
+            cols=1
+            sm=1
+            md=1
+            lg=1
+            xl=1
+            class="ml-5"
+          >
+            <v-avatar
+              class="rounded-lg"
+              :size="bindSize"
+              :height="bindSize"
+            >
+              <v-img
+                :src="base_tmdb_img_url + item.attributes.image_path" />
             </v-avatar>
           </v-col>
-          <v-col cols=10 sm=10 md=10 lg=10 xl=10 class="ml-1 mt-n1">
+          <v-col
+            cols=10
+            sm=10
+            md=10
+            lg=10
+            xl=10
+            class="ml-1 mt-n1"
+          >
             <v-row>
-              <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
-              <v-col cols=10 sm=10 md=10 lg=10 xl=10
-                :class="$vuetify.breakpoint.width > 600 ? 'ml-n5 mt-1' : 'mt-1 ml-6'" :style="style.name">
-                <base-label :x_small="true" :outlined="false" :label="true" v-if="item.attributes.media === media.tv"
-                  color="#016aff" :season="item.attributes.season" :episode="item.attributes.episode"
-                  :title="item.attributes.episode_title" />
-                <v-chip :style="style.movieLabel" v-if="item.attributes.media === media.movie" x-small label
-                  color="yellow" v-text="text.movie" />
+              <v-col
+                cols=1
+                sm=1
+                md=1
+                lg=1
+                xl=1
+              />
+              <v-col
+                 cols=10
+                 sm=10
+                 md=10
+                 lg=10
+                 xl=10
+                :class="$vuetify.breakpoint.width > 600 ? 'ml-n5 mt-1' : 'mt-1'"
+                :style="style.name"
+              >
+                <base-label
+                  :x_small="true"
+                  :outlined="false"
+                  :label="true"
+                  v-if="item.attributes.media === media.tv"
+                  color="#016aff"
+                  :season="item.attributes.season"
+                  :episode="item.attributes.episode"
+                  :title="item.attributes.episode_title"
+                />
+                <v-chip
+                  :style="style.movieLabel"
+                  v-if="item.attributes.media === media.movie"
+                  x-small
+                  label
+                  color="yellow"
+                  v-text="text.movie"
+                />
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
-              <v-col cols=9 sm=9 md=9 lg=9 xl=9 :class="$vuetify.breakpoint.width > 600 ? 'ml-n5 mt-n3' : 'mt-n3 ml-6'"
-                :style="style.name">
+              <v-col
+                cols=1
+                sm=1
+                md=1
+                lg=1
+                xl=1
+              />
+              <v-col
+                cols=9
+                sm=9
+                md=9
+                lg=9
+                xl=9
+                :class="$vuetify.breakpoint.width > 600 ? 'ml-n5 mt-n3' : 'mt-n4'"
+                :style="bindName"
+              >
                 {{item.attributes.name}}
               </v-col>
-              <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-14">
-                <v-badge v-if="item.attributes.unconfirmed_comments > 0" dot />
+              <v-col
+                cols=1
+                sm=1
+                md=1
+                lg=1
+                xl=1
+                class="ml-14"
+              >
+                <v-badge
+                  v-if="item.attributes.unconfirmed_comments > 0"
+                  dot
+                />
               </v-col>
-              <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="mt-n3 ml-n10" :style="style.notifyText"
-                v-if="item.attributes.unconfirmed_comments > 0">
+              <v-col
+                cols=1
+                sm=1
+                md=1
+                lg=1
+                xl=1
+                class="mt-n3 ml-n10"
+                :style="style.notifyText"
+                v-if="item.attributes.unconfirmed_comments > 0"
+              >
                 {{item.attributes.unconfirmed_comments}}
               </v-col>
             </v-row>
-            <v-row :class="$vuetify.breakpoint.width > 600 ? 'mt-n4' : 'mt-n16'">
-              <v-col cols=1 sm=1 md=1 lg=11 xl=1 class=ml-6 :style="style.comment">
-                <v-avatar size="20" class="mt-n1 ml-1">
-                  <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
+            <v-row
+              v-if="$vuetify.breakpoint.width > 600"
+              :class="$vuetify.breakpoint.width > 600 ? 'mt-n4' : 'mt-n16'">
+              <v-col
+                cols=1
+                sm=1
+                md=1
+                lg=11
+                xl=1
+                class="ml-6"
+                :style="style.comment"
+              >
+                <v-avatar
+                  size="20"
+                  class="mt-n1 ml-1"
+                >
+                  <v-img
+                    src="https://cdn.vuetifyjs.com/images/john.jpg"
+                  />
                 </v-avatar>
-                <span class="ml-1" v-if="item.attributes.latest_comment">
+                <span
+                  class="ml-1"
+                  v-if="item.attributes.latest_comment"
+                >
                   {{item.attributes.latest_comment.content}}
                 </span>
               </v-col>
@@ -55,7 +172,10 @@
         </v-row>
       </v-card>
     </v-hover>
-    <base-loader :handler="infiniteHandler" :text="text.loading" />
+    <base-loader
+      :handler="infiniteHandler"
+      :text="text.loading"
+    />
   </v-container>
 </template>
 
@@ -101,25 +221,16 @@
           size: 28,
           height: 28,
         },
-        notify_btn: {
-          color: 'red',
-          size: 22
-        },
         card: {
           height: '90px',
           hoverStyle: {
-            backgroundColor: '#f8f9fa'
+            backgroundColor: '#edf2f4'
           },
           unhoverStyle: {
-            backgroundColor: '#f8f9fa'
+            backgroundColor: '#f5f8fa'
           }
         },
         style: {
-          headerPart: {
-            fontWeight: 'bold',
-            fontSize: '19px',
-            color: '#000000'
-          },
           name: {
             fontWeight: 'bold',
             fontSize: '15px',
@@ -139,9 +250,73 @@
           },
           movieLabel: {
             fontSize: '10px',
-            // fontWeight: 'bold',
             color: '#111111'
           }
+        }
+      }
+    },
+    computed: {
+      gridSubHeader(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs':
+            return 'sub-header mb-n5 mt-1 ml-2'
+          case 'sm':
+          case 'md':
+          case 'lg':
+          case 'xl':
+             return 'sub-header mb-2 mt-1'
+        }
+      },
+      gridCardWidth(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs':
+            return '500'
+          case 'sm':
+          case 'md':
+          case 'lg':
+          case 'xl':
+             return '700'
+        }
+      },
+      bindSize(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs':
+            return 50
+          case 'sm':
+          case 'md':
+          case 'lg':
+          case 'xl':
+             return 77
+        }
+      },
+      bindName(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs':
+            return {
+            fontWeight: 'bold',
+            fontSize: '12px',
+            color: '#111111'
+          }
+          case 'sm':
+          case 'md':
+          case 'lg':
+          case 'xl':
+             return {
+            fontWeight: 'bold',
+            fontSize: '15px',
+            color: '#111111'
+          }
+        }
+      },
+      gridCardHeight(){
+        switch(this.$vuetify.breakpoint.name){
+          case 'xs':
+            return 68
+          case 'sm':
+          case 'md':
+          case 'lg':
+          case 'xl':
+             return 95
         }
       }
     },
@@ -151,8 +326,8 @@
         rejected() {},
         received(data) {
           this.items.filter((item) => {
-            if ((item.attributes.id === data["space_id"]) && (this.$store.state.user.currentUser.id != data[
-                "user_id"])) {
+            if ((item.attributes.id === data['space_id']) && (this.$store.state.user.currentUser.id != data[
+                'user_id'])) {
               item.attributes.unconfirmed_comments += 1
             }
           });
@@ -214,18 +389,24 @@
         }
       },
       formalizeTime(time) {
-        return moment(time).format("hh:mm")
+        return moment(time).format('hh:mm')
       },
     }
   }
 </script>
 
 <style scoped>
-  .theme--light.v-divider {
-    border-color: rgba(0, 1, 1, .06);
+  .theme--light.v-sheet--outlined {
+    border: thin solid rgba(172, 172, 172, 0.12);
   }
 
-  .theme--light.v-sheet--outlined {
-    border: thin solid rgba(232, 236, 236, 0.336);
+    .theme--light.v-divider {
+    border-color: rgba(0,0,0,.04);
+  }
+
+  .sub-header {
+    font-weight: bold;
+    font-size: 15px;
+    color: #111111;
   }
 </style>

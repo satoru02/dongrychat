@@ -96,11 +96,17 @@ var router = new VueRouter({
       path: '/tv/:id/:tv_name/season/:number',
       name: 'TvDetails',
       component: () => import( /* webpackChunkName: "DetailsTop" */ '../components/Detail/DetailsTop'),
+      meta: {
+        keepAlive: false,
+      }
     },
     {
       path: '/mv/:id/:mv_name',
       name: 'MvDetails',
       component: () => import( /* webpackChunkName: "DetailsTop" */ '../components/Detail/DetailsTop'),
+      meta: {
+        keepAlive: false,
+      }
     },
     {
       path: '/mv_space/m/:name',
@@ -111,19 +117,31 @@ var router = new VueRouter({
           path: 'chats',
           name: 'MvSpace',
           component: () => import( /* webpackChunkName: "SpaceChats" */ '../components/Space/SpaceChats'),
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'members',
           name: 'MvSpaceMembers',
           component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceUsers'),
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'reviews',
           name: 'MvSpaceReviews',
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'news',
           name: 'MvSpaceNews',
+          meta: {
+            keepAlive: false,
+          }
         }
       ]
     },
@@ -136,19 +154,31 @@ var router = new VueRouter({
           path: 'chats',
           name: 'subscribedMvSpace',
           component: () => import( /* webpackChunkName: "SpaceChats" */ '../components/Space/SpaceChats'),
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'members',
           name: 'subscribedMvSpaceMembers',
           component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceUsers'),
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'reviews',
           name: 'subscribedMvSpaceReviews',
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'news',
           name: 'subscribedMvSpaceNews',
+          meta: {
+            keepAlive: false,
+          }
         }
       ]
     },
@@ -161,19 +191,31 @@ var router = new VueRouter({
           path: 'chats',
           name: 'TvSpace',
           component: () => import( /* webpackChunkName: "SpaceChats" */ '../components/Space/SpaceChats'),
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'members',
           name: 'TvSpaceMembers',
           component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceUsers'),
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'reviews',
           name: 'TvSpaceReviews',
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'news',
           name: 'TvSpaceNews',
+          meta: {
+            keepAlive: false,
+          }
         }
       ]
     },
@@ -186,19 +228,31 @@ var router = new VueRouter({
           path: 'chats',
           name: 'subscribedTvSpace',
           component: () => import( /* webpackChunkName: "SpaceChats" */ '../components/Space/SpaceChats'),
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'members',
           name: 'subscribedTvSpaceMembers',
           component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceUsers'),
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'reviews',
           name: 'subscribedTvSpaceReviews',
+          meta: {
+            keepAlive: false,
+          }
         },
         {
           path: 'news',
           name: 'subscribedTvSpaceNews',
+          meta: {
+            keepAlive: false,
+          }
         }
       ]
     },
@@ -238,45 +292,45 @@ var router = new VueRouter({
       component: () => import( /* webpackChunkName: "UserSettings" */ '../components/User/UserSettings'),
     },
     {
-      path: '/search',
-      name: 'Search',
+      path: '/latest',
+      name: 'Latest',
       meta: {
-        title: '気になる作品を探す'
+        title: '新着の作品'
       },
-      component: () => import( /* webpackChunkName: "Search" */ '../components/Search/Search'),
+      component: () => import( /* webpackChunkName: "Search" */ '../components/Content/Content'),
     },
     {
-      path: '/trending',
-      name: 'trending',
+      path: '/trend',
+      name: 'Trend',
       meta: {
         title: '注目の作品'
       },
-      component: () => import( /* webpackChunkName: "Trending" */ '../components/Search/SearchList'),
+      component: () => import( /* webpackChunkName: "Search" */ '../components/Content/Content'),
     },
     {
       path: '/popular',
-      name: 'popular',
+      name: 'Popular',
       meta: {
         title: '人気の作品'
       },
-      component: () => import( /* webpackChunkName: "Popular" */ '../components/Search/SearchList'),
+      component: () => import( /* webpackChunkName: "Search" */ '../components/Content/Content'),
     },
     {
       path: '/top-rated',
-      name: 'topRated',
+      name: 'TopRated',
       meta: {
         title: '評価の高い作品'
       },
-      component: () => import( /* webpackChunkName: "TopRated" */ '../components/Search/SearchList'),
+      component: () => import( /* webpackChunkName: "Search" */ '../components/Content/Content'),
     },
-    {
-      path: '/upcoming',
-      name: 'upcoming',
-      meta: {
-        title: '公開・配信予定の作品'
-      },
-      component: () => import( /* webpackChunkName: "Upcoming" */ '../components/Search/SearchList'),
-    },
+    // {
+    //   path: '/upcoming',
+    //   name: 'Upcoming',
+    //   meta: {
+    //     title: '公開・配信予定の作品'
+    //   },
+    //   component: () => import( /* webpackChunkName: "Search" */ '../components/Content/Content'),
+    // },
     {
       path: '/results/:query',
       name: 'multi',
