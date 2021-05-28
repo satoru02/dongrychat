@@ -1,16 +1,15 @@
 <template>
-  <!-- slot使用 -->
   <v-list two-line style="background-color: #ffffff;">
     <v-list-item-group v-for="(item, index) in items" :key="index" multiple>
       <v-hover v-slot="{hover}">
         <v-list-item class="rounded-lg" @click="showContents(item)"
           :style="hover ? 'background-color: #f6f6f9;' : 'background-color: #ffffff;'">
-          <v-list-item-avatar :size='65' :width='65' class="rounded-lg">
+          <v-list-item-avatar :size='55' :width='55' class="rounded-lg">
             <v-img :src="base_tmdb_img_url + item.poster_path" />
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title class="mb-2" v-if="item.media_type === 'tv'" :style="listItemStyle" v-text="item.name" />
-            <v-list-item-title class="mb-2" v-if="item.media_type === 'movie'" :style="listItemStyle"
+            <v-list-item-title class="mb-2" v-if="media === 'tv'" :style="listItemStyle" v-text="item.name" />
+            <v-list-item-title class="mb-2" v-if="media === 'movie'" :style="listItemStyle"
               v-text="item.title" />
             <v-list-item-subtitle :style="subtitleStyle" v-text="item.overview" />
           </v-list-item-content>

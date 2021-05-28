@@ -1,13 +1,13 @@
 <template>
   <v-container :key="componentKey">
     <v-row :class="vRowHeader">
-      <v-col cols=3 sm=1 md=1 lg=2 xl=1>
-        <div :class="vColTvGrid" :style="switch1 === false ? active : inactive" v-text="'シリーズ'" />
+      <v-col cols=4 sm=1 md=1 lg=2 xl=1>
+        <div :style="switch1 === false ? active : inactive" v-text="'シリーズ'" />
       </v-col>
-      <v-col cols=1 sm=1 md=1 lg=2 xl=1>
+      <v-col cols=3 sm=1 md=1 lg=2 xl=1>
         <div :style="switch1 === true ? active : inactive" v-text="'映画'" />
       </v-col>
-      <v-col cols=5 sm=7 md=9 lg=7 xl=9 />
+      <v-col cols=1 sm=7 md=9 lg=7 xl=9 />
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="vColSwitchGrid">
         <v-switch dense v-model="switch1" :color="colors.blue" inset :class="switchPosition" />
       </v-col>
@@ -129,7 +129,6 @@
         this.componentKey += 1
       },
       searchSuccessful(res) {
-        console.log(res)
         this.items = res.data.results
       },
       showContents(item) {
@@ -154,20 +153,6 @@
       }
     },
     computed: {
-      vColTvGrid() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 'ml-16'
-          case 'sm':
-            return ''
-          case 'md':
-            return ''
-          case 'lg':
-            return ''
-          case 'xl':
-            return ''
-        }
-      },
       vColSwitchGrid() {
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
@@ -185,7 +170,7 @@
       vRowHeader() {
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
-            return 'ml-9 mb-n8 mt-n7'
+            return 'mb-n7 mt-1'
           case 'sm':
             return ''
           case 'md':
