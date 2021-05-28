@@ -72,7 +72,6 @@
         switch (this.$route.name) {
           case 'TvDetails':
           case 'MvDetails':
-          case 'Search':
             return this.lgGrid = [3, 9, 0]
           case 'Privacy':
           case 'Terms':

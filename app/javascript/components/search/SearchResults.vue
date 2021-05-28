@@ -57,6 +57,9 @@
 
   export default {
     name: 'SearchResults',
+    components: {
+      'base-list': () => import(/* webpackPrefetch: true */ '../Base/BaseList')
+    },
     data() {
       return {
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
