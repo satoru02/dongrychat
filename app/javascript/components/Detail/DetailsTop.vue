@@ -1,13 +1,13 @@
 <template>
   <v-container :class="vContainerGrid">
     <v-row :class="vRowContentsGrid">
-      <v-col cols=1 sm=2 md=2 lg=2 xl=2 :class="vAvatarGrid">
+      <v-col cols=2 sm=2 md=2 lg=2 xl=2 :class="vAvatarGrid">
         <v-avatar :class="'rounded-lg'" :size="bindHeadingSize" :height="bindHeadingHeight">
           <v-img v-if="details.poster_path" :src="base_tmdb_img_url + details.poster_path" />
         </v-avatar>
       </v-col>
-      <v-col v-if="this.$vuetify.breakpoint.width < 600" cols=2 />
-      <v-col cols=7 sm=9 md=9 lg=9 xl=9 class="ml-10">
+      <v-col cols=2 sm=2 md=2 lg=1 xl=2 />
+      <v-col cols=7 sm=9 md=9 lg=9 xl=9>
         <v-row>
           <v-col cols=12 sm=9 md=9 lg=9 xl=9 :class="vColNameGrid" :style="bindTitle">
             <h3 v-if="media === 'tv'" v-text="this.$route.params.tv_name" />
@@ -25,18 +25,18 @@
             <div :style="bindContentsDetails" v-text="details.overview" />
           </v-col>
         </v-row>
-        <v-row :class="'mt-3'" v-if="this.$vuetify.breakpoint.width > 600">
+        <!-- <v-row :class="'mt-3'" v-if="this.$vuetify.breakpoint.width > 600">
           <v-col cols=5 sm=2 md=2 lg=2 xl=2 :class="vColCreditGrid" :style="style.credit" v-text="text.credit" />
           <v-col cols=3 sm=3 md=3 lg=3 xl=3 :class="'ml-n10'" :style="style.person"
             v-for="(credit, index) in overall.created_by" :key="index" v-text="credit.name" />
         </v-row>
         <v-row :class="'mt-n1 ml-1'" v-if="this.$vuetify.breakpoint.width > 600">
           <v-col cols=4 sm=2 md=2 lg=2 xl=2 :class="vColGenreGrid" :style="style.credit" v-text="text.genre" />
-          <v-col cols=8 sm=8 md=8 lg=8 xl=8 :class="'ml-n10'">
+          <v-col cols=8 sm=8 md=8 lg=10 xl=8 :class="'ml-n7'">
             <v-chip :class="'mr-4 mb-2'" :style="style.tag" v-for="(genre, index) in this.genres.slice(0,3)" :key="index"
               :color="style.chip" small v-text="genre" />
           </v-col>
-        </v-row>
+        </v-row> -->
       </v-col>
     </v-row>
 
@@ -86,7 +86,7 @@
       </v-col>
     </v-row>
 
-    <v-row v-else class="mt-n3" no-gutters>
+    <v-row v-else class="mt-4" no-gutters>
       <v-col cols=12 sm=12 md=12 lg=12 xl=12>
         <v-list :style="style.list">
           <v-list-item-group :active-class="list_part.active">
@@ -405,7 +405,7 @@
           case 'xs' : return '120'
           case 'sm' : 
           case 'md' : 
-          case 'lg' : return '165'
+          case 'lg' : return '125'
           case 'xl' : return ''
         }
       },
@@ -414,7 +414,7 @@
           case 'xs' : return '175'
           case 'sm' : 
           case 'md' : 
-          case 'lg' : return '235'
+          case 'lg' : return '175'
           case 'xl' : return ''
         }
       },
@@ -432,7 +432,7 @@
           case 'xs' : return 'mt-6 ml-n6'
           case 'sm' : 
           case 'md' : 
-          case 'lg' : return 'mt-7 ml-n7'
+          case 'lg' : return 'mt-7 ml-n1'
           case 'xl' : return ''
         }
       },
@@ -441,7 +441,7 @@
           case 'xs' : return 'ml-4 mt-3'
           case 'sm' : 
           case 'md' : 
-          case 'lg' : return 'ml-6 mt-3'
+          case 'lg' : return 'mt-3'
           case 'xl' : return ''
         }
       },
@@ -450,7 +450,7 @@
           case 'xs' : return 'mt-3 ml-n2'
           case 'sm' : 
           case 'md' : 
-          case 'lg' : return 'mt-4 ml-n2'
+          case 'lg' : return 'mt-4 ml-n6'
           case 'xl' : return ''
         }
       },
@@ -459,7 +459,7 @@
           case 'xs' : return 'mt-2 ml-n2'
           case 'sm' : 
           case 'md' : 
-          case 'lg' : return 'mt-2 ml-n2'
+          case 'lg' : return 'mt-2 ml-n6'
           case 'xl' : return ''
         }
       },
@@ -468,7 +468,7 @@
           case 'xs' : return 'mt-n2 ml-n2'
           case 'sm' :
           case 'md' :
-          case 'lg' : return 'mt-n2 ml-n2'
+          case 'lg' : return 'mt-n2 ml-n6'
           case 'xl' : return ''
         }
       },
@@ -504,7 +504,7 @@
           case 'xs' : return '40'
           case 'sm' : 
           case 'md' : 
-          case 'lg' : return '80'
+          case 'lg' : return '50'
           case 'xl' : return ''
         }
       },

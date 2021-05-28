@@ -11,7 +11,7 @@
         </v-col>
         </keep-alive>
 
-        <v-divider vertical class="ml-n13 mr-8" v-if="$vuetify.breakpoint.width > 600" />
+        <v-divider vertical class="ml-n13 mr-8" v-if="$vuetify.breakpoint.width > 600 && this.checkRouter()" />
 
         <v-col :cols="this.colsGrid[1]" :sm="this.smGrid[1]" :md="this.mdGrid[1]" :lg="this.lgGrid[1]"
           :xl="this.xlGrid[1]">
@@ -70,13 +70,10 @@
     methods: {
       changeGrid() {
         switch (this.$route.name) {
-          case 'TvDetails':
-          case 'MvDetails':
-            return this.lgGrid = [3, 9, 0]
           case 'Privacy':
           case 'Terms':
           case 'Settings':
-            return this.lgGrid = [0, 12, 0]
+            return this.lgGrid = [2, 10, 0]
           default:
             this.colsGrid = [0, 12, 0]
             this.smGrid = [4, 8, 0]
@@ -96,6 +93,9 @@
       },
       checkRouter() {
         let spaceRoute = [
+          'Settings',
+          'Terms',
+          'Privacy',
         ]
         if (spaceRoute.includes(this.$route.name)) {
           return false
