@@ -1,87 +1,35 @@
 <template>
-  <v-container
-    :key="componentKey"
-  >
+  <v-container :key="componentKey">
 
     <sub-header>
-      <template
-         v-slot:popular_header="subHeaderProps">
-        <div
-          :class="gridSubHeader"
-        >
+      <template v-slot:popular_header="subHeaderProps">
+        <div :class="gridSubHeader">
           {{subHeaderProps.sub_header}}
         </div>
       </template>
     </sub-header>
 
-    <v-divider
-      class="mt-5"
-    />
+    <v-divider class="mt-5" />
 
-    <v-row
-      :class="gridSwitcher"
-      dense>
-      <v-col
-        :class="gridTv"
-        cols=3
-        sm=2
-        md=2
-        lg=2
-        xl=1
-      >
-        <div
-          :style="switcher === false ? switchBtn.active : switchBtn.inactive"
-        >
-        シリーズ
+    <v-row :class="gridSwitcher" dense>
+      <v-col :class="gridTv" cols=3 sm=2 md=2 lg=2 xl=1>
+        <div :style="switcher === false ? switchBtn.active : switchBtn.inactive">
+          シリーズ
         </div>
       </v-col>
-      <v-col
-        :class="gridMv"
-        cols=2
-        sm=2
-        md=1
-        lg=1
-        xl=1
-      >
-        <div
-          :style="switcher === true ? switchBtn.active : switchBtn.inactive"
-        >
-        映画
+      <v-col :class="gridMv" cols=2 sm=2 md=1 lg=1 xl=1>
+        <div :style="switcher === true ? switchBtn.active : switchBtn.inactive">
+          映画
         </div>
       </v-col>
-      <v-col
-        cols=6
-        sm=7
-        md=8
-        lg=8
-        xl=9
-      />
-      <v-col
-        class='ml-2'
-        v-if="$vuetify.breakpoint.name != 'xs'"
-        cols=1
-        sm=1
-        md=1
-        lg=1
-        xl=1
-      >
-        <v-switch
-          v-model="switcher"
-          color='blue'
-          dense
-          inset
-        />
+      <v-col cols=6 sm=7 md=8 lg=8 xl=9 />
+      <v-col class='ml-2' v-if="$vuetify.breakpoint.name != 'xs'" cols=1 sm=1 md=1 lg=1 xl=1>
+        <v-switch v-model="switcher" color='blue' dense inset />
       </v-col>
     </v-row>
 
-    <base-card
-      :items="items"
-    />
-    <base-loader
-      :handler="infiniteHandler"
-      :wrapper="true"
-      :text="loaderText"
-    />
+    <base-card :items="items" />
+    <base-loader :handler="infiniteHandler" :wrapper="true" :text="loaderText" />
 
     <!-- to component -->
     <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
@@ -118,16 +66,18 @@
 </template>
 
 <script>
-  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  import {
+    RepositoryFactory
+  } from '../../repositories/RepositoryFactory';
   const spacesRepository = RepositoryFactory.get('spaces');
 
   export default {
     name: 'ChartTop',
     components: {
-      'sub-header': () => import(/* webpackPrefetch: true */ '../Layout/TheSubHeader'),
-      'base-label': () => import(/* webpackPrefetch: true */ '../Base/BaseLabel'),
-      'base-loader': () => import(/* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
-      'base-card': () => import(/* webpackPrefetch: true */ '../Base/BaseCard'),
+      'sub-header': () => import( /* webpackPrefetch: true */ '../Layout/TheSubHeader'),
+      'base-label': () => import( /* webpackPrefetch: true */ '../Base/BaseLabel'),
+      'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
+      'base-card': () => import( /* webpackPrefetch: true */ '../Base/BaseCard'),
     },
     data() {
       return {
@@ -198,19 +148,19 @@
       }
     },
     computed: {
-      gridTv(){
-        switch(this.$vuetify.breakpoint.name){
+      gridTv() {
+        switch (this.$vuetify.breakpoint.name) {
           case 'xs':
             return 'mt-4'
           case 'sm':
           case 'md':
           case 'lg':
           case 'xl':
-             return 'mt-5'
+            return 'mt-5'
         }
       },
-      gridMv(){
-        switch(this.$vuetify.breakpoint.name){
+      gridMv() {
+        switch (this.$vuetify.breakpoint.name) {
           case 'xs':
             return 'mt-4'
           case 'sm':
@@ -220,8 +170,8 @@
             return 'mt-5 ml-n4'
         }
       },
-      gridSwitcher(){
-        switch(this.$vuetify.breakpoint.name){
+      gridSwitcher() {
+        switch (this.$vuetify.breakpoint.name) {
           case 'xs':
             return 'mt-n3 mb-5'
           case 'sm':
@@ -231,8 +181,8 @@
             return 'mt-n2 mb-n1 ml-2'
         }
       },
-      gridSubHeader(){
-        switch(this.$vuetify.breakpoint.name){
+      gridSubHeader() {
+        switch (this.$vuetify.breakpoint.name) {
           case 'xs':
             return 'sub-header'
           case 'sm':
@@ -255,10 +205,10 @@
       infiniteHandler($state) {
         setTimeout(() => {
           spacesRepository.getTrend({
-            page: this.page,
-            per_page: this.pageSize,
-            media: this.query_media
-          })
+              page: this.page,
+              per_page: this.pageSize,
+              media: this.query_media
+            })
             .then(res => {
               if (res.data.data.length) {
                 this.page += 1
@@ -312,7 +262,7 @@
 
 <style scoped>
   .theme--light.v-divider {
-    border-color: rgba(0,0,0,.04);
+    border-color: rgba(0, 0, 0, .04);
   }
 
   .sub-header {
