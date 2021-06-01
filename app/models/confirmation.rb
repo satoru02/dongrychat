@@ -16,7 +16,7 @@
 #  index_confirmations_on_user_id_and_comment_id  (user_id,comment_id) UNIQUE
 #
 class Confirmation < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, counter_cache: true
   belongs_to :comment
   belongs_to :space
 end

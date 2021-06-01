@@ -15,7 +15,7 @@ Rails.application.routes.draw do
         get 'me', on: :collection
 
         member do
-          get :following, :followers, :online, :subscriptions
+          get :following, :followers, :online, :subscriptions, :new_comments
         end
       end
 

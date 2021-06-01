@@ -8,6 +8,7 @@
 #  activated_at                    :datetime
 #  activation_token                :string
 #  birthday                        :string
+#  confirmations_count             :integer
 #  email                           :string
 #  gender                          :integer
 #  location                        :string
@@ -45,6 +46,7 @@ class UserSerializer
     user.is_online?
   end
 
+  #counter cache
   attribute :subscriptions do |user|
     user.subscriptions.length
   end

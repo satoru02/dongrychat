@@ -3,6 +3,7 @@
 # Table name: spaces
 #
 #  id              :bigint           not null, primary key
+#  comments_count  :integer
 #  episode         :integer
 #  episode_title   :string
 #  image_path      :string
@@ -93,7 +94,8 @@ class Space < ApplicationRecord
   end
 
   def comments_unconfirmed_by(user)
-    self.comments.length - self.confirmations.select{|conf| conf.user_id === user.id}.length
+    # comments.size - confirmations.select{|conf| conf.user_id === user.id}.length
+    comments.length - confirmations.select{|conf| conf.user_id === user.id}.length
   end
 
   def comments_confirmed_by(user)
