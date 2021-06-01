@@ -48,7 +48,6 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :subscriptions, dependent: :destroy, counter_cache: true
   has_many :spaces, -> {includes :comments, :users, :confirmations}, through: :subscriptions
-  # has_many :spaces, through: :subscriptions
   has_one_attached :avatar, dependent: :destroy
   has_secure_password
   enum role: %i[user manager admin].freeze
@@ -162,8 +161,8 @@ class User < ApplicationRecord
 
   def unconfirmed_comments
     sum = 0
-    all_comments = spaces.map{ |space| sum += space.comments.length }
-    all_comments.last - confirmations.length
+    all_comments = spaces.map{ |space| sum += space.comments_unconfirmed_by(self) }
+    all_comments.last
   end
 
   private
