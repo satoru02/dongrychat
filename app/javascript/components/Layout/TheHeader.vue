@@ -51,6 +51,11 @@
             link: '/users/' + `${this.$store.state.user.currentUser.id}`,
           },
           {
+            icon: 'mdi-mailbox-outline',
+            title: '通知',
+            link: '/settings'
+          },
+          {
             icon: 'mdi-wrench-outline',
             title: 'アカウント設定',
             link: '/settings'
