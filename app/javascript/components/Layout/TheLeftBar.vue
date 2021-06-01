@@ -12,8 +12,8 @@
               <v-list-item-title :active-class="'green--text'" :style="hover ? list_item_title.hoverStyle : list_item_title.style">
                 {{item.text}}
                 <span>
-                  <v-chip class="ml-3 mb-1" v-if="item.text === 'お気に入り' || item.text === 'フォロー中'" x-small elevation=0
-                    color="#02e98d">34</v-chip>
+                  <v-chip class="ml-3 mb-1" v-if="item.text === 'お気に入り' && new_comments > 0" x-small elevation=0
+                    color="#02e98d">{{new_comments}}</v-chip>
                 </span>
               </v-list-item-title>
             </v-list-item-content>
@@ -71,6 +71,7 @@
 <script>
   import { RepositoryFactory } from '../../repositories/RepositoryFactory';
   const tagsRepository = RepositoryFactory.get('tags');
+  const usersRepository = RepositoryFactory.get('users');
 
   export default {
     name: "TheLeftBar",
@@ -79,6 +80,8 @@
         loginDialog: false,
         aboutDialog: false,
         selectedItem: '',
+        new_comments: '',
+        error: '',
         query: '',
         logoStyle: {
           fontWeight: 'bold',
@@ -214,15 +217,28 @@
     },
     created(){
       this.fetchTags()
+      this.fetchComments()
     },
     methods: {
       fetchTags(){
         tagsRepository.get()
-          .then(res => this.fetchSuccessful(res))
+          .then(res => this.fetchTagsSuccessful(res))
           .catch(err => this.fetchFailed(err))
       },
-      fetchSuccessful(res){
+      fetchComments(){
+        usersRepository.getNewComments(this.$store.state.user.currentUser.id)
+          .then(res => this.fetchUsersSuccessful(res))
+          .catch(err => this.fetchFailed(err))
+      },
+      fetchUsersSuccessful(res){
+        console.log(res.data.new_comments)
+        this.new_comments = res.data.new_comments
+      },
+      fetchTagsSuccessful(res){
         this.tags = res.data.data
+      },
+      fetchFailed(error) {
+        this.error = (error.response && error.response.data && error.response.data.error) || ""
       },
       changeRoute(path) {
         if ((path === 'Home') || (path === 'Settings')) {

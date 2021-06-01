@@ -3,6 +3,7 @@
 # Table name: spaces
 #
 #  id              :bigint           not null, primary key
+#  comments_count  :integer
 #  episode         :integer
 #  episode_title   :string
 #  image_path      :string

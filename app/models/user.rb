@@ -8,6 +8,7 @@
 #  activated_at                    :datetime
 #  activation_token                :string
 #  birthday                        :string
+#  confirmations_count             :integer
 #  email                           :string
 #  gender                          :integer
 #  location                        :string
@@ -44,8 +45,10 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :confirmations, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_many :subscriptions, dependent: :destroy, counter_cache: true
   has_many :spaces, -> {includes :comments, :users, :confirmations}, through: :subscriptions
+  # has_many :spaces, through: :subscriptions
   has_one_attached :avatar, dependent: :destroy
   has_secure_password
   enum role: %i[user manager admin].freeze
@@ -155,6 +158,12 @@ class User < ApplicationRecord
     blob = ActiveStorage::Blob.create_before_direct_upload!(params)
     blob.update_attributes(key: "avatar/#{file}")
     self.avatar.attach(blob)
+  end
+
+  def unconfirmed_comments
+    sum = 0
+    all_comments = spaces.map{ |space| sum += space.comments.length }
+    all_comments.last - confirmations.length
   end
 
   private

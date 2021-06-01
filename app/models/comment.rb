@@ -17,7 +17,7 @@
 class Comment < ApplicationRecord
   has_many :confirmations, dependent: :destroy
   belongs_to :user
-  belongs_to :space
+  belongs_to :space, counter_cache: true
   validates :content, presence: true
   after_save :confirmed_by_maker
   scope :order_by_latest, -> {includes(:user, :space).order("created_at DESC")}

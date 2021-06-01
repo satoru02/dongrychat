@@ -2,7 +2,7 @@ module Api
   module V1
     class UsersController < ApplicationController
       before_action :authorize_access_request!
-      before_action :set_user, only: [:show, :update, :following, :followers, :subscriptions]
+      before_action :set_user, only: [:show, :update, :following, :followers, :subscriptions, :new_comments]
 
       def me
         serializer = UserSerializer.new(current_user)
@@ -50,6 +50,10 @@ module Api
         @spaces = @user.spaces.order_by_comments(@user).paginate(:page => params[:page], :per_page => params[:per_page])
         serializer = set_home_space_serializer(@spaces, @user)
         render_json(serializer)
+      end
+
+      def new_comments
+        render json: { new_comments: @user.unconfirmed_comments }
       end
 
       private
