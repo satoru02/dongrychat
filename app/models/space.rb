@@ -13,6 +13,7 @@
 #  resource_digest :string           not null
 #  resource_token  :string           not null
 #  season          :integer
+#  users_count     :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  tmdb_comp_id    :integer
@@ -29,10 +30,15 @@ class Space < ApplicationRecord
   acts_as_taggable_on :tags
 
   scope :get_trend, -> (query){
-    includes(:users, :tags, :comments)
-    .where(media: query[:media])
+    where(media: query[:media])
     .where(comments: {:created_at => (Date.yesterday - 31).at_beginning_of_month..Date.today})
-    .sort_by{|space| -space.comments.length}
+    .sort_by{|space| -space.comments.size}
+  }
+
+  #fix
+  scope :get_popular, ->(query){
+    where(media: query[:media])
+    .sort{|space| -space.users.length}
   }
 
   scope :order_by_comments, -> (user){

@@ -10,9 +10,24 @@
     <v-text-field placeholder="検索..." @keypress="setQuery()" @keydown.enter="search(query)" v-model="query" height="10"
       :full-width="true" v-if="this.checkAuthorization()" :prepend-inner-icon="'mdi-magnify'" dense
       background-color="#e9ecef" solo flat class="text-field rounded-lg mt-7 ml-3 mr-8" />
-    <v-avatar size="30" class="mr-1">
-      <v-img :src="$store.state.user.currentUser.avatar_url" />
-    </v-avatar>
+    <v-menu open-on-hover offset-y left nudge-top="5" nudge-right="0" nudge-width="130" nudge-height="800">
+      <template v-slot:activator="{on, attrs}">
+        <div v-bind="attrs" v-on="on">
+          <v-avatar size="30" class="mr-1">
+            <v-img :src="$store.state.user.currentUser.avatar_url" />
+          </v-avatar>
+        </div>
+      </template>
+      <v-list class="rounded-s list" v-if="$store.state.user.signedIn">
+        <v-list-item v-for="(item, index) in items" :key="index" :to="item.link" :icon="item.icon" link>
+          <v-list-item-icon>
+            <v-icon v-text="item.icon" />
+          </v-list-item-icon>
+          <v-list-item-title class="list-title">{{ item.title }}
+          </v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
     <v-btn v-if="(this.checkAuthorization()) && !$store.state.user.signedIn" @click="goLogin()" outlined small
       color="#f6f6f9" elevation=0 class="login mr-4">ログイン</v-btn>
     <v-btn v-if="(this.checkAuthorization()) && !$store.state.user.signedIn" @click="goSignup()" small color="#016aff"
@@ -21,25 +36,54 @@
 </template>
 
 <script>
+  import '@mdi/font/css/materialdesignicons.css';
+
   export default {
     name: 'TheHeader',
     data() {
       return {
         query: '',
         canSubmit: false,
+        items: [{
+            icon: 'mdi-account-outline',
+            title: 'プロフィール',
+            name: 'Posts',
+            link: '/users/' + `${this.$store.state.user.currentUser.id}`,
+          },
+          {
+            icon: 'mdi-mailbox-outline',
+            title: '通知',
+            link: '/notifications'
+          },
+          {
+            icon: 'mdi-wrench-outline',
+            title: 'アカウント設定',
+            link: '/settings'
+          },
+          {
+            icon: 'mdi-help',
+            title: 'ヘルプ',
+            // link: '/posts/new'
+          },
+          {
+            icon: 'mdi-exit-run',
+            title: 'ログアウト',
+            link: '/logout'
+          }
+        ]
       }
     },
     computed: {
-      headerL(){
-        switch(this.$vuetify.breakpoint.name){
+      headerL() {
+        switch (this.$vuetify.breakpoint.name) {
           case 'xs':
             return `ml-1`
           default:
             return `ml-11`
         }
       },
-      headerTitle(){
-        switch(this.$vuetify.breakpoint.name){
+      headerTitle() {
+        switch (this.$vuetify.breakpoint.name) {
           case 'xs':
             return `logo`
           default:
@@ -126,5 +170,15 @@
     font-weight: bold;
     font-size: 12px;
     color: #ffffff;
+  }
+
+  .list {
+    background-color:#f5f8fa;
+  }
+
+  .list-title {
+    color:#011627;
+    font-size: 13px;
+    font-weight: bold
   }
 </style>

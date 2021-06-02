@@ -259,26 +259,39 @@ var router = new VueRouter({
     {
       path: '/users/:user_name',
       beforeEnter: guardMyroute,
+      props: true,
       component: () => import( /* webpackChunkName: "UserTop" */ '../components/User/UserTop'),
       children: [{
           path: '',
           name: 'UserTop',
           component: () => import( /* webpackChunkName: "UserProfile" */ '../components/User/UserProfile'),
+          meta: {
+            keepAlive: false,
+          },
         },
         {
           path: 'posts',
           name: 'UserPosts',
           component: () => import( /* webpackChunkName: "UserPosts" */ '../components/User/UserPosts'),
+          meta: {
+            keepAlive: false,
+          },
         },
         {
           path: 'followings',
           name: 'UserFollowings',
           component: () => import( /* webpackChunkName: "UserFollowings" */ '../components/User/UserFollowings'),
+          meta: {
+            keepAlive: false,
+          },
         },
         {
           path: 'followers',
           name: 'UserFollowers',
           component: () => import( /* webpackChunkName: "UserFollowers" */ '../components/User/UserFollowers'),
+          meta: {
+            keepAlive: false,
+          },
         },
       ]
     },

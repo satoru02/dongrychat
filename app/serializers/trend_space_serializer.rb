@@ -12,6 +12,8 @@ class TrendSpaceSerializer
   end
 
   attribute :latest_comment_user do |space|
-    space.comments.last.user
+    if space.comments.present?
+      space.comments.last.user
+    end
   end
 end

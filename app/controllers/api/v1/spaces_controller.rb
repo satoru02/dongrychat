@@ -5,12 +5,6 @@ module Api
       before_action :set_space, only: [:subscribed, :comments]
       before_action :set_condition, only: [:subscribed, :comments]
 
-      def trend
-        @spaces = Space.get_trend(params).paginate(:page => params[:page], :per_page => params[:per_page])
-        serializer = set_trend_space_serializer(@spaces)
-        render_json(serializer)
-      end
-
       def unsubscribed
         if params[:media] === 'mv'
           @space = Space.create_or_search_mv(mv_space_params, current_user)
@@ -25,6 +19,19 @@ module Api
 
       def subscribed
         serializer = set_space_serializer(@space, @condition, params[:media])
+        render_json(serializer)
+      end
+
+      def trend
+        @spaces = Space.includes(:users, :tags, :comments).get_trend(params).paginate(:page => params[:page], :per_page => params[:per_page])
+        serializer = set_trend_space_serializer(@spaces)
+        render_json(serializer)
+      end
+
+      #fix
+      def popular
+        @spaces = Space.includes(:users, :subscriptions).get_popular(params)[3..7]
+        serializer = set_popular_space_serializer(@spaces)
         render_json(serializer)
       end
 
@@ -46,6 +53,10 @@ module Api
 
         def set_trend_space_serializer(spaces)
           TrendSpaceSerializer.new(spaces)
+        end
+
+        def set_popular_space_serializer(spaces)
+          PopularSpaceSerializer.new(spaces)
         end
 
         def set_space_serializer(space, condition, media)

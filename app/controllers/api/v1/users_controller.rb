@@ -59,7 +59,7 @@ module Api
       private
 
         def set_user
-          @user = User.friendly.find(params[:id])
+          @user = User.friendly.find(params[:id].downcase)
         end
 
         def current_user_params(user)

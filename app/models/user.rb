@@ -47,7 +47,8 @@ class User < ApplicationRecord
   has_many :confirmations, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :subscriptions, dependent: :destroy, counter_cache: true
-  has_many :spaces, -> {includes :comments, :users, :confirmations}, through: :subscriptions
+  has_many :spaces, -> {includes :comments, :users, :confirmations}, through: :subscriptions, counter_cache: true
+
   has_one_attached :avatar, dependent: :destroy
   has_secure_password
   enum role: %i[user manager admin].freeze

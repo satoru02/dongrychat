@@ -1,44 +1,22 @@
 <template>
-  <v-container
-     class="user-top mt-4"
-  >
+  <v-container class="user-top mt-4">
 
-    <v-card
-      outlined
-      class="user-card rounded-lg"
-    >
-      <v-img
-        height="133"
-        src="https://source.unsplash.com/random"
-      />
+    <v-card outlined class="user-card rounded-lg">
+      <v-img height="133" src="https://source.unsplash.com/random" />
       <v-card-title>
-        <v-avatar
-          size="60"
-        >
-          <v-img
-            :src="setAvatar()"
-          />
+        <v-avatar size="60">
+          <v-img :src="setAvatar()" />
         </v-avatar>
-        <span
-          class="user-name ml-3 mt-n8"
-        >
-        {{user_info.name}}
+        <span class="user-name ml-3 mt-n8">
+          {{user_info.name}}
         </span>
-        <span
-          class="user-subname ml-2 mt-n7"
-        >
-        @{{user_info.name}}
+        <span class="user-subname ml-2 mt-n7">
+          @{{user_info.name}}
         </span>
         <v-spacer />
-        <v-btn
-          class="user-relationBtn mt-n8"
-          :style="followed ? followingStyle : unfollowingStyle"
+        <v-btn class="user-relationBtn mt-n8" :style="followed ? followingStyle : unfollowingStyle"
           @click="followed ? unfollow(user_info.id) : follow(user_info.id)"
-          v-if="this.$store.state.user.currentUser.id !== user_info.id"
-          small
-          elevation=0
-          outlined
-        >
+          v-if="this.$store.state.user.currentUser.id !== user_info.id" small elevation=0 outlined>
           {{followed ? followingText : unfollowingText}}</v-btn>
       </v-card-title>
 
@@ -55,81 +33,34 @@
         </v-col>
       </v-row>
 
-      <v-row
-        class="mt-5"
-        v-if="this.user_info"
-      >
-        <v-col
-          cols=1
-          sm=1
-          md=1
-          lg=1
-          xl=1
-        >
+      <v-row class="mt-5" v-if="this.user_info">
+        <v-col cols=1 sm=1 md=1 lg=1 xl=1>
         </v-col>
-        <v-col
-          cols=3
-          sm=3
-          md=3
-          lg=2
-          xl=3
-          :class="gridUserInfo"
-        >
-          <span
-            class="user-count"
-          >
-          {{this.user_info.subscriptions}}
+        <v-col cols=3 sm=3 md=3 lg=2 xl=3 :class="gridUserInfo">
+          <span class="user-count">
+            {{this.user_info.subscriptions}}
           </span>
-          <span
-            class="user-countText">
-             スペース
+          <span class="user-countText">
+            スペース
           </span>
         </v-col>
-        <v-col
-          cols=3
-          sm=2
-          md=2
-          lg=2
-          xl=2
-          :class="gridUserInfo"
-        >
-          <span
-            class="user-count"
-          >
-          {{this.user_info.following.length}}
+        <v-col cols=3 sm=2 md=2 lg=2 xl=2 :class="gridUserInfo">
+          <span class="user-count">
+            {{this.user_info.following.length}}
           </span>
-          <span
-            class="user-countText">
+          <span class="user-countText">
             フォロー
           </span>
         </v-col>
-        <v-col
-          cols=3
-          sm=2
-          md=2
-          lg=2
-          xl=2
-          :class="gridUserInfo"
-        >
-          <span
-            class="user-count"
-          >
-          {{this.user_info.follower.length}}
+        <v-col cols=3 sm=2 md=2 lg=2 xl=2 :class="gridUserInfo">
+          <span class="user-count">
+            {{this.user_info.follower.length}}
           </span>
-          <span
-            class="user-countText">
+          <span class="user-countText">
             フォロワー
           </span>
         </v-col>
-        <v-col
-          cols=2
-          sm=2
-          md=2
-          lg=2
-          xl=2
-          :class="gridUserInfo"
-          v-if="this.user_info.location"
-        >
+        <v-col cols=2 sm=2 md=2 lg=2 xl=2 :class="gridUserInfo" v-if="this.user_info.location">
           <!-- <v-icon
             size=18
             color="#6b7280"
@@ -146,18 +77,8 @@
       </v-row>
     </v-card>
 
-    <v-tabs
-    mobile-breakpoint="xs"
-      class="mt-4"
-      background-color='#ffffff'
-      :height="'35'"
-      :color="'#016aff'"
-    >
-      <v-tab
-        @click="changeTab(tab.name)"
-        class="user-tab"
-        :active-class="'blue--text'"
-        v-for="(tab,index) in user_tabs"
+    <v-tabs mobile-breakpoint="xs" class="mt-4" background-color='#ffffff' :height="'35'" :color="'#016aff'">
+      <v-tab @click="changeTab(tab.name)" class="user-tab" :active-class="'blue--text'" v-for="(tab,index) in user_tabs"
         :key="index">
         {{tab.title}}
       </v-tab>
@@ -165,9 +86,7 @@
 
     <v-divider />
 
-    <router-view
-      :user_info="this.user_info"
-    />
+    <router-view :user_info="this.user_info" />
   </v-container>
 </template>
 
@@ -185,6 +104,7 @@
     data() {
       return {
         user_info: '',
+        componentKey: 0,
         default_avatar: `https://cdn.vuetifyjs.com/images/john.jpg`,
         user_tabs: [{
             title: 'プロフィール',
@@ -224,15 +144,15 @@
       }
     },
     computed: {
-      gridUserInfo(){
-        switch(this.$vuetify.breakpoint.name){
+      gridUserInfo() {
+        switch (this.$vuetify.breakpoint.name) {
           case 'xs':
             return 'mt-n11'
           case 'sm':
           case 'md':
           case 'lg':
           case 'xl':
-             return 'mt-n11 ml-n7'
+            return 'mt-n11 ml-n7'
         }
       }
 
@@ -246,6 +166,12 @@
     beforeRouteUpdate(to, from, next) {
       document.title = this.user_info.name
       next()
+    },
+    watch: {
+      '$route'() {
+        this.user_info = ''
+        this.getUser()
+      },
     },
     updated() {
       this.follow_check(this.user_info)

@@ -13,6 +13,7 @@
 #  resource_digest :string           not null
 #  resource_token  :string           not null
 #  season          :integer
+#  users_count     :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  tmdb_comp_id    :integer

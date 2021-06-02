@@ -2,7 +2,7 @@
   <v-container :class="this.$vuetify.breakpoint.width < 600 ? 'ml-16' : ''">
     <v-list-item-group style="background-color: #ffffff;" v-for="(user, index) in relationships" :key="index" multiple
       class="list-body">
-      <v-list-item>
+      <v-list-item @click="goUserPage(user)">
         <template v-slot:default="{}">
           <v-list-item-avatar size=58 height=58 tile class="rounded-lg">
             <v-img :src="user.attributes.avatar_url" />
@@ -72,7 +72,6 @@
             followed_id: user_id
           })
           .then(res => {
-            console.log(res)
             this.$store.commit('user/follow', user_id)
             this.followed = true
           })
@@ -87,6 +86,11 @@
             this.followed = false
           })
       },
+      goUserPage(user){
+        this.$router.replace({name: 'UserTop', params: {
+          user_name: user.attributes.name
+        }})
+      }
     }
   }
 </script>
