@@ -24,14 +24,14 @@
     },
     methods: {
       getFollowers() {
-        usersRepository.getFollowers(this.$route.params.id)
-          .then(res => this.Successful(res))
-          .catch(error => this.Failed(error))
+        usersRepository.getFollowers(this.$route.params.user_name)
+          .then(res => this.getSuccessful(res))
+          .catch(error => this.getFailed(error))
       },
-      Successful(res) {
+      getSuccessful(res) {
         this.followers = res.data.data
       },
-      Failed(error) {
+      getFailed(error) {
         this.error = (error.response && error.response.data && error.response.data.error) || ""
       }
     }

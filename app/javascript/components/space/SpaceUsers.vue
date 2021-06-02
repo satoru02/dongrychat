@@ -2,7 +2,7 @@
   <v-container>
     <v-list two-line :style="vList.style">
       <v-hover v-slot="{hover}" v-for="(user, index) in users" :key="index">
-        <v-list-item :class="'rounded-lg'" @click="showDialog(user.attributes)"
+        <v-list-item :class="'rounded-lg'" @click="goUserPage(user)"
           :style="hover ? vList.hoverStyle : vList.style" :elevation='hover ? 15 : 0'>
           <v-list-item-avatar :style="avatar.style">
             <img :src="user.attributes.avatar_url" />
@@ -108,6 +108,11 @@
           this.btnFollowed = false
         })
       },
+      goUserPage(user){
+        this.$router.replace({name: 'UserTop', params: {
+          user_name: user.attributes.name
+        }})
+      }
     }
   }
 </script>

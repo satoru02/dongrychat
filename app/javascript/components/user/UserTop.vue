@@ -104,6 +104,7 @@
     data() {
       return {
         user_info: '',
+        componentKey: 0,
         default_avatar: `https://cdn.vuetifyjs.com/images/john.jpg`,
         user_tabs: [{
             title: 'プロフィール',
@@ -165,6 +166,12 @@
     beforeRouteUpdate(to, from, next) {
       document.title = this.user_info.name
       next()
+    },
+    watch: {
+      '$route'() {
+        this.user_info = ''
+        this.getUser()
+      },
     },
     updated() {
       this.follow_check(this.user_info)
