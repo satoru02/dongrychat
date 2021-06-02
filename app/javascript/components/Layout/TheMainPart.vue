@@ -29,6 +29,13 @@
       </keep-alive>
       </v-row>
     </v-main>
+    <footer>
+      <cookie-law buttonClass="button" buttonText="許可する" theme="shade-blue">
+        <div slot="message">
+          本ウェブサイトでは、最適なサービスを提供するためにクッキーを使用しています。
+        </div>
+      </cookie-law>
+    </footer>
     <!-- <base-bottom-bar v-if="this.checkAuthorization() " /> -->
   </v-app>
 </template>
@@ -37,6 +44,7 @@
   import TheHeader from './TheHeader';
   import TheLeftBar from './TheLeftBar';
   import TheRightBar from './TheRightBar';
+  import CookieLaw from 'vue-cookie-law';
   // import BaseBottomBar from '../Base/BaseBottomBar';
 
   export default {
@@ -45,6 +53,7 @@
       'the-header': TheHeader,
       'the-left-bar': TheLeftBar,
       'the-right-bar': TheRightBar,
+      'cookie-law': CookieLaw
       // 'base-bottom-bar': BaseBottomBar
     },
     data() {
@@ -115,4 +124,13 @@
   .theme--light.v-divider {
     border-color: rgba(0,0,0,.04);
   }
+
+  .Cookie--shade-blue {
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(44,102,255,1) 0%, rgba(0,212,255,1) 100%);
+    color: #ffffff;
+    font-weight: bold;
+    padding: 1.150em;
+  }
 </style>
+
