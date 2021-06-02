@@ -34,6 +34,7 @@ Rails.application.routes.draw do
           get :unsubscribed
           get :subscribed
           get :trend
+          get :popular
         end
       end
 

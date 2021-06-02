@@ -56,54 +56,25 @@
           <h3 :style="style.online" v-text="'注目の作品'" />
         </v-col>
         <v-col lg=5>
-          <div class="mt-2" :style="moreStyle" v-text="'もっと見る'" />
+          <!-- <div class="mt-2" :style="moreStyle" v-text="'もっと見る'" /> -->
         </v-col>
       </v-row>
 
-      <v-row class="mt-3 ml-1">
+      <v-row class="mt-3 ml-1" v-for="(item, index) in items" :key="index">
         <v-col lg=4>
-          <v-img class="rounded-lg" elevation="0" height="50" width="50" src="https://source.unsplash.com/random">
+          <v-img class="rounded-lg" elevation="0" height="50" width="50" :src="base_tmdb_img_url + item.attributes.image_path">
           </v-img>
         </v-col>
         <v-col lg=8 class="ml-n5">
-          <div :style="contentsStyle">ブラックパンサー</div>
-          <v-avatar size="20" class="mt-2">
-            <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
+          <div :style="contentsStyle">{{item.attributes.name}}</div>
+          <v-avatar size="20" class="" v-for="(user, index) in item.attributes.users.data" :key="index">
+            <v-img v-if="user.attributes.avatar_url" :src="user.attributes.avatar_url" />
+            <v-img v-else src="https://cdn.vuetifyjs.com/images/john.jpg" />
           </v-avatar>
-          <v-avatar size="20" class="mt-2 ml-n2">
-            <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-          </v-avatar>
-          <v-avatar size="20" class="mt-2 ml-n2">
-            <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-          </v-avatar>
-          <v-avatar size="20" class="mt-2 ml-n2">
-            <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-          </v-avatar>
-          <span :style="moreStyle" class="ml-2">計23人</span>
+          <span :style="moreStyle" class="ml-9 mb-n3">計{{item.attributes.users.data.length}}人</span>
         </v-col>
       </v-row>
-            <v-row class="mt-5 ml-1">
-        <v-col lg=4>
-          <v-img class="rounded-lg" elevation="0" height="50" width="50" src="https://source.unsplash.com/random">
-          </v-img>
-        </v-col>
-        <v-col lg=8 class="ml-n5">
-          <div :style="contentsStyle">ブラックパンサー</div>
-          <v-avatar size="20" class="mt-2">
-            <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-          </v-avatar>
-          <v-avatar size="20" class="mt-2 ml-n2">
-            <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-          </v-avatar>
-          <v-avatar size="20" class="mt-2 ml-n2">
-            <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-          </v-avatar>
-          <v-avatar size="20" class="mt-2 ml-n2">
-            <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-          </v-avatar>
-        </v-col>
-      </v-row>
-            <v-row class="mt-5 ml-1">
+      <!-- <v-row class="mt-5 ml-1">
         <v-col lg=4>
           <v-img class="rounded-lg" elevation="0" height="50" width="50" src="https://source.unsplash.com/random">
           </v-img>
@@ -124,6 +95,27 @@
           </v-avatar>
         </v-col>
       </v-row>
+      <v-row class="mt-5 ml-1">
+        <v-col lg=4>
+          <v-img class="rounded-lg" elevation="0" height="50" width="50" src="https://source.unsplash.com/random">
+          </v-img>
+        </v-col>
+        <v-col lg=8 class="ml-n5">
+          <div :style="contentsStyle">ブラックパンサー</div>
+          <v-avatar size="20" class="mt-2">
+            <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
+          </v-avatar>
+          <v-avatar size="20" class="mt-2 ml-n2">
+            <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
+          </v-avatar>
+          <v-avatar size="20" class="mt-2 ml-n2">
+            <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
+          </v-avatar>
+          <v-avatar size="20" class="mt-2 ml-n2">
+            <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
+          </v-avatar>
+        </v-col>
+      </v-row> -->
       <!-- <v-row class="mt-3 ml-1">
         <v-col lg=4>
           <v-img class="rounded-lg" elevation="0" height="50" width="50" src="https://source.unsplash.com/random">
@@ -195,10 +187,10 @@
 </template>
 
 <script>
-  import {
-    secureAxios
-  } from '../../backend/axios';
+
   import TheProfilePart from './TheProfilePart';
+  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  const spacesRepository = RepositoryFactory.get('spaces');
 
   export default {
     name: "TheRightBar",
@@ -210,51 +202,47 @@
         query: '',
         canSubmit: false,
         online_endpoint: `/api/v1/users/`,
-        online_followings: ``,
+        base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
+        online_followings: '',
+        items: '',
+        error: '',
         mdi: {
           magnify: 'mdi-magnify'
         },
         leftStyle: {
           fontWeight: 'bold',
-          fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
           fontSize: '13px',
           color: '#ffffff'
         },
         moreStyle: {
           fontWeight: 'bold',
-          fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
           fontSize: '11px',
           color: '#374151'
         },
         contentsStyle: {
           fontWeight: 'bold',
-          fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
           fontSize: '14px',
           color: '#374151'
         },
         style: {
           name: {
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '11px',
             color: '#374151'
           },
           online: {
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '18px',
             color: '#111111'
           },
           hoverlink: {
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '9px',
             color: '#374151',
             cursor: 'pointer',
           },
           unhoverlink: {
             fontWeight: 'bold',
-            fontFamily: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
             fontSize: '9px',
             color: '#6c757d',
             cursor: 'pointer',
@@ -283,34 +271,30 @@
     },
     created() {
       // this.getOnlineFollowings()
+      this.fetchPopularContents()
     },
     methods: {
-      getOnlineFollowings() {
-        secureAxios.get(this.online_endpoint + `${this.$store.state.user.currentUser.id}` + `/online`)
-          .then(res => this.Successful(res))
-          .catch(err => this.Failed(err))
+      // getOnlineFollowings() {
+      //   secureAxios.get(this.online_endpoint + `${this.$store.state.user.currentUser.id}` + `/online`)
+      //     .then(res => this.Successful(res))
+      //     .catch(err => this.Failed(err))
+      // },
+      // Successful(res) {
+      //   this.online_followings = res.data.data
+      // },
+      fetchPopularContents(){
+        spacesRepository.getPopular({media: 'tv'})
+        .then(res => this.fetchSuccessful(res))
+        .catch(err => this.fetchFailed(err))
       },
-      Successful(res) {
-        this.online_followings = res.data.data
+      fetchSuccessful(res){
+        this.items = res.data.data
       },
-      Failed(error) {
+      fetchFailed(error) {
         this.error = (error.response && error.response.data && error.response.data.error) || ""
       },
       setQuery() {
         this.canSubmit = true
-      },
-      search(query) {
-        if (!this.canSubmit) {
-          return
-        }
-        this.$router.replace({
-          name: 'multi',
-          params: {
-            query: query
-          }
-        })
-        this.query = ''
-        this.canSubmit = false
       },
       movePath(link) {
         this.$router.push({
