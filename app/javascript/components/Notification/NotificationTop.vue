@@ -12,10 +12,10 @@
             <template v-for="(notification, index) in notifications">
               <v-list-item :key="index">
                 <v-list-item-avatar>
-                  <v-img :src="notification[0].attributes.sender.data.attributes.avatar_url"></v-img>
+                  <v-img :src="notification.attributes.sender.data.attributes.avatar_url"></v-img>
                 </v-list-item-avatar>
                 <v-list-item-content :style="textStyle">
-                  <v-list-item-title v-text="`${notification[0].attributes.sender.data.attributes.name}にフォローされました。`">
+                  <v-list-item-title v-text="`${notification.attributes.sender.data.attributes.name}にフォローされました。`">
                   </v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
@@ -73,7 +73,7 @@
               console.log(res)
               if (res.data.data.length) {
                 this.page += 1
-                this.notifications.push(res.data.data)
+                this.notifications = res.data.data
                 $state.loaded()
               } else {
                 $state.complete();

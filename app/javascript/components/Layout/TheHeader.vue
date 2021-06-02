@@ -53,7 +53,7 @@
           {
             icon: 'mdi-mailbox-outline',
             title: '通知',
-            link: '/settings'
+            link: '/notifications'
           },
           {
             icon: 'mdi-wrench-outline',
