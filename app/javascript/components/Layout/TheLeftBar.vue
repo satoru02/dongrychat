@@ -170,12 +170,12 @@
           hoverStyle: {
             fontSize: '13px',
             color: '#02e98d',
-            fontWeight: 'bold',
+            // fontWeight: 'bold',
           },
           style: {
-            fontWeight: 'bold',
+            // fontWeight: 'bold',
             fontSize: '13px',
-            color: '#011627'
+            color: '#111111'
           }
         },
         btn: {
@@ -273,7 +273,7 @@
 
 <style scoped>
   .left-bar {
-    font-weight: bold;
+    /* font-weight: bold; */
   }
 
   .v-divider {

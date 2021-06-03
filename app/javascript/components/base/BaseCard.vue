@@ -2,7 +2,7 @@
   <div>
 
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
-      <v-card class="rounded-lg mb-8 mt-n4" outlined @click="enterSpace(item.attributes)"
+      <v-card class="rounded-s mb-8 mt-n4" outlined @click="enterSpace(item.attributes)"
         :style="hover ? hoverStyle : unhoverStyle" height="200px">
 
         <v-responsive>
@@ -14,9 +14,9 @@
             </v-col>
 
             <v-col :class="gridAvatar" cols=1 sm=1 md=1 lg=1 xl=1>
-              <v-avatar class="rounded-lg" size="80" height="83" tile>
+              <v-avatar class="rounded-lg" size="88" height="88" tile>
                 <v-img v-if="item.attributes.image_path" :src="base_tmdb_img_url + item.attributes.image_path" />
-                <v-img v-else size="30" height="30">
+                <v-img v-else size="33" height="33">
                   <poster-path />
                 </v-img>
               </v-avatar>
@@ -29,7 +29,7 @@
                   <base-label class="ml-1 mr-3" v-if="item.attributes.media === 'tv'" :x_small="true" :outlined="false"
                     :label="true" :color="'#016aff'" :text-color="'#ffffff'" :season="item.attributes.season"
                     :episode="item.attributes.episode" :title="item.attributes.episode_title" />
-                  <v-chip class="movie-label" v-if="item.attributes.media === 'mv'" x-small label :color="'yellow'"
+                  <v-chip class="movie-label ml-1" v-if="item.attributes.media === 'mv'" x-small label :color="'yellow'"
                     v-text="'Movie'" />
                 </v-col>
               </v-row>
@@ -54,7 +54,7 @@
               </v-row>
 
               <v-row v-if="item.attributes.tags"
-                :class="$vuetify.breakpoint.width > 600 ? 'mt-n3 ml-4' : 'mt-n1 ml-16'">
+                :class="$vuetify.breakpoint.width > 600 ? 'mt-n3 ml-6' : 'mt-n1 ml-16'">
                 <v-col cols=2 sm=3 md=7 lg=7 xl=7>
                   <v-chip label :class="$vuetify.breakpoint.width > 600 ? 'tag-text mr-2 mt-3' : 'tag-text mr-2'"
                     v-for="(tag, index) in item.attributes.tags.slice(0, 2)" :key="index" color="#e9ecef"
@@ -62,15 +62,15 @@
                 </v-col>
                 <v-col cols=2 sm=3 md=1 lg=1 xl=1 />
                 <v-col :class="gridNumber" cols=8 sm=6 md=4 lg=4 xl=4 :style="gridNumberText">
-                  <v-icon color="#5d666e" size=12>
+                  <v-icon color="#5d666e" size=15>
                     mdi-comment-outline
                   </v-icon>
                   <span>{{item.attributes.comments_count}}</span>
-                  <v-icon color="#5d666e" size="12" class="ml-2">
+                  <v-icon color="#5d666e" size="15" class="ml-2">
                     mdi-note-outline
                   </v-icon>
                   <span>63</span>
-                  <v-icon color="#5d666e" size="12" class="ml-2">
+                  <v-icon color="#5d666e" size="15" class="ml-2">
                     mdi-television-classic
                   </v-icon>
                   <span>11</span>
@@ -82,7 +82,7 @@
           <v-divider class="mt-3" />
           <v-row :class="gridBottom" dense>
             <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="gridIcon">
-              <v-avatar size="24">
+              <v-avatar size="22">
                 <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
               </v-avatar>
             </v-col>
@@ -95,7 +95,7 @@
                 no name
               </span>
               <span class="time-text" v-if="item.attributes.latest_comment !== null">
-              {{formalizeTime(item.attributes.latest_comment.created_at)}}
+              ・{{formalizeTime(item.attributes.latest_comment.created_at)}}
               </span>
               <span class="time-text" v-else>
               12:00
@@ -121,6 +121,7 @@
 <script>
   import '@mdi/font/css/materialdesignicons.css';
   import moment from 'moment';
+  moment.locale('ja')
 
   export default {
     name: 'BaseCard',
@@ -135,19 +136,19 @@
       return {
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
         unhoverStyle: {
-          backgroundColor: '#f5f8fa'
+          backgroundColor: '#ffffff'
         },
         hoverStyle: {
           backgroundColor: '#edf2f4'
         },
         descText: {
-          color: '#011627',
-          fontSize: '17px',
+          color: '#111111',
+          fontSize: '16px',
           height: '82px',
           fontWeight: 'bold'
         },
         mobileText: {
-          color: '#011627',
+          color: '#111111',
           fontSize: '15px',
           height: '53px',
           fontWeight: 'bold'
@@ -215,7 +216,7 @@
             return 'ml-n4'
           case 'lg':
           case 'xl':
-            return 'ml-n6'
+            return 'ml-n7 mt-n1'
         }
       },
       gridComment() {
@@ -226,7 +227,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'desc-text mt-1 ml-2'
+            return 'desc-text mt-2 ml-2'
         }
       },
       gridNumberText() {
@@ -241,8 +242,8 @@
             case 'lg':
             case 'xl':
               return {
-                fontSize: '10px',
-                  fontWeight: 'bold',
+                fontSize: '13px',
+                  // fontWeight: 'bold',
                   color: '#5d666e'
               }
         }
@@ -278,7 +279,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'label ml-n6'
+            return 'label ml-n4'
         }
       },
       gridName() {
@@ -290,7 +291,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'ml-n5'
+            return 'ml-n3'
         }
       }
     },
@@ -322,7 +323,7 @@
         }
       },
       formalizeTime(time) {
-        return moment(time).format("hh:mm")
+        return moment(time).fromNow()
       }
     }
   }
@@ -358,39 +359,39 @@
   }
 
   .number-text {
-    font-size: 10px;
+    font-size: 13px;
     font-weight: bold;
     color: #5d666e;
   }
 
   .user-name {
-    font-weight: bold;
-    color: #011627;
-    font-size: 11px;
+    /* font-weight: bold; */
+    color: #111111;
+    font-size: 14px;
   }
 
   .time-text {
-    font-weight: bold;
+    /* font-weight: bold; */
     color: #6c757d;
-    font-size: 8px;
+    font-size: 13px;
   }
 
   .desc-text {
-    color: #011627;
-    font-size: 12px;
+    color: #111111;
+    font-size: 14px;
     line-height: 20px;
     max-height: 45px;
   }
 
   .title-text {
     font-weight: bold;
-    font-size: 17px;
-    color: #000000;
+    font-size: 16px;
+    color: #111111;
     height: 53px;
   }
 
   .theme--light.v-sheet--outlined {
-    border: thin solid rgba(172, 172, 172, 0.12);
+    border: thin solid rgba(124, 124, 124, 0.12);
   }
 
   .v-divider {

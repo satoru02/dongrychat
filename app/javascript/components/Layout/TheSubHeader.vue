@@ -16,11 +16,11 @@ export default {
   },
   data(){
     return{
-      home: 'お気に入りのスペース一覧',
-      popular: '話題のスペース一覧',
+      home: 'お気に入りの作品一覧',
+      popular: '話題の作品一覧',
       notifications: '通知',
       accountSetting: 'アカウント設定',
-      tag_space: 'のスペース一覧',
+      tag_space: 'の作品一覧',
       movie: 'MOVIE',
       tv: 'TV'
     }
