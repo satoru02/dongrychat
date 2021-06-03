@@ -1,5 +1,5 @@
 <template>
-  <v-container :key="componentKey">
+  <v-container :key="componentKey" class="mt-n1">
 
     <sub-header>
       <template v-slot:popular_header="subHeaderProps">
@@ -14,7 +14,7 @@
     <v-row :class="gridSwitcher" dense>
       <v-col :class="gridTv" cols=3 sm=2 md=2 lg=2 xl=1>
         <div :style="switcher === false ? switchBtn.active : switchBtn.inactive">
-          シリーズ
+          ▶︎ドラマ
         </div>
       </v-col>
       <v-col :class="gridMv" cols=2 sm=2 md=1 lg=1 xl=1>
@@ -23,7 +23,7 @@
         </div>
       </v-col>
       <v-col cols=6 sm=7 md=8 lg=8 xl=9 />
-      <v-col class='ml-2' v-if="$vuetify.breakpoint.name != 'xs'" cols=1 sm=1 md=1 lg=1 xl=1>
+      <v-col class='ml-9' v-if="$vuetify.breakpoint.name != 'xs'" cols=1 sm=1 md=1 lg=1 xl=1>
         <v-switch v-model="switcher" color='blue' dense inset />
       </v-col>
     </v-row>
@@ -104,13 +104,13 @@
         },
         switchBtn: {
           active: {
-            fontSize: '15px',
+            fontSize: '13px',
             fontWeight: 'bold',
             color: '#000000',
             letterSpacing: '1px'
           },
           inactive: {
-            fontSize: '15px',
+            fontSize: '13px',
             fontWeight: 'bold',
             color: '#657786',
             letterSpacing: '1px'
@@ -156,7 +156,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'mt-5'
+            return 'mt-4 ml-n3'
         }
       },
       gridMv() {
@@ -167,7 +167,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'mt-5 ml-n4'
+            return 'mt-4 ml-n7'
         }
       },
       gridSwitcher() {
@@ -189,7 +189,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'sub-header ml-3 mt-2'
+            return 'sub-header mt-2'
         }
       }
     },
@@ -267,7 +267,7 @@
 
   .sub-header {
     font-weight: bold;
-    font-size: 15px;
+    font-size: 17px;
     color: #111111;
   }
 </style>
