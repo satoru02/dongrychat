@@ -15,7 +15,10 @@
 
             <v-col :class="gridAvatar" cols=1 sm=1 md=1 lg=1 xl=1>
               <v-avatar class="rounded-lg" size="80" height="83" tile>
-                <v-img :src="base_tmdb_img_url + item.attributes.image_path" />
+                <v-img v-if="item.attributes.image_path" :src="base_tmdb_img_url + item.attributes.image_path" />
+                <v-img v-else size="30" height="30">
+                  <poster-path />
+                </v-img>
               </v-avatar>
             </v-col>
 
@@ -122,7 +125,8 @@
   export default {
     name: 'BaseCard',
     components: {
-      'base-label': () => import( /* webpackPrefetch: true */ '../Base/BaseLabel')
+      'base-label': () => import( /* webpackPrefetch: true */ '../Base/BaseLabel'),
+      'icon-poster':() => import(/* webpackPrefetch: true */ '../Icons/IconPoster'),
     },
     props: {
       items: '',

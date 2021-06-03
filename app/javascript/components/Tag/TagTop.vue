@@ -1,44 +1,33 @@
 <template>
-  <v-container
-    :key="componentKey"
-  >
+  <v-container :key="componentKey">
 
-    <sub-header
-      class="mt-2"
-      :tag='this.$route.params.name'
-    >
-      <template
-        v-slot:tag_header="subHeaderProps"
-      >
-        <div
-          :class="gridSubHeader"
-        >
-        {{subHeaderProps.sub_header}}
+    <sub-header class="mt-2" :tag='this.$route.params.name'>
+      <template v-slot:tag_header="subHeaderProps">
+        <div :class="gridSubHeader">
+          {{subHeaderProps.sub_header}}
         </div>
       </template>
     </sub-header>
 
-    <v-divider
-      class="mt-5 mb-10"
-    />
+    <v-divider class="mt-5 mb-10" />
 
-    <base-card
-      :items='spaces'
-    />
+    <base-card :items='spaces' />
     <base-loader :handler="infiniteHandler" :text="text.loading" />
   </v-container>
 </template>
 
 <script>
-  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  import {
+    RepositoryFactory
+  } from '../../repositories/RepositoryFactory';
   const tagsRepository = RepositoryFactory.get('tags');
 
   export default {
     name: "TagTop",
     components: {
-      'sub-header': () => import(/* webpackPrefetch: true */ '../Layout/TheSubHeader'),
-      'base-loader': () => import(/* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
-      'base-card': () => import(/* webpackPrefetch: true */ '../Base/BaseCard')
+      'sub-header': () => import( /* webpackPrefetch: true */ '../Layout/TheSubHeader'),
+      'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
+      'base-card': () => import( /* webpackPrefetch: true */ '../Base/BaseCard')
     },
     data() {
       return {
@@ -53,21 +42,21 @@
       }
     },
     watch: {
-      '$route.params.name'(){
+      '$route.params.name'() {
         this.page = 1
         this.spaces = []
         this.forceRerender()
       }
     },
-    gridSubHeader(){
-      switch(this.$vuetify.breakpoint.name){
+    gridSubHeader() {
+      switch (this.$vuetify.breakpoint.name) {
         case 'xs':
           return 'sub-header mb-n5 mt-1 ml-2'
         case 'sm':
         case 'md':
         case 'lg':
         case 'xl':
-           return 'sub-header mb-2 mt-4'
+          return 'sub-header mb-2 mt-4'
       }
     },
     // beforeRouteEnter(to, from, next) {
@@ -86,7 +75,10 @@
       },
       infiniteHandler($state) {
         setTimeout(() => {
-         tagsRepository.getSpaces(this.$route.params.name,{page: this.page, per_page: this.pageSize})
+          tagsRepository.getSpaces(this.$route.params.name, {
+              page: this.page,
+              per_page: this.pageSize
+            })
             .then(res => {
               if (res.data.data.length) {
                 this.page += 1
@@ -108,7 +100,7 @@
 
 <style scoped>
   .theme--light.v-divider {
-    border-color: rgba(0,0,0,.04);
+    border-color: rgba(0, 0, 0, .04);
   }
 
   .sub-header {

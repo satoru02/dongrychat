@@ -1,5 +1,5 @@
 <template>
-  <v-row v-if="space_data" class="mt-3">
+  <v-row v-if="space_data" class="mt-n3">
     <v-col cols=2 sm=2 md=2 lg=2 xl=2 :class="vColAvatarGrid">
       <v-avatar class="rounded-lg" :size="vAvatar.size" :height='vAvatarHeight'>
         <v-img :src="posterImg()" />

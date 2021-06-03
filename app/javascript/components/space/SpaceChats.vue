@@ -1,35 +1,37 @@
 <template>
-  <div class="mt-4">
-    <div infinite-wrapper :style="wrapper.style">
-      <space-comments :comments="comments" />
-      <base-loader :handler="infiniteHandler" :wrapper="true" :text="loader.text" />
-    </div>
-    <v-text-field
-      v-if="$vuetify.breakpoint.width > 600"
-      :class="textFieldGrid"
-      clearable :style="textField.style" :background-color="textField.color"
-      v-model="content" @keypress="setMessage()" @keyup.enter="sendComment(content)" dense
-      :placeholder="textField.placeholder" solo flat />
-    <v-text-field
-      v-else
-      :append-outer-icon="'mdi-send'"
-      :class="textFieldGrid"
-      clearable :style="textField.style" :background-color="textField.color"
-      @click:append-outer="{setMessage(), sendComment(content)}"
-      v-model="content" dense
-      :placeholder="textField.placeholder" solo flat />
-  </div>
+  <v-container class="mt-n2">
+    <v-row>
+      <v-col lg=1>
+        <v-avatar class="mt-4 ml-3" :size='22' :height='22'>
+          <img :src="this.$store.state.user.currentUser.avatar_url">
+        </v-avatar>
+      </v-col>
+      <v-col lg=11 class="ml-n3">
+        <v-text-field v-if="$vuetify.breakpoint.width > 600" :class="textFieldGrid" clearable :style="textField.style"
+          v-model="content" @keypress="setMessage()" @keyup.enter="sendComment(content)" dense
+          :placeholder="textField.placeholder" />
+        <v-text-field v-else :append-outer-icon="'mdi-send'" :class="textFieldGrid" clearable :style="textField.style"
+          :background-color="textField.color" @click:append-outer="{setMessage(), sendComment(content)}"
+          v-model="content" dense :placeholder="textField.placeholder" solo flat />
+      </v-col>
+    </v-row>
+    <!-- <v-divider class="mt-7" /> -->
+    <space-comments :comments="comments" />
+    <base-loader :handler="infiniteHandler" :wrapper="false" :text="loader.text" />
+  </v-container>
 </template>
 
 <script>
-  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  import {
+    RepositoryFactory
+  } from '../../repositories/RepositoryFactory';
   const spacesRepository = RepositoryFactory.get('spaces');
 
   export default {
     name: 'SpaceChats',
     components: {
-      'space-comments': () => import(/* webpackPrefetch: true */ './SpaceComments'),
-      'base-loader': () => import(/* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
+      'space-comments': () => import( /* webpackPrefetch: true */ './SpaceComments'),
+      'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
     },
     props: {
       spaceId: {
@@ -54,17 +56,17 @@
         },
         wrapper: {
           style: {
-            maxHeight: '395px',
-            height: '395px',
-            overflow: 'scroll',
+            // maxHeight: '1095px',
+            // height: '1095px',
+            // overflow: 'scroll',
           }
         },
         textField: {
           color: '#f6f6f9',
-          placeholder: '#メッセージを送信',
-          style: {
-            position: 'static',
-          }
+          placeholder: '#コメントを入力...',
+          // style: {
+          //   position: 'static',
+          // }
         }
       }
     },
@@ -137,13 +139,18 @@
       }
     },
     computed: {
-      textFieldGrid(){
-        switch(this.$vuetify.breakpoint.name) {
-          case 'xs' : return 'mt-n2 rounded-s'
-          case 'sm' : return 'mt-7'
-          case 'md' : return 'mt-7'
-          case 'lg' : return 'mt-n4 rounded-s'
-          case 'xl' : return 'mt-2 ml-6 mr-6 rounded-s'
+      textFieldGrid() {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return 'mt-n2 rounded-s'
+          case 'sm':
+            return 'mt-7'
+          case 'md':
+            return 'mt-7'
+          case 'lg':
+            return 'mt-3 rounded-xl'
+          case 'xl':
+            return 'mt-2 ml-6 mr-6 rounded-s'
         }
       }
     }

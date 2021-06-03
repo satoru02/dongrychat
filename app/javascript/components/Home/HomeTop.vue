@@ -1,169 +1,61 @@
 <template>
-  <v-container
-  >
+  <v-container>
 
-    <sub-header
-      class="mt-2">
+    <sub-header class="mt-2">
 
-      <template
-        v-slot:home_header="subHeaderProps">
-        <div
-          :class="gridSubHeader"
-        >
-           {{subHeaderProps.sub_header}}
+      <template v-slot:home_header="subHeaderProps">
+        <div :class="gridSubHeader">
+          {{subHeaderProps.sub_header}}
         </div>
       </template>
     </sub-header>
 
-    <v-divider
-       class="mt-4 mb-4"
-    />
+    <v-divider class="mt-4 mb-4" />
 
-    <v-hover
-      v-slot="{ hover }"
-      v-for="(item, index) in items"
-      :key="index">
-      <v-card
-        outlined
-        class="rounded-lg mb-5"
-        :style="hover ? card.hoverStyle : card.unhoverStyle"
-        @click="enterSpace(item)"
-        :elevation='hover ? 0 : 0'
-        :height="gridCardHeight"
-        :width="gridCardWidth"
-      >
+    <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
+      <v-card outlined class="rounded-lg mb-5" :style="hover ? card.hoverStyle : card.unhoverStyle"
+        @click="enterSpace(item)" :elevation='hover ? 0 : 0' :height="gridCardHeight" :width="gridCardWidth">
         <v-row class="mt-n1">
-          <v-col
-            cols=1
-            sm=1
-            md=1
-            lg=1
-            xl=1
-            class="ml-5"
-          >
-            <v-avatar
-              class="rounded-lg"
-              :size="bindSize"
-              :height="bindSize"
-            >
-              <v-img
-                :src="base_tmdb_img_url + item.attributes.image_path" />
+          <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-5">
+            <v-avatar class="rounded-lg" :size="bindSize" :height="bindSize">
+              <v-img v-if="item.attributes.image_path" :src="base_tmdb_img_url + item.attributes.image_path" />
+              <v-img v-else size="30" height="30">
+                <icon-poster />
+              </v-img>
             </v-avatar>
           </v-col>
-          <v-col
-            cols=10
-            sm=10
-            md=10
-            lg=10
-            xl=10
-            class="ml-1 mt-n1"
-          >
+          <v-col cols=10 sm=10 md=10 lg=10 xl=10 class="ml-1 mt-n1">
             <v-row>
-              <v-col
-                cols=1
-                sm=1
-                md=1
-                lg=1
-                xl=1
-              />
-              <v-col
-                 cols=10
-                 sm=10
-                 md=10
-                 lg=10
-                 xl=10
-                :class="$vuetify.breakpoint.width > 600 ? 'ml-n5 mt-1' : 'mt-1'"
-                :style="style.name"
-              >
-                <base-label
-                  :x_small="true"
-                  :outlined="false"
-                  :label="true"
-                  v-if="item.attributes.media === media.tv"
-                  color="#016aff"
-                  :season="item.attributes.season"
-                  :episode="item.attributes.episode"
-                  :title="item.attributes.episode_title"
-                />
-                <v-chip
-                  :style="style.movieLabel"
-                  v-if="item.attributes.media === media.movie"
-                  x-small
-                  label
-                  color="yellow"
-                  v-text="text.movie"
-                />
+              <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+              <v-col cols=10 sm=10 md=10 lg=10 xl=10 :class="$vuetify.breakpoint.width > 600 ? 'ml-n5 mt-1' : 'mt-1'"
+                :style="style.name">
+                <base-label :x_small="true" :outlined="false" :label="true" v-if="item.attributes.media === media.tv"
+                  color="#016aff" :season="item.attributes.season" :episode="item.attributes.episode"
+                  :title="item.attributes.episode_title" />
+                <v-chip :style="style.movieLabel" v-if="item.attributes.media === media.movie" x-small label
+                  color="yellow" v-text="text.movie" />
               </v-col>
             </v-row>
             <v-row>
-              <v-col
-                cols=1
-                sm=1
-                md=1
-                lg=1
-                xl=1
-              />
-              <v-col
-                cols=9
-                sm=9
-                md=9
-                lg=9
-                xl=9
-                :class="$vuetify.breakpoint.width > 600 ? 'ml-n5 mt-n3' : 'mt-n4'"
-                :style="bindName"
-              >
+              <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+              <v-col cols=9 sm=9 md=9 lg=9 xl=9 :class="$vuetify.breakpoint.width > 600 ? 'ml-n5 mt-n3' : 'mt-n4'"
+                :style="bindName">
                 {{item.attributes.name}}
               </v-col>
-              <v-col
-                cols=1
-                sm=1
-                md=1
-                lg=1
-                xl=1
-                class="ml-14"
-              >
-                <v-badge
-                  v-if="item.attributes.unconfirmed_comments > 0"
-                  dot
-                />
+              <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-14">
+                <v-badge v-if="item.attributes.unconfirmed_comments > 0" dot />
               </v-col>
-              <v-col
-                cols=1
-                sm=1
-                md=1
-                lg=1
-                xl=1
-                class="mt-n3 ml-n10"
-                :style="style.notifyText"
-                v-if="item.attributes.unconfirmed_comments > 0"
-              >
+              <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="mt-n3 ml-n10" :style="style.notifyText"
+                v-if="item.attributes.unconfirmed_comments > 0">
                 {{item.attributes.unconfirmed_comments}}
               </v-col>
             </v-row>
-            <v-row
-              v-if="$vuetify.breakpoint.width > 600"
-              :class="$vuetify.breakpoint.width > 600 ? 'mt-n4' : 'mt-n16'">
-              <v-col
-                cols=1
-                sm=1
-                md=1
-                lg=11
-                xl=1
-                class="ml-6"
-                :style="style.comment"
-              >
-                <v-avatar
-                  size="20"
-                  class="mt-n1 ml-1"
-                >
-                  <v-img
-                    src="https://cdn.vuetifyjs.com/images/john.jpg"
-                  />
+            <v-row v-if="$vuetify.breakpoint.width > 600" :class="$vuetify.breakpoint.width > 600 ? 'mt-n4' : 'mt-n16'">
+              <v-col cols=1 sm=1 md=1 lg=11 xl=1 class="ml-6" :style="style.comment">
+                <v-avatar size="20" class="mt-n1 ml-1">
+                  <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
                 </v-avatar>
-                <span
-                  class="ml-1"
-                  v-if="item.attributes.latest_comment"
-                >
+                <span class="ml-1" v-if="item.attributes.latest_comment">
                   {{item.attributes.latest_comment.content}}
                 </span>
               </v-col>
@@ -172,10 +64,7 @@
         </v-row>
       </v-card>
     </v-hover>
-    <base-loader
-      :handler="infiniteHandler"
-      :text="text.loading"
-    />
+    <base-loader :handler="infiniteHandler" :text="text.loading" />
   </v-container>
 </template>
 
@@ -189,9 +78,10 @@
   export default {
     name: 'HomeTop',
     components: {
-      'base-label': () => import(/* webpackPrefetch: true */ '../Base/BaseLabel'),
-      'base-loader': () => import(/* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
-      'sub-header': () => import(/* webpackPrefetch: true */ '../Layout/TheSubHeader')
+      'base-label': () => import( /* webpackPrefetch: true */ '../Base/BaseLabel'),
+      'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
+      'sub-header': () => import( /* webpackPrefetch: true */ '../Layout/TheSubHeader'),
+      'icon-poster':() => import(/* webpackPrefetch: true */ '../Icons/IconPoster'),
     },
     data() {
       return {
@@ -256,67 +146,67 @@
       }
     },
     computed: {
-      gridSubHeader(){
-        switch(this.$vuetify.breakpoint.name){
+      gridSubHeader() {
+        switch (this.$vuetify.breakpoint.name) {
           case 'xs':
             return 'sub-header mb-n5 mt-1 ml-2'
           case 'sm':
           case 'md':
           case 'lg':
           case 'xl':
-             return 'sub-header mb-2 mt-1'
+            return 'sub-header mb-2 mt-1'
         }
       },
-      gridCardWidth(){
-        switch(this.$vuetify.breakpoint.name){
+      gridCardWidth() {
+        switch (this.$vuetify.breakpoint.name) {
           case 'xs':
             return '500'
           case 'sm':
           case 'md':
           case 'lg':
           case 'xl':
-             return '700'
+            return '700'
         }
       },
-      bindSize(){
-        switch(this.$vuetify.breakpoint.name){
+      bindSize() {
+        switch (this.$vuetify.breakpoint.name) {
           case 'xs':
             return 50
           case 'sm':
           case 'md':
           case 'lg':
           case 'xl':
-             return 77
+            return 77
         }
       },
-      bindName(){
-        switch(this.$vuetify.breakpoint.name){
+      bindName() {
+        switch (this.$vuetify.breakpoint.name) {
           case 'xs':
             return {
-            fontWeight: 'bold',
-            fontSize: '12px',
-            color: '#111111'
-          }
-          case 'sm':
-          case 'md':
-          case 'lg':
-          case 'xl':
-             return {
-            fontWeight: 'bold',
-            fontSize: '15px',
-            color: '#111111'
-          }
+              fontWeight: 'bold',
+                fontSize: '12px',
+                color: '#111111'
+            }
+            case 'sm':
+            case 'md':
+            case 'lg':
+            case 'xl':
+              return {
+                fontWeight: 'bold',
+                  fontSize: '15px',
+                  color: '#111111'
+              }
         }
       },
-      gridCardHeight(){
-        switch(this.$vuetify.breakpoint.name){
+      gridCardHeight() {
+        switch (this.$vuetify.breakpoint.name) {
           case 'xs':
             return 68
           case 'sm':
           case 'md':
           case 'lg':
           case 'xl':
-             return 95
+            return 95
         }
       }
     },
@@ -400,8 +290,8 @@
     border: thin solid rgba(172, 172, 172, 0.12);
   }
 
-    .theme--light.v-divider {
-    border-color: rgba(0,0,0,.04);
+  .theme--light.v-divider {
+    border-color: rgba(0, 0, 0, .04);
   }
 
   .sub-header {

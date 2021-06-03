@@ -25,11 +25,14 @@
             :style="hover ? 'background-color: #f6f6f9;' : 'background-color: #ffffff;'">
               <v-list-item-avatar :size='55' :width='55'
                 :class="avatar.rounded">
-                <v-img v-if="items.type === 'person'" :src="base_tmdb_img_url + item.profile_path" />
-                <v-img v-else :src="base_tmdb_img_url + item.poster_path" />
+                <v-img v-if="items.type === 'person' && item.profile_path" :src="base_tmdb_img_url + item.profile_path" />
+                <v-img v-else-if="items.type !== 'person' && item.poster_path" :src="base_tmdb_img_url + item.poster_path" />
+                <v-img v-else>
+                  <icon-poster />
+                </v-img>
               </v-list-item-avatar>
               <v-list-item-content v-if="items.type === 'multi'">
-                <v-list-item-title class="mb-2" v-if="item.media_type === 'tv'" :style="listItemStyle" v-text="item.name" />
+                <v-list-item-title class="mb-2" v-if="item.media_type === 'tv' || item.media_type === 'person'" :style="listItemStyle" v-text="item.name" />
                 <v-list-item-title class="mb-2" v-if="item.media_type === 'movie'" :style="listItemStyle" v-text="item.title" />
                 <v-list-item-subtitle :style="subtitleStyle" v-text="item.overview" />
               </v-list-item-content>
@@ -58,7 +61,9 @@
   export default {
     name: 'SearchResults',
     components: {
-      'base-list': () => import(/* webpackPrefetch: true */ '../Base/BaseList')
+      'base-list': () => import(/* webpackPrefetch: true */ '../Base/BaseList'),
+      // 'icon-base': () => import(/* webpackPrefetch: true */ '../Icons/IconBase'),
+      'icon-poster':() => import(/* webpackPrefetch: true */ '../Icons/IconPoster'),
     },
     data() {
       return {
