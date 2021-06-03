@@ -1,24 +1,27 @@
 <template>
   <div :class="vContainer">
-    <v-row class="mb-n3" v-for="(comment, index) in comments" :key="index">
+    <v-row v-for="(comment, index) in comments" :key="index" class="mt-n9">
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="vColAvatarGrid">
-        <v-badge :color="comment.attributes.user.data.attributes.appearance === true ? 'green accent-4' : 'red'"
-          offset-x="6" offset-y="6" bordered bottom dot overlap>
-          <v-avatar class="rounded-lg mt-3" @click="goUserPage(comment.attributes.user.data.attributes)"
-            :style="avatar.style" :size='avatar.size' :height='avatar.height' tile>
-            <img :src="comment.attributes.user.data.attributes.avatar_url">
-          </v-avatar>
-        </v-badge>
+        <!-- <v-badge :color="comment.attributes.user.data.attributes.appearance === true ? 'green accent-4' : 'red'"
+          offset-x="6" offset-y="6" bordered bottom dot overlap> -->
+        <v-avatar class="mt-3" @click="goUserPage(comment.attributes.user.data.attributes)" :style="avatar.style"
+          :size='avatar.size' :height='avatar.height'>
+          <img :src="comment.attributes.user.data.attributes.avatar_url">
+        </v-avatar>
+        <!-- </v-badge> -->
       </v-col>
       <v-col cols=11 sm=11 md=11 lg=11 xl=11 :class="vColNameGrid">
-        <v-row>
-          <v-col cols=12 sm=12 md=12 lg=12 xl=12 :style="username.style" class="ml-4">
-            {{comment.attributes.user.data.attributes.name}}・{{formalizeTime(comment.attributes.created_at)}}
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols=12 sm=12 md=12 lg=12 xl=12 :class="vRowContentGrid" :style="content.style" v-text="comment.attributes.content" />
-        </v-row>
+        <!-- <v-card color="#ffffff" elevation=0 rounded> -->
+          <v-row>
+            <v-col cols=12 sm=12 md=12 lg=12 xl=12 class="ml-4">
+              <span :style="username.style">{{comment.attributes.user.data.attributes.name}}</span>
+              <span :style="time.style">・ {{formalizeTime(comment.attributes.created_at)}}</span>
+            </v-col>
+          </v-row>
+          <v-container class="ml-1 mt-n6" :style="content.style">
+            <p>{{comment.attributes.content}}</p>
+          </v-container>
+        <!-- </v-card> -->
       </v-col>
     </v-row>
     <base-profile-dialog v-if="user" v-on:input="offDialog()" :passDialog="dialog" :user="user"
@@ -28,10 +31,12 @@
 
 <script>
   import moment from 'moment';
+  moment.locale('ja');
+
   export default {
     name: 'SpaceComments',
     components: {
-      'base-profile-dialog': () => import(/* webpackPrefetch: true */ '../Base/BaseProfileDialog')
+      'base-profile-dialog': () => import( /* webpackPrefetch: true */ '../Base/BaseProfileDialog')
     },
     props: {
       comments: {
@@ -47,30 +52,30 @@
         follower_length: '',
         following_length: '',
         avatar: {
-          size: '40',
-          height: '40',
+          size: '32',
+          height: '32',
           style: {
             cursor: 'pointer'
           }
         },
         username: {
           style: {
-            color: '#6c757d',
+            color: '#495057',
             fontWeight: 'bold',
-            fontSize: '13px'
+            fontSize: '9px'
           }
         },
         time: {
           style: {
             color: '#6c757d',
-            fontWeight: 'bold',
-            fontSize: '7px'
+            // fontWeight: 'bold',
+            fontSize: '6px'
           }
         },
         content: {
           style: {
-            color: '#111111',
-            fontSize: '15px',
+            color: '#000000',
+            fontSize: '13px',
           }
         }
       }
@@ -88,54 +93,80 @@
       offDialog(value) {
         this.dialog = value
       },
-      goUserPage(user){
-        this.$router.push({name: 'UserTop', params: {
-          user_name: user.name,
-          user_id: user.id
-        } })
+      goUserPage(user) {
+        this.$router.push({
+          name: 'UserTop',
+          params: {
+            user_name: user.name,
+            user_id: user.id
+          }
+        })
       },
       formalizeTime(time) {
-        return moment(time).format("hh:mm")
+        return moment(time).fromNow()
       }
     },
-    computed:{
-      vContainer(){
-        switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return 'ml-n4'
-          case 'sm' : return 'mt-7'
-          case 'md' : return 'mt-7'
-          case 'lg' : return ''
-          case 'xl' : return 'mt-n9'
+    computed: {
+      vContainer() {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return 'ml-n4'
+          case 'sm':
+            return 'mt-7'
+          case 'md':
+            return 'mt-7'
+          case 'lg':
+            return 'mt-5'
+          case 'xl':
+            return 'mt-n9'
         }
 
       },
-      vRowContentGrid(){
-        switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return 'mt-n5'
-          case 'sm' : return 'mt-7'
-          case 'md' : return 'mt-7'
-          case 'lg' : return 'mt-n5 ml-4'
-          case 'xl' : return 'mt-n9'
+      vRowContentGrid() {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return 'mt-n5'
+          case 'sm':
+            return 'mt-7'
+          case 'md':
+            return 'mt-7'
+          case 'lg':
+            return 'ml-4'
+          case 'xl':
+            return 'mt-n9'
         }
       },
-      vColNameGrid(){
-        switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return 'mt-n16 ml-11'
-          case 'sm' : return 'mt-7'
-          case 'md' : return 'mt-7'
-          case 'lg' : return 'ml-n6 mt-n1'
-          case 'xl' : return 'mt-n9'
+      vColNameGrid() {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return 'mt-n16 ml-11'
+          case 'sm':
+            return 'mt-7'
+          case 'md':
+            return 'mt-7'
+          case 'lg':
+            return 'ml-n8 mt-n2'
+          case 'xl':
+            return 'mt-n9'
         }
       },
-      vColAvatarGrid(){
-        switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return 'mt-n3 ml-n2'
-          case 'sm' : return 'mt-7'
-          case 'md' : return 'mt-7'
-          case 'lg' : return 'mt-n3'
-          case 'xl' : return 'mt-n9'
+      vColAvatarGrid() {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return 'mt-n3 ml-n2'
+          case 'sm':
+            return 'mt-7'
+          case 'md':
+            return 'mt-7'
+          case 'lg':
+            return 'mt-n3'
+          case 'xl':
+            return 'mt-n9'
         }
       }
     }
   }
 </script>
+
+<style scoped>
+</style>
