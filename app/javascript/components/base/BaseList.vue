@@ -5,7 +5,10 @@
         <v-list-item class="rounded-lg" @click="showContents(item)"
           :style="hover ? 'background-color: #f6f6f9;' : 'background-color: #ffffff;'">
           <v-list-item-avatar :size='55' :width='55' class="rounded-lg">
-            <v-img :src="base_tmdb_img_url + item.poster_path" />
+            <v-img v-if="item.poster_path" :src="base_tmdb_img_url + item.poster_path" />
+            <v-img v-else size="30" height="30">
+              <poster-path />
+            </v-img>
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title class="mb-2" v-if="media === 'tv'" :style="listItemStyle" v-text="item.name" />
@@ -22,6 +25,9 @@
 <script>
   export default {
     name: "BaseList",
+    components: {
+      'icon-poster':() => import(/* webpackPrefetch: true */ '../Icons/IconPoster'),
+    },
     props: {
       items: {
         type: Array,
