@@ -14,16 +14,16 @@
     <v-row :class="gridSwitcher" dense>
       <v-col :class="gridTv" cols=3 sm=2 md=2 lg=2 xl=1>
         <div :style="switcher === false ? switchBtn.active : switchBtn.inactive">
-          ▶︎ドラマ
+          <span v-if="switcher === false">▶</span>ドラマ
         </div>
       </v-col>
       <v-col :class="gridMv" cols=2 sm=2 md=1 lg=1 xl=1>
         <div :style="switcher === true ? switchBtn.active : switchBtn.inactive">
-          映画
+          <span v-if="switcher === true">▶</span>映画
         </div>
       </v-col>
       <v-col cols=6 sm=7 md=8 lg=8 xl=9 />
-      <v-col class='ml-9' v-if="$vuetify.breakpoint.name != 'xs'" cols=1 sm=1 md=1 lg=1 xl=1>
+      <v-col class='ml-10' v-if="$vuetify.breakpoint.name != 'xs'" cols=1 sm=1 md=1 lg=1 xl=1>
         <v-switch v-model="switcher" color='blue' dense inset />
       </v-col>
     </v-row>

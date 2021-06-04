@@ -102,23 +102,23 @@
             icon: '✨',
             path_name: 'Home'
           },
+          // {
+          //   text: 'フォロー中',
+          //   icon: '😉',
+          //   path_name: 'Search'
+          // },
           {
-            text: 'フォロー中',
-            icon: '😉',
-            path_name: 'Search'
-          },
-          {
-            text: '人気',
+            text: '人気の作品',
             icon: '📖',
             path_name: 'Popular'
           },
           {
-            text: '新着',
+            text: '新着の作品',
             icon: '🔎',
             path_name: 'Trend'
           },
           {
-            text: '評価',
+            text: '評価の高い作品',
             icon: '👏',
             path_name: 'TopRated'
           },
@@ -168,13 +168,13 @@
         list_item_title: {
           color: '#011627',
           hoverStyle: {
-            fontSize: '13px',
+            fontSize: '15px',
             color: '#02e98d',
             // fontWeight: 'bold',
           },
           style: {
             // fontWeight: 'bold',
-            fontSize: '13px',
+            fontSize: '15px',
             color: '#111111'
           }
         },

@@ -2,7 +2,7 @@
   <v-app class="the-main-part">
     <the-header />
 
-    <v-main>
+    <v-main class="mt-2">
       <v-row>
         <keep-alive>
         <v-col :cols="this.colsGrid[0]" :sm="this.smGrid[0]" :md="this.mdGrid[0]" :lg="this.lgGrid[0]"
@@ -122,7 +122,9 @@
   }
 
   .theme--light.v-divider {
-    border-color: rgba(0,0,0,.04);
+    /* border-color: rgba(32, 32, 32, 0); */
+    border-color: rgba(245, 245, 245, 0.973);
+
   }
 
   .Cookie--shade-blue {
