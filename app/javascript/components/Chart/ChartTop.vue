@@ -1,5 +1,6 @@
 <template>
-  <v-container :key="componentKey" class="mt-n1">
+  <v-container :key="componentKey" class="mt-2">
+    <v-img class="rounded-lg" height="100" src="https://source.unsplash.com/random" />
 
     <sub-header>
       <template v-slot:popular_header="subHeaderProps">
@@ -190,7 +191,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'sub-header mt-2'
+            return 'sub-header mt-5'
         }
       }
     },

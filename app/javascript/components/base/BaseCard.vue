@@ -143,7 +143,7 @@
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
         // loading: false,
         unhoverStyle: {
-          backgroundColor: '#ffffff'
+          backgroundColor: '#fdfdfd'
         },
         hoverStyle: {
           backgroundColor: '#edf2f4'
@@ -401,7 +401,7 @@
   }
 
   .theme--light.v-sheet--outlined {
-    border: thin solid rgba(83, 83, 83, 0.12);
+    border: thin solid rgba(189, 189, 189, 0.12);
   }
 
   .v-divider {

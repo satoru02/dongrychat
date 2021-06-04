@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar elevation=3 outlined app color="#161a1d">
+  <v-app-bar elevation=0 outlined app color="#161a1d">
     <div :class="headerL" />
     <v-toolbar-title :class="headerTitle" @click="goTop()">devio</v-toolbar-title>
     <v-divider vertical inset class="ml-3" />

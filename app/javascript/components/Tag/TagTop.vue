@@ -1,7 +1,9 @@
 <template>
   <v-container :key="componentKey">
 
-    <sub-header class="mt-2" :tag='this.$route.params.name'>
+    <v-img class="rounded-lg mt-2" height="100" src="https://source.unsplash.com/random" />
+
+    <sub-header class="mt-5" :tag='this.$route.params.name'>
       <template v-slot:tag_header="subHeaderProps">
         <div :class="gridSubHeader">
           {{subHeaderProps.sub_header}}

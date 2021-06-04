@@ -168,13 +168,13 @@
         list_item_title: {
           color: '#011627',
           hoverStyle: {
-            fontSize: '15px',
+            fontSize: '14px',
             color: '#02e98d',
             // fontWeight: 'bold',
           },
           style: {
             // fontWeight: 'bold',
-            fontSize: '15px',
+            fontSize: '14px',
             color: '#111111'
           }
         },
