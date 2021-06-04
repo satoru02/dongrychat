@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="mt-3">
     <space-header :space_data="this.space_data" />
     <v-tabs hide-slider class="mt-2" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height" grow>
       <v-tab
@@ -56,10 +56,10 @@
             title: 'レビュー',
             path: 'reviews'
           },
-          {
-            title: 'シェアウォッチ',
-            path: 'news'
-          },
+          // {
+          //   title: 'シェアウォッチ',
+          //   path: 'news'
+          // },
           {
             title: 'ユーザー',
             path: 'members'
@@ -84,11 +84,11 @@
           }
         },
         vChip: {
-          textColor: '#666666',
+          textColor: '#111111',
           elevation: 0,
-          color: '#f6f6f9',
+          color: '#ededee',
           style: {
-            fontWeight: 'bold',
+            // fontWeight: 'bold',
             fontSize: '10px',
           }
         }
@@ -223,5 +223,6 @@
 
   .v-input__slot::before {
     border-style: none !important;
+    /* color: #ededee */
   }
 </style>

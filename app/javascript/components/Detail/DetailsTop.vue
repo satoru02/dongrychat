@@ -190,13 +190,11 @@
           },
           contentsTitle: {
             fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue sans-serif',
             fontSize: '16px',
             color: '#111111'
           },
           subContentsTitle: {
             fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue sans-serif',
             fontSize: '10px',
             color: '#6c757d',
           },
@@ -211,13 +209,11 @@
           },
           credit: {
             fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue sans-serif',
             fontSize: '12px',
             color: '#6c757d',
           },
           person: {
             fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue sans-serif',
             fontSize: '12px',
             color: '#111111',
           },
@@ -545,16 +541,12 @@
       bindTitle(){
         switch(this.$vuetify.breakpoint.name){
           case 'xs' : return  {
-            fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue sans-serif',
             fontSize: '14px',
             color: '#111111'
           }
           case 'sm' : 
           case 'md' : 
           case 'lg' : return   {
-            fontWeight: 'bold',
-            fontFamily: 'Helvetica Neue sans-serif',
             fontSize: '16px',
             color: '#111111'
           }

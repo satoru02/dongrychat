@@ -154,10 +154,10 @@
           fontWeight: 'bold'
         },
         descWidth: {
-          maxHeight: '43px',
+          maxHeight: '40px',
         },
         mobileWidth: {
-          maxHeight: '75px',
+          maxHeight: '70px',
         },
       }
     },
@@ -380,7 +380,7 @@
     color: #111111;
     font-size: 14px;
     line-height: 20px;
-    max-height: 45px;
+    max-height: 40px;
   }
 
   .title-text {

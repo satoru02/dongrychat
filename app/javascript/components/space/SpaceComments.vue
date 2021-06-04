@@ -62,7 +62,7 @@
           style: {
             color: '#495057',
             fontWeight: 'bold',
-            fontSize: '9px'
+            fontSize: '12px'
           }
         },
         time: {
@@ -75,7 +75,7 @@
         content: {
           style: {
             color: '#000000',
-            fontSize: '13px',
+            fontSize: '14px',
           }
         }
       }
@@ -145,7 +145,7 @@
           case 'md':
             return 'mt-7'
           case 'lg':
-            return 'ml-n8 mt-n2'
+            return 'ml-n7 mt-n2'
           case 'xl':
             return 'mt-n9'
         }

@@ -1,8 +1,8 @@
 <template>
   <v-container :key="componentKey">
     <v-row :class="vRowHeader">
-      <v-col cols=4 sm=1 md=1 lg=2 xl=1>
-        <div :style="switch1 === false ? active : inactive" v-text="'シリーズ'" />
+      <v-col cols=4 sm=1 md=1 lg=2 xl=1 class="ml-3">
+        <div :style="switch1 === false ? active : inactive" v-text="'ドラマ'" />
       </v-col>
       <v-col cols=3 sm=1 md=1 lg=2 xl=1>
         <div :style="switch1 === true ? active : inactive" v-text="'映画'" />
@@ -12,6 +12,7 @@
         <v-switch dense v-model="switch1" :color="colors.blue" inset :class="switchPosition" />
       </v-col>
     </v-row>
+    <v-divider />
     <base-list :items="items" :media="media" />
   </v-container>
 </template>
@@ -162,7 +163,7 @@
           case 'md':
             return ''
           case 'lg':
-            return 'ml-n1'
+            return 'ml-n5'
           case 'xl':
             return ''
         }
@@ -186,4 +187,7 @@
 </script>
 
 <style scoped>
+  .theme--light.v-divider {
+    border-color: rgba(0, 0, 0, .04);
+  }
 </style>

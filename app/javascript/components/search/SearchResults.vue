@@ -22,7 +22,7 @@
           <v-list-item
           :class="'rounded-lg'"
            @click="showContents(item)"
-            :style="hover ? 'background-color: #f6f6f9;' : 'background-color: #ffffff;'">
+            :style="hover ? 'background-color: #f5f8fa;' : 'background-color: #ffffff;'">
               <v-list-item-avatar :size='55' :width='55'
                 :class="avatar.rounded">
                 <v-img v-if="items.type === 'person' && item.profile_path" :src="base_tmdb_img_url + item.profile_path" />
@@ -90,14 +90,14 @@
             name: '出演者・スタッフ',
             path: 'person'
           },
-          {
-            name: '企業',
-            path: 'company'
-          }
+          // {
+          //   name: '企業',
+          //   path: 'company'
+          // }
         ],
         tabColor: '#ffffff',
         tabActive: 'black--text',
-        listActive: 'orange--text',
+        // listActive: 'orange--text',
         resultsStyle: {
           fontSize: "18px",
           fontWeight: 'bold',

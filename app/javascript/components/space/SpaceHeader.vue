@@ -7,7 +7,7 @@
     </v-col>
     <v-col cols=9 sm=9 md=9 lg=9 xl=9>
       <v-row>
-        <v-col cols=8 sm=10 md=10 lg=10 xl=10>
+        <v-col cols=8 sm=10 md=10 lg=9 xl=10>
           <v-hover v-slot="{ hover }" class="ml-10">
             <span
               @click="space_data.media === media.tv ? moveDetails(space_data.tmdb_comp_id, space_data.name, space_data.season, 'Tv') : moveDetails(space_data.tmdb_mv_id, space_data.name, null, 'Mv')"
@@ -32,7 +32,7 @@
           <base-label class="ml-10" v-if="space_data.media === media.tv" :label="true" :small="true"
             :color="vColLabel.blue" :outlined="false" :text-color="vColLabel.white" :season="space_data.season"
             :episode="space_data.episode" :title="space_data.episode_title" />
-          <v-chip v-if="space_data.media === media.mv" small label :color="vChip.label.yellow"
+          <v-chip class="ml-10" v-if="space_data.media === media.mv" small label :color="vChip.label.yellow"
             :style="vChip.label.style" v-text="vChip.label.movie" />
         </v-col>
       </v-row>
@@ -40,7 +40,7 @@
         <v-col class="ml-10" cols=11 sm=12 md=12 lg=12 xl=12 :style="vColSummaryStyle"
           v-text="space_data.overview != null ? space_data.overview : dummyText" />
       </v-row>
-      <v-row class="mt-6 ml-7">
+      <v-row class="mt-4 ml-7">
         <v-col cols=12 sm=12 md=12 lg=12 xl=12 :style="vColTags.style" small>
           <v-chip label outlined class="mr-2 mb-2" :style="vChip.tags.style"
             v-for="(tag, index) in space_data.tag_list.slice(0, 3)" :key="index" :color="vChip.tags.color" x-small
@@ -129,8 +129,8 @@
           elevation: 0,
           blue: 'blue',
           black: '#000000',
-          subscribedText: 'スペースに参加中',
-          unsubscribedText: 'スペースに参加',
+          subscribedText: 'お気に入りに追加済み',
+          unsubscribedText: 'お気に入りに追加する',
           subscribedStyle: {
             color: '#ffffff',
             fontWeight: 'bold',
@@ -384,8 +384,6 @@
             return {
               color: '#111111',
                 fontWeight: 'bold',
-                fontFamily:
-                'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
                 fontSize: '11px',
                 height: '60px',
                 maxHeight: '60px',
@@ -395,12 +393,10 @@
             case 'lg' || 'xl':
               return {
                 color: '#111111',
-                  fontWeight: 'bold',
-                  fontFamily:
-                  'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif',
-                  fontSize: '12px',
-                  height: '80px',
-                  maxHeight: '80px',
+                  // fontWeight: 'bold',
+                  fontSize: '13px',
+                  height: '90px',
+                  maxHeight: '90px',
                   overflow: 'scroll',
                   overflowY: 'scroll',
               }

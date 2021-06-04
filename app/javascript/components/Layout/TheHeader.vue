@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar elevation=1 outlined app color="#ffffff">
+  <v-app-bar elevation=1 outlined app color="#0b090a">
     <div :class="headerL" />
     <v-toolbar-title :class="headerTitle" @click="goTop()">devio</v-toolbar-title>
     <v-divider vertical inset class="ml-3" />
@@ -9,11 +9,11 @@
     <v-spacer></v-spacer>
     <v-text-field placeholder="検索..." @keypress="setQuery()" @keydown.enter="search(query)" v-model="query" height="10"
       :full-width="true" v-if="this.checkAuthorization()" :prepend-inner-icon="'mdi-magnify'" dense
-      background-color="#e9ecef" solo flat class="text-field rounded-lg mt-7 ml-3 mr-8" />
+      background-color="#ffffff" outlined class="text-field rounded-s mt-7 ml-6 mr-12" />
     <v-menu open-on-hover offset-y left nudge-top="5" nudge-right="0" nudge-width="130" nudge-height="800">
       <template v-slot:activator="{on, attrs}">
         <div v-bind="attrs" v-on="on">
-          <v-avatar size="30" class="mr-1">
+          <v-avatar size="30" class="mr-1 mt-1">
             <v-img :src="$store.state.user.currentUser.avatar_url" />
           </v-avatar>
         </div>
@@ -145,14 +145,14 @@
   .logo {
     font-weight: bold;
     font-size: 19px;
-    color: #011627;
+    color: #ffffff;
     cursor: pointer;
   }
 
   .beta-logo {
     font-weight: bold;
     font-size: 12px;
-    color: #657786;
+    color: #ffffff;
     cursor: pointer;
   }
 
