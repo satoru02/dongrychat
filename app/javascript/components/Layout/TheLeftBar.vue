@@ -1,6 +1,6 @@
 <template>
   <v-container class="left-bar mt-n4">
-    <v-list nav flat :style="list.style" color="#ffffff" dark class="ml-16 rounded-lg">
+    <v-list nav flat :style="list.style" color="#ffffff" dark class="ml-16 rounded-lg" style="background-color: #ffffff;">
       <v-subheader :style="category" class="mb-n2">メニュー</v-subheader>
       <v-list-item-group v-model="selectedItem">
         <v-hover v-slot="{hover}" v-for="(item, index) in menus" :key="index">

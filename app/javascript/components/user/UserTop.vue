@@ -1,5 +1,5 @@
 <template>
-  <v-container class="user-top mt-4">
+  <v-container class="user-top mt-2">
 
     <v-card outlined class="user-card rounded-lg">
       <v-img height="133" src="https://source.unsplash.com/random" />

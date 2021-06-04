@@ -2,7 +2,7 @@
   <v-app class="the-main-part">
     <the-header />
 
-    <v-main class="mt-2">
+    <v-main class="mt-2" style="background-color: #ffffff;">
       <v-row>
         <keep-alive>
         <v-col :cols="this.colsGrid[0]" :sm="this.smGrid[0]" :md="this.mdGrid[0]" :lg="this.lgGrid[0]"

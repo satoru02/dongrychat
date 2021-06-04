@@ -1,5 +1,6 @@
 <template>
-  <v-progress-linear v-if="done == true" color="deep-purple accent-4" indeterminate rounded height="6" />
+ <v-progress-circular indeterminate color="green">
+ </v-progress-circular>
 </template>
 
 <script>
