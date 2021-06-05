@@ -25,9 +25,12 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :reviews, only: [:show, :create, :update]
+
       resources :spaces do
         member do
           get :comments, to: "spaces#comments"
+          get :reviews, to: "spaces#reviews"
         end
 
         collection do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_02_010214) do
+ActiveRecord::Schema.define(version: 2021_06_05_053455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,17 @@ ActiveRecord::Schema.define(version: 2021_06_02_010214) do
     t.integer "tmdb_comp_id"
     t.integer "comments_count"
     t.integer "users_count"
+  end
+
+  create_table "submissions", force: :cascade do |t|
+    t.string "type"
+    t.bigint "user_id"
+    t.bigint "space_id"
+    t.string "content", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["space_id"], name: "index_submissions_on_space_id"
+    t.index ["user_id"], name: "index_submissions_on_user_id"
   end
 
   create_table "subscriptions", force: :cascade do |t|
