@@ -1,7 +1,7 @@
 <template>
   <v-container :key="componentKey">
 
-    <v-img class="rounded-lg mt-2" height="100" src="https://source.unsplash.com/random" />
+    <v-img class="rounded-lg mt-2" height="93" src="https://source.unsplash.com/random" />
 
     <sub-header class="mt-5" :tag='this.$route.params.name'>
       <template v-slot:tag_header="subHeaderProps">
