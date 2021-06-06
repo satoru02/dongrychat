@@ -18,5 +18,5 @@
 class Submission < ApplicationRecord
   belongs_to :user
   belongs_to :space
-  validates :contents, presence: true
+  validates :content, presence: true
 end

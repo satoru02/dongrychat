@@ -46,9 +46,9 @@ module Api
       end
 
       def reviews
-        @reviews = @space.reviews
-        serializer = ReviewSerializer.new(@reviews)
-        render_json(seriaizer)
+        @reviews = @space.reviews.paginate(:page => params[:page], :per_page => params[:per_page])
+        serializer = set_review_serializer(@reviews)
+        render_json(serializer)
       end
 
       private
@@ -71,6 +71,10 @@ module Api
 
         def set_comment_serializer(comments, condition, media)
           CommentSerializer.new(comments, enter_params(condition, media))
+        end
+
+        def set_review_serializer(reviews)
+          ReviewSerializer.new(reviews)
         end
 
         def set_space

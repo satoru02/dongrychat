@@ -132,17 +132,18 @@ var router = new VueRouter({
         {
           path: 'reviews',
           name: 'MvSpaceReviews',
+          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceReviews'),
           meta: {
             keepAlive: false,
           }
         },
-        {
-          path: 'news',
-          name: 'MvSpaceNews',
-          meta: {
-            keepAlive: false,
-          }
-        }
+        // {
+        //   path: 'news',
+        //   name: 'MvSpaceNews',
+        //   meta: {
+        //     keepAlive: false,
+        //   }
+        // }
       ]
     },
     {
@@ -169,17 +170,18 @@ var router = new VueRouter({
         {
           path: 'reviews',
           name: 'subscribedMvSpaceReviews',
+          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceReviews'),
           meta: {
             keepAlive: false,
           }
         },
-        {
-          path: 'news',
-          name: 'subscribedMvSpaceNews',
-          meta: {
-            keepAlive: false,
-          }
-        }
+        // {
+        //   path: 'news',
+        //   name: 'subscribedMvSpaceNews',
+        //   meta: {
+        //     keepAlive: false,
+        //   }
+        // }
       ]
     },
     {
@@ -206,17 +208,18 @@ var router = new VueRouter({
         {
           path: 'reviews',
           name: 'TvSpaceReviews',
+          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceReviews'),
           meta: {
             keepAlive: false,
           }
         },
-        {
-          path: 'news',
-          name: 'TvSpaceNews',
-          meta: {
-            keepAlive: false,
-          }
-        }
+        // {
+        //   path: 'news',
+        //   name: 'TvSpaceNews',
+        //   meta: {
+        //     keepAlive: false,
+        //   }
+        // }
       ]
     },
     {
@@ -243,17 +246,18 @@ var router = new VueRouter({
         {
           path: 'reviews',
           name: 'subscribedTvSpaceReviews',
+          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceReviews'),
           meta: {
             keepAlive: false,
           }
         },
-        {
-          path: 'news',
-          name: 'subscribedTvSpaceNews',
-          meta: {
-            keepAlive: false,
-          }
-        }
+        // {
+        //   path: 'news',
+        //   name: 'subscribedTvSpaceNews',
+        //   meta: {
+        //     keepAlive: false,
+        //   }
+        // }
       ]
     },
     {

@@ -1,7 +1,7 @@
 <template>
   <v-container class="mt-3">
     <space-header :space_data="this.space_data" />
-    <v-tabs hide-slider class="mt-2" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height" grow>
+    <v-tabs class="mt-2" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height" grow>
       <v-tab
        :active-class="vTab.activeText" @click="changeTab(tablist.path)" :style="vTab.style"
         v-for="(tablist, index) in tablists" :key="index">
@@ -184,9 +184,9 @@
           case 'ユーザー':
             return this.space_data.users.data.length;
           case 'レビュー':
-            return 0;
-          case 'シェアウォッチ':
-            return 0;
+            return this.space_data.reviews_count;
+          // case 'シェアウォッチ':
+          //   return 0;
           default:
             return 0;
         }

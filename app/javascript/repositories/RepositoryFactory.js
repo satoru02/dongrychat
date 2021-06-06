@@ -7,6 +7,7 @@ import tmdbRepository from './tmdbRepository';
 import authRepository from './authRepository';
 import avatarRepository from './avatarRepository';
 import notificationsRepository from './notificationsRepository';
+import reviewsRepository from './reviewsRepository';
 
 const repositories = {
   spaces: spacesRepository,
@@ -17,7 +18,8 @@ const repositories = {
   subscriptions: subscriptionsRepository,
   auth: authRepository,
   avatar: avatarRepository,
-  notifications: notificationsRepository
+  notifications: notificationsRepository,
+  reviews: reviewsRepository
 };
 
 export const RepositoryFactory = {

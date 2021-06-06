@@ -2,13 +2,8 @@ module Api
   module V1
     class ReviewsController < ApplicationController
       before_action :authorize_access_request!
-      before_action :new_reviews: only: [:create]
-      before_action :set_review, only: [:show, :edit, :update]
-
-      def show
-        serializer = ReviewSerializer.new(@review)
-        render_json(serializer)
-      end
+      before_action :new_reviews, only: [:create]
+      before_action :set_review, only: [:edit, :update]
 
       def edit
         serializer = ReviewSerializer.new(@review)
@@ -33,7 +28,7 @@ module Api
 
       private
         def new_reviews
-          @reviews = Review.new(content: params[:content], user_id: params[:user_id], space_id: params[:space_id])
+          @review = Review.new(content: params[:content], user_id: params[:user_id], space_id: params[:space_id])
         end
 
         def set_review

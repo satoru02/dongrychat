@@ -47,7 +47,7 @@
         content: '',
         canSubmit: false,
         loader: {
-          text: 'このスペースにはまだコメントがありません。',
+          text: 'この作品にはまだコメントがありません。',
         },
         params: {
           id: this.spaceId,
@@ -100,7 +100,7 @@
             .then(res => {
               if (res.data.data.length) {
                 this.page += 1;
-                this.comments.push(...res.data.data)
+                this.comments.push(...res.data.data);
                 $state.loaded();
               } else {
                 $state.complete();

@@ -25,7 +25,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :reviews, only: [:show, :create, :update]
+      resources :reviews, only: [:index, :show, :create, :update]
 
       resources :spaces do
         member do
