@@ -74,7 +74,7 @@
         this.$router.push({
           name: 'UserTop',
           params: {
-            user_name: user.name,
+            // user_name: user.name,
             user_id: user.id
           }
         })
