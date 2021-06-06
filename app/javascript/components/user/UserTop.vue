@@ -1,6 +1,5 @@
 <template>
-  <v-container class="user-top mt-4">
-
+  <v-container class="user-top mt-2">
     <v-card outlined class="user-card rounded-lg">
       <v-img height="133" src="https://source.unsplash.com/random" />
       <v-card-title>
@@ -19,7 +18,6 @@
           v-if="this.$store.state.user.currentUser.id !== user_info.id" small elevation=0 outlined>
           {{followed ? followingText : unfollowingText}}</v-btn>
       </v-card-title>
-
       <!-- fix -->
       <v-row class="mt-n16 ml-n1">
         <v-col lg=1>
@@ -32,7 +30,6 @@
           </v-icon>
         </v-col>
       </v-row>
-
       <v-row class="mt-5" v-if="this.user_info">
         <v-col cols=1 sm=1 md=1 lg=1 xl=1>
         </v-col>
@@ -83,9 +80,7 @@
         {{tab.title}}
       </v-tab>
     </v-tabs>
-
     <v-divider />
-
     <router-view :user_info="this.user_info" />
   </v-container>
 </template>
@@ -112,9 +107,9 @@
             path: 'posts',
           },
           {
-            title: '投稿',
-            name: 'UserPosts',
-            path: 'posts'
+            title: '投稿レビュー',
+            name: 'UserReviews',
+            path: 'reviews'
           },
           {
             title: 'フォロー',
@@ -178,7 +173,7 @@
     },
     methods: {
       getUser() {
-        usersRepository.getUserInfo(this.$route.params.user_name)
+        usersRepository.getUserInfo(this.$route.params.user_id)
           .then(res => this.fetchSuccessful(res))
           .catch(err => this.fetchFailed(err))
       },

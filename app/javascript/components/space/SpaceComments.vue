@@ -2,30 +2,23 @@
   <div :class="vContainer">
     <v-row v-for="(comment, index) in comments" :key="index" class="mt-n9">
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="vColAvatarGrid">
-        <!-- <v-badge :color="comment.attributes.user.data.attributes.appearance === true ? 'green accent-4' : 'red'"
-          offset-x="6" offset-y="6" bordered bottom dot overlap> -->
         <v-avatar class="mt-3" @click="goUserPage(comment.attributes.user.data.attributes)" :style="avatar.style"
           :size='avatar.size' :height='avatar.height'>
           <img :src="comment.attributes.user.data.attributes.avatar_url">
         </v-avatar>
-        <!-- </v-badge> -->
       </v-col>
       <v-col cols=11 sm=11 md=11 lg=11 xl=11 :class="vColNameGrid">
-        <!-- <v-card color="#ffffff" elevation=0 rounded> -->
-          <v-row>
-            <v-col cols=12 sm=12 md=12 lg=12 xl=12 class="ml-4">
-              <span :style="username.style">{{comment.attributes.user.data.attributes.name}}</span>
-              <span :style="time.style">・ {{formalizeTime(comment.attributes.created_at)}}</span>
-            </v-col>
-          </v-row>
-          <v-container class="ml-1 mt-n6" :style="content.style">
-            <p>{{comment.attributes.content}}</p>
-          </v-container>
-        <!-- </v-card> -->
+        <v-row>
+          <v-col cols=12 sm=12 md=12 lg=12 xl=12 class="ml-4">
+            <span :style="username.style">{{comment.attributes.user.data.attributes.name}}</span>
+            <span :style="time.style">・ {{formalizeTime(comment.attributes.created_at)}}</span>
+          </v-col>
+        </v-row>
+        <v-container class="ml-1 mt-n6" :style="content.style">
+          <p>{{comment.attributes.content}}</p>
+        </v-container>
       </v-col>
     </v-row>
-    <base-profile-dialog v-if="user" v-on:input="offDialog()" :passDialog="dialog" :user="user"
-      :followed="this.followed" />
   </div>
 </template>
 
@@ -35,9 +28,6 @@
 
   export default {
     name: 'SpaceComments',
-    components: {
-      'base-profile-dialog': () => import( /* webpackPrefetch: true */ '../Base/BaseProfileDialog')
-    },
     props: {
       comments: {
         type: Array,
@@ -46,7 +36,6 @@
     },
     data() {
       return {
-        dialog: false,
         followed: Boolean,
         user: '',
         follower_length: '',
@@ -81,23 +70,11 @@
       }
     },
     methods: {
-      showDialog(user) {
-        if (this.$store.state.user.currentUser.following.includes(user.id)) {
-          this.followed = true
-        } else {
-          this.followed = false
-        }
-        this.user = user
-        this.dialog = true
-      },
-      offDialog(value) {
-        this.dialog = value
-      },
       goUserPage(user) {
         this.$router.push({
           name: 'UserTop',
           params: {
-            user_name: user.name,
+            // user_name: user.name,
             user_id: user.id
           }
         })

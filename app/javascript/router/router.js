@@ -132,17 +132,11 @@ var router = new VueRouter({
         {
           path: 'reviews',
           name: 'MvSpaceReviews',
+          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceReviews'),
           meta: {
             keepAlive: false,
           }
         },
-        {
-          path: 'news',
-          name: 'MvSpaceNews',
-          meta: {
-            keepAlive: false,
-          }
-        }
       ]
     },
     {
@@ -169,17 +163,11 @@ var router = new VueRouter({
         {
           path: 'reviews',
           name: 'subscribedMvSpaceReviews',
+          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceReviews'),
           meta: {
             keepAlive: false,
           }
         },
-        {
-          path: 'news',
-          name: 'subscribedMvSpaceNews',
-          meta: {
-            keepAlive: false,
-          }
-        }
       ]
     },
     {
@@ -206,17 +194,11 @@ var router = new VueRouter({
         {
           path: 'reviews',
           name: 'TvSpaceReviews',
+          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceReviews'),
           meta: {
             keepAlive: false,
           }
         },
-        {
-          path: 'news',
-          name: 'TvSpaceNews',
-          meta: {
-            keepAlive: false,
-          }
-        }
       ]
     },
     {
@@ -243,21 +225,15 @@ var router = new VueRouter({
         {
           path: 'reviews',
           name: 'subscribedTvSpaceReviews',
+          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceReviews'),
           meta: {
             keepAlive: false,
           }
         },
-        {
-          path: 'news',
-          name: 'subscribedTvSpaceNews',
-          meta: {
-            keepAlive: false,
-          }
-        }
       ]
     },
     {
-      path: '/users/:user_name',
+      path: '/users/:user_id',
       beforeEnter: guardMyroute,
       props: true,
       component: () => import( /* webpackChunkName: "UserTop" */ '../components/User/UserTop'),
@@ -270,9 +246,9 @@ var router = new VueRouter({
           },
         },
         {
-          path: 'posts',
-          name: 'UserPosts',
-          component: () => import( /* webpackChunkName: "UserPosts" */ '../components/User/UserPosts'),
+          path: 'reviews',
+          name: 'UserReviews',
+          component: () => import( /* webpackChunkName: "UserPosts" */ '../components/User/UserReviews'),
           meta: {
             keepAlive: false,
           },

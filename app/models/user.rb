@@ -48,6 +48,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :subscriptions, dependent: :destroy, counter_cache: true
   has_many :spaces, -> {includes :comments, :users, :confirmations}, through: :subscriptions, counter_cache: true
+  has_many :reviews, dependent: :destroy
 
   has_one_attached :avatar, dependent: :destroy
   has_secure_password

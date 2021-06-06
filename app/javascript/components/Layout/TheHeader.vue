@@ -1,19 +1,34 @@
 <template>
-  <v-app-bar elevation=1 outlined app color="#0b090a">
+  <v-app-bar elevation=0 outlined app color="#161a1d" dense>
     <div :class="headerL" />
     <v-toolbar-title :class="headerTitle" @click="goTop()">devio</v-toolbar-title>
     <v-divider vertical inset class="ml-3" />
-    <v-toolbar-title @click="goTop()" class="beta-logo ml-3 mt-1">
+    <v-toolbar-title @click="goTop()" class="beta-logo ml-1 mt-1">
       β 0.5
     </v-toolbar-title>
+
+    <!-- <v-toolbar-title @click="goTop()" class="beta-logo ml-16 mt-1">
+      メニュー
+    </v-toolbar-title>
+    <v-toolbar-title @click="goTop()" class="beta-logo ml-10 mt-1">
+      探す
+    </v-toolbar-title> -->
+    <!-- <v-toolbar-title @click="goTop()" class="beta-logo ml-10 mt-1">
+      devioについて
+    </v-toolbar-title> -->
     <v-spacer></v-spacer>
-    <v-text-field placeholder="検索..." @keypress="setQuery()" @keydown.enter="search(query)" v-model="query" height="10"
+
+    <v-text-field placeholder="気になる作品を検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
       :full-width="true" v-if="this.checkAuthorization()" :prepend-inner-icon="'mdi-magnify'" dense
-      background-color="#ffffff" outlined class="text-field rounded-s mt-7 ml-6 mr-12" />
-    <v-menu open-on-hover offset-y left nudge-top="5" nudge-right="0" nudge-width="130" nudge-height="800">
+      background-color="#ced4da" outlined class="text-field rounded-xl mt-6 ml-12 mr-16" />
+    <v-spacer></v-spacer>
+    <v-btn icon>
+      <v-icon size=20 color="white">mdi-bell-outline</v-icon>
+    </v-btn>
+    <v-menu open-on-hover offset-y left nudge-bottom="3" nudge-left="50" nudge-height="800">
       <template v-slot:activator="{on, attrs}">
         <div v-bind="attrs" v-on="on">
-          <v-avatar size="30" class="mr-1 mt-1">
+          <v-avatar size="20" class="ml-5 mr-16">
             <v-img :src="$store.state.user.currentUser.avatar_url" />
           </v-avatar>
         </div>
@@ -157,7 +172,7 @@
   }
 
   .text-field {
-    max-width: 232px;
+    max-width: 672px;
   }
 
   .login {
@@ -173,12 +188,12 @@
   }
 
   .list {
-    background-color:#f5f8fa;
+    background-color: #f5f8fa;
   }
 
   .list-title {
-    color:#011627;
+    color: #011627;
     font-size: 13px;
-    font-weight: bold
+    /* font-weight: bold */
   }
 </style>

@@ -1,5 +1,6 @@
 <template>
-  <v-container :key="componentKey" class="mt-n1">
+  <v-container :key="componentKey" class="mt-2">
+    <v-img class="rounded-lg" height="93" src="https://source.unsplash.com/random" />
 
     <sub-header>
       <template v-slot:popular_header="subHeaderProps">
@@ -28,7 +29,7 @@
       </v-col>
     </v-row>
 
-    <base-card :items="items" />
+    <base-card :items="items" :loading="loading" />
     <base-loader :handler="infiniteHandler" :wrapper="true" :text="loaderText" />
 
     <!-- to component -->
@@ -83,6 +84,7 @@
       return {
         loaderText: '現在チャット中のスペースはありません。',
         items: [],
+        loading: false,
         switcher: false,
         loginDialog: false,
         page: 1,
@@ -189,7 +191,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'sub-header mt-2'
+            return 'sub-header mt-5'
         }
       }
     },
@@ -213,6 +215,7 @@
               if (res.data.data.length) {
                 this.page += 1
                 this.items.push(...res.data.data)
+                this.loading = true
                 $state.loaded()
               } else {
                 $state.complete();

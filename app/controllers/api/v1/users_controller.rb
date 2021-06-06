@@ -2,7 +2,7 @@ module Api
   module V1
     class UsersController < ApplicationController
       before_action :authorize_access_request!
-      before_action :set_user, only: [:show, :update, :following, :followers, :subscriptions, :new_comments]
+      before_action :set_user, only: [:show, :update, :following, :followers, :subscriptions, :new_comments, :reviews]
 
       def me
         serializer = UserSerializer.new(current_user)
@@ -56,10 +56,17 @@ module Api
         render json: { new_comments: @user.unconfirmed_comments }
       end
 
+      def reviews
+        @reviews = @user.reviews.paginate(:page => params[:page], :per_page => params[:per_page])
+        serializer = set_users_reviews_serializer(@reviews)
+        render_json(serializer)
+      end
+
       private
 
         def set_user
-          @user = User.friendly.find(params[:id].downcase)
+          # @user = User.friendly.find(params[:id].downcase)
+          @user = User.find(params[:id])
         end
 
         def current_user_params(user)
@@ -68,6 +75,10 @@ module Api
 
         def set_home_space_serializer(spaces, user)
           HomeSpaceSerializer.new(spaces, current_user_params(user))
+        end
+
+        def set_users_reviews_serializer(reviews)
+          UsersReviewsSerializer.new(reviews)
         end
 
         def user_params

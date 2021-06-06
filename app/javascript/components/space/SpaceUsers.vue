@@ -110,7 +110,7 @@
       },
       goUserPage(user){
         this.$router.replace({name: 'UserTop', params: {
-          user_name: user.attributes.name
+          user_id: user.attributes.id
         }})
       }
     }

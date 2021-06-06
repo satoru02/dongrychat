@@ -2,7 +2,7 @@ module Api
   module V1
     class SpacesController < ApplicationController
       before_action :authorize_access_request!, only: [:unsubscribed, :subscribed, :comments]
-      before_action :set_space, only: [:subscribed, :comments]
+      before_action :set_space, only: [:subscribed, :comments, :reviews]
       before_action :set_condition, only: [:subscribed, :comments]
 
       def unsubscribed
@@ -45,6 +45,12 @@ module Api
         render_json(serializer)
       end
 
+      def reviews
+        @reviews = @space.reviews.paginate(:page => params[:page], :per_page => params[:per_page])
+        serializer = set_review_serializer(@reviews)
+        render_json(serializer)
+      end
+
       private
 
         def enter_params(condition, media)
@@ -65,6 +71,10 @@ module Api
 
         def set_comment_serializer(comments, condition, media)
           CommentSerializer.new(comments, enter_params(condition, media))
+        end
+
+        def set_review_serializer(reviews)
+          ReviewSerializer.new(reviews)
         end
 
         def set_space

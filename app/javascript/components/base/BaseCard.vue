@@ -2,7 +2,7 @@
   <div>
 
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
-      <v-card class="rounded-s mb-8 mt-n4" outlined @click="enterSpace(item.attributes)"
+      <v-card class="rounded-lg mb-8 mt-n4" outlined elevation=1 @click="enterSpace(item.attributes)"
         :style="hover ? hoverStyle : unhoverStyle" height="200px">
 
         <v-responsive>
@@ -15,7 +15,12 @@
 
             <v-col :class="gridAvatar" cols=1 sm=1 md=1 lg=1 xl=1>
               <v-avatar class="rounded-lg" size="88" height="88" tile>
-                <v-img v-if="item.attributes.image_path" :src="base_tmdb_img_url + item.attributes.image_path" />
+                <!-- <v-img v-if="item.attributes.image_path === null">
+                   <v-progress-circular class="ml-4 mt-3" indeterminate color="green">
+                   </v-progress-circular>
+                </v-img> -->
+                <v-img v-if="item.attributes.image_path" :src="base_tmdb_img_url + item.attributes.image_path">
+                </v-img>
                 <v-img v-else size="33" height="33">
                   <poster-path />
                 </v-img>
@@ -54,9 +59,9 @@
               </v-row>
 
               <v-row v-if="item.attributes.tags"
-                :class="$vuetify.breakpoint.width > 600 ? 'mt-n3 ml-6' : 'mt-n1 ml-16'">
+                :class="$vuetify.breakpoint.width > 600 ? 'mt-n1 ml-6' : 'mt-n1 ml-16'">
                 <v-col cols=2 sm=3 md=7 lg=7 xl=7>
-                  <v-chip label :class="$vuetify.breakpoint.width > 600 ? 'tag-text mr-2 mt-3' : 'tag-text mr-2'"
+                  <v-chip label :class="$vuetify.breakpoint.width > 600 ? 'tag-text mr-2 mt-4' : 'tag-text mr-2'"
                     v-for="(tag, index) in item.attributes.tags.slice(0, 2)" :key="index" color="#e9ecef"
                     v-text="'#' + tag.name" x-small />
                 </v-col>
@@ -79,7 +84,7 @@
             </v-col>
           </v-row>
 
-          <v-divider class="mt-3" />
+          <!-- <v-divider class="mt-3" /> -->
           <v-row :class="gridBottom" dense>
             <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="gridIcon">
               <v-avatar size="22">
@@ -131,12 +136,14 @@
     },
     props: {
       items: '',
+      loading: false,
     },
     data() {
       return {
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
+        // loading: false,
         unhoverStyle: {
-          backgroundColor: '#ffffff'
+          backgroundColor: '#fdfdfd'
         },
         hoverStyle: {
           backgroundColor: '#edf2f4'
@@ -256,7 +263,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'mt-3 ml-n5'
+            return 'mt-4 ml-n5'
         }
       },
       gridBottom() {
@@ -267,7 +274,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'mt-2'
+            return 'mt-4'
         }
       },
       gridLabel() {
@@ -330,6 +337,9 @@
 </script>
 
 <style scoped>
+.v-application .elevation-1 {
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.06),0 1px 1px 0 rgba(0,0,0,.02),0 1px 3px 0 rgba(0,0,0,0.01)!important;
+}
   .ranking {
     font-size: 12px;
     font-weight: bold;
@@ -391,7 +401,7 @@
   }
 
   .theme--light.v-sheet--outlined {
-    border: thin solid rgba(124, 124, 124, 0.12);
+    border: thin solid rgba(189, 189, 189, 0.12);
   }
 
   .v-divider {

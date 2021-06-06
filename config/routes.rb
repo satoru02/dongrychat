@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :refresh, only: :create
       resources :signup, only: :create
       resources :notifications, only: :index
+      resources :reviews, only: [:index, :show, :create, :update]
 
       resources :avatar do
         get 'presigned_url', on: :collection
@@ -13,9 +14,8 @@ Rails.application.routes.draw do
 
       resources :users do
         get 'me', on: :collection
-
         member do
-          get :following, :followers, :online, :subscriptions, :new_comments
+          get :following, :followers, :online, :subscriptions, :new_comments, :reviews
         end
       end
 
@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       resources :spaces do
         member do
           get :comments, to: "spaces#comments"
+          get :reviews, to: "spaces#reviews"
         end
 
         collection do
