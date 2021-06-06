@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <base-review-card :space_reviews="reviews" />
-    <base-loader :handler="infiniteHandler" :wrapper="false" :text="loader.text" />
+    <base-review-card :user_reviews="reviews" />
+    <base-loading :text="loadingText" :handler="infiniteHandler" :wrapper="false" />
   </v-container>
 </template>
 
@@ -9,32 +9,24 @@
   import {
     RepositoryFactory
   } from '../../repositories/RepositoryFactory';
-  const spacesRepository = RepositoryFactory.get('spaces');
+  const usersRepository = RepositoryFactory.get('users');
 
   export default {
-    name: "SpaceReviews",
+    name: "UserReviews",
     components: {
       'base-review-card': () => import( /* webpackPrefetch: true */ '../Base/BaseReviewCard'),
-      'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader')
+      'base-loading': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader')
     },
-    props: {
-      spaceId: {
-        type: Number,
-        required: true,
-      }
-    },
-    data: function () {
+    props: {},
+    data() {
       return {
         page: 1,
         pageSize: 10,
         reviews: [],
-        loader: {
-          text: 'この作品にはまだレビューがありません。'
-        },
+        loadingText: '投稿したレビューはまだありません。',
         params: {
-          id: this.spaceId,
           page: '',
-          per_page: ''
+          pageSize: ''
         }
       }
     },
@@ -43,7 +35,7 @@
         setTimeout(() => {
           this.params.page = this.page
           this.params.per_page = this.pageSize
-          spacesRepository.getReviews(this.spaceId, this.params)
+          usersRepository.getReviews(this.$route.params.user_id, this.params)
             .then(res => {
               if (res.data.data.length) {
                 this.page += 1;
@@ -58,6 +50,3 @@
     }
   }
 </script>
-
-<style scoped>
-</style>
