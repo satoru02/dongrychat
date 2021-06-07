@@ -1,26 +1,25 @@
 <template>
   <v-container :class="grid.rightPart">
     <the-profile-part />
-    <v-row class="mt-4">
+    <!-- <v-row class="mt-4">
       <v-col lg=9>
         <v-img class="rounded-lg" elevation="0" height="80" width="230" src="https://source.unsplash.com/random">
         </v-img>
       </v-col>
-    </v-row>
-    <v-row class="mt-7">
+    </v-row> -->
+    <!-- <v-row class="mt-7">
       <v-col lg=9>
-        <v-sheet color="#ff006e" class="rounded-lg">
+        <v-sheet color="blue" class="rounded-lg" height="80">
           <v-row>
             <v-col lg=1></v-col>
-            <v-col lg=9 :style="leftStyle" class="ml-4">
-              🙌
-              <span class="ml-1">Devioのおすすめ作品</span>
+            <v-col lg=9 :style="leftStyle" class="ml-4 mt-5">
+              <span class="ml-6"># 今日はこれ見る</span>
             </v-col>
           </v-row>
         </v-sheet>
       </v-col>
-    </v-row>
-    <v-row class="mt-7">
+    </v-row> -->
+    <!-- <v-row class="mt-7">
       <v-col lg=9>
         <v-sheet color="#000000" class="rounded-lg">
           <v-row>
@@ -49,14 +48,13 @@
           </v-row>
         </v-sheet>
       </v-col>
-    </v-row>
+    </v-row> -->
     <v-sheet color="#f5f8fa" width="233px" class="rounded-lg">
       <v-row class="mt-9 ml-1">
         <v-col lg=7>
           <h3 :style="style.online" v-text="'注目の作品'" />
         </v-col>
         <v-col lg=5>
-          <!-- <div class="mt-2" :style="moreStyle" v-text="'もっと見る'" /> -->
         </v-col>
       </v-row>
 
@@ -74,67 +72,6 @@
           <span :style="moreStyle" class="ml-9 mb-n3">計{{item.attributes.users.data.length}}人</span>
         </v-col>
       </v-row>
-      <!-- <v-row class="mt-5 ml-1">
-        <v-col lg=4>
-          <v-img class="rounded-lg" elevation="0" height="50" width="50" src="https://source.unsplash.com/random">
-          </v-img>
-        </v-col>
-        <v-col lg=8 class="ml-n5">
-          <div :style="contentsStyle">ブラックパンサー</div>
-          <v-avatar size="20" class="mt-2">
-            <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-          </v-avatar>
-          <v-avatar size="20" class="mt-2 ml-n2">
-            <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-          </v-avatar>
-          <v-avatar size="20" class="mt-2 ml-n2">
-            <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-          </v-avatar>
-          <v-avatar size="20" class="mt-2 ml-n2">
-            <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-          </v-avatar>
-        </v-col>
-      </v-row>
-      <v-row class="mt-5 ml-1">
-        <v-col lg=4>
-          <v-img class="rounded-lg" elevation="0" height="50" width="50" src="https://source.unsplash.com/random">
-          </v-img>
-        </v-col>
-        <v-col lg=8 class="ml-n5">
-          <div :style="contentsStyle">ブラックパンサー</div>
-          <v-avatar size="20" class="mt-2">
-            <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-          </v-avatar>
-          <v-avatar size="20" class="mt-2 ml-n2">
-            <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-          </v-avatar>
-          <v-avatar size="20" class="mt-2 ml-n2">
-            <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-          </v-avatar>
-          <v-avatar size="20" class="mt-2 ml-n2">
-            <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-          </v-avatar>
-        </v-col>
-      </v-row> -->
-      <!-- <v-row class="mt-3 ml-1">
-        <v-col lg=4>
-          <v-img class="rounded-lg" elevation="0" height="50" width="50" src="https://source.unsplash.com/random">
-          </v-img>
-        </v-col>
-        <v-col lg=8 class="ml-n5" :style="contentsStyle">
-          ワンダヴィジョン
-        </v-col>
-      </v-row>
-      <v-row class="mt-3 ml-1">
-        <v-col lg=4>
-          <v-img class="rounded-lg" elevation="0" height="50" width="50" src="https://source.unsplash.com/random">
-          </v-img>
-        </v-col>
-        <v-col lg=8 class="ml-n5" :style="contentsStyle">
-          全裸監督
-        </v-col>
-      </v-row> -->
-
     </v-sheet>
 
     <!-- ピックアップ + 注目ユーザー -->
