@@ -148,8 +148,10 @@ class User < ApplicationRecord
     self.subscriptions.exists? space_id: space_id
   end
 
-  def avatar_url(object)
-    object.service_url
+  def cdn_ready_blob_path(attachment)
+    service = Rails.application.config.active_storage.service
+    key = attachment&.blob&.key
+    "#{ENV['AWS_CLOUDFRONT']}/#{key}"
   end
 
   def attach_avatar(file)
