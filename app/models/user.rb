@@ -49,7 +49,6 @@ class User < ApplicationRecord
   has_many :subscriptions, dependent: :destroy, counter_cache: true
   has_many :spaces, -> {includes :comments, :users, :confirmations}, through: :subscriptions, counter_cache: true
   has_many :reviews, dependent: :destroy
-
   has_one_attached :avatar, dependent: :destroy
   has_secure_password
   enum role: %i[user manager admin].freeze
@@ -149,7 +148,6 @@ class User < ApplicationRecord
   end
 
   def cdn_ready_blob_path(attachment)
-    service = Rails.application.config.active_storage.service
     key = attachment&.blob&.key
     "#{ENV['AWS_CLOUDFRONT']}/#{key}"
   end
