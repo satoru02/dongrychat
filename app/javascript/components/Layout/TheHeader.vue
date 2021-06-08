@@ -12,15 +12,15 @@
 
     <v-text-field placeholder="気になる作品を検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
       :full-width="true" v-if="this.checkAuthorization()" :prepend-inner-icon="'mdi-magnify'" dense
-      background-color="#ced4da" outlined class="text-field rounded-xl mt-6 ml-12 mr-16" />
+      background-color="#ffffff" outlined class="text-field rounded-xl mt-6 ml-12 mr-16" />
     <v-spacer></v-spacer>
     <v-btn icon>
-      <v-icon size=20 color="white">mdi-bell-outline</v-icon>
+      <v-icon size=24 color="white">mdi-bell-outline</v-icon>
     </v-btn>
     <v-menu open-on-hover offset-y left nudge-bottom="3" nudge-left="50" nudge-height="800">
       <template v-slot:activator="{on, attrs}">
         <div v-bind="attrs" v-on="on">
-          <v-avatar size="20" class="ml-5 mr-16">
+          <v-avatar size="25" class="ml-5 mr-16">
             <v-img :src="$store.state.user.currentUser.avatar_url" />
           </v-avatar>
         </div>

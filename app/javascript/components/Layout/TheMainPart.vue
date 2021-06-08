@@ -11,7 +11,7 @@
         </v-col>
         </keep-alive>
 
-        <v-divider vertical class="ml-n13 mr-8" v-if="$vuetify.breakpoint.width > 600 && this.checkRouter()" />
+        <!-- <v-divider vertical class="ml-n3 mr-2" v-if="$vuetify.breakpoint.width > 600 && this.checkRouter()" /> -->
 
         <v-col :cols="this.colsGrid[1]" :sm="this.smGrid[1]" :md="this.mdGrid[1]" :lg="this.lgGrid[1]"
           :xl="this.xlGrid[1]">

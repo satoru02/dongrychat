@@ -11,9 +11,8 @@
         episodeHeader: '第',
         episodeFooter: '話',
         textStyle: {
-          fontFamily: '"Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", Meiryo, sans-serif;',
-          fontSize: '9px',
-          color: '#ffffff'
+          fontSize: '11px',
+          color: '#111111'
         }
       }
     },

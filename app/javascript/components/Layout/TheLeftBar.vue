@@ -1,15 +1,15 @@
 <template>
   <v-container class="left-bar mt-n4">
-    <v-list nav flat :style="list.style" color="#ffffff" dark class="ml-16 rounded-lg" style="background-color: #ffffff;">
+    <v-list color="#ffffff" dark class="ml-16 rounded-lg">
       <v-subheader :style="category" class="mb-n2">メニュー</v-subheader>
-      <v-list-item-group v-model="selectedItem">
-        <v-hover v-slot="{hover}" v-for="(item, index) in menus" :key="index">
-          <v-list-item :elevation="hover ? 10: 0" @click="changeRoute(item.path_name)" class="ml-2 mb-n2">
+      <v-list-item-group v-model="selectedItem" v-for="(item, index) in menus" :key="index">
+        <v-hover v-slot="{hover}">
+          <v-list-item rounded :style="hover ? 'background-color: #f5f8fa;' : 'background-color: #ffffff;'" @click="changeRoute(item.path_name)" class="ml-2">
             <v-list-item-icon>
               <v-list-item-subtitle :size="icon.size" v-text="item.icon" />
             </v-list-item-icon>
             <v-list-item-content class="ml-n6">
-              <v-list-item-title :active-class="'green--text'" :style="hover ? list_item_title.hoverStyle : list_item_title.style">
+              <v-list-item-title :style="list_item_title.style">
                 {{item.text}}
                 <span>
                   <v-chip class="ml-3 mb-1" v-if="item.text === 'お気に入り' && new_comments > 0" x-small elevation=0
@@ -21,12 +21,12 @@
         </v-hover>
       </v-list-item-group>
       <v-divider color="#f6f6f9" class="mt-5 ml-3" />
-      <v-list-item-group v-model="selectedItem" class="mt-3">
-        <v-subheader :style="category" class="mb-2">人気のカテゴリ</v-subheader>
-        <v-hover v-slot="{hover}" v-for="(tag, index) in tags" :key="index">
-          <v-list-item dense :elevation="hover ? 10: 0" @click="goTagPage(tag.attributes)" class="mb-3 ml-2 mt-n3">
+      <v-subheader :style="category" class="mt-2 mb-1">人気のカテゴリ</v-subheader>
+      <v-list-item-group v-model="selectedItem" class="mt-3" v-for="(tag, index) in tags" :key="index">
+        <v-hover v-slot="{hover}">
+          <v-list-item dense :style="hover ? 'background-color: #f5f8fa;' : 'background-color: #ffffff;'" @click="goTagPage(tag.attributes)" class="mb-3 ml-2 mt-n3">
             <v-list-item-content>
-              <v-list-item-title :style="hover ? list_item_title.hoverStyle : list_item_title.style">
+              <v-list-item-title :style="list_item_title.style">
                 #{{tag.attributes.name}}
               </v-list-item-title>
             </v-list-item-content>
@@ -163,19 +163,14 @@
         category: {
           fontWeight: 'bold',
           fontSize: '12px',
-          color: '#657786',
+          color: '#9daab6',
         },
         list_item_title: {
           color: '#011627',
-          hoverStyle: {
-            fontSize: '14px',
-            color: '#02e98d',
-            // fontWeight: 'bold',
-          },
           style: {
-            // fontWeight: 'bold',
+            fontWeight: '700',
             fontSize: '14px',
-            color: '#111111'
+            color: '#3b454e'
           }
         },
         btn: {
