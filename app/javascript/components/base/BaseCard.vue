@@ -1,24 +1,19 @@
 <template>
-  <div>
-
+  <div class="mt-n5 ml-n3">
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
-      <v-card class="rounded-lg mb-8 mt-n4" outlined elevation=1 @click="enterSpace(item.attributes)"
-        :style="hover ? hoverStyle : unhoverStyle" height="200px">
+      <v-card class="rounded-lg" elevation=0 @click="enterSpace(item.attributes)"
+        :style="hover ? hoverStyle : unhoverStyle" height="180px">
 
         <v-responsive>
           <v-row class="mt-1">
-            <v-col :class="gridRank" cols=1 sm=1 md=1 lg=1 xl=1>
+            <!-- <v-col :class="gridRank" cols=1 sm=1 md=1 lg=1 xl=1>
               <span v-if="$vuetify.breakpoint.name != 'xs'" class="ranking">
                 {{index + 1}}
               </span>
-            </v-col>
+            </v-col> -->
 
             <v-col :class="gridAvatar" cols=1 sm=1 md=1 lg=1 xl=1>
-              <v-avatar class="rounded-lg" size="88" height="88" tile>
-                <!-- <v-img v-if="item.attributes.image_path === null">
-                   <v-progress-circular class="ml-4 mt-3" indeterminate color="green">
-                   </v-progress-circular>
-                </v-img> -->
+              <v-avatar class="rounded-lg ml-11" size="138" height="138" tile>
                 <v-img v-if="item.attributes.image_path" :src="base_tmdb_img_url + item.attributes.image_path">
                 </v-img>
                 <v-img v-else size="33" height="33">
@@ -26,15 +21,16 @@
                 </v-img>
               </v-avatar>
             </v-col>
+            <v-col lg=1 />
 
             <v-col :class="gridRight" cols=10 sm=10 md=10 lg=10 xl=10>
               <v-row dense>
                 <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
                 <v-col :class="gridLabel" cols=10 sm=10 md=10 lg=9 xl=10>
-                  <base-label class="ml-1 mr-3" v-if="item.attributes.media === 'tv'" :x_small="true" :outlined="false"
-                    :label="true" :color="'#016aff'" :text-color="'#ffffff'" :season="item.attributes.season"
+                  <base-label class="mr-3 rounded-xl" v-if="item.attributes.media === 'tv'" :small="true" :outlined="true"
+                    :label="true" :color="'#343a40'" :text-color="'#292929'" :season="item.attributes.season"
                     :episode="item.attributes.episode" :title="item.attributes.episode_title" />
-                  <v-chip class="movie-label ml-1" v-if="item.attributes.media === 'mv'" x-small label :color="'yellow'"
+                  <v-chip class="movie-label rounded-xl" small v-if="item.attributes.media === 'mv'" label :color="'yellow'"
                     v-text="'Movie'" />
                 </v-col>
               </v-row>
@@ -57,11 +53,44 @@
                   <span>{{item.attributes.name}}</span>
                 </v-col>
               </v-row>
+            
+            <v-row :class="gridBottom" dense>
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="gridIcon">
+              <v-avatar size="22">
+                <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
+              </v-avatar>
+            </v-col>
 
-              <v-row v-if="item.attributes.tags"
+            <v-col cols=10 sm=10 md=10 lg=10 xl=10 :class="gridTime">
+              <span class="user-name" v-if="item.attributes.latest_comment_user !== null">
+                {{item.attributes.latest_comment_user.name}}
+              </span>
+              <span class="user-name" v-else>
+                no name
+              </span>
+              <span class="time-text" v-if="item.attributes.latest_comment !== null">
+              ・{{formalizeTime(item.attributes.latest_comment.created_at)}}
+              </span>
+              <span class="time-text" v-else>
+              12:00
+              </span>
+            </v-col>
+          </v-row>
+
+          <v-row dense>
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+            <v-col v-if="item.attributes.latest_comment !== null" class="desc-text" :class="gridComment" cols=10 sm=10 md=10 lg=10 xl=10>
+              {{item.attributes.latest_comment.content}}
+            </v-col>
+            <v-col v-else class="desc-text" :class="gridComment" cols=10 sm=10 md=10 lg=10 xl=10>
+            </v-col>
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+          </v-row>
+
+              <!-- <v-row v-if="item.attributes.tags"
                 :class="$vuetify.breakpoint.width > 600 ? 'mt-n1 ml-6' : 'mt-n1 ml-16'">
                 <v-col cols=2 sm=3 md=7 lg=7 xl=7>
-                  <v-chip label :class="$vuetify.breakpoint.width > 600 ? 'tag-text mr-2 mt-4' : 'tag-text mr-2'"
+                  <v-chip label :class="$vuetify.breakpoint.width > 600 ? 'tag-text mr-2 mt-4 ml-5' : 'tag-text mr-2'"
                     v-for="(tag, index) in item.attributes.tags.slice(0, 2)" :key="index" color="#e9ecef"
                     v-text="'#' + tag.name" x-small />
                 </v-col>
@@ -80,12 +109,12 @@
                   </v-icon>
                   <span>11</span>
                 </v-col>
-              </v-row>
+              </v-row> -->
             </v-col>
           </v-row>
 
           <!-- <v-divider class="mt-3" /> -->
-          <v-row :class="gridBottom" dense>
+          <!-- <v-row :class="gridBottom" dense>
             <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="gridIcon">
               <v-avatar size="22">
                 <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
@@ -116,10 +145,11 @@
             <v-col v-else class="desc-text" :class="gridComment" cols=10 sm=10 md=10 lg=10 xl=10>
             </v-col>
             <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
-          </v-row>
+          </v-row> -->
         </v-responsive>
       </v-card>
     </v-hover>
+    <!-- <v-divider class="mt-3" /> -->
   </div>
 </template>
 
@@ -143,14 +173,14 @@
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
         // loading: false,
         unhoverStyle: {
-          backgroundColor: '#fdfdfd'
+          backgroundColor: '#ffffff'
         },
         hoverStyle: {
           backgroundColor: '#edf2f4'
         },
         descText: {
           color: '#111111',
-          fontSize: '16px',
+          fontSize: '18px',
           height: '82px',
           fontWeight: 'bold'
         },
@@ -200,7 +230,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'ml-3'
+            return 'ml-8'
         }
       },
       gridIcon() {
@@ -211,7 +241,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'ml-11 mt-n1'
+            return 'ml-14 mt-1'
         }
       },
       gridTime() {
@@ -223,7 +253,7 @@
             return 'ml-n4'
           case 'lg':
           case 'xl':
-            return 'ml-n7 mt-n1'
+            return 'ml-n5 mt-1'
         }
       },
       gridComment() {
@@ -234,7 +264,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'desc-text mt-2 ml-2'
+            return 'desc-text ml-2 mt-n1'
         }
       },
       gridNumberText() {
@@ -274,7 +304,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'mt-4'
+            return 'mt-1 ml-n1'
         }
       },
       gridLabel() {
@@ -286,7 +316,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'label ml-n4'
+            return 'label ml-1'
         }
       },
       gridName() {
@@ -298,7 +328,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'ml-n3'
+            return 'ml-1 mt-n1'
         }
       }
     },
@@ -337,9 +367,9 @@
 </script>
 
 <style scoped>
-.v-application .elevation-1 {
+/* .v-application .elevation-1 {
     box-shadow: 0 2px 1px -1px rgba(0,0,0,.06),0 1px 1px 0 rgba(0,0,0,.02),0 1px 3px 0 rgba(0,0,0,0.01)!important;
-}
+} */
   .ranking {
     font-size: 12px;
     font-weight: bold;
@@ -389,8 +419,8 @@
   .desc-text {
     color: #111111;
     font-size: 14px;
-    line-height: 20px;
-    max-height: 40px;
+    line-height: 16px;
+    max-height: 63px;
   }
 
   .title-text {
@@ -400,9 +430,9 @@
     height: 53px;
   }
 
-  .theme--light.v-sheet--outlined {
-    border: thin solid rgba(189, 189, 189, 0.12);
-  }
+  /* .theme--light.v-sheet--outlined {
+    border: thin solid rgba(53, 53, 53, 0);
+  } */
 
   .v-divider {
     border-color: rgba(226, 226, 226, 0.384);
