@@ -1,7 +1,7 @@
 <template>
   <v-container>
 
-    <sub-header class="mt-2">
+    <sub-header class="mt-1">
 
       <template v-slot:home_header="subHeaderProps">
         <div :class="gridSubHeader">
