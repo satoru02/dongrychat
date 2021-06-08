@@ -1,21 +1,13 @@
 <template>
-  <v-app-bar elevation=0 outlined app color="#161a1d" dense>
+  <v-app-bar elevation=0 outlined app color="#000000">
     <div :class="headerL" />
-    <v-toolbar-title :class="headerTitle" @click="goTop()">devio</v-toolbar-title>
+    <v-toolbar-title :class="headerTitle" @click="goTop()">
+      <icon-logo />
+    </v-toolbar-title>
     <v-divider vertical inset class="ml-3" />
     <v-toolbar-title @click="goTop()" class="beta-logo ml-1 mt-1">
-      β 0.5
+      <!-- β 0.5 -->
     </v-toolbar-title>
-
-    <!-- <v-toolbar-title @click="goTop()" class="beta-logo ml-16 mt-1">
-      メニュー
-    </v-toolbar-title>
-    <v-toolbar-title @click="goTop()" class="beta-logo ml-10 mt-1">
-      探す
-    </v-toolbar-title> -->
-    <!-- <v-toolbar-title @click="goTop()" class="beta-logo ml-10 mt-1">
-      devioについて
-    </v-toolbar-title> -->
     <v-spacer></v-spacer>
 
     <v-text-field placeholder="気になる作品を検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
@@ -55,6 +47,9 @@
 
   export default {
     name: 'TheHeader',
+    components: {
+      'icon-logo':() => import(/* webpackPrefetch */ '../Icons/IconLogo')
+    },
     data() {
       return {
         query: '',
@@ -102,7 +97,7 @@
           case 'xs':
             return `logo`
           default:
-            return `logo ml-10`
+            return `logo ml-6`
         }
       }
 
@@ -158,9 +153,6 @@
   }
 
   .logo {
-    font-weight: bold;
-    font-size: 19px;
-    color: #ffffff;
     cursor: pointer;
   }
 
