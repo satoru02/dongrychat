@@ -51,9 +51,10 @@ class UserSerializer
     user.subscriptions.length
   end
 
-  attribute :avatar_url do |object|
-    if object.avatar.attached?
-      object.avatar_url(object.avatar.blob)
+  attribute :avatar_url do |user|
+    if user.avatar.attached?
+      # user.avatar_url(user.avatar.blob)
+      user.cdn_ready_blob_path(user.avatar)
     end
   end
 end

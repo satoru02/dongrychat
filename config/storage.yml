@@ -13,6 +13,8 @@ amazon:
   region: <%= ENV['AWS_REGION'] %>
   bucket: <%= ENV['AWS_BUCKET'] %>
 
+cloudfront:
+  url: 'https://dl926wvx9uyx1.cloudfront.net'
 
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:
