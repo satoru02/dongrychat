@@ -7,7 +7,7 @@
        <v-col lg=1></v-col>
        <v-col lg=9 class="ml-n5 mt-8">
          <div style="color: #ffffff; font-weight:bold; font-size: 40px;">DEVIOへようこそ!</div>
-         <div class="mt-n1" style="color: #ffffff; font-weight:bold; font-size: 18px;">次に見たい作品をここで見つけよう!</div>
+         <div class="mt-n1" style="color: #ffffff; font-weight:bold; font-size: 18px;">次に見る作品をここで見つけよう!</div>
        </v-col>
      </v-row>
     </v-img>
