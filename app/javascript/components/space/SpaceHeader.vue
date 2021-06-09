@@ -25,31 +25,8 @@
                 @click="space_data.media === media.tv ? moveDetails(space_data.tmdb_comp_id, space_data.name, space_data.season, 'Tv') : moveDetails(space_data.tmdb_mv_id, space_data.name, null, 'Mv')"
                 :style="vColTitle.style"
                 >{{space_data.name}}</span>
-                          <!-- <v-col cols=12 sm=12 md=12 lg=3 xl=12 :style="vColTags.style"> -->
-            <!-- <v-btn @click="subscribed === true ? unsubscribe() : subscribe()" label small outlined class="mt-n3 ml-6" :style="vChip.tags.style"
-              :color="'#ffffff'"
-             >{{subscribed === true ? vBtn.subscribedText : vBtn.unsubscribedText}}</v-btn> -->
-          <!-- </v-col> -->
           </v-col>
           <!-- </v-hover> -->
-
-          <!-- <v-col cols=2 sm=2 md=2 lg=1 xl=2>
-            <v-btn icon :style="subscribed === true ? vBtn.subscribedStyle : vBtn.unsubscribedStyle"
-              @click="subscribed === true ? unsubscribe() : subscribe()" :elevation='vBtn.elevation'
-              :color="subscribed === true ? 'blue' : 'yellow'" :outlined="subscribed === true ? false : false">
-              {{subscribed === true ? vBtn.subscribedText : vBtn.unsubscribedText}}
-              <v-icon size=20>
-                mdi-heart
-              </v-icon>
-            </v-btn>
-          </v-col>
-     -->
-          <!-- <v-col cols=2 sm=2 md=2 lg=1 xl=2>
-            <v-btn icon @click="openReviewDialog()" :color="'black'">
-              <v-icon size=20>mdi-pen</v-icon>
-            </v-btn>
-          </v-col> -->
-
         </v-row>
         <v-row class="mt-5 ml-7">
           <v-col cols=12 sm=12 md=12 lg=3 xl=12 :style="vColTags.style">
@@ -57,43 +34,13 @@
               :color="'#ffffff'"
              >{{subscribed === true ? vBtn.subscribedText : vBtn.unsubscribedText}}</v-btn>
           </v-col>
-          
         </v-row>
         <v-row class="mt-n3">
           <v-col class="ml-10" cols=11 sm=12 md=12 lg=11 xl=12 :style="vColSummaryStyle"
             v-text="space_data.overview != null ? space_data.overview : dummyText" />
         </v-row>
-        <!-- <v-row class="mt-10 ml-7">
-          <v-col cols=12 sm=12 md=12 lg=3 xl=12 :style="vColTags.style">
-            <v-chip label outlined class="mt-n4" :style="vChip.tags.style"
-              :color="vChip.tags.color"
-              v-text="'フォローする'" />
-          </v-col>
-        </v-row> -->
       </v-col>
     </v-row>
-
-    <v-dialog width="400" v-model="reviewDialog">
-      <v-card color="#ffffff" auto-grow height="460" class="rounded-lg">
-        <v-card-title></v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-row class="mt-n6">
-              <v-col lg=12>
-                <v-textarea auto-grow row-height="63" v-model="reviewContent"
-                  :rules="[rules.requiredContents, rules.maxLengthOfContents]" placeholder="感想・レビューを記入する。" outlined flat
-                  solo></v-textarea>
-              </v-col>
-            </v-row>
-            <v-row class="mt-n3">
-              <v-col lg=12>
-                <v-btn @click="makeReviews()" block elevation=0 color="blue">登録する</v-btn>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
   </v-img>
 </template>
 
@@ -103,7 +50,6 @@
     RepositoryFactory
   } from '../../repositories/RepositoryFactory';
   const sbscRepository = RepositoryFactory.get('subscriptions');
-  const reviewsRepository = RepositoryFactory.get('reviews');
 
   export default {
     name: 'SpaceHeader',
@@ -114,17 +60,8 @@
     data() {
       return {
         base_tmdb_img_url: `https://image.tmdb.org/t/p/original`,
-        reviewDialog: false,
-        // reviewTitle: '',
-        reviewContent: '',
         api: {
           for_subscription: `/api/v1/subscriptions`
-        },
-        rules: {
-          // requiredTitle: (v) => !!v || 'タイトルを入力してください。',
-          // maxLengthOfTitle: (v) => v.length <= 100 || '100字以下のタイトルを入力してください。',
-          requiredContents: (v) => !!v || '内容を入力してください。',
-          maxLengthOfContents: (v) => v.length <= 255 || '255字以下の内容を入力してください。'
         },
         media: {
           tv: 'tv',
@@ -246,22 +183,6 @@
       },
       failed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
-      },
-      makeReviews() {
-        reviewsRepository.post({
-            user_id: this.$store.state.user.currentUser.id,
-            space_id: this.space_data.id,
-            content: this.reviewContent
-          })
-          .then(res => this.postSuccessful(res))
-          .catch(err => this.failed(err))
-      },
-      postSuccessful(res) {
-        this.reviewDialog = false
-        this.$router.go(0)
-      },
-      openReviewDialog() {
-        this.reviewDialog = true
       },
       posterImg() {
         return this.base_tmdb_img_url + this.space_data.image_path
