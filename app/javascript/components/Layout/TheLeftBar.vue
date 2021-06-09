@@ -272,8 +272,8 @@
   }
 
   .v-divider {
-    border-color: rgba(24, 23, 23, 0);
-    color: #dddddd
+    border-color: rgba(0, 0, 0, 0.082);
+    /* color: #dddddd */
   }
 
   .v-input__slot::before {

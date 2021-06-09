@@ -11,7 +11,7 @@
         episodeHeader: '第',
         episodeFooter: '話',
         textStyle: {
-          fontSize: '11px',
+          fontSize: this.font_size,
           color: this.text_color
         }
       }
@@ -56,6 +56,10 @@
       ,text_color: {
         type: String,
         default: '#111111'
+      },
+      font_size: {
+        type: String,
+        default: '11px'
       }
     },
     methods: {

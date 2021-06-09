@@ -1,85 +1,47 @@
 <template>
-  <div>
-    <v-row v-if="space_data" class="mt-n3">
+  <v-img :src="posterImg()" position="top right" gradient="to left, rgba(0 0 0 / 44%), rgb(0 0 0)"
+    class="mt-5 rounded-lg" height="280px">
+    <v-row v-if="space_data" class="mt-n5">
       <v-col cols=2 sm=2 md=2 lg=2 xl=2 :class="vColAvatarGrid">
-        <v-avatar class="rounded-lg" :size="vAvatar.size" :height='vAvatarHeight'>
+        <v-avatar class="rounded ml-6 mt-7" :size="vAvatar.size" :height='vAvatarHeight'>
           <v-img :src="posterImg()" />
         </v-avatar>
       </v-col>
-      <v-col cols=9 sm=9 md=9 lg=9 xl=9>
-        <v-row>
-          <v-col cols=8 sm=10 md=10 lg=9 xl=10>
-            <v-hover v-slot="{ hover }" class="ml-10">
-              <span
-                @click="space_data.media === media.tv ? moveDetails(space_data.tmdb_comp_id, space_data.name, space_data.season, 'Tv') : moveDetails(space_data.tmdb_mv_id, space_data.name, null, 'Mv')"
-                :style="hover ? vColTitle.hoverStyle : vColTitle.style" v-text="space_data.name" />
-            </v-hover>
-            <v-chip class="mt-n1 ml-2" :style="vChip.title.style" :color="vChip.title.color" :small="vChipSmall"
-              :x-small="vChipXsmall" v-text="space_data.users.data.length" />
-          </v-col>
-          <v-col cols=2 sm=2 md=2 lg=1 xl=2>
-            <v-btn icon :style="subscribed === true ? vBtn.subscribedStyle : vBtn.unsubscribedStyle"
-              @click="subscribed === true ? unsubscribe() : subscribe()" :elevation='vBtn.elevation'
-              :color="subscribed === true ? 'blue' : 'yellow'" :outlined="subscribed === true ? false : false">
-              <!-- {{subscribed === true ? vBtn.subscribedText : vBtn.unsubscribedText}} -->
-              <v-icon size=20>
-                mdi-heart
-              </v-icon>
-            </v-btn>
-          </v-col>
-          <v-col cols=2 sm=2 md=2 lg=1 xl=2>
-            <v-btn icon @click="openReviewDialog()" :color="'black'">
-              <v-icon size=20>mdi-pen</v-icon>
-            </v-btn>
-          </v-col>
-        </v-row>
-        <v-row dense class="mt-n5 ml-9">
-          <v-col cols=12 sm=12 md=12 lg=12 xl=12 :style="vColSubTitle.style" v-text="'@' + space_data.name" />
-        </v-row>
+      <v-col cols=9 sm=9 md=9 lg=9 xl=9 class="ml-7 mt-8">
         <v-row dense :style="vRowLabel.style">
           <v-col cols=12 sm=12 md=12 lg=12 xl=12>
-            <base-label class="ml-10" v-if="space_data.media === media.tv" :label="true" :small="true"
-              :color="vColLabel.blue" :outlined="false" :text-color="vColLabel.white" :season="space_data.season"
+            <base-label class="ml-9 rounded-xl" font_size="13px" v-if="space_data.media === media.tv" :label="true"
+              :small="false" :color="'#4ad66d'" :outlined="true" :text_color="'#4ad66d'" :season="space_data.season"
               :episode="space_data.episode" :title="space_data.episode_title" />
-            <v-chip class="ml-10" v-if="space_data.media === media.mv" small label :color="vChip.label.yellow"
-              :style="vChip.label.style" v-text="vChip.label.movie" />
+            <v-chip class="ml-9 rounded-xl" v-if="space_data.media === media.mv" outlined label :color="'yellow'"
+              :style="vChip.label.style" v-text="'MOVIE'" />
           </v-col>
         </v-row>
-        <v-row>
-          <v-col class="ml-10" cols=11 sm=12 md=12 lg=12 xl=12 :style="vColSummaryStyle"
+        <v-row class="ml-n5">
+          <v-col lg=1></v-col>
+          <!-- <v-hover v-slot="{ hover }"> -->
+          <v-col cols=8 sm=10 md=10 lg=11 xl=10>
+              <span
+                @click="space_data.media === media.tv ? moveDetails(space_data.tmdb_comp_id, space_data.name, space_data.season, 'Tv') : moveDetails(space_data.tmdb_mv_id, space_data.name, null, 'Mv')"
+                :style="vColTitle.style"
+                >{{space_data.name}}</span>
+          </v-col>
+          <!-- </v-hover> -->
+        </v-row>
+        <v-row class="mt-5 ml-7">
+          <v-col cols=12 sm=12 md=12 lg=3 xl=12 :style="vColTags.style">
+          <v-btn @click="subscribed === true ? unsubscribe() : subscribe()" label small outlined class="mt-n4" :style="vChip.tags.style"
+              :color="'#ffffff'"
+             >{{subscribed === true ? vBtn.subscribedText : vBtn.unsubscribedText}}</v-btn>
+          </v-col>
+        </v-row>
+        <v-row class="mt-n3">
+          <v-col class="ml-10" cols=11 sm=12 md=12 lg=11 xl=12 :style="vColSummaryStyle"
             v-text="space_data.overview != null ? space_data.overview : dummyText" />
-        </v-row>
-        <v-row class="mt-4 ml-7">
-          <v-col cols=12 sm=12 md=12 lg=12 xl=12 :style="vColTags.style" small>
-            <v-chip label outlined class="mr-2 mb-2" :style="vChip.tags.style"
-              v-for="(tag, index) in space_data.tag_list.slice(0, 3)" :key="index" :color="vChip.tags.color" x-small
-              v-text="'#' + tag" />
-          </v-col>
         </v-row>
       </v-col>
     </v-row>
-
-    <v-dialog width="400" v-model="reviewDialog">
-      <v-card color="#ffffff" auto-grow height="460" class="rounded-lg">
-        <v-card-title></v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-row class="mt-n6">
-              <v-col lg=12>
-                <v-textarea auto-grow row-height="63" v-model="reviewContent" :rules="[rules.requiredContents, rules.maxLengthOfContents]"
-                  placeholder="感想・レビューを記入する。" outlined flat solo></v-textarea>
-              </v-col>
-            </v-row>
-            <v-row class="mt-n3">
-              <v-col lg=12>
-                <v-btn @click="makeReviews()" block elevation=0 color="blue">登録する</v-btn>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
-  </div>
+  </v-img>
 </template>
 
 <script>
@@ -88,7 +50,6 @@
     RepositoryFactory
   } from '../../repositories/RepositoryFactory';
   const sbscRepository = RepositoryFactory.get('subscriptions');
-  const reviewsRepository = RepositoryFactory.get('reviews');
 
   export default {
     name: 'SpaceHeader',
@@ -98,18 +59,9 @@
     props: ['space_data'],
     data() {
       return {
-        base_tmdb_img_url: `https://image.tmdb.org/t/p/w200`,
-        reviewDialog: false,
-        // reviewTitle: '',
-        reviewContent: '',
+        base_tmdb_img_url: `https://image.tmdb.org/t/p/original`,
         api: {
           for_subscription: `/api/v1/subscriptions`
-        },
-        rules: {
-          // requiredTitle: (v) => !!v || 'タイトルを入力してください。',
-          // maxLengthOfTitle: (v) => v.length <= 100 || '100字以下のタイトルを入力してください。',
-          requiredContents: (v) => !!v || '内容を入力してください。',
-          maxLengthOfContents: (v) => v.length <= 255 || '255字以下の内容を入力してください。'
         },
         media: {
           tv: 'tv',
@@ -119,21 +71,23 @@
         params: {},
         subscribed: Boolean,
         vAvatar: {
-          size: '140',
-          // height: '180',
+          size: '145',
+          height: '180',
         },
         vColTitle: {
           style: {
-            color: '#111111',
+            color: '#ffffff',
             fontWeight: 'bold',
-            fontSize: '15px',
-            cursor: 'pointer'
+            fontSize: '28px',
+            cursor: 'pointer',
+            lineHeight: '30px'
           },
           hoverStyle: {
             color: '#3a86ff',
             fontWeight: 'bold',
-            fontSize: '15px',
-            cursor: 'pointer'
+            fontSize: '28px',
+            cursor: 'pointer',
+            lineHeight: '30px'
           }
         },
         vColSubTitle: {
@@ -156,15 +110,15 @@
             movie: 'Movie',
             style: {
               fontWeight: 'bold',
-              fontSize: '11px',
+              fontSize: '13px',
             }
           },
           tags: {
-            color: '#111111',
+            color: '#ffffff',
             style: {
-              color: '#111111',
+              color: '#ffffff',
               fontWeight: 'bold',
-              fontSize: '11px'
+              fontSize: '12px'
             }
           }
         },
@@ -172,8 +126,8 @@
           elevation: 0,
           blue: 'blue',
           black: '#000000',
-          subscribedText: 'お気に入りに追加済み',
-          unsubscribedText: 'お気に入りに追加する',
+          subscribedText: 'フォロー中',
+          unsubscribedText: 'フォローする',
           subscribedStyle: {
             color: '#ffffff',
             fontWeight: 'bold',
@@ -230,22 +184,6 @@
       failed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
       },
-      makeReviews() {
-        reviewsRepository.post({
-          user_id: this.$store.state.user.currentUser.id,
-          space_id: this.space_data.id,
-          content: this.reviewContent
-        })
-        .then(res => this.postSuccessful(res))
-        .catch(err => this.failed(err))
-      },
-      postSuccessful(res){
-        this.reviewDialog = false
-        this.$router.go(0)
-      },
-      openReviewDialog() {
-        this.reviewDialog = true
-      },
       posterImg() {
         return this.base_tmdb_img_url + this.space_data.image_path
       },
@@ -294,7 +232,7 @@
           case 'lg':
             return 'mt-1'
           case 'xl':
-            return 'ml-5 mt-1'
+            return 'ml-1 mt-1'
         }
       },
       vRowNameGrid() {
@@ -432,9 +370,9 @@
           case 'md':
             return '160'
           case 'lg':
-            return '200'
+            return '230'
           case 'xl':
-            return '180'
+            return '260'
         }
       },
       vColSummaryStyle() {
@@ -443,7 +381,7 @@
             return {
               color: '#111111',
                 fontWeight: 'bold',
-                fontSize: '11px',
+                fontSize: '12px',
                 height: '60px',
                 maxHeight: '60px',
                 overflow: 'scroll',
@@ -451,11 +389,12 @@
             }
             case 'lg' || 'xl':
               return {
-                color: '#111111',
+                color: '#ffffff',
                   // fontWeight: 'bold',
-                  fontSize: '13px',
-                  height: '90px',
-                  maxHeight: '90px',
+                  fontSize: '14px',
+                  fontWeight: 'bold',
+                  height: '78px',
+                  maxHeight: '78px',
                   overflow: 'scroll',
                   overflowY: 'scroll',
               }
