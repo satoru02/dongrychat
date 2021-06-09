@@ -2,18 +2,12 @@
   <div class="mt-n5 ml-n3">
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
       <v-card class="rounded-lg" elevation=0 @click="enterSpace(item.attributes)"
-        :style="hover ? hoverStyle : unhoverStyle" height="180px">
+        :style="hover ? hoverStyle : unhoverStyle" height="160px">
 
         <v-responsive>
           <v-row class="mt-1">
-            <!-- <v-col :class="gridRank" cols=1 sm=1 md=1 lg=1 xl=1>
-              <span v-if="$vuetify.breakpoint.name != 'xs'" class="ranking">
-                {{index + 1}}
-              </span>
-            </v-col> -->
-
             <v-col :class="gridAvatar" cols=1 sm=1 md=1 lg=1 xl=1>
-              <v-avatar class="rounded-lg ml-11" size="138" height="138" tile>
+              <v-avatar class="rounded-lg ml-11" size="138" height="133" tile>
                 <v-img v-if="item.attributes.image_path" :src="base_tmdb_img_url + item.attributes.image_path">
                 </v-img>
                 <v-img v-else size="33" height="33">
@@ -27,11 +21,12 @@
               <v-row dense>
                 <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
                 <v-col :class="gridLabel" cols=10 sm=10 md=10 lg=9 xl=10>
-                  <base-label class="mr-3 rounded-xl" v-if="item.attributes.media === 'tv'" :small="true" :outlined="true"
-                    :label="true" :color="'#343a40'" :text_color="'#111111'" :season="item.attributes.season"
-                    :episode="item.attributes.episode" :title="item.attributes.episode_title" />
-                  <v-chip class="movie-label rounded-xl" small v-if="item.attributes.media === 'mv'" label :color="'yellow'"
-                    v-text="'Movie'" />
+                  <base-label class="mr-3 rounded-xl" v-if="item.attributes.media === 'tv'" :small="true"
+                    :outlined="true" :label="true" :color="'#343a40'" :text_color="'#111111'"
+                    :season="item.attributes.season" :episode="item.attributes.episode"
+                    :title="item.attributes.episode_title" />
+                  <v-chip class="movie-label rounded-xl" small v-if="item.attributes.media === 'mv'" label
+                    :color="'yellow'" v-text="'Movie'" />
                 </v-col>
               </v-row>
 
@@ -53,39 +48,81 @@
                   <span>{{item.attributes.name}}</span>
                 </v-col>
               </v-row>
-            
-            <v-row :class="gridBottom" dense>
-            <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="gridIcon">
-              <v-avatar size="22">
-                <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-              </v-avatar>
-            </v-col>
 
-            <v-col cols=10 sm=10 md=10 lg=10 xl=10 :class="gridTime">
-              <span class="user-name" v-if="item.attributes.latest_comment_user !== null">
-                {{item.attributes.latest_comment_user.name}}
-              </span>
-              <span class="user-name" v-else>
-                no name
-              </span>
-              <span class="time-text" v-if="item.attributes.latest_comment !== null">
-              ・{{formalizeTime(item.attributes.latest_comment.created_at)}}
-              </span>
-              <span class="time-text" v-else>
-              12:00
-              </span>
-            </v-col>
-          </v-row>
+              <!-- <v-row :class="gridBottom" dense>
+                <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="gridIcon">
+                  <v-avatar size="22">
+                    <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
+                  </v-avatar>
+                </v-col>
 
-          <v-row dense>
-            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
-            <v-col v-if="item.attributes.latest_comment !== null" class="desc-text" :class="gridComment" cols=10 sm=10 md=10 lg=10 xl=10>
-              {{item.attributes.latest_comment.content}}
-            </v-col>
-            <v-col v-else class="desc-text" :class="gridComment" cols=10 sm=10 md=10 lg=10 xl=10>
-            </v-col>
-            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
-          </v-row>
+                <v-col cols=10 sm=10 md=10 lg=10 xl=10 :class="gridTime">
+                  <span class="user-name" v-if="item.attributes.latest_comment_user !== null">
+                    {{item.attributes.latest_comment_user.name}}
+                  </span>
+                  <span class="user-name" v-else>
+                    no name
+                  </span>
+                  <span class="time-text" v-if="item.attributes.latest_comment !== null">
+                    ・{{formalizeTime(item.attributes.latest_comment.created_at)}}
+                  </span>
+                  <span class="time-text" v-else>
+                    12:00
+                  </span>
+                </v-col>
+              </v-row> -->
+
+              <v-row dense class="mt-5 d-flex ml-n1">
+                <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+                <v-col style="desc-text" v-if="item.attributes.latest_comment !== null" :class="gridComment" cols=10
+                  sm=10 md=10 lg=10 xl=10 v-text="item.attributes.latest_comment.content">
+                  <!-- <p>{{item.attributes.latest_comment.content}}</p> -->
+                </v-col>
+                <v-col v-else class="desc-text" :class="gridComment" cols=10 sm=10 md=10 lg=10 xl=10>
+                </v-col>
+                <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
+              </v-row>
+
+              <v-divider class="ml-13 mt-1 mr-12" />
+
+              <v-row :class="gridBottom" dense>
+                <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="gridIcon">
+                  <v-avatar size="21">
+                    <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
+                  </v-avatar>
+                </v-col>
+
+                <v-col cols=10 sm=10 md=10 lg=5 xl=10 :class="gridTime">
+                  <span class="user-name" v-if="item.attributes.latest_comment_user !== null">
+                    {{item.attributes.latest_comment_user.name}}
+                  </span>
+                  <span class="user-name" v-else>
+                    no name
+                  </span>
+                  <span class="time-text" v-if="item.attributes.latest_comment !== null">
+                    ・{{formalizeTime(item.attributes.latest_comment.created_at)}}
+                  </span>
+                  <span class="time-text" v-else>
+                    12:00
+                  </span>
+                </v-col>
+                <v-col cols=2 sm=3 md=1 lg=1 xl=1 />
+
+                <!-- <v-col :class="gridNumber" cols=8 sm=6 md=4 lg=4 xl=4 :style="gridNumberText">
+                  <v-icon color="#5d666e" size=15>
+                    mdi-comment-outline
+                  </v-icon>
+                  <span>{{item.attributes.comments_count}}</span>
+                  <v-icon color="#5d666e" size="15" class="ml-2">
+                    mdi-note-outline
+                  </v-icon>
+                  <span>63</span>
+                  <v-icon color="#5d666e" size="15" class="ml-2">
+                    mdi-television-classic
+                  </v-icon>
+                  <span>11</span>
+                </v-col> -->
+              </v-row>
 
               <!-- <v-row v-if="item.attributes.tags"
                 :class="$vuetify.breakpoint.width > 600 ? 'mt-n1 ml-6' : 'mt-n1 ml-16'">
@@ -162,7 +199,7 @@
     name: 'BaseCard',
     components: {
       'base-label': () => import( /* webpackPrefetch: true */ '../Base/BaseLabel'),
-      'icon-poster':() => import(/* webpackPrefetch: true */ '../Icons/IconPoster'),
+      'icon-poster': () => import( /* webpackPrefetch: true */ '../Icons/IconPoster'),
     },
     props: {
       items: '',
@@ -180,7 +217,7 @@
         },
         descText: {
           color: '#111111',
-          fontSize: '18px',
+          fontSize: '19px',
           height: '82px',
           fontWeight: 'bold'
         },
@@ -264,7 +301,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'desc-text ml-2 mt-n1'
+            return 'desc-text ml-1 mt-n1'
         }
       },
       gridNumberText() {
@@ -293,7 +330,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'mt-4 ml-n5'
+            return ' mt-1'
         }
       },
       gridBottom() {
@@ -304,7 +341,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'mt-1 ml-n1'
+            return 'ml-n2'
         }
       },
       gridLabel() {
@@ -316,7 +353,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'label ml-1'
+            return 'label'
         }
       },
       gridName() {
@@ -328,7 +365,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'ml-1 mt-n1'
+            return ''
         }
       }
     },
@@ -367,7 +404,7 @@
 </script>
 
 <style scoped>
-/* .v-application .elevation-1 {
+  /* .v-application .elevation-1 {
     box-shadow: 0 2px 1px -1px rgba(0,0,0,.06),0 1px 1px 0 rgba(0,0,0,.02),0 1px 3px 0 rgba(0,0,0,0.01)!important;
 } */
   .ranking {
@@ -406,7 +443,7 @@
 
   .user-name {
     /* font-weight: bold; */
-    color: #111111;
+    color: #6c757d;
     font-size: 14px;
   }
 
@@ -420,7 +457,9 @@
     color: #111111;
     font-size: 14px;
     line-height: 16px;
-    max-height: 63px;
+    height: 34px;
+    max-height: 34px;
+    overflow: auto;
   }
 
   .title-text {
@@ -435,6 +474,6 @@
   } */
 
   .v-divider {
-    border-color: rgba(226, 226, 226, 0.384);
+    border-color: rgba(202, 202, 202, 0.253);
   }
 </style>
