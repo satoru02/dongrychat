@@ -23,7 +23,6 @@
 
         <v-divider vertical class="ml-2 mr-n3" v-if="$vuetify.breakpoint.width > 600 && this.checkRouter()" />
 
-
       <keep-alive>
         <v-col class="ml-n4" :cols="this.colsGrid[2]" :sm="this.smGrid[2]" :md="this.mdGrid[2]" :lg="this.lgGrid[2]"
           :xl="this.xlGrid[2]" v-if="$vuetify.breakpoint.width > 600">
