@@ -13,7 +13,7 @@
     <v-divider class="mt-4 mb-4" />
 
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
-      <v-card outlined class="rounded-lg mb-5" :style="hover ? card.hoverStyle : card.unhoverStyle"
+      <v-card outlined class="rounded-lg mb-2" :style="hover ? card.hoverStyle : card.unhoverStyle"
         @click="enterSpace(item)" :elevation='hover ? 0 : 0' :height="gridCardHeight" :width="gridCardWidth">
         <v-row class="mt-n1">
           <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-5">
@@ -29,10 +29,10 @@
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
               <v-col cols=10 sm=10 md=10 lg=10 xl=10 :class="$vuetify.breakpoint.width > 600 ? 'ml-n5 mt-1' : 'mt-1'"
                 :style="style.name">
-                <base-label :x_small="true" :outlined="false" :label="true" v-if="item.attributes.media === media.tv"
-                  color="#016aff" :season="item.attributes.season" :episode="item.attributes.episode"
+                <base-label :x_small="true" class="rounded-xl" :outlined="false" :label="true" v-if="item.attributes.media === media.tv"
+                  color="#016aff" text_color="#ffffff" :season="item.attributes.season" :episode="item.attributes.episode"
                   :title="item.attributes.episode_title" />
-                <v-chip :style="style.movieLabel" v-if="item.attributes.media === media.movie" x-small label
+                <v-chip :style="style.movieLabel" v-if="item.attributes.media === media.movie" x-small label class="rounded-xl"
                   color="yellow" v-text="text.movie" />
               </v-col>
             </v-row>
@@ -117,7 +117,7 @@
             backgroundColor: '#edf2f4'
           },
           unhoverStyle: {
-            backgroundColor: '#f5f8fa'
+            backgroundColor: '#ffffff'
           }
         },
         style: {
