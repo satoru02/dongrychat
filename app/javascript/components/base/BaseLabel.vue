@@ -1,6 +1,6 @@
 <template>
   <v-chip :small="small" :style="textStyle"
-   :x-small="x_small" :outlined="outlined" :label="label" v-text="displayDetails()" :color="color" :text-color="textColor" />
+   :x-small="x_small" :outlined="outlined" :label="label" v-text="displayDetails()" :color="color" />
 </template>
 <script>
   export default {
@@ -12,7 +12,7 @@
         episodeFooter: '話',
         textStyle: {
           fontSize: '11px',
-          color: '#111111'
+          color: this.text_color
         }
       }
     },
@@ -52,6 +52,10 @@
       x_small: {
         type: Boolean,
         default: false
+      }
+      ,text_color: {
+        type: String,
+        default: '#111111'
       }
     },
     methods: {

@@ -28,7 +28,7 @@
                 <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
                 <v-col :class="gridLabel" cols=10 sm=10 md=10 lg=9 xl=10>
                   <base-label class="mr-3 rounded-xl" v-if="item.attributes.media === 'tv'" :small="true" :outlined="true"
-                    :label="true" :color="'#343a40'" :text-color="'#292929'" :season="item.attributes.season"
+                    :label="true" :color="'#343a40'" :text_color="'#111111'" :season="item.attributes.season"
                     :episode="item.attributes.episode" :title="item.attributes.episode_title" />
                   <v-chip class="movie-label rounded-xl" small v-if="item.attributes.media === 'mv'" label :color="'yellow'"
                     v-text="'Movie'" />
