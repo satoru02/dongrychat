@@ -2,9 +2,9 @@
   <v-container class="left-bar mt-n4">
     <v-list color="#ffffff" dark class="ml-16 rounded-lg">
       <v-subheader :style="category" class="mb-n2">メニュー</v-subheader>
-      <v-list-item-group v-model="selectedItem" v-for="(item, index) in menus" :key="index">
-        <v-hover v-slot="{hover}">
-          <v-list-item rounded :style="hover ? 'background-color: #f5f8fa;' : 'background-color: #ffffff;'" @click="changeRoute(item.path_name)" class="ml-2">
+      <v-list-item-group>
+        <v-hover v-slot="{hover}" v-for="(item, index) in menus" :key="index">
+          <v-list-item rounded :style="hover ? 'background-color: #f5f8fa;' : ''" @click="changeRoute(item.path_name)" class="ml-2">
             <v-list-item-icon>
               <v-list-item-subtitle :size="icon.size" v-text="item.icon" />
             </v-list-item-icon>
@@ -22,8 +22,8 @@
       </v-list-item-group>
       <v-divider color="#f6f6f9" class="mt-5 ml-3" />
       <v-subheader :style="category" class="mt-2 mb-1">人気のカテゴリ</v-subheader>
-      <v-list-item-group v-model="selectedItem" class="mt-3" v-for="(tag, index) in tags" :key="index">
-        <v-hover v-slot="{hover}">
+      <v-list-item-group>
+        <v-hover v-slot="{hover}" class="mt-3" v-for="(tag, index) in tags" :key="index">
           <v-list-item dense :style="hover ? 'background-color: #f5f8fa;' : 'background-color: #ffffff;'" @click="goTagPage(tag.attributes)" class="mb-3 ml-2 mt-n3">
             <v-list-item-content>
               <v-list-item-title :style="list_item_title.style">
