@@ -19,7 +19,7 @@ class SpaceChannel < ApplicationCable::Channel
               id: data["user_id"],
               name: data["user_name"],
               appearance: true,
-              avatar_url: if current_user.avatar.attached?; then current_user.avatar_url(current_user.avatar.blob) end
+              avatar_url: if current_user.avatar.attached?; then current_user.cdn_ready_blob_path(current_user.avatar) end
             }
           }
         }

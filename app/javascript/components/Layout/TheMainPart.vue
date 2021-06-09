@@ -2,7 +2,7 @@
   <v-app class="the-main-part">
     <the-header />
 
-    <v-main class="mt-2" style="background-color: #ffffff;">
+    <v-main style="background-color: #ffffff;">
       <v-row>
         <keep-alive>
         <v-col :cols="this.colsGrid[0]" :sm="this.smGrid[0]" :md="this.mdGrid[0]" :lg="this.lgGrid[0]"
@@ -11,7 +11,7 @@
         </v-col>
         </keep-alive>
 
-        <!-- <v-divider vertical class="ml-n3 mr-2" v-if="$vuetify.breakpoint.width > 600 && this.checkRouter()" /> -->
+        <v-divider vertical class="ml-1 mr-2" v-if="$vuetify.breakpoint.width > 600 && this.checkRouter()" />
 
         <v-col :cols="this.colsGrid[1]" :sm="this.smGrid[1]" :md="this.mdGrid[1]" :lg="this.lgGrid[1]"
           :xl="this.xlGrid[1]">
@@ -20,6 +20,9 @@
           </keep-alive>
           <router-view v-if="!$route.meta.keepAlive"/>
         </v-col>
+
+        <v-divider vertical class="ml-2 mr-n3" v-if="$vuetify.breakpoint.width > 600 && this.checkRouter()" />
+
 
       <keep-alive>
         <v-col class="ml-n4" :cols="this.colsGrid[2]" :sm="this.smGrid[2]" :md="this.mdGrid[2]" :lg="this.lgGrid[2]"
@@ -123,8 +126,7 @@
 
   .theme--light.v-divider {
     /* border-color: rgba(32, 32, 32, 0); */
-    border-color: rgba(245, 245, 245, 0.973);
-
+    border-color: rgba(0, 0, 0, 0.082);
   }
 
   .Cookie--shade-blue {

@@ -474,6 +474,6 @@
   } */
 
   .v-divider {
-    border-color: rgba(202, 202, 202, 0.253);
+    border-color: rgba(0, 0, 0, 0.082);
   }
 </style>

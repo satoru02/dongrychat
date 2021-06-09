@@ -1,5 +1,5 @@
 <template>
-  <v-container class="mt-3">
+  <div class="mt-3">
     <space-header :space_data="this.space_data" />
     <v-tabs class="mt-2" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height" grow>
       <v-tab
@@ -12,7 +12,7 @@
     </v-tabs>
     <v-divider />
     <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" />
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -26,7 +26,7 @@
     },
     data() {
       return {
-        base_tmdb_img_url: `https://image.tmdb.org/t/p/w200`,
+        base_tmdb_img_url: `https://image.tmdb.org/t/p/original`,
         params: {},
         space_data: '',
         endpoint: '',

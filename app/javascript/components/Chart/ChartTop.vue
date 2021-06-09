@@ -2,7 +2,7 @@
   <v-container :key="componentKey" class="mt-2">
     <v-img :src="`${this.cdn}/image/wandavision.jpg`"
      gradient="to top right, rgba(2 2 2 / 38%), rgba(43 52 103)"
-     class="rounded-lg" height="153" position="top right" aspect-ratio="1.3444">
+     class="rounded-lg" height="153" position="top right" aspect-ratio="8">
      <v-row>
        <v-col lg=1></v-col>
        <v-col lg=9 class="ml-n5 mt-8">
@@ -276,7 +276,7 @@
 
 <style scoped>
   .theme--light.v-divider {
-    border-color: rgba(0, 0, 0, .04);
+    border-color: rgba(0, 0, 0, 0.082);
   }
 
   .sub-header {
