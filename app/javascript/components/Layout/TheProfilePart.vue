@@ -68,6 +68,6 @@
     border-color: rgba(0, 1, 1, .06);
   }
   .theme--light.v-sheet--outlined {
-    border: thin solid rgba(172, 172, 172, 0.12);
+    border: thin solid rgba(0, 0, 0, 0.12);
   }
 </style>

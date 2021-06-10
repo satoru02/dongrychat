@@ -1,5 +1,5 @@
 <template>
-  <v-img :src="posterImg()" position="top right" gradient="to left, rgba(0 0 0 / 44%), rgb(0 0 0)"
+  <v-img :src="posterImg()" position="top right" gradient="to left, rgba(0 0 0 / 64%), rgb(0 0 0)"
     class="mt-5 rounded-lg" height="280px">
     <v-row v-if="space_data" class="mt-n5">
       <v-col cols=2 sm=2 md=2 lg=2 xl=2 :class="vColAvatarGrid">

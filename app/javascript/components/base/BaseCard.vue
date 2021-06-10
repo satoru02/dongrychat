@@ -1,9 +1,78 @@
 <template>
-  <div class="mt-n5 ml-n3">
+  <div class="mt-n4 ml-n3">
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
+    <v-sheet style="cursor: pointer;" :elevation="hover ? 16 : 0" class="rounded-lg mb-7" @click="enterSpace(item.attributes)">
+    <v-img
+     :src="posterImg(item.attributes)" position="center right"
+      gradient="to left, rgba(0 0 0 / 28%), rgb(0 0 0)" class="rounded-lg" height="146px">
+      <v-row class="mt-n5">
+        <v-col cols=2 sm=2 md=2 lg=1 xl=2>
+          <v-avatar class="rounded ml-6 mt-6" size="80" height='113'>
+            <v-img :src="posterImg(item.attributes)" />
+          </v-avatar>
+        </v-col>
+        <v-col cols=9 sm=9 md=9 lg=9 xl=9 class="ml-7 mt-6">
+          <v-row dense :style="vRowLabel.style">
+            <v-col cols=12 sm=12 md=12 lg=12 xl=12>
+              <base-label class="ml-8 rounded-xl" font_size="13px" :label="true" v-if="item.attributes.media === 'tv'"
+                :x_small="true" :color="'#4ad66d'" :outlined="true" :text_color="'#4ad66d'"
+                :season="item.attributes.season" :episode="item.attributes.episode"
+                :title="item.attributes.episode_title" />
+              <v-chip class="ml-9 rounded-xl" v-if="item.attributes.media === media.mv" x-small outlined label
+                :color="'yellow'" :style="vChip.label.style" v-text="'MOVIE'" />
+            </v-col>
+          </v-row>
+          <v-row class="ml-n6 mt-n1">
+            <v-col lg=1></v-col>
+            <v-col cols=8 sm=10 md=10 lg=10 xl=10>
+              <span :style="vColTitle.style">{{item.attributes.name}}</span>
+              <span>
+                <v-btn x-small elevation=0 :style="vChip.label.style" v-if="$vuetify.breakpoint.name != 'xs'" color="#fee440" class="rounded-xl ml-2 mt-n2">
+                {{item.attributes.users.length}}
+                </v-btn>
+              </span>
+            </v-col>
+            <v-col lg=1 class="mt-2">
+            </v-col>
+            <!-- </v-hover> -->
+          </v-row>
+
+          <v-row class="mt-n5">
+            <v-col class="ml-9" cols=11 sm=12 md=12 lg=11 xl=12 :style="vColSummaryStyle"
+              v-text="item.attributes.latest_comment.content" />
+          </v-row>
+
+          <v-row :class="gridBottom" dense>
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="gridIcon">
+              <v-avatar size="21">
+                <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
+              </v-avatar>
+            </v-col>
+            <v-col cols=10 sm=10 md=10 lg=5 xl=10 :class="gridTime">
+              <span class="user-name" v-if="item.attributes.latest_comment_user !== null">
+                {{item.attributes.latest_comment_user.name}}
+              </span>
+              <span class="user-name" v-else>
+                no name
+              </span>
+              <span class="time-text" v-if="item.attributes.latest_comment !== null">
+                {{formalizeTime(item.attributes.latest_comment.created_at)}}
+              </span>
+              <span class="time-text" v-else>
+                12:00
+              </span>
+            </v-col>
+            <v-col cols=2 sm=3 md=1 lg=1 xl=1 />
+          </v-row>
+        </v-col>
+      </v-row>
+    </v-img>
+          </v-sheet>
+    </v-hover>
+    <!-- </v-sheet> -->
+    <!-- <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
       <v-card class="rounded-lg" elevation=0 @click="enterSpace(item.attributes)"
         :style="hover ? hoverStyle : unhoverStyle" height="160px">
-
         <v-responsive>
           <v-row class="mt-1">
             <v-col :class="gridAvatar" cols=1 sm=1 md=1 lg=1 xl=1>
@@ -16,7 +85,6 @@
               </v-avatar>
             </v-col>
             <v-col lg=1 />
-
             <v-col :class="gridRight" cols=10 sm=10 md=10 lg=10 xl=10>
               <v-row dense>
                 <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
@@ -29,7 +97,6 @@
                     :color="'yellow'" v-text="'Movie'" />
                 </v-col>
               </v-row>
-
               <v-row class="mt-5">
                 <v-col cols=9 sm=9 md=10 lg=10 xl=10 />
                 <v-col class="ml-8 mt-n1" cols=1 sm=1 md=1 lg=1 xl=1>
@@ -40,7 +107,6 @@
                   <span v-if="$vuetify.breakpoint.name != 'xs'">{{item.attributes.users.length}}</span>
                 </v-col>
               </v-row>
-
               <v-row class="mt-n12" :style="$vuetify.breakpoint.width > 600 ? descWidth : mobileWidth">
                 <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
                 <v-col :class="gridName" :style="$vuetify.breakpoint.width > 600 ? descText : mobileText" cols=8 sm=10
@@ -49,49 +115,22 @@
                 </v-col>
               </v-row>
 
-              <!-- <v-row :class="gridBottom" dense>
-                <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="gridIcon">
-                  <v-avatar size="22">
-                    <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-                  </v-avatar>
-                </v-col>
-
-                <v-col cols=10 sm=10 md=10 lg=10 xl=10 :class="gridTime">
-                  <span class="user-name" v-if="item.attributes.latest_comment_user !== null">
-                    {{item.attributes.latest_comment_user.name}}
-                  </span>
-                  <span class="user-name" v-else>
-                    no name
-                  </span>
-                  <span class="time-text" v-if="item.attributes.latest_comment !== null">
-                    ・{{formalizeTime(item.attributes.latest_comment.created_at)}}
-                  </span>
-                  <span class="time-text" v-else>
-                    12:00
-                  </span>
-                </v-col>
-              </v-row> -->
-
               <v-row dense class="mt-5 d-flex ml-n1">
                 <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
                 <v-col style="desc-text" v-if="item.attributes.latest_comment !== null" :class="gridComment" cols=10
                   sm=10 md=10 lg=10 xl=10 v-text="item.attributes.latest_comment.content">
-                  <!-- <p>{{item.attributes.latest_comment.content}}</p> -->
                 </v-col>
                 <v-col v-else class="desc-text" :class="gridComment" cols=10 sm=10 md=10 lg=10 xl=10>
                 </v-col>
                 <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
               </v-row>
-
               <v-divider class="ml-13 mt-1 mr-12" />
-
               <v-row :class="gridBottom" dense>
                 <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="gridIcon">
                   <v-avatar size="21">
                     <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
                   </v-avatar>
                 </v-col>
-
                 <v-col cols=10 sm=10 md=10 lg=5 xl=10 :class="gridTime">
                   <span class="user-name" v-if="item.attributes.latest_comment_user !== null">
                     {{item.attributes.latest_comment_user.name}}
@@ -107,86 +146,12 @@
                   </span>
                 </v-col>
                 <v-col cols=2 sm=3 md=1 lg=1 xl=1 />
-
-                <!-- <v-col :class="gridNumber" cols=8 sm=6 md=4 lg=4 xl=4 :style="gridNumberText">
-                  <v-icon color="#5d666e" size=15>
-                    mdi-comment-outline
-                  </v-icon>
-                  <span>{{item.attributes.comments_count}}</span>
-                  <v-icon color="#5d666e" size="15" class="ml-2">
-                    mdi-note-outline
-                  </v-icon>
-                  <span>63</span>
-                  <v-icon color="#5d666e" size="15" class="ml-2">
-                    mdi-television-classic
-                  </v-icon>
-                  <span>11</span>
-                </v-col> -->
               </v-row>
-
-              <!-- <v-row v-if="item.attributes.tags"
-                :class="$vuetify.breakpoint.width > 600 ? 'mt-n1 ml-6' : 'mt-n1 ml-16'">
-                <v-col cols=2 sm=3 md=7 lg=7 xl=7>
-                  <v-chip label :class="$vuetify.breakpoint.width > 600 ? 'tag-text mr-2 mt-4 ml-5' : 'tag-text mr-2'"
-                    v-for="(tag, index) in item.attributes.tags.slice(0, 2)" :key="index" color="#e9ecef"
-                    v-text="'#' + tag.name" x-small />
-                </v-col>
-                <v-col cols=2 sm=3 md=1 lg=1 xl=1 />
-                <v-col :class="gridNumber" cols=8 sm=6 md=4 lg=4 xl=4 :style="gridNumberText">
-                  <v-icon color="#5d666e" size=15>
-                    mdi-comment-outline
-                  </v-icon>
-                  <span>{{item.attributes.comments_count}}</span>
-                  <v-icon color="#5d666e" size="15" class="ml-2">
-                    mdi-note-outline
-                  </v-icon>
-                  <span>63</span>
-                  <v-icon color="#5d666e" size="15" class="ml-2">
-                    mdi-television-classic
-                  </v-icon>
-                  <span>11</span>
-                </v-col>
-              </v-row> -->
             </v-col>
           </v-row>
-
-          <!-- <v-divider class="mt-3" /> -->
-          <!-- <v-row :class="gridBottom" dense>
-            <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="gridIcon">
-              <v-avatar size="22">
-                <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-              </v-avatar>
-            </v-col>
-
-            <v-col cols=10 sm=10 md=10 lg=10 xl=10 :class="gridTime">
-              <span class="user-name" v-if="item.attributes.latest_comment_user !== null">
-                {{item.attributes.latest_comment_user.name}}
-              </span>
-              <span class="user-name" v-else>
-                no name
-              </span>
-              <span class="time-text" v-if="item.attributes.latest_comment !== null">
-              ・{{formalizeTime(item.attributes.latest_comment.created_at)}}
-              </span>
-              <span class="time-text" v-else>
-              12:00
-              </span>
-            </v-col>
-          </v-row>
-
-          <v-row dense class="mt-n3">
-            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
-            <v-col v-if="item.attributes.latest_comment !== null" class="desc-text" :class="gridComment" cols=10 sm=10 md=10 lg=10 xl=10>
-              {{item.attributes.latest_comment.content}}
-            </v-col>
-            <v-col v-else class="desc-text" :class="gridComment" cols=10 sm=10 md=10 lg=10 xl=10>
-            </v-col>
-            <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
-          </v-row> -->
         </v-responsive>
       </v-card>
-    </v-hover>
-    <!-- <v-divider class="mt-3" /> -->
+    </v-hover> -->
   </div>
 </template>
 
@@ -210,10 +175,10 @@
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
         // loading: false,
         unhoverStyle: {
-          backgroundColor: '#ffffff'
+          elevation: '0'
         },
         hoverStyle: {
-          backgroundColor: '#edf2f4'
+          elevation: '1'
         },
         descText: {
           color: '#111111',
@@ -233,6 +198,103 @@
         mobileWidth: {
           maxHeight: '70px',
         },
+        //
+        base_tmdb_img_url: `https://image.tmdb.org/t/p/original`,
+        api: {
+          for_subscription: `/api/v1/subscriptions`
+        },
+        media: {
+          tv: 'tv',
+          mv: 'mv',
+        },
+        dummyText: '',
+        params: {},
+        subscribed: Boolean,
+        vAvatar: {
+          size: '145',
+          height: '180',
+        },
+        vColTitle: {
+          style: {
+            color: '#ffffff',
+            fontWeight: 'bold',
+            fontSize: '23px',
+            cursor: 'pointer',
+            lineHeight: '30px'
+          },
+          hoverStyle: {
+            color: '#3a86ff',
+            fontWeight: 'bold',
+            fontSize: '23px',
+            cursor: 'pointer',
+            lineHeight: '30px'
+          }
+        },
+        vColSubTitle: {
+          style: {
+            color: '#6c757d',
+            fontWeight: 'bold',
+            fontSize: '8px',
+          }
+        },
+        vChip: {
+          title: {
+            color: '#f7e733',
+            style: {
+              color: '#000000',
+              fontWeight: 'bold',
+            }
+          },
+          label: {
+            yellow: '#f7e733',
+            movie: 'Movie',
+            style: {
+              fontWeight: 'bold',
+              color: "#000000",
+              fontSize: '14px',
+            }
+          },
+          tags: {
+            color: '#ffffff',
+            style: {
+              color: '#ffffff',
+              fontWeight: 'bold',
+              fontSize: '12px'
+            }
+          }
+        },
+        vBtn: {
+          elevation: 0,
+          blue: 'blue',
+          black: '#000000',
+          subscribedText: 'フォロー中',
+          unsubscribedText: 'フォローする',
+          subscribedStyle: {
+            color: '#ffffff',
+            fontWeight: 'bold',
+            fontSize: '11px',
+          },
+          unsubscribedStyle: {
+            color: '#ffffff',
+            fontWeight: 'bold',
+            fontSize: '11px'
+          },
+        },
+        vRowLabel: {
+          style: {
+            maxHeight: '35px',
+            fontWeight: 'bold',
+          }
+        },
+        vColLabel: {
+          blue: '#016aff',
+          white: '#ffffff',
+        },
+        vColTags: {
+          color: '#ffffff',
+          fontWeight: 'bold',
+          fontSize: '11px'
+        }
       }
     },
     computed: {
@@ -341,7 +403,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'ml-n2'
+            return 'ml-n6 mt-3'
         }
       },
       gridLabel() {
@@ -367,7 +429,33 @@
           case 'xl':
             return ''
         }
+      },
+      vColSummaryStyle() {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs' || 'sm' || 'md':
+            return {
+              color: '#111111',
+                fontWeight: 'bold',
+                fontSize: '12px',
+                height: '15px',
+                maxHeight: '15px',
+                overflow: 'scroll',
+                overflowY: 'scroll',
+            }
+            case 'lg' || 'xl':
+              return {
+                color: '#ffffff',
+                  // fontWeight: 'bold',
+                  fontSize: '14px',
+                  fontWeight: 'bold',
+                  height: '35px',
+                  maxHeight: '35px',
+                  overflow: 'scroll',
+                  overflowY: 'scroll',
+              }
+        }
       }
+
     },
     methods: {
       enterSpace(space) {
@@ -398,7 +486,10 @@
       },
       formalizeTime(time) {
         return moment(time).fromNow()
-      }
+      },
+      posterImg(item) {
+        return this.base_tmdb_img_url + item.image_path
+      },
     }
   }
 </script>
@@ -442,15 +533,15 @@
   }
 
   .user-name {
-    /* font-weight: bold; */
+    font-weight: bold;
     color: #6c757d;
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .time-text {
-    /* font-weight: bold; */
+    font-weight: bold;
     color: #6c757d;
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .desc-text {
