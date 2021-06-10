@@ -51,10 +51,10 @@
               </v-col>
             </v-row>
             <v-row v-if="$vuetify.breakpoint.width > 600" :class="$vuetify.breakpoint.width > 600 ? 'mt-n4' : 'mt-n16'">
-              <v-col cols=1 sm=1 md=1 lg=11 xl=1 class="ml-6" :style="style.comment">
-                <v-avatar size="20" class="mt-n1 ml-1">
+              <v-col cols=1 sm=1 md=1 lg=11 xl=1 class="ml-7" :style="style.comment">
+                <!-- <v-avatar size="20" class="mt-n1 ml-1">
                   <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-                </v-avatar>
+                </v-avatar> -->
                 <span class="ml-1" v-if="item.attributes.latest_comment">
                   {{item.attributes.latest_comment.content}}
                 </span>

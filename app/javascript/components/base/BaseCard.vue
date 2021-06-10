@@ -4,7 +4,7 @@
     <v-sheet style="cursor: pointer;" :elevation="hover ? 16 : 0" class="rounded-lg mb-7" @click="enterSpace(item.attributes)">
     <v-img
      :src="posterImg(item.attributes)" position="center right"
-      gradient="to left, rgba(0 0 0 / 28%), rgb(0 0 0)" class="rounded-lg" height="146px">
+      gradient="to left, rgba(0 0 0 / 18%), rgb(0 0 0)" class="rounded-lg" height="146px">
       <v-row class="mt-n5">
         <v-col cols=2 sm=2 md=2 lg=1 xl=2>
           <v-avatar class="rounded ml-6 mt-6" size="80" height='113'>
@@ -24,15 +24,13 @@
           </v-row>
           <v-row class="ml-n6 mt-n1">
             <v-col lg=1></v-col>
-            <v-col cols=8 sm=10 md=10 lg=10 xl=10>
+            <v-col cols=8 sm=10 md=10 lg=11 xl=10>
               <span :style="vColTitle.style">{{item.attributes.name}}</span>
               <span>
                 <v-btn x-small elevation=0 :style="vChip.label.style" v-if="$vuetify.breakpoint.name != 'xs'" color="#fee440" class="rounded-xl ml-2 mt-n2">
                 {{item.attributes.users.length}}
                 </v-btn>
               </span>
-            </v-col>
-            <v-col lg=1 class="mt-2">
             </v-col>
             <!-- </v-hover> -->
           </v-row>
@@ -45,12 +43,13 @@
           <v-row :class="gridBottom" dense>
             <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="gridIcon">
               <v-avatar size="21">
-                <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
+                <v-img v-if="item.attributes.latest_comment_user.data.attributes.avatar_url" :src="item.attributes.latest_comment_user.data.attributes.avatar_url" />
+                <v-img v-else src="https://gravatar.com/avatar/6ee07d61d8988eff9a020e93752680c4?s=400&d=robohash&r=x" />
               </v-avatar>
             </v-col>
             <v-col cols=10 sm=10 md=10 lg=5 xl=10 :class="gridTime">
               <span class="user-name" v-if="item.attributes.latest_comment_user !== null">
-                {{item.attributes.latest_comment_user.name}}
+                {{item.attributes.latest_comment_user.data.attributes.name}}
               </span>
               <span class="user-name" v-else>
                 no name
@@ -218,14 +217,14 @@
           style: {
             color: '#ffffff',
             fontWeight: 'bold',
-            fontSize: '23px',
+            fontSize: '20px',
             cursor: 'pointer',
             lineHeight: '30px'
           },
           hoverStyle: {
             color: '#3a86ff',
             fontWeight: 'bold',
-            fontSize: '23px',
+            fontSize: '20px',
             cursor: 'pointer',
             lineHeight: '30px'
           }
@@ -446,10 +445,10 @@
               return {
                 color: '#ffffff',
                   // fontWeight: 'bold',
-                  fontSize: '14px',
+                  fontSize: '12px',
                   fontWeight: 'bold',
-                  height: '35px',
-                  maxHeight: '35px',
+                  height: '32px',
+                  maxHeight: '32px',
                   overflow: 'scroll',
                   overflowY: 'scroll',
               }
