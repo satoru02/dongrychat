@@ -5,19 +5,39 @@
       <!-- <icon-logo /> -->
       DEVIO
     </v-toolbar-title>
-    <!-- <v-divider vertical inset class="ml-3" /> -->
-    <v-toolbar-title @click="goTop()" class="beta-logo ml-1 mt-1">
-      <!-- β 0.5 -->
-    </v-toolbar-title>
     <v-spacer></v-spacer>
 
     <v-text-field placeholder="気になる作品を検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
       :full-width="true" v-if="this.checkAuthorization()" :prepend-inner-icon="'mdi-magnify'" dense
       background-color="#ffffff" outlined class="text-field rounded-lg mt-6 ml-16 mr-16" />
     <v-spacer></v-spacer>
-    <v-btn icon>
-      <v-icon size=24 color="#657786">mdi-bell-outline</v-icon>
-    </v-btn>
+
+    <v-menu left nudge-bottom="35" nudge-height="800">
+      <template v-slot:activator="{on, attrs}">
+        <div v-bind="attrs" v-on="on" @click="infiniteHandler()">
+          <v-btn icon>
+            <v-icon size=24 color="#657786">mdi-bell-outline</v-icon>
+          </v-btn>
+        </div>
+      </template>
+      <v-list class="rounded-s list" v-if="$store.state.user.signedIn">
+        <v-list-item v-for="(notification, index) in notifications" :key=index link :to='"/notifications"'>
+          <v-list-item-icon>
+            <v-avatar size=30>
+              <v-img v-if="notification.attributes.sender.data.attributes.avatar_url" :src="notification.attributes.sender.data.attributes.avatar_url">
+              </v-img>
+              <v-img v-else src="https://cdn.vuetifyjs.com/images/john.jpg">
+              </v-img>
+            </v-avatar>
+          </v-list-item-icon>
+          <v-list-item-title class="list-title">
+            {{notification.attributes.sender.data.attributes.name}}にフォローされました。
+          </v-list-item-title>
+        </v-list-item>
+      </v-list>
+      <base-loader :handler="infiniteHandler" :text="text.loading" />
+    </v-menu>
+
     <v-menu open-on-hover offset-y left nudge-bottom="3" nudge-left="50" nudge-height="800">
       <template v-slot:activator="{on, attrs}">
         <div v-bind="attrs" v-on="on">
@@ -36,6 +56,7 @@
         </v-list-item>
       </v-list>
     </v-menu>
+
     <v-btn v-if="(this.checkAuthorization()) && !$store.state.user.signedIn" @click="goLogin()" outlined small
       color="#f6f6f9" elevation=0 class="login mr-4">ログイン</v-btn>
     <v-btn v-if="(this.checkAuthorization()) && !$store.state.user.signedIn" @click="goSignup()" small color="#016aff"
@@ -45,16 +66,27 @@
 
 <script>
   import '@mdi/font/css/materialdesignicons.css';
+  import {
+    RepositoryFactory
+  } from '../../repositories/RepositoryFactory';
+  const notificationsFactory = RepositoryFactory.get('notifications');
 
   export default {
     name: 'TheHeader',
     components: {
-      'icon-logo':() => import(/* webpackPrefetch */ '../Icons/IconLogo')
+      'icon-logo': () => import( /* webpackPrefetch */ '../Icons/IconLogo'),
+      'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
     },
     data() {
       return {
         query: '',
         canSubmit: false,
+        notifications: [],
+        page: 1,
+        pageSize: 10,
+        text: {
+          loading: '通知はありません。'
+        },
         items: [{
             icon: 'mdi-account-outline',
             title: 'プロフィール',
@@ -136,6 +168,23 @@
       },
       goTop() {
         this.$router.replace('/')
+      },
+      infiniteHandler($state) {
+        setTimeout(() => {
+          notificationsFactory.get({
+              page: this.page,
+              per_page: this.pageSize
+            })
+            .then(res => {
+              if (res.data.data.length) {
+                this.page += 1
+                this.notifications = res.data.data
+                $state.loaded()
+              } else {
+                $state.complete();
+              }
+            })
+        }, 50);
       }
     }
   }
