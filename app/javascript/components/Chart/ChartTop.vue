@@ -1,18 +1,18 @@
 <template>
-  <v-container :key="componentKey" class="mt-2">
-    <v-img :src="`${this.cdn}/image/wandavision.jpg`"
-     gradient="to top right, rgba(2 2 2 / 38%), rgba(43 52 103)"
-     class="rounded-lg" height="153" position="top right" aspect-ratio="8">
-     <v-row>
-       <v-col lg=1></v-col>
-       <v-col lg=9 class="ml-n5 mt-8">
-         <div style="color: #ffffff; font-weight:bold; font-size: 40px;">DEVIOへようこそ!</div>
-         <div class="mt-n1" style="color: #ffffff; font-weight:bold; font-size: 18px;">次に見る作品をここで見つけよう!</div>
-       </v-col>
-     </v-row>
+  <div :key="componentKey" class="mt-5">
+    <!-- <v-sheet outlined class="rounded-lg ml-n5"> -->
+    <v-img :src="`${this.cdn}/image/eat.jpg`" class="rounded-lg ml-n2" height="263" position="top">
+      <v-row>
+        <!-- <v-col lg=1></v-col> -->
+        <v-col lg=6 class="mt-16 ml-n3">
+          <div class="header-title ml-3">DEVIOへようこそ!</div>
+          <div class="mt-1 ml-6" style="color: #000000; font-weight:bold; font-size: 16px;">次に見る作品をここで見つけよう!</div>
+        </v-col>
+      </v-row>
     </v-img>
+    <!-- </v-sheet> -->
 
-    <sub-header>
+    <sub-header class="mt-n2">
       <template v-slot:popular_header="subHeaderProps">
         <div :class="gridSubHeader">
           {{subHeaderProps.sub_header}}
@@ -20,7 +20,7 @@
       </template>
     </sub-header>
 
-    <v-divider class="mt-5" />
+    <v-divider class="mt-5 ml-n3" />
 
     <v-row :class="gridSwitcher" dense>
       <v-col :class="gridTv" cols=3 sm=2 md=2 lg=2 xl=1>
@@ -73,7 +73,7 @@
       </v-card>
     </v-dialog>
 
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -191,7 +191,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'mt-n2 mb-n1 ml-2'
+            return 'mt-n2 mb-n1 ml-n1'
         }
       },
       gridSubHeader() {
@@ -202,7 +202,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'sub-header mt-5'
+            return 'sub-header mt-5 ml-n3'
         }
       }
     },
@@ -277,6 +277,17 @@
 <style scoped>
   .theme--light.v-divider {
     border-color: rgba(0, 0, 0, 0.082);
+  }
+
+  .header-title {
+    /* color: #111111; */
+
+    font-size: 33px;
+    font-weight: bold;
+    background: -webkit-linear-gradient(152deg, #56d8ff, #2165ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .sub-header {

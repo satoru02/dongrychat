@@ -1,10 +1,11 @@
 <template>
-  <v-app-bar elevation=0 outlined app color="#000000">
+  <v-app-bar elevation=1 outlined app color="#ffffff" dense>
     <div :class="headerL" />
     <v-toolbar-title :class="headerTitle" @click="goTop()">
-      <icon-logo />
+      <!-- <icon-logo /> -->
+      DEVIO
     </v-toolbar-title>
-    <v-divider vertical inset class="ml-3" />
+    <!-- <v-divider vertical inset class="ml-3" /> -->
     <v-toolbar-title @click="goTop()" class="beta-logo ml-1 mt-1">
       <!-- β 0.5 -->
     </v-toolbar-title>
@@ -12,10 +13,10 @@
 
     <v-text-field placeholder="気になる作品を検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
       :full-width="true" v-if="this.checkAuthorization()" :prepend-inner-icon="'mdi-magnify'" dense
-      background-color="#ffffff" outlined class="text-field rounded-xl mt-6 ml-12 mr-16" />
+      background-color="#ffffff" outlined class="text-field rounded-lg mt-6 ml-16 mr-16" />
     <v-spacer></v-spacer>
     <v-btn icon>
-      <v-icon size=24 color="white">mdi-bell-outline</v-icon>
+      <v-icon size=24 color="#657786">mdi-bell-outline</v-icon>
     </v-btn>
     <v-menu open-on-hover offset-y left nudge-bottom="3" nudge-left="50" nudge-height="800">
       <template v-slot:activator="{on, attrs}">
@@ -89,7 +90,7 @@
           case 'xs':
             return `ml-1`
           default:
-            return `ml-11`
+            return `ml-14`
         }
       },
       headerTitle() {
