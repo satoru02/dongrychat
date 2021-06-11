@@ -77,7 +77,7 @@ var router = new VueRouter({
       name: 'Chart',
       component: ChartTop,
       meta: {
-        title: 'チャート',
+        title: '話題の作品',
         keepAlive: true,
       }
     },
@@ -86,7 +86,7 @@ var router = new VueRouter({
       name: 'Home',
       beforeEnter: guardMyroute,
       meta: {
-        title: 'ホーム',
+        title: 'お気に入り',
         keepAlive: true,
         showProgressBar: true
       },
@@ -280,19 +280,19 @@ var router = new VueRouter({
       },
       component: () => import( /* webpackChunkName: "UserSettings" */ '../components/User/UserSettings'),
     },
-    {
-      path: '/latest',
-      name: 'Latest',
-      meta: {
-        title: '新着の作品'
-      },
-      component: () => import( /* webpackChunkName: "Search" */ '../components/Content/Content'),
-    },
+    // {
+    //   path: '/latest',
+    //   name: 'Latest',
+    //   meta: {
+    //     title: '新着の作品'
+    //   },
+    //   component: () => import( /* webpackChunkName: "Search" */ '../components/Content/Content'),
+    // },
     {
       path: '/trend',
       name: 'Trend',
       meta: {
-        title: '注目の作品'
+        title: '新着の作品'
       },
       component: () => import( /* webpackChunkName: "Search" */ '../components/Content/Content'),
     },
@@ -393,6 +393,7 @@ var router = new VueRouter({
       path: "/tag/:name",
       name: "Tag",
       meta: {
+        // title: ':name',
         keepAlive: true
       },
       component: () => import /* webpackChunkName: "Tags" */('../components/Tag/TagTop'),
@@ -401,7 +402,7 @@ var router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  document.title = to.meta.title + ' - Devio' || 'Devio';
+  document.title = to.meta.title + ' |  Devio' || 'Devio';
   NProgress.start();
   NProgress.set(0.0);
   next();
