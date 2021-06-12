@@ -1,5 +1,5 @@
 <template>
-  <v-container :key="componentKey">
+  <div :key="componentKey">
     <v-row :class="vRowHeader">
       <v-col cols=4 sm=1 md=1 lg=2 xl=1 class="ml-3">
         <div :style="switch1 === false ? active : inactive" v-text="'ドラマ'" />
@@ -14,7 +14,7 @@
     </v-row>
     <v-divider />
     <base-list :items="items" :media="media" />
-  </v-container>
+  </div>
 </template>
 
 <script>

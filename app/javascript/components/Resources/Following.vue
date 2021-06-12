@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sub-header class="mt-1">
+    <sub-header class="mt-5">
 
       <template v-slot:home_header="subHeaderProps">
         <div :class="gridSubHeader">

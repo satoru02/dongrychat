@@ -1,8 +1,5 @@
 <template>
   <div :key="componentKey" class="mt-4">
-
-    <!-- <v-img class="rounded-lg mt-2" height="93" src="https://source.unsplash.com/random" /> -->
-
     <sub-header class="mt-1" :tag='this.$route.params.name'>
       <template v-slot:tag_header="subHeaderProps">
         <div :class="gridSubHeader">
@@ -10,9 +7,7 @@
         </div>
       </template>
     </sub-header>
-
     <v-divider class="mt-5 mb-10" />
-
     <base-card :items='spaces' />
     <base-loader :handler="infiniteHandler" :text="text.loading" />
   </div>
@@ -50,6 +45,18 @@
         this.forceRerender()
       }
     },
+    beforeRouteEnter(to, from, next) {
+      next(vm => {
+        setTimeout(() => {
+          document.title = `${vm.$route.params.name} |  Devio` || 'Devio';
+        }, 0)
+      })
+    },
+    beforeRouteUpdate(to, from, next) {
+      document.title = `${to.params.name} |  Devio` || 'Devio';
+      next()
+    },
+    computed: {
     gridSubHeader() {
       switch (this.$vuetify.breakpoint.name) {
         case 'xs':
@@ -61,16 +68,6 @@
           return 'sub-header mb-2 mt-4'
       }
     },
-    beforeRouteEnter(to, from, next) {
-      next(vm => {
-        setTimeout(() => {
-          document.title = `${vm.$route.params.name} |  Devio` || 'Devio';
-        }, 0)
-      })
-    },
-    beforeRouteUpdate(to, from, next) {
-      document.title = `${to.params.name} |  Devio` || 'Devio';
-      next()
     },
     methods: {
       forceRerender() {

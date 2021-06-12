@@ -4,7 +4,8 @@
       <v-subheader :style="category" class="mb-n2">メニュー</v-subheader>
       <v-list-item-group>
         <v-hover v-slot="{hover}" v-for="(item, index) in menus" :key="index">
-          <v-list-item rounded :style="hover ? 'background-color: #f5f8fa;' : ''" @click="changeRoute(item.path_name)" class="ml-2">
+          <v-list-item rounded :style="hover ? 'background-color: #f5f8fa;' : ''" @click="changeRoute(item.path_name)"
+            class="ml-2">
             <v-list-item-icon>
               <v-list-item-subtitle :size="icon.size" v-text="item.icon" />
             </v-list-item-icon>
@@ -22,18 +23,17 @@
       </v-list-item-group>
       <v-divider color="#f6f6f9" class="mt-5 ml-3" />
       <v-subheader :style="category" class="mt-2 mb-1">人気のカテゴリ</v-subheader>
-      <v-list-item-group>
-        <v-hover v-slot="{hover}" class="mt-3" v-for="(tag, index) in tags" :key="index">
-          <v-list-item dense :style="hover ? 'background-color: #f5f8fa;' : 'background-color: #ffffff;'" @click="goTagPage(tag.attributes)" class="mb-3 ml-2 mt-n3">
-            <v-list-item-content>
-              <v-list-item-title :style="list_item_title.style">
-                #{{tag.attributes.name}}
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-hover>
-      </v-list-item-group>
     </v-list>
+    <v-row justify="center" class="mt-n6">
+      <v-col lg=3></v-col>
+      <v-col cols="12" sm="7" md="6" lg="9" class="ml-n3">
+        <v-chip-group column>
+          <v-chip class="mb-2" style="width: auto;" @click="goTagPage(tag.attributes)" color="#f2f2f2" v-for="(tag) in tags" :key="tag.attributes.name">
+            {{tag.attributes.name}}
+          </v-chip>
+        </v-chip-group>
+      </v-col>
+    </v-row>
 
     <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
       <v-card color="#ffffff" height="250" class="rounded-lg">
@@ -69,7 +69,9 @@
 </template>
 
 <script>
-  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  import {
+    RepositoryFactory
+  } from '../../repositories/RepositoryFactory';
   const tagsRepository = RepositoryFactory.get('tags');
   const usersRepository = RepositoryFactory.get('users');
 
@@ -200,25 +202,25 @@
         }
       }
     },
-    created(){
+    created() {
       this.fetchTags()
       this.fetchComments()
     },
     methods: {
-      fetchTags(){
+      fetchTags() {
         tagsRepository.get()
           .then(res => this.fetchTagsSuccessful(res))
           .catch(err => this.fetchFailed(err))
       },
-      fetchComments(){
+      fetchComments() {
         usersRepository.getNewComments(this.$store.state.user.currentUser.id)
           .then(res => this.fetchUsersSuccessful(res))
           .catch(err => this.fetchFailed(err))
       },
-      fetchUsersSuccessful(res){
+      fetchUsersSuccessful(res) {
         this.new_comments = res.data.new_comments
       },
-      fetchTagsSuccessful(res){
+      fetchTagsSuccessful(res) {
         this.tags = res.data.data
       },
       fetchFailed(error) {
@@ -246,11 +248,14 @@
       goSignup() {
         this.$router.replace('/signup')
       },
-      goTagPage(tag){
-        this.$router.replace({name: 'Tag', params: {
-          // id: tag.id,
-          name: tag.name,
-        }})
+      goTagPage(tag) {
+        this.$router.replace({
+          name: 'Tag',
+          params: {
+            // id: tag.id,
+            name: tag.name,
+          }
+        })
       }
     }
   }

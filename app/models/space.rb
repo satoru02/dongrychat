@@ -32,14 +32,13 @@ class Space < ApplicationRecord
 
   scope :get_trend, -> (query){
     where(media: query[:media])
-    .where(comments: {:created_at => (Date.yesterday - 31).at_beginning_of_month..Date.today})
-    .sort_by{|space| -space.comments.size}
+    # .where(comments: {:created_at => (Date.yesterday - 31).at_beginning_of_month..Date.today})
+    # .sort_by{|space| -space.comments.size}
   }
 
-  #fix
   scope :get_popular, ->(query){
     where(media: query[:media])
-    .sort{|space| -space.users.length}
+    # .sort{|space| -space.users.length}
   }
 
   scope :order_by_comments, -> (user){

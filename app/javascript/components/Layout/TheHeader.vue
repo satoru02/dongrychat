@@ -1,17 +1,15 @@
 <template>
-  <v-app-bar elevation=1 outlined app color="#ffffff" dense>
+  <v-app-bar elevation=1 outlined app color="#ffffff">
     <div :class="headerL" />
     <v-toolbar-title :class="headerTitle" @click="goTop()">
       <!-- <icon-logo /> -->
       DEVIO
     </v-toolbar-title>
     <v-spacer></v-spacer>
-
     <v-text-field placeholder="気になる作品を検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
       :full-width="true" v-if="this.checkAuthorization()" :prepend-inner-icon="'mdi-magnify'" dense
       background-color="#ffffff" outlined class="text-field rounded-lg mt-6 ml-16 mr-16" />
     <v-spacer></v-spacer>
-
     <v-menu left nudge-bottom="35" nudge-height="800">
       <template v-slot:activator="{on, attrs}">
         <div v-bind="attrs" v-on="on" @click="infiniteHandler()">
@@ -37,7 +35,6 @@
       </v-list>
       <base-loader :handler="infiniteHandler" :text="text.loading" />
     </v-menu>
-
     <v-menu open-on-hover offset-y left nudge-bottom="3" nudge-left="50" nudge-height="800">
       <template v-slot:activator="{on, attrs}">
         <div v-bind="attrs" v-on="on">

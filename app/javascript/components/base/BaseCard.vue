@@ -1,13 +1,14 @@
 <template>
-  <div class="mt-n4 ml-n3">
-    <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
-    <v-sheet style="cursor: pointer;" :elevation="hover ? 16 : 0" class="rounded-lg mb-7" @click="enterSpace(item.attributes)">
+  <!-- <v-row class="mt-n4 ml-n3">
+    <v-col lg=4 v-for="(item, index) in items" :key="index">
+    <v-hover v-slot="{ hover }">
+    <v-sheet style="cursor: pointer;" :elevation="hover ? 16 : 0" class="rounded-lg mb-2" @click="enterSpace(item.attributes)">
     <v-img
      :src="posterImg(item.attributes)" position="center right"
-      gradient="to left, rgba(0 0 0 / 18%), rgb(0 0 0)" class="rounded-lg" height="146px">
+      gradient="to left, rgba(0 0 0 / 47%), rgb(0 0 0)" class="rounded-lg" height="129px">
       <v-row class="mt-n5">
         <v-col cols=2 sm=2 md=2 lg=1 xl=2>
-          <v-avatar class="rounded ml-6 mt-6" size="80" height='113'>
+          <v-avatar class="rounded ml-6 mt-6" size="80" height='103'>
             <v-img :src="posterImg(item.attributes)" />
           </v-avatar>
         </v-col>
@@ -19,30 +20,34 @@
                 :season="item.attributes.season" :episode="item.attributes.episode"
                 :title="item.attributes.episode_title" />
               <v-chip class="ml-9 rounded-xl" v-if="item.attributes.media === media.mv" x-small outlined label
-                :color="'yellow'" :style="vChip.label.style" v-text="'MOVIE'" />
+                :color="'yellow'" :style="chipLabel.label.style" v-text="'MOVIE'" />
             </v-col>
           </v-row>
-          <v-row class="ml-n6 mt-n1">
+          <v-row class="ml-n6 mt-n2">
             <v-col lg=1></v-col>
             <v-col cols=8 sm=10 md=10 lg=11 xl=10>
               <span :style="vColTitle.style">{{item.attributes.name}}</span>
               <span>
-                <v-btn x-small elevation=0 :style="vChip.label.style" v-if="$vuetify.breakpoint.name != 'xs'" color="#fee440" class="rounded-xl ml-2 mt-n2">
+                <v-btn x-small elevation=0 :style="chipLabel.label.style" v-if="$vuetify.breakpoint.name != 'xs'" color="#fee440" class="rounded-xl ml-2 mt-n1">
                 {{item.attributes.users.length}}
                 </v-btn>
               </span>
             </v-col>
           </v-row>
 
-          <v-row v-if="item.attributes.latest_comment.content" class="mt-n5">
+          <v-row v-if="item.attributes.latest_comment" class="mt-n6">
             <v-col class="ml-9" cols=11 sm=12 md=12 lg=11 xl=12 :style="vColSummaryStyle"
             >{{item.attributes.latest_comment.content}}</v-col>
+          </v-row>
+          <v-row v-else class="mt-n6">
+            <v-col class="ml-9" cols=11 sm=12 md=12 lg=11 xl=12 :style="vColSummaryStyle"
+            >no-comment</v-col>
           </v-row>
 
           <v-row :class="gridBottom" dense>
             <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="gridIcon">
-              <v-avatar size="21">
-                <v-img v-if="item.attributes.latest_comment_user.data.attributes.avatar_url" :src="item.attributes.latest_comment_user.data.attributes.avatar_url" />
+              <v-avatar size="19">
+                <v-img v-if="item.attributes.latest_comment_user" :src="item.attributes.latest_comment_user.data.attributes.avatar_url" />
                 <v-img v-else src="https://gravatar.com/avatar/6ee07d61d8988eff9a020e93752680c4?s=400&d=robohash&r=x" />
               </v-avatar>
             </v-col>
@@ -66,6 +71,79 @@
       </v-row>
     </v-img>
     </v-sheet>
+    </v-hover>
+        </v-col>
+  </v-row> -->
+  <div class="mt-n4 ml-n3">
+    <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
+      <v-sheet style="cursor: pointer;" :elevation="hover ? 16 : 0" class="rounded-lg mb-7"
+        @click="enterSpace(item.attributes)">
+        <v-img :src="posterImg(item.attributes)" position="center right"
+          gradient="to left, rgba(0 0 0 / 47%), rgb(0 0 0)" class="rounded-lg" height="129px">
+          <v-row class="mt-n5">
+            <v-col cols=2 sm=2 md=2 lg=1 xl=2>
+              <v-avatar class="rounded ml-6 mt-6" size="80" height='103'>
+                <v-img :src="posterImg(item.attributes)" />
+              </v-avatar>
+            </v-col>
+            <v-col cols=9 sm=9 md=9 lg=9 xl=9 class="ml-7 mt-6">
+              <v-row dense :style="vRowLabel.style">
+                <v-col cols=12 sm=12 md=12 lg=12 xl=12>
+                  <base-label class="ml-8 rounded-xl" font_size="13px" :label="true"
+                    v-if="item.attributes.media === 'tv'" :x_small="true" :color="'#4ad66d'" :outlined="true"
+                    :text_color="'#4ad66d'" :season="item.attributes.season" :episode="item.attributes.episode"
+                    :title="item.attributes.episode_title" />
+                  <v-chip class="ml-9 rounded-xl" v-if="item.attributes.media === media.mv" x-small outlined label
+                    :color="'yellow'" :style="chipLabel.label.style" v-text="'MOVIE'" />
+                </v-col>
+              </v-row>
+              <v-row class="ml-n6 mt-n2">
+                <v-col lg=1></v-col>
+                <v-col cols=8 sm=10 md=10 lg=11 xl=10>
+                  <span :style="vColTitle.style">{{item.attributes.name}}</span>
+                  <span>
+                    <v-btn x-small elevation=0 :style="chipLabel.label.style" v-if="$vuetify.breakpoint.name != 'xs'"
+                      color="#fee440" class="rounded-xl ml-2 mt-n1">
+                      {{item.attributes.users.length}}
+                    </v-btn>
+                  </span>
+                </v-col>
+              </v-row>
+
+              <v-row v-if="item.attributes.latest_comment.content" class="mt-n6">
+                <v-col class="ml-9" cols=11 sm=12 md=12 lg=11 xl=12 :style="vColSummaryStyle">
+                  {{item.attributes.latest_comment.content}}</v-col>
+              </v-row>
+
+              <v-row :class="gridBottom" dense>
+                <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="gridIcon">
+                  <v-avatar size="19">
+                    <v-img v-if="item.attributes.latest_comment_user.data.attributes.avatar_url"
+                      :src="item.attributes.latest_comment_user.data.attributes.avatar_url" />
+                    <v-img v-else
+                      src="https://gravatar.com/avatar/6ee07d61d8988eff9a020e93752680c4?s=400&d=robohash&r=x" />
+                  </v-avatar>
+                </v-col>
+                <v-col cols=10 sm=10 md=10 lg=5 xl=10 :class="gridTime">
+                  <span class="user-name" v-if="item.attributes.latest_comment_user !== null">
+                    {{item.attributes.latest_comment_user.data.attributes.name}}
+                  </span>
+                  <span class="user-name" v-else>
+                    no name
+                  </span>
+                  <span class="time-text" v-if="item.attributes.latest_comment !== null">
+                    {{formalizeTime(item.attributes.latest_comment.created_at)}}
+                  </span>
+                  <span class="time-text" v-else>
+                    12:00
+                  </span>
+                </v-col>
+                <v-col cols=2 sm=3 md=1 lg=1 xl=1 />
+              </v-row>
+            </v-col>
+          </v-row>
+        </v-img>
+      </v-sheet>
     </v-hover>
   </div>
 </template>
@@ -133,7 +211,7 @@
           style: {
             color: '#ffffff',
             fontWeight: 'bold',
-            fontSize: '20px',
+            fontSize: '17px',
             cursor: 'pointer',
             lineHeight: '30px'
           },
@@ -152,7 +230,7 @@
             fontSize: '8px',
           }
         },
-        vChip: {
+        chipLabel: {
           title: {
             color: '#f7e733',
             style: {
@@ -294,7 +372,7 @@
             case 'xl':
               return {
                 fontSize: '13px',
-                color: '#5d666e'
+                  color: '#5d666e'
               }
         }
       },
