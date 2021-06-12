@@ -1,5 +1,5 @@
 <template>
-  <div :key="componentKey" class="mt-5">
+  <div :key="componentKey" class="mt-6">
     <!-- <v-img :src="`${this.cdn}/image/eat.jpg`" class="rounded-lg ml-n2" height="263" position="top">
       <v-row>
         <v-col lg=6 class="mt-16 ml-n3">
@@ -80,7 +80,7 @@
   const spacesRepository = RepositoryFactory.get('spaces');
 
   export default {
-    name: 'ChartTop',
+    name: 'Topic',
     components: {
       'sub-header': () => import( /* webpackPrefetch: true */ '../Layout/TheSubHeader'),
       'base-label': () => import( /* webpackPrefetch: true */ '../Base/BaseLabel'),

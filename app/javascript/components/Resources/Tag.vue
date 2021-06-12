@@ -1,5 +1,5 @@
 <template>
-  <v-container :key="componentKey">
+  <div :key="componentKey" class="mt-4">
 
     <!-- <v-img class="rounded-lg mt-2" height="93" src="https://source.unsplash.com/random" /> -->
 
@@ -15,7 +15,7 @@
 
     <base-card :items='spaces' />
     <base-loader :handler="infiniteHandler" :text="text.loading" />
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -25,7 +25,7 @@
   const tagsRepository = RepositoryFactory.get('tags');
 
   export default {
-    name: "TagTop",
+    name: "Tag",
     components: {
       'sub-header': () => import( /* webpackPrefetch: true */ '../Layout/TheSubHeader'),
       'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),

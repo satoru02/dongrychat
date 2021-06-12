@@ -16,7 +16,7 @@ export default {
   },
   data(){
     return{
-      home: 'お気に入りの作品一覧',
+      home: 'フォロー中の作品一覧',
       popular: '話題の作品一覧',
       notifications: '通知',
       accountSetting: 'アカウント設定',

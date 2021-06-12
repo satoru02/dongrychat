@@ -1,13 +1,20 @@
+// vue router
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import ChartTop from '../components/Chart/ChartTop.vue';
+Vue.use(VueRouter);
+
+import Topic from '../components/Resources/Topic.vue';
+
+// vue store
 import { store } from '../stores/index';
+
+// loading bar
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 NProgress.configure({ easing: 'ease', speed: 300 });
-Vue.use(VueRouter);
 
-function guardMyroute(to, from, next) {
+// Check if a user already logged in.
+function checkLoggedIn(to, from, next) {
   if (store.state.user.signedIn) {
     next();
   } else {
@@ -15,7 +22,7 @@ function guardMyroute(to, from, next) {
   }
 }
 
-function guardMultiLogin(to, from, next) {
+function guardAuthRoute(to, from, next) {
   if (!store.state.user.signedIn) {
     next();
   } else {
@@ -25,10 +32,11 @@ function guardMultiLogin(to, from, next) {
 
 var router = new VueRouter({
   mode: 'history',
-  routes: [{
+  routes: [
+    {
       path: '/signup',
       name: 'Signup',
-      beforeEnter: guardMultiLogin,
+      beforeEnter: guardAuthRoute,
       meta: {
         title: 'アカウント登録'
       },
@@ -37,7 +45,7 @@ var router = new VueRouter({
     {
       path: '/login',
       name: 'Login',
-      beforeEnter: guardMultiLogin,
+      beforeEnter: guardAuthRoute,
       meta: {
         title: 'ログイン'
       },
@@ -46,13 +54,13 @@ var router = new VueRouter({
     {
       path: "/account_activations/:token",
       name: "AccountActivation",
-      beforeEnter: guardMultiLogin,
+      beforeEnter: guardAuthRoute,
       component: () => import( /* webpackChunkName: "AccountActivation" */ '../components/Authorization/AccountActivation'),
     },
     {
       path: '/forgot_password',
       name: 'ForgotPassword',
-      beforeEnter: guardMultiLogin,
+      beforeEnter: guardAuthRoute,
       meta: {
         title: 'パスワードを忘れた'
       },
@@ -61,7 +69,7 @@ var router = new VueRouter({
     {
       path: "/password_resets/:token",
       name: "ResetPassword",
-      beforeEnter: guardMultiLogin,
+      beforeEnter: guardAuthRoute,
       meta: {
         title: 'パスワードの再設定'
       },
@@ -74,227 +82,212 @@ var router = new VueRouter({
     },
     {
       path: '/',
-      name: 'Chart',
-      component: ChartTop,
+      name: 'Topic',
+      component: Topic,
       meta: {
         title: '話題の作品',
         keepAlive: true,
       }
     },
     {
-      path: '/home',
-      name: 'Home',
-      beforeEnter: guardMyroute,
+      path: '/following',
+      name: 'Following',
+      beforeEnter: checkLoggedIn,
       meta: {
-        title: 'お気に入り',
+        title: 'フォロー中の作品',
         keepAlive: true,
-        showProgressBar: true
       },
-      component: () => import( /* webpackChunkName: "HomeTop" */ '../components/Home/HomeTop'),
+      component: () => import( /* webpackChunkName: "HomeTop" */ '../components/Resources/Following'),
     },
     {
       path: '/tv/:id/:tv_name/season/:number',
       name: 'TvDetails',
-      component: () => import( /* webpackChunkName: "DetailsTop" */ '../components/Detail/DetailsTop'),
       meta: {
         keepAlive: false,
-      }
+      },
+      component: () => import( /* webpackChunkName: "DetailsTop" */ '../components/Resources/Detail'),
     },
     {
       path: '/mv/:id/:mv_name',
       name: 'MvDetails',
-      component: () => import( /* webpackChunkName: "DetailsTop" */ '../components/Detail/DetailsTop'),
       meta: {
         keepAlive: false,
-      }
+      },
+      component: () => import( /* webpackChunkName: "DetailsTop" */ '../components/Resources/Detail'),
     },
     {
       path: '/mv_space/m/:name',
       props: true,
-      beforeEnter: guardMyroute,
+      beforeEnter: checkLoggedIn,
       component: () => import( /* webpackChunkName: "SpaceTop" */ '../components/Space/SpaceTop'),
-      children: [{
+      children: [
+        {
           path: 'chats',
           name: 'MvSpace',
-          component: () => import( /* webpackChunkName: "SpaceChats" */ '../components/Space/SpaceChats'),
           meta: {
             keepAlive: false,
-          }
+          },
+          component: () => import( /* webpackChunkName: "SpaceChats" */ '../components/Space/SpaceChats'),
         },
         {
           path: 'members',
           name: 'MvSpaceMembers',
-          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceUsers'),
           meta: {
             keepAlive: false,
-          }
+          },
+          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceUsers'),
         },
         {
           path: 'reviews',
           name: 'MvSpaceReviews',
-          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceReviews'),
           meta: {
             keepAlive: false,
-          }
+          },
+          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceReviews'),
         },
       ]
     },
     {
       path: '/mv_space/:space_id',
       props: true,
-      beforeEnter: guardMyroute,
+      beforeEnter: checkLoggedIn,
       component: () => import( /* webpackChunkName: "SpaceTop" */ '../components/Space/SpaceTop'),
-      children: [{
+      children: [
+        {
           path: 'chats',
           name: 'subscribedMvSpace',
-          component: () => import( /* webpackChunkName: "SpaceChats" */ '../components/Space/SpaceChats'),
           meta: {
             keepAlive: false,
-          }
+          },
+          component: () => import( /* webpackChunkName: "SpaceChats" */ '../components/Space/SpaceChats'),
         },
         {
           path: 'members',
           name: 'subscribedMvSpaceMembers',
-          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceUsers'),
           meta: {
             keepAlive: false,
-          }
+          },
+          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceUsers'),
         },
         {
           path: 'reviews',
           name: 'subscribedMvSpaceReviews',
-          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceReviews'),
           meta: {
             keepAlive: false,
-          }
+          },
+          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceReviews'),
         },
       ]
     },
     {
       path: '/tv_space/:name/:season_number/:episode_number',
       props: true,
-      beforeEnter: guardMyroute,
+      beforeEnter: checkLoggedIn,
       component: () => import( /* webpackChunkName: "SpaceTop" */ '../components/Space/SpaceTop'),
       children: [{
           path: 'chats',
           name: 'TvSpace',
-          component: () => import( /* webpackChunkName: "SpaceChats" */ '../components/Space/SpaceChats'),
           meta: {
             keepAlive: false,
-          }
+          },
+          component: () => import( /* webpackChunkName: "SpaceChats" */ '../components/Space/SpaceChats'),
         },
         {
           path: 'members',
           name: 'TvSpaceMembers',
-          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceUsers'),
           meta: {
             keepAlive: false,
-          }
+          },
+          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceUsers'),
         },
         {
           path: 'reviews',
           name: 'TvSpaceReviews',
-          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceReviews'),
           meta: {
             keepAlive: false,
-          }
+          },
+          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceReviews'),
         },
       ]
     },
     {
       path: '/tv_space/:space_id',
       props: true,
-      beforeEnter: guardMyroute,
+      beforeEnter: checkLoggedIn,
       component: () => import( /* webpackChunkName: "SpaceTop" */ '../components/Space/SpaceTop'),
       children: [{
           path: 'chats',
           name: 'subscribedTvSpace',
-          component: () => import( /* webpackChunkName: "SpaceChats" */ '../components/Space/SpaceChats'),
           meta: {
             keepAlive: false,
-          }
+          },
+          component: () => import( /* webpackChunkName: "SpaceChats" */ '../components/Space/SpaceChats'),
         },
         {
           path: 'members',
           name: 'subscribedTvSpaceMembers',
-          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceUsers'),
           meta: {
             keepAlive: false,
-          }
+          },
+          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceUsers'),
         },
         {
           path: 'reviews',
           name: 'subscribedTvSpaceReviews',
-          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceReviews'),
           meta: {
             keepAlive: false,
-          }
+          },
+          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceReviews'),
         },
       ]
     },
     {
       path: '/users/:user_id',
-      beforeEnter: guardMyroute,
+      beforeEnter: checkLoggedIn,
       props: true,
       component: () => import( /* webpackChunkName: "UserTop" */ '../components/User/UserTop'),
       children: [{
           path: '',
           name: 'UserTop',
-          component: () => import( /* webpackChunkName: "UserProfile" */ '../components/User/UserProfile'),
           meta: {
             keepAlive: false,
           },
+          component: () => import( /* webpackChunkName: "UserProfile" */ '../components/User/UserProfile'),
         },
         {
           path: 'reviews',
           name: 'UserReviews',
-          component: () => import( /* webpackChunkName: "UserPosts" */ '../components/User/UserReviews'),
           meta: {
             keepAlive: false,
           },
+          component: () => import( /* webpackChunkName: "UserPosts" */ '../components/User/UserReviews'),
         },
         {
           path: 'followings',
           name: 'UserFollowings',
-          component: () => import( /* webpackChunkName: "UserFollowings" */ '../components/User/UserFollowings'),
           meta: {
             keepAlive: false,
           },
+          component: () => import( /* webpackChunkName: "UserFollowings" */ '../components/User/UserFollowings'),
         },
         {
           path: 'followers',
           name: 'UserFollowers',
-          component: () => import( /* webpackChunkName: "UserFollowers" */ '../components/User/UserFollowers'),
           meta: {
             keepAlive: false,
           },
+          component: () => import( /* webpackChunkName: "UserFollowers" */ '../components/User/UserFollowers'),
         },
       ]
     },
     {
       path: '/settings',
       name: 'Settings',
-      beforeEnter: guardMyroute,
+      beforeEnter: checkLoggedIn,
       meta: {
         title: 'アカウント設定'
       },
       component: () => import( /* webpackChunkName: "UserSettings" */ '../components/User/UserSettings'),
-    },
-    // {
-    //   path: '/latest',
-    //   name: 'Latest',
-    //   meta: {
-    //     title: '新着の作品'
-    //   },
-    //   component: () => import( /* webpackChunkName: "Search" */ '../components/Content/Content'),
-    // },
-    {
-      path: '/trend',
-      name: 'Trend',
-      meta: {
-        title: '新着の作品'
-      },
-      component: () => import( /* webpackChunkName: "Search" */ '../components/Content/Content'),
     },
     {
       path: '/popular',
@@ -302,24 +295,24 @@ var router = new VueRouter({
       meta: {
         title: '人気の作品'
       },
-      component: () => import( /* webpackChunkName: "Search" */ '../components/Content/Content'),
+      component: () => import( /* webpackChunkName: "Search" */ '../components/Resources/Collection'),
     },
     {
-      path: '/top-rated',
+      path: '/trend',
+      name: 'Trend',
+      meta: {
+        title: '新着の作品'
+      },
+      component: () => import( /* webpackChunkName: "Search" */ '../components/Resources/Collection'),
+    },
+    {
+      path: '/top_rated',
       name: 'TopRated',
       meta: {
         title: '評価の高い作品'
       },
-      component: () => import( /* webpackChunkName: "Search" */ '../components/Content/Content'),
+      component: () => import( /* webpackChunkName: "Search" */ '../components/Resources/Collection'),
     },
-    // {
-    //   path: '/upcoming',
-    //   name: 'Upcoming',
-    //   meta: {
-    //     title: '公開・配信予定の作品'
-    //   },
-    //   component: () => import( /* webpackChunkName: "Search" */ '../components/Content/Content'),
-    // },
     {
       path: '/results/:query',
       name: 'multi',
@@ -327,14 +320,15 @@ var router = new VueRouter({
       meta: {
         title: '検索結果'
       },
-      component: () => import( /* webpackChunkName: "Multi" */ '../components/Search/SearchResults'),
-      children: [{
+      component: () => import( /* webpackChunkName: "Multi" */ '../components/Resources/SearchResults'),
+      children: [
+        {
           path: "person",
           name: "person",
           props: (route) => ({
             query: route.query.status
           }),
-          component: () => import( /* webpackChunkName: "SearchPerson" */ '../components/Search/SearchResults'),
+          component: () => import( /* webpackChunkName: "SearchPerson" */ '../components/Resources/SearchResults'),
         },
         {
           path: "tv",
@@ -342,7 +336,7 @@ var router = new VueRouter({
           props: (route) => ({
             query: route.query.status
           }),
-          component: () => import( /* webpackChunkName: "SearchTv" */ '../components/Search/SearchResults'),
+          component: () => import( /* webpackChunkName: "SearchTv" */ '../components/Resources/SearchResults'),
         },
         {
           path: "movie",
@@ -350,7 +344,7 @@ var router = new VueRouter({
           props: (route) => ({
             query: route.query.status
           }),
-          component: () => import( /* webpackChunkName: "SearchMv" */ '../components/Search/SearchResults'),
+          component: () => import( /* webpackChunkName: "SearchMv" */ '../components/Resources/SearchResults'),
         },
         {
           path: "Company",
@@ -358,7 +352,7 @@ var router = new VueRouter({
           props: (route) => ({
             query: route.query.status
           }),
-          component: () => import( /* webpackChunkName: "SearchCompany" */ '../components/Search/SearchResults'),
+          component: () => import( /* webpackChunkName: "SearchCompany" */ '../components/Resources/SearchResults'),
         }
       ]
     },
@@ -381,22 +375,21 @@ var router = new VueRouter({
       component: () => import( /* webpackChunkName: "Terms" */ '../components/Overview/Terms'),
     },
     {
-      path: "/notifications",
-      name: "NotificationTop",
+      path: "/notification",
+      name: "Notification",
       meta: {
         title: '通知',
         keepAlive: true
       },
-      component: () => import( /* webpackChunkName: "Notifications" */ '../components/Notification/NotificationTop'),
+      component: () => import( /* webpackChunkName: "Notifications" */ '../components/Resources/Notification'),
     },
     {
       path: "/tag/:name",
       name: "Tag",
       meta: {
-        // title: ':name',
         keepAlive: true
       },
-      component: () => import /* webpackChunkName: "Tags" */('../components/Tag/TagTop'),
+      component: () => import /* webpackChunkName: "Tags" */('../components/Resources/Tag'),
     }
   ]
 });

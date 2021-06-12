@@ -35,7 +35,7 @@
   const notificationsRepository = RepositoryFactory.get('notifications');
 
   export default {
-    name: "NotificationTop",
+    name: "Notification",
     components: {
       'base-loader': () => import(/* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
       'sub-header': () => import(/* webpackPrefetch: true */ '../Layout/TheSubHeader')

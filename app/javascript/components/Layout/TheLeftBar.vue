@@ -95,38 +95,28 @@
         menus: [{
             text: '話題',
             icon: '🎉',
-            path_name: 'Chart'
+            path_name: 'Topic'
           },
           {
-            text: 'お気に入り',
+            text: 'フォロー中',
             icon: '✨',
-            path_name: 'Home'
+            path_name: 'Following'
           },
-          // {
-          //   text: 'フォロー中',
-          //   icon: '😉',
-          //   path_name: 'Search'
-          // },
           {
-            text: '人気の作品',
+            text: '人気',
             icon: '📖',
             path_name: 'Popular'
           },
           {
-            text: '新着の作品',
+            text: '新着',
             icon: '🔎',
             path_name: 'Trend'
           },
           {
-            text: '評価の高い作品',
+            text: '評価',
             icon: '👏',
             path_name: 'TopRated'
           },
-          // {
-          //   text: '話題',
-          //   icon: '🗞',
-          //   path_name: 'Upcoming'
-          // },
         ],
         header_part: {
           position: 'mt-n5 ml-n4 mr-3',

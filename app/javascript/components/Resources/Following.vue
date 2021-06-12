@@ -1,6 +1,5 @@
 <template>
-  <v-container>
-
+  <div>
     <sub-header class="mt-1">
 
       <template v-slot:home_header="subHeaderProps">
@@ -65,7 +64,7 @@
       </v-card>
     </v-hover>
     <base-loader :handler="infiniteHandler" :text="text.loading" />
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -76,7 +75,7 @@
   const usersRepository = RepositoryFactory.get('users');
 
   export default {
-    name: 'HomeTop',
+    name: 'Following',
     components: {
       'base-label': () => import( /* webpackPrefetch: true */ '../Base/BaseLabel'),
       'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),

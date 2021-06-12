@@ -24,7 +24,7 @@
   const tmdbRepository = RepositoryFactory.get('tmdb');
 
   export default {
-    name: 'Content',
+    name: 'Collection',
     components: {
       'base-list': () => import( /* webpackPrefetch: true */ '../Base/BaseList')
     },
