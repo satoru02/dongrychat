@@ -1,24 +1,23 @@
 <template>
-  <div :key="componentKey" class="mt-6">
+  <v-container fluid :key="componentKey">
     <!-- <base-banner /> -->
     <sub-header class="mt-n2">
       <template v-slot:popular_header="subHeaderProps">
-        <div :class="gridSubHeader">
+        <h3 :class="gridSubHeader">
           {{subHeaderProps.sub_header}}
-        </div>
+        </h3>
       </template>
     </sub-header>
-    <v-divider class="mt-5 ml-n3" />
-    <v-row :class="gridSwitcher" dense>
+    <v-row :class="gridSwitcher">
       <v-col :class="gridTv" cols=3 sm=2 md=2 lg=2 xl=1>
-        <div :style="switcher === false ? switchBtn.active : switchBtn.inactive">
-          <span v-if="switcher === false">▶</span>ドラマ
-        </div>
+        <h3 :style="switcher === false ? switchBtn.active : switchBtn.inactive">
+          <span v-if="switcher === false"></span>ドラマ
+        </h3>
       </v-col>
       <v-col :class="gridMv" cols=2 sm=2 md=1 lg=1 xl=1>
-        <div :style="switcher === true ? switchBtn.active : switchBtn.inactive">
-          <span v-if="switcher === true">▶</span>映画
-        </div>
+        <h3 :style="switcher === true ? switchBtn.active : switchBtn.inactive">
+          <span v-if="switcher === true"></span>映画
+        </h3>
       </v-col>
       <v-col cols=6 sm=7 md=8 lg=8 xl=9 />
       <v-col class='ml-10' v-if="$vuetify.breakpoint.name != 'xs'" cols=1 sm=1 md=1 lg=1 xl=1>
@@ -27,7 +26,7 @@
     </v-row>
     <base-card :items="items" :loading="loading" />
     <base-loader :handler="infiniteHandler" :wrapper="true" :text="loaderText" />
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -127,7 +126,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'mt-n2 mb-n1 ml-n1'
+            return ''
         }
       },
       gridSubHeader() {

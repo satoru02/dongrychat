@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols=12 sm=12 md=12 lg=12 xl=12>
-        <div :style="resultsStyle" v-text="resultsText" />
+        <h3 :style="resultsStyle" v-text="resultsText" />
       </v-col>
     </v-row>
     <v-row class="mt-n3">

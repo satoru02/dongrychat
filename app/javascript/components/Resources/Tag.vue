@@ -1,16 +1,16 @@
 <template>
-  <div :key="componentKey" class="mt-4">
+  <v-container fluid :key="componentKey">
     <sub-header class="mt-1" :tag='this.$route.params.name'>
       <template v-slot:tag_header="subHeaderProps">
-        <div :class="gridSubHeader">
+        <h3 :class="gridSubHeader">
           {{subHeaderProps.sub_header}}
-        </div>
+        </h3>
       </template>
     </sub-header>
-    <v-divider class="mt-5 mb-10" />
+    <!-- <v-divider class="mt-5 mb-10" /> -->
     <base-card :items='spaces' />
     <base-loader :handler="infiniteHandler" :text="text.loading" />
-  </div>
+  </v-container>
 </template>
 
 <script>

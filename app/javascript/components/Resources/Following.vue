@@ -1,16 +1,13 @@
 <template>
-  <div>
-    <sub-header class="mt-5">
-
+  <v-container fluid>
+    <sub-header>
       <template v-slot:home_header="subHeaderProps">
-        <div :class="gridSubHeader">
+        <h3 :class="gridSubHeader">
           {{subHeaderProps.sub_header}}
-        </div>
+        </h3>
       </template>
     </sub-header>
-
-    <v-divider class="mt-4 mb-4" />
-
+    <!-- <v-divider /> -->
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
       <v-card outlined class="rounded-lg mb-2" :style="hover ? card.hoverStyle : card.unhoverStyle"
         @click="enterSpace(item)" :elevation='hover ? 0 : 0' :height="gridCardHeight" :width="gridCardWidth">
@@ -64,7 +61,7 @@
       </v-card>
     </v-hover>
     <base-loader :handler="infiniteHandler" :text="text.loading" />
-  </div>
+  </v-container>
 </template>
 
 <script>

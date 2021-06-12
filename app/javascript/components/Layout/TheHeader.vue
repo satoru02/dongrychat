@@ -14,7 +14,7 @@
       <template v-slot:activator="{on, attrs}">
         <div v-bind="attrs" v-on="on" @click="infiniteHandler()">
           <v-btn icon>
-            <v-icon size=24 color="#657786">mdi-bell-outline</v-icon>
+            <v-icon size=24 color="#657786">🔔</v-icon>
           </v-btn>
         </div>
       </template>
@@ -62,7 +62,8 @@
 </template>
 
 <script>
-  import '@mdi/font/css/materialdesignicons.css';
+  // import '@mdi/font/css/materialdesignicons.css';
+
   import {
     RepositoryFactory
   } from '../../repositories/RepositoryFactory';

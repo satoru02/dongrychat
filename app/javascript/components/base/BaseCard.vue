@@ -74,11 +74,11 @@
     </v-hover>
         </v-col>
   </v-row> -->
-  <div class="mt-n4 ml-n3">
+  <v-container fluid class="mt-n4 ml-n3">
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
       <v-sheet style="cursor: pointer;" :elevation="hover ? 16 : 0" class="rounded-lg mb-7"
         @click="enterSpace(item.attributes)">
-        <v-img :src="posterImg(item.attributes)" position="center right"
+        <v-img :src="posterBackground(item.attributes)" position="center right"
           gradient="to left, rgba(0 0 0 / 47%), rgb(0 0 0)" class="rounded-lg" height="129px">
           <v-row class="mt-n5">
             <v-col cols=2 sm=2 md=2 lg=1 xl=2>
@@ -97,7 +97,7 @@
                     :color="'yellow'" :style="chipLabel.label.style" v-text="'MOVIE'" />
                 </v-col>
               </v-row>
-              <v-row class="ml-n6 mt-n2">
+              <v-row class="ml-n5 mt-n2">
                 <v-col lg=1></v-col>
                 <v-col cols=8 sm=10 md=10 lg=11 xl=10>
                   <span :style="vColTitle.style">{{item.attributes.name}}</span>
@@ -145,11 +145,11 @@
         </v-img>
       </v-sheet>
     </v-hover>
-  </div>
+  </v-container>
 </template>
 
 <script>
-  import '@mdi/font/css/materialdesignicons.css';
+  // import '@mdi/font/css/materialdesignicons.css';
   import moment from 'moment';
   moment.locale('ja')
 
@@ -165,7 +165,8 @@
     },
     data() {
       return {
-        base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
+        base_background_url: `https://image.tmdb.org/t/p/original`,
+        base_img_url: `https://image.tmdb.org/t/p/w200`,
         // loading: false,
         unhoverStyle: {
           elevation: '0'
@@ -192,7 +193,7 @@
           maxHeight: '70px',
         },
         //
-        base_tmdb_img_url: `https://image.tmdb.org/t/p/original`,
+        // base_tmdb_img_url: `https://image.tmdb.org/t/p/original`,
         api: {
           for_subscription: `/api/v1/subscriptions`
         },
@@ -479,8 +480,11 @@
       formalizeTime(time) {
         return moment(time).fromNow()
       },
+      posterBackground(item) {
+        return this.base_background_url + item.image_path
+      },
       posterImg(item) {
-        return this.base_tmdb_img_url + item.image_path
+        return this.base_img_url + item.image_path
       },
     }
   }
