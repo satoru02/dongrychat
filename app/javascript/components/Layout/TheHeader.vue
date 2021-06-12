@@ -26,7 +26,7 @@
             <v-avatar size=30>
               <v-img v-if="notification.attributes.sender.data.attributes.avatar_url" :src="notification.attributes.sender.data.attributes.avatar_url">
               </v-img>
-              <v-img v-else src="https://cdn.vuetifyjs.com/images/john.jpg">
+              <v-img v-else src="https://gravatar.com/avatar/6ee07d61d8988eff9a020e93752680c4?s=400&d=robohash&r=x">
               </v-img>
             </v-avatar>
           </v-list-item-icon>

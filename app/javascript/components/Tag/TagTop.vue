@@ -61,16 +61,17 @@
           return 'sub-header mb-2 mt-4'
       }
     },
-    // beforeRouteEnter(to, from, next) {
-    //   next(vm => {
-    //     setTimeout(() => {
-    //       document.title = `${vm.$route.params.name} - Devio` || 'Devio';
-    //     }, 1000)
-    //   })
-    // },
-    // beforeRouteUpdate(to, from, next) {
-    //   document.title = `${vm.$route.params.name} - Devio` || 'Devio';
-    // },
+    beforeRouteEnter(to, from, next) {
+      next(vm => {
+        setTimeout(() => {
+          document.title = `${vm.$route.params.name} |  Devio` || 'Devio';
+        }, 0)
+      })
+    },
+    beforeRouteUpdate(to, from, next) {
+      document.title = `${to.params.name} |  Devio` || 'Devio';
+      next()
+    },
     methods: {
       forceRerender() {
         this.componentKey += 1
