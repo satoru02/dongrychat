@@ -113,13 +113,13 @@
           },
           {
             title: 'フォロー',
-            name: 'UserFollowings',
-            path: 'followings'
+            name: 'UserFollowing',
+            path: 'following'
           },
           {
             title: 'フォロワー',
             name: 'UserFollowers',
-            path: 'UserFollowers'
+            path: 'followers'
           }
         ],
         followed: Boolean,

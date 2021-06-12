@@ -206,7 +206,7 @@
   const avatarRepository = RepositoryFactory.get('avatar');
 
   export default {
-    name: 'Settings',
+    name: 'UserSettings',
     components: {
       'sub-header': () => import(/* webpackPrefetch: true */ '../Layout/TheSubHeader')
     },

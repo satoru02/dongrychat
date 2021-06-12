@@ -263,12 +263,12 @@ var router = new VueRouter({
           component: () => import( /* webpackChunkName: "UserPosts" */ '../components/User/UserReviews'),
         },
         {
-          path: 'followings',
-          name: 'UserFollowings',
+          path: 'following',
+          name: 'UserFollowing',
           meta: {
             keepAlive: false,
           },
-          component: () => import( /* webpackChunkName: "UserFollowings" */ '../components/User/UserFollowings'),
+          component: () => import( /* webpackChunkName: "UserFollowings" */ '../components/User/UserFollowing'),
         },
         {
           path: 'followers',
