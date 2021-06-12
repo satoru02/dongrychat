@@ -68,11 +68,10 @@
         }, 0)
       })
     },
-    // beforeRouteUpdate(to, from, next) {
-    //     setTimeout(() => {
-    //       document.title = to.params.name
-    //     }, 0)
-    // },
+    beforeRouteUpdate(to, from, next) {
+      document.title = `${to.params.name} |  Devio` || 'Devio';
+      next()
+    },
     methods: {
       forceRerender() {
         this.componentKey += 1
