@@ -1,19 +1,21 @@
 <template>
-  <v-container :key="componentKey">
-
-    <!-- <v-img class="rounded-lg mt-2" height="93" src="https://source.unsplash.com/random" /> -->
-
-    <sub-header class="mt-1" :tag='this.$route.params.name'>
+  <v-container fluid :key="componentKey" class="ml-2">
+    <sub-header class="mt-n3 ml-1" :tag='this.$route.params.name'>
       <template v-slot:tag_header="subHeaderProps">
-        <div :class="gridSubHeader">
-          {{subHeaderProps.sub_header}}
-        </div>
+        <h3 :class="gridSubHeader">
+          トップ <span class="tag-page">/ {{subHeaderProps.sub_header}}</span>
+        </h3>
       </template>
     </sub-header>
-
-    <v-divider class="mt-5 mb-10" />
-
-    <base-card :items='spaces' />
+    <v-tabs height="40" class="mt-n1 ml-5" background-color='#ffffff'>
+       <v-tabs-slider color="#000000"></v-tabs-slider>
+      <v-tab class="tab-name" active-class="black--text" color="#000000"
+        v-for="(tablist, index) in tabs" :key="index">
+        {{tablist}}
+      </v-tab>
+    </v-tabs>
+    <v-divider class="ml-5" />
+    <base-card class="mt-n3" :items='spaces' />
     <base-loader :handler="infiniteHandler" :text="text.loading" />
   </v-container>
 </template>
@@ -25,7 +27,7 @@
   const tagsRepository = RepositoryFactory.get('tags');
 
   export default {
-    name: "TagTop",
+    name: "Tag",
     components: {
       'sub-header': () => import( /* webpackPrefetch: true */ '../Layout/TheSubHeader'),
       'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
@@ -33,6 +35,10 @@
     },
     data() {
       return {
+        tabs: [
+          '映画',
+          'ドラマ'
+        ],
         spaces: [],
         componentKey: 0,
         page: 1,
@@ -50,17 +56,6 @@
         this.forceRerender()
       }
     },
-    gridSubHeader() {
-      switch (this.$vuetify.breakpoint.name) {
-        case 'xs':
-          return 'sub-header mb-n5 mt-1 ml-2'
-        case 'sm':
-        case 'md':
-        case 'lg':
-        case 'xl':
-          return 'sub-header mb-2 mt-4'
-      }
-    },
     beforeRouteEnter(to, from, next) {
       next(vm => {
         setTimeout(() => {
@@ -71,6 +66,19 @@
     beforeRouteUpdate(to, from, next) {
       document.title = `${to.params.name} |  Devio` || 'Devio';
       next()
+    },
+    computed: {
+    gridSubHeader() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs':
+          return 'sub-header mb-n5 mt-1 ml-2'
+        case 'sm':
+        case 'md':
+        case 'lg':
+        case 'xl':
+          return 'sub-header mt-4'
+      }
+    },
     },
     methods: {
       forceRerender() {
@@ -103,12 +111,25 @@
 
 <style scoped>
   .theme--light.v-divider {
-    border-color: rgba(0, 0, 0, .04);
+    /* border-color: rgba(0, 0, 0, .04); */
   }
 
   .sub-header {
     font-weight: bold;
-    font-size: 15px;
+    font-size:15px;
     color: #111111;
+  }
+
+  .tag-page {
+    font-weight: bold;
+    font-size:15px;
+    color: #666666;
+  }
+
+  .tab-name {
+    font-weight: bold;
+    font-size: 14px;
+    color: #24292e;
+    /* height: 53px; */
   }
 </style>

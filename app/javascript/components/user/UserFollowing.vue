@@ -7,7 +7,7 @@
   const usersRepository = RepositoryFactory.get('users');
 
   export default {
-    name: "Followings",
+    name: "UserFollowing",
     components: {
       'user-relationships': () => import(/* webpackPrefetch: true */ './UserRelationships')
     },

@@ -1,11 +1,13 @@
 <template>
-  <v-container class="left-bar mt-n4">
-    <v-list color="#ffffff" dark class="ml-16 rounded-lg">
-      <v-subheader :style="category" class="mb-n2">メニュー</v-subheader>
-      <v-list-item-group>
+  <v-container class="left-bar ml-16 mt-n1">
+    <v-list color="#ffffff" class="rounded-lg">
+      <v-subheader :style="category" class="mb-n2 ml-1">メニュー</v-subheader>
+      <v-list-item-group class="mt-2">
         <v-hover v-slot="{hover}" v-for="(item, index) in menus" :key="index">
-          <v-list-item rounded :style="hover ? 'background-color: #f5f8fa;' : ''" @click="changeRoute(item.path_name)" class="ml-2">
+          <v-list-item active-class="white--text" rounded :style="hover ? 'background-color: #f5f8fa;' : ''" @click="changeRoute(item.path_name)"
+            class="ml-2">
             <v-list-item-icon>
+              <!-- <icon-new /> -->
               <v-list-item-subtitle :size="icon.size" v-text="item.icon" />
             </v-list-item-icon>
             <v-list-item-content class="ml-n6">
@@ -20,20 +22,18 @@
           </v-list-item>
         </v-hover>
       </v-list-item-group>
-      <v-divider color="#f6f6f9" class="mt-5 ml-3" />
-      <v-subheader :style="category" class="mt-2 mb-1">人気のカテゴリ</v-subheader>
-      <v-list-item-group>
-        <v-hover v-slot="{hover}" class="mt-3" v-for="(tag, index) in tags" :key="index">
-          <v-list-item dense :style="hover ? 'background-color: #f5f8fa;' : 'background-color: #ffffff;'" @click="goTagPage(tag.attributes)" class="mb-3 ml-2 mt-n3">
-            <v-list-item-content>
-              <v-list-item-title :style="list_item_title.style">
-                #{{tag.attributes.name}}
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-hover>
-      </v-list-item-group>
+      <v-divider color="#f6f6f9" class="mt-5 ml-3 mr-16" />
+      <v-subheader :style="category" class="mt-6 mb-1">カテゴリーから探す</v-subheader>
     </v-list>
+    <v-row justify="center" class="mt-n4">
+      <v-col cols="12" sm="7" md="6" lg="11" class="">
+        <v-chip-group column>
+          <v-chip active-class="black--text" class="mb-3" style="width: auto; font-weight: bold;" @click="goTagPage(tag.attributes)" outlined color="#000000" v-for="(tag) in tags" :key="tag.attributes.name">
+            {{tag.attributes.name}}
+          </v-chip>
+        </v-chip-group>
+      </v-col>
+    </v-row>
 
     <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
       <v-card color="#ffffff" height="250" class="rounded-lg">
@@ -69,12 +69,17 @@
 </template>
 
 <script>
-  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  import {
+    RepositoryFactory
+  } from '../../repositories/RepositoryFactory';
   const tagsRepository = RepositoryFactory.get('tags');
   const usersRepository = RepositoryFactory.get('users');
 
   export default {
     name: "TheLeftBar",
+    components: {
+      // 'icon-new': () => import( /* webpackPrefetch: true */ '../Icons/IconNew.vue'),
+    },
     data() {
       return {
         loginDialog: false,
@@ -93,20 +98,15 @@
         overviewText: 'Devioは、最新の配信ドラマから往年のクラシック映画まで自由に会話できるオープンコミュニティです。見たばかりの感動や興奮を、共有できる場所を目指しています。',
         tags: [],
         menus: [{
-            text: '話題',
+            text: '話題の作品',
             icon: '🎉',
-            path_name: 'Chart'
+            path_name: 'Topic'
           },
           {
-            text: 'お気に入り',
+            text: 'フォロー中',
             icon: '✨',
-            path_name: 'Home'
+            path_name: 'Following'
           },
-          // {
-          //   text: 'フォロー中',
-          //   icon: '😉',
-          //   path_name: 'Search'
-          // },
           {
             text: '人気の作品',
             icon: '📖',
@@ -114,19 +114,14 @@
           },
           {
             text: '新着の作品',
-            icon: '🔎',
+            icon: `😆`,
             path_name: 'Trend'
           },
           {
-            text: '評価の高い作品',
+            text: '評価の作品',
             icon: '👏',
             path_name: 'TopRated'
           },
-          // {
-          //   text: '話題',
-          //   icon: '🗞',
-          //   path_name: 'Upcoming'
-          // },
         ],
         header_part: {
           position: 'mt-n5 ml-n4 mr-3',
@@ -162,8 +157,8 @@
         },
         category: {
           fontWeight: 'bold',
-          fontSize: '12px',
-          color: '#9daab6',
+          fontSize: '16px',
+          color: '#111111',
         },
         list_item_title: {
           color: '#011627',
@@ -210,25 +205,25 @@
         }
       }
     },
-    created(){
+    created() {
       this.fetchTags()
       this.fetchComments()
     },
     methods: {
-      fetchTags(){
+      fetchTags() {
         tagsRepository.get()
           .then(res => this.fetchTagsSuccessful(res))
           .catch(err => this.fetchFailed(err))
       },
-      fetchComments(){
+      fetchComments() {
         usersRepository.getNewComments(this.$store.state.user.currentUser.id)
           .then(res => this.fetchUsersSuccessful(res))
           .catch(err => this.fetchFailed(err))
       },
-      fetchUsersSuccessful(res){
+      fetchUsersSuccessful(res) {
         this.new_comments = res.data.new_comments
       },
-      fetchTagsSuccessful(res){
+      fetchTagsSuccessful(res) {
         this.tags = res.data.data
       },
       fetchFailed(error) {
@@ -256,11 +251,14 @@
       goSignup() {
         this.$router.replace('/signup')
       },
-      goTagPage(tag){
-        this.$router.replace({name: 'Tag', params: {
-          // id: tag.id,
-          name: tag.name,
-        }})
+      goTagPage(tag) {
+        this.$router.replace({
+          name: 'Tag',
+          params: {
+            // id: tag.id,
+            name: tag.name,
+          }
+        })
       }
     }
   }

@@ -1,17 +1,13 @@
 <template>
-  <v-container>
-
-    <sub-header class="mt-1">
-
+  <v-container fluid class="ml-6">
+    <sub-header>
       <template v-slot:home_header="subHeaderProps">
-        <div :class="gridSubHeader">
+        <h3 :class="gridSubHeader">
           {{subHeaderProps.sub_header}}
-        </div>
+        </h3>
       </template>
     </sub-header>
-
-    <v-divider class="mt-4 mb-4" />
-
+    <!-- <v-divider /> -->
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
       <v-card outlined class="rounded-lg mb-2" :style="hover ? card.hoverStyle : card.unhoverStyle"
         @click="enterSpace(item)" :elevation='hover ? 0 : 0' :height="gridCardHeight" :width="gridCardWidth">
@@ -76,7 +72,7 @@
   const usersRepository = RepositoryFactory.get('users');
 
   export default {
-    name: 'HomeTop',
+    name: 'Following',
     components: {
       'base-label': () => import( /* webpackPrefetch: true */ '../Base/BaseLabel'),
       'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),

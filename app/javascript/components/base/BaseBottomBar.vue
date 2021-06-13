@@ -20,7 +20,7 @@
 
 <script>
   export default {
-    name: "TheBottomNavigation",
+    name: "BottomNavigation",
     data(){
       return{
         color: "#212529"

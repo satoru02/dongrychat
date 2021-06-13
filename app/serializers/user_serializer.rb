@@ -42,18 +42,12 @@ class UserSerializer
     user.followers.map(&:id)
   end
 
-  attribute :appearance do |user|
-    user.is_online?
-  end
-
-  #counter cache
-  attribute :subscriptions do |user|
-    user.subscriptions.length
-  end
+  # attribute :appearance do |user|
+  #   user.is_online?
+  # end
 
   attribute :avatar_url do |user|
     if user.avatar.attached?
-      # user.avatar_url(user.avatar.blob)
       user.cdn_ready_blob_path(user.avatar)
     end
   end

@@ -1,5 +1,5 @@
 <template>
-  <v-container :class="vContainerGrid">
+  <v-container fluid :class="vContainerGrid">
     <v-row :class="vRowContentsGrid">
       <v-col cols=2 sm=2 md=2 lg=2 xl=2 :class="vAvatarGrid">
         <v-avatar :class="'rounded-lg'" :size="bindHeadingSize" :height="bindHeadingHeight">
@@ -22,7 +22,7 @@
         </v-row>
         <v-row>
           <v-col cols=12 sm=12 md=12 lg=12 xl=12 :class="vColDetailsGrid">
-            <div :style="bindContentsDetails" v-text="details.overview" />
+            <p :style="bindContentsDetails" v-text="details.overview" />
           </v-col>
         </v-row>
         <!-- <v-row :class="'mt-3'" v-if="this.$vuetify.breakpoint.width > 600">

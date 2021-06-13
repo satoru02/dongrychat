@@ -30,7 +30,7 @@ module Api
 
       #fix
       def popular
-        @spaces = Space.includes(:users, :subscriptions).get_popular(params)[3..7]
+        @spaces = Space.includes(:users).get_popular(params)
         serializer = set_popular_space_serializer(@spaces)
         render_json(serializer)
       end

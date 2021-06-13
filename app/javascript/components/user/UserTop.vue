@@ -1,7 +1,7 @@
 <template>
   <v-container class="user-top mt-2">
     <v-card outlined class="user-card rounded-lg">
-      <v-img height="133" src="https://source.unsplash.com/random" />
+      <!-- <v-img height="133" src="https://source.unsplash.com/random" /> -->
       <v-card-title>
         <v-avatar size="60">
           <v-img :src="setAvatar()" />
@@ -86,7 +86,7 @@
 </template>
 
 <script>
-  import '@mdi/font/css/materialdesignicons.css';
+  // import '@mdi/font/css/materialdesignicons.css';
 
   import {
     RepositoryFactory
@@ -113,13 +113,13 @@
           },
           {
             title: 'フォロー',
-            name: 'UserFollowings',
-            path: 'followings'
+            name: 'UserFollowing',
+            path: 'following'
           },
           {
             title: 'フォロワー',
             name: 'UserFollowers',
-            path: 'UserFollowers'
+            path: 'followers'
           }
         ],
         followed: Boolean,

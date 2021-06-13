@@ -1,11 +1,11 @@
 <template>
-  <v-container :key="componentKey">
+  <v-container fluid :key="componentKey">
     <v-row :class="vRowHeader">
       <v-col cols=4 sm=1 md=1 lg=2 xl=1 class="ml-3">
-        <div :style="switch1 === false ? active : inactive" v-text="'ドラマ'" />
+        <h3 :style="switch1 === false ? active : inactive" v-text="'ドラマ'" />
       </v-col>
       <v-col cols=3 sm=1 md=1 lg=2 xl=1>
-        <div :style="switch1 === true ? active : inactive" v-text="'映画'" />
+        <h3 :style="switch1 === true ? active : inactive" v-text="'映画'" />
       </v-col>
       <v-col cols=1 sm=7 md=9 lg=7 xl=9 />
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="vColSwitchGrid">
@@ -24,7 +24,7 @@
   const tmdbRepository = RepositoryFactory.get('tmdb');
 
   export default {
-    name: 'Content',
+    name: 'Collection',
     components: {
       'base-list': () => import( /* webpackPrefetch: true */ '../Base/BaseList')
     },

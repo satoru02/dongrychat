@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "UserPosts",
+  name: "UserProfile",
   props: {
     user_info: ""
   },
