@@ -1,14 +1,14 @@
 <template>
-  <v-container fluid :key="componentKey">
-    <!-- <base-banner /> -->
-    <sub-header class="mt-n2">
+  <v-container fluid :key="componentKey" class="ml-2">
+    <!-- <base-banner class="ml-14" /> -->
+    <sub-header class="ml-2 mt-n3">
       <template v-slot:popular_header="subHeaderProps">
         <h3 :class="gridSubHeader">
           {{subHeaderProps.sub_header}}
         </h3>
       </template>
     </sub-header>
-    <v-row :class="gridSwitcher">
+    <!-- <v-row :class="gridSwitcher">
       <v-col :class="gridTv" cols=3 sm=2 md=2 lg=2 xl=1>
         <h3 :style="switcher === false ? switchBtn.active : switchBtn.inactive">
           <span v-if="switcher === false"></span>ドラマ
@@ -19,12 +19,20 @@
           <span v-if="switcher === true"></span>映画
         </h3>
       </v-col>
-      <v-col cols=6 sm=7 md=8 lg=8 xl=9 />
+      <v-col cols=6 sm=7 md=8 lg=7 xl=9 />
       <v-col class='ml-10' v-if="$vuetify.breakpoint.name != 'xs'" cols=1 sm=1 md=1 lg=1 xl=1>
         <v-switch v-model="switcher" color='blue' dense inset />
       </v-col>
-    </v-row>
-    <base-card :items="items" :loading="loading" />
+    </v-row> -->
+     <v-tabs height="40" class="mt-n1 ml-5" background-color='#ffffff'>
+       <v-tabs-slider color="#000000"></v-tabs-slider>
+      <v-tab class="tab-name" active-class="black--text" color="#000000"
+        v-for="(tablist, index) in tabs" :key="index">
+        {{tablist}}
+      </v-tab>
+    </v-tabs>
+    <v-divider class="ml-6" />
+    <base-card class="mt-n3" :items="items" :loading="loading" />
     <base-loader :handler="infiniteHandler" :wrapper="true" :text="loaderText" />
   </v-container>
 </template>
@@ -38,13 +46,18 @@
   export default {
     name: 'Topic',
     components: {
-      // 'base-banner': () => import( /* webpackPrefetch: true */ '../Base/BaseBanner')
+      'base-banner': () => import( /* webpackPrefetch: true */ '../Base/BaseBanner'),
       'sub-header': () => import( /* webpackPrefetch: true */ '../Layout/TheSubHeader'),
       'base-card': () => import( /* webpackPrefetch: true */ '../Base/BaseCard'),
       'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
     },
     data() {
       return {
+        tabs: [
+          '映画',
+          'ドラマ'
+
+        ],
         loaderText: '現在チャット中のスペースはありません。',
         items: [],
         loading: false,
@@ -126,7 +139,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return ''
+            return 'ml-1'
         }
       },
       gridSubHeader() {
@@ -137,7 +150,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'sub-header mt-5 ml-n3'
+            return 'sub-header mt-4'
         }
       }
     },
@@ -206,7 +219,13 @@
 
   .sub-header {
     font-weight: bold;
-    font-size: 17px;
+    font-size: 15px;
     color: #111111;
+  }
+  .tab-name {
+    font-weight: bold;
+    font-size: 14px;
+    color: #24292e;
+    /* height: 53px; */
   }
 </style>

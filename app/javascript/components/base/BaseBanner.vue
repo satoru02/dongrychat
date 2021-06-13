@@ -1,8 +1,8 @@
 <template>
-  <v-img :src="`${this.cdn}/image/${this.img}`" class="rounded-lg ml-n2" height="263" position="top">
+  <v-img :src="`${this.cdn}/image/${this.img}`" class="rounded-lg ml-4" height="223" position="top">
     <v-row>
       <v-col lg=6 class="mt-16 ml-n3">
-        <div class="header-title ml-3">DEVIOへようこそ!</div>
+        <div class="header-title ml-3">DEVIOで発掘</div>
         <div class="mt-1 ml-6" style="color: #000000; font-weight:bold; font-size: 16px;">次に見る作品をここで見つけよう!</div>
       </v-col>
     </v-row>
@@ -15,7 +15,7 @@ export default {
   data(){
     return {
       cdn: process.env.AWS_CLOUDFRONT,
-      img: `eat.jpg`
+      img: `tv.jpg`
     }
   }
 }

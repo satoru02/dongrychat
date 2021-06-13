@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="ml-6">
     <sub-header>
       <template v-slot:home_header="subHeaderProps">
         <h3 :class="gridSubHeader">

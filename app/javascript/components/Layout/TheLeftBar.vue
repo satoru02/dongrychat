@@ -1,12 +1,13 @@
 <template>
-  <v-container class="left-bar mt-n4">
-    <v-list color="#ffffff" dark class="ml-16 rounded-lg">
-      <v-subheader :style="category" class="mb-n2">メニュー</v-subheader>
-      <v-list-item-group>
+  <v-container class="left-bar ml-16 mt-n1">
+    <v-list color="#ffffff" class="rounded-lg">
+      <v-subheader :style="category" class="mb-n2 ml-1">メニュー</v-subheader>
+      <v-list-item-group class="mt-2">
         <v-hover v-slot="{hover}" v-for="(item, index) in menus" :key="index">
-          <v-list-item rounded :style="hover ? 'background-color: #f5f8fa;' : ''" @click="changeRoute(item.path_name)"
+          <v-list-item active-class="white--text" rounded :style="hover ? 'background-color: #f5f8fa;' : ''" @click="changeRoute(item.path_name)"
             class="ml-2">
             <v-list-item-icon>
+              <!-- <icon-new /> -->
               <v-list-item-subtitle :size="icon.size" v-text="item.icon" />
             </v-list-item-icon>
             <v-list-item-content class="ml-n6">
@@ -21,14 +22,13 @@
           </v-list-item>
         </v-hover>
       </v-list-item-group>
-      <v-divider color="#f6f6f9" class="mt-5 ml-3" />
-      <v-subheader :style="category" class="mt-2 mb-1">人気のカテゴリ</v-subheader>
+      <v-divider color="#f6f6f9" class="mt-5 ml-3 mr-16" />
+      <v-subheader :style="category" class="mt-6 mb-1">カテゴリーから探す</v-subheader>
     </v-list>
-    <v-row justify="center" class="mt-n6">
-      <v-col lg=3></v-col>
-      <v-col cols="12" sm="7" md="6" lg="9" class="ml-n3">
+    <v-row justify="center" class="mt-n4">
+      <v-col cols="12" sm="7" md="6" lg="11" class="">
         <v-chip-group column>
-          <v-chip class="mb-2" style="width: auto;" @click="goTagPage(tag.attributes)" color="#f2f2f2" v-for="(tag) in tags" :key="tag.attributes.name">
+          <v-chip active-class="black--text" class="mb-3" style="width: auto; font-weight: bold;" @click="goTagPage(tag.attributes)" outlined color="#000000" v-for="(tag) in tags" :key="tag.attributes.name">
             {{tag.attributes.name}}
           </v-chip>
         </v-chip-group>
@@ -77,6 +77,9 @@
 
   export default {
     name: "TheLeftBar",
+    components: {
+      // 'icon-new': () => import( /* webpackPrefetch: true */ '../Icons/IconNew.vue'),
+    },
     data() {
       return {
         loginDialog: false,
@@ -95,7 +98,7 @@
         overviewText: 'Devioは、最新の配信ドラマから往年のクラシック映画まで自由に会話できるオープンコミュニティです。見たばかりの感動や興奮を、共有できる場所を目指しています。',
         tags: [],
         menus: [{
-            text: '話題',
+            text: '話題の作品',
             icon: '🎉',
             path_name: 'Topic'
           },
@@ -105,17 +108,17 @@
             path_name: 'Following'
           },
           {
-            text: '人気',
+            text: '人気の作品',
             icon: '📖',
             path_name: 'Popular'
           },
           {
-            text: '新着',
-            icon: '🔎',
+            text: '新着の作品',
+            icon: `😆`,
             path_name: 'Trend'
           },
           {
-            text: '評価',
+            text: '評価の作品',
             icon: '👏',
             path_name: 'TopRated'
           },
@@ -154,8 +157,8 @@
         },
         category: {
           fontWeight: 'bold',
-          fontSize: '12px',
-          color: '#9daab6',
+          fontSize: '16px',
+          color: '#111111',
         },
         list_item_title: {
           color: '#011627',
