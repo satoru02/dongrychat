@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar elevation=0 outlined app color="#ffffff">
+  <v-app-bar elevation=1 outlined app color="#ffffff">
     <div :class="headerL" />
     <v-toolbar-title style="font-weight: bold; color: #212529" :class="headerTitle" @click="goTop()">
       DEVIO
@@ -62,7 +62,6 @@
 </template>
 
 <script>
-  // import '@mdi/font/css/materialdesignicons.css';
 
   import {
     RepositoryFactory

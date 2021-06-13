@@ -1,7 +1,7 @@
 <template>
-  <div class="mt-3">
+  <div class="mt-8 ml-10">
     <space-header :space_data="this.space_data" />
-    <v-tabs class="mt-2" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height" grow>
+    <v-tabs class="mt-2" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height">
       <v-tab
        :active-class="vTab.activeText" @click="changeTab(tablist.path)" :style="vTab.style"
         v-for="(tablist, index) in tablists" :key="index">

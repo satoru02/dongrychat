@@ -8,6 +8,6 @@ export default {
     return secureAxios.get(`${baseURL}`);
   },
   getSpaces(tagName, tagParams){
-    return secureAxios.get(`${baseURL}/${tagName}/${spaceResource}`, tagParams);
+    return secureAxios.get(`${baseURL}/${tagName}/${spaceResource}`, { params: tagParams });
   },
 };

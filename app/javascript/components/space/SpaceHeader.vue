@@ -1,23 +1,23 @@
 <template>
   <v-img :src="posterImg()" position="top right" gradient="to left, rgba(0 0 0 / 64%), rgb(0 0 0)"
-    class="mt-5 rounded-lg" height="280px">
+    class="mt-5 rounded-lg" height="180px">
     <v-row v-if="space_data" class="mt-n5">
-      <v-col cols=2 sm=2 md=2 lg=2 xl=2 :class="vColAvatarGrid">
+      <v-col cols=2 sm=2 md=2 lg=1 xl=2 :class="vColAvatarGrid">
         <v-avatar class="rounded ml-6 mt-7" :size="vAvatar.size" :height='vAvatarHeight'>
           <v-img :src="posterImg()" />
         </v-avatar>
       </v-col>
-      <v-col cols=9 sm=9 md=9 lg=9 xl=9 class="ml-7 mt-8">
+      <v-col cols=9 sm=9 md=9 lg=9 xl=9 class="ml-8 mt-8">
         <v-row dense :style="vRowLabel.style">
           <v-col cols=12 sm=12 md=12 lg=12 xl=12>
             <base-label class="ml-9 rounded-xl" font_size="13px" v-if="space_data.media === media.tv" :label="true"
-              :small="false" :color="'#4ad66d'" :outlined="true" :text_color="'#4ad66d'" :season="space_data.season"
+              :x_small="true" :color="'#4ad66d'" :outlined="true" :text_color="'#4ad66d'" :season="space_data.season"
               :episode="space_data.episode" :title="space_data.episode_title" />
-            <v-chip class="ml-9 rounded-xl" v-if="space_data.media === media.mv" outlined label :color="'yellow'"
+            <v-chip x-small class="ml-9 rounded-xl" v-if="space_data.media === media.mv" outlined label :color="'yellow'"
               :style="vChip.label.style" v-text="'MOVIE'" />
           </v-col>
         </v-row>
-        <v-row class="ml-n5">
+        <v-row class="ml-n8 mt-n2">
           <v-col lg=1></v-col>
           <!-- <v-hover v-slot="{ hover }"> -->
           <v-col cols=8 sm=10 md=10 lg=11 xl=10>
@@ -28,14 +28,14 @@
           </v-col>
           <!-- </v-hover> -->
         </v-row>
-        <v-row class="mt-5 ml-7">
+        <!-- <v-row class="mt-5 ml-7">
           <v-col cols=12 sm=12 md=12 lg=3 xl=12 :style="vColTags.style">
           <v-btn @click="subscribed === true ? unsubscribe() : subscribe()" label small outlined class="mt-n4" :style="vChip.tags.style"
               :color="'#ffffff'"
              >{{subscribed === true ? vBtn.subscribedText : vBtn.unsubscribedText}}</v-btn>
           </v-col>
-        </v-row>
-        <v-row class="mt-n3">
+        </v-row> -->
+        <v-row class="mt-n5">
           <v-col class="ml-10" cols=11 sm=12 md=12 lg=11 xl=12 :style="vColSummaryStyle"
             v-text="space_data.overview != null ? space_data.overview : dummyText" />
         </v-row>
@@ -71,21 +71,21 @@
         params: {},
         subscribed: Boolean,
         vAvatar: {
-          size: '145',
+          size: '105',
           height: '180',
         },
         vColTitle: {
           style: {
             color: '#ffffff',
             fontWeight: 'bold',
-            fontSize: '28px',
+            fontSize: '18px',
             cursor: 'pointer',
             lineHeight: '30px'
           },
           hoverStyle: {
             color: '#3a86ff',
             fontWeight: 'bold',
-            fontSize: '28px',
+            fontSize: '18px',
             cursor: 'pointer',
             lineHeight: '30px'
           }
@@ -370,7 +370,7 @@
           case 'md':
             return '160'
           case 'lg':
-            return '230'
+            return '130'
           case 'xl':
             return '260'
         }
@@ -391,10 +391,10 @@
               return {
                 color: '#ffffff',
                   // fontWeight: 'bold',
-                  fontSize: '14px',
+                  fontSize: '12px',
                   fontWeight: 'bold',
-                  height: '78px',
-                  maxHeight: '78px',
+                  height: '81px',
+                  maxHeight: '81px',
                   overflow: 'scroll',
                   overflowY: 'scroll',
               }
