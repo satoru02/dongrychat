@@ -5,7 +5,7 @@
       <v-row>
         <keep-alive>
           <v-col :cols="this.colsGrid[0]" :sm="this.smGrid[0]" :md="this.mdGrid[0]" :lg="this.lgGrid[0]"
-            :xl="this.xlGrid[0]" v-if="$vuetify.breakpoint.width > 600" class="ml-n8">
+            :xl="this.xlGrid[0]" v-if="$vuetify.breakpoint.width > 600" class="ml-n16">
             <the-left-bar v-if="this.checkAuthorization() && this.checkRouter()" />
           </v-col>
         </keep-alive>
@@ -71,29 +71,11 @@
         }
       }
     },
-    // watch: {
-    //   "$route.name"() {
-    //     this.changeGrid()
-    //   }
-    // },
-    // computed: {
-    //   changeGrid() {
-    //     switch (this.$route.name) {
-    //       case 'Privacy':
-    //       case 'Terms':
-    //       case 'Settings':
-    //       // case 'subscribedTvSpace':
-    //         return this.lgGrid = [2, 8, 0]
-    //       default:
-    //         this.colsGrid = [0, 12, 0]
-    //         this.smGrid = [4, 8, 0]
-    //         this.mdGrid = [4, 8, 0]
-    //         this.lgGrid = [3, 8, 0]
-    //         this.xlGrid = [3, 6, 3]
-    //         break;
-    //     }
-    //   },
-    // },
+    watch: {
+      "$route.name"() {
+        this.changeGrid()
+      }
+    },
     methods: {
       checkAuthorization() {
         let validationRouter = ['Login', 'Signup', 'Authorization', 'ResetPassword', 'ForgotPassword']
@@ -108,22 +90,35 @@
           'Settings',
           'Terms',
           'Privacy',
+          // 'subscribedTvSpace'
         ]
         if (spaceRoute.includes(this.$route.name)) {
           return false
         } else {
           return true
         }
-      }
+      },
+      changeGrid() {
+        switch (this.$route.name) {
+          case 'Privacy':
+          case 'Terms':
+          case 'Settings':
+          // case 'subscribedTvSpace':
+            return this.lgGrid = [0, 12, 0]
+          default:
+            this.colsGrid = [0, 12, 0]
+            this.smGrid = [4, 8, 0]
+            this.mdGrid = [4, 8, 0]
+            this.lgGrid = [3, 9, 0]
+            this.xlGrid = [3, 6, 3]
+            break;
+        }
+      },
     }
   }
 </script>
 
 <style scoped>
-  .the-main-part {
-    background-color: #ffffff;
-  }
-
   .theme--light.v-divider {
     border-color: rgba(0, 0, 0, 0.082);
   }

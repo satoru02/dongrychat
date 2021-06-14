@@ -6,27 +6,26 @@
           <v-list-item active-class="white--text" @click="enterSpace(item.attributes)" :key="index"
             v-for="(item, index) in items">
             <template v-slot:default="">
+                <v-list-item-avatar class="ml-n5" style="font-size:9px;">
+                  {{index + 1}}
+                </v-list-item-avatar>
               <v-badge style="font-weight: bold;" offset-x="26" v-if="item.attributes.users.length" offset-y="26"
                color="#32cbff" icon="mdi-lock"
                 overlap :content="item.attributes.users.length">
-                <v-list-item-avatar tile class="rounded ml-n2" size="50">
+                <v-list-item-avatar tile class="rounded-lg ml-n3" size="50">
                   <v-img v-if="item.attributes.image_path" :src="posterImg(item.attributes.image_path)"></v-img>
                   <v-img v-else :src="`${cdn}/image/${img}`"></v-img>
                 </v-list-item-avatar>
               </v-badge>
-              <v-list-item-avatar v-else tile class="rounded ml-n2" size="50">
+              <v-badge v-else :value=false>
+              <v-list-item-avatar tile class="rounded-lg ml-n3" size="50">
                 <v-img v-if="item.attributes.image_path" :src="posterImg(item.attributes.image_path)"></v-img>
                 <v-img v-else :src="`${cdn}/image/${img}`"></v-img>
               </v-list-item-avatar>
-              <v-list-item-content class="">
+              </v-badge>
+              <v-list-item-content>
                 <v-list-item-title class="contents-name">
                   {{item.attributes.name}}
-                  <base-label class="ml-3 rounded" font_size="10px" :label="true" v-if="item.attributes.media === 'tv'"
-                    :small="true" :color="'#000000'" :outlined="true" :text_color="'#000000'"
-                    :season="item.attributes.season" :episode="item.attributes.episode"
-                    :title="item.attributes.episode_title" />
-                  <v-chip class="ml-2 rounded" v-if="item.attributes.media === media.mv" x-small label :color="'yellow'"
-                    :style="chipLabel.label.style" v-text="'MOVIE'" />
                 </v-list-item-title>
                 <v-list-item-subtitle v-if="item.attributes.latest_comment"
                  class="comment-name mt-1" v-text="item.attributes.latest_comment.content">
@@ -35,8 +34,19 @@
                  class="comment-name mt-1" v-text="''">
                 </v-list-item-subtitle>
               </v-list-item-content>
+              <v-list-item-content>
+                <v-list-item-title class="contents-name">
+                  <base-label class="ml-3 rounded" font_size="10px" :label="true" v-if="item.attributes.media === 'tv'"
+                    :small="true" :outlined="true" :text_color="'#111111'"
+                    :season="item.attributes.season" :episode="item.attributes.episode"
+                    :title="item.attributes.episode_title" />
+                  <v-chip outlined class="ml-2 rounded" v-if="item.attributes.media === media.mv" small label
+                    :style="chipLabel.label.style" v-text="'映画'" />
+                </v-list-item-title>
+              </v-list-item-content>
+
               <v-list-item-action>
-                <v-list-item-avatar class="rounded ml-n8" size="25">
+                <v-list-item-avatar class="rounded-xl ml-n8" size="25">
                   <v-img v-if="item.attributes.latest_comment_user"
                     :src="item.attributes.latest_comment_user.data.attributes.avatar_url"></v-img>
                   <v-img v-else
@@ -44,8 +54,8 @@
                 </v-list-item-avatar>
               </v-list-item-action>
               <v-list-item-action class="user-name ml-n2">
-                <!-- <icon-checkbox /> -->
-                {{Math.floor(Math.random() * 10)}}
+                <icon-checkbox />
+                <!-- {{Math.floor}} -->
               </v-list-item-action>
               <!-- <v-list-item-action class="">
                 <icon-checkbox />
@@ -143,7 +153,6 @@
     name: 'BaseCard',
     components: {
       'base-label': () => import( /* webpackPrefetch: true */ '../Base/BaseLabel'),
-      'icon-poster': () => import( /* webpackPrefetch: true */ '../Icons/IconPoster'),
       'icon-checkbox': () => import( /* webpackPrefetch: true */ '../Icons/IconCheckbox.vue'),
     },
     props: {
@@ -181,8 +190,6 @@
         mobileWidth: {
           maxHeight: '70px',
         },
-        //
-        // base_tmdb_img_url: `https://image.tmdb.org/t/p/original`,
         api: {
           for_subscription: `/api/v1/subscriptions`
         },
@@ -480,50 +487,16 @@
 </script>
 
 <style scoped>
-  .ranking {
-    font-size: 12px;
-    font-weight: bold;
-    color: #6c757d;
-  }
-
   .label {
     font-size: 15px;
     font-weight: bold;
     color: #ced4da;
   }
 
-  .movie-label {
-    font-size: 11px;
-    font-weight: bold;
-  }
-
-  .user-count {
-    font-size: 12px;
-    font-weight: bold;
-    color: #6c757d;
-  }
-
-  .tag-text {
-    font-size: 5px;
-    color: #111111;
-  }
-
-  .number-text {
-    font-size: 13px;
-    font-weight: bold;
-    color: #363b3f;
-  }
-
   .user-name {
     font-weight: bold;
     color: #000000 opacity 30.0%;
     font-size: 8px;
-  }
-
-  .time-text {
-    font-weight: bold;
-    color: #6c757d;
-    font-size: 12px;
   }
 
   .desc-text {
@@ -534,17 +507,6 @@
     max-height: 34px;
     overflow: auto;
   }
-
-  .title-text {
-    font-weight: bold;
-    font-size: 16px;
-    color: #111111;
-    height: 53px;
-  }
-
-  /* .v-divider {
-    border-color: rgba(0, 0, 0, 0.082);
-  } */
 
   .contents-name {
     font-weight: bold;
@@ -559,17 +521,5 @@
     font-size: 12px;
     color: #3b3f46;
     /* height: 53px; */
-  }
-
-  .number-name {
-    font-weight: bold;
-    font-size: 10px;
-    color: #30353b;
-  }
-
-  .comment-count {
-    font-weight: bold;
-    font-size: 10px;
-    color: #30353b;
   }
 </style>

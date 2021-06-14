@@ -20,7 +20,7 @@
               </v-img>
             </v-avatar>
           </v-col>
-          <v-col cols=10 sm=10 md=10 lg=10 xl=10 class="ml-1 mt-n1">
+          <v-col cols=10 sm=10 md=10 lg=10 xl=10 class="ml-n10 mt-n1">
             <v-row>
               <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
               <v-col cols=10 sm=10 md=10 lg=10 xl=10 :class="$vuetify.breakpoint.width > 600 ? 'ml-n5 mt-1' : 'mt-1'"
@@ -51,7 +51,7 @@
                 <!-- <v-avatar size="20" class="mt-n1 ml-1">
                   <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
                 </v-avatar> -->
-                <span class="ml-1" v-if="item.attributes.latest_comment">
+                <span class="ml-6" v-if="item.attributes.latest_comment">
                   {{item.attributes.latest_comment.content}}
                 </span>
               </v-col>
@@ -150,7 +150,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return 'sub-header mb-2 mt-1'
+            return 'sub-header mb-2 mt-1 ml-n2'
         }
       },
       gridCardWidth() {
@@ -161,7 +161,7 @@
           case 'md':
           case 'lg':
           case 'xl':
-            return '700'
+            return '1000'
         }
       },
       bindSize() {
@@ -283,11 +283,7 @@
 
 <style scoped>
   .theme--light.v-sheet--outlined {
-    border: thin solid rgba(172, 172, 172, 0.12);
-  }
-
-  .theme--light.v-divider {
-    border-color: rgba(0, 0, 0, .04);
+    border: thin solid rgb(228, 228, 228);
   }
 
   .sub-header {

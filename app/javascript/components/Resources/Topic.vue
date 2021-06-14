@@ -8,6 +8,19 @@
         </h3>
       </template>
     </sub-header>
+    <!-- <v-row>
+      <v-col lg=12>
+        <v-sheet classs height="100" color="yellow">
+              <sub-header class="ml-2 mt-n3">
+      <template v-slot:popular_header="subHeaderProps">
+        <h3 :class="gridSubHeader">
+          {{subHeaderProps.sub_header}}
+        </h3>
+      </template>
+    </sub-header>
+        </v-sheet>
+      </v-col>
+    </v-row> -->
     <!-- <v-row :class="gridSwitcher">
       <v-col :class="gridTv" cols=3 sm=2 md=2 lg=2 xl=1>
         <h3 :style="switcher === false ? switchBtn.active : switchBtn.inactive">
@@ -25,13 +38,27 @@
       </v-col>
     </v-row> -->
      <v-tabs height="40" class="mt-n1 ml-5" background-color='#ffffff'>
-       <v-tabs-slider color="#000000"></v-tabs-slider>
-      <v-tab class="tab-name" active-class="black--text" color="#000000"
+      <v-tabs-slider color="#111111" height="1"></v-tabs-slider>
+      <v-tab class="tab-name" color="#111111" active-class="black--text"
         v-for="(tablist, index) in tabs" :key="index">
+        <!-- <v-icon> -->
+          <icon-tv v-if="tablist === 'ドラマ'" class="ml-n2 mr-2" />
+          <icon-movie v-if="tablist === '映画'" class="ml-n2 mr-2" />
+        <!-- </v-icon> -->
         {{tablist}}
       </v-tab>
     </v-tabs>
     <v-divider class="ml-6" />
+    <v-row no-gutters class="mt-2 mb-2">
+      <v-col lg=1></v-col>
+      <v-col lg=2 class="ml-7" style="font-size: 12px;">タイトル</v-col>
+      <v-col lg=3></v-col>
+      <v-col lg=4 class="ml-2" style="font-size: 12px;">詳細</v-col>
+      <v-col lg=1 class="ml-11" style="font-size: 12px;">
+        <icon-user />
+      </v-col>
+    </v-row>
+    <v-divider class="ml-5" />
     <base-card class="mt-n3" :items="items" :loading="loading" />
     <base-loader :handler="infiniteHandler" :wrapper="true" :text="loaderText" />
   </v-container>
@@ -50,6 +77,9 @@
       'sub-header': () => import( /* webpackPrefetch: true */ '../Layout/TheSubHeader'),
       'base-card': () => import( /* webpackPrefetch: true */ '../Base/BaseCard'),
       'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
+      'icon-user': () => import( /* webpackPrefetch: true */ '../Icons/IconUser.vue'),
+      'icon-tv': () => import( /* webpackPrefetch: true */ '../Icons/IconTv.vue'),
+      'icon-movie': () => import( /* webpackPrefetch: true */ '../Icons/IconMovie.vue'),
     },
     data() {
       return {

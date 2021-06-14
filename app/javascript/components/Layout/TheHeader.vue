@@ -1,8 +1,8 @@
 <template>
-  <v-app-bar elevation=1 outlined app color="#161b22">
+  <v-app-bar elevation=1 outlined app color="#161b22" dense>
     <div :class="headerL" />
     <v-toolbar-title style="font-weight: bold; color: #ffffff" :class="headerTitle" @click="goTop()">
-      DEVIO
+      devio
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-text-field placeholder="気になる作品を検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
@@ -35,7 +35,7 @@
       </v-list>
       <base-loader :handler="infiniteHandler" :text="text.loading" />
     </v-menu>
-    <v-menu open-on-hover offset-y left nudge-bottom="3" nudge-left="50" nudge-height="800">
+    <v-menu flat open-on-hover offset-y left nudge-bottom="3" nudge-left="50" nudge-height="800">
       <template v-slot:activator="{on, attrs}">
         <div v-bind="attrs" v-on="on">
           <v-avatar size="25" class="ml-5 mr-16">
@@ -43,7 +43,7 @@
           </v-avatar>
         </div>
       </template>
-      <v-list class="rounded-s list" v-if="$store.state.user.signedIn">
+      <v-list elevation=0 class="rounded-s list" v-if="$store.state.user.signedIn">
         <v-list-item v-for="(item, index) in items" :key="index" :to="item.link" :icon="item.icon" link>
           <v-list-item-icon>
             <v-icon v-text="item.icon" />
@@ -128,7 +128,7 @@
           case 'xs':
             return `logo`
           default:
-            return `logo ml-n5`
+            return `logo ml-n10`
         }
       }
 
@@ -214,6 +214,7 @@
 
   .text-field {
     max-width: 672px;
+    color: #ffffff;
   }
 
   .login {

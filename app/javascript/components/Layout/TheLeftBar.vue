@@ -4,10 +4,10 @@
       <!-- <v-subheader :style="category" class="mb-n2 ml-1">メニュー</v-subheader> -->
       <v-list-item-group class="mt-2">
         <v-hover v-slot="{hover}" v-for="(item, index) in menus" :key="index">
-          <v-list-item dense active-class="white--text" :style="hover ? 'background-color: #f5f8fa;' : ''"
+          <v-list-item dense active-class="black--text" :style="hover ? 'background-color: #f5f8fa;' : ''"
             @click="changeRoute(item.path_name)" class="ml-2">
             <v-list-item-icon>
-              <v-badge dot offset-x="4" offset-y="12" overlap color="#f72585" v-if="item.text === 'フォロー中' && new_comments > 0">
+              <v-badge dot offset-x="4" offset-y="11" overlap color="#f72585" v-if="item.text === 'フォロー中' && new_comments > 0">
               <v-list-item-subtitle class="mt-1" :size="icon.size">
                 <icon-home />
               </v-list-item-subtitle>
@@ -33,8 +33,8 @@
     <v-row justify="center" class="mt-n4">
       <v-col cols="12" sm="7" md="6" lg="11" class="">
         <v-chip-group column>
-          <v-chip small active-class="black--text" class="mb-3" style="width: auto; font-weight: bold;"
-            @click="goTagPage(tag.attributes)" outlined color="#000000" v-for="(tag) in tags"
+          <v-chip small active-class="blue--text" class="mb-3" style="width: auto; font-weight: bold;"
+            @click="goTagPage(tag.attributes)" outlined label v-for="(tag) in tags"
             :key="tag.attributes.name">
             {{tag.attributes.name}}
           </v-chip>

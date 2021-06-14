@@ -2,13 +2,13 @@
   <v-container class="mt-n2">
     <v-row>
       <v-col lg=1>
-        <v-avatar class="mt-4 ml-3" :size='22' :height='22'>
+        <!-- <v-avatar class="mt-4 ml-3" :size='22' :height='22'>
           <img :src="this.$store.state.user.currentUser.avatar_url">
-        </v-avatar>
+        </v-avatar> -->
       </v-col>
-      <v-col lg=11 class="ml-n3">
+      <v-col lg=11 class="ml-n16">
         <v-text-field v-if="$vuetify.breakpoint.width > 600" :class="textFieldGrid" clearable :style="textField.style"
-          v-model="content" @keypress="setMessage()" @keyup.enter="sendComment(content)" dense
+          v-model="content" @keypress="setMessage()" @keyup.enter="sendComment(content)" dense solo flat outlined
           :placeholder="textField.placeholder" />
         <v-text-field v-else :append-outer-icon="'mdi-send'" :class="textFieldGrid" clearable :style="textField.style"
           :background-color="textField.color" @click:append-outer="{setMessage(), sendComment(content)}"
@@ -148,9 +148,9 @@
           case 'md':
             return 'mt-7'
           case 'lg':
-            return 'mt-3 rounded-xl'
+            return 'mt-3 rounded'
           case 'xl':
-            return 'mt-2 ml-6 mr-6 rounded-s'
+            return 'mt-2 ml-6 mr-6 rounded-lg'
         }
       }
     }
