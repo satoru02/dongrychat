@@ -1,16 +1,17 @@
 <template>
   <v-app class="the-main-part">
     <the-header />
-    <v-main style="background-color: #ffffff;" class="ml-6">
+    <v-main style="background-color: #ffffff;">
       <v-row>
         <keep-alive>
           <v-col :cols="this.colsGrid[0]" :sm="this.smGrid[0]" :md="this.mdGrid[0]" :lg="this.lgGrid[0]"
-            :xl="this.xlGrid[0]" v-if="$vuetify.breakpoint.width > 600">
+            :xl="this.xlGrid[0]" v-if="$vuetify.breakpoint.width > 600" class="ml-n8">
             <the-left-bar v-if="this.checkAuthorization() && this.checkRouter()" />
           </v-col>
         </keep-alive>
-        <!-- <v-divider vertical class="ml-5" v-if="$vuetify.breakpoint.width > 600 && this.checkRouter()" /> -->
-        <v-col :cols="this.colsGrid[1]" :sm="this.smGrid[1]" :md="this.mdGrid[1]" :lg="this.lgGrid[1]"
+        <!-- <v-col lg=1 /> -->
+        <v-divider vertical class="ml-10" v-if="$vuetify.breakpoint.width > 600 && this.checkRouter()" />
+        <v-col class="ml-n3" :cols="this.colsGrid[1]" :sm="this.smGrid[1]" :md="this.mdGrid[1]" :lg="this.lgGrid[1]"
           :xl="this.xlGrid[1]">
           <keep-alive>
             <router-view v-if="$route.meta.keepAlive" />
@@ -63,7 +64,7 @@
         colsGrid: '',
         smGrid: '',
         mdGrid: '',
-        lgGrid: [3, 8, 0],
+        lgGrid: [3, 9, 0],
         xlGrid: [3, 6, 3],
         grid: {
           rightPart: 'mt-3 ml-16'

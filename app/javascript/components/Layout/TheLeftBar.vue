@@ -1,34 +1,41 @@
 <template>
   <v-container class="left-bar ml-16 mt-n1">
     <v-list color="#ffffff" class="rounded-lg">
-      <v-subheader :style="category" class="mb-n2 ml-1">メニュー</v-subheader>
+      <!-- <v-subheader :style="category" class="mb-n2 ml-1">メニュー</v-subheader> -->
       <v-list-item-group class="mt-2">
         <v-hover v-slot="{hover}" v-for="(item, index) in menus" :key="index">
-          <v-list-item active-class="white--text" rounded :style="hover ? 'background-color: #f5f8fa;' : ''" @click="changeRoute(item.path_name)"
-            class="ml-2">
+          <v-list-item dense active-class="white--text" :style="hover ? 'background-color: #f5f8fa;' : ''"
+            @click="changeRoute(item.path_name)" class="ml-2">
             <v-list-item-icon>
-              <!-- <icon-new /> -->
-              <v-list-item-subtitle :size="icon.size" v-text="item.icon" />
+              <v-badge dot offset-x="4" offset-y="12" overlap color="#f72585" v-if="item.text === 'フォロー中' && new_comments > 0">
+              <v-list-item-subtitle class="mt-1" :size="icon.size">
+                <icon-home />
+              </v-list-item-subtitle>
+              </v-badge>
+              <v-list-item-subtitle class="mt-1" v-else :size="icon.size">
+                <icon-home />
+              </v-list-item-subtitle>
             </v-list-item-icon>
             <v-list-item-content class="ml-n6">
               <v-list-item-title :style="list_item_title.style">
                 {{item.text}}
-                <span>
-                  <v-chip class="ml-3 mb-1" v-if="item.text === 'お気に入り' && new_comments > 0" x-small elevation=0
-                    color="#02e98d">{{new_comments}}</v-chip>
-                </span>
               </v-list-item-title>
             </v-list-item-content>
+            <!-- <v-list-item-action>
+              <v-badge class="mt-2" dot />
+            </v-list-item-action> -->
           </v-list-item>
         </v-hover>
       </v-list-item-group>
-      <v-divider color="#f6f6f9" class="mt-5 ml-3 mr-16" />
-      <v-subheader :style="category" class="mt-6 mb-1">カテゴリーから探す</v-subheader>
+      <v-divider color="#f6f6f9" class="mt-5 ml-3 mr-10" />
+      <v-subheader :style="category" class="mt-4 mb-1">カテゴリーから探す</v-subheader>
     </v-list>
     <v-row justify="center" class="mt-n4">
       <v-col cols="12" sm="7" md="6" lg="11" class="">
         <v-chip-group column>
-          <v-chip active-class="black--text" class="mb-3" style="width: auto; font-weight: bold;" @click="goTagPage(tag.attributes)" outlined color="#000000" v-for="(tag) in tags" :key="tag.attributes.name">
+          <v-chip small active-class="black--text" class="mb-3" style="width: auto; font-weight: bold;"
+            @click="goTagPage(tag.attributes)" outlined color="#000000" v-for="(tag) in tags"
+            :key="tag.attributes.name">
             {{tag.attributes.name}}
           </v-chip>
         </v-chip-group>
@@ -78,7 +85,7 @@
   export default {
     name: "TheLeftBar",
     components: {
-      // 'icon-new': () => import( /* webpackPrefetch: true */ '../Icons/IconNew.vue'),
+      'icon-home': () => import( /* webpackPrefetch: true */ '../Icons/IconHome.vue')
     },
     data() {
       return {
@@ -98,8 +105,8 @@
         overviewText: 'Devioは、最新の配信ドラマから往年のクラシック映画まで自由に会話できるオープンコミュニティです。見たばかりの感動や興奮を、共有できる場所を目指しています。',
         tags: [],
         menus: [{
-            text: '話題の作品',
-            icon: '🎉',
+            text: 'Home',
+            icon: '<icon-home></icon-home>',
             path_name: 'Topic'
           },
           {
@@ -221,6 +228,7 @@
           .catch(err => this.fetchFailed(err))
       },
       fetchUsersSuccessful(res) {
+        console.log(res)
         this.new_comments = res.data.new_comments
       },
       fetchTagsSuccessful(res) {

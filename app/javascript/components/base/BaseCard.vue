@@ -7,7 +7,7 @@
             v-for="(item, index) in items">
             <template v-slot:default="">
               <v-badge style="font-weight: bold;" offset-x="26" v-if="item.attributes.users.length" offset-y="26"
-               color="#0496ff" icon="mdi-lock"
+               color="#32cbff" icon="mdi-lock"
                 overlap :content="item.attributes.users.length">
                 <v-list-item-avatar tile class="rounded ml-n2" size="50">
                   <v-img v-if="item.attributes.image_path" :src="posterImg(item.attributes.image_path)"></v-img>
@@ -18,11 +18,11 @@
                 <v-img v-if="item.attributes.image_path" :src="posterImg(item.attributes.image_path)"></v-img>
                 <v-img v-else :src="`${cdn}/image/${img}`"></v-img>
               </v-list-item-avatar>
-              <v-list-item-content class="mt-3">
-                <v-list-item-title class="contents-name mt-n3">
+              <v-list-item-content class="">
+                <v-list-item-title class="contents-name">
                   {{item.attributes.name}}
-                  <base-label class="ml-3 mt-n1 rounded" font_size="10px" :label="true" v-if="item.attributes.media === 'tv'"
-                    :x_small="true" :color="'#000000'" :outlined="true" :text_color="'#000000'"
+                  <base-label class="ml-3 rounded" font_size="10px" :label="true" v-if="item.attributes.media === 'tv'"
+                    :small="true" :color="'#000000'" :outlined="true" :text_color="'#000000'"
                     :season="item.attributes.season" :episode="item.attributes.episode"
                     :title="item.attributes.episode_title" />
                   <v-chip class="ml-2 rounded" v-if="item.attributes.media === media.mv" x-small label :color="'yellow'"
@@ -44,7 +44,8 @@
                 </v-list-item-avatar>
               </v-list-item-action>
               <v-list-item-action class="user-name ml-n2">
-                <icon-checkbox />
+                <!-- <icon-checkbox /> -->
+                {{Math.floor(Math.random() * 10)}}
               </v-list-item-action>
               <!-- <v-list-item-action class="">
                 <icon-checkbox />

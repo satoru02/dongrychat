@@ -28,13 +28,13 @@
           </v-col>
           <!-- </v-hover> -->
         </v-row>
-        <!-- <v-row class="mt-5 ml-7">
+        <v-row class="mt-5 ml-7">
           <v-col cols=12 sm=12 md=12 lg=3 xl=12 :style="vColTags.style">
           <v-btn @click="subscribed === true ? unsubscribe() : subscribe()" label small outlined class="mt-n4" :style="vChip.tags.style"
               :color="'#ffffff'"
              >{{subscribed === true ? vBtn.subscribedText : vBtn.unsubscribedText}}</v-btn>
           </v-col>
-        </v-row> -->
+        </v-row>
         <v-row class="mt-n5">
           <v-col class="ml-10" cols=11 sm=12 md=12 lg=11 xl=12 :style="vColSummaryStyle"
             v-text="space_data.overview != null ? space_data.overview : dummyText" />

@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid :key="componentKey" class="ml-2">
+  <v-container fluid :key="componentKey" class="">
     <!-- <base-banner class="ml-14" /> -->
     <sub-header class="ml-2 mt-n3">
       <template v-slot:popular_header="subHeaderProps">

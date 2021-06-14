@@ -1,13 +1,13 @@
 <template>
-  <v-app-bar elevation=1 outlined app color="#ffffff">
+  <v-app-bar elevation=1 outlined app color="#161b22">
     <div :class="headerL" />
-    <v-toolbar-title style="font-weight: bold; color: #212529" :class="headerTitle" @click="goTop()">
+    <v-toolbar-title style="font-weight: bold; color: #ffffff" :class="headerTitle" @click="goTop()">
       DEVIO
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-text-field placeholder="気になる作品を検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
-      :full-width="true" v-if="this.checkAuthorization()" :prepend-inner-icon="'mdi-magnify'" dense
-      background-color="#e9ecef" solo flat class="text-field rounded-xl mt-6 ml-16 mr-16" />
+      :full-width="true" v-if="this.checkAuthorization()" dense
+      background-color="#0d1117" outlined solo flat class="text-field rounded-lg mt-6 ml-16 mr-16" />
     <v-spacer></v-spacer>
     <v-menu left nudge-bottom="35" nudge-height="800">
       <template v-slot:activator="{on, attrs}">
@@ -128,7 +128,7 @@
           case 'xs':
             return `logo`
           default:
-            return `logo ml-11`
+            return `logo ml-n5`
         }
       }
 

@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid :key="componentKey" class="ml-2">
+  <v-container fluid :key="componentKey" class="">
     <sub-header class="mt-n3 ml-1" :tag='this.$route.params.name'>
       <template v-slot:tag_header="subHeaderProps">
         <h3 :class="gridSubHeader">
