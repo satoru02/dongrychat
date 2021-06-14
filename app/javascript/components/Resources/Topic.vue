@@ -14,8 +14,8 @@
       <v-tabs-slider color="#111111"></v-tabs-slider>
       <v-tab @click="changeContents(tab)" class="tab-name" active-class="black--text" v-for="(tab, index) in tabs"
         :key="index">
-        <icon-tv v-if="tab === 'ドラマ'" class="ml-n2 mr-2" />
-        <icon-movie v-if="tab === '映画'" class="ml-n2 mr-2" />
+        <icon-base v-if="tab === 'ドラマ'" class="ml-n2 mr-2" :iconColor="'#000000'" :width="'14'" :height="'14'" icon-name="icon-tv" :viewBox="'0 0 64 64'"><icon-tv /></icon-base>
+        <icon-base v-if="tab === '映画'" class="ml-n2 mr-2" :iconColor="'#000000'" :width="'14'" :height="'14'" icon-name="icon-movie" :viewBox="'0 0 511.81 511.81'"><icon-movie /></icon-base>
         {{tab}}
       </v-tab>
     </v-tabs>
@@ -27,7 +27,7 @@
       <v-col lg=5 class="ml-7" style="font-size: 11px; font-weight: bold;">タイトル</v-col>
       <v-col lg=4 class="ml-2" style="font-size: 11px; font-weight: bold;">詳細</v-col>
       <v-col lg=1 class="ml-11" style="font-size: 12px;">
-        <icon-user />
+        <icon-base icon-name="icon-user" :width="'15'" :height="'15'" :viewBox="'-42 0 512 512.001'" :iconColor="'#000000'"><icon-user /></icon-base>
       </v-col>
     </v-row>
 
@@ -51,6 +51,7 @@
       'sub-header': () => import( /* webpackPrefetch: true */ '../Layout/TheSubHeader'),
       'base-card': () => import( /* webpackPrefetch: true */ '../Base/BaseCard'),
       'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
+      'icon-base': () => import( /* webpackPrefetch */ '../Icon/IconBase'),
       'icon-user': () => import( /* webpackPrefetch: true */ '../Icon/IconUser.vue'),
       'icon-tv': () => import( /* webpackPrefetch: true */ '../Icon/IconTv.vue'),
       'icon-movie': () => import( /* webpackPrefetch: true */ '../Icon/IconMovie.vue'),

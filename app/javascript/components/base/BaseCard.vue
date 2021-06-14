@@ -6,55 +6,54 @@
           <v-list-item active-class="white--text" @click="enterSpace(item.attributes)" :key="index"
             v-for="(item, index) in items">
             <template v-slot:default="">
-                <v-list-item-avatar class="ml-n5" style="font-size:9px;">
-                  {{index + 1}}
-                </v-list-item-avatar>
+              <v-list-item-avatar class="ml-n5" style="font-size:9px;">
+                {{index + 1}}
+              </v-list-item-avatar>
               <v-badge style="font-weight: bold;" offset-x="26" v-if="item.attributes.users.length" offset-y="26"
-               color="#32cbff" icon="mdi-lock"
-                overlap :content="item.attributes.users.length">
+                color="#32cbff" icon="mdi-lock" overlap :content="item.attributes.users.length">
                 <v-list-item-avatar tile class="rounded-lg ml-n3" size="50">
                   <v-img v-if="item.attributes.image_path" :src="posterImg(item.attributes.image_path)"></v-img>
                   <v-img v-else :src="`${cdn}/image/${img}`"></v-img>
                 </v-list-item-avatar>
               </v-badge>
               <v-badge v-else :value=false>
-              <v-list-item-avatar tile class="rounded-lg ml-n3" size="50">
-                <v-img v-if="item.attributes.image_path" :src="posterImg(item.attributes.image_path)"></v-img>
-                <v-img v-else :src="`${cdn}/image/${img}`"></v-img>
-              </v-list-item-avatar>
+                <v-list-item-avatar tile class="rounded-lg ml-n3" size="50">
+                  <v-img v-if="item.attributes.image_path" :src="posterImg(item.attributes.image_path)"></v-img>
+                  <v-img v-else :src="`${cdn}/image/${img}`"></v-img>
+                </v-list-item-avatar>
               </v-badge>
               <v-list-item-content>
                 <v-list-item-title class="contents-name">
                   {{item.attributes.name}}
                 </v-list-item-title>
-                <v-list-item-subtitle v-if="item.attributes.latest_comment"
-                 class="comment-name mt-1" v-text="item.attributes.latest_comment.content">
+                <v-list-item-subtitle v-if="item.attributes.latest_comment" class="comment-name mt-1"
+                  v-text="item.attributes.latest_comment.content">
                 </v-list-item-subtitle>
-                <v-list-item-subtitle v-else
-                 class="comment-name mt-1" v-text="''">
+                <v-list-item-subtitle v-else class="comment-name mt-1" v-text="''">
                 </v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-content>
                 <v-list-item-title class="contents-name">
                   <base-label class="ml-3 rounded" font_size="10px" :label="true" v-if="item.attributes.media === 'tv'"
-                    :small="true" :outlined="true" :text_color="'#111111'"
-                    :season="item.attributes.season" :episode="item.attributes.episode"
-                    :title="item.attributes.episode_title" />
+                    :small="true" :outlined="true" :text_color="'#111111'" :season="item.attributes.season"
+                    :episode="item.attributes.episode" :title="item.attributes.episode_title" />
                   <v-chip outlined class="ml-2 rounded" v-if="item.attributes.media === media.mv" small label
                     :style="chipLabel.label.style" v-text="'映画'" />
                 </v-list-item-title>
               </v-list-item-content>
 
               <v-list-item-action>
-                <v-list-item-avatar class="rounded-xl ml-n8" size="25">
+                <v-list-item-avatar class="rounded-xl ml-n8" size="20">
                   <v-img v-if="item.attributes.latest_comment_user"
                     :src="item.attributes.latest_comment_user.data.attributes.avatar_url"></v-img>
-                  <v-img v-else
-                    :src="`${cdn}/image/${img}`" />
+                  <v-img v-else :src="`${cdn}/image/${img}`" />
                 </v-list-item-avatar>
               </v-list-item-action>
               <v-list-item-action class="user-name ml-n2">
-                <icon-checkbox />
+                <icon-base icon-name="icon-checkbox" :iconColor='"green"' :width="'16'" :height="'16'"
+                  :viewBox="'0 0 512 512'">
+                  <icon-checkbox />
+                </icon-base>
                 <!-- {{Math.floor}} -->
               </v-list-item-action>
               <!-- <v-list-item-action class="">
@@ -66,10 +65,10 @@
             </template>
           </v-list-item>
         </template>
-        <!-- <v-divider :key="index" v-if="index < items.length - 1" :inset="item.inset"></v-divider> -->
       </v-list-item-group>
     </v-list>
   </v-container>
+
   <!-- <v-container fluid class="mt-n4 ml-n3">
     <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
       <v-sheet style="cursor: pointer;" :elevation="hover ? 16 : 0" class="rounded-lg mb-6"
@@ -145,14 +144,11 @@
 </template>
 
 <script>
-  // import '@mdi/font/css/materialdesignicons.css';
-  // import moment from 'moment';
-  // moment.locale('ja')
-
   export default {
     name: 'BaseCard',
     components: {
       'base-label': () => import( /* webpackPrefetch: true */ '../Base/BaseLabel'),
+      'icon-base': () => import( /* webpackPrefetch */ '../Icon/IconBase'),
       'icon-checkbox': () => import( /* webpackPrefetch: true */ '../Icon/IconCheckbox.vue'),
     },
     props: {
@@ -163,32 +159,13 @@
       return {
         cdn: process.env.AWS_CLOUDFRONT,
         img: `tv.jpg`,
-        base_background_url: `https://image.tmdb.org/t/p/original`,
+        // base_background_url: `https://image.tmdb.org/t/p/original`,
         base_img_url: `https://image.tmdb.org/t/p/w200`,
-        // loading: false,
-        unhoverStyle: {
-          elevation: '0'
-        },
-        hoverStyle: {
-          elevation: '1'
-        },
         descText: {
           color: '#111111',
           fontSize: '19px',
           height: '82px',
           fontWeight: 'bold'
-        },
-        mobileText: {
-          color: '#111111',
-          fontSize: '15px',
-          height: '53px',
-          fontWeight: 'bold'
-        },
-        descWidth: {
-          maxHeight: '40px',
-        },
-        mobileWidth: {
-          maxHeight: '70px',
         },
         api: {
           for_subscription: `/api/v1/subscriptions`
@@ -197,44 +174,25 @@
           tv: 'tv',
           mv: 'mv',
         },
-        dummyText: '',
         params: {},
         subscribed: Boolean,
-        vAvatar: {
-          size: '145',
-          height: '180',
-        },
-        vColTitle: {
-          style: {
-            color: '#ffffff',
-            fontWeight: 'bold',
-            fontSize: '17px',
-            cursor: 'pointer',
-            lineHeight: '30px'
-          },
-          hoverStyle: {
-            color: '#3a86ff',
-            fontWeight: 'bold',
-            fontSize: '20px',
-            cursor: 'pointer',
-            lineHeight: '30px'
-          }
-        },
-        vColSubTitle: {
-          style: {
-            color: '#6c757d',
-            fontWeight: 'bold',
-            fontSize: '8px',
-          }
-        },
+        // vColTitle: {
+        //   style: {
+        //     color: '#ffffff',
+        //     fontWeight: 'bold',
+        //     fontSize: '17px',
+        //     cursor: 'pointer',
+        //     lineHeight: '30px'
+        //   },
+        //   hoverStyle: {
+        //     color: '#3a86ff',
+        //     fontWeight: 'bold',
+        //     fontSize: '20px',
+        //     cursor: 'pointer',
+        //     lineHeight: '30px'
+        //   }
+        // },
         chipLabel: {
-          title: {
-            color: '#f7e733',
-            style: {
-              color: '#000000',
-              fontWeight: 'bold',
-            }
-          },
           label: {
             yellow: '#f7e733',
             movie: 'Movie',
@@ -244,207 +202,14 @@
               fontSize: '10px',
             }
           },
-          tags: {
-            color: '#ffffff',
-            style: {
-              color: '#ffffff',
-              fontWeight: 'bold',
-              fontSize: '12px'
-            }
-          }
         },
-        vBtn: {
-          elevation: 0,
-          blue: 'blue',
-          black: '#000000',
-          subscribedText: 'フォロー中',
-          unsubscribedText: 'フォローする',
-          subscribedStyle: {
-            color: '#ffffff',
-            fontWeight: 'bold',
-            fontSize: '11px',
-          },
-          unsubscribedStyle: {
-            color: '#ffffff',
-            fontWeight: 'bold',
-            fontSize: '11px'
-          },
-        },
-        vRowLabel: {
-          style: {
-            maxHeight: '35px',
-            fontWeight: 'bold',
-          }
-        },
-        vColLabel: {
-          blue: '#016aff',
-          white: '#ffffff',
-        },
-        vColTags: {
-          color: '#ffffff',
-          fontWeight: 'bold',
-          fontSize: '11px'
-        }
+        // vRowLabel: {
+        //   style: {
+        //     maxHeight: '35px',
+        //     fontWeight: 'bold',
+        //   }
+        // },
       }
-    },
-    computed: {
-      gridRank() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 'mt-8 ml-2 mr-4'
-          case 'sm':
-          case 'md':
-          case 'lg':
-          case 'xl':
-            return 'ml-4 mt-8'
-        }
-      },
-      gridAvatar() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 'ml-n10'
-          case 'sm':
-          case 'md':
-          case 'lg':
-          case 'xl':
-            return 'ml-n8'
-        }
-      },
-      gridRight() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 'ml-3 mt-n1'
-          case 'sm':
-            return 'ml-4 mt-n1'
-          case 'md':
-          case 'lg':
-          case 'xl':
-            return 'ml-8'
-        }
-      },
-      gridIcon() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 'ml-5'
-          case 'sm':
-          case 'md':
-          case 'lg':
-          case 'xl':
-            return 'ml-14 mt-1'
-        }
-      },
-      gridTime() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 'ml-1 mt-1'
-          case 'sm':
-          case 'md':
-            return 'ml-n4'
-          case 'lg':
-          case 'xl':
-            return 'ml-n5 mt-1'
-        }
-      },
-      gridComment() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 'desc-text mt-1 ml-2'
-          case 'sm':
-          case 'md':
-          case 'lg':
-          case 'xl':
-            return 'desc-text ml-1 mt-n1'
-        }
-      },
-      gridNumberText() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return {
-              fontSize: '8px',
-                color: '#5d666e'
-            }
-            case 'sm':
-            case 'md':
-            case 'lg':
-            case 'xl':
-              return {
-                fontSize: '13px',
-                  color: '#5d666e'
-              }
-        }
-      },
-      gridNumber() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 'mt-2 ml-n1'
-          case 'sm':
-          case 'md':
-          case 'lg':
-          case 'xl':
-            return ' mt-1'
-        }
-      },
-      gridBottom() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 'mt-1'
-          case 'sm':
-          case 'md':
-          case 'lg':
-          case 'xl':
-            return 'ml-n6 mt-3'
-        }
-      },
-      gridLabel() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 'label ml-5 mt-1'
-          case 'sm':
-            return 'label ml-1 mt-1'
-          case 'md':
-          case 'lg':
-          case 'xl':
-            return 'label'
-        }
-      },
-      gridName() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 'ml-6'
-          case 'sm':
-            return 'ml-2'
-          case 'md':
-          case 'lg':
-          case 'xl':
-            return ''
-        }
-      },
-      vColSummaryStyle() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs' || 'sm' || 'md':
-            return {
-              color: '#111111',
-                fontWeight: 'bold',
-                fontSize: '12px',
-                height: '15px',
-                maxHeight: '15px',
-                overflow: 'scroll',
-                overflowY: 'scroll',
-            }
-            case 'lg' || 'xl':
-              return {
-                color: '#ffffff',
-                  // fontWeight: 'bold',
-                  fontSize: '12px',
-                  fontWeight: 'bold',
-                  height: '32px',
-                  maxHeight: '32px',
-                  overflow: 'scroll',
-                  overflowY: 'scroll',
-              }
-        }
-      }
-
     },
     methods: {
       enterSpace(space) {
@@ -473,16 +238,138 @@
           })
         }
       },
-      formalizeTime(time) {
-        return moment(time).fromNow()
-      },
-      posterBackground(item) {
-        return this.base_background_url + item.image_path
-      },
+      // posterBackground(item) {
+      //   return this.base_background_url + item.image_path
+      // },
       posterImg(path) {
         return this.base_img_url + path
       },
-    }
+    },
+    computed: {
+      // gridIcon() {
+      //   switch (this.$vuetify.breakpoint.name) {
+      //     case 'xs':
+      //       return 'ml-5'
+      //     case 'sm':
+      //     case 'md':
+      //     case 'lg':
+      //     case 'xl':
+      //       return 'ml-14 mt-1'
+      //   }
+      // },
+      // gridTime() {
+      //   switch (this.$vuetify.breakpoint.name) {
+      //     case 'xs':
+      //       return 'ml-1 mt-1'
+      //     case 'sm':
+      //     case 'md':
+      //       return 'ml-n4'
+      //     case 'lg':
+      //     case 'xl':
+      //       return 'ml-n5 mt-1'
+      //   }
+      // },
+      // gridComment() {
+      //   switch (this.$vuetify.breakpoint.name) {
+      //     case 'xs':
+      //       return 'desc-text mt-1 ml-2'
+      //     case 'sm':
+      //     case 'md':
+      //     case 'lg':
+      //     case 'xl':
+      //       return 'desc-text ml-1 mt-n1'
+      //   }
+      // },
+      // gridNumberText() {
+      //   switch (this.$vuetify.breakpoint.name) {
+      //     case 'xs':
+      //       return {
+      //         fontSize: '8px',
+      //           color: '#5d666e'
+      //       }
+      //       case 'sm':
+      //       case 'md':
+      //       case 'lg':
+      //       case 'xl':
+      //         return {
+      //           fontSize: '13px',
+      //             color: '#5d666e'
+      //         }
+      //   }
+      // },
+      // gridNumber() {
+      //   switch (this.$vuetify.breakpoint.name) {
+      //     case 'xs':
+      //       return 'mt-2 ml-n1'
+      //     case 'sm':
+      //     case 'md':
+      //     case 'lg':
+      //     case 'xl':
+      //       return ' mt-1'
+      //   }
+      // },
+      // gridBottom() {
+      //   switch (this.$vuetify.breakpoint.name) {
+      //     case 'xs':
+      //       return 'mt-1'
+      //     case 'sm':
+      //     case 'md':
+      //     case 'lg':
+      //     case 'xl':
+      //       return 'ml-n6 mt-3'
+      //   }
+      // },
+      // gridLabel() {
+      //   switch (this.$vuetify.breakpoint.name) {
+      //     case 'xs':
+      //       return 'label ml-5 mt-1'
+      //     case 'sm':
+      //       return 'label ml-1 mt-1'
+      //     case 'md':
+      //     case 'lg':
+      //     case 'xl':
+      //       return 'label'
+      //   }
+      // },
+      // gridName() {
+      //   switch (this.$vuetify.breakpoint.name) {
+      //     case 'xs':
+      //       return 'ml-6'
+      //     case 'sm':
+      //       return 'ml-2'
+      //     case 'md':
+      //     case 'lg':
+      //     case 'xl':
+      //       return ''
+      //   }
+      // },
+      vColSummaryStyle() {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs' || 'sm' || 'md':
+            return {
+              color: '#111111',
+                fontWeight: 'bold',
+                fontSize: '12px',
+                height: '15px',
+                maxHeight: '15px',
+                overflow: 'scroll',
+                overflowY: 'scroll',
+            }
+            case 'lg' || 'xl':
+              return {
+                color: '#ffffff',
+                  // fontWeight: 'bold',
+                  fontSize: '12px',
+                  fontWeight: 'bold',
+                  height: '32px',
+                  maxHeight: '32px',
+                  overflow: 'scroll',
+                  overflowY: 'scroll',
+              }
+        }
+      }
+
+    },
   }
 </script>
 

@@ -4,17 +4,17 @@
     <v-toolbar-title style="font-weight: bold; color: #ffffff" :class="headerTitle" @click="goTop()">
       devio
     </v-toolbar-title>
-    <v-toolbar-title style="font-size: 12px; font-weight: bold; color: #ffffff" class="ml-16 mt-1" @click="goTop()">
+    <v-toolbar-title style="font-size: 12px; font-weight: bold; color: #ffffff" class="ml-16" @click="goTop()">
     人気
     </v-toolbar-title>
-    <v-toolbar-title style="font-size: 12px; font-weight: bold; color: #ffffff" class="ml-8 mt-1" @click="goTop()">
+    <v-toolbar-title style="font-size: 12px; font-weight: bold; color: #ffffff" class="ml-8" @click="goTop()">
     新着
     </v-toolbar-title>
-    <v-toolbar-title style="font-size: 12px; font-weight: bold; color: #ffffff" class="ml-8 mt-1" @click="goTop()">
+    <v-toolbar-title style="font-size: 12px; font-weight: bold; color: #ffffff" class="ml-8" @click="goTop()">
     高評価
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-text-field placeholder="気になる作品を検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
+    <v-text-field dark placeholder="気になる作品を検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
       :full-width="true" v-if="this.checkAuthorization()" dense
       background-color="#0d1117" outlined solo flat class="text-field rounded-lg mt-6 ml-n16 mr-16" />
     <v-spacer></v-spacer>
@@ -22,8 +22,7 @@
       <template v-slot:activator="{on, attrs}">
         <div v-bind="attrs" v-on="on" @click="infiniteHandler()">
           <v-btn icon>
-            <!-- <v-icon size=24 color="#657786"></v-icon> -->
-            <icon-bell />
+            <icon-base icon-name="icon-bell" :viewBox="'0 0 509.369 509.369'"><icon-bell /></icon-base>
           </v-btn>
         </div>
       </template>
@@ -80,7 +79,7 @@
   export default {
     name: 'TheHeader',
     components: {
-      'icon-logo': () => import( /* webpackPrefetch */ '../Icon/IconLogo'),
+      'icon-base': () => import( /* webpackPrefetch */ '../Icon/IconBase'),
       'icon-bell': () => import( /* webpackPrefetch */ '../Icon/IconBell'),
       'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
     },
@@ -137,7 +136,7 @@
           case 'xs':
             return `logo`
           default:
-            return `logo ml-n10`
+            return `logo ml-n10 mt-n1`
         }
       }
 
@@ -247,4 +246,6 @@
     font-size: 13px;
     /* font-weight: bold */
   }
+
 </style>
+

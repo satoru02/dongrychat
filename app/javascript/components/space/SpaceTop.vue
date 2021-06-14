@@ -1,5 +1,5 @@
 <template>
-  <div class="ml-10 mt-n2">
+  <div class="ml-4 mt-n4">
     <space-header :space_data="this.space_data" />
     <v-tabs grow class="mt-4" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height">
       <v-tab
