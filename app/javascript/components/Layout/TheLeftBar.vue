@@ -105,7 +105,7 @@
         overviewText: 'Devioは、最新の配信ドラマから往年のクラシック映画まで自由に会話できるオープンコミュニティです。見たばかりの感動や興奮を、共有できる場所を目指しています。',
         tags: [],
         menus: [{
-            text: 'Home',
+            text: 'ホーム',
             icon: '<icon-home></icon-home>',
             path_name: 'Topic'
           },
@@ -115,20 +115,20 @@
             path_name: 'Following'
           },
           {
-            text: '人気の作品',
+            text: 'ウォッチリスト',
             icon: '📖',
-            path_name: 'Popular'
+            path_name: ''
           },
-          {
-            text: '新着の作品',
-            icon: `😆`,
-            path_name: 'Trend'
-          },
-          {
-            text: '評価の作品',
-            icon: '👏',
-            path_name: 'TopRated'
-          },
+          // {
+          //   text: '新着の作品',
+          //   icon: `😆`,
+          //   path_name: 'Trend'
+          // },
+          // {
+          //   text: '評価の作品',
+          //   icon: '👏',
+          //   path_name: 'TopRated'
+          // },
         ],
         header_part: {
           position: 'mt-n5 ml-n4 mr-3',

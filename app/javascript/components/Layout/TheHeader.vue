@@ -1,13 +1,22 @@
 <template>
-  <v-app-bar elevation=1 outlined app color="#161b22" dense>
+  <v-app-bar elevation=0 outlined app color="#161b22">
     <div :class="headerL" />
     <v-toolbar-title style="font-weight: bold; color: #ffffff" :class="headerTitle" @click="goTop()">
       devio
     </v-toolbar-title>
+    <v-toolbar-title style="font-size: 12px; font-weight: bold; color: #ffffff" class="ml-16 mt-1" @click="goTop()">
+    人気
+    </v-toolbar-title>
+    <v-toolbar-title style="font-size: 12px; font-weight: bold; color: #ffffff" class="ml-8 mt-1" @click="goTop()">
+    新着
+    </v-toolbar-title>
+    <v-toolbar-title style="font-size: 12px; font-weight: bold; color: #ffffff" class="ml-8 mt-1" @click="goTop()">
+    高評価
+    </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-text-field placeholder="気になる作品を検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
       :full-width="true" v-if="this.checkAuthorization()" dense
-      background-color="#0d1117" outlined solo flat class="text-field rounded-lg mt-6 ml-16 mr-16" />
+      background-color="#0d1117" outlined solo flat class="text-field rounded-lg mt-6 ml-n16 mr-16" />
     <v-spacer></v-spacer>
     <v-menu left nudge-bottom="35" nudge-height="800">
       <template v-slot:activator="{on, attrs}">

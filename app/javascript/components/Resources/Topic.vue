@@ -1,6 +1,7 @@
 <template>
-  <v-container fluid :key="componentKey" class="">
+  <v-container fluid>
     <!-- <base-banner class="ml-14" /> -->
+
     <sub-header class="ml-2 mt-n3">
       <template v-slot:popular_header="subHeaderProps">
         <h3 :class="gridSubHeader">
@@ -8,59 +9,32 @@
         </h3>
       </template>
     </sub-header>
-    <!-- <v-row>
-      <v-col lg=12>
-        <v-sheet classs height="100" color="yellow">
-              <sub-header class="ml-2 mt-n3">
-      <template v-slot:popular_header="subHeaderProps">
-        <h3 :class="gridSubHeader">
-          {{subHeaderProps.sub_header}}
-        </h3>
-      </template>
-    </sub-header>
-        </v-sheet>
-      </v-col>
-    </v-row> -->
-    <!-- <v-row :class="gridSwitcher">
-      <v-col :class="gridTv" cols=3 sm=2 md=2 lg=2 xl=1>
-        <h3 :style="switcher === false ? switchBtn.active : switchBtn.inactive">
-          <span v-if="switcher === false"></span>ドラマ
-        </h3>
-      </v-col>
-      <v-col :class="gridMv" cols=2 sm=2 md=1 lg=1 xl=1>
-        <h3 :style="switcher === true ? switchBtn.active : switchBtn.inactive">
-          <span v-if="switcher === true"></span>映画
-        </h3>
-      </v-col>
-      <v-col cols=6 sm=7 md=8 lg=7 xl=9 />
-      <v-col class='ml-10' v-if="$vuetify.breakpoint.name != 'xs'" cols=1 sm=1 md=1 lg=1 xl=1>
-        <v-switch v-model="switcher" color='blue' dense inset />
-      </v-col>
-    </v-row> -->
-     <v-tabs height="40" class="mt-n1 ml-5" background-color='#ffffff'>
-      <v-tabs-slider color="#111111" height="1"></v-tabs-slider>
-      <v-tab class="tab-name" color="#111111" active-class="black--text"
-        v-for="(tablist, index) in tabs" :key="index">
-        <!-- <v-icon> -->
-          <icon-tv v-if="tablist === 'ドラマ'" class="ml-n2 mr-2" />
-          <icon-movie v-if="tablist === '映画'" class="ml-n2 mr-2" />
-        <!-- </v-icon> -->
-        {{tablist}}
+
+    <v-tabs height="40" class="mt-n1 ml-5" background-color='#ffffff'>
+      <v-tabs-slider color="#111111"></v-tabs-slider>
+      <v-tab @click="changeContents(tab)" class="tab-name" active-class="black--text" v-for="(tab, index) in tabs"
+        :key="index">
+        <icon-tv v-if="tab === 'ドラマ'" class="ml-n2 mr-2" />
+        <icon-movie v-if="tab === '映画'" class="ml-n2 mr-2" />
+        {{tab}}
       </v-tab>
     </v-tabs>
+
     <v-divider class="ml-6" />
+
     <v-row no-gutters class="mt-2 mb-2">
       <v-col lg=1></v-col>
-      <v-col lg=2 class="ml-7" style="font-size: 12px;">タイトル</v-col>
-      <v-col lg=3></v-col>
-      <v-col lg=4 class="ml-2" style="font-size: 12px;">詳細</v-col>
+      <v-col lg=5 class="ml-7" style="font-size: 11px; font-weight: bold;">タイトル</v-col>
+      <v-col lg=4 class="ml-2" style="font-size: 11px; font-weight: bold;">詳細</v-col>
       <v-col lg=1 class="ml-11" style="font-size: 12px;">
         <icon-user />
       </v-col>
     </v-row>
+
     <v-divider class="ml-5" />
+
     <base-card class="mt-n3" :items="items" :loading="loading" />
-    <base-loader :handler="infiniteHandler" :wrapper="true" :text="loaderText" />
+    <base-loader :infiniteId="componentKey" :handler="infiniteHandler" :wrapper="true" :text="loaderText" />
   </v-container>
 </template>
 
@@ -84,17 +58,16 @@
     data() {
       return {
         tabs: [
+          'ドラマ',
           '映画',
-          'ドラマ'
-
         ],
         loaderText: '現在チャット中のスペースはありません。',
+        componentKey: 0,
+        page: 1,
+        pageSize: 10,
         items: [],
         loading: false,
         switcher: false,
-        page: 1,
-        pageSize: 10,
-        componentKey: 0,
         query_media: 'tv',
         error: '',
         media: {
@@ -102,26 +75,10 @@
           movie: 'mv',
         },
         tv: {
-          header: 'テレビ',
           pathName: 'TvSpace'
         },
         movie: {
-          header: '映画',
           pathName: 'MvSpace'
-        },
-        switchBtn: {
-          active: {
-            fontSize: '13px',
-            fontWeight: 'bold',
-            color: '#000000',
-            letterSpacing: '1px'
-          },
-          inactive: {
-            fontSize: '13px',
-            fontWeight: 'bold',
-            color: '#657786',
-            letterSpacing: '1px'
-          }
         },
       }
     },
@@ -135,52 +92,6 @@
         } else if (this.switcher === true) {
           this.query_media = this.media.movie
           this.forceRerender()
-        }
-      }
-    },
-    computed: {
-      gridTv() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 'mt-4'
-          case 'sm':
-          case 'md':
-          case 'lg':
-          case 'xl':
-            return 'mt-4 ml-n3'
-        }
-      },
-      gridMv() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 'mt-4'
-          case 'sm':
-          case 'md':
-          case 'lg':
-          case 'xl':
-            return 'mt-4 ml-n7'
-        }
-      },
-      gridSwitcher() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 'mt-n3 mb-5'
-          case 'sm':
-          case 'md':
-          case 'lg':
-          case 'xl':
-            return 'ml-1'
-        }
-      },
-      gridSubHeader() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 'sub-header'
-          case 'sm':
-          case 'md':
-          case 'lg':
-          case 'xl':
-            return 'sub-header mt-4'
         }
       }
     },
@@ -238,7 +149,60 @@
           })
         }
       },
-    }
+      changeContents(tab) {
+        if (tab === 'ドラマ') {
+          this.switcher = false
+        } else if (tab === '映画') {
+          this.switcher = true
+        }
+      }
+    },
+    computed: {
+      gridTv() {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return 'mt-4'
+          case 'sm':
+          case 'md':
+          case 'lg':
+          case 'xl':
+            return 'mt-4 ml-n3'
+        }
+      },
+      gridMv() {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return 'mt-4'
+          case 'sm':
+          case 'md':
+          case 'lg':
+          case 'xl':
+            return 'mt-4 ml-n7'
+        }
+      },
+      gridSwitcher() {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return 'mt-n3 mb-5'
+          case 'sm':
+          case 'md':
+          case 'lg':
+          case 'xl':
+            return 'ml-1'
+        }
+      },
+      gridSubHeader() {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return 'sub-header'
+          case 'sm':
+          case 'md':
+          case 'lg':
+          case 'xl':
+            return 'sub-header mt-4'
+        }
+      }
+    },
   }
 </script>
 
@@ -252,10 +216,10 @@
     font-size: 15px;
     color: #111111;
   }
+
   .tab-name {
     font-weight: bold;
     font-size: 14px;
     color: #24292e;
-    /* height: 53px; */
   }
 </style>
