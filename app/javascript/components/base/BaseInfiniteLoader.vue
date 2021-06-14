@@ -1,41 +1,41 @@
 <template>
-  <infinite-loading :identifier="infiniteId" spinner="circles" @infinite="handler" :force-use-infinite-wrapper="wrapper">
-    <span slot="no-more" :style="textStyle">
+  <infinite-loading :identifier="infiniteId" spinner="circles" @infinite="handler"
+    :force-use-infinite-wrapper="wrapper">
+    <span slot="no-more" class="loading-text">
     </span>
-    <span slot="no-results" :style="textStyle" class="ml-5">
+    <span slot="no-results" class="ml-5 loading-text">
       {{text}}
     </span>
   </infinite-loading>
 </template>
 
 <script>
-export default {
-  name: 'BaseInfiniteLoader',
-  props: {
-    handler: {
-      type: Function,
-      required: true,
-    },
-    wrapper: {
-      type: Boolean,
-    },
-    text: {
-      type: String,
-      required: true,
-    },
-    infiniteId: {
-      type: Number,
-      default: 0,
-    }
-  },
-  data(){
-    return {
-      textStyle: {
-        color: '#111111',
-        fontWeight: 'bold',
-        fontSize: '11px',
+  export default {
+    name: 'BaseInfiniteLoader',
+    props: {
+      handler: {
+        type: Function,
+        required: true,
+      },
+      wrapper: {
+        type: Boolean,
+      },
+      text: {
+        type: String,
+        required: true,
+      },
+      infiniteId: {
+        type: Number,
+        default: 0,
       }
-    }
+    },
   }
-}
 </script>
+
+<style scoped>
+  .loading-text {
+    color: #111111;
+    font-weight: bold;
+    font-size: 11px;
+  }
+</style>

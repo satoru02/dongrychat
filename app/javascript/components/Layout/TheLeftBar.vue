@@ -85,7 +85,7 @@
   export default {
     name: "TheLeftBar",
     components: {
-      'icon-home': () => import( /* webpackPrefetch: true */ '../Icons/IconHome.vue')
+      'icon-home': () => import( /* webpackPrefetch: true */ '../Icon/IconHome.vue')
     },
     data() {
       return {

@@ -80,8 +80,8 @@
   export default {
     name: 'TheHeader',
     components: {
-      'icon-logo': () => import( /* webpackPrefetch */ '../Icons/IconLogo'),
-      'icon-bell': () => import( /* webpackPrefetch */ '../Icons/IconBell'),
+      'icon-logo': () => import( /* webpackPrefetch */ '../Icon/IconLogo'),
+      'icon-bell': () => import( /* webpackPrefetch */ '../Icon/IconBell'),
       'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
     },
     data() {

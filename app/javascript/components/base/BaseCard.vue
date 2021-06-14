@@ -153,7 +153,7 @@
     name: 'BaseCard',
     components: {
       'base-label': () => import( /* webpackPrefetch: true */ '../Base/BaseLabel'),
-      'icon-checkbox': () => import( /* webpackPrefetch: true */ '../Icons/IconCheckbox.vue'),
+      'icon-checkbox': () => import( /* webpackPrefetch: true */ '../Icon/IconCheckbox.vue'),
     },
     props: {
       items: '',

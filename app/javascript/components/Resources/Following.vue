@@ -77,7 +77,7 @@
       'base-label': () => import( /* webpackPrefetch: true */ '../Base/BaseLabel'),
       'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
       'sub-header': () => import( /* webpackPrefetch: true */ '../Layout/TheSubHeader'),
-      'icon-poster':() => import(/* webpackPrefetch: true */ '../Icons/IconPoster'),
+      'icon-poster':() => import(/* webpackPrefetch: true */ '../Icon/IconPoster'),
     },
     data() {
       return {

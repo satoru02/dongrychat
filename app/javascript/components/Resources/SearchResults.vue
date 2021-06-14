@@ -62,8 +62,8 @@
     name: 'SearchResults',
     components: {
       'base-list': () => import(/* webpackPrefetch: true */ '../Base/BaseList'),
-      // 'icon-base': () => import(/* webpackPrefetch: true */ '../Icons/IconBase'),
-      'icon-poster':() => import(/* webpackPrefetch: true */ '../Icons/IconPoster'),
+      // 'icon-base': () => import(/* webpackPrefetch: true */ '../Icon/IconBase'),
+      'icon-poster':() => import(/* webpackPrefetch: true */ '../Icon/IconPoster'),
     },
     data() {
       return {

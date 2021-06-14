@@ -51,9 +51,9 @@
       'sub-header': () => import( /* webpackPrefetch: true */ '../Layout/TheSubHeader'),
       'base-card': () => import( /* webpackPrefetch: true */ '../Base/BaseCard'),
       'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
-      'icon-user': () => import( /* webpackPrefetch: true */ '../Icons/IconUser.vue'),
-      'icon-tv': () => import( /* webpackPrefetch: true */ '../Icons/IconTv.vue'),
-      'icon-movie': () => import( /* webpackPrefetch: true */ '../Icons/IconMovie.vue'),
+      'icon-user': () => import( /* webpackPrefetch: true */ '../Icon/IconUser.vue'),
+      'icon-tv': () => import( /* webpackPrefetch: true */ '../Icon/IconTv.vue'),
+      'icon-movie': () => import( /* webpackPrefetch: true */ '../Icon/IconMovie.vue'),
     },
     data() {
       return {
