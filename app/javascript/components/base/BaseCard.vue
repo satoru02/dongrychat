@@ -1,13 +1,16 @@
 <template>
   <v-container>
+
     <v-list two-line>
       <v-list-item-group multiple>
         <template>
           <v-list-item active-class="white--text" @click="enterSpace(item.attributes)" :key="index"
             v-for="(item, index) in items">
             <template v-slot:default="">
-              <v-list-item-avatar class="ml-n5" style="font-size:9px;">
-                {{index + 1}}
+              <v-list-item-avatar class="ml-n5" style="font-size:9px; color: #606770;">
+                <!-- <v-btn label outlined x-small> -->
+                  {{index + 1}}
+                <!-- </v-btn> -->
               </v-list-item-avatar>
               <v-badge style="font-weight: bold;" offset-x="26" v-if="item.attributes.users.length" offset-y="26"
                 color="#32cbff" icon="mdi-lock" overlap :content="item.attributes.users.length">
@@ -54,93 +57,14 @@
                   :viewBox="'0 0 512 512'">
                   <icon-checkbox />
                 </icon-base>
-                <!-- {{Math.floor}} -->
               </v-list-item-action>
-              <!-- <v-list-item-action class="">
-                <icon-checkbox />
-              </v-list-item-action>
-              <v-list-item-action class="comment-count">
-                4321
-              </v-list-item-action> -->
             </template>
           </v-list-item>
         </template>
       </v-list-item-group>
     </v-list>
+
   </v-container>
-
-  <!-- <v-container fluid class="mt-n4 ml-n3">
-    <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
-      <v-sheet style="cursor: pointer;" :elevation="hover ? 16 : 0" class="rounded-lg mb-6"
-        @click="enterSpace(item.attributes)">
-        <v-img :src="posterBackground(item.attributes)" position="center right"
-          gradient="to left, rgba(0 0 0 / 7%), rgb(0 0 0)" class="rounded-lg" height="129px">
-          <v-row class="mt-n5">
-            <v-col cols=2 sm=2 md=2 lg=1 xl=2>
-              <v-avatar class="rounded ml-6 mt-6" size="80" height='103'>
-                <v-img :src="posterImg(item.attributes)" />
-              </v-avatar>
-            </v-col>
-            <v-col cols=9 sm=9 md=9 lg=9 xl=9 class="ml-7 mt-6">
-              <v-row dense :style="vRowLabel.style">
-                <v-col cols=12 sm=12 md=12 lg=12 xl=12>
-                  <base-label class="ml-8 rounded-xl" font_size="13px" :label="true"
-                    v-if="item.attributes.media === 'tv'" :x_small="true" :color="'#4ad66d'" :outlined="true"
-                    :text_color="'#4ad66d'" :season="item.attributes.season" :episode="item.attributes.episode"
-                    :title="item.attributes.episode_title" />
-                  <v-chip class="ml-9 rounded-xl" v-if="item.attributes.media === media.mv" x-small outlined label
-                    :color="'yellow'" :style="chipLabel.label.style" v-text="'MOVIE'" />
-                </v-col>
-              </v-row>
-              <v-row class="ml-n5 mt-n2">
-                <v-col lg=1></v-col>
-                <v-col cols=8 sm=10 md=10 lg=11 xl=10>
-                  <span :style="vColTitle.style">{{item.attributes.name}}</span>
-                  <span>
-                    <v-btn x-small elevation=0 :style="chipLabel.label.style" v-if="$vuetify.breakpoint.name != 'xs'"
-                      color="#fee440" class="rounded-xl ml-2 mt-n1">
-                      {{item.attributes.users.length}}
-                    </v-btn>
-                  </span>
-                </v-col>
-              </v-row>
-
-              <v-row v-if="item.attributes.latest_comment.content" class="mt-n6">
-                <v-col class="ml-9" cols=11 sm=12 md=12 lg=11 xl=12 :style="vColSummaryStyle">
-                  {{item.attributes.latest_comment.content}}</v-col>
-              </v-row>
-
-              <v-row :class="gridBottom" dense>
-                <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="gridIcon">
-                  <v-avatar size="19">
-                    <v-img v-if="item.attributes.latest_comment_user.data.attributes.avatar_url"
-                      :src="item.attributes.latest_comment_user.data.attributes.avatar_url" />
-                    <v-img v-else
-                      src="https://gravatar.com/avatar/6ee07d61d8988eff9a020e93752680c4?s=400&d=robohash&r=x" />
-                  </v-avatar>
-                </v-col>
-                <v-col cols=10 sm=10 md=10 lg=5 xl=10 :class="gridTime">
-                  <span class="user-name" v-if="item.attributes.latest_comment_user !== null">
-                    {{item.attributes.latest_comment_user.data.attributes.name}}
-                  </span>
-                  <span class="user-name" v-else>
-                    no name
-                  </span>
-                  <span class="time-text" v-if="item.attributes.latest_comment !== null">
-                    {{formalizeTime(item.attributes.latest_comment.created_at)}}
-                  </span>
-                  <span class="time-text" v-else>
-                    12:00
-                  </span>
-                </v-col>
-                <v-col cols=2 sm=3 md=1 lg=1 xl=1 />
-              </v-row>
-            </v-col>
-          </v-row>
-        </v-img>
-      </v-sheet>
-    </v-hover>
-  </v-container> -->
 </template>
 
 <script>
@@ -159,7 +83,6 @@
       return {
         cdn: process.env.AWS_CLOUDFRONT,
         img: `tv.jpg`,
-        // base_background_url: `https://image.tmdb.org/t/p/original`,
         base_img_url: `https://image.tmdb.org/t/p/w200`,
         descText: {
           color: '#111111',
@@ -176,22 +99,6 @@
         },
         params: {},
         subscribed: Boolean,
-        // vColTitle: {
-        //   style: {
-        //     color: '#ffffff',
-        //     fontWeight: 'bold',
-        //     fontSize: '17px',
-        //     cursor: 'pointer',
-        //     lineHeight: '30px'
-        //   },
-        //   hoverStyle: {
-        //     color: '#3a86ff',
-        //     fontWeight: 'bold',
-        //     fontSize: '20px',
-        //     cursor: 'pointer',
-        //     lineHeight: '30px'
-        //   }
-        // },
         chipLabel: {
           label: {
             yellow: '#f7e733',
@@ -203,12 +110,6 @@
             }
           },
         },
-        // vRowLabel: {
-        //   style: {
-        //     maxHeight: '35px',
-        //     fontWeight: 'bold',
-        //   }
-        // },
       }
     },
     methods: {
@@ -238,111 +139,11 @@
           })
         }
       },
-      // posterBackground(item) {
-      //   return this.base_background_url + item.image_path
-      // },
       posterImg(path) {
         return this.base_img_url + path
       },
     },
     computed: {
-      // gridIcon() {
-      //   switch (this.$vuetify.breakpoint.name) {
-      //     case 'xs':
-      //       return 'ml-5'
-      //     case 'sm':
-      //     case 'md':
-      //     case 'lg':
-      //     case 'xl':
-      //       return 'ml-14 mt-1'
-      //   }
-      // },
-      // gridTime() {
-      //   switch (this.$vuetify.breakpoint.name) {
-      //     case 'xs':
-      //       return 'ml-1 mt-1'
-      //     case 'sm':
-      //     case 'md':
-      //       return 'ml-n4'
-      //     case 'lg':
-      //     case 'xl':
-      //       return 'ml-n5 mt-1'
-      //   }
-      // },
-      // gridComment() {
-      //   switch (this.$vuetify.breakpoint.name) {
-      //     case 'xs':
-      //       return 'desc-text mt-1 ml-2'
-      //     case 'sm':
-      //     case 'md':
-      //     case 'lg':
-      //     case 'xl':
-      //       return 'desc-text ml-1 mt-n1'
-      //   }
-      // },
-      // gridNumberText() {
-      //   switch (this.$vuetify.breakpoint.name) {
-      //     case 'xs':
-      //       return {
-      //         fontSize: '8px',
-      //           color: '#5d666e'
-      //       }
-      //       case 'sm':
-      //       case 'md':
-      //       case 'lg':
-      //       case 'xl':
-      //         return {
-      //           fontSize: '13px',
-      //             color: '#5d666e'
-      //         }
-      //   }
-      // },
-      // gridNumber() {
-      //   switch (this.$vuetify.breakpoint.name) {
-      //     case 'xs':
-      //       return 'mt-2 ml-n1'
-      //     case 'sm':
-      //     case 'md':
-      //     case 'lg':
-      //     case 'xl':
-      //       return ' mt-1'
-      //   }
-      // },
-      // gridBottom() {
-      //   switch (this.$vuetify.breakpoint.name) {
-      //     case 'xs':
-      //       return 'mt-1'
-      //     case 'sm':
-      //     case 'md':
-      //     case 'lg':
-      //     case 'xl':
-      //       return 'ml-n6 mt-3'
-      //   }
-      // },
-      // gridLabel() {
-      //   switch (this.$vuetify.breakpoint.name) {
-      //     case 'xs':
-      //       return 'label ml-5 mt-1'
-      //     case 'sm':
-      //       return 'label ml-1 mt-1'
-      //     case 'md':
-      //     case 'lg':
-      //     case 'xl':
-      //       return 'label'
-      //   }
-      // },
-      // gridName() {
-      //   switch (this.$vuetify.breakpoint.name) {
-      //     case 'xs':
-      //       return 'ml-6'
-      //     case 'sm':
-      //       return 'ml-2'
-      //     case 'md':
-      //     case 'lg':
-      //     case 'xl':
-      //       return ''
-      //   }
-      // },
       vColSummaryStyle() {
         switch (this.$vuetify.breakpoint.name) {
           case 'xs' || 'sm' || 'md':
@@ -398,15 +199,12 @@
   .contents-name {
     font-weight: bold;
     font-size: 15px;
-    /* letter-spacing: 0.031rem; */
     color: #24292e;
-    /* height: 53px; */
   }
 
   .comment-name {
-    font-weight: bold;
+    /* font-weight: bold; */
     font-size: 12px;
     color: #3b3f46;
-    /* height: 53px; */
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <v-app class="the-main-part">
+  <v-app>
     <the-header />
     <v-main style="background-color: #ffffff;">
       <v-row>

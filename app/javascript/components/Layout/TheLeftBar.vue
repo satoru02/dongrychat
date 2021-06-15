@@ -7,7 +7,7 @@
           <v-list-item dense active-class="black--text" :style="hover ? 'background-color: #f5f8fa;' : ''"
             @click="changeRoute(item.path_name)" class="ml-2">
             <v-list-item-icon>
-              <v-badge dot offset-x="4" offset-y="11" overlap color="#f72585" v-if="item.text === 'フォロー中' && new_comments > 0">
+              <v-badge dot offset-x="2" offset-y="7" overlap color="#3a86ff" v-if="item.text === 'フォロー中' && new_comments > 0">
               <v-list-item-subtitle class="mt-1" :size="icon.size">
                 <icon-home />
               </v-list-item-subtitle>
@@ -172,7 +172,7 @@
           style: {
             fontWeight: '700',
             fontSize: '14px',
-            color: '#3b454e'
+            color: '#606770'
           }
         },
         btn: {

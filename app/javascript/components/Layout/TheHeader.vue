@@ -1,28 +1,41 @@
 <template>
-  <v-app-bar elevation=0 outlined app color="#161b22">
+  <v-app-bar elevation=1 outlined app dense color="#ffffff">
     <div :class="headerL" />
-    <v-toolbar-title style="font-weight: bold; color: #ffffff" :class="headerTitle" @click="goTop()">
-      devio
+    <v-toolbar-title style="font-weight: bold; color: #111111" :class="headerTitle" @click="goTop()">
+      ドラマ部
     </v-toolbar-title>
-    <v-toolbar-title style="font-size: 12px; font-weight: bold; color: #ffffff" class="ml-16" @click="goTop()">
-    人気
+    <v-toolbar-title class="ml-16" @click="goTop()">
+      <!-- <v-badge dot overlap offset-x="20" offset-y="13"> -->
+      <v-btn text color="#ffffff" style="font-size: 12px; font-weight: bold; color: #111111">
+        <icon-new class="mr-3" />新着</v-btn>
+      <!-- </v-badge> -->
     </v-toolbar-title>
-    <v-toolbar-title style="font-size: 12px; font-weight: bold; color: #ffffff" class="ml-8" @click="goTop()">
-    新着
+    <v-toolbar-title class="ml-3" @click="goTop()">
+      <v-btn text color="#ffffff" style="font-size: 12px; font-weight: bold; color: #111111">
+        <!-- <icon-hot class="mr-3" /> -->
+        人気
+      </v-btn>
+
     </v-toolbar-title>
-    <v-toolbar-title style="font-size: 12px; font-weight: bold; color: #ffffff" class="ml-8" @click="goTop()">
-    高評価
+    <v-toolbar-title class="ml-3" @click="goTop()">
+      <v-btn text color="#ffffff" style="font-size: 12px; font-weight: bold; color: #111111">
+        <!-- <icon-star class="mr-3" /> -->
+        高評価
+        </v-btn>
+
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-text-field dark placeholder="気になる作品を検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
-      :full-width="true" v-if="this.checkAuthorization()" dense
-      background-color="#0d1117" outlined solo flat class="text-field rounded-lg mt-6 ml-n16 mr-16" />
+    <v-text-field placeholder="気になる作品を検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
+      :full-width="true" v-if="this.checkAuthorization()" dense background-color="#f4f8fb" solo flat
+      class="text-field rounded-lg mt-7 ml-n16 mr-16" />
     <v-spacer></v-spacer>
     <v-menu left nudge-bottom="35" nudge-height="800">
       <template v-slot:activator="{on, attrs}">
         <div v-bind="attrs" v-on="on" @click="infiniteHandler()">
           <v-btn icon>
-            <icon-base icon-name="icon-bell" :viewBox="'0 0 509.369 509.369'"><icon-bell /></icon-base>
+            <icon-base icon-name="icon-bell" :iconColor="'#606770'" :viewBox="'0 0 509.369 509.369'">
+              <icon-bell />
+            </icon-base>
           </v-btn>
         </div>
       </template>
@@ -30,7 +43,8 @@
         <v-list-item v-for="(notification, index) in notifications" :key=index link :to='"/notifications"'>
           <v-list-item-icon>
             <v-avatar size=30>
-              <v-img v-if="notification.attributes.sender.data.attributes.avatar_url" :src="notification.attributes.sender.data.attributes.avatar_url">
+              <v-img v-if="notification.attributes.sender.data.attributes.avatar_url"
+                :src="notification.attributes.sender.data.attributes.avatar_url">
               </v-img>
               <v-img v-else src="https://gravatar.com/avatar/6ee07d61d8988eff9a020e93752680c4?s=400&d=robohash&r=x">
               </v-img>
@@ -70,7 +84,6 @@
 </template>
 
 <script>
-
   import {
     RepositoryFactory
   } from '../../repositories/RepositoryFactory';
@@ -80,7 +93,10 @@
     name: 'TheHeader',
     components: {
       'icon-base': () => import( /* webpackPrefetch */ '../Icon/IconBase'),
+      // 'icon-hot': () => import( /* webpackPrefetch */ '../Icon/IconHot'),
       'icon-bell': () => import( /* webpackPrefetch */ '../Icon/IconBell'),
+      'icon-new': () => import( /* webpackPrefetch */ '../Icon/IconNew'),
+      // 'icon-star': () => import( /* webpackPrefetch */ '../Icon/IconStar'),
       'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
     },
     data() {
@@ -246,6 +262,4 @@
     font-size: 13px;
     /* font-weight: bold */
   }
-
 </style>
-

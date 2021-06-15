@@ -1,5 +1,6 @@
 <template>
-  <v-container fluid class="ml-6">
+  <v-container fluid>
+
     <sub-header>
       <template v-slot:home_header="subHeaderProps">
         <h3 :class="gridSubHeader">
@@ -7,59 +8,51 @@
         </h3>
       </template>
     </sub-header>
-    <!-- <v-divider /> -->
-    <v-hover v-slot="{ hover }" v-for="(item, index) in items" :key="index">
-      <v-card outlined class="rounded-lg mb-2" :style="hover ? card.hoverStyle : card.unhoverStyle"
-        @click="enterSpace(item)" :elevation='hover ? 0 : 0' :height="gridCardHeight" :width="gridCardWidth">
-        <v-row class="mt-n1">
-          <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-5">
-            <v-avatar class="rounded-lg" :size="bindSize" :height="bindSize">
-              <v-img v-if="item.attributes.image_path" :src="base_tmdb_img_url + item.attributes.image_path" />
-              <v-img v-else size="30" height="30">
-                <icon-poster />
-              </v-img>
-            </v-avatar>
-          </v-col>
-          <v-col cols=10 sm=10 md=10 lg=10 xl=10 class="ml-n10 mt-n1">
-            <v-row>
-              <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
-              <v-col cols=10 sm=10 md=10 lg=10 xl=10 :class="$vuetify.breakpoint.width > 600 ? 'ml-n5 mt-1' : 'mt-1'"
-                :style="style.name">
-                <base-label :x_small="true" class="rounded-xl" :outlined="false" :label="true" v-if="item.attributes.media === media.tv"
-                  color="#016aff" text_color="#ffffff" :season="item.attributes.season" :episode="item.attributes.episode"
-                  :title="item.attributes.episode_title" />
-                <v-chip :style="style.movieLabel" v-if="item.attributes.media === media.movie" x-small label class="rounded-xl"
-                  color="yellow" v-text="text.movie" />
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
-              <v-col cols=9 sm=9 md=9 lg=9 xl=9 :class="$vuetify.breakpoint.width > 600 ? 'ml-n5 mt-n3' : 'mt-n4'"
-                :style="bindName">
-                {{item.attributes.name}}
-              </v-col>
-              <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-14">
-                <v-badge v-if="item.attributes.unconfirmed_comments > 0" dot />
-              </v-col>
-              <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="mt-n3 ml-n10" :style="style.notifyText"
-                v-if="item.attributes.unconfirmed_comments > 0">
-                {{item.attributes.unconfirmed_comments}}
-              </v-col>
-            </v-row>
-            <v-row v-if="$vuetify.breakpoint.width > 600" :class="$vuetify.breakpoint.width > 600 ? 'mt-n4' : 'mt-n16'">
-              <v-col cols=1 sm=1 md=1 lg=11 xl=1 class="ml-7" :style="style.comment">
-                <!-- <v-avatar size="20" class="mt-n1 ml-1">
-                  <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
-                </v-avatar> -->
-                <span class="ml-6" v-if="item.attributes.latest_comment">
-                  {{item.attributes.latest_comment.content}}
-                </span>
-              </v-col>
-            </v-row>
-          </v-col>
-        </v-row>
-      </v-card>
-    </v-hover>
+
+    <v-list two-line>
+      <v-list-item-group multiple>
+        <template>
+          <v-list-item active-class="white--text" @click="enterSpace(item)" :key="index" v-for="(item, index) in items">
+            <template v-slot:default="">
+              <v-list-item-avatar class="ml-n7" style="font-size:9px; color: #606770;">
+                <v-badge color="#3a86ff" v-if="item.attributes.unconfirmed_comments > 0" dot />
+              </v-list-item-avatar>
+              <v-list-item-avatar class="ml-n3" size="50">
+                <v-img v-if="item.attributes.image_path" :src="base_tmdb_img_url + item.attributes.image_path"></v-img>
+                <!-- <v-img v-else :src="`${cdn}/image/${img}`"></v-img> -->
+              </v-list-item-avatar>
+              <v-list-item-content class="ml-4">
+                <v-list-item-title :style="bindName">
+                  {{item.attributes.name}}
+                </v-list-item-title>
+                <v-list-item-subtitle v-if="item.attributes.latest_comment" class="mt-1"
+                  v-text="item.attributes.latest_comment.content">
+                </v-list-item-subtitle>
+                <v-list-item-subtitle v-else class="mt-1" v-text="''">
+                </v-list-item-subtitle>
+              </v-list-item-content>
+              <v-list-item-content class="ml-16">
+                <v-list-item-title style="font-weight: bold;">
+                  <base-label class="rounded" font_size="10px" :label="true" v-if="item.attributes.media === 'tv'"
+                    :small="true" :outlined="true" :text_color="'#111111'" :season="item.attributes.season"
+                    :episode="item.attributes.episode" :title="item.attributes.episode_title" />
+                  <v-chip outlined class="rounded" v-if="item.attributes.media === 'mv'" small label v-text="'映画'" />
+                </v-list-item-title>
+              </v-list-item-content>
+              <v-list-item-action>
+                <icon-base :iconColor="'#6c757d'" icon-name="icon-comment" :width="'12'" :height="'12'"
+                  :viewBox="'0 0 30.333 30.333'">
+                  <icon-comment />
+                </icon-base>
+              </v-list-item-action>
+              <v-list-item-action class="ml-n2" style="font-size: 10px; color: #6c757d; font-weight: bold;">
+                {{item.attributes.comments_count}}
+              </v-list-item-action>
+            </template>
+          </v-list-item>
+        </template>
+      </v-list-item-group>
+    </v-list>
     <base-loader :handler="infiniteHandler" :text="text.loading" />
   </v-container>
 </template>
@@ -68,7 +61,6 @@
   import {
     RepositoryFactory
   } from '../../repositories/RepositoryFactory';
-  import moment from 'moment';
   const usersRepository = RepositoryFactory.get('users');
 
   export default {
@@ -77,11 +69,12 @@
       'base-label': () => import( /* webpackPrefetch: true */ '../Base/BaseLabel'),
       'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
       'sub-header': () => import( /* webpackPrefetch: true */ '../Layout/TheSubHeader'),
-      'icon-poster':() => import(/* webpackPrefetch: true */ '../Icon/IconPoster'),
+      'icon-base': () => import( /* webpackPrefetch: true */ '../Icon/IconBase'),
+      'icon-comment': () => import( /* webpackPrefetch: true */ '../Icon/IconComment'),
     },
     data() {
       return {
-        base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
+        base_tmdb_img_url: `https://image.tmdb.org/t/p/w200`,
         items: [],
         page: 1,
         pageSize: 10,
@@ -99,46 +92,6 @@
           movie: 'Movie',
           loading: '気になるドラマのチャットに参加してみよう！'
         },
-        listAvatar: {
-          size: 77,
-          height: 77,
-        },
-        avatar: {
-          size: 28,
-          height: 28,
-        },
-        card: {
-          height: '90px',
-          hoverStyle: {
-            backgroundColor: '#edf2f4'
-          },
-          unhoverStyle: {
-            backgroundColor: '#ffffff'
-          }
-        },
-        style: {
-          name: {
-            fontWeight: 'bold',
-            fontSize: '15px',
-            color: '#111111'
-          },
-          comment: {
-            fontSize: '12px',
-            color: '#011627',
-            height: '33px',
-            maxHeight: '33px',
-            overflowY: 'auto'
-          },
-          notifyText: {
-            fontSize: '13px',
-            fontWeight: 'bold',
-            color: '#ffffff'
-          },
-          movieLabel: {
-            fontSize: '10px',
-            color: '#111111'
-          }
-        }
       }
     },
     computed: {
@@ -151,28 +104,6 @@
           case 'lg':
           case 'xl':
             return 'sub-header mb-2 mt-1 ml-n2'
-        }
-      },
-      gridCardWidth() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return '500'
-          case 'sm':
-          case 'md':
-          case 'lg':
-          case 'xl':
-            return '1000'
-        }
-      },
-      bindSize() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 50
-          case 'sm':
-          case 'md':
-          case 'lg':
-          case 'xl':
-            return 77
         }
       },
       bindName() {
@@ -192,17 +123,6 @@
                   fontSize: '15px',
                   color: '#111111'
               }
-        }
-      },
-      gridCardHeight() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 68
-          case 'sm':
-          case 'md':
-          case 'lg':
-          case 'xl':
-            return 95
         }
       }
     },
@@ -249,7 +169,7 @@
             .then(res => {
               if (res.data.data.length) {
                 this.page += 1,
-                  this.items.push(...res.data.data)
+                this.items.push(...res.data.data)
                 $state.loaded()
               } else {
                 $state.complete();
@@ -274,18 +194,11 @@
           })
         }
       },
-      formalizeTime(time) {
-        return moment(time).format('hh:mm')
-      },
     }
   }
 </script>
 
 <style scoped>
-  .theme--light.v-sheet--outlined {
-    border: thin solid rgb(228, 228, 228);
-  }
-
   .sub-header {
     font-weight: bold;
     font-size: 15px;
