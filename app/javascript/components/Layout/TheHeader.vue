@@ -1,28 +1,24 @@
 <template>
   <v-app-bar elevation=1 outlined app dense color="#ffffff">
     <div :class="headerL" />
-    <v-toolbar-title style="font-weight: bold; color: #111111" :class="headerTitle" @click="goTop()">
+    <v-toolbar-title style="font-weight: bold; color: #111111" :class="headerTitle" @click="movePath('/')">
       ドラマ部
     </v-toolbar-title>
-    <v-toolbar-title class="ml-16" @click="goTop()">
+    <v-toolbar-title class="ml-16">
       <!-- <v-badge dot overlap offset-x="20" offset-y="13"> -->
-      <v-btn text color="#ffffff" style="font-size: 12px; font-weight: bold; color: #111111">
+      <v-btn text color="#ffffff" style="font-size: 12px; font-weight: bold; color: #111111" @click="movePath('/trend')">
         <icon-new class="mr-3" />新着</v-btn>
       <!-- </v-badge> -->
     </v-toolbar-title>
-    <v-toolbar-title class="ml-3" @click="goTop()">
-      <v-btn text color="#ffffff" style="font-size: 12px; font-weight: bold; color: #111111">
-        <!-- <icon-hot class="mr-3" /> -->
+    <v-toolbar-title class="ml-3">
+      <v-btn @click="movePath('/popular')" text color="#ffffff" style="font-size: 12px; font-weight: bold; color: #111111">
         人気
       </v-btn>
-
     </v-toolbar-title>
-    <v-toolbar-title class="ml-3" @click="goTop()">
-      <v-btn text color="#ffffff" style="font-size: 12px; font-weight: bold; color: #111111">
-        <!-- <icon-star class="mr-3" /> -->
+    <v-toolbar-title class="ml-3">
+      <v-btn @click="movePath('/top_rated')" text color="#ffffff" style="font-size: 12px; font-weight: bold; color: #111111">
         高評価
-        </v-btn>
-
+      </v-btn>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-text-field placeholder="気になる作品を検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
@@ -46,8 +42,8 @@
               <v-img v-if="notification.attributes.sender.data.attributes.avatar_url"
                 :src="notification.attributes.sender.data.attributes.avatar_url">
               </v-img>
-              <v-img v-else src="https://gravatar.com/avatar/6ee07d61d8988eff9a020e93752680c4?s=400&d=robohash&r=x">
-              </v-img>
+              <!-- <v-img v-else src="https://gravatar.com/avatar/6ee07d61d8988eff9a020e93752680c4?s=400&d=robohash&r=x">
+              </v-img> -->
             </v-avatar>
           </v-list-item-icon>
           <v-list-item-title class="list-title">
@@ -75,10 +71,9 @@
         </v-list-item>
       </v-list>
     </v-menu>
-
-    <v-btn v-if="(this.checkAuthorization()) && !$store.state.user.signedIn" @click="goLogin()" outlined small
+    <v-btn v-if="(this.checkAuthorization()) && !$store.state.user.signedIn" @click="movePath('/login')" outlined small
       color="#f6f6f9" elevation=0 class="login mr-4">ログイン</v-btn>
-    <v-btn v-if="(this.checkAuthorization()) && !$store.state.user.signedIn" @click="goSignup()" small color="#016aff"
+    <v-btn v-if="(this.checkAuthorization()) && !$store.state.user.signedIn" @click="movePath('/singup')" small color="#016aff"
       elevation=0 class="signup">アカウント登録</v-btn>
   </v-app-bar>
 </template>
@@ -93,10 +88,8 @@
     name: 'TheHeader',
     components: {
       'icon-base': () => import( /* webpackPrefetch */ '../Icon/IconBase'),
-      // 'icon-hot': () => import( /* webpackPrefetch */ '../Icon/IconHot'),
       'icon-bell': () => import( /* webpackPrefetch */ '../Icon/IconBell'),
       'icon-new': () => import( /* webpackPrefetch */ '../Icon/IconNew'),
-      // 'icon-star': () => import( /* webpackPrefetch */ '../Icon/IconStar'),
       'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
     },
     data() {
@@ -109,7 +102,8 @@
         text: {
           loading: '通知はありません。'
         },
-        items: [{
+        items: [
+          {
             icon: 'mdi-account-outline',
             title: 'プロフィール',
             name: 'Posts',
@@ -182,14 +176,8 @@
         this.query = ''
         this.canSubmit = false
       },
-      goLogin() {
-        this.$router.replace('/login')
-      },
-      goSignup() {
-        this.$router.replace('/signup')
-      },
-      goTop() {
-        this.$router.replace('/')
+      movePath(path){
+        this.$router.replace(path)
       },
       infiniteHandler($state) {
         setTimeout(() => {
@@ -206,7 +194,7 @@
                 $state.complete();
               }
             })
-        }, 50);
+        }, 0);
       }
     }
   }
@@ -260,6 +248,5 @@
   .list-title {
     color: #011627;
     font-size: 13px;
-    /* font-weight: bold */
   }
 </style>
