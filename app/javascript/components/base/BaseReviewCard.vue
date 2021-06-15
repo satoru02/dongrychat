@@ -1,7 +1,7 @@
 <template>
   <div class="mt-3">
     <v-container v-if="space_reviews">
-      <v-card class="mx-auto mb-8 rounded-lg" color="#ffffff" elevation=3 outlined
+      <v-card class="mx-auto mb-8 rounded-lg" color="#ffffff" elevation=1 outlined
         v-for="(review, index) in space_reviews" :key="index">
         <v-card-text class="text-h8 font-weight-bold" style="color:#000000;">
           {{review.attributes.content}}

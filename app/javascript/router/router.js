@@ -90,6 +90,14 @@ var router = new VueRouter({
       }
     },
     {
+      path: "/tag/:name",
+      name: "Tag",
+      meta: {
+        keepAlive: true
+      },
+      component: () => import /* webpackChunkName: "Tags" */('../components/Resources/Tag'),
+    },
+    {
       path: '/following',
       name: 'Following',
       beforeEnter: checkLoggedIn,
@@ -383,14 +391,6 @@ var router = new VueRouter({
       },
       component: () => import( /* webpackChunkName: "Notifications" */ '../components/Resources/Notification'),
     },
-    {
-      path: "/tag/:name",
-      name: "Tag",
-      meta: {
-        keepAlive: true
-      },
-      component: () => import /* webpackChunkName: "Tags" */('../components/Resources/Tag'),
-    }
   ]
 });
 

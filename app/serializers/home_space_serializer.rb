@@ -6,6 +6,10 @@ class HomeSpaceSerializer
     space.comments_unconfirmed_by(params[:current_user])
   end
 
+  attribute :comments_count do |space|
+    space.comments.size
+  end
+
   attribute :latest_comment do |space|
     space.comments.last
   end

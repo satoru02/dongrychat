@@ -1,5 +1,6 @@
 <template>
-  <v-container fluid :key="componentKey" class="ml-2">
+  <v-container fluid>
+
     <sub-header class="mt-n3 ml-1" :tag='this.$route.params.name'>
       <template v-slot:tag_header="subHeaderProps">
         <h3 :class="gridSubHeader">
@@ -7,16 +8,31 @@
         </h3>
       </template>
     </sub-header>
-    <v-tabs height="40" class="mt-n1 ml-5" background-color='#ffffff'>
+
+    <!-- <v-tabs height="40" class="mt-n1 ml-5" background-color='#ffffff'>
        <v-tabs-slider color="#000000"></v-tabs-slider>
       <v-tab class="tab-name" active-class="black--text" color="#000000"
         v-for="(tablist, index) in tabs" :key="index">
         {{tablist}}
       </v-tab>
-    </v-tabs>
+    </v-tabs> -->
+
     <v-divider class="ml-5" />
+
+    <v-row no-gutters class="mt-2 mb-2">
+      <v-col lg=1></v-col>
+      <v-col lg=5 class="ml-7" style="font-size: 11px; font-weight: bold; color: #606770;">タイトル</v-col>
+      <v-col lg=4 class="ml-2" style="font-size: 11px; font-weight: bold; color: #606770;">詳細</v-col>
+      <v-col lg=1 class="ml-9" style="font-size: 11px; font-weight: bold; color: #606770;">
+        フィルタ
+        <icon-base icon-name="icon-filter" :width="'7'" :height="'7'" :viewBox="'0 0 451.847 451.847'" :iconColor="'#606770'"><icon-filter /></icon-base>
+      </v-col>
+    </v-row>
+
+    <v-divider class="ml-5" />
+
     <base-card class="mt-n3" :items='spaces' />
-    <base-loader :handler="infiniteHandler" :text="text.loading" />
+    <base-loader :infiniteId="componentKey" :handler="infiniteHandler" :text="text.loading" />
   </v-container>
 </template>
 
@@ -31,7 +47,11 @@
     components: {
       'sub-header': () => import( /* webpackPrefetch: true */ '../Layout/TheSubHeader'),
       'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
-      'base-card': () => import( /* webpackPrefetch: true */ '../Base/BaseCard')
+      'base-card': () => import( /* webpackPrefetch: true */ '../Base/BaseCard'),
+      'icon-base': () => import( /* webpackPrefetch */ '../Icon/IconBase'),
+      'icon-tv': () => import( /* webpackPrefetch: true */ '../Icon/IconTv.vue'),
+      'icon-movie': () => import( /* webpackPrefetch: true */ '../Icon/IconMovie.vue'),
+      'icon-filter': () => import( /* webpackPrefetch: true */ '../Icon/IconFilter.vue'),
     },
     data() {
       return {
@@ -39,6 +59,7 @@
           '映画',
           'ドラマ'
         ],
+        componentKey: 0,
         spaces: [],
         componentKey: 0,
         page: 1,
@@ -110,10 +131,6 @@
 </script>
 
 <style scoped>
-  .theme--light.v-divider {
-    /* border-color: rgba(0, 0, 0, .04); */
-  }
-
   .sub-header {
     font-weight: bold;
     font-size:15px;
@@ -130,6 +147,5 @@
     font-weight: bold;
     font-size: 14px;
     color: #24292e;
-    /* height: 53px; */
   }
 </style>

@@ -1,20 +1,41 @@
 <template>
-  <v-app-bar elevation=1 outlined app color="#ffffff">
+  <v-app-bar elevation=1 outlined app dense color="#ffffff">
     <div :class="headerL" />
-    <v-toolbar-title style="font-weight: bold; color: #212529" :class="headerTitle" @click="goTop()">
-      DEVIO
+    <v-toolbar-title style="font-weight: bold; color: #111111" :class="headerTitle" @click="goTop()">
+      ドラマ部
+    </v-toolbar-title>
+    <v-toolbar-title class="ml-16" @click="goTop()">
+      <!-- <v-badge dot overlap offset-x="20" offset-y="13"> -->
+      <v-btn text color="#ffffff" style="font-size: 12px; font-weight: bold; color: #111111">
+        <icon-new class="mr-3" />新着</v-btn>
+      <!-- </v-badge> -->
+    </v-toolbar-title>
+    <v-toolbar-title class="ml-3" @click="goTop()">
+      <v-btn text color="#ffffff" style="font-size: 12px; font-weight: bold; color: #111111">
+        <!-- <icon-hot class="mr-3" /> -->
+        人気
+      </v-btn>
+
+    </v-toolbar-title>
+    <v-toolbar-title class="ml-3" @click="goTop()">
+      <v-btn text color="#ffffff" style="font-size: 12px; font-weight: bold; color: #111111">
+        <!-- <icon-star class="mr-3" /> -->
+        高評価
+        </v-btn>
+
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-text-field placeholder="気になる作品を検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
-      :full-width="true" v-if="this.checkAuthorization()" :prepend-inner-icon="'mdi-magnify'" dense
-      background-color="#e9ecef" solo flat class="text-field rounded-xl mt-6 ml-16 mr-16" />
+      :full-width="true" v-if="this.checkAuthorization()" dense background-color="#f4f8fb" solo flat
+      class="text-field rounded-lg mt-7 ml-n16 mr-16" />
     <v-spacer></v-spacer>
     <v-menu left nudge-bottom="35" nudge-height="800">
       <template v-slot:activator="{on, attrs}">
         <div v-bind="attrs" v-on="on" @click="infiniteHandler()">
           <v-btn icon>
-            <!-- <v-icon size=24 color="#657786"></v-icon> -->
-            <icon-bell />
+            <icon-base icon-name="icon-bell" :iconColor="'#606770'" :viewBox="'0 0 509.369 509.369'">
+              <icon-bell />
+            </icon-base>
           </v-btn>
         </div>
       </template>
@@ -22,7 +43,8 @@
         <v-list-item v-for="(notification, index) in notifications" :key=index link :to='"/notifications"'>
           <v-list-item-icon>
             <v-avatar size=30>
-              <v-img v-if="notification.attributes.sender.data.attributes.avatar_url" :src="notification.attributes.sender.data.attributes.avatar_url">
+              <v-img v-if="notification.attributes.sender.data.attributes.avatar_url"
+                :src="notification.attributes.sender.data.attributes.avatar_url">
               </v-img>
               <v-img v-else src="https://gravatar.com/avatar/6ee07d61d8988eff9a020e93752680c4?s=400&d=robohash&r=x">
               </v-img>
@@ -35,7 +57,7 @@
       </v-list>
       <base-loader :handler="infiniteHandler" :text="text.loading" />
     </v-menu>
-    <v-menu open-on-hover offset-y left nudge-bottom="3" nudge-left="50" nudge-height="800">
+    <v-menu flat open-on-hover offset-y left nudge-bottom="3" nudge-left="50" nudge-height="800">
       <template v-slot:activator="{on, attrs}">
         <div v-bind="attrs" v-on="on">
           <v-avatar size="25" class="ml-5 mr-16">
@@ -43,7 +65,7 @@
           </v-avatar>
         </div>
       </template>
-      <v-list class="rounded-s list" v-if="$store.state.user.signedIn">
+      <v-list elevation=0 class="rounded-s list" v-if="$store.state.user.signedIn">
         <v-list-item v-for="(item, index) in items" :key="index" :to="item.link" :icon="item.icon" link>
           <v-list-item-icon>
             <v-icon v-text="item.icon" />
@@ -62,7 +84,6 @@
 </template>
 
 <script>
-
   import {
     RepositoryFactory
   } from '../../repositories/RepositoryFactory';
@@ -71,8 +92,11 @@
   export default {
     name: 'TheHeader',
     components: {
-      'icon-logo': () => import( /* webpackPrefetch */ '../Icons/IconLogo'),
-      'icon-bell': () => import( /* webpackPrefetch */ '../Icons/IconBell'),
+      'icon-base': () => import( /* webpackPrefetch */ '../Icon/IconBase'),
+      // 'icon-hot': () => import( /* webpackPrefetch */ '../Icon/IconHot'),
+      'icon-bell': () => import( /* webpackPrefetch */ '../Icon/IconBell'),
+      'icon-new': () => import( /* webpackPrefetch */ '../Icon/IconNew'),
+      // 'icon-star': () => import( /* webpackPrefetch */ '../Icon/IconStar'),
       'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
     },
     data() {
@@ -128,7 +152,7 @@
           case 'xs':
             return `logo`
           default:
-            return `logo ml-11`
+            return `logo ml-n10 mt-n1`
         }
       }
 
@@ -214,6 +238,7 @@
 
   .text-field {
     max-width: 672px;
+    color: #ffffff;
   }
 
   .login {

@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-row>
-      <v-col lg=9></v-col>
-      <v-col lg=1>
+      <!-- <v-col lg=9></v-col> -->
+      <v-col lg=1 class="ml-n4">
         <v-btn @click="openReviewDialog()" elevation=0 outlined small color="black" class="rounded ml-7 mt-4">レビューを書く</v-btn>
       </v-col>
     </v-row>

@@ -4,7 +4,7 @@
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="vColAvatarGrid">
         <v-avatar class="mt-3" @click="goUserPage(comment.attributes.user.data.attributes)" :style="avatar.style"
           :size='avatar.size' :height='avatar.height'>
-          <img v-if="comment.attributes.user.data.attributes.avatar_url" :src="comment.attributes.user.data.attributes.avatar_url">
+          <img outlined v-if="comment.attributes.user.data.attributes.avatar_url" :src="comment.attributes.user.data.attributes.avatar_url">
           <img v-else src="https://gravatar.com/avatar/6ee07d61d8988eff9a020e93752680c4?s=400&d=robohash&r=x" />
         </v-avatar>
       </v-col>
@@ -15,7 +15,7 @@
             <span :style="time.style">・ {{formalizeTime(comment.attributes.created_at)}}</span>
           </v-col>
         </v-row>
-        <v-container class="ml-1 mt-n6" :style="content.style">
+        <v-container class="ml-1 mt-n4" :style="content.style">
           <p>{{comment.attributes.content}}</p>
         </v-container>
       </v-col>
@@ -45,14 +45,15 @@
           size: '32',
           height: '32',
           style: {
-            cursor: 'pointer'
+            cursor: 'pointer',
+            // color: '#111111',
           }
         },
         username: {
           style: {
-            color: '#495057',
+            color: '#111111',
             fontWeight: 'bold',
-            fontSize: '12px'
+            fontSize: '13px'
           }
         },
         time: {
@@ -65,7 +66,7 @@
         content: {
           style: {
             color: '#000000',
-            fontSize: '14px',
+            fontSize: '13px',
           }
         }
       }
@@ -123,9 +124,9 @@
           case 'md':
             return 'mt-7'
           case 'lg':
-            return 'ml-n7 mt-n2'
+            return 'ml-n14'
           case 'xl':
-            return 'mt-n9'
+            return 'mt-n6'
         }
       },
       vColAvatarGrid() {

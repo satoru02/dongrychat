@@ -26,7 +26,7 @@
   export default {
     name: "BaseList",
     components: {
-      'icon-poster':() => import(/* webpackPrefetch: true */ '../Icons/IconPoster'),
+      'icon-poster':() => import(/* webpackPrefetch: true */ '../Icon/IconPoster'),
     },
     props: {
       items: {

@@ -27,7 +27,7 @@
       },
       color: {
         type: String,
-        default: '#000000'
+        // default: '#000000'
       },
       textColor: {
         type: String,
