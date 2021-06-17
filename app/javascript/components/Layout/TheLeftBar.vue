@@ -1,40 +1,43 @@
 <template>
   <v-container class="left-bar ml-16 mt-n1">
-    <v-list color="#ffffff" class="rounded-lg">
-      <!-- <v-subheader :style="category" class="mb-n2 ml-1">メニュー</v-subheader> -->
-      <v-list-item-group class="mt-2">
-        <v-hover v-slot="{hover}" v-for="(item, index) in menus" :key="index">
-          <v-list-item dense active-class="black--text" :style="hover ? 'background-color: #f5f8fa;' : ''"
-            @click="changeRoute(item.path_name)" class="ml-2">
+    <v-list nav color="#ffffff" class="rounded-lg">
+      <v-subheader :style="category" class="mb-n2 ml-n1">メニュー</v-subheader>
+      <v-list-item-group color="primary" class="mt-1">
+        <v-hover v-for="(item, index) in menus" :key="index">
+          <v-list-item
+            @click="changeRoute(item.path_name)" class="ml-1">
+
             <v-list-item-icon>
               <v-badge dot offset-x="2" offset-y="7" overlap color="#3a86ff" v-if="item.text === 'フォロー中' && new_comments > 0">
-              <v-list-item-subtitle class="mt-1" :size="icon.size">
-                <icon-home />
+              <v-list-item-subtitle class="" :size="icon.size">
+                <icon-base v-if="item.text === 'ホーム'" :iconColor="'black'" icon-name="icon-home" :width="'20'" :height="'20'" :viewBox="'0 0 512.05 512.05'"><icon-home /></icon-base>
+                <icon-base v-if="item.text === 'フォロー中'" :iconColor="'black'" icon-name="icon-following" :width="'20'" :height="'20'" :viewBox="'0 0 511.996 511.996'"><icon-following /></icon-base>
+                <icon-base v-if="item.text === 'ウォッチリスト'" icon-name="icon-bookmark" :width="'15'" :height="'15'" :viewBox="'0 0 512 512'"><icon-bookmark /></icon-base>
               </v-list-item-subtitle>
               </v-badge>
-              <v-list-item-subtitle class="mt-1" v-else :size="icon.size">
-                <icon-home />
+              <v-list-item-subtitle class="" v-else :size="icon.size">
+                <icon-base v-if="item.text === 'ホーム'" :iconColor="'black'" icon-name="icon-home" :width="'20'" :height="'20'" :viewBox="'0 0 512.05 512.05'"><icon-home /></icon-base>
+                <icon-base v-if="item.text === 'フォロー中'" :iconColor="'black'" icon-name="icon-following" :width="'20'" :height="'20'" :viewBox="'0 0 511.996 511.996'"><icon-following /></icon-base>
+                <icon-base v-if="item.text === 'ウォッチリスト'" :iconColor="'black'" icon-name="icon-bookmark" :width="'20'" :height="'20'" :viewBox="'0 0 512 512'"><icon-bookmark /></icon-base>
               </v-list-item-subtitle>
             </v-list-item-icon>
+
             <v-list-item-content class="ml-n6">
               <v-list-item-title :style="list_item_title.style">
                 {{item.text}}
               </v-list-item-title>
             </v-list-item-content>
-            <!-- <v-list-item-action>
-              <v-badge class="mt-2" dot />
-            </v-list-item-action> -->
           </v-list-item>
         </v-hover>
       </v-list-item-group>
-      <v-divider color="#f6f6f9" class="mt-5 ml-3 mr-10" />
-      <v-subheader :style="category" class="mt-4 mb-1">カテゴリーから探す</v-subheader>
+      <!-- <v-divider color="#f6f6f9" class="mt-5 ml-3 mr-10" /> -->
+      <v-subheader :style="category" class="mt-4 mb-1 ml-n1">カテゴリーから探す</v-subheader>
     </v-list>
     <v-row justify="center" class="mt-n4">
-      <v-col cols="12" sm="7" md="6" lg="11" class="">
+      <v-col cols="12" sm="7" md="6" lg="11" class="ml-6">
         <v-chip-group column>
-          <v-chip small active-class="blue--text" class="mb-3" style="width: auto; font-weight: bold;"
-            @click="goTagPage(tag.attributes)" outlined label v-for="(tag) in tags"
+          <v-chip small active-class="blue--text" class="mb-3 rounded-xl" style="width: auto; font-weight: bold;"
+            @click="goTagPage(tag.attributes)" color="#ebeef1" label v-for="(tag) in tags"
             :key="tag.attributes.name">
             {{tag.attributes.name}}
           </v-chip>
@@ -85,7 +88,10 @@
   export default {
     name: "TheLeftBar",
     components: {
-      'icon-home': () => import( /* webpackPrefetch: true */ '../Icon/IconHome.vue')
+      'icon-base': () => import( /* webpackPrefetch: true */ '../Icon/IconBase.vue'),
+      'icon-home': () => import( /* webpackPrefetch: true */ '../Icon/IconHome.vue'),
+      'icon-bookmark': () => import( /* webpackPrefetch: true */ '../Icon/IconBookmark.vue'),
+      'icon-following': () => import( /* webpackPrefetch: true */ '../Icon/IconFollowing.vue')
     },
     data() {
       return {
@@ -165,14 +171,14 @@
         category: {
           fontWeight: 'bold',
           fontSize: '16px',
-          color: '#111111',
+          color: '#a9abad',
         },
         list_item_title: {
           color: '#011627',
           style: {
             fontWeight: '700',
-            fontSize: '14px',
-            color: '#606770'
+            fontSize: '16px',
+            // color: '#606770'
           }
         },
         btn: {
@@ -273,39 +279,8 @@
 </script>
 
 <style scoped>
-  .left-bar {
-    /* font-weight: bold; */
-  }
+.color {
+  color: #ebeef1
+}
 
-  .v-divider {
-    border-color: rgba(0, 0, 0, 0.082);
-    /* color: #dddddd */
-  }
-
-  .v-input__slot::before {
-    border-style: none !important;
-  }
-
-  .v-chip {
-    width: 26px;
-    min-width: 26px;
-  }
-
-  .v-chip__content {
-    margin-left: -10px;
-  }
-
-  .v-chip.v-size--x-small {
-    border-radius: 5px;
-    font-size: 11px;
-    margin-right: 10px;
-    padding-right: 20px;
-    padding-left: 5;
-  }
-
-  .tag_item {
-    font-weight: bold;
-    color: #14171a;
-    font-size: '13px';
-  }
 </style>

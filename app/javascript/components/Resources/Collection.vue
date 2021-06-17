@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="mt-3">
     <v-tabs height="40" class="mt-n1 ml-5" background-color='#ffffff'>
       <v-tabs-slider color="#111111"></v-tabs-slider>
       <v-tab @click="changeContents(tab)" class="tab-name" active-class="black--text" v-for="(tab, index) in tabs"

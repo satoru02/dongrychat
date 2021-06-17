@@ -17,7 +17,7 @@
               <v-list-item-avatar class="ml-n7" style="font-size:9px; color: #606770;">
                 <v-badge color="#3a86ff" v-if="item.attributes.unconfirmed_comments > 0" dot />
               </v-list-item-avatar>
-              <v-list-item-avatar class="ml-n3" size="50">
+              <v-list-item-avatar class="ml-n3" size="70">
                 <v-img v-if="item.attributes.image_path" :src="base_tmdb_img_url + item.attributes.image_path"></v-img>
                 <!-- <v-img v-else :src="`${cdn}/image/${img}`"></v-img> -->
               </v-list-item-avatar>
@@ -33,19 +33,19 @@
               </v-list-item-content>
               <v-list-item-content class="ml-16">
                 <v-list-item-title style="font-weight: bold;">
-                  <base-label class="rounded" font_size="10px" :label="true" v-if="item.attributes.media === 'tv'"
-                    :small="true" :outlined="true" :text_color="'#111111'" :season="item.attributes.season"
+                  <base-label class="rounded-xl" :color="'#000000'" font_size="10px" :label="true" v-if="item.attributes.media === 'tv'"
+                    :small="false" :outlined="true" :text_color="'#111111'" :season="item.attributes.season"
                     :episode="item.attributes.episode" :title="item.attributes.episode_title" />
-                  <v-chip outlined class="rounded" v-if="item.attributes.media === 'mv'" small label v-text="'映画'" />
+                  <v-chip style="font-size: 10px;" outlined class="rounded-xl" :color="'#000000'" v-if="item.attributes.media === 'mv'" label v-text="'映画'" />
                 </v-list-item-title>
               </v-list-item-content>
               <v-list-item-action>
-                <icon-base :iconColor="'#6c757d'" icon-name="icon-comment" :width="'12'" :height="'12'"
+                <icon-base :iconColor="'#6c757d'" icon-name="icon-comment" :width="'14'" :height="'14'"
                   :viewBox="'0 0 30.333 30.333'">
                   <icon-comment />
                 </icon-base>
               </v-list-item-action>
-              <v-list-item-action class="ml-n2" style="font-size: 10px; color: #6c757d; font-weight: bold;">
+              <v-list-item-action class="ml-n1" style="font-size: 11px; color: #607080; font-weight: bold;">
                 {{item.attributes.comments_count}}
               </v-list-item-action>
             </template>

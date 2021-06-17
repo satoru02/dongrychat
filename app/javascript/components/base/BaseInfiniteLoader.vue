@@ -3,7 +3,7 @@
     :force-use-infinite-wrapper="wrapper">
     <span slot="no-more" class="loading-text">
     </span>
-    <span slot="no-results" class="ml-5 loading-text">
+    <span slot="no-results" class="ml-5 mt-16 loading-text">
       {{text}}
     </span>
   </infinite-loading>
@@ -36,6 +36,6 @@
   .loading-text {
     color: #111111;
     font-weight: bold;
-    font-size: 11px;
+    font-size: 14px;
   }
 </style>

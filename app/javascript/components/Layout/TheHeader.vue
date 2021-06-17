@@ -1,30 +1,28 @@
 <template>
-  <v-app-bar elevation=1 outlined app dense color="#ffffff">
+  <v-app-bar elevation=1 outlined app color="#ffffff">
     <div :class="headerL" />
     <v-toolbar-title style="font-weight: bold; color: #111111" :class="headerTitle" @click="movePath('/')">
       ドラマ部
     </v-toolbar-title>
     <v-toolbar-title class="ml-16">
-      <!-- <v-badge dot overlap offset-x="20" offset-y="13"> -->
-      <v-btn text color="#ffffff" style="font-size: 12px; font-weight: bold; color: #111111" @click="movePath('/trend')">
+      <v-btn text color="#ffffff" style="font-size: 14px; font-weight: bold; color: #111111" @click="movePath('/trend')">
         <icon-new class="mr-3" />新着</v-btn>
-      <!-- </v-badge> -->
     </v-toolbar-title>
     <v-toolbar-title class="ml-3">
-      <v-btn @click="movePath('/popular')" text color="#ffffff" style="font-size: 12px; font-weight: bold; color: #111111">
+      <v-btn @click="movePath('/popular')" text color="#ffffff" style="font-size: 14px; font-weight: bold; color: #111111">
         人気
       </v-btn>
     </v-toolbar-title>
     <v-toolbar-title class="ml-3">
-      <v-btn @click="movePath('/top_rated')" text color="#ffffff" style="font-size: 12px; font-weight: bold; color: #111111">
+      <v-btn @click="movePath('/top_rated')" text color="#ffffff" style="font-size: 14px; font-weight: bold; color: #111111">
         高評価
       </v-btn>
     </v-toolbar-title>
-    <v-spacer></v-spacer>
+    <!-- <v-spacer></v-spacer> -->
     <v-text-field placeholder="気になる作品を検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
       :full-width="true" v-if="this.checkAuthorization()" dense background-color="#f4f8fb" solo flat
-      class="text-field rounded-lg mt-7 ml-n16 mr-16" />
-    <v-spacer></v-spacer>
+      class="text-field rounded-lg mt-7 ml-16 mr-16 " />
+    <!-- <v-spacer></v-spacer> -->
     <v-menu left nudge-bottom="35" nudge-height="800">
       <template v-slot:activator="{on, attrs}">
         <div v-bind="attrs" v-on="on" @click="infiniteHandler()">
@@ -138,7 +136,7 @@
           case 'xs':
             return `ml-1`
           default:
-            return `ml-14`
+            return `ml-3`
         }
       },
       headerTitle() {
@@ -146,7 +144,7 @@
           case 'xs':
             return `logo`
           default:
-            return `logo ml-n10 mt-n1`
+            return `logo ml-16 mt-n1`
         }
       }
 

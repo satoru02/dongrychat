@@ -66,7 +66,7 @@
         content: {
           style: {
             color: '#000000',
-            fontSize: '13px',
+            fontSize: '15px',
           }
         }
       }
