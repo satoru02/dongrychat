@@ -10,7 +10,14 @@
           <v-list-item class="grow">
             <v-list-item-avatar size="25" color="gray darken-3"
               @click="goUserPage(review.attributes.user.data.attributes)">
-              <v-img :src="review.attributes.user.data.attributes.avatar_url"></v-img>
+              <v-img v-if="review.attributes.user.data.attributes.avatar_url"
+                :src="review.attributes.user.data.attributes.avatar_url"></v-img>
+              <span v-else>
+                <icon-base :width="'20'" :height="'20'" icon-name="icon-user" :iconColor="'#ffffff'"
+                  :viewBox="'-42 0 512 512.002'">
+                  <icon-user />
+                </icon-base>
+              </span>
             </v-list-item-avatar>
             <v-list-item-content>
               <v-list-item-title>
@@ -67,6 +74,10 @@
 <script>
   export default {
     name: "BaseReviewCard",
+    components: {
+      'icon-base': () => import( /* webpackPrefetch */ '../Icon/IconBase'),
+      'icon-user': () => import( /* webpackPrefetch */ '../Icon/IconUser'),
+    },
     props: {
       space_reviews: {
         type: Array,

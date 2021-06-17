@@ -43,7 +43,7 @@
     name: "SpaceReviews",
     components: {
       'base-review-card': () => import( /* webpackPrefetch: true */ '../Base/BaseReviewCard'),
-      'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader')
+      'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
     },
     props: {
       spaceId: {

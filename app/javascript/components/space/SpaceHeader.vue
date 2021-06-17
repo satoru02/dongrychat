@@ -2,8 +2,14 @@
   <div class="mt-4 ml-n5">
     <v-row v-if="space_data" class="mt-n3">
       <v-col cols=2 sm=2 md=2 lg=3 xl=2 :class="vColAvatarGrid">
-        <v-card elevation=0 class="rounded-lg" width="240px" color="#ffffff">
-          <v-img :src="posterImg()" class="white--text mt-n2" height="350px">
+        <v-card elevation=0 class="rounded-lg" width="240px" color="#dee2e6">
+          <v-img v-if="this.space_data.image_path" :src="posterImg()" class="white--text mt-n2" height="350px">
+          </v-img>
+          <v-img height="340px" v-else >
+            <icon-base :width="'130'" class="mt-15 ml-13" :height="'140'" icon-name="icon-no-image" :iconColor="'#111111'"
+              :viewBox="'0 0 512 512'">
+              <icon-no-image />
+            </icon-base>
           </v-img>
         </v-card>
       </v-col>
@@ -36,8 +42,7 @@
           </v-col>
           <v-col cols=12 sm=12 md=12 lg=3 xl=12 class="ml-14">
             <v-btn class="rounded-lg" small :style="'font-weight: bold; border-width: 0.5;'" outlined color="#474747">
-              <icon-base class="mr-3" icon-name="icon-twitter" :viewBox="'0 0 512 512'"
-                :height="'17'" :width="'17'">
+              <icon-base class="mr-3" icon-name="icon-twitter" :viewBox="'0 0 512 512'" :height="'17'" :width="'17'">
                 <icon-twitter />
               </icon-base>
               <span style="color: #474747;">ツイートする</span>
@@ -45,8 +50,7 @@
           </v-col>
           <v-col cols=12 sm=12 md=12 lg=2 xl=12 class="ml-n11">
             <v-btn class="rounded-lg" small :style="'font-weight: bold; border-width: 0.5;'" outlined color="#474747">
-              <icon-base class="mr-3" icon-name="icon-facebook" :viewBox="'0 0 512 512'"
-                :height="'17'" :width="'17'">
+              <icon-base class="mr-3" icon-name="icon-facebook" :viewBox="'0 0 512 512'" :height="'17'" :width="'17'">
                 <icon-facebook />
               </icon-base>
               <span style="color: #474747;">シェアする</span>
@@ -60,8 +64,7 @@
 
         <v-row class="mt-1">
           <v-col class="ml-7" cols=11 sm=12 md=12 lg=5 xl=12>
-            <v-btn @click="subscribed === true ? unsubscribe() : subscribe()"
-              block class="mx-2 rounded-lg" elevation=0
+            <v-btn @click="subscribed === true ? unsubscribe() : subscribe()" block class="mx-2 rounded-lg" elevation=0
               :outlined="subscribed === true ? false : true"
               :color="subscribed === true ? 'rgb(0 213 247)' : 'rgb(0 213 247)'"
               style="font-weight: bold; border-width: 1.9;">
@@ -87,7 +90,7 @@
               </span>
             </v-btn>
           </v-col> -->
-                    <!-- <v-col class="ml-n2" cols=11 sm=12 md=12 lg=6 xl=12>
+          <!-- <v-col class="ml-n2" cols=11 sm=12 md=12 lg=6 xl=12>
             <v-btn block outlined class="mx-2 rounded-lg" elevation=0 color="rgb(0 213 247)"
               style="font-weight: bold; border-width: 1.9;">
               <icon-base class="mr-3" :iconColor="'rgb(0 213 247)'" icon-name="icon-arrow" :viewBox="'0 0 492 492'"
@@ -117,6 +120,7 @@
       'icon-twitter': () => import( /* webpackPrefetch: true */ '../Icon/IconTwitter.vue'),
       'icon-facebook': () => import( /* webpackPrefetch: true */ '../Icon/IconFacebook.vue'),
       'icon-arrow': () => import( /* webpackPrefetch: true */ '../Icon/IconArrow.vue'),
+      'icon-no-image': () => import( /* webpackPrefetch: true */ '../Icon/IconNoImage.vue'),
       'base-label': () => import( /* webpackPrefetch: true */ '../Base/BaseLabel'),
     },
     props: ['space_data'],

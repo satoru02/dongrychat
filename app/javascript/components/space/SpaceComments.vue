@@ -4,8 +4,14 @@
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="vColAvatarGrid">
         <v-avatar class="mt-3" @click="goUserPage(comment.attributes.user.data.attributes)" :style="avatar.style"
           :size='avatar.size' :height='avatar.height'>
-          <img outlined v-if="comment.attributes.user.data.attributes.avatar_url" :src="comment.attributes.user.data.attributes.avatar_url">
-          <img v-else src="https://gravatar.com/avatar/6ee07d61d8988eff9a020e93752680c4?s=400&d=robohash&r=x" />
+          <img outlined v-if="comment.attributes.user.data.attributes.avatar_url"
+            :src="comment.attributes.user.data.attributes.avatar_url">
+          <span v-else>
+            <icon-base :width="'20'" :height="'20'" icon-name="icon-user" :iconColor="'#ffffff'"
+              :viewBox="'-42 0 512 512.002'">
+              <icon-user />
+            </icon-base>
+          </span>
         </v-avatar>
       </v-col>
       <v-col cols=11 sm=11 md=11 lg=11 xl=11 :class="vColNameGrid">
@@ -29,6 +35,10 @@
 
   export default {
     name: 'SpaceComments',
+    components: {
+      'icon-base': () => import( /* webpackPrefetch */ '../Icon/IconBase'),
+      'icon-user': () => import( /* webpackPrefetch */ '../Icon/IconUser'),
+    },
     props: {
       comments: {
         type: Array,
