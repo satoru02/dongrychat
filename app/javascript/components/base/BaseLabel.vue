@@ -65,7 +65,7 @@
     methods: {
       displayDetails() {
         return this.seasonHeader + this.season + ' ' + this.episodeHeader + this.episode + this.episodeFooter + ' ' +
-          this.title
+          '【' + this.title + '】'
       }
     }
   }

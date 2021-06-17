@@ -1,32 +1,33 @@
 <template>
-  <v-list two-line style="background-color: #ffffff;">
-    <v-list-item-group v-for="(item, index) in items" :key="index" multiple>
-      <v-hover v-slot="{hover}">
-        <v-list-item class="rounded-lg" @click="showContents(item)"
-          :style="hover ? 'background-color: #f6f6f9;' : 'background-color: #ffffff;'">
-          <v-list-item-avatar :size='55' :width='55' class="rounded-lg">
-            <v-img v-if="item.poster_path" :src="base_tmdb_img_url + item.poster_path" />
-            <v-img v-else size="30" height="30">
-              <poster-path />
-            </v-img>
-          </v-list-item-avatar>
-          <v-list-item-content>
-            <v-list-item-title class="mb-2" v-if="media === 'tv'" :style="listItemStyle" v-text="item.name" />
-            <v-list-item-title class="mb-2" v-if="media === 'movie'" :style="listItemStyle"
-              v-text="item.title" />
-            <v-list-item-subtitle :style="subtitleStyle" v-text="item.overview" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-hover>
-    </v-list-item-group>
-  </v-list>
+  <v-row>
+    <v-col lg=3 v-for="(item, index) in items" :key="index">
+      <v-card elevation=0 class="rounded-lg" @click="showContents(item)">
+        <v-img position="under" gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)"
+          class="white--text align-end rounded-lg" height="200px" v-if="item.poster_path"
+          :src="base_tmdb_img_url + item.poster_path">
+          <v-btn :color="media === 'tv' ? '#00bbf9' : '#ff0054'" x-small class="elevation-0 ml-3 rounded-xl" alt="" style="font-size: 12px; font-weight: bold; color: #ffffff;"
+            >
+            {{item.vote_average}}
+          </v-btn>
+          <span v-if="media === 'tv'" class="ml-1" style="font-size: 11px; font-weight: bold; color: #ffffff;" >{{item.first_air_date}}・初放送</span>
+          <span v-if="media === 'movie'" class="ml-1" style="font-size: 11px; font-weight: bold; color: #ffffff;" >{{item.release_date}}・初公開</span>
+          <v-card-title v-if="media === 'tv'" style="font-weight: bold; line-height: 22px; font-size: 18px;">
+            {{item.name}}
+          </v-card-title>
+          <v-card-title v-if="media === 'movie'" style="font-weight: bold; line-height: 22px; font-size: 18px;">
+            {{item.title}}
+          </v-card-title>
+        </v-img>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
   export default {
     name: "BaseList",
     components: {
-      'icon-poster':() => import(/* webpackPrefetch: true */ '../Icon/IconPoster'),
+      'icon-poster': () => import( /* webpackPrefetch: true */ '../Icon/IconPoster'),
     },
     props: {
       items: {

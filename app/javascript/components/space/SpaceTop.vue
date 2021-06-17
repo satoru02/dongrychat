@@ -1,16 +1,29 @@
 <template>
-  <div class="ml-4 mt-n4">
+  <div class="ml-16 mt-n5">
     <space-header :space_data="this.space_data" />
-    <v-tabs grow class="mt-4" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height">
+    <v-tabs grow class="mt-7" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height">
       <v-tab
        :active-class="vTab.activeText" @click="changeTab(tablist.path)" :style="vTab.style"
         v-for="(tablist, index) in tablists" :key="index">
-        {{tablist.title}}
+        <icon-base v-if="tablist.title === 'チャット'" :iconColor="'#6c757d'" icon-name="icon-comment" :width="'19'" :height="'19'"
+          :viewBox="'0 0 30.333 30.333'">
+          <icon-comment />
+        </icon-base>
+        <icon-base v-if="tablist.title === 'レビュー'" :iconColor="'#6c757d'" icon-name="icon-pen" :width="'19'" :height="'19'"
+          :viewBox="'0 0 512 512'">
+          <icon-pen />
+        </icon-base>
+        <icon-base v-if="tablist.title === 'ユーザー'" :iconColor="'#6c757d'" icon-name="icon-pen" :width="'19'" :height="'19'"
+          :viewBox="'-42 0 512 512.001'">
+          <icon-user />
+        </icon-base>
+        <span class="ml-3">{{tablist.title}}</span>
         <v-chip v-if="$vuetify.breakpoint.width > 600" class="ml-3 rounded-xl" :style="vChip.style" :text-color="vChip.textColor" :elevation="vChip.elevation"
-          :color="vChip.color" x-small v-text="setCount(tablist.title)" />
+          :color="'#f2f2f2'" small v-text="setCount(tablist.title)">
+        </v-chip>
       </v-tab>
     </v-tabs>
-    <v-divider />
+    <!-- <v-divider color="black" /> -->
     <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" />
   </div>
 </template>
@@ -22,11 +35,14 @@
   export default {
     name: 'SpaceTop',
     components: {
-      'space-header': () => import(/* webpackPrefetch: true */ './SpaceHeader')
+      'space-header': () => import(/* webpackPrefetch: true */ './SpaceHeader'),
+      'icon-base': () => import( /* webpackPrefetch: true */ '../Icon/IconBase'),
+      'icon-pen': () => import( /* webpackPrefetch: true */ '../Icon/IconPen'),
+      'icon-comment': () => import( /* webpackPrefetch: true */ '../Icon/IconComment'),
+      'icon-user': () => import( /* webpackPrefetch: true */ '../Icon/IconUser'),
     },
     data() {
       return {
-        base_tmdb_img_url: `https://image.tmdb.org/t/p/original`,
         params: {},
         space_data: '',
         endpoint: '',
@@ -56,10 +72,6 @@
             title: 'レビュー',
             path: 'reviews'
           },
-          // {
-          //   title: 'シェアウォッチ',
-          //   path: 'news'
-          // },
           {
             title: 'ユーザー',
             path: 'members'
@@ -79,8 +91,8 @@
           activeText: 'black--text',
           style: {
             fontWeight: 'bold',
-            fontSize: '12px',
-            color: '#666666'
+            fontSize: '14px',
+            // color: '#666666'
           }
         },
         vChip: {
@@ -217,12 +229,4 @@
 </script>
 
 <style scoped>
-  .theme--light.v-divider {
-    border-color: rgba(94, 94, 94, 0.06);
-  }
-
-  .v-input__slot::before {
-    border-style: none !important;
-    /* color: #ededee */
-  }
 </style>

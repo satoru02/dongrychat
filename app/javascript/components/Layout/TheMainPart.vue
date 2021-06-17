@@ -1,17 +1,17 @@
 <template>
   <v-app>
     <the-header />
-    <v-main style="background-color: #ffffff;">
+    <v-main style="background-color: #ffffff;" class="ml-n5">
       <v-row>
+      <v-col lg=1 class="ml-n10" />
         <keep-alive>
           <v-col :cols="this.colsGrid[0]" :sm="this.smGrid[0]" :md="this.mdGrid[0]" :lg="this.lgGrid[0]"
             :xl="this.xlGrid[0]" v-if="$vuetify.breakpoint.width > 600" class="ml-n16">
             <the-left-bar v-if="this.checkAuthorization() && this.checkRouter()" />
           </v-col>
         </keep-alive>
-        <!-- <v-col lg=1 /> -->
-        <v-divider vertical class="ml-10" v-if="$vuetify.breakpoint.width > 600 && this.checkRouter()" />
-        <v-col class="ml-n3" :cols="this.colsGrid[1]" :sm="this.smGrid[1]" :md="this.mdGrid[1]" :lg="this.lgGrid[1]"
+        <!-- <v-divider vertical class="ml-10" v-if="$vuetify.breakpoint.width > 600 && this.checkRouter()" /> -->
+        <v-col class="ml-14" :cols="this.colsGrid[1]" :sm="this.smGrid[1]" :md="this.mdGrid[1]" :lg="this.lgGrid[1]"
           :xl="this.xlGrid[1]">
           <keep-alive>
             <router-view v-if="$route.meta.keepAlive" />
@@ -64,7 +64,7 @@
         colsGrid: '',
         smGrid: '',
         mdGrid: '',
-        lgGrid: [3, 9, 0],
+        lgGrid: [2, 9, 0],
         xlGrid: [3, 6, 3],
         grid: {
           rightPart: 'mt-3 ml-16'
@@ -90,7 +90,22 @@
           'Settings',
           'Terms',
           'Privacy',
-          // 'subscribedTvSpace'
+          'subscribedTvSpace',
+          'subscribedTvSpaceMembers',
+          'subscribedTvSpaceReviews',
+          'subscribedMvSpace',
+          'subscribedMvSpaceMembers',
+          'subscribedMvSpaceReviews',
+          'TvSpace',
+          'TvSpaceMembers',
+          'TvSpaceReviews',
+          'MvSpace',
+          'MvSpaceMembers',
+          'MvSpaceReviews',
+          'UserTop',
+          'UserReviews',
+          'UserFollowing',
+          'UserFollowers',
         ]
         if (spaceRoute.includes(this.$route.name)) {
           return false
@@ -103,13 +118,28 @@
           case 'Privacy':
           case 'Terms':
           case 'Settings':
-          // case 'subscribedTvSpace':
-            return this.lgGrid = [0, 12, 0]
+          case 'subscribedTvSpace':
+          case 'subscribedTvSpaceMembers':
+          case 'subscribedTvSpaceReviews':
+          case 'subscribedMvSpace':
+          case 'subscribedMvSpaceMembers':
+          case 'subscribedMvSpaceReviews':
+          case 'TvSpace':
+          case 'TvSpaceMembers':
+          case 'TvSpaceReviews':
+          case 'MvSpace':
+          case 'MvSpaceMembers':
+          case 'MvSpaceReviews':
+          case 'UserTop':
+          case 'UserReviews':
+          case 'UserFollowing':
+          case 'UserFollowers':
+            return this.lgGrid = [1, 9, 0]
           default:
             this.colsGrid = [0, 12, 0]
             this.smGrid = [4, 8, 0]
             this.mdGrid = [4, 8, 0]
-            this.lgGrid = [3, 9, 0]
+            this.lgGrid = [2, 9, 0]
             this.xlGrid = [3, 6, 3]
             break;
         }

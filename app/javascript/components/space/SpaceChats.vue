@@ -1,10 +1,7 @@
 <template>
-  <v-container class="mt-n2">
-    <v-row>
+  <v-container class="mt-2">
+    <!-- <v-row>
       <v-col lg=1>
-        <!-- <v-avatar class="mt-4 ml-3" :size='22' :height='22'>
-          <img :src="this.$store.state.user.currentUser.avatar_url">
-        </v-avatar> -->
       </v-col>
       <v-col lg=11 class="ml-n16">
         <v-text-field v-if="$vuetify.breakpoint.width > 600" :class="textFieldGrid" clearable :style="textField.style"
@@ -14,7 +11,7 @@
           :background-color="textField.color" @click:append-outer="{setMessage(), sendComment(content)}"
           v-model="content" dense :placeholder="textField.placeholder" solo flat />
       </v-col>
-    </v-row>
+    </v-row> -->
     <!-- <v-divider class="mt-7" /> -->
     <space-comments :comments="comments" />
     <base-loader :handler="infiniteHandler" :wrapper="false" :text="loader.text" />
