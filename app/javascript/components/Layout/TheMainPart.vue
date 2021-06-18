@@ -106,6 +106,8 @@
           'UserReviews',
           'UserFollowing',
           'UserFollowers',
+          'TvDetails',
+          'MvDetails'
         ]
         if (spaceRoute.includes(this.$route.name)) {
           return false
@@ -135,6 +137,9 @@
           case 'UserFollowing':
           case 'UserFollowers':
             return this.lgGrid = [1, 9, 0]
+          case 'TvDetails':
+          case 'MvDetails':
+            return this.lgGrid = [0, 12, 0]
           default:
             this.colsGrid = [0, 12, 0]
             this.smGrid = [4, 8, 0]

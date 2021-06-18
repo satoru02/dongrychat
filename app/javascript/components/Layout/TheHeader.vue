@@ -2,7 +2,7 @@
   <v-app-bar elevation=1 outlined app color="#ffffff">
     <div :class="headerL" />
     <v-toolbar-title style="font-weight: bold; color: #111111" :class="headerTitle" @click="movePath('/')">
-      ドラマ部
+      video
     </v-toolbar-title>
     <v-toolbar-title class="ml-16">
       <v-btn text color="#ffffff" style="font-size: 14px; font-weight: bold; color: #111111"
