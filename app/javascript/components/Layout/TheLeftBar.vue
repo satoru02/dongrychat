@@ -234,7 +234,6 @@
           .catch(err => this.fetchFailed(err))
       },
       fetchUsersSuccessful(res) {
-        console.log(res)
         this.new_comments = res.data.new_comments
       },
       fetchTagsSuccessful(res) {

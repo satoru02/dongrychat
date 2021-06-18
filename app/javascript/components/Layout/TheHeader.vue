@@ -2,33 +2,34 @@
   <v-app-bar elevation=1 outlined app color="#ffffff">
     <div :class="headerL" />
     <v-toolbar-title style="font-weight: bold; color: #111111" :class="headerTitle" @click="movePath('/')">
-      ドラマ部
+      video
     </v-toolbar-title>
     <v-toolbar-title class="ml-16">
-      <v-btn text color="#ffffff" style="font-size: 14px; font-weight: bold; color: #111111" @click="movePath('/trend')">
+      <v-btn text color="#ffffff" style="font-size: 14px; font-weight: bold; color: #111111"
+        @click="movePath('/trend')">
         <icon-new class="mr-3" />新着</v-btn>
     </v-toolbar-title>
     <v-toolbar-title class="ml-3">
-      <v-btn @click="movePath('/popular')" text color="#ffffff" style="font-size: 14px; font-weight: bold; color: #111111">
+      <v-btn @click="movePath('/popular')" text color="#ffffff"
+        style="font-size: 14px; font-weight: bold; color: #111111">
         人気
       </v-btn>
     </v-toolbar-title>
     <v-toolbar-title class="ml-3">
-      <v-btn @click="movePath('/top_rated')" text color="#ffffff" style="font-size: 14px; font-weight: bold; color: #111111">
+      <v-btn @click="movePath('/top_rated')" text color="#ffffff"
+        style="font-size: 14px; font-weight: bold; color: #111111">
         高評価
       </v-btn>
     </v-toolbar-title>
-    <!-- <v-spacer></v-spacer> -->
     <v-text-field placeholder="気になる作品を検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
       :full-width="true" v-if="this.checkAuthorization()" dense background-color="#f4f8fb" solo flat
       class="text-field rounded-lg mt-7 ml-16 mr-16 " />
-    <!-- <v-spacer></v-spacer> -->
     <v-menu left nudge-bottom="35" nudge-height="800">
       <template v-slot:activator="{on, attrs}">
         <div v-bind="attrs" v-on="on" @click="infiniteHandler()">
           <v-btn icon>
-            <icon-base icon-name="icon-bell" :iconColor="'#606770'" :viewBox="'0 0 509.369 509.369'">
-              <icon-bell />
+            <icon-base icon-name="icon-bell" :iconColor="'#606770'" :viewBox="'-42 0 512 512.001'">
+              <icon-bell class=ml-2 />
             </icon-base>
           </v-btn>
         </div>
@@ -36,12 +37,16 @@
       <v-list class="rounded-s list" v-if="$store.state.user.signedIn">
         <v-list-item v-for="(notification, index) in notifications" :key=index link :to='"/notifications"'>
           <v-list-item-icon>
-            <v-avatar size=30>
+            <v-avatar size=35 color="blue">
               <v-img v-if="notification.attributes.sender.data.attributes.avatar_url"
                 :src="notification.attributes.sender.data.attributes.avatar_url">
               </v-img>
-              <!-- <v-img v-else src="https://gravatar.com/avatar/6ee07d61d8988eff9a020e93752680c4?s=400&d=robohash&r=x">
-              </v-img> -->
+              <span v-else>
+                <icon-base :width="'20'" :height="'20'" icon-name="icon-user" :iconColor="'#ffffff'"
+                  :viewBox="'-42 0 512 512.002'">
+                  <icon-user />
+                </icon-base>
+              </span>
             </v-avatar>
           </v-list-item-icon>
           <v-list-item-title class="list-title">
@@ -54,8 +59,14 @@
     <v-menu flat open-on-hover offset-y left nudge-bottom="3" nudge-left="50" nudge-height="800">
       <template v-slot:activator="{on, attrs}">
         <div v-bind="attrs" v-on="on">
-          <v-avatar size="25" class="ml-5 mr-16">
+          <v-avatar v-if="$store.state.user.currentUser.avatar_url" size="25" class="ml-5 mr-16">
             <v-img :src="$store.state.user.currentUser.avatar_url" />
+          </v-avatar>
+          <v-avatar v-else size="25" class="ml-5 mr-16">
+            <icon-base :width="'20'" :height="'20'" icon-name="icon-user" :iconColor="'#ffffff'"
+              :viewBox="'-42 0 512 512.002'">
+              <icon-user />
+            </icon-base>
           </v-avatar>
         </div>
       </template>
@@ -71,8 +82,8 @@
     </v-menu>
     <v-btn v-if="(this.checkAuthorization()) && !$store.state.user.signedIn" @click="movePath('/login')" outlined small
       color="#f6f6f9" elevation=0 class="login mr-4">ログイン</v-btn>
-    <v-btn v-if="(this.checkAuthorization()) && !$store.state.user.signedIn" @click="movePath('/singup')" small color="#016aff"
-      elevation=0 class="signup">アカウント登録</v-btn>
+    <v-btn v-if="(this.checkAuthorization()) && !$store.state.user.signedIn" @click="movePath('/singup')" small
+      color="#016aff" elevation=0 class="signup">アカウント登録</v-btn>
   </v-app-bar>
 </template>
 
@@ -87,6 +98,7 @@
     components: {
       'icon-base': () => import( /* webpackPrefetch */ '../Icon/IconBase'),
       'icon-bell': () => import( /* webpackPrefetch */ '../Icon/IconBell'),
+      'icon-user': () => import( /* webpackPrefetch */ '../Icon/IconUser'),
       'icon-new': () => import( /* webpackPrefetch */ '../Icon/IconNew'),
       'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
     },
@@ -100,8 +112,7 @@
         text: {
           loading: '通知はありません。'
         },
-        items: [
-          {
+        items: [{
             icon: 'mdi-account-outline',
             title: 'プロフィール',
             name: 'Posts',
@@ -142,9 +153,9 @@
       headerTitle() {
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
-            return `logo`
+            return ``
           default:
-            return `logo ml-16 mt-n1`
+            return `ml-16 mt-n1`
         }
       }
 
@@ -174,7 +185,7 @@
         this.query = ''
         this.canSubmit = false
       },
-      movePath(path){
+      movePath(path) {
         this.$router.replace(path)
       },
       infiniteHandler($state) {
@@ -199,32 +210,8 @@
 </script>
 
 <style scoped>
-  .v-divider--vertical.v-divider--inset {
-    margin-top: 8px;
-    min-height: 0;
-    max-height: calc(65% - 16px);
-    margin-top: 19px;
-  }
-
   .v-application .elevation-1 {
     box-shadow: 0 1px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, -1), 0 1px 3px 0 rgba(0, 0, 0, .02) !important;
-  }
-
-  .logo {
-    cursor: pointer;
-    color: #000000;
-  }
-
-  .beta-logo {
-    font-weight: bold;
-    font-size: 12px;
-    color: #ffffff;
-    cursor: pointer;
-  }
-
-  .text-field {
-    max-width: 672px;
-    color: #ffffff;
   }
 
   .login {

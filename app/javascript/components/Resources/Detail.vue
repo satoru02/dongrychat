@@ -1,110 +1,112 @@
 <template>
-  <v-container fluid :class="vContainerGrid">
-    <v-row :class="vRowContentsGrid">
-      <v-col cols=2 sm=2 md=2 lg=2 xl=2 :class="vAvatarGrid">
-        <v-avatar :class="'rounded-lg'" :size="bindHeadingSize" :height="bindHeadingHeight">
-          <v-img v-if="details.poster_path" :src="base_tmdb_img_url + details.poster_path" />
-        </v-avatar>
+  <div class="mt-n2 ml-n5">
+    <v-divider class=mt-13 />
+    <v-row class="ml-10">
+      <v-col cols=2 sm=2 md=2 lg=3 xl=2 class="mt-2">
+        <v-card elevation=0 :class="'ml-8 mt-n16 rounded-lg'" width=270 height="385" color="#e9ecef">
+          <v-img class="mt-5" width=270 height="385" v-if="details.poster_path"
+            :src="base_tmdb_img_url + details.poster_path" />
+        </v-card>
+        <h2 class="mt-5" v-if="media === 'tv'">
+          {{this.$route.params.tv_name}}
+          <span class="ml-3">
+            <v-btn small color="yellow" elevation=0 style="font-weight: bold; font-size: 15px;" class="rounded-xl">
+              {{overall.vote_average}}</v-btn>
+          </span>
+        </h2>
+        <h2 class="mt-5" v-else>
+          {{this.$route.params.mv_name}}
+          <span class="ml-3">
+            <v-btn small color="yellow" elevation=0 style="font-weight: bold; font-size: 15px;" class="rounded-xl">
+              {{details.vote_average}}</v-btn>
+          </span>
+        </h2>
+        <v-btn style="font-weight:bold;" class="mt-2" small elevation=0>内容</v-btn>
+        <p class="mt-3" :style="bindContentsDetails" v-text="details.overview" />
+        <v-btn style="font-weight:bold;" class="mt-4" small elevation=0>カテゴリー</v-btn>
+        <v-chip-group column class="mt-3">
+          <v-chip small active-class="blue--text" outlined class="mb-3 rounded-lg"
+            style="width: auto; font-weight: bold;" color="#000000" label
+            v-for="(genre, index) in this.genres.slice(0,3)" :key="index">
+            {{genre}}
+          </v-chip>
+        </v-chip-group>
       </v-col>
-      <v-col cols=2 sm=2 md=2 lg=1 xl=2 />
-      <v-col cols=7 sm=9 md=9 lg=9 xl=9>
+      <v-col cols=2 sm=2 md=2 lg=8 xl=2 class="ml-10 mt-n16">
         <v-row>
-          <v-col cols=12 sm=9 md=9 lg=9 xl=9 :class="vColNameGrid" :style="bindTitle">
-            <h3 v-if="media === 'tv'" v-text="this.$route.params.tv_name" />
-            <h3 v-else v-text="this.$route.params.mv_name" />
-          </v-col>
-        </v-row>
-        <v-row dense :class="'mt-n6'">
-          <v-col cols=12 sm=12 md=12 lg=12 xl=12 :class="vColSubNameGrid" :style="style.subContentsTitle">
-            <h3 v-if="media === 'tv'" v-text="'@' + this.$route.params.tv_name" />
-            <h3 v-else v-text="'@' + this.$route.params.mv_name" />
+          <v-col lg=12>
+            <v-tabs grow hide-slider next-icon="" prev-icon="" mobile-breakpoint="xs" class="mt-5" :style="style.tabs"
+              background-color='#ffffff' :height="'40'" :width="tabs.width" :color="'blue'">
+              <v-tab :active-class="'black--text'" :style="style.tab" v-for="(content, index) in contents" :key="index">
+                <icon-base class="mr-3" v-if="content === '概要'" :iconColor="'#6c757d'" icon-name="icon-overview"
+                  :width="'15'" :height="'15'" :viewBox="'0 0 512.0005 512'">
+                  <icon-overview />
+                </icon-base>
+                <icon-base class="mr-2" v-if="content === 'クリエイター'" :iconColor="'#6c757d'" icon-name="icon-creator"
+                  :width="'17'" :height="'17'" :viewBox="'0 0 274.341 274.341'">
+                  <icon-creator />
+                </icon-base>
+                <icon-base class="mr-3" v-if="content === '出演者&スタッフ'" :iconColor="'#6c757d'" icon-name="icon-staff"
+                  :width="'15'" :height="'15'" :viewBox="'0 0 512 512'">
+                  <icon-staff />
+                </icon-base>
+                {{content}}
+              </v-tab>
+            </v-tabs>
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols=12 sm=12 md=12 lg=12 xl=12 :class="vColDetailsGrid">
-            <p :style="bindContentsDetails" v-text="details.overview" />
+          <v-col lg=12 class="ml-n2" v-if="(media === 'tv') && (overall.seasons)">
+            <v-slide-group multiple show-arrows v-if="overall.seasons.length > 1">
+              <v-slide-item v-for="(season, index) in (this.overall.seasons.length - 1)" :key="index"
+                v-slot="{ active, toggle }">
+                <v-btn style="font-weight: bold;" class="mx-2" :input-value="active"
+                  active-class="purple white--text" depressed rounded @click="toggle,changeSeason(index+1)">
+                  シーズン {{index + 1}}
+                </v-btn>
+              </v-slide-item>
+            </v-slide-group>
           </v-col>
         </v-row>
-        <!-- <v-row :class="'mt-3'" v-if="this.$vuetify.breakpoint.width > 600">
-          <v-col cols=5 sm=2 md=2 lg=2 xl=2 :class="vColCreditGrid" :style="style.credit" v-text="text.credit" />
-          <v-col cols=3 sm=3 md=3 lg=3 xl=3 :class="'ml-n10'" :style="style.person"
-            v-for="(credit, index) in overall.created_by" :key="index" v-text="credit.name" />
-        </v-row>
-        <v-row :class="'mt-n1 ml-1'" v-if="this.$vuetify.breakpoint.width > 600">
-          <v-col cols=4 sm=2 md=2 lg=2 xl=2 :class="vColGenreGrid" :style="style.credit" v-text="text.genre" />
-          <v-col cols=8 sm=8 md=8 lg=10 xl=8 :class="'ml-n7'">
-            <v-chip :class="'mr-4 mb-2'" :style="style.tag" v-for="(genre, index) in this.genres.slice(0,3)" :key="index"
-              :color="style.chip" small v-text="genre" />
+        <v-row v-if="media === 'tv'">
+          <v-col lg=4 v-for="(episode, index) in details.episodes" :key=index>
+            <v-card @click="enterTvSpace(episode)" elevation=0 class="rounded-lg">
+              <v-img position="under" gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)"
+                class="white--text align-end rounded-lg" :src="base_tmdb_img_url + episode.still_path">
+                <v-btn label :color="media === 'tv' ? '#00bbf9' : '#ff0054'" x-small class="elevation-0 ml-3 rounded-lg"
+                  alt="" style="font-size: 14px; font-weight: bold; color: #ffffff;">
+                  第{{index + 1}}話
+                </v-btn>
+                <span v-if="media === 'tv'" class="ml-1"
+                  style="font-size: 11px; font-weight: bold; color: #ffffff;">{{episode.air_date}}・初放送</span>
+                <span v-if="media === 'movie'" class="ml-1"
+                  style="font-size: 11px; font-weight: bold; color: #ffffff;">{{item.release_date}}・初公開</span>
+                <v-card-title v-if="media === 'tv'" style="font-weight: bold; line-height: 22px; font-size: 18px;">
+                  {{episode.name}}
+                </v-card-title>
+                <v-card-title v-if="media === 'movie'" style="font-weight: bold; line-height: 22px; font-size: 18px;">
+                  {{episode.title}}
+                </v-card-title>
+              </v-img>
+            </v-card>
           </v-col>
-        </v-row> -->
-      </v-col>
-    </v-row>
-
-    <v-row v-if="this.$vuetify.breakpoint.width < 600">
-      <v-col cols=12>
-        <v-chip :class="'mr-4 mt-n2'" :style="style.tag" v-for="(genre, index) in this.genres.slice(0, 2)" :key="index"
-          :color="style.chip" small v-text="genre" />
-        </v-col>
-    </v-row>
-
-    <v-tabs
-      next-icon="mdi-arrow-right-bold-box-outline"
-      prev-icon="mdi-arrow-left-bold-box-outline"
-      mobile-breakpoint="xs" v-if="(media === 'tv') && (overall.seasons)" :class="vTabsGrid" :style="style.tabs"
-      background-color='#ffffff' :height="'40'" :width="tabs.width" :color="'blue'">
-      <v-tab :active-class="'black--text'" :style="style.tab" @click="changeSeason(index+1)"
-        v-for="(season, index) in overall.seasons.length" :key="index">
-        {{text.season}} {{index + 1}}
-      </v-tab>
-    </v-tabs>
-    <v-divider v-if="media === 'tv'" />
-
-    <v-row v-if="media === 'tv'" no-gutters>
-      <v-col cols=12 sm=12 md=12 lg=12 xl=12>
-        <v-list :style="style.list">
-          <v-list-item-group v-for="(episode, index) in details.episodes" :key="index" :active-class="list_part.active">
-            <v-hover v-slot="{hover}">
-              <v-list-item :class="'rounded-lg'" :style="hover ? style.hoverList : style.list"
-                @click="enterTvSpace(episode)">
-                <v-list-item-avatar :class="list_part.avatar.round"
-                  :size="bindList"
-                  :height="bindList">
-                  <v-img :src="base_tmdb_img_url + episode.still_path" />
-                </v-list-item-avatar>
-                <v-list-item-content>
-                  <v-list-item-title :style="bindName">
-                    <span :class="'mr-2'">{{index + 1}}</span>
-                     <span>{{episode.name}}</span>
-                  </v-list-item-title>
-                  <v-list-item-subtitle :class="'mt-2'" :style="bindOverview" v-text="episode.overview" />
-                </v-list-item-content>
-              </v-list-item>
-            </v-hover>
-            <v-divider :key="index" />
-          </v-list-item-group>
-        </v-list>
-      </v-col>
-    </v-row>
-
-    <v-row v-else class="mt-4" no-gutters>
-      <v-col cols=12 sm=12 md=12 lg=12 xl=12>
-        <v-list :style="style.list">
-          <v-list-item-group :active-class="list_part.active">
-            <v-hover v-slot="{hover}">
-              <v-list-item :class="'rounded-lg'" :style="hover ? style.hoverList : style.list"
-                @click="enterMovieSpace(details)">
-                <v-list-item-avatar :class="list_part.avatar.round" :size="bindList"
-                  :height="bindList">
-                  <v-img :src="base_tmdb_img_url + details.backdrop_path" />
-                </v-list-item-avatar>
-                <v-list-item-content>
-                  <v-list-item-title :style="style.episodeDetails" v-text="details.title" />
-                  <v-list-item-subtitle :class="'mt-1'" :style="style.overview" v-text="details.overview" />
-                </v-list-item-content>
-              </v-list-item>
-            </v-hover>
-          </v-list-item-group>
-        </v-list>
+        </v-row>
+        <v-row v-else>
+          <v-col lg=4>
+            <v-card @click="enterMovieSpace(details)" elevation=0 class="rounded-lg">
+              <v-img position="under" gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)"
+                class="white--text align-end rounded-lg" :src="base_tmdb_img_url + details.backdrop_path">
+                <v-btn label :color="media === 'tv' ? '#00bbf9' : '#ff0054'" x-small class="elevation-0 ml-3 rounded-lg"
+                  alt="" style="font-size: 14px; font-weight: bold; color: #ffffff;">
+                  映画
+                </v-btn>
+                <v-card-title style="font-weight: bold; line-height: 22px; font-size: 18px;">
+                  {{details.release_date}}
+                </v-card-title>
+              </v-img>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
 
@@ -113,7 +115,7 @@
         <v-row>
           <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
           <v-col cols=7 sm=7 md=7 lg=7 xl=7>
-            <div :class="'mt-9 ml-5'" :style="dialog.headerStyle" v-text="'Devioを使ってみる'"/>
+            <div :class="'mt-9 ml-5'" :style="dialog.headerStyle" v-text="'Devioを使ってみる'" />
           </v-col>
         </v-row>
         <v-row>
@@ -138,19 +140,33 @@
       </v-card>
     </v-dialog>
 
-  </v-container>
+  </div>
 </template>
 
 <script>
-  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  import {
+    RepositoryFactory
+  } from '../../repositories/RepositoryFactory';
   const tmdbRepository = RepositoryFactory.get('tmdb');
 
   export default {
     name: 'DetailsTop',
+    components: {
+      'icon-base': () => import( /* webpackPrefetch: true */ '../Icon/IconBase.vue'),
+      'icon-overview': () => import( /* webpackPrefetch: true */ '../Icon/IconOverview.vue'),
+      'icon-creator': () => import( /* webpackPrefetch: true */ '../Icon/IconCreator.vue'),
+      'icon-staff': () => import( /* webpackPrefetch: true */ '../Icon/IconStaff.vue'),
+    },
     data() {
       return {
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
         loginDialog: false,
+        contents: [
+          '概要',
+          'クリエイター',
+          '出演者&スタッフ',
+          'その他',
+        ],
         details: [],
         overall: [],
         genres: [],
@@ -159,96 +175,15 @@
         media: 'tv',
         tv_space: 'TvSpace',
         movie_space: 'MvSpace',
-        tabActive: 'white--text',
-        heading: {
-          avatar: {
-            size: '165',
-            height: '235',
-          },
-        },
-        list_part: {
-          active: 'black--text',
-          avatar: {
-            size: '80',
-            height: '80',
-            round: 'rounded-lg'
-          },
-        },
         tabs: {
           width: '70px',
         },
-        text: {
-          credit: 'クレジット',
-          genre: 'ジャンル',
-          season: 'シーズン'
-        },
         style: {
-          caption: {
-            fontSize: '15px',
-            fontWeight: 'bold',
-            color: '#111111'
-          },
-          contentsTitle: {
-            fontWeight: 'bold',
-            fontSize: '16px',
-            color: '#111111'
-          },
-          subContentsTitle: {
-            fontWeight: 'bold',
-            fontSize: '10px',
-            color: '#6c757d',
-          },
-          contentsDetails: {
-            fontSize: '12px',
-            fontWeight: 'bold',
-            color: '#111111',
-            height: '90px',
-            maxHeight: '90px',
-            overflow: 'scroll',
-            overflowY: 'scroll',
-          },
-          credit: {
-            fontWeight: 'bold',
-            fontSize: '12px',
-            color: '#6c757d',
-          },
-          person: {
-            fontWeight: 'bold',
-            fontSize: '12px',
-            color: '#111111',
-          },
-          tag: {
-            color: '#ffffff',
-            fontWeight: 'bold',
-            fontSize: '11px'
-          },
           tab: {
             fontWeight: 'bold',
-            fontSize: '11px',
+            fontSize: '18px',
             color: '#6c757d'
           },
-          tabs: {
-            color: '#0e0e10',
-            fontWeight: 'bold',
-            fontSize: '13px',
-          },
-          episodeDetails: {
-            fontSize: '14px',
-            fontWeight: 'bold',
-            color: '#111111',
-          },
-          overview: {
-            fontSize: '11px',
-            fontWeight: 'bold',
-            color: '#666666',
-          },
-          list: {
-            backgroundColor: '#ffffff'
-          },
-          hoverList: {
-            backgroundColor: '#f6f6f9'
-          },
-          chip: '#293241'
         },
         dialog: {
           headerStyle: {
@@ -396,186 +331,24 @@
       }
     },
     computed: {
-      bindHeadingSize(){
-        switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return '120'
-          case 'sm' : 
-          case 'md' : 
-          case 'lg' : return '125'
-          case 'xl' : return ''
-        }
-      },
-      bindHeadingHeight(){
-        switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return '175'
-          case 'sm' : 
-          case 'md' : 
-          case 'lg' : return '175'
-          case 'xl' : return ''
-        }
-      },
-      vContainerGrid(){
-        switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return 'mt-n10'
-          case 'sm' : 
-          case 'md' : 
-          case 'lg' : return 'mt-n10'
-          case 'xl' : return ''
-        }
-      },
-      vRowContentsGrid(){
-        switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return 'mt-6 ml-n6'
-          case 'sm' : 
-          case 'md' : 
-          case 'lg' : return 'mt-7 ml-n1'
-          case 'xl' : return ''
-        }
-      },
-      vAvatarGrid(){
-        switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return 'ml-4 mt-3'
-          case 'sm' : 
-          case 'md' : 
-          case 'lg' : return 'mt-3'
-          case 'xl' : return ''
-        }
-      },
-      vColNameGrid(){
-        switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return 'mt-3 ml-n2'
-          case 'sm' : 
-          case 'md' : 
-          case 'lg' : return 'mt-4 ml-n6'
-          case 'xl' : return ''
-        }
-      },
-      vColSubNameGrid(){
-        switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return 'mt-2 ml-n2'
-          case 'sm' : 
-          case 'md' : 
-          case 'lg' : return 'mt-2 ml-n6'
-          case 'xl' : return ''
-        }
-      },
-      vColDetailsGrid(){
-        switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return 'mt-n2 ml-n2'
-          case 'sm' :
-          case 'md' :
-          case 'lg' : return 'mt-n2 ml-n6'
-          case 'xl' : return ''
-        }
-      },
-      vColCreditGrid(){
-        switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return 'ml-2'
-          case 'sm' : 
-          case 'md' : 
-          case 'lg' : return 'ml-n2'
-          case 'xl' : return ''
-        }
-      },
-      vColGenreGrid(){
-        switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return 'mt-1'
-          case 'sm' : 
-          case 'md' : 
-          case 'lg' : return 'ml-n6 mt-1'
-          case 'xl' : return ''
-        }
-      },
-      vTabsGrid(){
-        switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return 'mt-2'
-          case 'sm' : 
-          case 'md' : 
-          case 'lg' : return 'mt-6'
-          case 'xl' : return ''
-        }
-      },
-      bindList(){
-        switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return '40'
-          case 'sm' : 
-          case 'md' : 
-          case 'lg' : return '50'
-          case 'xl' : return ''
-        }
-      },
-      bindName(){
-        switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return {
-            fontSize: '11px',
-            fontWeight: 'bold',
-            color: '#111111'
-          }
-          case 'sm' : 
-          case 'md' : 
-          case 'lg' : return {
-            fontSize: '15px',
-            fontWeight: 'bold',
-            color: '#111111'
-          }
-          case 'xl' : return ''
-        }
-      },
-      bindOverview(){
-        switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return {
-            fontSize: '9px',
-            fontWeight: 'bold',
-            color: '#666666',
-          }
-          case 'sm' : 
-          case 'md' : 
-          case 'lg' : return  {
-            fontSize: '11px',
-            fontWeight: 'bold',
-            color: '#666666',
-          }
-          case 'xl' : return ''
-        }
-      },
-      bindTitle(){
-        switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return  {
-            fontSize: '14px',
-            color: '#111111'
-          }
-          case 'sm' : 
-          case 'md' : 
-          case 'lg' : return   {
-            fontSize: '16px',
-            color: '#111111'
-          }
-          case 'xl' : return ''
-        }
-      },
-      bindContentsDetails(){
-        switch(this.$vuetify.breakpoint.name){
-          case 'xs' : return {
-            fontSize: '10px',
-            fontWeight: 'bold',
-            color: '#111111',
-            height: '75px',
-            maxHeight: '75px',
-            overflow: 'scroll',
-            overflowY: 'scroll',
-          }
-          case 'sm' : 
-          case 'md' : 
-          case 'lg' : return  {
-            fontSize: '12px',
-            fontWeight: 'bold',
-            color: '#111111',
-            height: '90px',
-            maxHeight: '90px',
-            overflow: 'scroll',
-            overflowY: 'scroll',
-          }
-          case 'xl' : return ''
+      bindContentsDetails() {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return {
+              fontSize: '10px',
+                fontWeight: 'bold',
+                color: '#111111',
+            }
+            case 'sm':
+            case 'md':
+            case 'lg':
+              return {
+                fontSize: '14px',
+                  fontWeight: 'bold',
+                  color: '#111111',
+              }
+              case 'xl':
+                return ''
         }
       }
     }

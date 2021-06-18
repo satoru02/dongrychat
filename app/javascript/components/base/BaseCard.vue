@@ -8,49 +8,64 @@
             v-for="(item, index) in items">
             <template v-slot:default="">
               <!-- <v-list-item-avatar class="ml-n5" style="font-size:9px; color: #606770;"> -->
-                <!-- <v-btn label outlined x-small> -->
-                  <!-- {{index + 1}} -->
-                <!-- </v-btn> -->
+              <!-- <v-btn label outlined x-small> -->
+              <!-- {{index + 1}} -->
+              <!-- </v-btn> -->
               <!-- </v-list-item-avatar> -->
               <v-badge light style="font-weight: bold;" offset-x="26" v-if="item.attributes.users.length" offset-y="26"
                 color="#43e6ff" icon="mdi-lock" overlap :content="item.attributes.users.length">
-                <v-list-item-avatar tile class="rounded-lg" size="80">
+                <v-list-item-avatar tile class="rounded-lg" size="80" style="background-color: #dee2e6;">
                   <v-img v-if="item.attributes.image_path" :src="posterImg(item.attributes.image_path)"></v-img>
-                  <v-img v-else :src="`${cdn}/image/${img}`"></v-img>
+                  <span v-else>
+                    <icon-base :width="'45'" :height="'45'" icon-name="icon-no-image" :iconColor="'#111111'"
+                      :viewBox="'0 0 512 512'">
+                      <icon-no-image />
+                    </icon-base>
+                  </span>
                 </v-list-item-avatar>
               </v-badge>
               <v-badge v-else :value=false>
-                <v-list-item-avatar tile class="rounded-lg" size="80">
+                <v-list-item-avatar tile class="rounded-lg" size="80" style="background-color: #dee2e6;">
                   <v-img v-if="item.attributes.image_path" :src="posterImg(item.attributes.image_path)"></v-img>
-                  <v-img v-else :src="`${cdn}/image/${img}`"></v-img>
+                  <span v-else>
+                    <icon-base :width="'45'" :height="'45'" icon-name="icon-no-image" :iconColor="'#ced4da'"
+                      :viewBox="'0 0 512 512'">
+                      <icon-no-image />
+                    </icon-base>
+                  </span>
                 </v-list-item-avatar>
               </v-badge>
               <v-list-item-content>
                 <v-list-item-title class="contents-name">
                   {{item.attributes.name}}
                 </v-list-item-title>
-                <v-list-item-subtitle v-if="item.attributes.latest_comment" class="comment-name mt-1"
-                >
-                <div style="color: #828a92; font-weight: bold;">{{item.attributes.latest_comment.content}}</div>
+                <v-list-item-subtitle v-if="item.attributes.latest_comment" class="comment-name mt-1">
+                  <div style="color: #828a92; font-weight: bold;">{{item.attributes.latest_comment.content}}</div>
                 </v-list-item-subtitle>
                 <v-list-item-subtitle v-else class="comment-name mt-1" v-text="''">
                 </v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-content>
                 <v-list-item-title class="contents-name">
-                  <base-label class="ml-3 rounded-xl" font_size="12px" :label="true" v-if="item.attributes.media === 'tv'"
-                    :small="false" :outlined="true" :color="'#000000'" :text_color="'#111111'" :season="item.attributes.season"
-                    :episode="item.attributes.episode" :title="item.attributes.episode_title" />
-                  <v-chip outlined class="ml-2 rounded-xl" :color="'#000000'" v-if="item.attributes.media === media.mv" label
-                    :style="chipLabel.label.style" v-text="'映画'" />
+                  <base-label class="ml-3 rounded-xl" font_size="12px" :label="true"
+                    v-if="item.attributes.media === 'tv'" :small="false" :outlined="true" :color="'#000000'"
+                    :text_color="'#111111'" :season="item.attributes.season" :episode="item.attributes.episode"
+                    :title="item.attributes.episode_title" />
+                  <v-chip outlined class="ml-2 rounded-xl" :color="'#000000'" v-if="item.attributes.media === media.mv"
+                    label :style="chipLabel.label.style" v-text="'映画'" />
                 </v-list-item-title>
               </v-list-item-content>
 
               <v-list-item-action>
-                <v-list-item-avatar class="rounded-xl ml-n8" size="25">
+                <v-list-item-avatar color="#dee2e6" class="rounded-xl ml-n8" size="27">
                   <v-img v-if="item.attributes.latest_comment_user"
                     :src="item.attributes.latest_comment_user.data.attributes.avatar_url"></v-img>
-                  <v-img v-else :src="`${cdn}/image/${img}`" />
+                  <span v-else>
+                    <icon-base :width="'19'" :height="'19'" icon-name="icon-user" :iconColor="'#ffffff'"
+                      :viewBox="'-42 0 512 512.002'">
+                      <icon-user />
+                    </icon-base>
+                  </span>
                 </v-list-item-avatar>
               </v-list-item-action>
               <v-list-item-action class="user-name ml-n2">
@@ -74,6 +89,8 @@
     components: {
       'base-label': () => import( /* webpackPrefetch: true */ '../Base/BaseLabel'),
       'icon-base': () => import( /* webpackPrefetch */ '../Icon/IconBase'),
+      'icon-user': () => import( /* webpackPrefetch */ '../Icon/IconUser'),
+      'icon-no-image': () => import( /* webpackPrefetch */ '../Icon/IconNoImage.vue'),
       'icon-checkbox': () => import( /* webpackPrefetch: true */ '../Icon/IconCheckbox.vue'),
     },
     props: {

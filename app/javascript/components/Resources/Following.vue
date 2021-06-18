@@ -17,9 +17,14 @@
               <v-list-item-avatar class="ml-n7" style="font-size:9px; color: #606770;">
                 <v-badge color="#3a86ff" v-if="item.attributes.unconfirmed_comments > 0" dot />
               </v-list-item-avatar>
-              <v-list-item-avatar class="ml-n3" size="70">
+              <v-list-item-avatar class="ml-n3" size="70" style="background-color: #dee2e6;">
                 <v-img v-if="item.attributes.image_path" :src="base_tmdb_img_url + item.attributes.image_path"></v-img>
-                <!-- <v-img v-else :src="`${cdn}/image/${img}`"></v-img> -->
+                <span v-else>
+                  <icon-base :width="'30'" :height="'30'" icon-name="icon-no-image" :iconColor="'#111111'"
+                    :viewBox="'0 0 512 512'">
+                    <icon-no-image />
+                  </icon-base>
+                </span>
               </v-list-item-avatar>
               <v-list-item-content class="ml-4">
                 <v-list-item-title :style="bindName">
@@ -70,6 +75,7 @@
       'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
       'sub-header': () => import( /* webpackPrefetch: true */ '../Layout/TheSubHeader'),
       'icon-base': () => import( /* webpackPrefetch: true */ '../Icon/IconBase'),
+      'icon-no-image': () => import( /* webpackPrefetch: true */ '../Icon/IconNoImage.vue'),
       'icon-comment': () => import( /* webpackPrefetch: true */ '../Icon/IconComment'),
     },
     data() {
