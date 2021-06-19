@@ -92,7 +92,7 @@
           style: {
             fontWeight: 'bold',
             fontSize: '14px',
-            // color: '#666666'
+            // color: '#f6f8fb'
           }
         },
         vChip: {

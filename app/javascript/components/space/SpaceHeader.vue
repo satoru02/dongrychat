@@ -19,10 +19,10 @@
           <!-- <v-btn @click="subscribed === true ? unsubscribe() : subscribe()"
              >{{subscribed === true ? vBtn.subscribedText : vBtn.unsubscribedText}}</v-btn> -->
           <base-label :style="'font-weight: bold; border-width: 1.8;'" class="rounded-xl" font_size="16px"
-            v-if="space_data.media === media.tv" :label="true" :small="false" :color="'#000000'" :outlined="true"
+            v-if="space_data.media === media.tv" :label="true" :small="false" :color="'#020814'" :outlined="true"
             :text_color="'#000000'" :season="space_data.season" :episode="space_data.episode"
             :title="space_data.episode_title" />
-          <v-chip class="rounded-xl" v-if="space_data.media === media.mv" outlined label :color="'black'"
+          <v-chip class="rounded-xl" v-if="space_data.media === media.mv" outlined label :color="'#020814'"
             :style="vChip.label.style" v-text="'映画'" />
         </v-row>
         <v-row dense class="mt-8">
@@ -37,11 +37,11 @@
           <v-col lg=1></v-col>
           <v-col lg=5>
             <span class="ml-n8">
-              <v-btn style="font-weight: bold; font-size: 14px;" elevation=0 small>内容</v-btn>
+              <v-btn color="#f6f8fb" style="font-weight: bold; font-size: 14px;" elevation=0 small>あらすじ</v-btn>
             </span>
           </v-col>
-          <v-col cols=12 sm=12 md=12 lg=3 xl=12 class="ml-14">
-            <v-btn class="rounded-lg" small :style="'font-weight: bold; border-width: 0.5;'" outlined color="#474747">
+          <!-- <v-col cols=12 sm=12 md=12 lg=3 xl=12 class="ml-14">
+            <v-btn class="rounded-lg" small :style="'font-weight: bold; border-width: 0.4;'" outlined color="#0e151f">
               <icon-base class="mr-3" icon-name="icon-twitter" :viewBox="'0 0 512 512'" :height="'17'" :width="'17'">
                 <icon-twitter />
               </icon-base>
@@ -49,13 +49,13 @@
             </v-btn>
           </v-col>
           <v-col cols=12 sm=12 md=12 lg=2 xl=12 class="ml-n11">
-            <v-btn class="rounded-lg" small :style="'font-weight: bold; border-width: 0.5;'" outlined color="#474747">
+            <v-btn class="rounded-lg" small :style="'font-weight: bold; border-width: 0.4;'" outlined color="#0e151f">
               <icon-base class="mr-3" icon-name="icon-facebook" :viewBox="'0 0 512 512'" :height="'17'" :width="'17'">
                 <icon-facebook />
               </icon-base>
               <span style="color: #474747;">シェアする</span>
             </v-btn>
-          </v-col>
+          </v-col> -->
         </v-row>
         <v-row class="mt-2" style="min-height: 164; max-height: 164;">
           <v-col class="ml-9" cols=11 sm=12 md=12 lg=11 xl=12 :style="vColSummaryStyle"
@@ -66,9 +66,9 @@
           <v-col class="ml-7" cols=11 sm=12 md=12 lg=5 xl=12>
             <v-btn @click="subscribed === true ? unsubscribe() : subscribe()" block class="mx-2 rounded-lg" elevation=0
               :outlined="subscribed === true ? false : true"
-              :color="subscribed === true ? 'rgb(0 213 247)' : 'rgb(0 213 247)'"
+              :color="subscribed === true ? '#42ccff' : '#42ccff'"
               style="font-weight: bold; border-width: 1.9;">
-              <icon-base class="mr-3" :iconColor="'rgb(0 213 247)'" icon-name="icon-plus" :viewBox="'0 0 448 448'"
+              <icon-base class="mr-3" :iconColor="'#42ccff'" icon-name="icon-plus" :viewBox="'0 0 448 448'"
                 :height="'12'" :width="'12'">
                 <icon-plus />
               </icon-base>
@@ -140,7 +140,7 @@
           color: '#ffffff'
         },
         unsubscribeText: {
-          color: 'rgb(0 213 247)'
+          color: '#42ccff'
         },
         dummyText: '',
         params: {},
@@ -151,7 +151,7 @@
         },
         vColTitle: {
           style: {
-            color: '#000000',
+            color: '#020814',
             fontWeight: 'bold',
             fontSize: '33px',
             cursor: 'pointer',
