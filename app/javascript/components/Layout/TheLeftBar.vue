@@ -36,8 +36,8 @@
     <v-row justify="center" class="mt-n4">
       <v-col cols="12" sm="7" md="6" lg="11" class="ml-6">
         <v-chip-group column>
-          <v-chip small active-class="blue--text" class="mb-3 rounded-xl" style="width: auto; font-weight: bold;"
-            @click="goTagPage(tag.attributes)" color="#ebeef1" label v-for="(tag) in tags"
+          <v-chip active-class="blue--text" class="mb-3 rounded-xl" style="width: auto; font-weight: bold;"
+            @click="goTagPage(tag.attributes)" color="#f6f8fb" label v-for="(tag) in tags"
             :key="tag.attributes.name">
             {{tag.attributes.name}}
           </v-chip>
@@ -171,7 +171,7 @@
         category: {
           fontWeight: 'bold',
           fontSize: '16px',
-          color: '#a9abad',
+          color: '#657482',
         },
         list_item_title: {
           color: '#011627',

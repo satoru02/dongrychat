@@ -21,9 +21,9 @@
               {{details.vote_average}}</v-btn>
           </span>
         </h2>
-        <v-btn style="font-weight:bold;" class="mt-2" small elevation=0>内容</v-btn>
+        <v-btn style="font-weight:bold;" color="#f6f8fb" class="mt-2" small elevation=0>作品紹介</v-btn>
         <p class="mt-3" :style="bindContentsDetails" v-text="details.overview" />
-        <v-btn style="font-weight:bold;" class="mt-4" small elevation=0>カテゴリー</v-btn>
+        <v-btn style="font-weight:bold;" color="#f6f8fb" class="mt-4" small elevation=0>カテゴリー</v-btn>
         <v-chip-group column class="mt-3">
           <v-chip small active-class="blue--text" outlined class="mb-3 rounded-lg"
             style="width: auto; font-weight: bold;" color="#000000" label
@@ -60,7 +60,7 @@
             <v-slide-group multiple show-arrows v-if="overall.seasons.length > 1">
               <v-slide-item v-for="(season, index) in (this.overall.seasons.length - 1)" :key="index"
                 v-slot="{ active, toggle }">
-                <v-btn style="font-weight: bold;" class="mx-2" :input-value="active"
+                <v-btn style="font-weight: bold;" color="#f6f8fb" class="mx-2" :input-value="active"
                   active-class="purple white--text" depressed rounded @click="toggle,changeSeason(index+1)">
                   シーズン {{index + 1}}
                 </v-btn>

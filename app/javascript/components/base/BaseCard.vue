@@ -40,7 +40,7 @@
                   {{item.attributes.name}}
                 </v-list-item-title>
                 <v-list-item-subtitle v-if="item.attributes.latest_comment" class="comment-name mt-1">
-                  <div style="color: #828a92; font-weight: bold;">{{item.attributes.latest_comment.content}}</div>
+                  <div style="color: #828a92;">{{item.attributes.latest_comment.content}}</div>
                 </v-list-item-subtitle>
                 <v-list-item-subtitle v-else class="comment-name mt-1" v-text="''">
                 </v-list-item-subtitle>
@@ -217,12 +217,12 @@
   .contents-name {
     font-weight: bold;
     font-size: 18px;
-    color: #24292e;
+    color: #020814;
   }
 
   .comment-name {
     /* font-weight: bold; */
     font-size: 15px;
-    color: #828a92;
+    color: #445b78;
   }
 </style>
