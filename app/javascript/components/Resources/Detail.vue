@@ -1,22 +1,22 @@
 <template>
-  <div class="mt-n2 ml-n5">
-    <v-divider class=mt-13 />
-    <v-row class="ml-10">
-      <v-col cols=2 sm=2 md=2 lg=3 xl=2 class="mt-2">
-        <v-card elevation=0 :class="'ml-8 mt-n16 rounded-lg'" width=270 height="385" color="#e9ecef">
+  <div class="">
+    <!-- <v-divider class=mt-13 /> -->
+    <v-row class="">
+      <v-col cols=2 sm=2 md=2 lg=3 xl=2 class="ml-6">
+        <v-card elevation=0 :class="'rounded-lg'" width=270 height="385" color="#e9ecef">
           <v-img class="mt-5" width=270 height="385" v-if="details.poster_path"
             :src="base_tmdb_img_url + details.poster_path" />
         </v-card>
         <h2 class="mt-5" v-if="media === 'tv'">
           {{this.$route.params.tv_name}}
-          <span class="ml-3">
+          <span class="ml-2">
             <v-btn small color="yellow" elevation=0 style="font-weight: bold; font-size: 15px;" class="rounded-xl">
               {{overall.vote_average}}</v-btn>
           </span>
         </h2>
         <h2 class="mt-5" v-else>
           {{this.$route.params.mv_name}}
-          <span class="ml-3">
+          <span class="ml-2">
             <v-btn small color="yellow" elevation=0 style="font-weight: bold; font-size: 15px;" class="rounded-xl">
               {{details.vote_average}}</v-btn>
           </span>
@@ -32,11 +32,12 @@
           </v-chip>
         </v-chip-group>
       </v-col>
-      <v-col cols=2 sm=2 md=2 lg=8 xl=2 class="ml-10 mt-n16">
+      <v-col cols=2 sm=2 md=2 lg=8 xl=2 class="ml-6">
         <v-row>
           <v-col lg=12>
-            <v-tabs grow hide-slider next-icon="" prev-icon="" mobile-breakpoint="xs" class="mt-5" :style="style.tabs"
-              background-color='#ffffff' :height="'40'" :width="tabs.width" :color="'blue'">
+            <v-tabs grow next-icon="" prev-icon="" mobile-breakpoint="xs" class="mt-5" :style="style.tabs"
+              background-color='#ffffff' :width="tabs.width" :color="'blue'">
+              <v-tabs-slider color="#42ccff"></v-tabs-slider>
               <v-tab :active-class="'black--text'" :style="style.tab" v-for="(content, index) in contents" :key="index">
                 <icon-base class="mr-3" v-if="content === '概要'" :iconColor="'#6c757d'" icon-name="icon-overview"
                   :width="'15'" :height="'15'" :viewBox="'0 0 512.0005 512'">

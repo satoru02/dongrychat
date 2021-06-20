@@ -1,6 +1,6 @@
 <template>
-  <div class="mt-4 ml-n5">
-    <v-row v-if="space_data" class="mt-n3">
+  <div class="">
+    <v-row v-if="space_data" class="">
       <v-col cols=2 sm=2 md=2 lg=3 xl=2 :class="vColAvatarGrid">
         <v-card elevation=0 class="rounded-lg" width="240px" color="#dee2e6">
           <v-img v-if="this.space_data.image_path" :src="posterImg()" class="white--text mt-n2" height="350px">
@@ -13,7 +13,7 @@
           </v-img>
         </v-card>
       </v-col>
-      <v-col cols=9 sm=9 md=9 lg=9 xl=9 class="ml-n5 mt-8">
+      <v-col cols=9 sm=9 md=9 lg=9 xl=9 class="ml-n16 mt-8">
         <v-row class="ml-8">
 
           <!-- <v-btn @click="subscribed === true ? unsubscribe() : subscribe()"
@@ -36,11 +36,11 @@
         <v-row class="mt-3">
           <v-col lg=1></v-col>
           <v-col lg=5>
-            <span class="ml-n8">
+            <span class="ml-n10">
               <v-btn color="#f6f8fb" style="font-weight: bold; font-size: 14px;" elevation=0 small>あらすじ</v-btn>
             </span>
           </v-col>
-          <!-- <v-col cols=12 sm=12 md=12 lg=3 xl=12 class="ml-14">
+          <v-col cols=12 sm=12 md=12 lg=3 xl=12 class="ml-14">
             <v-btn class="rounded-lg" small :style="'font-weight: bold; border-width: 0.4;'" outlined color="#0e151f">
               <icon-base class="mr-3" icon-name="icon-twitter" :viewBox="'0 0 512 512'" :height="'17'" :width="'17'">
                 <icon-twitter />
@@ -55,7 +55,7 @@
               </icon-base>
               <span style="color: #474747;">シェアする</span>
             </v-btn>
-          </v-col> -->
+          </v-col>
         </v-row>
         <v-row class="mt-2" style="min-height: 164; max-height: 164;">
           <v-col class="ml-9" cols=11 sm=12 md=12 lg=11 xl=12 :style="vColSummaryStyle"
@@ -306,7 +306,7 @@
           case 'md':
             return 'mt-7'
           case 'lg':
-            return 'mt-7 ml-5'
+            return 'mt-7'
           case 'xl':
             return 'ml-10 mt-1'
         }

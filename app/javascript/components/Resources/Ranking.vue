@@ -10,7 +10,7 @@
       </template>
     </sub-header>
 
-    <v-tabs height="40" class="mt-n1 ml-5" background-color='#ffffff'>
+    <v-tabs height="40" class="mt-n1 ml-5">
       <v-tabs-slider color="#111111"></v-tabs-slider>
       <v-tab @click="changeContents(tab)" class="tab-name" active-class="black--text" v-for="(tab, index) in tabs"
         :key="index">
@@ -46,7 +46,7 @@
   const spacesRepository = RepositoryFactory.get('spaces');
 
   export default {
-    name: 'Topic',
+    name: 'Ranking',
     components: {
       'base-banner': () => import( /* webpackPrefetch: true */ '../Base/BaseBanner'),
       'sub-header': () => import( /* webpackPrefetch: true */ '../Layout/TheSubHeader'),

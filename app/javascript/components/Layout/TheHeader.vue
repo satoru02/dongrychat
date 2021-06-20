@@ -1,37 +1,36 @@
 <template>
-  <v-app-bar elevation=1 outlined app color="#ffffff">
-    <div :class="headerL" />
-    <v-toolbar-title style="font-weight: bold; color: #111111" :class="headerTitle" @click="movePath('/')">
-      名前未定
-    </v-toolbar-title>
-    <v-toolbar-title class="ml-16">
-      <v-btn text color="#ffffff" style="font-size: 14px; font-weight: bold; color: #111111"
+  <!-- <v-app-bar dense elevation=0 app color="#ffffff" style="opacity: 0.71; backdrop-filter: saturate(180%) blur(10px);"> -->
+  <v-app-bar elevation=0 outlined dense app color="#000000">
+
+    <v-toolbar-title class="ml-1">
+      <v-btn text color="#657482" style="font-size: 14px; font-weight: bold; color: #657482"
         @click="movePath('/trend')">
         <icon-new class="mr-3" />新着</v-btn>
     </v-toolbar-title>
-    <v-toolbar-title class="ml-3">
+    <v-toolbar-title class="ml-6">
       <v-btn @click="movePath('/popular')" text color="#ffffff"
-        style="font-size: 14px; font-weight: bold; color: #111111">
+        style="font-size: 14px; font-weight: bold; color: #657482">
         人気
       </v-btn>
     </v-toolbar-title>
-    <v-toolbar-title class="ml-3">
+    <v-toolbar-title class="ml-6">
       <v-btn @click="movePath('/top_rated')" text color="#ffffff"
-        style="font-size: 14px; font-weight: bold; color: #111111">
+        style="font-size: 14px; font-weight: bold; color: #657482">
         高評価
       </v-btn>
     </v-toolbar-title>
-    <v-text-field placeholder="気になる作品を検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
-      :full-width="true" v-if="this.checkAuthorization()" dense background-color="#f4f8fb" solo flat
-      class="text-field rounded-lg mt-7 ml-16 mr-16 " />
+    <v-spacer />
+    <!-- <v-text-field placeholder="気になる作品を検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
+      :full-width="true" v-if="this.checkAuthorization()" dense background-color="#161b22" solo flat
+      class="rounded-lg mt-7 ml-16 mr-16 " /> -->
     <v-menu left nudge-bottom="35" nudge-height="800">
       <template v-slot:activator="{on, attrs}">
         <div v-bind="attrs" v-on="on" @click="infiniteHandler()">
-          <v-btn icon>
+          <!-- <v-btn icon>
             <icon-base icon-name="icon-bell" :iconColor="'#606770'" :viewBox="'-42 0 512 512.001'">
-              <icon-bell class=ml-2 />
+              <icon-bell />
             </icon-base>
-          </v-btn>
+          </v-btn> -->
         </div>
       </template>
       <v-list class="rounded-s list" v-if="$store.state.user.signedIn">

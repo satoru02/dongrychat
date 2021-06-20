@@ -16,8 +16,8 @@ export default {
   },
   data(){
     return{
-      home: 'フォロー中の作品一覧',
-      popular: '話題の作品一覧',
+      home: 'フォロー中の作品チャット一覧',
+      popular: 'チャットランキング（12:00現在）',
       notifications: '通知',
       accountSetting: 'アカウント設定',
       tag_space: 'の作品一覧',
