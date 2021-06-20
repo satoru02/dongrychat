@@ -1,55 +1,53 @@
 <template>
-  <v-container class="left-bar ml-16 mt-n1">
-    <v-list nav color="#ffffff" class="rounded-lg">
-      <v-subheader :style="category" class="mb-n2 ml-n1">メニュー</v-subheader>
+    <v-navigation-drawer width=225 app dark permanent style="background-color: #000000;">
+    <v-text-field placeholder="検索"
+      :full-width="true" dense background-color="#161b22" solo flat
+      class="text-field rounded-lg mt-12 ml-3 mr-3" />
+
+    <v-list dense nav class="rounded-lg mt-n6">
+      <v-subheader :style="category" class="">メニュー</v-subheader>
       <v-list-item-group color="primary" class="mt-1">
         <v-hover v-for="(item, index) in menus" :key="index">
           <v-list-item
             @click="changeRoute(item.path_name)" class="ml-1">
 
             <v-list-item-icon>
-              <v-badge dot offset-x="2" offset-y="7" overlap color="#3a86ff" v-if="item.text === 'フォロー中' && new_comments > 0">
-              <v-list-item-subtitle class="" :size="icon.size">
-                <icon-base v-if="item.text === 'ホーム'" :iconColor="'black'" icon-name="icon-home" :width="'20'" :height="'20'" :viewBox="'0 0 512.05 512.05'"><icon-home /></icon-base>
-                <icon-base v-if="item.text === 'チャット'" :iconColor="'black'" icon-name="icon-following" :width="'20'" :height="'20'" :viewBox="'0 0 511.996 511.996'"><icon-following /></icon-base>
-                <icon-base v-if="item.text === 'レビュー'" icon-name="icon-bookmark" :width="'15'" :height="'15'" :viewBox="'0 0 512 512'"><icon-bookmark /></icon-base>
-                <icon-base v-if="item.text === 'コミュニティ'" icon-name="icon-bookmark" :width="'15'" :height="'15'" :viewBox="'0 0 512 512'"><icon-bookmark /></icon-base>
-                <icon-base v-if="item.text === 'ランキング'" icon-name="icon-bookmark" :width="'15'" :height="'15'" :viewBox="'0 0 512 512'"><icon-bookmark /></icon-base>
-              </v-list-item-subtitle>
-              </v-badge>
-              <v-list-item-subtitle class="" v-else :size="icon.size">
-                <icon-base v-if="item.text === 'ホーム'" :iconColor="'black'" icon-name="icon-home" :width="'20'" :height="'20'" :viewBox="'0 0 512.05 512.05'"><icon-home /></icon-base>
-                <icon-base v-if="item.text === 'チャット'" :iconColor="'black'" icon-name="icon-following" :width="'20'" :height="'20'" :viewBox="'0 0 511.996 511.996'"><icon-following /></icon-base>
-                <icon-base v-if="item.text === 'レビュー'" :iconColor="'black'" icon-name="icon-bookmark" :width="'20'" :height="'20'" :viewBox="'0 0 512 512'"><icon-bookmark /></icon-base>
-                <icon-base v-if="item.text === 'コミュニティ'" :iconColor="'black'" icon-name="icon-bookmark" :width="'20'" :height="'20'" :viewBox="'0 0 512 512'"><icon-bookmark /></icon-base>
-                <icon-base v-if="item.text === 'ランキング'" :iconColor="'black'" icon-name="icon-bookmark" :width="'20'" :height="'20'" :viewBox="'0 0 512 512'"><icon-bookmark /></icon-base>
+              <v-list-item-subtitle class="mt-1" :size="icon.size">
+                <icon-base v-if="item.text === 'ホーム'" :iconColor="'#c9d1d9'" icon-name="icon-home" :width="'17'" :height="'17'" :viewBox="'0 0 512.05 512.05'"><icon-home /></icon-base>
+                <icon-base v-if="item.text === 'チャット'" :iconColor="'#c9d1d9'" icon-name="icon-following" :width="'17'" :height="'17'" :viewBox="'0 0 511.996 511.996'"><icon-following /></icon-base>
+                <icon-base v-if="item.text === 'レビュー'" :iconColor="'#c9d1d9'" icon-name="icon-bookmark" :width="'17'" :height="'17'" :viewBox="'0 0 512 512'"><icon-bookmark /></icon-base>
+                <icon-base v-if="item.text === 'コミュニティ'" :iconColor="'#c9d1d9'" icon-name="icon-bookmark" :width="'17'" :height="'17'" :viewBox="'0 0 512 512'"><icon-bookmark /></icon-base>
+                <icon-base v-if="item.text === 'ランキング'" :iconColor="'#c9d1d9'" icon-name="icon-bookmark" :width="'17'" :height="'17'" :viewBox="'0 0 512 512'"><icon-bookmark /></icon-base>
               </v-list-item-subtitle>
             </v-list-item-icon>
 
-            <v-list-item-content class="ml-n6">
+            <v-list-item-content class="ml-n4">
               <v-list-item-title :style="list_item_title.style">
                 {{item.text}}
               </v-list-item-title>
             </v-list-item-content>
+              <v-list-item-action class="mt-5" v-if="item.text === 'チャット'">
+                <v-badge color="#008dd5" dot />
+              </v-list-item-action>
           </v-list-item>
         </v-hover>
       </v-list-item-group>
-      <!-- <v-divider color="#f6f6f9" class="mt-5 ml-3 mr-10" /> -->
-      <v-subheader :style="category" class="mt-4 mb-1 ml-n1">カテゴリーから探す</v-subheader>
     </v-list>
+        <v-subheader :style="category" class="mt-4 mb-2">カテゴリーから探す</v-subheader>
     <v-row justify="center" class="mt-n4">
-      <v-col cols="12" sm="7" md="6" lg="11" class="ml-6">
+      <v-col cols="12" sm="7" md="6" lg="11" class="ml-2">
         <v-chip-group column>
-          <v-chip active-class="blue--text" class="mb-3 rounded-xl" style="width: auto; font-weight: bold;"
-            @click="goTagPage(tag.attributes)" color="#f6f8fb" label v-for="(tag) in tags"
+          <v-chip small outlined active-class="blue--text" class="mb-3 rounded-xl" style="width: auto; font-weight: bold;"
+            @click="goTagPage(tag.attributes)" color="#c9d1d9" label v-for="(tag) in tags"
             :key="tag.attributes.name">
             {{tag.attributes.name}}
           </v-chip>
         </v-chip-group>
       </v-col>
     </v-row>
+    </v-navigation-drawer>
 
-    <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
+    <!-- <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
       <v-card color="#ffffff" height="250" class="rounded-lg">
         <v-row>
           <v-col lg=3 />
@@ -77,9 +75,7 @@
           </v-col>
         </v-row>
       </v-card>
-    </v-dialog>
-
-  </v-container>
+    </v-dialog> -->
 </template>
 
 <script>
@@ -117,12 +113,17 @@
         menus: [{
             text: 'ホーム',
             icon: '<icon-home></icon-home>',
-            path_name: 'Topic'
+            path_name: 'Trend'
           },
           {
             text: 'チャット',
             icon: '✨',
             path_name: 'Following'
+          },
+          {
+            text: 'ランキング',
+            icon: '👏',
+            path_name: 'Ranking'
           },
           {
             text: 'レビュー',
@@ -133,11 +134,6 @@
             text: 'コミュニティ',
             icon: `😆`,
             path_name: 'Trend'
-          },
-          {
-            text: 'ランキング',
-            icon: '👏',
-            path_name: 'TopRated'
           },
         ],
         header_part: {
@@ -180,9 +176,9 @@
         list_item_title: {
           color: '#011627',
           style: {
-            fontWeight: '700',
-            fontSize: '16px',
-            // color: '#606770'
+            fontWeight: '600',
+            fontSize: '14px',
+            color: '#c9d1d9'
           }
         },
         btn: {
@@ -282,8 +278,11 @@
 </script>
 
 <style scoped>
-.color {
-  color: #ebeef1
+.v-badge--dot .v-badge__badge {
+    border-radius: 4.5px;
+    height: 6px;
+    min-width: 0;
+    padding: 0;
+    width: 6px;
 }
-
 </style>

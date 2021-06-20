@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="ml-n4">
 
     <sub-header>
       <template v-slot:home_header="subHeaderProps">
@@ -17,7 +17,7 @@
               <v-list-item-avatar class="ml-n7" style="font-size:9px; color: #606770;">
                 <v-badge color="#3a86ff" v-if="item.attributes.unconfirmed_comments > 0" dot />
               </v-list-item-avatar>
-              <v-list-item-avatar class="ml-n3" size="70" style="background-color: #dee2e6;">
+              <v-list-item-avatar class="ml-n3" size="80" style="background-color: #dee2e6;">
                 <v-img v-if="item.attributes.image_path" :src="base_tmdb_img_url + item.attributes.image_path"></v-img>
                 <span v-else>
                   <icon-base :width="'30'" :height="'30'" icon-name="icon-no-image" :iconColor="'#111111'"
@@ -126,7 +126,7 @@
             case 'xl':
               return {
                 fontWeight: 'bold',
-                  fontSize: '15px',
+                  fontSize: '16px',
                   color: '#111111'
               }
         }

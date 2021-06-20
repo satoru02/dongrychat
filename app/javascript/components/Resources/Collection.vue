@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid class="mt-3">
-    <v-tabs height="40" class="mt-n1 ml-5" background-color='#ffffff'>
+  <v-container fluid class="ml-n3">
+    <v-tabs height="40" class="mt-n1" background-color='#ffffff'>
       <v-tabs-slider color="#111111"></v-tabs-slider>
       <v-tab @click="changeContents(tab)" class="tab-name" active-class="black--text" v-for="(tab, index) in tabs"
         :key="index">
@@ -9,8 +9,8 @@
         {{tab}}
       </v-tab>
     </v-tabs>
-    <v-divider class="ml-5" />
-    <base-list class="mt-3 ml-2" :key="componentKey" :items="items" :media="media" />
+    <!-- <v-divider class="" /> -->
+    <base-list class="mt-3" :key="componentKey" :items="items" :media="media" />
   </v-container>
 </template>
 
@@ -197,6 +197,5 @@
   .tab-name {
     font-weight: bold;
     font-size: 14px;
-    color: #24292e;
   }
 </style>

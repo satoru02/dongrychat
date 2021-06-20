@@ -1,21 +1,21 @@
 <template>
-  <div class="user-top mt-n1">
+  <div class="user-top mt-n1 ml-10">
     <!-- <v-divider class="mt-16 ml-n10" /> -->
     <v-row class="mt-8">
-      <v-col lg=3 class="ml-16">
+      <v-col lg=3 class="">
         <v-avatar size=128 elevation=0 color="#dee2e6">
           <v-img src="https://cdn.vuetifyjs.com/images/john.jpg"></v-img>
         </v-avatar>
         <h2 class="mt-7">username</h2>
         <div style="font-size: 13px; color: #768390;" class="">@username</div>
         <v-row class="mt-1" no-gutters>
-          <v-col lg=4 style="font-size: 12px; color: #111111;">
+          <v-col lg=5 style="font-size: 12px; color: #111111;">
             <span style="font-weight: bold;">123</span> フォロー</v-col>
-          <v-col lg=4 style="font-size: 12px; color: #111111;">
+          <v-col lg=6 style="font-size: 12px; color: #111111;">
             <span style="font-weight: bold;">123</span> フォロワー</v-col>
         </v-row>
         <v-row class="mt-n3" no-gutters>
-          <v-col lg=7 style="font-size: 12px; color: #111111;">
+          <v-col lg=8 style="font-size: 12px; color: #111111;">
             <p class="mt-4">Designer Adovcate, Education @figmadesign
               he/him/his</p>
           </v-col>
@@ -23,7 +23,7 @@
         <v-btn color="#42ccff" style="font-size: 11px; font-weight: bold; color: #ffffff;" elevation=0>フォロー
         </v-btn>
       </v-col>
-      <v-col lg=8 class="mt-16 ml-n16">
+      <v-col lg=9 class="mt-16 ml-n14">
         <v-row class="mt-n16">
           <v-col lg=12>
             <!-- <h4>ウォッチログ</h4> -->
@@ -43,7 +43,7 @@
         </v-row>
         <v-row class="mt-2">
           <!-- <v-col lg=4></v-col> -->
-          <v-col lg=6 v-for="(episode, index) in 3" :key=index class="mr-n8">
+          <v-col lg=6 v-for="(episode, index) in 3" :key=index class="">
 
             <v-card color="#f4f8fb" elevation=0 class="rounded-lg mb-n2" height="140" width="440">
               <v-list-item three-line>

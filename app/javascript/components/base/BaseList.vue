@@ -11,10 +11,10 @@
           </v-btn>
           <span v-if="media === 'tv'" class="ml-1" style="font-size: 11px; font-weight: bold; color: #ffffff;" >{{item.first_air_date}}・初放送</span>
           <span v-if="media === 'movie'" class="ml-1" style="font-size: 11px; font-weight: bold; color: #ffffff;" >{{item.release_date}}・初公開</span>
-          <v-card-title v-if="media === 'tv'" style="font-weight: bold; line-height: 22px; font-size: 18px;">
+          <v-card-title v-if="media === 'tv'" style="font-weight: bold; line-height: 23px; font-size: 20px;">
             {{item.name}}
           </v-card-title>
-          <v-card-title v-if="media === 'movie'" style="font-weight: bold; line-height: 22px; font-size: 18px;">
+          <v-card-title v-if="media === 'movie'" style="font-weight: bold; line-height: 23px; font-size: 20px;">
             {{item.title}}
           </v-card-title>
         </v-img>

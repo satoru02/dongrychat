@@ -3,7 +3,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
-import Topic from '../components/Resources/Topic.vue';
+import Ranking from '../components/Resources/Ranking.vue';
 
 // vue store
 import { store } from '../stores/index';
@@ -81,9 +81,9 @@ var router = new VueRouter({
       component: () => import( /* webpackChunkName: "Logout" */ '../components/Authorization/Logout'),
     },
     {
-      path: '/',
-      name: 'Topic',
-      component: Topic,
+      path: '/ranking',
+      name: 'Ranking',
+      component: Ranking,
       meta: {
         title: '話題の作品',
         keepAlive: true,
