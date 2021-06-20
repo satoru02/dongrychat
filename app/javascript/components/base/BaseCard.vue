@@ -7,11 +7,11 @@
           <v-list-item active-class="white--text" @click="enterSpace(item.attributes)" :key="index"
             v-for="(item, index) in items">
             <template v-slot:default="">
-              <!-- <v-list-item-avatar class="ml-n5" style="font-size:9px; color: #606770;"> -->
+              <v-list-item-avatar class="ml-n5 mr-n3" style="font-size:10px; color: #606770; font-weight: bold;" v-if="$route.name === 'Topic'">
               <!-- <v-btn label outlined x-small> -->
-              <!-- {{index + 1}} -->
+              {{index + 1}}
               <!-- </v-btn> -->
-              <!-- </v-list-item-avatar> -->
+              </v-list-item-avatar>
               <v-badge light style="font-weight: bold;" offset-x="26" v-if="item.attributes.users.length" offset-y="26"
                 color="#43e6ff" icon="mdi-lock" overlap :content="item.attributes.users.length">
                 <v-list-item-avatar tile class="rounded-lg" size="80" style="background-color: #dee2e6;">

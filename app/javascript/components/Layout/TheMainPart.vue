@@ -3,7 +3,7 @@
     <the-header />
     <v-main style="background-color: #ffffff;" class="ml-n5">
       <v-row>
-      <v-col lg=1 class="ml-n10" />
+      <v-col lg=1 class="ml-n16" />
         <keep-alive>
           <v-col :cols="this.colsGrid[0]" :sm="this.smGrid[0]" :md="this.mdGrid[0]" :lg="this.lgGrid[0]"
             :xl="this.xlGrid[0]" v-if="$vuetify.breakpoint.width > 600" class="ml-n16">
@@ -132,11 +132,12 @@
           case 'MvSpace':
           case 'MvSpaceMembers':
           case 'MvSpaceReviews':
+            return this.lgGrid = [1, 9, 0]
           case 'UserTop':
           case 'UserReviews':
           case 'UserFollowing':
           case 'UserFollowers':
-            return this.lgGrid = [1, 9, 0]
+            return this.lgGrid = [0, 12, 0]
           case 'TvDetails':
           case 'MvDetails':
             return this.lgGrid = [0, 12, 0]

@@ -3,9 +3,9 @@
 
     <sub-header>
       <template v-slot:home_header="subHeaderProps">
-        <h3 :class="gridSubHeader">
+        <h1 :class="gridSubHeader">
           {{subHeaderProps.sub_header}}
-        </h3>
+        </h1>
       </template>
     </sub-header>
 
@@ -38,19 +38,19 @@
               </v-list-item-content>
               <v-list-item-content class="ml-16">
                 <v-list-item-title style="font-weight: bold;">
-                  <base-label class="rounded-xl" :color="'#000000'" font_size="10px" :label="true" v-if="item.attributes.media === 'tv'"
+                  <base-label class="rounded-xl" :color="'#000000'" font_size="12px" :label="true" v-if="item.attributes.media === 'tv'"
                     :small="false" :outlined="true" :text_color="'#111111'" :season="item.attributes.season"
                     :episode="item.attributes.episode" :title="item.attributes.episode_title" />
-                  <v-chip style="font-size: 10px;" outlined class="rounded-xl" :color="'#000000'" v-if="item.attributes.media === 'mv'" label v-text="'映画'" />
+                  <v-chip style="font-size: 12px;" outlined class="rounded-xl" :color="'#000000'" v-if="item.attributes.media === 'mv'" label v-text="'映画'" />
                 </v-list-item-title>
               </v-list-item-content>
               <v-list-item-action>
-                <icon-base :iconColor="'#6c757d'" icon-name="icon-comment" :width="'14'" :height="'14'"
-                  :viewBox="'0 0 30.333 30.333'">
-                  <icon-comment />
+                <icon-base :iconColor="'#6c757d'" icon-name="icon-following" :width="'14'" :height="'14'"
+                  :viewBox="'0 0 511.996 511.996'">
+                  <icon-following />
                 </icon-base>
               </v-list-item-action>
-              <v-list-item-action class="ml-n1" style="font-size: 11px; color: #607080; font-weight: bold;">
+              <v-list-item-action class="ml-1" style="font-size: 13px; color: #607080; font-weight: bold;">
                 {{item.attributes.comments_count}}
               </v-list-item-action>
             </template>
@@ -76,7 +76,7 @@
       'sub-header': () => import( /* webpackPrefetch: true */ '../Layout/TheSubHeader'),
       'icon-base': () => import( /* webpackPrefetch: true */ '../Icon/IconBase'),
       'icon-no-image': () => import( /* webpackPrefetch: true */ '../Icon/IconNoImage.vue'),
-      'icon-comment': () => import( /* webpackPrefetch: true */ '../Icon/IconComment'),
+      'icon-following': () => import( /* webpackPrefetch: true */ '../Icon/IconFollowing'),
     },
     data() {
       return {
@@ -207,7 +207,7 @@
 <style scoped>
   .sub-header {
     font-weight: bold;
-    font-size: 15px;
+    font-size: 20px;
     color: #111111;
   }
 </style>

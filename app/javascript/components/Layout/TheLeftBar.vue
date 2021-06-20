@@ -11,14 +11,18 @@
               <v-badge dot offset-x="2" offset-y="7" overlap color="#3a86ff" v-if="item.text === 'フォロー中' && new_comments > 0">
               <v-list-item-subtitle class="" :size="icon.size">
                 <icon-base v-if="item.text === 'ホーム'" :iconColor="'black'" icon-name="icon-home" :width="'20'" :height="'20'" :viewBox="'0 0 512.05 512.05'"><icon-home /></icon-base>
-                <icon-base v-if="item.text === 'フォロー中'" :iconColor="'black'" icon-name="icon-following" :width="'20'" :height="'20'" :viewBox="'0 0 511.996 511.996'"><icon-following /></icon-base>
-                <icon-base v-if="item.text === 'ウォッチリスト'" icon-name="icon-bookmark" :width="'15'" :height="'15'" :viewBox="'0 0 512 512'"><icon-bookmark /></icon-base>
+                <icon-base v-if="item.text === 'チャット'" :iconColor="'black'" icon-name="icon-following" :width="'20'" :height="'20'" :viewBox="'0 0 511.996 511.996'"><icon-following /></icon-base>
+                <icon-base v-if="item.text === 'レビュー'" icon-name="icon-bookmark" :width="'15'" :height="'15'" :viewBox="'0 0 512 512'"><icon-bookmark /></icon-base>
+                <icon-base v-if="item.text === 'コミュニティ'" icon-name="icon-bookmark" :width="'15'" :height="'15'" :viewBox="'0 0 512 512'"><icon-bookmark /></icon-base>
+                <icon-base v-if="item.text === 'ランキング'" icon-name="icon-bookmark" :width="'15'" :height="'15'" :viewBox="'0 0 512 512'"><icon-bookmark /></icon-base>
               </v-list-item-subtitle>
               </v-badge>
               <v-list-item-subtitle class="" v-else :size="icon.size">
                 <icon-base v-if="item.text === 'ホーム'" :iconColor="'black'" icon-name="icon-home" :width="'20'" :height="'20'" :viewBox="'0 0 512.05 512.05'"><icon-home /></icon-base>
-                <icon-base v-if="item.text === 'フォロー中'" :iconColor="'black'" icon-name="icon-following" :width="'20'" :height="'20'" :viewBox="'0 0 511.996 511.996'"><icon-following /></icon-base>
-                <icon-base v-if="item.text === 'ウォッチリスト'" :iconColor="'black'" icon-name="icon-bookmark" :width="'20'" :height="'20'" :viewBox="'0 0 512 512'"><icon-bookmark /></icon-base>
+                <icon-base v-if="item.text === 'チャット'" :iconColor="'black'" icon-name="icon-following" :width="'20'" :height="'20'" :viewBox="'0 0 511.996 511.996'"><icon-following /></icon-base>
+                <icon-base v-if="item.text === 'レビュー'" :iconColor="'black'" icon-name="icon-bookmark" :width="'20'" :height="'20'" :viewBox="'0 0 512 512'"><icon-bookmark /></icon-base>
+                <icon-base v-if="item.text === 'コミュニティ'" :iconColor="'black'" icon-name="icon-bookmark" :width="'20'" :height="'20'" :viewBox="'0 0 512 512'"><icon-bookmark /></icon-base>
+                <icon-base v-if="item.text === 'ランキング'" :iconColor="'black'" icon-name="icon-bookmark" :width="'20'" :height="'20'" :viewBox="'0 0 512 512'"><icon-bookmark /></icon-base>
               </v-list-item-subtitle>
             </v-list-item-icon>
 
@@ -116,25 +120,25 @@
             path_name: 'Topic'
           },
           {
-            text: 'フォロー中',
+            text: 'チャット',
             icon: '✨',
             path_name: 'Following'
           },
           {
-            text: 'ウォッチリスト',
+            text: 'レビュー',
             icon: '📖',
             path_name: ''
           },
-          // {
-          //   text: '新着の作品',
-          //   icon: `😆`,
-          //   path_name: 'Trend'
-          // },
-          // {
-          //   text: '評価の作品',
-          //   icon: '👏',
-          //   path_name: 'TopRated'
-          // },
+          {
+            text: 'コミュニティ',
+            icon: `😆`,
+            path_name: 'Trend'
+          },
+          {
+            text: 'ランキング',
+            icon: '👏',
+            path_name: 'TopRated'
+          },
         ],
         header_part: {
           position: 'mt-n5 ml-n4 mr-3',

@@ -1,7 +1,77 @@
 <template>
-  <v-container class="user-top mt-2">
-    <v-card outlined class="user-card rounded-lg">
-      <!-- <v-img height="133" src="https://source.unsplash.com/random" /> -->
+  <div class="user-top mt-n1">
+    <!-- <v-divider class="mt-16 ml-n10" /> -->
+    <v-row class="mt-8">
+      <v-col lg=3 class="ml-16">
+        <v-avatar size=128 elevation=0 color="#dee2e6">
+          <v-img src="https://cdn.vuetifyjs.com/images/john.jpg"></v-img>
+        </v-avatar>
+        <h2 class="mt-7">username</h2>
+        <div style="font-size: 13px; color: #768390;" class="">@username</div>
+        <v-row class="mt-1" no-gutters>
+          <v-col lg=4 style="font-size: 12px; color: #111111;">
+            <span style="font-weight: bold;">123</span> フォロー</v-col>
+          <v-col lg=4 style="font-size: 12px; color: #111111;">
+            <span style="font-weight: bold;">123</span> フォロワー</v-col>
+        </v-row>
+        <v-row class="mt-n3" no-gutters>
+          <v-col lg=7 style="font-size: 12px; color: #111111;">
+            <p class="mt-4">Designer Adovcate, Education @figmadesign
+              he/him/his</p>
+          </v-col>
+        </v-row>
+        <v-btn color="#42ccff" style="font-size: 11px; font-weight: bold; color: #ffffff;" elevation=0>フォロー
+        </v-btn>
+      </v-col>
+      <v-col lg=8 class="mt-16 ml-n16">
+        <v-row class="mt-n16">
+          <v-col lg=12>
+            <!-- <h4>ウォッチログ</h4> -->
+            <v-tabs background-color="transparent" color="#111111">
+              <v-tabs-slider color="#42ccff"></v-tabs-slider>
+              <v-tab>
+                <h4>ウォッチログ <span class="ml-1"><v-chip small elevation=0 color="#f2f2f2">13</v-chip></span></h4>
+              </v-tab>
+              <v-tab>
+                <h4>ウォッチリスト <span class="ml-1"><v-chip small elevation=0 color="#f2f2f2">13</v-chip></span></h4>
+              </v-tab>
+              <v-tab>
+                <h4>レビュー <span class="ml-1"><v-chip small elevation=0 color="#f2f2f2">13</v-chip></span></h4>
+              </v-tab>
+            </v-tabs>
+          </v-col>
+        </v-row>
+        <v-row class="mt-2">
+          <!-- <v-col lg=4></v-col> -->
+          <v-col lg=6 v-for="(episode, index) in 3" :key=index class="mr-n8">
+
+            <v-card color="#f4f8fb" elevation=0 class="rounded-lg mb-n2" height="140" width="440">
+              <v-list-item three-line>
+                <v-list-item-avatar tile class="rounded-lg" size="80" height="110" color="grey">
+                  <v-img src="https://image.tmdb.org/t/p/w500/tTFixV61n0SErumUFHUZcwh1KK8.jpg"></v-img>
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <div class="text-overline mb-4">
+                    <v-btn outlined x-small style="font-weight: bold; color: #ffffff; font-size: 11px;" color="black"
+                      elevation=0>シーズン1 第1話</v-btn>
+                  </div>
+                  <v-list-item-title class="text-h6 mb-1 mt-n2" style="font-weight: bold; color: #020814;">
+                    全裸監督
+                  </v-list-item-title>
+                  <v-list-item-subtitle style="color: #657482;">フットマンオーディション第二部。美咲はひょんなことから碓氷とペアを組むことになった。難題が続き苦戦していたが
+                  </v-list-item-subtitle>
+                  <!-- <v-list-item-action>
+                    <v-btn x-small elevation=0 color="pink"></v-btn>
+                  </v-list-item-action>  -->
+                </v-list-item-content>
+              </v-list-item>
+            </v-card>
+          </v-col>
+        </v-row>
+        <!-- <router-view :user_info="this.user_info" /> -->
+      </v-col>
+    </v-row>
+    <!-- <v-card outlined class="user-card rounded-lg">
       <v-card-title>
         <v-avatar size="60">
           <v-img :src="setAvatar()" />
@@ -18,7 +88,6 @@
           v-if="this.$store.state.user.currentUser.id !== user_info.id" small elevation=0 outlined>
           {{followed ? followingText : unfollowingText}}</v-btn>
       </v-card-title>
-      <!-- fix -->
       <v-row class="mt-n16 ml-n1">
         <v-col lg=1>
         </v-col>
@@ -26,7 +95,6 @@
         </v-col>
         <v-col lg=1 class="mt-n11 ml-n9" v-for="(link, index) in this.user_info.sns_link" :key="index">
           <v-icon size=18 color="#6b7280">
-            <!-- {{setLink(link)}} -->
           </v-icon>
         </v-col>
       </v-row>
@@ -58,31 +126,20 @@
           </span>
         </v-col>
         <v-col cols=2 sm=2 md=2 lg=2 xl=2 :class="gridUserInfo" v-if="this.user_info.location">
-          <!-- <v-icon
-            size=18
-            color="#6b7280"
-            class="mt-1"
-          >
-            mdi-map-marker-outline
-          </v-icon>
-          <span
-            class="user-countText"
-          >
-          {{this.user_info.location}}
-          </span> -->
         </v-col>
       </v-row>
-    </v-card>
+    </v-card> -->
 
-    <v-tabs mobile-breakpoint="xs" class="mt-4" background-color='#ffffff' :height="'35'" :color="'#016aff'">
+    <!-- <v-tabs mobile-breakpoint="xs" class="mt-4" background-color='#ffffff' :height="'35'" :color="'#016aff'">
       <v-tab @click="changeTab(tab.name)" class="user-tab" :active-class="'blue--text'" v-for="(tab,index) in user_tabs"
         :key="index">
         {{tab.title}}
       </v-tab>
     </v-tabs>
-    <v-divider />
-    <router-view :user_info="this.user_info" />
-  </v-container>
+    <v-divider /> -->
+
+    <!-- <router-view :user_info="this.user_info" /> -->
+  </div>
 </template>
 
 <script>
@@ -282,6 +339,6 @@
   }
 
   .theme--light.v-sheet--outlined {
-    border: thin solid rgba(121, 121, 121, 0.12);
+    /* border: thin solid rgba(121, 121, 121, 0.12); */
   }
 </style>

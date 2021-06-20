@@ -3,7 +3,7 @@
     <v-col lg=3 v-for="(item, index) in items" :key="index">
       <v-card elevation=0 class="rounded-lg" @click="showContents(item)">
         <v-img position="under" gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)"
-          class="white--text align-end rounded-lg" height="200px" v-if="item.poster_path"
+          class="white--text align-end rounded-lg" height="300px" v-if="item.poster_path"
           :src="base_tmdb_img_url + item.poster_path">
           <v-btn :color="media === 'tv' ? '#00bbf9' : '#ff0054'" x-small class="elevation-0 ml-3 rounded-xl" alt="" style="font-size: 12px; font-weight: bold; color: #ffffff;"
             >
