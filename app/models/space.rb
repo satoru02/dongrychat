@@ -27,6 +27,7 @@ class Space < ApplicationRecord
   has_many :confirmations, dependent: :destroy
   has_many :users, through: :subscriptions
   has_many :reviews, dependent: :destroy
+  has_many :watchlists, dependent: :destroy
 
   acts_as_taggable_on :tags
 

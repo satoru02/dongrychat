@@ -5,9 +5,9 @@
         <v-card elevation=0 class="rounded-lg" width="240px" color="#dee2e6">
           <v-img v-if="this.space_data.image_path" :src="posterImg()" class="white--text mt-n2" height="350px">
           </v-img>
-          <v-img height="340px" v-else >
-            <icon-base :width="'130'" class="mt-15 ml-13" :height="'140'" icon-name="icon-no-image" :iconColor="'#111111'"
-              :viewBox="'0 0 512 512'">
+          <v-img height="340px" v-else>
+            <icon-base :width="'130'" class="mt-15 ml-13" :height="'140'" icon-name="icon-no-image"
+              :iconColor="'#111111'" :viewBox="'0 0 512 512'">
               <icon-no-image />
             </icon-base>
           </v-img>
@@ -63,43 +63,46 @@
         </v-row>
 
         <v-row class="mt-1">
-          <v-col class="ml-7" cols=11 sm=12 md=12 lg=5 xl=12>
+          <v-col class="ml-7" cols=11 sm=12 md=12 lg=3 xl=12>
             <v-btn @click="subscribed === true ? unsubscribe() : subscribe()" block class="mx-2 rounded-lg" elevation=0
-              :outlined="subscribed === true ? false : true"
-              :color="subscribed === true ? '#42ccff' : '#42ccff'"
+              :outlined="subscribed === false ? false : true" :color="subscribed === true ? '#42ccff' : '#42ccff'"
               style="font-weight: bold; border-width: 1.9;">
               <icon-base class="mr-3" :iconColor="'#42ccff'" icon-name="icon-plus" :viewBox="'0 0 448 448'"
                 :height="'12'" :width="'12'">
                 <icon-plus />
               </icon-base>
-              <span :style="subscribed === true ? this.subscribeText : this.unsubscribeText">
+              <span :style="subscribed === false ? this.subscribeText : this.unsubscribeText">
                 {{subscribed === true ? this.followText : this.unfollowText}}
               </span>
             </v-btn>
           </v-col>
-          <!-- <v-col class="ml-n2" cols=11 sm=12 md=12 lg=6 xl=12>
-            <v-btn block :outlined="watched === true ? false : true" class="mx-2 rounded-lg" elevation=0
-             :color="watched === true ? 'rgb(0 213 247)' : 'rgb(0 213 247)'"
-              style="font-weight: bold; border-width: 1.9;">
+
+          <v-col class="ml-n2" cols=11 sm=12 md=12 lg=3 xl=12 v-if="watched === false">
+            <v-btn @click="checked === false ? addWatchlist() : deleteWatchList()" block class="mx-2 rounded-lg"
+              elevation=0 style="font-weight: bold; border-width: 1.9;" :outlined="checked === false ? false : true"
+              :color="checked === true ? 'rgb(0 213 247)' : 'rgb(0 213 247)'">
               <icon-base class="mr-3" :iconColor="'rgb(0 213 247)'" icon-name="icon-arrow" :viewBox="'0 0 492 492'"
                 :height="'12'" :width="'12'">
                 <icon-arrow />
               </icon-base>
-              <span :style="watched === true ? this.subscribeText : this.unsubscribeText">
+              <span :style="checked === false ? this.subscribeText : this.unsubscribeText">
+                見たい
+              </span>
+            </v-btn>
+          </v-col>
+          <v-col class="ml-n2" cols=11 sm=12 md=12 lg=3 xl=12>
+            <v-btn @click="watched === false ? addWatchedlist() : deleteWatchList()" block class="mx-2 rounded-lg"
+              elevation=0 style="font-weight: bold; border-width: 1.9;" :outlined="watched === false ? false : true"
+              :color="watched === true ? 'rgb(0 213 247)' : 'rgb(0 213 247)'">
+              <icon-base class="mr-3" :iconColor="'rgb(0 213 247)'" icon-name="icon-arrow" :viewBox="'0 0 492 492'"
+                :height="'12'" :width="'12'">
+                <icon-arrow />
+              </icon-base>
+              <span :style="watched === false ? this.subscribeText : this.unsubscribeText">
                 見た
               </span>
             </v-btn>
-          </v-col> -->
-          <!-- <v-col class="ml-n2" cols=11 sm=12 md=12 lg=6 xl=12>
-            <v-btn block outlined class="mx-2 rounded-lg" elevation=0 color="rgb(0 213 247)"
-              style="font-weight: bold; border-width: 1.9;">
-              <icon-base class="mr-3" :iconColor="'rgb(0 213 247)'" icon-name="icon-arrow" :viewBox="'0 0 492 492'"
-                :height="'12'" :width="'12'">
-                <icon-arrow />
-              </icon-base>
-              見たい
-            </v-btn>
-          </v-col> -->
+          </v-col>
         </v-row>
       </v-col>
     </v-row>
@@ -111,6 +114,7 @@
     RepositoryFactory
   } from '../../repositories/RepositoryFactory';
   const sbscRepository = RepositoryFactory.get('subscriptions');
+  const watchlistsRepository = RepositoryFactory.get('watchlists');
 
   export default {
     name: 'SpaceHeader',
@@ -145,6 +149,10 @@
         dummyText: '',
         params: {},
         subscribed: Boolean,
+        watched: false,
+        checked: false,
+        comment: '',
+        time: '',
         vAvatar: {
           size: '135',
           height: '180',
@@ -256,6 +264,53 @@
       },
       unsubscribeSuccessful(res) {
         this.subscribed = false
+      },
+      addWatchlist() {
+        watchlistsRepository.post({
+            watchlist: {
+              user_id: this.$store.state.user.currentUser.id,
+              space_id: this.space_data.id,
+              status: false,
+            }
+          })
+          .then(res => this.addListSuccessful(res))
+          .catch(err => this.failed(err))
+      },
+      deleteWatchList() {
+        watchlistsRepository.delete(this.space_data.id, this.$store.state.user.currentUser.id)
+          .then((res) => this.deleteListSuccessful(res))
+          .catch(err => this.failed(err))
+      },
+      addWatchedlist() {
+        const params = {
+          user_id: this.$store.state.user.currentUser.id,
+          space_id: this.space_data.id,
+          status: true,
+          comment: this.comment,
+          time: this.comment
+        }
+
+        if (this.checked === false) {
+          watchlistsRepository.post({ watchlist: params })
+            .then((res) => {
+                this.watched = true
+              }
+            )
+            .catch(err => this.failed(err))
+        } else if (this.checked === true) {
+          watchlistsRepository.update(this.space_data.id, this.$store.state.user.currentUser.id, { watchlist: params })
+            .then((res) => {
+              this.watched = true
+            })
+            .catch(err => this.failed(err))
+        }
+      },
+      addListSuccessful(res) {
+        this.checked = true
+      },
+      deleteListSuccessful(res) {
+        this.checked = false
+        this.watched = false
       },
       failed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''

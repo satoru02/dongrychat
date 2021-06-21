@@ -1,5 +1,5 @@
 <template>
-  <div class="ml-4">
+  <div class="">
     <space-header :space_data="this.space_data" />
     <v-tabs grow class="mt-7" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height">
       <v-tab
@@ -23,7 +23,6 @@
         </v-chip>
       </v-tab>
     </v-tabs>
-    <!-- <v-divider color="black" /> -->
     <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" />
   </div>
 </template>

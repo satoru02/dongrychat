@@ -45,7 +45,7 @@
           <!-- <v-col lg=4></v-col> -->
           <v-col lg=6 v-for="(episode, index) in 3" :key=index class="">
 
-            <v-card color="#f4f8fb" elevation=0 class="rounded-lg mb-n2" height="140" width="440">
+            <v-card color="#f4f8fb" dark elevation=0 class="rounded-lg mb-n2" height="140" width="440">
               <v-list-item three-line>
                 <v-list-item-avatar tile class="rounded-lg" size="80" height="110" color="grey">
                   <v-img src="https://image.tmdb.org/t/p/w500/tTFixV61n0SErumUFHUZcwh1KK8.jpg"></v-img>
@@ -143,7 +143,6 @@
 </template>
 
 <script>
-  // import '@mdi/font/css/materialdesignicons.css';
 
   import {
     RepositoryFactory

@@ -50,6 +50,15 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :watchlists do
+        collection do
+          post :create
+          patch ':space_id/:user_id', action: :update
+          delete ':space_id/:user_id', action: :destroy
+        end
+      end
+
+
       resources :subscriptions do
         collection do
           post :create

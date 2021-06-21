@@ -8,6 +8,7 @@ import authRepository from './authRepository';
 import avatarRepository from './avatarRepository';
 import notificationsRepository from './notificationsRepository';
 import reviewsRepository from './reviewsRepository';
+import watchlistsRepository from './watchlistsRepository';
 
 const repositories = {
   spaces: spacesRepository,
@@ -19,7 +20,8 @@ const repositories = {
   auth: authRepository,
   avatar: avatarRepository,
   notifications: notificationsRepository,
-  reviews: reviewsRepository
+  reviews: reviewsRepository,
+  watchlists: watchlistsRepository
 };
 
 export const RepositoryFactory = {
