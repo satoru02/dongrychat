@@ -70,7 +70,6 @@
               per_page: this.pageSize
             })
             .then(res => {
-              console.log(res)
               if (res.data.data.length) {
                 this.page += 1
                 this.notifications = res.data.data

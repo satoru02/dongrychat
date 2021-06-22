@@ -1,6 +1,6 @@
 <template>
   <v-container class="mt-2">
-    <!-- <v-row>
+    <v-row>
       <v-col lg=1>
       </v-col>
       <v-col lg=11 class="ml-n16">
@@ -11,7 +11,7 @@
           :background-color="textField.color" @click:append-outer="{setMessage(), sendComment(content)}"
           v-model="content" dense :placeholder="textField.placeholder" solo flat />
       </v-col>
-    </v-row> -->
+    </v-row>
     <!-- <v-divider class="mt-7" /> -->
     <space-comments :comments="comments" />
     <base-loader :handler="infiniteHandler" :wrapper="false" :text="loader.text" />

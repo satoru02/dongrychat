@@ -4,6 +4,7 @@ module Api
       before_action :authorize_access_request!, only: [:unsubscribed, :subscribed, :comments]
       before_action :set_space, only: [:subscribed, :comments, :reviews]
       before_action :set_condition, only: [:subscribed, :comments]
+      before_action :watching_condition, only: [:subscribed]
 
       def unsubscribed
         if params[:media] === 'mv'
@@ -13,12 +14,14 @@ module Api
         end
 
         @condition = current_user.subscribed?(@space.id)
-        serializer = set_space_serializer(@space, @condition, params[:media])
+        @watchlist = current_user.watched?(@space.id)
+
+        serializer = set_space_serializer(@space, @condition, @watchlist, params[:media])
         render_json(serializer)
       end
 
       def subscribed
-        serializer = set_space_serializer(@space, @condition, params[:media])
+        serializer = set_space_serializer(@space, @condition, @watchlist, params[:media])
         render_json(serializer)
       end
 
@@ -28,7 +31,6 @@ module Api
         render_json(serializer)
       end
 
-      #fix
       def popular
         @spaces = Space.includes(:users).get_popular(params)
         serializer = set_popular_space_serializer(@spaces)
@@ -41,7 +43,7 @@ module Api
         end
 
         @comments = @space.comments.order_by_latest.paginate(:page => params[:page], :per_page => params[:per_page])
-        serializer = set_comment_serializer(@comments, @condition, params[:media])
+        serializer = set_comment_serializer(@comments)
         render_json(serializer)
       end
 
@@ -53,8 +55,12 @@ module Api
 
       private
 
-        def enter_params(condition, media)
-          { params: { condition: condition, media: media } }
+        def set_space_serializer(space, condition, watchlist, media)
+          SpaceSerializer.new(space, { params: { condition: condition, watchlist: watchlist, media: media } })
+        end
+
+        def set_comment_serializer(comments)
+          CommentSerializer.new(comments)
         end
 
         def set_trend_space_serializer(spaces)
@@ -63,14 +69,6 @@ module Api
 
         def set_popular_space_serializer(spaces)
           PopularSpaceSerializer.new(spaces)
-        end
-
-        def set_space_serializer(space, condition, media)
-          SpaceSerializer.new(space, enter_params(condition, media))
-        end
-
-        def set_comment_serializer(comments, condition, media)
-          CommentSerializer.new(comments, enter_params(condition, media))
         end
 
         def set_review_serializer(reviews)
@@ -83,6 +81,10 @@ module Api
 
         def set_condition
           @condition = current_user.subscribed?(@space.id)
+        end
+
+        def watching_condition
+          @watchlist = current_user.watched?(@space.id)
         end
 
         def mv_space_params

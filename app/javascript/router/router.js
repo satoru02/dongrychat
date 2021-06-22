@@ -103,7 +103,7 @@ var router = new VueRouter({
       beforeEnter: checkLoggedIn,
       meta: {
         title: 'フォロー中の作品',
-        keepAlive: true,
+        keepAlive: false,
       },
       component: () => import( /* webpackChunkName: "HomeTop" */ '../components/Resources/Following'),
     },

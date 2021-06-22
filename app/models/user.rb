@@ -49,9 +49,13 @@ class User < ApplicationRecord
   has_many :subscriptions, dependent: :destroy, counter_cache: true
   has_many :spaces, -> {includes :comments, :users, :confirmations}, through: :subscriptions, counter_cache: true
   has_many :reviews, dependent: :destroy
+  has_many :watchlists, dependent: :destroy
+
   has_one_attached :avatar, dependent: :destroy
   has_secure_password
+
   enum role: %i[user manager admin].freeze
+
   before_save :downcase_email
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :name, presence: true
@@ -69,15 +73,6 @@ class User < ApplicationRecord
       key = "user_"
       length.times{ key += source[rand(source.size)].to_s }
       return key
-    end
-  end
-
-  def is_online?
-    redis = set_redis
-    if redis.get("user_#{self.id}_online")
-      true
-    else
-      false
     end
   end
 
@@ -115,14 +110,6 @@ class User < ApplicationRecord
     self.reset_password_token_expires_at = nil
   end
 
-  def follow other_user
-    following << other_user
-  end
-
-  def unfollow other_user
-    active_relationships.find_by(followed_id: other_user.id).destroy
-  end
-
   # fix -> abstraction
   def create_active_notification(following)
     if Notification.exist(following.id, self.id).blank?
@@ -131,12 +118,18 @@ class User < ApplicationRecord
     end
   end
 
-  def online_followings
-    redis = set_redis
-    online_users = []
-    following.each { |following_user| online_users << following_user if redis.get("user_#{following_user.id}_online") }
-    # fix
-    online_users[0..5]
+  def unconfirmed_comments
+    sum = 0
+    all_comments = spaces.map{ |space| sum += space.comments_unconfirmed_by(self) }
+    all_comments.last
+  end
+
+  def follow other_user
+    following << other_user
+  end
+
+  def unfollow other_user
+    active_relationships.find_by(followed_id: other_user.id).destroy
   end
 
   def following? other_user
@@ -144,7 +137,11 @@ class User < ApplicationRecord
   end
 
   def subscribed? space_id
-    self.subscriptions.exists? space_id: space_id
+    subscriptions.exists? space_id: space_id
+  end
+
+  def watched? space_id
+    watchlists.where(space_id: space_id)
   end
 
   def cdn_ready_blob_path(attachment)
@@ -161,11 +158,21 @@ class User < ApplicationRecord
     self.avatar.attach(blob)
   end
 
-  def unconfirmed_comments
-    sum = 0
-    all_comments = spaces.map{ |space| sum += space.comments_unconfirmed_by(self) }
-    all_comments.last
-  end
+  # def is_online?
+  #   redis = set_redis
+  #   if redis.get("user_#{self.id}_online")
+  #     true
+  #   else
+  #     false
+  #   end
+  # end
+
+  # def online_followings
+  #   redis = set_redis
+  #   online_users = []
+  #   following.each { |following_user| online_users << following_user if redis.get("user_#{following_user.id}_online") }
+  #   online_users[0..5]
+  # end
 
   private
 
@@ -173,7 +180,7 @@ class User < ApplicationRecord
       self.email = email.downcase
     end
 
-    def set_redis
-      redis = Redis.new
-    end
+    # def set_redis
+    #   redis = Redis.new
+    # end
 end
