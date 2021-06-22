@@ -15,9 +15,6 @@
       </v-col>
       <v-col cols=9 sm=9 md=9 lg=9 xl=9 class="ml-n16 mt-8">
         <v-row class="ml-8">
-
-          <!-- <v-btn @click="subscribed === true ? unsubscribe() : subscribe()"
-             >{{subscribed === true ? vBtn.subscribedText : vBtn.unsubscribedText}}</v-btn> -->
           <base-label :style="'font-weight: bold; border-width: 1.8;'" class="rounded-xl" font_size="16px"
             v-if="space_data.media === media.tv" :label="true" :small="false" :color="'#020814'" :outlined="true"
             :text_color="'#000000'" :season="space_data.season" :episode="space_data.episode"
@@ -30,6 +27,11 @@
             <span class="ml-8"
               @click="space_data.media === media.tv ? moveDetails(space_data.tmdb_comp_id, space_data.name, space_data.season, 'Tv') : moveDetails(space_data.tmdb_mv_id, space_data.name, null, 'Mv')"
               :style="vColTitle.style">{{space_data.name}}</span>
+              <icon-base
+                v-if="watched === true"
+               :iconColor="'#0aff99'" class="ml-4 mb-n1" icon-name="icon-check" :viewBox="'0 0 191.667 191.667'" :height="'30'" :width="'30'">
+                <icon-check />
+              </icon-base>
           </v-col>
         </v-row>
 
@@ -40,7 +42,7 @@
               <v-btn color="#f6f8fb" style="font-weight: bold; font-size: 14px;" elevation=0 small>あらすじ</v-btn>
             </span>
           </v-col>
-          <v-col cols=12 sm=12 md=12 lg=3 xl=12 class="ml-14">
+          <v-col cols=12 sm=12 md=12 lg=3 xl=12 class="ml-16">
             <v-btn class="rounded-lg" small :style="'font-weight: bold; border-width: 0.4;'" outlined color="#0e151f">
               <icon-base class="mr-3" icon-name="icon-twitter" :viewBox="'0 0 512 512'" :height="'17'" :width="'17'">
                 <icon-twitter />
@@ -48,7 +50,7 @@
               <span style="color: #474747;">ツイートする</span>
             </v-btn>
           </v-col>
-          <v-col cols=12 sm=12 md=12 lg=2 xl=12 class="ml-n11">
+          <v-col cols=12 sm=12 md=12 lg=2 xl=12 class="ml-n16">
             <v-btn class="rounded-lg" small :style="'font-weight: bold; border-width: 0.4;'" outlined color="#0e151f">
               <icon-base class="mr-3" icon-name="icon-facebook" :viewBox="'0 0 512 512'" :height="'17'" :width="'17'">
                 <icon-facebook />
@@ -63,13 +65,14 @@
         </v-row>
 
         <v-row class="mt-1">
-          <v-col class="ml-7" cols=11 sm=12 md=12 lg=3 xl=12>
-            <v-btn @click="subscribed === true ? unsubscribe() : subscribe()" block class="mx-2 rounded-lg" elevation=0
-              :outlined="subscribed === false ? false : true" :color="subscribed === true ? '#42ccff' : '#42ccff'"
+          <v-col class="ml-7" cols=11 sm=12 md=12 lg=4 xl=12>
+            <v-btn @click="subscribed === true ? unsubscribe() : subscribe()" block class="mx-2 rounded-xl" elevation=0
+              :outlined="subscribed === false ? false : true"
+              :color="subscribed === true ? 'rgb(0 213 247)' : 'rgb(0 213 247)'"
               style="font-weight: bold; border-width: 1.9;">
-              <icon-base class="mr-3" :iconColor="'#42ccff'" icon-name="icon-plus" :viewBox="'0 0 448 448'"
-                :height="'12'" :width="'12'">
-                <icon-plus />
+              <icon-base v-if="subscribed === false" class="mr-3" :iconColor="'#ffffff'" icon-name="icon-following"
+                :viewBox="'0 0 511.996 511.996'" :height="'20'" :width="'20'">
+                <icon-following />
               </icon-base>
               <span :style="subscribed === false ? this.subscribeText : this.unsubscribeText">
                 {{subscribed === true ? this.followText : this.unfollowText}}
@@ -78,28 +81,28 @@
           </v-col>
 
           <v-col class="ml-n2" cols=11 sm=12 md=12 lg=3 xl=12 v-if="watched === false">
-            <v-btn @click="checked === false ? addWatchlist() : deleteWatchList()" block class="mx-2 rounded-lg"
+            <v-btn @click="checked === false ? addWatchlist() : deleteWatchList()" block class="mx-2 rounded-xl"
               elevation=0 style="font-weight: bold; border-width: 1.9;" :outlined="checked === false ? false : true"
               :color="checked === true ? 'rgb(0 213 247)' : 'rgb(0 213 247)'">
-              <icon-base class="mr-3" :iconColor="'rgb(0 213 247)'" icon-name="icon-arrow" :viewBox="'0 0 492 492'"
-                :height="'12'" :width="'12'">
+              <icon-base v-if="checked === false" class="mr-3" :iconColor="'#ffffff'" icon-name="icon-arrow"
+                :viewBox="'0 0 492 492'" :height="'12'" :width="'12'">
                 <icon-arrow />
               </icon-base>
               <span :style="checked === false ? this.subscribeText : this.unsubscribeText">
-                見たい
+                {{checked === true ? this.checkText : this.uncheckText}}
               </span>
             </v-btn>
           </v-col>
-          <v-col class="ml-n2" cols=11 sm=12 md=12 lg=3 xl=12>
-            <v-btn @click="watched === false ? addWatchedlist() : deleteWatchList()" block class="mx-2 rounded-lg"
+          <v-col class="" cols=11 sm=12 md=12 lg=3 xl=12>
+            <v-btn @click="watched === false ? addWatchedlist() : deleteWatchList()" block class="mx-2 rounded-xl"
               elevation=0 style="font-weight: bold; border-width: 1.9;" :outlined="watched === false ? false : true"
-              :color="watched === true ? 'rgb(0 213 247)' : 'rgb(0 213 247)'">
-              <icon-base class="mr-3" :iconColor="'rgb(0 213 247)'" icon-name="icon-arrow" :viewBox="'0 0 492 492'"
-                :height="'12'" :width="'12'">
-                <icon-arrow />
+              :color="watched === true ? '#06d6a0' : 'rgb(0 213 247)'">
+              <icon-base class="mr-3" v-if="watched === false" :iconColor="'#ffffff'" icon-name="icon-list"
+                :viewBox="'0 0 512 512'" :height="'20'" :width="'20'">
+                <icon-list />
               </icon-base>
-              <span :style="watched === false ? this.subscribeText : this.unsubscribeText">
-                見た
+              <span :style="watched === false ? this.watchColor : this.unwatchColor">
+                {{watched === true ? this.watchText : this.unwatchText}}
               </span>
             </v-btn>
           </v-col>
@@ -120,16 +123,23 @@
     name: 'SpaceHeader',
     components: {
       'icon-base': () => import( /* webpackPrefetch: true */ '../Icon/IconBase.vue'),
-      'icon-plus': () => import( /* webpackPrefetch: true */ '../Icon/IconPlus.vue'),
+      'icon-list': () => import( /* webpackPrefetch: true */ '../Icon/IconList.vue'),
+      'icon-check': () => import( /* webpackPrefetch: true */ '../Icon/IconCheck.vue'),
+      'icon-following': () => import( /* webpackPrefetch: true */ '../Icon/IconFollowing.vue'),
       'icon-twitter': () => import( /* webpackPrefetch: true */ '../Icon/IconTwitter.vue'),
       'icon-facebook': () => import( /* webpackPrefetch: true */ '../Icon/IconFacebook.vue'),
       'icon-arrow': () => import( /* webpackPrefetch: true */ '../Icon/IconArrow.vue'),
       'icon-no-image': () => import( /* webpackPrefetch: true */ '../Icon/IconNoImage.vue'),
       'base-label': () => import( /* webpackPrefetch: true */ '../Base/BaseLabel'),
     },
-    props: ['space_data'],
+    props: {
+      space_data: '',
+    },
     data() {
       return {
+        subscribed: '',
+        watched: false,
+        checked: false,
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
         api: {
           for_subscription: `/api/v1/subscriptions`
@@ -138,30 +148,33 @@
           tv: 'tv',
           mv: 'mv',
         },
-        followText: 'フォロー中',
-        unfollowText: 'フォローする',
+        followText: 'チャットスペースをフォロー中',
+        unfollowText: 'チャットスペースをフォロー',
+        watchText: '鑑賞済み',
+        unwatchText: 'ウォッチログに追加',
+        checkText: 'ウォッチリストに追加済',
+        uncheckText: 'ウォッチリストに追加',
         subscribeText: {
           color: '#ffffff'
         },
         unsubscribeText: {
           color: '#42ccff'
         },
+        watchColor: {
+          color: '#ffffff'
+        },
+        unwatchColor: {
+          color: '#06d6a0'
+        },
         dummyText: '',
         params: {},
-        subscribed: Boolean,
-        watched: false,
-        checked: false,
         comment: '',
         time: '',
-        vAvatar: {
-          size: '135',
-          height: '180',
-        },
         vColTitle: {
           style: {
             color: '#020814',
             fontWeight: 'bold',
-            fontSize: '33px',
+            fontSize: '30px',
             cursor: 'pointer',
             lineHeight: '30px'
           },
@@ -171,13 +184,6 @@
             fontSize: '33px',
             cursor: 'pointer',
             lineHeight: '30px'
-          }
-        },
-        vColSubTitle: {
-          style: {
-            color: '#6c757d',
-            fontWeight: 'bold',
-            fontSize: '8px',
           }
         },
         vChip: {
@@ -197,53 +203,12 @@
               borderWidth: '1.8',
             }
           },
-          tags: {
-            color: '#ffffff',
-            style: {
-              color: '#ffffff',
-              fontWeight: 'bold',
-              fontSize: '12px'
-            }
-          }
         },
-        vBtn: {
-          elevation: 0,
-          blue: 'blue',
-          black: '#000000',
-          subscribedText: 'フォロー中',
-          unsubscribedText: 'フォローする',
-          subscribedStyle: {
-            color: '#ffffff',
-            fontWeight: 'bold',
-            fontSize: '11px',
-          },
-          unsubscribedStyle: {
-            color: '#ffffff',
-            fontWeight: 'bold',
-            fontSize: '11px'
-          },
-        },
-        vRowLabel: {
-          style: {
-            maxHeight: '35px',
-            fontWeight: 'bold',
-          }
-        },
-        vColLabel: {
-          blue: '#016aff',
-          white: '#ffffff',
-        },
-        vColTags: {
-          color: '#ffffff',
-          fontWeight: 'bold',
-          fontSize: '11px'
-        }
       }
     },
     created() {
-      setTimeout(() => {
-        this.subscribed = this.space_data.subscribed
-      }, 700)
+      this.subscribed = this.space_data.subscribed
+      this.checkWatchlist()
     },
     methods: {
       subscribe() {
@@ -251,19 +216,30 @@
             user_id: this.$store.state.user.currentUser.id,
             space_id: this.space_data.id
           })
-          .then(res => this.subscribeSuccessful(res))
+          .then((res) => {
+            this.subscribed = true
+          })
           .catch(err => this.Failed(err))
       },
       unsubscribe() {
         sbscRepository.unsubscribe(this.space_data.id, this.$store.state.user.currentUser.id)
-          .then(res => this.unsubscribeSuccessful(res))
+          .then(res => {
+            this.subscribed = false
+          })
           .catch(err => this.failed(err))
-      },
-      subscribeSuccessful(res) {
-        this.subscribed = true
       },
       unsubscribeSuccessful(res) {
         this.subscribed = false
+      },
+      checkWatchlist() {
+        if (this.space_data.watchlist[0]) {
+          switch (this.space_data.watchlist[0].status) {
+            case false:
+              return this.checked = true
+            case true:
+              return this.watched = true
+          }
+        }
       },
       addWatchlist() {
         watchlistsRepository.post({
@@ -291,14 +267,17 @@
         }
 
         if (this.checked === false) {
-          watchlistsRepository.post({ watchlist: params })
+          watchlistsRepository.post({
+              watchlist: params
+            })
             .then((res) => {
-                this.watched = true
-              }
-            )
+              this.watched = true
+            })
             .catch(err => this.failed(err))
         } else if (this.checked === true) {
-          watchlistsRepository.update(this.space_data.id, this.$store.state.user.currentUser.id, { watchlist: params })
+          watchlistsRepository.update(this.space_data.id, this.$store.state.user.currentUser.id, {
+              watchlist: params
+            })
             .then((res) => {
               this.watched = true
             })
@@ -315,9 +294,7 @@
       failed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
       },
-      posterImg() {
-        return this.base_tmdb_img_url + this.space_data.image_path
-      },
+
       moveDetails(id, name, season, media) {
         if (media === 'Tv') {
           this.params = {
@@ -335,23 +312,12 @@
           name: `${media}Details`,
           params: this.params
         })
-      }
+      },
+      posterImg() {
+        return this.base_tmdb_img_url + this.space_data.image_path
+      },
     },
     computed: {
-      vRowTopGrid() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 'mt-7'
-          case 'sm':
-            return 'mt-7'
-          case 'md':
-            return 'mt-7'
-          case 'lg':
-            return 'mt-7'
-          case 'xl':
-            return 'mt-7'
-        }
-      },
       vColAvatarGrid() {
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
@@ -364,146 +330,6 @@
             return 'mt-7'
           case 'xl':
             return 'ml-10 mt-1'
-        }
-      },
-      vRowNameGrid() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 'ml-13'
-          case 'sm':
-            return 'mt-7'
-          case 'md':
-            return 'mt-7'
-          case 'lg':
-            return 'mt-n2 ml-n15'
-          case 'xl':
-            return 'mt-n2 ml-n15'
-        }
-      },
-      vBtnGrid() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 'ml-n1'
-          case 'sm':
-            return 'mt-7'
-          case 'md':
-            return 'mt-7'
-          case 'lg':
-            return 'mt-1 ml-14'
-          case 'xl':
-            return 'mt-n2 ml-n15'
-        }
-      },
-      vColNameGrid() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 'ml-n6'
-          case 'sm':
-            return 'mt-7'
-          case 'md':
-            return 'mt-7'
-          case 'lg':
-            return 'ml-n4'
-          case 'xl':
-            return 'mt-n2 ml-n15'
-        }
-      },
-      vColSubTitleGrid() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 'mt-n2 ml-10'
-          case 'sm':
-            return 'mt-7'
-          case 'md':
-            return 'mt-7'
-          case 'lg':
-            return 'mt-n4 ml-n16'
-          case 'xl':
-            return 'mt-n4 ml-n16'
-        }
-      },
-      vColLabelGrid() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 'ml-10'
-          case 'sm':
-            return 'mt-7'
-          case 'md':
-            return 'mt-7'
-          case 'lg':
-            return 'ml-n16'
-          case 'xl':
-            return 'ml-n16'
-        }
-      },
-      vColSummaryGrid() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 'ml-10 mt-n4'
-          case 'sm':
-            return 'mt-7'
-          case 'md':
-            return 'mt-7'
-          case 'lg':
-            return 'mt-n3 ml-n16'
-          case 'xl':
-            return 'mt-n3 ml-n16'
-        }
-      },
-      vRowTagsGrid() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return 'mt-2 ml-7'
-          case 'sm':
-            return 'mt-7'
-          case 'md':
-            return 'mt-7'
-          case 'lg':
-            return 'mt-3 ml-n16'
-          case 'xl':
-            return 'mt-3 ml-n16'
-        }
-      },
-      vChipSmall() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return false
-          case 'sm':
-            return false
-          case 'md':
-            return false
-          case 'lg':
-            return true
-          case 'xl':
-            return true
-        }
-      },
-      vChipXsmall() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return true
-          case 'sm':
-            return true
-          case 'md':
-            return true
-          case 'lg':
-            return false
-          case 'xl':
-            return false
-        }
-      },
-      vAvatarHeight() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return '180'
-          case 'sm':
-            return '160'
-          case 'md':
-            return '160'
-          case 'lg':
-            return '250'
-          case 'xl':
-            return '260'
         }
       },
       vColSummaryStyle() {

@@ -1,7 +1,7 @@
 <template>
   <div class="">
-    <space-header :space_data="this.space_data" />
-    <v-tabs grow class="mt-7" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height">
+    <space-header v-if="this.space_data" :space_data="this.space_data" />
+    <v-tabs class="mt-7" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height">
       <v-tab
        :active-class="vTab.activeText" @click="changeTab(tablist.path)" :style="vTab.style"
         v-for="(tablist, index) in tablists" :key="index">
@@ -42,6 +42,8 @@
     },
     data() {
       return {
+        subscribed: '',
+        watched: '',
         params: {},
         space_data: '',
         endpoint: '',
@@ -184,6 +186,14 @@
       },
       successful(res) {
         this.space_data = res.data.data.attributes
+        // console.log(this.space_data.subscribed)
+        // this.subscribed = this.space_data.subscribed
+        // if(this.space_data.watchlist){
+        //   this.watched = this.space_data.watchlist[0].status
+        // } else {
+        //   console.log(this.space_data)
+        //   this.watched = false
+        // }
       },
       failed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
@@ -196,8 +206,6 @@
             return this.space_data.users.data.length;
           case 'レビュー':
             return this.space_data.reviews_count;
-          // case 'シェアウォッチ':
-          //   return 0;
           default:
             return 0;
         }
