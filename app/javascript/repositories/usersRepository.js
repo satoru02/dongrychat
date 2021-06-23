@@ -26,6 +26,9 @@ export default {
   getFollowings(userId){
     return secureAxios.get(`${baseURL}/${userId}/${followingResource}`);
   },
+  getWatchlists(userId, resource, params){
+    return secureAxios.get(`${baseURL}/${userId}/${resource}`, { params: params });
+  },
   update(userId, userParams){
     return secureAxios.patch(`${baseURL}/${userId}`, userParams);
   }

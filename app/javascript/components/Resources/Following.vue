@@ -90,8 +90,8 @@
           movie: 'mv'
         },
         space: {
-          tv: 'subscribedTvSpace',
-          movie: 'subscribedMvSpace'
+          tv: 'registeredTvSpace',
+          movie: 'registeredMvSpace'
         },
         text: {
           home: 'ホーム',

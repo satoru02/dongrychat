@@ -84,9 +84,9 @@
             <v-btn @click="checked === false ? addWatchlist() : deleteWatchList()" block class="mx-2 rounded-xl"
               elevation=0 style="font-weight: bold; border-width: 1.9;" :outlined="checked === false ? false : true"
               :color="checked === true ? 'rgb(0 213 247)' : 'rgb(0 213 247)'">
-              <icon-base v-if="checked === false" class="mr-3" :iconColor="'#ffffff'" icon-name="icon-arrow"
-                :viewBox="'0 0 492 492'" :height="'12'" :width="'12'">
-                <icon-arrow />
+              <icon-base v-if="checked === false" class="mr-2" :iconColor="'#ffffff'" icon-name="icon-calendar"
+                :viewBox="'-33 -19 626 626.68002'" :height="'25'" :width="'25'">
+                <icon-calendar />
               </icon-base>
               <span :style="checked === false ? this.subscribeText : this.unsubscribeText">
                 {{checked === true ? this.checkText : this.uncheckText}}
@@ -128,7 +128,7 @@
       'icon-following': () => import( /* webpackPrefetch: true */ '../Icon/IconFollowing.vue'),
       'icon-twitter': () => import( /* webpackPrefetch: true */ '../Icon/IconTwitter.vue'),
       'icon-facebook': () => import( /* webpackPrefetch: true */ '../Icon/IconFacebook.vue'),
-      'icon-arrow': () => import( /* webpackPrefetch: true */ '../Icon/IconArrow.vue'),
+      'icon-calendar': () => import( /* webpackPrefetch: true */ '../Icon/IconCalendar.vue'),
       'icon-no-image': () => import( /* webpackPrefetch: true */ '../Icon/IconNoImage.vue'),
       'base-label': () => import( /* webpackPrefetch: true */ '../Base/BaseLabel'),
     },

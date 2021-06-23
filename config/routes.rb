@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       resources :users do
         get 'me', on: :collection
         member do
-          get :following, :followers, :online, :subscriptions, :new_comments, :reviews
+          get :following, :followers, :online, :subscriptions, :new_comments, :reviews, :watchlists, :watchlog
         end
       end
 
@@ -32,8 +32,8 @@ Rails.application.routes.draw do
         end
 
         collection do
-          get :unsubscribed
-          get :subscribed
+          get :unregistered
+          get :registered
           get :trend
           get :popular
         end

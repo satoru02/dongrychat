@@ -1,6 +1,6 @@
 <template>
   <!-- <v-app-bar dense elevation=0 app color="#ffffff" style="opacity: 0.71; backdrop-filter: saturate(180%) blur(10px);"> -->
-  <v-app-bar elevation=0 outlined dense app color="#000000">
+  <v-app-bar elevation=0 outlined app color="#000000">
 
     <v-toolbar-title class="ml-1">
       <v-btn text color="#657482" style="font-size: 14px; font-weight: bold; color: #657482"
@@ -115,7 +115,7 @@
             icon: 'mdi-account-outline',
             title: 'プロフィール',
             name: 'Posts',
-            link: '/users/' + `${this.$store.state.user.currentUser.id}`,
+            link: '/users/' + `${this.$store.state.user.currentUser.id}` + '/watchlog',
           },
           {
             icon: 'mdi-mailbox-outline',

@@ -2,7 +2,7 @@
     <v-navigation-drawer width=225 app dark permanent style="background-color: #000000;">
     <v-text-field placeholder="検索"
       :full-width="true" dense background-color="#161b22" solo flat
-      class="text-field rounded-lg mt-12 ml-3 mr-3" />
+      class="text-field rounded-lg mt-16 ml-3 mr-3" />
 
     <v-list dense nav class="rounded-lg mt-n6">
       <v-subheader :style="category" class="">メニュー</v-subheader>
