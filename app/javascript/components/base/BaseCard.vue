@@ -116,7 +116,6 @@
           mv: 'mv',
         },
         params: {},
-        subscribed: Boolean,
         chipLabel: {
           label: {
             yellow: '#f7e733',

@@ -2,15 +2,17 @@ module Api
   module V1
     class UsersController < ApplicationController
       before_action :authorize_access_request!
-      before_action :set_user, only: [:show, :update, :following, :followers, :subscriptions, :new_comments, :reviews]
+      before_action :set_user, only: [:show, :update, :following, :followers,
+                                      :subscriptions, :new_comments, :reviews,
+                                      :watchlists, :watchlog]
 
       def me
-        serializer = UserSerializer.new(current_user)
+        serializer = set_user_serializer(current_user)
         render_json(serializer)
       end
 
       def show
-        serializer = UserSerializer.new(@user)
+        serializer = set_user_serializer(@user)
         render_json(serializer)
       end
 
@@ -21,7 +23,7 @@ module Api
             @user.attach_avatar(params[:file_name])
           end
 
-          serializer = UserSerializer.new(current_user)
+          serializer = set_user_serializer(current_user)
           render_json(serializer)
         else
           render json: { error: @user.errors.full_messages.join(' ')}, status: :unprocessable_entity
@@ -29,20 +31,12 @@ module Api
       end
 
       def following
-        @following_users = @user.following
-        serializer = FollowingSerializer.new(@following_users)
+        serializer = set_following_serializer(@user.following)
         render_json(serializer)
       end
 
       def followers
-        @user_followers = @user.followers
-        serializer = FollowerSerializer.new(@user_followers)
-        render_json(serializer)
-      end
-
-      def online
-        users = current_user.online_followings
-        serializer = FollowingSerializer.new(users)
+        serializer = set_followers_serialzier(@user.followers)
         render_json(serializer)
       end
 
@@ -62,15 +56,44 @@ module Api
         render_json(serializer)
       end
 
+      def watchlists
+        @unwatched_spaces = @user.unwatched_spaces.paginate(:page => params[:page], :per_page => params[:per_page])
+        serializer = set_registered_space_serializer(@unwatched_spaces)
+        render_json(serializer)
+      end
+
+      def watchlog
+        @watched_spaces = @user.watched_spaces.paginate(:page => params[:page], :per_page => params[:per_page])
+        serializer = set_registered_space_serializer(@watched_spaces)
+        render_json(serializer)
+      end
+
+      # def online
+      #   users = current_user.online_followings
+      #   serializer = FollowingSerializer.new(users)
+      #   render_json(serializer)
+      # end
+
       private
 
         def set_user
-          # @user = User.friendly.find(params[:id].downcase)
           @user = User.find(params[:id])
         end
 
         def current_user_params(user)
           { params: { current_user: user } }
+        end
+
+        def set_following_serializer(users)
+          FollowingSerializer.new(users)
+        end
+
+        def set_followers_serializer(users)
+          FollowerSerializer.new(users)
+        end
+
+        def set_user_serializer(user)
+          UserSerializer.new(user)
         end
 
         def set_home_space_serializer(spaces, user)
@@ -79,6 +102,10 @@ module Api
 
         def set_users_reviews_serializer(reviews)
           UsersReviewsSerializer.new(reviews)
+        end
+
+        def set_registered_space_serializer(spaces)
+          RegisteredSpaceSerializer.new(spaces)
         end
 
         def user_params

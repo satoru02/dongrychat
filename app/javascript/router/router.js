@@ -151,7 +151,7 @@ var router = new VueRouter({
           meta: {
             keepAlive: false,
           },
-          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceReviews'),
+          component: () => import( /* webpackChunkName: "SpaceReviews" */ '../components/Space/SpaceReviews'),
         },
       ]
     },
@@ -163,7 +163,7 @@ var router = new VueRouter({
       children: [
         {
           path: 'chats',
-          name: 'subscribedMvSpace',
+          name: 'registeredMvSpace',
           meta: {
             keepAlive: false,
           },
@@ -171,7 +171,7 @@ var router = new VueRouter({
         },
         {
           path: 'members',
-          name: 'subscribedMvSpaceMembers',
+          name: 'registeredMvSpaceMembers',
           meta: {
             keepAlive: false,
           },
@@ -179,11 +179,11 @@ var router = new VueRouter({
         },
         {
           path: 'reviews',
-          name: 'subscribedMvSpaceReviews',
+          name: 'registeredMvSpaceReviews',
           meta: {
             keepAlive: false,
           },
-          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceReviews'),
+          component: () => import( /* webpackChunkName: "SpaceReviews" */ '../components/Space/SpaceReviews'),
         },
       ]
     },
@@ -214,7 +214,7 @@ var router = new VueRouter({
           meta: {
             keepAlive: false,
           },
-          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceReviews'),
+          component: () => import( /* webpackChunkName: "SpaceReviews" */ '../components/Space/SpaceReviews'),
         },
       ]
     },
@@ -225,7 +225,7 @@ var router = new VueRouter({
       component: () => import( /* webpackChunkName: "SpaceTop" */ '../components/Space/SpaceTop'),
       children: [{
           path: 'chats',
-          name: 'subscribedTvSpace',
+          name: 'registeredTvSpace',
           meta: {
             keepAlive: false,
           },
@@ -233,7 +233,7 @@ var router = new VueRouter({
         },
         {
           path: 'members',
-          name: 'subscribedTvSpaceMembers',
+          name: 'registeredTvSpaceMembers',
           meta: {
             keepAlive: false,
           },
@@ -241,26 +241,43 @@ var router = new VueRouter({
         },
         {
           path: 'reviews',
-          name: 'subscribedTvSpaceReviews',
+          name: 'registeredTvSpaceReviews',
           meta: {
             keepAlive: false,
           },
-          component: () => import( /* webpackChunkName: "SpaceUsers" */ '../components/Space/SpaceReviews'),
+          component: () => import( /* webpackChunkName: "SpaceReviews" */ '../components/Space/SpaceReviews'),
         },
       ]
     },
     {
       path: '/users/:user_id',
-      beforeEnter: checkLoggedIn,
       props: true,
+      beforeEnter: checkLoggedIn,
       component: () => import( /* webpackChunkName: "UserTop" */ '../components/User/UserTop'),
-      children: [{
-          path: '',
-          name: 'UserTop',
+      children: [
+        // {
+        //   path: '',
+        //   name: 'UserTop',
+        //   meta: {
+        //     keepAlive: false,
+        //   },
+        //   component: () => import( /* webpackChunkName: "UserProfile" */ '../components/User/UserProfile'),
+        // },
+        {
+          path: 'watchlists',
+          name: 'watchlists',
           meta: {
             keepAlive: false,
           },
-          component: () => import( /* webpackChunkName: "UserProfile" */ '../components/User/UserProfile'),
+          component: () => import( /* webpackChunkName: "UserWatchLists" */ '../components/User/UserWatchLists'),
+        },
+        {
+          path: 'watchlog',
+          name: 'watchlog',
+          meta: {
+            keepAlive: false,
+          },
+          component: () => import( /* webpackChunkName: "UserWatchLog" */ '../components/User/UserWatchLists'),
         },
         {
           path: 'reviews',
@@ -268,23 +285,7 @@ var router = new VueRouter({
           meta: {
             keepAlive: false,
           },
-          component: () => import( /* webpackChunkName: "UserPosts" */ '../components/User/UserReviews'),
-        },
-        {
-          path: 'following',
-          name: 'UserFollowing',
-          meta: {
-            keepAlive: false,
-          },
-          component: () => import( /* webpackChunkName: "UserFollowings" */ '../components/User/UserFollowing'),
-        },
-        {
-          path: 'followers',
-          name: 'UserFollowers',
-          meta: {
-            keepAlive: false,
-          },
-          component: () => import( /* webpackChunkName: "UserFollowers" */ '../components/User/UserFollowers'),
+          component: () => import( /* webpackChunkName: "UserReviews" */ '../components/User/UserReviews'),
         },
       ]
     },

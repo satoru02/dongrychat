@@ -52,19 +52,19 @@
           mv: 'mv',
         },
         api: {
-          from_search: `unsubscribed`,
-          from_subscription: `subscribed`,
+          from_search: `unregistered`,
+          from_subscription: `registered`,
         },
-        space: {
-          tv: {
-            subscribed: 'subscribedTvSpace',
-            unsubscribed: 'TvSpace'
-          },
-          movie: {
-            subscribed: 'subscribedMvSpace',
-            unsubscribed: 'MvSpace'
-          }
-        },
+        // space: {
+        //   tv: {
+        //     subscribed: 'registeredTvSpace',
+        //     unsubscribed: 'TvSpace'
+        //   },
+        //   movie: {
+        //     subscribed: 'registeredMvSpace',
+        //     unsubscribed: 'MvSpace'
+        //   }
+        // },
         tablists: [{
             title: 'チャット',
             path: 'chats'
@@ -101,7 +101,7 @@
     },
     created() {
       switch (this.$route.name) {
-        case 'subscribedTvSpace': {
+        case 'registeredTvSpace': {
           this.endpoint = this.api.from_subscription
           this.params = {
             id: this.$route.params.space_id,
@@ -109,7 +109,7 @@
           }
         }
         break;
-      case 'subscribedMvSpace': {
+      case 'registeredMvSpace': {
         this.endpoint = this.api.from_subscription
         this.params = {
           id: this.$route.params.space_id,

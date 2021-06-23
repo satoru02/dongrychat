@@ -46,10 +46,14 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :confirmations, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :reviews, dependent: :destroy
   has_many :subscriptions, dependent: :destroy, counter_cache: true
   has_many :spaces, -> {includes :comments, :users, :confirmations}, through: :subscriptions, counter_cache: true
-  has_many :reviews, dependent: :destroy
   has_many :watchlists, dependent: :destroy
+  has_many :completed_watchlists, -> { where(status: true) }, class_name: "Watchlist", foreign_key: 'user_id', dependent: :destroy
+  has_many :uncompleted_watchlists, -> { where(status: false) }, class_name: "Watchlist", foreign_key: 'user_id', dependent: :destroy
+  has_many :watched_spaces, through: :completed_watchlists, dependent: :destroy, source: :space
+  has_many :unwatched_spaces, through: :uncompleted_watchlists, dependent: :destroy, source: :space
 
   has_one_attached :avatar, dependent: :destroy
   has_secure_password
