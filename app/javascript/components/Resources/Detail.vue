@@ -1,10 +1,9 @@
 <template>
   <div class="">
-    <!-- <v-divider class=mt-13 /> -->
     <v-row class="">
-      <v-col cols=2 sm=2 md=2 lg=3 xl=2 class="ml-6">
-        <v-card elevation=0 :class="'rounded-lg'" width=270 height="385" color="#e9ecef">
-          <v-img class="mt-5" width=270 height="385" v-if="details.poster_path"
+      <v-col cols=2 sm=2 md=2 lg=3 xl=2 class="ml-16">
+        <v-card elevation=0 :class="'ml-2 rounded-lg'" width=270 height="395" color="#e9ecef">
+          <v-img class="mt-5" width=270 height="395" v-if="details.poster_path"
             :src="base_tmdb_img_url + details.poster_path" />
         </v-card>
         <h2 class="mt-5" v-if="media === 'tv'">
@@ -32,7 +31,7 @@
           </v-chip>
         </v-chip-group>
       </v-col>
-      <v-col cols=2 sm=2 md=2 lg=8 xl=2 class="ml-6">
+      <v-col cols=2 sm=2 md=2 lg=8 xl=2 class="">
         <v-row>
           <v-col lg=12>
             <v-tabs grow next-icon="" prev-icon="" mobile-breakpoint="xs" class="mt-5" :style="style.tabs"
@@ -54,22 +53,29 @@
                 {{content}}
               </v-tab>
             </v-tabs>
+            <v-divider />
           </v-col>
         </v-row>
-        <v-row>
-          <v-col lg=12 class="ml-n2" v-if="(media === 'tv') && (overall.seasons)">
-            <v-slide-group multiple show-arrows v-if="overall.seasons.length > 1">
-              <v-slide-item v-for="(season, index) in (this.overall.seasons.length - 1)" :key="index"
-                v-slot="{ active, toggle }">
-                <v-btn style="font-weight: bold;" color="#f6f8fb" class="mx-2" :input-value="active"
-                  active-class="purple white--text" depressed rounded @click="toggle,changeSeason(index+1)">
-                  シーズン {{index + 1}}
+        <v-row no-gutters>
+          <v-col lg=11></v-col>
+          <v-col lg=1 class="ml-n7" v-if="(media === 'tv') && (overall.seasons)">
+            <v-menu offset-y v-if="overall.seasons.length > 1">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn class="rounded mb-n2" small elevation=0 color="#212529" style="font-weight: bold;" dark
+                  v-bind="attrs" v-on="on">
+                  シーズン選択
                 </v-btn>
-              </v-slide-item>
-            </v-slide-group>
+              </template>
+              <v-list>
+                <v-list-item @click="changeSeason(index+1)" v-for="(season, index) in (this.overall.seasons.length - 1)"
+                  :key="index">
+                  <v-list-item-title>シーズン {{index + 1}}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
           </v-col>
         </v-row>
-        <v-row v-if="media === 'tv'">
+        <v-row v-if="media === 'tv'" class="">
           <v-col lg=4 v-for="(episode, index) in details.episodes" :key=index>
             <v-card @click="enterTvSpace(episode)" elevation=0 class="rounded-lg">
               <v-img position="under" gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)"
@@ -95,8 +101,9 @@
         <v-row v-else>
           <v-col lg=4>
             <v-card @click="enterMovieSpace(details)" elevation=0 class="rounded-lg">
-              <v-img position="under" gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)"
-                class="white--text align-end rounded-lg" :src="base_tmdb_img_url + details.backdrop_path">
+              <v-img v-if="details.backdrop_path" position="under"
+                gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)" class="white--text align-end rounded-lg"
+                :src="base_tmdb_img_url + details.backdrop_path">
                 <v-btn label :color="media === 'tv' ? '#00bbf9' : '#ff0054'" x-small class="elevation-0 ml-3 rounded-lg"
                   alt="" style="font-size: 14px; font-weight: bold; color: #ffffff;">
                   映画
@@ -140,7 +147,6 @@
         </v-row>
       </v-card>
     </v-dialog>
-
   </div>
 </template>
 
@@ -357,7 +363,7 @@
 </script>
 
 <style scoped>
-  .theme--light.v-divider {
+  /* .theme--light.v-divider {
     border-color: rgba(73, 73, 73, 0.06);
-  }
+  } */
 </style>

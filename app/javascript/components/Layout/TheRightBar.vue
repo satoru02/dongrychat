@@ -118,7 +118,6 @@
           © 2021 Devio
         </v-col>
       </v-hover>
-
     </v-row>
   </v-container>
 </template>
