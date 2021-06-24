@@ -13,7 +13,7 @@
           </v-img>
         </v-card>
       </v-col>
-      <v-col cols=9 sm=9 md=9 lg=9 xl=9 class="ml-n16 mt-8">
+      <v-col cols=9 sm=9 md=9 lg=9 xl=9 class="ml-n8 mt-8">
         <v-row class="ml-8">
           <base-label :style="'font-weight: bold; border-width: 1.8;'" class="rounded-xl" font_size="16px"
             v-if="space_data.media === media.tv" :label="true" :small="false" :color="'#020814'" :outlined="true"
@@ -80,7 +80,7 @@
             </v-btn>
           </v-col>
 
-          <v-col class="ml-n2" cols=11 sm=12 md=12 lg=3 xl=12 v-if="watched === false">
+          <v-col class="ml-n2" cols=11 sm=12 md=12 lg=4 xl=12 v-if="watched === false">
             <v-btn @click="checked === false ? addWatchlist() : deleteWatchList()" block class="mx-2 rounded-xl"
               elevation=0 style="font-weight: bold; border-width: 1.9;" :outlined="checked === false ? false : true"
               :color="checked === true ? 'rgb(0 213 247)' : 'rgb(0 213 247)'">
@@ -93,7 +93,7 @@
               </span>
             </v-btn>
           </v-col>
-          <v-col class="" cols=11 sm=12 md=12 lg=3 xl=12>
+          <v-col class="ml-n2" cols=11 sm=12 md=12 lg=3 xl=12>
             <v-btn @click="watched === false ? addWatchedlist() : deleteWatchList()" block class="mx-2 rounded-xl"
               elevation=0 style="font-weight: bold; border-width: 1.9;" :outlined="watched === false ? false : true"
               :color="watched === true ? '#06d6a0' : 'rgb(0 213 247)'">

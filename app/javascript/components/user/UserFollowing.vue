@@ -1,5 +1,8 @@
 <template>
-  <user-relationships :relationships="followings" />
+  <div>
+    <user-relationships :relationships="followings" />
+    <base-loader :infiniteId="componentKey" :handler="infiniteHandler" :wrapper="true" :text="loaderText" />
+  </div>
 </template>
 
 <script>
@@ -9,28 +12,38 @@
   export default {
     name: "UserFollowing",
     components: {
-      'user-relationships': () => import(/* webpackPrefetch: true */ './UserRelationships')
+      'user-relationships': () => import(/* webpackPrefetch: true */ './UserRelationships'),
+      'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
     },
     data() {
       return {
+        loaderText: '現在フォローしているユーザーはいません。',
         followings: [],
-        error: null,
+        error: '',
+        page: 1,
+        pageSize: 8,
+        componentKey: 0,
+        loading: false,
       }
     },
-    created() {
-      this.getFollowings()
-    },
     methods: {
-      getFollowings() {
-        usersRepository.getFollowings(this.$route.params.user_name)
-          .then(res => this.getSuccessful(res))
-          .catch(error => this.getFailed(error))
-      },
-      getSuccessful(res) {
-        this.followings = res.data.data
-      },
-      getFailed(error) {
-        this.error = (error.response && error.response.data && error.response.data.error) || ""
+      infiniteHandler($state) {
+        setTimeout(() => {
+          usersRepository.getFollowings(this.$route.params.user_id, {
+              page: this.page,
+              per_page: this.pageSize
+            })
+            .then(res => {
+              if (res.data.data.length) {
+                this.page += 1
+                this.followings.push(...res.data.data)
+                // this.loading = true
+                $state.loaded()
+              } else {
+                $state.complete()
+              }
+            })
+        }, 0)
       }
     }
   }

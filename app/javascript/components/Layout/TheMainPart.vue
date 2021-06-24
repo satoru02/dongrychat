@@ -1,9 +1,10 @@
 <template>
   <v-app >
-    <the-left-bar v-if="this.checkAuthorization() && this.checkRouter()" />
+    <!-- <the-left-bar v-if="this.checkAuthorization() && this.checkRouter()" /> -->
     <v-main>
       <the-header />
       <v-row class="ml-5">
+        <v-col lg=2 />
         <v-col :cols="this.colsGrid[1]" :sm="this.smGrid[1]" :md="this.mdGrid[1]" :lg="this.lgGrid[1]"
           :xl="this.xlGrid[1]">
           <keep-alive>
@@ -67,12 +68,12 @@
           'Settings',
           'Terms',
           'Privacy',
-          // 'subscribedTvSpace',
-          // 'subscribedTvSpaceMembers',
-          // 'subscribedTvSpaceReviews',
-          // 'subscribedMvSpace',
-          // 'subscribedMvSpaceMembers',
-          // 'subscribedMvSpaceReviews',
+          // 'registeredTvSpace',
+          // 'registeredTvSpaceMembers',
+          // 'registeredTvSpaceReviews',
+          // 'registeredMvSpace',
+          // 'registeredMvSpaceMembers',
+          // 'registeredMvSpaceReviews',
           // 'TvSpace',
           // 'TvSpaceMembers',
           // 'TvSpaceReviews',
@@ -97,19 +98,19 @@
           case 'Privacy':
           case 'Terms':
           case 'Settings':
-            // case 'subscribedTvSpace':
-            // case 'subscribedTvSpaceMembers':
-            // case 'subscribedTvSpaceReviews':
-            // case 'subscribedMvSpace':
-            // case 'subscribedMvSpaceMembers':
-            // case 'subscribedMvSpaceReviews':
-            // case 'TvSpace':
-            // case 'TvSpaceMembers':
-            // case 'TvSpaceReviews':
-            // case 'MvSpace':
-            // case 'MvSpaceMembers':
-            // case 'MvSpaceReviews':
-            return this.lgGrid = [1, 9, 0]
+            case 'registeredTvSpace':
+            case 'registeredTvSpaceMembers':
+            case 'registeredTvSpaceReviews':
+            case 'registeredMvSpace':
+            case 'registeredMvSpaceMembers':
+            case 'registeredMvSpaceReviews':
+            case 'TvSpace':
+            case 'TvSpaceMembers':
+            case 'TvSpaceReviews':
+            case 'MvSpace':
+            case 'MvSpaceMembers':
+            case 'MvSpaceReviews':
+            return this.lgGrid = [2, 9, 0]
             // case 'UserTop':
             // case 'UserReviews':
             // case 'UserFollowing':
