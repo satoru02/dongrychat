@@ -144,13 +144,13 @@
     watch: {
       $route: 'setSpace'
     },
-    beforeRouteEnter(to, from, next) {
-      next(vm => {
-        setTimeout(() => {
-          document.title = `${vm.space_data.name} - Devio` || 'Devio';
-        }, 1000)
-      })
-    },
+    // beforeRouteEnter(to, from, next) {
+    //   next(vm => {
+    //     setTimeout(() => {
+    //       document.title = `${vm.space_data.name} - Devio` || 'Devio';
+    //     }, 1000)
+    //   })
+    // },
     beforeRouteUpdate(to, from, next) {
       document.title = `${this.space_data.name} - Devio` || 'Devio';
       next()
@@ -168,6 +168,7 @@
       },
       successful(res) {
         this.space_data = res.data.data.attributes
+        document.title = `${this.space_data.name} - Devio` || 'Devio';
       },
       failed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
