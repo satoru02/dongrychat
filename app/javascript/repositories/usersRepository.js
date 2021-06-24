@@ -20,11 +20,11 @@ export default {
   getReviews(userId ,userParams){
     return secureAxios.get(`${baseURL}/${userId}/${reviewsResource}`, { params: userParams });
   },
-  getFollowers(userId){
-    return secureAxios.get(`${baseURL}/${userId}/${followersResource}`);
+  getFollowers(userId, userParams){
+    return secureAxios.get(`${baseURL}/${userId}/${followersResource}`, { params: userParams });
   },
-  getFollowings(userId){
-    return secureAxios.get(`${baseURL}/${userId}/${followingResource}`);
+  getFollowings(userId, userParams){
+    return secureAxios.get(`${baseURL}/${userId}/${followingResource}`, { params: userParams });
   },
   getWatchlists(userId, resource, params){
     return secureAxios.get(`${baseURL}/${userId}/${resource}`, { params: params });

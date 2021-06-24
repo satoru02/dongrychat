@@ -31,12 +31,14 @@ module Api
       end
 
       def following
-        serializer = set_following_serializer(@user.following)
+        @following = @user.following.paginate(:page => params[:page], :per_page => params[:per_page])
+        serializer = set_following_serializer(@following)
         render_json(serializer)
       end
 
       def followers
-        serializer = set_followers_serialzier(@user.followers)
+        @followers = @user.followers.paginate(:page => params[:page], :per_page => params[:per_page])
+        serializer = set_followers_serializer(@followers)
         render_json(serializer)
       end
 

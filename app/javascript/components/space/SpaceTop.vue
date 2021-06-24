@@ -5,15 +5,15 @@
       <v-tab :active-class="vTab.activeText" @click="changeTab(tablist.path)" :style="vTab.style"
         v-for="(tablist, index) in tablists" :key="index">
         <icon-base v-if="tablist.title === 'チャット'" :iconColor="'#6c757d'" icon-name="icon-comment" :width="'19'"
-          :height="'19'" :viewBox="'0 0 30.333 30.333'">
+         :viewBox="'0 0 30.333 30.333'">
           <icon-comment />
         </icon-base>
         <icon-base v-if="tablist.title === 'レビュー'" :iconColor="'#6c757d'" icon-name="icon-pen" :width="'19'"
-          :height="'19'" :viewBox="'0 0 512 512'">
+          :viewBox="'0 0 512 512'">
           <icon-pen />
         </icon-base>
         <icon-base v-if="tablist.title === 'ユーザー'" :iconColor="'#6c757d'" icon-name="icon-pen" :width="'19'"
-          :height="'19'" :viewBox="'-42 0 512 512.001'">
+          :viewBox="'-42 0 512 512.001'">
           <icon-user />
         </icon-base>
         <span class="ml-3">{{tablist.title}}</span>
@@ -55,16 +55,6 @@
           from_search: `unregistered`,
           from_subscription: `registered`,
         },
-        // space: {
-        //   tv: {
-        //     subscribed: 'registeredTvSpace',
-        //     unsubscribed: 'TvSpace'
-        //   },
-        //   movie: {
-        //     subscribed: 'registeredMvSpace',
-        //     unsubscribed: 'MvSpace'
-        //   }
-        // },
         tablists: [{
             title: 'チャット',
             path: 'chats'

@@ -2,6 +2,8 @@
   <!-- <v-app-bar dense elevation=0 app color="#ffffff" style="opacity: 0.71; backdrop-filter: saturate(180%) blur(10px);"> -->
   <v-app-bar elevation=0 outlined app color="#000000">
 
+    <v-spacer />
+
     <v-toolbar-title class="ml-1">
       <v-btn text color="#657482" style="font-size: 14px; font-weight: bold; color: #657482"
         @click="movePath('/trend')">
@@ -19,10 +21,11 @@
         高評価
       </v-btn>
     </v-toolbar-title>
-    <v-spacer />
-    <!-- <v-text-field placeholder="気になる作品を検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
+    <!-- <v-spacer /> -->
+    <v-text-field @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
       :full-width="true" v-if="this.checkAuthorization()" dense background-color="#161b22" solo flat
-      class="rounded-lg mt-7 ml-16 mr-16 " /> -->
+      class="rounded-lg mt-7 ml-16 mr-16 " />
+    <v-spacer />
     <v-menu left nudge-bottom="35" nudge-height="800">
       <template v-slot:activator="{on, attrs}">
         <div v-bind="attrs" v-on="on" @click="infiniteHandler()">

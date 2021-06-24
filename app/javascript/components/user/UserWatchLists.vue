@@ -3,24 +3,23 @@
     <v-row>
       <v-col lg=3 v-for="(space, index) in spaces" :key="index">
         <v-card elevation=0 class="rounded-lg" @click="enterSpace(space)">
-          <v-img size=100 position="under" gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)"
-            class="white--text align-end rounded-lg" height="260px" :src="posterImg(space.attributes.image_path)">
+          <v-img position="under" gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)"
+            class="white--text align-end rounded-lg" height="240px" :src="posterImg(space.attributes.image_path)">
             <v-btn :color="space.attributes.media === 'tv' ? '#00bbf9' : '#ff0054'" x-small
               class="elevation-0 ml-3 rounded-xl" style="font-size: 11px; font-weight: bold; color: #ffffff;">
               <span v-if="space.attributes.media === 'mv'">映画</span>
-              <span v-if="space.attributes.media === 'tv'">ドラマ</span>
+              <span v-if="space.attributes.media === 'tv'">
+                <!-- S{{space.attributes.season}} - E{{space.attributes.episode}} -->
+                <!-- エピソード{{space.attributes.season}}-{{space.attributes.episode}} -->
+                ドラマ
+              </span>
             </v-btn>
             <span v-if="space.attributes.media === 'tv'" class="ml-1"
-              style="font-size: 11px; font-weight: bold; color: #ffffff;">
-              シーズン{{space.attributes.season}}・第{{space.attributes.episode}}話</span>
+              style="font-size: 12px; font-weight: bold; color: #ffffff;">
+            シーズン{{space.attributes.season}}・第{{space.attributes.episode}}話
+              </span>
             <v-card-title style="font-weight: bold; line-height: 23px; font-size: 15px;">
               {{space.attributes.name}}
-              <!-- <span>
-                <icon-base v-if="$route.name === 'watchlists'" :iconColor="'yellow'" class="ml-2" icon-name="icon-check"
-                  :viewBox="'0 0 191.667 191.667'" :height="'18'" :width="'18'">
-                  <icon-check />
-                </icon-base>
-              </span> -->
             </v-card-title>
           </v-img>
         </v-card>
@@ -40,8 +39,8 @@
     name: "UserWatchLists",
     components: {
       'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
-      'icon-base': () => import( /* webpackPrefetch: true */ '../Icon/IconBase.vue'),
-      'icon-check': () => import( /* webpackPrefetch: true */ '../Icon/IconCheck.vue'),
+      // 'icon-base': () => import( /* webpackPrefetch: true */ '../Icon/IconBase.vue'),
+      // 'icon-check': () => import( /* webpackPrefetch: true */ '../Icon/IconCheck.vue'),
     },
     data() {
       return {

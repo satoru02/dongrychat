@@ -1,43 +1,41 @@
 <template>
-  <div class="user-top mt-n1 ml-1">
+  <div class="mt-n1 ml-5">
     <v-row class="mt-8">
-      <v-col lg=3 class="">
-        <v-avatar size=128 elevation=0 color="#dee2e6">
-          <v-img src="https://cdn.vuetifyjs.com/images/john.jpg"></v-img>
+      <v-col lg=3>
+        <v-avatar class="ml-15" size=88 elevation=0 color="#dee2e6">
+          <v-img :src="this.user_info.avatar_url"></v-img>
         </v-avatar>
-        <h2 class="mt-7">username</h2>
-        <div style="font-size: 13px; color: #768390;" class="">@username</div>
-        <v-row class="mt-3" no-gutters>
-          <v-col lg=5 style="font-size: 12px; color: #111111;">
-            <span style="font-weight: bold;">123</span>フォロー</v-col>
-          <v-col lg=6 style="font-size: 12px; color: #111111;">
-            <span style="font-weight: bold;">123</span>フォロワー</v-col>
-        </v-row>
-        <v-row class="mt-3" no-gutters>
+        <h2 class="mt-3 ml-10">{{this.user_info.name}}</h2>
+        <div style="font-size: 13px; color: #768390;" class="ml-10">@{{this.user_info.name}}</div>
+        <v-btn class="rounded mt-3 ml-10" small elevation=0 v-if="user_info && ($store.state.user.currentUser.id != user_info.id)"
+          :style="followed ? followingStyle : unfollowStyle"
+          :outlined="followed ? true : false"
+          @click="followed ? unfollow(user_info.id) : follow(user_info.id)">
+          {{ followed ? followingText : unfollowText }}
+        </v-btn>
+        <v-row class="mt-3 ml-10" no-gutters>
           <v-col lg=8 style="font-size: 12px; color: #111111;">
-            <p class="mt-4">大学生ユーザー</p>
+            <p class="mt-4">{{this.user_info.about}}</p>
           </v-col>
         </v-row>
-        <v-btn color="#42ccff" style="font-size: 11px; font-weight: bold; color: #ffffff;" elevation=0>フォロー
-        </v-btn>
       </v-col>
-      <v-col lg=9 class="mt-16 ml-n14">
+      <v-col lg=8 class="mt-16 ml-n14">
         <v-row class="mt-n16">
           <v-col lg=12>
             <v-tabs background-color="transparent" color="#111111">
               <v-tabs-slider color="#42ccff"></v-tabs-slider>
-              <v-tab style="font-weight: bold;" @click="changePath(tab.path)" v-for="(tab, index) in user_tabs"
-                :key="index">
-                <icon-base v-if="tab.title === 'ウォッチリスト'" :iconColor="'#6c757d'" icon-name="icon-calendar" :width="'24'"
-                :height="'24'" :viewBox="'-33 -19 626 626.68002'">
-                <icon-calendar />
-              </icon-base>
-                <icon-base v-if="tab.title === 'ウォッチログ'" :iconColor="'#6c757d'" icon-name="icon-list" :width="'19'"
-                  :height="'19'" :viewBox="'0 0 512 512'">
+              <v-tab style="font-weight: bold; font-size: 12px;" @click="changePath(tab.path)"
+                v-for="(tab, index) in user_tabs" :key="index">
+                <icon-base v-if="tab.title === 'ウォッチリスト'" :iconColor="'#6c757d'" icon-name="icon-calendar" :width="'20'"
+                  :height="'20'" :viewBox="'-33 -19 626 626.68002'">
+                  <icon-calendar />
+                </icon-base>
+                <icon-base v-if="tab.title === 'ウォッチログ'" :iconColor="'#6c757d'" icon-name="icon-list" :width="'17'"
+                  :height="'17'" :viewBox="'0 0 512 512'">
                   <icon-list />
                 </icon-base>
-                <icon-base v-if="tab.title === 'レビュー'" :iconColor="'#6c757d'" icon-name="icon-pen" :width="'19'"
-                  :height="'19'" :viewBox="'-42 0 512 512.001'">
+                <icon-base v-if="tab.title === 'レビュー'" :iconColor="'#6c757d'" icon-name="icon-pen" :width="'17'"
+                  :height="'17'" :viewBox="'-42 0 512 512.001'">
                   <icon-pen />
                 </icon-base>
                 <span class="ml-3">{{tab.title}}</span>
@@ -45,6 +43,7 @@
                 </v-chip>
               </v-tab>
             </v-tabs>
+            <v-divider class="mr-16" style="width: 920px;" />
           </v-col>
         </v-row>
         <router-view :user_info="this.user_info" />
@@ -72,38 +71,46 @@
       return {
         user_info: '',
         componentKey: 0,
-        default_avatar: `https://cdn.vuetifyjs.com/images/john.jpg`,
         user_tabs: [{
-            title: 'ウォッチログ',
-            path: 'watchlog',
-          },
-          {
             title: 'ウォッチリスト',
             path: 'watchlists',
           },
           {
+            title: 'ウォッチログ',
+            path: 'watchlog',
+          },
+          {
             title: 'レビュー',
             path: 'UserReviews',
+          },
+          {
+            title: 'フォロワー',
+            path: 'UserFollowers',
+          },
+          {
+            title: 'フォロー',
+            path: 'UserFollowing',
           },
         ],
         followed: Boolean,
         followingText: 'フォロー中',
         followingStyle: {
           fontWeight: "bold",
-          fontSize: "6px",
-          color: '#111111',
+          fontSize: "10px",
+          elevation: 0,
+          color: '#000000'
         },
-        unfollowingText: 'フォローする',
-        unfollowingStyle: {
-          backgroundColor: "#4361ee",
+        unfollowText: 'フォローする',
+        unfollowStyle: {
+          backgroundColor: "#42ccff",
           fontWeight: "bold",
-          fontSize: "6px",
-          color: '#ffffff',
+          fontSize: "10px",
+          elevation: 0,
+          color: '#ffffff'
         },
       }
     },
-    computed: {
-    },
+    computed: {},
     beforeRouteEnter(to, from, next) {
       next(vm => {
         vm.getUser()
@@ -115,13 +122,10 @@
       next()
     },
     watch: {
-      '$route'() {
+      '$route.params.user_id'() {
         this.user_info = ''
         this.getUser()
       },
-    },
-    updated() {
-      this.follow_check(this.user_info)
     },
     methods: {
       getUser() {
@@ -131,6 +135,8 @@
       },
       fetchSuccessful(res) {
         this.user_info = res.data.data.attributes
+        document.title = this.user_info.name
+        this.follow_check(this.user_info)
       },
       fetchFailed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ""
@@ -143,7 +149,6 @@
           return this.default_avatar
         }
       },
-      setLink() {},
       changePath(path_name) {
         this.$router.push({
           name: path_name
@@ -157,6 +162,7 @@
         }
       },
       follow(user_id) {
+        console.log(user_id)
         relationshipsRepository.follow({
             followed_id: user_id
           })
@@ -166,6 +172,8 @@
           })
       },
       unfollow(user_id) {
+        console.log(user_id)
+
         relationshipsRepository.unfollow(this.$store.state.user.currentUser.id, {
             id: this.$store.state.user.currentUser.id,
             followed_id: user_id
