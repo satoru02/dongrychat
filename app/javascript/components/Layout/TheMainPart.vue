@@ -1,8 +1,7 @@
 <template>
   <v-app >
-    <!-- <the-left-bar v-if="this.checkAuthorization() && this.checkRouter()" /> -->
+    <the-header />
     <v-main>
-      <the-header />
       <v-row class="ml-5">
         <v-col lg=2 />
         <v-col :cols="this.colsGrid[1]" :sm="this.smGrid[1]" :md="this.mdGrid[1]" :lg="this.lgGrid[1]"
@@ -27,14 +26,12 @@
 
 <script>
   import TheHeader from './TheHeader';
-  import TheLeftBar from './TheLeftBar';
   import CookieLaw from 'vue-cookie-law';
 
   export default {
     name: 'TheMainPart',
     components: {
       'the-header': TheHeader,
-      'the-left-bar': TheLeftBar,
       'cookie-law': CookieLaw
     },
     data() {
