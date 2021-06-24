@@ -139,6 +139,31 @@
           </v-chip-group>
         </v-col>
       </v-row>
+      <v-row no-gutters class="mt-1 ml-5">
+      <v-hover v-slot="{hover}">
+        <v-col lg=4 :style="hover ? hoverlink : unhoverlink" @click="changeRoute('Terms')">
+          利用規約
+        </v-col>
+      </v-hover>
+      <v-hover v-slot="{hover}">
+        <v-col lg=8 :style="hover ? hoverlink : unhoverlink" class="ml-n4" @click="changeRoute('Privacy')">
+          プライバシーポリシー
+        </v-col>
+      </v-hover>
+    </v-row>
+    <v-row no-gutters class="ml-5">
+      <v-hover v-slot="{hover}">
+        <v-col lg=4 :style="hover ? hoverlink : unhoverlink">
+          お問い合わせ
+        </v-col>
+      </v-hover>
+      <v-hover v-slot="{hover}">
+
+        <v-col lg=8 :style="hover ? hoverlink : unhoverlink">
+          © 2021 Devio
+        </v-col>
+      </v-hover>
+    </v-row>
     </v-navigation-drawer>
 
     <!-- <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
@@ -291,7 +316,19 @@
             color: '#6c757d',
             fontSize: '4px',
           }
-        }
+        },
+          hoverlink: {
+            fontWeight: 'bold',
+            fontSize: '9px',
+            color: '#374151',
+            cursor: 'pointer',
+          },
+          unhoverlink: {
+            fontWeight: 'bold',
+            fontSize: '9px',
+            color: '#6c757d',
+            cursor: 'pointer',
+          }
       }
     },
     created() {
