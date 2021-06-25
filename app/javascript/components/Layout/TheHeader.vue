@@ -238,7 +238,7 @@
             icon: 'mdi-account-outline',
             title: 'プロフィール',
             name: 'Posts',
-            link: '/users/' + `${this.$store.state.user.currentUser.id}` + '/watchlog',
+            link: '/users/' + `${this.$store.state.user.currentUser.id}` + '/watchlists',
           },
           {
             icon: 'mdi-mailbox-outline',
