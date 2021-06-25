@@ -1,10 +1,9 @@
 <template>
-  <div class="">
-    <!-- <v-divider class=mt-13 /> -->
-    <v-row class="">
-      <v-col cols=2 sm=2 md=2 lg=3 xl=2 class="ml-6">
-        <v-card elevation=0 :class="'rounded-lg'" width=270 height="385" color="#e9ecef">
-          <v-img class="mt-5" width=270 height="385" v-if="details.poster_path"
+  <div>
+    <v-row>
+      <v-col cols=2 sm=2 md=2 lg=3 xl=2 class="ml-16">
+        <v-card elevation=0 :class="'ml-6 rounded-lg'" width=270 height="395" color="#e9ecef">
+          <v-img class="mt-5" width=270 height="395" v-if="details.poster_path"
             :src="base_tmdb_img_url + details.poster_path" />
         </v-card>
         <h2 class="mt-5" v-if="media === 'tv'">
@@ -21,8 +20,15 @@
               {{details.vote_average}}</v-btn>
           </span>
         </h2>
-        <v-btn style="font-weight:bold;" color="#f6f8fb" class="mt-2" small elevation=0>作品紹介</v-btn>
-        <p class="mt-3" :style="bindContentsDetails" v-text="details.overview" />
+        <v-btn style="font-weight:bold;" color="#f6f8fb" class="mt-4" small elevation=0>作品紹介</v-btn>
+        <p v-if="details.overview" class="mt-5" :style="bindContentsDetails" v-text="details.overview" />
+        <v-card color="#f6f8fb" elevation=0 v-else class="mt-3" width="310">
+          <v-list-item three-line>
+            <v-list-subtitle style="color: #595959;">
+              あらすじがまだ登録されていません。
+            </v-list-subtitle>
+          </v-list-item>
+        </v-card>
         <v-btn style="font-weight:bold;" color="#f6f8fb" class="mt-4" small elevation=0>カテゴリー</v-btn>
         <v-chip-group column class="mt-3">
           <v-chip small active-class="blue--text" outlined class="mb-3 rounded-lg"
@@ -32,10 +38,10 @@
           </v-chip>
         </v-chip-group>
       </v-col>
-      <v-col cols=2 sm=2 md=2 lg=8 xl=2 class="ml-6">
+      <v-col cols=2 sm=2 md=2 lg=8 xl=2>
         <v-row>
           <v-col lg=12>
-            <v-tabs grow next-icon="" prev-icon="" mobile-breakpoint="xs" class="mt-5" :style="style.tabs"
+            <v-tabs grow mobile-breakpoint="xs" class="mt-5" :style="style.tabs"
               background-color='#ffffff' :width="tabs.width" :color="'blue'">
               <v-tabs-slider color="#42ccff"></v-tabs-slider>
               <v-tab :active-class="'black--text'" :style="style.tab" v-for="(content, index) in contents" :key="index">
@@ -54,24 +60,31 @@
                 {{content}}
               </v-tab>
             </v-tabs>
+            <v-divider />
           </v-col>
         </v-row>
-        <v-row>
-          <v-col lg=12 class="ml-n2" v-if="(media === 'tv') && (overall.seasons)">
-            <v-slide-group multiple show-arrows v-if="overall.seasons.length > 1">
-              <v-slide-item v-for="(season, index) in (this.overall.seasons.length - 1)" :key="index"
-                v-slot="{ active, toggle }">
-                <v-btn style="font-weight: bold;" color="#f6f8fb" class="mx-2" :input-value="active"
-                  active-class="purple white--text" depressed rounded @click="toggle,changeSeason(index+1)">
-                  シーズン {{index + 1}}
+        <v-row no-gutters>
+          <v-col lg=11></v-col>
+          <v-col lg=1 class="ml-n7" v-if="(media === 'tv') && (overall.seasons)">
+            <v-menu offset-y v-if="overall.seasons.length > 1">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn class="rounded mb-n2" small elevation=0 color="#212529" style="font-weight: bold;" dark
+                  v-bind="attrs" v-on="on">
+                  シーズン選択
                 </v-btn>
-              </v-slide-item>
-            </v-slide-group>
+              </template>
+              <v-list>
+                <v-list-item @click="changeSeason(index+1)" v-for="(season, index) in (this.overall.seasons.length - 1)"
+                  :key="index">
+                  <v-list-item-title>シーズン {{index + 1}}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
           </v-col>
         </v-row>
         <v-row v-if="media === 'tv'">
           <v-col lg=4 v-for="(episode, index) in details.episodes" :key=index>
-            <v-card @click="enterTvSpace(episode)" elevation=0 class="rounded-lg">
+            <v-card v-if="episode.still_path" @click="enterTvSpace(episode)" elevation=0 class="rounded-lg">
               <v-img position="under" gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)"
                 class="white--text align-end rounded-lg" :src="base_tmdb_img_url + episode.still_path">
                 <v-btn label :color="media === 'tv' ? '#00bbf9' : '#ff0054'" x-small class="elevation-0 ml-3 rounded-lg"
@@ -90,13 +103,35 @@
                 </v-card-title>
               </v-img>
             </v-card>
+            <v-card v-else @click="enterTvSpace(episode)" elevation=0 class="rounded-lg" color="#f6f8fb" height="165px">
+              <v-img class="white--text align-end rounded-lg">
+                <v-btn label :color="media === 'tv' ? '#00bbf9' : '#ff0054'" x-small class="elevation-0 ml-3 rounded-lg"
+                  alt="" style="font-size: 14px; font-weight: bold; color: #ffffff;">
+                  第{{index + 1}}話
+                </v-btn>
+                <span v-if="media === 'tv'" class="ml-1"
+                  style="font-size: 11px; color: #595959">{{episode.air_date}}・初放送</span>
+                <span v-if="media === 'movie'" class="ml-1"
+                  style="font-size: 11px; color: #595959">{{item.release_date}}・初公開</span>
+                <v-card-title v-if="media === 'tv'" style="color: #595959; line-height: 22px; font-size: 18px;">
+                  {{episode.name}}
+                </v-card-title>
+                <v-card-title v-if="media === 'movie'" style="color: #595959; line-height: 22px; font-size: 18px;">
+                  {{episode.title}}
+                </v-card-title>
+                <v-card-subtitle class="mt-2" style="line-height: 22px; font-size: 14px; color: #595959;">
+                  イメージ画像がまだ登録されていません。
+                </v-card-subtitle>
+              </v-img>
+            </v-card>
           </v-col>
         </v-row>
         <v-row v-else>
           <v-col lg=4>
             <v-card @click="enterMovieSpace(details)" elevation=0 class="rounded-lg">
-              <v-img position="under" gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)"
-                class="white--text align-end rounded-lg" :src="base_tmdb_img_url + details.backdrop_path">
+              <v-img v-if="details.backdrop_path" position="under"
+                gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)" class="white--text align-end rounded-lg"
+                :src="base_tmdb_img_url + details.backdrop_path">
                 <v-btn label :color="media === 'tv' ? '#00bbf9' : '#ff0054'" x-small class="elevation-0 ml-3 rounded-lg"
                   alt="" style="font-size: 14px; font-weight: bold; color: #ffffff;">
                   映画
@@ -140,7 +175,6 @@
         </v-row>
       </v-card>
     </v-dialog>
-
   </div>
 </template>
 
@@ -157,6 +191,7 @@
       'icon-overview': () => import( /* webpackPrefetch: true */ '../Icon/IconOverview.vue'),
       'icon-creator': () => import( /* webpackPrefetch: true */ '../Icon/IconCreator.vue'),
       'icon-staff': () => import( /* webpackPrefetch: true */ '../Icon/IconStaff.vue'),
+      'icon-no-image': () => import( /* webpackPrefetch */ '../Icon/IconNoImage.vue'),
     },
     data() {
       return {
@@ -357,7 +392,4 @@
 </script>
 
 <style scoped>
-  .theme--light.v-divider {
-    border-color: rgba(73, 73, 73, 0.06);
-  }
 </style>
