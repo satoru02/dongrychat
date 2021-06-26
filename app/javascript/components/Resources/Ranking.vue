@@ -1,16 +1,16 @@
 <template>
-  <v-container fluid class="ml-n2">
+  <v-container fluid class="ml-10">
     <!-- <base-banner class="ml-14" /> -->
 
-    <sub-header class="ml-2 mt-n3">
+    <!-- <sub-header class="ml-2 mt-n3">
       <template v-slot:popular_header="subHeaderProps">
         <h3 :class="gridSubHeader">
           {{subHeaderProps.sub_header}}
         </h3>
       </template>
-    </sub-header>
+    </sub-header> -->
 
-    <v-tabs height="40" class="mt-n1 ml-5">
+    <!-- <v-tabs height="40" class="mt-n1 ml-5">
       <v-tabs-slider color="#111111"></v-tabs-slider>
       <v-tab @click="changeContents(tab)" class="tab-name" active-class="black--text" v-for="(tab, index) in tabs"
         :key="index">
@@ -18,11 +18,11 @@
         <icon-base v-if="tab === '映画'" class="ml-n2 mr-2" :iconColor="'#606770'" :width="'14'" :height="'14'" icon-name="icon-movie" :viewBox="'0 0 511.81 511.81'"><icon-movie /></icon-base>
         {{tab}}
       </v-tab>
-    </v-tabs>
+    </v-tabs> -->
 
-    <v-divider class="ml-6" />
+    <!-- <v-divider class="ml-6" /> -->
 
-    <v-row no-gutters class="mt-2 mb-2">
+    <!-- <v-row no-gutters class="mt-2 mb-2">
       <v-col lg=1></v-col>
       <v-col lg=5 class="ml-13" style="font-size: 11px; font-weight: bold; color: #606770;">タイトル</v-col>
       <v-col lg=4 class="" style="font-size: 11px; font-weight: bold; color: #606770;">詳細</v-col>
@@ -30,9 +30,9 @@
         フィルタ
         <icon-base icon-name="icon-filter" :width="'7'" :height="'7'" :viewBox="'0 0 451.847 451.847'" :iconColor="'#606770'"><icon-filter /></icon-base>
       </v-col>
-    </v-row>
+    </v-row> -->
 
-    <v-divider class="ml-5" />
+    <!-- <v-divider class="ml-5" /> -->
 
     <base-card class="mt-n3" :items="items" :loading="loading" />
     <base-loader :infiniteId="componentKey" :handler="infiniteHandler" :wrapper="true" :text="loaderText" />
@@ -66,7 +66,7 @@
         loaderText: '現在チャット中のスペースはありません。',
         componentKey: 0,
         page: 1,
-        pageSize: 10,
+        pageSize: 8,
         items: [],
         loading: false,
         switcher: false,

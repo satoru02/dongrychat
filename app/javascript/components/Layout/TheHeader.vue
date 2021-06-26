@@ -1,12 +1,14 @@
 <template>
   <v-container>
-    <v-app-bar elevation=0 outlined app color="#000000">
+    <v-app-bar elevation=1 outlined app color="#ffffff">
       <v-app-bar-nav-icon class="ml-1" @click="drawer = !drawer">
-        <icon-base :width="'20'" :height="'20'" icon-name="icon-user" :iconColor="'#ffffff'" :viewBox="'0 0 124 124'">
+        <icon-base :width="'20'" :height="'20'" icon-name="icon-user" :iconColor="'#000000'" :viewBox="'0 0 124 124'">
           <icon-menu />
         </icon-base>
       </v-app-bar-nav-icon>
       <v-spacer />
+      <v-spacer />
+
       <v-toolbar-title class="ml-1">
         <v-btn text color="#657482" style="font-size: 14px; font-weight: bold; color: #657482"
           @click="movePath('/trend')">
@@ -24,8 +26,8 @@
           高評価
         </v-btn>
       </v-toolbar-title>
-      <v-text-field @keypress="setQuery()" @keydown.enter="search(query)" v-model="query" :full-width="true"
-        v-if="this.checkAuthorization()" dense background-color="#161b22" solo flat
+      <v-text-field placeholder="検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query" :full-width="true"
+        v-if="this.checkAuthorization()" dense background-color="#f5f8fa" solo flat
         class="rounded-lg mt-7 ml-16 mr-16 " />
       <v-spacer />
       <v-menu left nudge-bottom="35" nudge-height="800">
@@ -460,4 +462,8 @@
     color: #011627;
     font-size: 13px;
   }
+
+  .v-application .elevation-1 {
+    box-shadow: 0 0px 1px -1px rgba(0,0,-4,.2),0 1px 1px 0 rgba(0,0,0,.04),0 1px 0.3px 0 rgba(0,0,0,.02)!important;
+}
 </style>

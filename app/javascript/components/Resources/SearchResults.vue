@@ -1,5 +1,5 @@
 <template>
-  <v-container class="mt-4" :key="componentKey">
+  <v-container class="mt-4 ml-n16" :key="componentKey">
     <v-row>
       <v-col cols=12 sm=12 md=12 lg=12 xl=12>
         <h3 :style="resultsStyle" v-text="resultsText" />

@@ -1,23 +1,36 @@
 <template>
   <v-container>
 
-    <v-list two-line>
+  <!-- <v-row>
+    <v-col lg=4 v-for="(item, index) in items.slice(0,3)" :key="index">
+      <v-card elevation=0 class="rounded-lg" @click="showContents(item)">
+        <v-img position="under" gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)"
+          class="white--text align-end rounded-lg" height="240px" v-if="item.attributes.image_path"
+          :src="posterImg(item.attributes.image_path)">
+          <v-btn :color="media === 'tv' ? '#00bbf9' : '#ff0054'" x-small class="elevation-0 ml-3 rounded-xl" alt="" style="font-size: 12px; font-weight: bold; color: #ffffff;"
+            >
+            {{item.vote_average}}
+          </v-btn>
+          <v-card-title  style="font-weight: bold; line-height: 23px; font-size: 14px;">
+            『劇場版「鬼滅の刃」無限列車編』のBlu-ray＆DVD発売を記念したカウントダウン。
+          </v-card-title>
+        </v-img>
+      </v-card>
+    </v-col>
+  </v-row> -->
+
+    <v-list two-line width="850">
       <v-list-item-group multiple>
         <template>
           <v-list-item active-class="white--text" @click="enterSpace(item.attributes)" :key="index"
             v-for="(item, index) in items">
             <template v-slot:default="">
-              <v-list-item-avatar class="ml-n5 mr-n3" style="font-size:10px; color: #606770; font-weight: bold;" v-if="$route.name === 'Topic'">
-              <!-- <v-btn label outlined x-small> -->
-              {{index + 1}}
-              <!-- </v-btn> -->
-              </v-list-item-avatar>
               <v-badge light style="font-weight: bold;" offset-x="26" v-if="item.attributes.users.length" offset-y="26"
                 color="#43e6ff" icon="mdi-lock" overlap :content="item.attributes.users.length">
-                <v-list-item-avatar tile class="rounded-lg" size="80" style="background-color: #dee2e6;">
+                <v-list-item-avatar class="rounded-lg" tile size="53" height="53" style="background-color: #dee2e6;">
                   <v-img v-if="item.attributes.image_path" :src="posterImg(item.attributes.image_path)"></v-img>
                   <span v-else>
-                    <icon-base :width="'45'" :height="'45'" icon-name="icon-no-image" :iconColor="'#111111'"
+                    <icon-base :width="'50'" :height="'50'" icon-name="icon-no-image" :iconColor="'#111111'"
                       :viewBox="'0 0 512 512'">
                       <icon-no-image />
                     </icon-base>
@@ -25,7 +38,7 @@
                 </v-list-item-avatar>
               </v-badge>
               <v-badge v-else :value=false>
-                <v-list-item-avatar tile class="rounded-lg" size="80" style="background-color: #dee2e6;">
+                <v-list-item-avatar class="rounded-lg" tile size="53" height="53" style="background-color: #dee2e6;">
                   <v-img v-if="item.attributes.image_path" :src="posterImg(item.attributes.image_path)"></v-img>
                   <span v-else>
                     <icon-base :width="'45'" :height="'45'" icon-name="icon-no-image" :iconColor="'#ced4da'"
@@ -35,17 +48,29 @@
                   </span>
                 </v-list-item-avatar>
               </v-badge>
-              <v-list-item-content>
+              <v-list-item-content class="">
+                <!-- <v-list-item-title class="mb-3">
+                  <base-label class="rounded" font_size="12px" :label="true" v-if="item.attributes.media === 'tv'"
+                    :small="true" :outlined="true" :color="'#000000'" :text_color="'#111111'"
+                    :season="item.attributes.season" :episode="item.attributes.episode"
+                    :title="item.attributes.episode_title" />
+                  <v-chip outlined small class="rounded" :color="'#000000'" v-if="item.attributes.media === media.mv"
+                    label :style="chipLabel.label.style" v-text="'映画'" />
+                </v-list-item-title> -->
                 <v-list-item-title class="contents-name">
                   {{item.attributes.name}}
+                  <!-- <span v-if="item.attributes.media === 'tv'" class="ml-4">
+                    <v-btn color="#000000" outlined style="font-weight: bold; font-size: 10px; color: #0f1419;" class="rounded-xl" x-small elevation=0>
+                      {{item.attributes.season}}-{{item.attributes.episode}}
+                    </v-btn></span> -->
                 </v-list-item-title>
-                <v-list-item-subtitle v-if="item.attributes.latest_comment" class="comment-name mt-1">
-                  <div style="color: #828a92;">{{item.attributes.latest_comment.content}}</div>
+                <v-list-item-subtitle v-if="item.attributes.latest_comment" class="comment-name">
+                  <div class="" style="color: #536471;">{{item.attributes.latest_comment.content}}</div>
                 </v-list-item-subtitle>
                 <v-list-item-subtitle v-else class="comment-name mt-1" v-text="''">
                 </v-list-item-subtitle>
               </v-list-item-content>
-              <v-list-item-content>
+              <!-- <v-list-item-content>
                 <v-list-item-title class="contents-name">
                   <base-label class="ml-3 rounded-xl" font_size="12px" :label="true"
                     v-if="item.attributes.media === 'tv'" :small="false" :outlined="true" :color="'#000000'"
@@ -54,10 +79,30 @@
                   <v-chip outlined class="ml-2 rounded-xl" :color="'#000000'" v-if="item.attributes.media === media.mv"
                     label :style="chipLabel.label.style" v-text="'映画'" />
                 </v-list-item-title>
-              </v-list-item-content>
+              </v-list-item-content> -->
 
               <v-list-item-action>
-                <v-list-item-avatar color="#dee2e6" class="rounded-xl ml-n8" size="27">
+                <span v-if="item.attributes.media === 'tv'" class="ml-4">
+                  <v-btn color="#000000" outlined style="font-weight: bold; font-size: 10px; color: #0f1419;"
+                    class="rounded-xl" small elevation=0>
+                    S{{item.attributes.season}}-E{{item.attributes.episode}}
+                  </v-btn>
+                </span>
+                <span v-else class="ml-9">
+                  <v-btn color="#000000" outlined style="font-weight: bold; font-size: 10px; color: #0f1419;"
+                    class="rounded-xl" small elevation=0>
+                    映画
+                  </v-btn>
+                </span>
+                <!-- <v-list-item-title class="contents-name">
+                  <base-label class="ml-3 rounded-lg" font_size="12px" :label="true"
+                    v-if="item.attributes.media === 'tv'" :small="true" :outlined="true" :color="'#000000'"
+                    :text_color="'#111111'" :season="item.attributes.season" :episode="item.attributes.episode"
+                    :title="item.attributes.episode_title" />
+                  <v-chip outlined class="ml-2 rounded-xl" :color="'#000000'" v-if="item.attributes.media === media.mv"
+                    label :style="chipLabel.label.style" v-text="'映画'" />
+                </v-list-item-title> -->
+                <!-- <v-list-item-avatar color="#dee2e6" class="rounded-xl ml-n8" size="27">
                   <v-img v-if="item.attributes.latest_comment_user"
                     :src="item.attributes.latest_comment_user.data.attributes.avatar_url"></v-img>
                   <span v-else>
@@ -66,14 +111,9 @@
                       <icon-user />
                     </icon-base>
                   </span>
-                </v-list-item-avatar>
+                </v-list-item-avatar> -->
               </v-list-item-action>
-              <v-list-item-action class="user-name ml-n2">
-                <icon-base icon-name="icon-checkbox" :iconColor='"#a9abad"' :width="'25'" :height="'25'"
-                  :viewBox="'0 0 512 512'">
-                  <icon-checkbox />
-                </icon-base>
-              </v-list-item-action>
+
             </template>
           </v-list-item>
         </template>
@@ -101,7 +141,7 @@
       return {
         cdn: process.env.AWS_CLOUDFRONT,
         img: `tv.jpg`,
-        base_img_url: `https://image.tmdb.org/t/p/w200`,
+        base_img_url: `https://image.tmdb.org/t/p/w500`,
         descText: {
           color: '#111111',
           fontSize: '19px',
@@ -215,13 +255,13 @@
 
   .contents-name {
     font-weight: bold;
-    font-size: 18px;
+    font-size: 15.65px;
     color: #020814;
   }
 
   .comment-name {
     /* font-weight: bold; */
-    font-size: 15px;
-    color: #445b78;
+    font-size: 13px;
+    color: #536471;
   }
 </style>

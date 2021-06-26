@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="ml-n4">
+  <v-container fluid class="ml-8">
 
     <sub-header>
       <template v-slot:home_header="subHeaderProps">
