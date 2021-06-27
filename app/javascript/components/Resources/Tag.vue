@@ -1,14 +1,13 @@
 <template>
-  <v-container fluid class="ml-n2">
-    <!-- <h2 class="mb-3">注目のレビュー</h2> -->
+  <v-container fluid class="mt-n3">
 
     <v-row>
-    <v-col lg=4 v-for="(item, index) in spaces.slice(0,3)" :key="index">
+    <v-col lg=3 v-for="(item, index) in spaces.slice(0,4)" :key="index">
       <v-card elevation=0 class="rounded-lg">
         <v-img position="under" gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)"
-          class="white--text align-end rounded-lg" height="260px" v-if="item.attributes.image_path"
+          class="white--text align-end rounded-lg" height="230px" v-if="item.attributes.image_path"
           :src="posterImg(item.attributes.image_path)">
-          <v-card-title class="mb-n7" style="font-weight: bold; line-height: 23px; font-size: 14px;">
+          <v-card-title class="mb-n7" style="font-weight: bold; line-height: 20px; font-size: 15px;">
             『劇場版「鬼滅の刃」無限列車編』のBlu-ray＆DVD発売を記念したカウントダウン。
           </v-card-title>
            <v-card-actions>
@@ -44,8 +43,8 @@
     <!-- <v-col lg=5>
 
     </v-col> -->
-    <v-col lg=1 class="mt-8 ml-n4">
-      <v-btn small color="#580aff" style="font-weight: bold; color: #ffffff;" elevation=0 class="rounded-xl">フィルター</v-btn>
+    <v-col lg=1 class="mt-8 ml-n3">
+      <v-btn small color="#00bbf9" style="font-weight: bold; color: #ffffff;" elevation=0 class="rounded-xl">フィルター</v-btn>
     </v-col>
   </v-row>
 
@@ -86,6 +85,7 @@
     name: "Tag",
     components: {
       'sub-header': () => import( /* webpackPrefetch: true */ '../Layout/TheSubHeader'),
+      'base-banner': () => import( /* webpackPrefetch: true */ '../Base/BaseBanner'),
       'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
       'base-card': () => import( /* webpackPrefetch: true */ '../Base/BaseCard'),
       'icon-base': () => import( /* webpackPrefetch */ '../Icon/IconBase'),

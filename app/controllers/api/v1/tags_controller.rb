@@ -3,7 +3,7 @@ module Api
     class TagsController < ApplicationController
 
       def index
-        @tags = ActsAsTaggableOn::Tag.most_used(10)
+        @tags = ActsAsTaggableOn::Tag.most_used(15)
         serializer = TagSerializer.new(@tags)
         render_json(serializer)
       end

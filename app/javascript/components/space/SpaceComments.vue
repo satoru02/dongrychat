@@ -76,7 +76,7 @@
         content: {
           style: {
             color: '#000000',
-            fontSize: '15px',
+            fontSize: '16px',
           }
         }
       }
@@ -105,7 +105,7 @@
           case 'md':
             return 'mt-7'
           case 'lg':
-            return 'mt-5'
+            return 'mt-10'
           case 'xl':
             return 'mt-n9'
         }

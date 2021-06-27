@@ -1,117 +1,29 @@
 <template>
-  <v-container>
-    <v-app-bar elevation=0 outlined app color="#000000">
-      <v-app-bar-nav-icon class="ml-1" @click="drawer = !drawer">
-        <icon-base :width="'20'" :height="'20'" icon-name="icon-user" :iconColor="'#ffffff'" :viewBox="'0 0 124 124'">
-          <icon-menu />
-        </icon-base>
-      </v-app-bar-nav-icon>
-
-
-     <v-spacer />
-      <v-toolbar-title class="ml-n13">
-        <v-btn text color="#657482" style="font-size: 14px; font-weight: bold; color: #657482"
-          @click="movePath('/trend')">
-          <icon-new class="mr-3" />新着</v-btn>
-      </v-toolbar-title>
-      <v-toolbar-title class="ml-6">
-        <v-btn @click="movePath('/popular')" text color="#ffffff"
-          style="font-size: 14px; font-weight: bold; color: #657482">
-          人気
-        </v-btn>
-      </v-toolbar-title>
-      <v-toolbar-title class="ml-6">
-        <v-btn @click="movePath('/top_rated')" text color="#ffffff"
-          style="font-size: 14px; font-weight: bold; color: #657482">
-          高評価
-        </v-btn>
-      </v-toolbar-title>
-      <v-text-field placeholder="検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query" :full-width="true"
-        v-if="this.checkAuthorization()" dense background-color="#515f6d" solo flat
-        class="rounded-lg mt-7 ml-16 mr-16 " />
-      <v-spacer />
-      <v-menu left nudge-bottom="35" nudge-height="800">
-        <template v-slot:activator="{on, attrs}">
-          <div v-bind="attrs" v-on="on" @click="infiniteHandler()">
-          </div>
-        </template>
-        <v-list class="rounded-s list" v-if="$store.state.user.signedIn">
-          <v-list-item v-for="(notification, index) in notifications" :key=index link :to='"/notifications"'>
-            <v-list-item-icon>
-              <v-avatar size=35 color="blue">
-                <v-img v-if="notification.attributes.sender.data.attributes.avatar_url"
-                  :src="notification.attributes.sender.data.attributes.avatar_url">
-                </v-img>
-                <span v-else>
-                  <icon-base :width="'20'" :height="'20'" icon-name="icon-user" :iconColor="'#ffffff'"
-                    :viewBox="'-42 0 512 512.002'">
-                    <icon-user />
-                  </icon-base>
-                </span>
-              </v-avatar>
-            </v-list-item-icon>
-            <v-list-item-title class="list-title">
-              {{notification.attributes.sender.data.attributes.name}}にフォローされました。
-            </v-list-item-title>
-          </v-list-item>
-        </v-list>
-        <base-loader :handler="infiniteHandler" :text="text.loading" />
-      </v-menu>
-      <v-menu flat open-on-hover offset-y left nudge-bottom="3" nudge-left="50" nudge-height="800">
-        <template v-slot:activator="{on, attrs}">
-          <div v-bind="attrs" v-on="on">
-            <v-avatar v-if="$store.state.user.currentUser.avatar_url" size="25" class="ml-5 mr-16">
-              <v-img :src="$store.state.user.currentUser.avatar_url" />
-            </v-avatar>
-            <v-avatar v-else size="25" class="ml-5 mr-16">
-              <icon-base :width="'20'" :height="'20'" icon-name="icon-user" :iconColor="'#ffffff'"
-                :viewBox="'-42 0 512 512.002'">
-                <icon-user />
-              </icon-base>
-            </v-avatar>
-          </div>
-        </template>
-        <v-list elevation=0 class="rounded-s list" v-if="$store.state.user.signedIn">
-          <v-list-item v-for="(item, index) in items" :key="index" :to="item.link" :icon="item.icon" link>
-            <v-list-item-icon>
-              <v-icon v-text="item.icon" />
-            </v-list-item-icon>
-            <v-list-item-title class="list-title">{{ item.title }}
-            </v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-      <v-btn v-if="(this.checkAuthorization()) && !$store.state.user.signedIn" @click="movePath('/login')" outlined
-        small color="#f6f6f9" elevation=0 class="login mr-4">ログイン</v-btn>
-      <v-btn v-if="(this.checkAuthorization()) && !$store.state.user.signedIn" @click="movePath('/singup')" small
-        color="#016aff" elevation=0 class="signup">アカウント登録</v-btn>
-    </v-app-bar>
-
-    <v-navigation-drawer temporary v-model="drawer" class="" width=235 app dark style="background-color: #000000;">
-      <v-list dense nav class="rounded-lg mt-13">
+    <v-container class="" dark app permanent style="background-color: #ffffff;">
+      <v-list dense nav class="rounded-lg ">
         <v-subheader :style="category" class="">メニュー</v-subheader>
         <v-list-item-group color="primary" class="mt-1" min-width="200">
           <v-hover v-for="(item, index) in menus" :key="index">
             <v-list-item @click="changeRoute(item.path_name)" class="ml-1">
               <v-list-item-icon>
                 <v-list-item-subtitle class="mt-1" :size="icon.size">
-                  <icon-base v-if="item.text === 'ホーム'" :iconColor="'#ffffff'" icon-name="icon-home" :width="'17'"
+                  <icon-base v-if="item.text === 'ホーム'" :iconColor="'#000000'" icon-name="icon-home" :width="'17'"
                     :height="'17'" :viewBox="'0 0 512.05 512.05'">
                     <icon-home />
                   </icon-base>
-                  <icon-base v-if="item.text === 'チャット'" :iconColor="'#ffffff'" icon-name="icon-following" :width="'17'"
+                  <icon-base v-if="item.text === 'チャット'" :iconColor="'#000000'" icon-name="icon-following" :width="'17'"
                     :height="'17'" :viewBox="'0 0 511.996 511.996'">
                     <icon-following />
                   </icon-base>
-                  <icon-base v-if="item.text === 'レビュー'" :iconColor="'#ffffff'" icon-name="icon-bookmark" :width="'17'"
+                  <icon-base v-if="item.text === 'レビュー'" :iconColor="'#000000'" icon-name="icon-bookmark" :width="'17'"
                     :height="'17'" :viewBox="'0 0 512 512'">
                     <icon-bookmark />
                   </icon-base>
-                  <icon-base v-if="item.text === 'コミュニティ'" :iconColor="'#ffffff'" icon-name="icon-bookmark"
+                  <icon-base v-if="item.text === 'コミュニティ'" :iconColor="'#000000'" icon-name="icon-bookmark"
                     :width="'17'" :height="'17'" :viewBox="'0 0 512 512'">
                     <icon-bookmark />
                   </icon-base>
-                  <icon-base v-if="item.text === 'ランキング'" :iconColor="'#ffffff'" icon-name="icon-bookmark" :width="'17'"
+                  <icon-base v-if="item.text === 'ランキング'" :iconColor="'#000000'" icon-name="icon-bookmark" :width="'17'"
                     :height="'17'" :viewBox="'0 0 512 512'">
                     <icon-bookmark />
                   </icon-base>
@@ -134,7 +46,7 @@
         <v-col cols="12" sm="7" md="6" lg="11" class="ml-2">
           <v-chip-group column>
             <v-chip small outlined active-class="blue--text" class="mb-2 rounded-xl"
-              style="width: auto; font-weight: bold;" @click="goTagPage(tag.attributes)" color="#ffffff" label
+              style="width: auto; font-weight: bold;" @click="goTagPage(tag.attributes)" color="#000000" label
               v-for="(tag) in tags" :key="tag.attributes.name">
               {{tag.attributes.name}}
             </v-chip>
@@ -153,7 +65,7 @@
         </v-col>
       </v-hover>
     </v-row>
-    <v-row no-gutters class="">
+    <v-row no-gutters class="ml-16">
       <v-hover v-slot="{hover}">
         <v-col class="ml-4" lg=3 :style="hover ? hoverlink : unhoverlink">
           お問い合わせ
@@ -166,40 +78,7 @@
         </v-col>
       </v-hover>
     </v-row>
-    </v-navigation-drawer>
-
-    <!-- <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
-      <v-card color="#ffffff" height="250" class="rounded-lg">
-        <v-row>
-          <v-col lg=3 />
-          <v-col lg=7>
-            <div class="mt-9 ml-6" :style="dialog.headerStyle">Devioを使ってみる</div>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col lg=1 />
-          <v-col lg=10>
-            <v-btn @click="goLogin()" block　:style="dialog.btnStyle" color="black" outlined elevation=0
-              v-text="'ログイン'" />
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col lg=1 />
-          <v-col lg=10>
-            <v-btn block @click="goSignup()" :style="dialog.btnStyle" color="#016aff" elevation=0 v-text="'アカウント作成'" />
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
-          <v-col cols=8 sm=8 md=8 lg=9 xl=8>
-            <div class="ml-1" :style="dialog.policyStyle" v-text="'利用規約とプライバシーポリシーはこちら'" />
-          </v-col>
-        </v-row>
-      </v-card>
-    </v-dialog> -->
-     <v-spacer />
-
-  </v-container>
+    </v-container>
 </template>
 
 <script>
@@ -272,10 +151,10 @@
             text: 'チャット',
             path_name: 'Following'
           },
-          // {
-          //   text: 'ランキング',
-          //   path_name: 'Ranking'
-          // },
+          {
+            text: 'ランキング',
+            path_name: 'Ranking'
+          },
           {
             text: 'レビュー',
             path_name: ''
@@ -302,7 +181,7 @@
           style: {
             fontWeight: '600',
             fontSize: '14px',
-            color: '#ffffff'
+            color: '#000000'
           }
         },
         dialog: {
@@ -461,7 +340,7 @@
   }
 
   .list-title {
-    color: #515f6d;
+    color: #011627;
     font-size: 13px;
   }
 

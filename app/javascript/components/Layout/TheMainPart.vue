@@ -1,13 +1,11 @@
 <template>
-  <v-app >
+  <v-app>
     <the-header />
     <v-main>
       <v-row class="">
-        <v-col lg=2 class="ml-14" />
-
-        <v-col :cols="this.colsGrid[1]" :sm="this.smGrid[1]" :md="this.mdGrid[1]" :lg="this.lgGrid[1]"
+        <v-col :lg="this.lgGrid[0]" />
+        <v-col class="" :cols="this.colsGrid[1]" :sm="this.smGrid[1]" :md="this.mdGrid[1]" :lg="this.lgGrid[1]"
           :xl="this.xlGrid[1]">
-      
           <keep-alive>
             <router-view v-if="$route.meta.keepAlive" />
           </keep-alive>
@@ -42,7 +40,7 @@
         colsGrid: '',
         smGrid: '',
         mdGrid: '',
-        lgGrid: [0, 7, 0],
+        lgGrid: [2, 8, 0],
         xlGrid: [3, 6, 3],
         grid: {
           rightPart: 'mt-3 ml-16'
@@ -110,7 +108,7 @@
             case 'MvSpace':
             case 'MvSpaceMembers':
             case 'MvSpaceReviews':
-            return this.lgGrid = [2, 9, 0]
+            return this.lgGrid = [2, 8, 0]
             case 'UserTop':
             case 'watchlists':
             case 'UserFollowing':
@@ -123,7 +121,7 @@
             this.colsGrid = [0, 12, 0]
             this.smGrid = [4, 8, 0]
             this.mdGrid = [4, 8, 0]
-            this.lgGrid = [0, 7, 0]
+            this.lgGrid = [2, 8, 0]
             this.xlGrid = [3, 6, 3]
             break;
         }

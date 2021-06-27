@@ -1,9 +1,9 @@
 <template>
   <div>
     <v-row>
-      <v-col cols=2 sm=2 md=2 lg=3 xl=2 class="ml-16">
-        <v-card elevation=0 :class="'ml-6 rounded-lg'" width=270 height="395" color="#e9ecef">
-          <v-img class="mt-5" width=270 height="395" v-if="details.poster_path"
+      <v-col cols=2 sm=2 md=2 lg=4 xl=2 class="ml-n2">
+        <v-card elevation=0 :class="' rounded-lg'" width=190 height="295" color="#e9ecef">
+          <v-img class="mt-5" width=190 height="295" v-if="details.poster_path"
             :src="base_tmdb_img_url + details.poster_path" />
         </v-card>
         <h2 class="mt-5" v-if="media === 'tv'">
@@ -38,10 +38,10 @@
           </v-chip>
         </v-chip-group>
       </v-col>
-      <v-col cols=2 sm=2 md=2 lg=8 xl=2>
+      <v-col cols=2 sm=2 md=2 lg=8 xl=2 class="">
         <v-row>
           <v-col lg=12>
-            <v-tabs grow mobile-breakpoint="xs" class="mt-5" :style="style.tabs"
+            <v-tabs grow mobile-breakpoint="xs" class="mt-5 ml-8" :style="style.tabs"
               background-color='#ffffff' :width="tabs.width" :color="'blue'">
               <v-tabs-slider color="#42ccff"></v-tabs-slider>
               <v-tab :active-class="'black--text'" :style="style.tab" v-for="(content, index) in contents" :key="index">
@@ -60,12 +60,12 @@
                 {{content}}
               </v-tab>
             </v-tabs>
-            <v-divider />
+            <v-divider class="ml-8" />
           </v-col>
         </v-row>
         <v-row no-gutters>
           <v-col lg=11></v-col>
-          <v-col lg=1 class="ml-n7" v-if="(media === 'tv') && (overall.seasons)">
+          <v-col lg=1 class="ml-n13" v-if="(media === 'tv') && (overall.seasons)">
             <v-menu offset-y v-if="overall.seasons.length > 1">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn class="rounded mb-n2" small elevation=0 color="#212529" style="font-weight: bold;" dark
@@ -82,7 +82,7 @@
             </v-menu>
           </v-col>
         </v-row>
-        <v-row v-if="media === 'tv'">
+        <v-row v-if="media === 'tv'" class="ml-5">
           <v-col lg=4 v-for="(episode, index) in details.episodes" :key=index>
             <v-card v-if="episode.still_path" @click="enterTvSpace(episode)" elevation=0 class="rounded-lg">
               <v-img position="under" gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)"
@@ -126,8 +126,8 @@
             </v-card>
           </v-col>
         </v-row>
-        <v-row v-else>
-          <v-col lg=4>
+        <v-row v-else class="ml-5">
+          <v-col lg=6>
             <v-card @click="enterMovieSpace(details)" elevation=0 class="rounded-lg">
               <v-img v-if="details.backdrop_path" position="under"
                 gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)" class="white--text align-end rounded-lg"

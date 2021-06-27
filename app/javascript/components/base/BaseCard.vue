@@ -1,32 +1,14 @@
 <template>
   <v-container>
 
-  <!-- <v-row>
-    <v-col lg=4 v-for="(item, index) in items.slice(0,3)" :key="index">
-      <v-card elevation=0 class="rounded-lg" @click="showContents(item)">
-        <v-img position="under" gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)"
-          class="white--text align-end rounded-lg" height="240px" v-if="item.attributes.image_path"
-          :src="posterImg(item.attributes.image_path)">
-          <v-btn :color="media === 'tv' ? '#00bbf9' : '#ff0054'" x-small class="elevation-0 ml-3 rounded-xl" alt="" style="font-size: 12px; font-weight: bold; color: #ffffff;"
-            >
-            {{item.vote_average}}
-          </v-btn>
-          <v-card-title  style="font-weight: bold; line-height: 23px; font-size: 14px;">
-            『劇場版「鬼滅の刃」無限列車編』のBlu-ray＆DVD発売を記念したカウントダウン。
-          </v-card-title>
-        </v-img>
-      </v-card>
-    </v-col>
-  </v-row> -->
-
-    <v-list two-line width="850">
+    <v-list two-line width="960">
       <v-list-item-group multiple>
         <template>
           <v-list-item active-class="white--text" @click="enterSpace(item.attributes)" :key="index"
             v-for="(item, index) in items">
             <template v-slot:default="">
               <v-badge light style="font-weight: bold;" offset-x="26" v-if="item.attributes.users.length" offset-y="26"
-                color="#43e6ff" icon="mdi-lock" overlap :content="item.attributes.users.length">
+                color="#00bbf9" icon="mdi-lock" overlap :content="item.attributes.users.length">
                 <v-list-item-avatar class="rounded-lg" tile size="53" height="53" style="background-color: #dee2e6;">
                   <v-img v-if="item.attributes.image_path" :src="posterImg(item.attributes.image_path)"></v-img>
                   <span v-else>
