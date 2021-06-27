@@ -1,12 +1,11 @@
 <template>
   <v-container>
-    <v-app-bar elevation=0 outlined app color="#000000">
+    <v-app-bar elevation=1 outlined app color="#ffffff">
       <v-app-bar-nav-icon class="ml-1" @click="drawer = !drawer">
-        <icon-base :width="'20'" :height="'20'" icon-name="icon-user" :iconColor="'#ffffff'" :viewBox="'0 0 124 124'">
+        <icon-base :width="'20'" :height="'20'" icon-name="icon-user" :iconColor="'#000000'" :viewBox="'0 0 124 124'">
           <icon-menu />
         </icon-base>
       </v-app-bar-nav-icon>
-
 
      <v-spacer />
       <v-toolbar-title class="ml-n13">
@@ -27,7 +26,7 @@
         </v-btn>
       </v-toolbar-title>
       <v-text-field placeholder="検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query" :full-width="true"
-        v-if="this.checkAuthorization()" dense background-color="#515f6d" solo flat
+        v-if="this.checkAuthorization()" dense background-color="#f0f5fa" solo flat
         class="rounded-lg mt-7 ml-16 mr-16 " />
       <v-spacer />
       <v-menu left nudge-bottom="35" nudge-height="800">
@@ -87,7 +86,7 @@
         color="#016aff" elevation=0 class="signup">アカウント登録</v-btn>
     </v-app-bar>
 
-    <v-navigation-drawer temporary v-model="drawer" class="" width=235 app dark style="background-color: #000000;">
+    <v-navigation-drawer temporary v-model="drawer" class="" width=235 app dark style="background-color: #ffffff;">
       <v-list dense nav class="rounded-lg mt-13">
         <v-subheader :style="category" class="">メニュー</v-subheader>
         <v-list-item-group color="primary" class="mt-1" min-width="200">
@@ -95,23 +94,23 @@
             <v-list-item @click="changeRoute(item.path_name)" class="ml-1">
               <v-list-item-icon>
                 <v-list-item-subtitle class="mt-1" :size="icon.size">
-                  <icon-base v-if="item.text === 'ホーム'" :iconColor="'#ffffff'" icon-name="icon-home" :width="'17'"
+                  <icon-base v-if="item.text === 'ホーム'" :iconColor="'#000000'" icon-name="icon-home" :width="'17'"
                     :height="'17'" :viewBox="'0 0 512.05 512.05'">
                     <icon-home />
                   </icon-base>
-                  <icon-base v-if="item.text === 'チャット'" :iconColor="'#ffffff'" icon-name="icon-following" :width="'17'"
+                  <icon-base v-if="item.text === 'チャット'" :iconColor="'#000000'" icon-name="icon-following" :width="'17'"
                     :height="'17'" :viewBox="'0 0 511.996 511.996'">
                     <icon-following />
                   </icon-base>
-                  <icon-base v-if="item.text === 'レビュー'" :iconColor="'#ffffff'" icon-name="icon-bookmark" :width="'17'"
+                  <icon-base v-if="item.text === 'レビュー'" :iconColor="'#000000'" icon-name="icon-bookmark" :width="'17'"
                     :height="'17'" :viewBox="'0 0 512 512'">
                     <icon-bookmark />
                   </icon-base>
-                  <icon-base v-if="item.text === 'コミュニティ'" :iconColor="'#ffffff'" icon-name="icon-bookmark"
+                  <icon-base v-if="item.text === 'コミュニティ'" :iconColor="'#000000'" icon-name="icon-bookmark"
                     :width="'17'" :height="'17'" :viewBox="'0 0 512 512'">
                     <icon-bookmark />
                   </icon-base>
-                  <icon-base v-if="item.text === 'ランキング'" :iconColor="'#ffffff'" icon-name="icon-bookmark" :width="'17'"
+                  <icon-base v-if="item.text === 'ランキング'" :iconColor="'#000000'" icon-name="icon-bookmark" :width="'17'"
                     :height="'17'" :viewBox="'0 0 512 512'">
                     <icon-bookmark />
                   </icon-base>
@@ -134,7 +133,7 @@
         <v-col cols="12" sm="7" md="6" lg="11" class="ml-2">
           <v-chip-group column>
             <v-chip small outlined active-class="blue--text" class="mb-2 rounded-xl"
-              style="width: auto; font-weight: bold;" @click="goTagPage(tag.attributes)" color="#ffffff" label
+              style="width: auto; font-weight: bold;" @click="goTagPage(tag.attributes)" color="#000000" label
               v-for="(tag) in tags" :key="tag.attributes.name">
               {{tag.attributes.name}}
             </v-chip>
@@ -302,7 +301,7 @@
           style: {
             fontWeight: '600',
             fontSize: '14px',
-            color: '#ffffff'
+            color: '#000000'
           }
         },
         dialog: {
