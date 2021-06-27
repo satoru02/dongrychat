@@ -2,8 +2,8 @@
   <div class="">
     <v-row v-if="space_data" class="">
       <v-col cols=2 sm=2 md=2 lg=3 xl=2 :class="vColAvatarGrid">
-        <v-card elevation=0 class="rounded-lg" width="195px" color="#dee2e6">
-          <v-img v-if="this.space_data.image_path" :src="posterImg()" class="white--text mt-n2" height="280px">
+        <v-card elevation=0 class="rounded-lg" width="205px" color="#dee2e6">
+          <v-img v-if="this.space_data.image_path" :src="posterImg()" class="white--text mt-n2" height="290px">
           </v-img>
           <v-img height="340px" v-else>
             <icon-base :width="'130'" class="mt-15 ml-13" :height="'140'" icon-name="icon-no-image"
@@ -13,7 +13,7 @@
           </v-img>
         </v-card>
       </v-col>
-      <v-col cols=9 sm=9 md=9 lg=9 xl=9 class="ml-n13 mt-8">
+      <v-col cols=9 sm=9 md=9 lg=9 xl=9 class="ml-n10 mt-8">
         <v-row class="ml-8">
           <base-label :style="'font-weight: bold; border-width: 1.8;'" class="rounded-lg" font_size="13px"
             v-if="space_data.media === media.tv" :label="true" :small="true" :color="'#020814'" :outlined="true"
@@ -38,11 +38,11 @@
         <v-row class="mt-1">
           <v-col lg=1></v-col>
           <v-col lg=5>
-            <span class="ml-n6">
-              <v-btn color="#f6f8fb" style="font-weight: bold; font-size: 12px;" elevation=0 small>あらすじ</v-btn>
+            <span class="ml-n7">
+              <v-btn color="#f0f5fa" style="font-weight: bold; font-size: 12px;" elevation=0 small>あらすじ</v-btn>
             </span>
           </v-col>
-          <v-col class="" cols=11 sm=12 md=12 lg=2 xl=12>
+          <!-- <v-col class="" cols=11 sm=12 md=12 lg=2 xl=12>
             <v-btn small @click="subscribed === true ? unsubscribe() : subscribe()" class="mx-2 rounded-lg" elevation=0
               :outlined="subscribed === false ? false : true"
               :color="subscribed === true ? 'rgb(0 213 247)' : 'rgb(0 213 247)'"
@@ -82,7 +82,7 @@
                 {{watched === true ? this.watchText : this.unwatchText}}
               </span>
             </v-btn>
-          </v-col>
+          </v-col> -->
           <!-- <v-col cols=12 sm=12 md=12 lg=3 xl=12 class="">
             <v-btn class="rounded-lg" small :style="'font-weight: bold; border-width: 0.4;'" outlined color="#0e151f">
               <icon-base class="mr-3" icon-name="icon-twitter" :viewBox="'0 0 512 512'" :height="'17'" :width="'17'">
@@ -105,95 +105,8 @@
           <v-col class="ml-9" cols=11 sm=12 md=12 lg=11 xl=12 :style="vColSummaryStyle"
             v-text="space_data.overview != null ? space_data.overview : dummyText" />
         </v-row>
-
-        <!-- <v-row class="mt-5">
-          <v-col class="ml-7" cols=11 sm=12 md=12 lg=2 xl=12>
-            <v-btn @click="subscribed === true ? unsubscribe() : subscribe()" class="mx-2 rounded-lg" elevation=0
-              :outlined="subscribed === false ? false : true"
-              :color="subscribed === true ? 'rgb(0 213 247)' : 'rgb(0 213 247)'"
-              style="font-weight: bold; border-width: 1.9;">
-              <icon-base v-if="subscribed === false" class="mr-3" :iconColor="'#ffffff'" icon-name="icon-following"
-                :viewBox="'0 0 511.996 511.996'" :height="'20'" :width="'20'">
-                <icon-following />
-              </icon-base>
-              <span :style="subscribed === false ? this.subscribeText : this.unsubscribeText">
-                {{subscribed === true ? this.followText : this.unfollowText}}
-              </span>
-            </v-btn>
-          </v-col>
-
-          <v-col class="ml-n2" cols=11 sm=12 md=12 lg=2 xl=12 v-if="watched === false">
-            <v-btn @click="checked === false ? addWatchlist() : deleteWatchList()" class="mx-2 rounded-lg"
-              elevation=0 style="font-weight: bold; border-width: 1.9;" :outlined="checked === false ? false : true"
-              :color="checked === true ? 'rgb(0 213 247)' : 'rgb(0 213 247)'">
-              <icon-base v-if="checked === false" class="mr-2" :iconColor="'#ffffff'" icon-name="icon-calendar"
-                :viewBox="'-33 -19 626 626.68002'" :height="'25'" :width="'25'">
-                <icon-calendar />
-              </icon-base>
-              <span :style="checked === false ? this.subscribeText : this.unsubscribeText">
-                {{checked === true ? this.checkText : this.uncheckText}}
-              </span>
-            </v-btn>
-          </v-col>
-          <v-col class="ml-n2" cols=11 sm=12 md=12 lg=2 xl=12>
-            <v-btn @click="watched === false ? addWatchedlist() : deleteWatchList()" class="mx-2 rounded-lg"
-              elevation=0 style="font-weight: bold; border-width: 1.9;" :outlined="watched === false ? false : true"
-              :color="watched === true ? '#06d6a0' : 'rgb(0 213 247)'">
-              <icon-base class="mr-3" v-if="watched === false" :iconColor="'#ffffff'" icon-name="icon-list"
-                :viewBox="'0 0 512 512'" :height="'20'" :width="'20'">
-                <icon-list />
-              </icon-base>
-              <span :style="watched === false ? this.watchColor : this.unwatchColor">
-                {{watched === true ? this.watchText : this.unwatchText}}
-              </span>
-            </v-btn>
-          </v-col>
-        </v-row> -->
       </v-col>
     </v-row>
-            <!-- <v-row class="mt-5 ml-n4">
-          <v-col class="" cols=11 sm=12 md=12 lg=1 xl=12>
-            <v-btn small @click="subscribed === true ? unsubscribe() : subscribe()" class="mx-2 rounded-lg" elevation=0
-              :outlined="subscribed === false ? false : true"
-              :color="subscribed === true ? 'rgb(0 213 247)' : 'rgb(0 213 247)'"
-              style="font-weight: bold; border-width: 1.9;">
-              <icon-base v-if="subscribed === false" class="mr-3" :iconColor="'#ffffff'" icon-name="icon-following"
-                :viewBox="'0 0 511.996 511.996'" :height="'20'" :width="'20'">
-                <icon-following />
-              </icon-base>
-              <span :style="subscribed === false ? this.subscribeText : this.unsubscribeText">
-                {{subscribed === true ? this.followText : this.unfollowText}}
-              </span>
-            </v-btn>
-          </v-col>
-
-          <v-col class="" cols=11 sm=12 md=12 lg=1 xl=12 v-if="watched === false">
-            <v-btn small @click="checked === false ? addWatchlist() : deleteWatchList()" class="mx-2 rounded-lg"
-              elevation=0 style="font-weight: bold; border-width: 1.9;" :outlined="checked === false ? false : true"
-              :color="checked === true ? 'rgb(0 213 247)' : 'rgb(0 213 247)'">
-              <icon-base v-if="checked === false" class="mr-2" :iconColor="'#ffffff'" icon-name="icon-calendar"
-                :viewBox="'-33 -19 626 626.68002'" :height="'25'" :width="'25'">
-                <icon-calendar />
-              </icon-base>
-              <span :style="checked === false ? this.subscribeText : this.unsubscribeText">
-                {{checked === true ? this.checkText : this.uncheckText}}
-              </span>
-            </v-btn>
-          </v-col>
-          <v-col class="" cols=11 sm=12 md=12 lg=1 xl=12>
-            <v-btn small @click="watched === false ? addWatchedlist() : deleteWatchList()" class="mx-2 rounded-lg"
-              elevation=0 style="font-weight: bold; border-width: 1.9;" :outlined="watched === false ? false : true"
-              :color="watched === true ? '#06d6a0' : 'rgb(0 213 247)'">
-              <icon-base class="mr-3" v-if="watched === false" :iconColor="'#ffffff'" icon-name="icon-list"
-                :viewBox="'0 0 512 512'" :height="'20'" :width="'20'">
-                <icon-list />
-              </icon-base>
-              <span :style="watched === false ? this.watchColor : this.unwatchColor">
-                {{watched === true ? this.watchText : this.unwatchText}}
-              </span>
-            </v-btn>
-          </v-col>
-        </v-row> -->
   </div>
 </template>
 

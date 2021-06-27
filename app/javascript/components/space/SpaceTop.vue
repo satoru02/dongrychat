@@ -1,8 +1,8 @@
 <template>
-  <div class="ml-5">
+  <div class="ml-5 mt-3">
     <space-header v-if="this.space_data" :space_data="this.space_data" />
 
-    <v-tabs grow class="mt-7" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height">
+    <!-- <v-tabs class="mt-7" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height">
       <v-tab :active-class="vTab.activeText" @click="changeTab(tablist.path)" :style="vTab.style"
         v-for="(tablist, index) in tablists" :key="index">
         <icon-base v-if="tablist.title === 'チャット'" :iconColor="'#6c757d'" icon-name="icon-comment" :width="'19'"
@@ -23,8 +23,8 @@
           v-text="setCount(tablist.title)">
         </v-chip>
       </v-tab>
-    </v-tabs>
-    <v-divider class="mr-10" />
+    </v-tabs> -->
+    <!-- <v-divider class="mr-10" /> -->
     <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" />
   </div>
 </template>
