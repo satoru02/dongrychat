@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div class="ml-16">
     <v-list two-line :style="vList.style">
       <v-hover v-slot="{hover}" v-for="(user, index) in users" :key="index">
         <v-list-item :class="'rounded-lg'" @click="goUserPage(user)" :style="hover ? vList.hoverStyle : vList.style"
@@ -22,7 +22,7 @@
     </v-list>
     <base-profile-dialog v-if="user" v-on:input="offDialog()" :passDialog="dialog" :user="user"
       :followed="this.spaceFollowed" />
-  </v-container>
+  </div>
 </template>
 
 <script>

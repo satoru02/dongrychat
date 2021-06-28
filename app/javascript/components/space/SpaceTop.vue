@@ -1,12 +1,13 @@
 <template>
-  <div class="ml-5 mt-3">
-    <space-header v-if="this.space_data" :space_data="this.space_data" />
+  <div class="ml-5 mt-3" v-if="this.space_data">
+    <space-header v-if="this.space_data" :space_data="this.space_data" :watched="this.watched" />
+
     <v-row>
       <v-col lg=3>
-        <v-row class="ml-5">
+        <v-row class="ml-7">
           <v-col lg=5 style="font-weight: bold;">
             <h2>65</h2>
-            <p class="ml-n2" style="font-size: 13px; font-weight: bold;">視聴者数</p>
+            <p class="ml-n2" style="font-size: 13px; font-weight: bold;">総視聴数</p>
           </v-col>
           <v-col lg=1 class="ml-n4 mb-5 mt-1">
             <v-divider vertical />
@@ -16,14 +17,45 @@
             <p class="ml-n1" style="font-size: 13px; font-weight: bold;">レビュー</p>
           </v-col>
         </v-row>
+
         <v-row class="mt-n5">
-          <v-col lg=12>
-            <v-btn color="00a5db" small block elevation=0>公式HP</v-btn>
+          <v-col lg=6>
+            <v-btn @click="watched === false ? addWatchedlist() : deleteWatchList()"
+              :outlined="watched === false ? false : true" :color="watched === true ? '#06d6a0' : '#06d6a0'"
+              style="font-weight: bold;" small block elevation=0>
+              <span :style="watched === false ? this.watchColor : this.unwatchColor">
+                {{watched === true ? this.watchText : this.unwatchText}}
+              </span>
+            </v-btn>
+          </v-col>
+          <v-col lg=6 v-if="watched === false">
+            <v-btn @click="checked === false ? addWatchlist() : deleteWatchList()" style="font-weight: bold;"
+              :color="checked === true ? 'rgb(0 213 247)' : 'rgb(0 213 247)'"
+              :outlined="checked === false ? false : true" small block elevation=0>
+              <span :style="checked === false ? this.checkColor : this.uncheckColor">
+                {{checked === true ? this.checkText : this.uncheckText}}
+              </span>
+            </v-btn>
           </v-col>
         </v-row>
+
+        <v-row class="">
+          <v-col lg=12>
+            <v-btn @click="subscribed === true ? unsubscribe() : subscribe()"
+              :outlined="subscribed === false ? false : true"
+              :color="subscribed === true ? '#3a86ff' : '#3a86ff'" class="rounded-xl"
+              style="font-weight: bold;" block elevation=0>
+              <span :style="subscribed === false ? this.subscribeColor : this.unsubscribeColor">
+                {{subscribed === true ? this.followText : this.unfollowText}}
+              </span>
+            </v-btn>
+          </v-col>
+        </v-row>
+
         <v-row class="mt-3">
           <v-col lg=2>
-            <icon-base class="" icon-name="icon-clip" :viewBox="'0 0 471.641 471.641'" :iconColor="'#111111'" :height="'17'" :width="'17'">
+            <icon-base class="" icon-name="icon-clip" :viewBox="'0 0 471.641 471.641'" :iconColor="'#111111'"
+              :height="'17'" :width="'17'">
               <icon-clip />
             </icon-base>
           </v-col>
@@ -38,7 +70,8 @@
             </icon-base>
           </v-col>
           <v-col lg=2>
-            <icon-base class="" icon-name="icon-line" :viewBox="'0 0 24 24'" :iconColor="'#07b53b'" :height="'17'" :width="'17'">
+            <icon-base class="" icon-name="icon-line" :viewBox="'0 0 24 24'" :iconColor="'#07b53b'" :height="'17'"
+              :width="'17'">
               <icon-line />
             </icon-base>
           </v-col>
@@ -67,6 +100,11 @@
             </v-chip-group>
           </v-col>
         </v-row>
+        <v-row class="mt-n3">
+          <v-col lg=12>
+            <v-btn small block elevation=0>公式HPはこちら</v-btn>
+          </v-col>
+        </v-row>
       </v-col>
       <v-col lg=9 class="ml-n16">
         <v-tabs grow class="mt-3 ml-16" v-if="space_data" :background-color='vTabs.backgroundColor'
@@ -89,8 +127,7 @@
             <span class="ml-3">{{setCount(tablist.title)}}件の{{tablist.title}}</span>
           </v-tab>
         </v-tabs>
-        <v-divider width="900" class=" ml-16" />
-        　
+        <v-divider width="900" class="ml-16" />　
         <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" />
       </v-col>
     </v-row>
@@ -102,6 +139,8 @@
     RepositoryFactory
   } from '../../repositories/RepositoryFactory';
   const spacesRepository = RepositoryFactory.get('spaces');
+  const sbscRepository = RepositoryFactory.get('subscriptions');
+  const watchlistsRepository = RepositoryFactory.get('watchlists');
 
   export default {
     name: 'SpaceTop',
@@ -118,6 +157,34 @@
     },
     data() {
       return {
+        subscribed: '',
+        watched: false,
+        checked: false,
+        followText: 'チャットフォロー中',
+        unfollowText: 'チャットフォロー',
+        watchText: '見た',
+        unwatchText: '見た',
+        checkText: '見たい',
+        uncheckText: '見たい',
+        subscribeColor: {
+          color: '#ffffff'
+        },
+        unsubscribeColor: {
+          color: '#3a86ff'
+        },
+        checkColor: {
+          color: '#ffffff'
+        },
+        uncheckColor: {
+          color: 'rgb(0 213 247)'
+        },
+        watchColor: {
+          color: '#ffffff'
+        },
+        unwatchColor: {
+          color: '#06d6a0'
+        },
+
         params: {},
         space_data: '',
         endpoint: '',
@@ -218,13 +285,6 @@
     watch: {
       $route: 'setSpace'
     },
-    // beforeRouteEnter(to, from, next) {
-    //   next(vm => {
-    //     setTimeout(() => {
-    //       document.title = `${vm.space_data.name} - Devio` || 'Devio';
-    //     }, 1000)
-    //   })
-    // },
     beforeRouteUpdate(to, from, next) {
       document.title = `${this.space_data.name} - Devio` || 'Devio';
       next()
@@ -242,6 +302,8 @@
       },
       successful(res) {
         this.space_data = res.data.data.attributes
+        this.subscribed = this.space_data.subscribed
+        this.checkWatchlist()
         document.title = `${this.space_data.name} - Devio` || 'Devio';
       },
       failed(err) {
@@ -263,7 +325,87 @@
         this.$router.push(({
           path: tabListPath
         })).catch(() => {});
-      }
+      },
+      checkWatchlist() {
+        if (this.space_data.watchlist[0]) {
+          switch (this.space_data.watchlist[0].status) {
+            case false:
+              return this.checked = true
+            case true:
+              return this.watched = true
+          }
+        }
+      },
+      addWatchlist() {
+        watchlistsRepository.post({
+            watchlist: {
+              user_id: this.$store.state.user.currentUser.id,
+              space_id: this.space_data.id,
+              status: false,
+            }
+          })
+          .then(res => this.addListSuccessful(res))
+          .catch(err => this.failed(err))
+      },
+      deleteWatchList() {
+        watchlistsRepository.delete(this.space_data.id, this.$store.state.user.currentUser.id)
+          .then((res) => this.deleteListSuccessful(res))
+          .catch(err => this.failed(err))
+      },
+      addWatchedlist() {
+        const params = {
+          user_id: this.$store.state.user.currentUser.id,
+          space_id: this.space_data.id,
+          status: true,
+          comment: this.comment,
+          time: this.comment
+        }
+
+        if (this.checked === false) {
+          watchlistsRepository.post({
+              watchlist: params
+            })
+            .then((res) => {
+              this.watched = true
+            })
+            .catch(err => this.failed(err))
+        } else if (this.checked === true) {
+          watchlistsRepository.update(this.space_data.id, this.$store.state.user.currentUser.id, {
+              watchlist: params
+            })
+            .then((res) => {
+              this.watched = true
+            })
+            .catch(err => this.failed(err))
+        }
+      },
+      addListSuccessful(res) {
+        this.checked = true
+      },
+      deleteListSuccessful(res) {
+        this.checked = false
+        this.watched = false
+      },
+      subscribe() {
+        sbscRepository.subscribe({
+            user_id: this.$store.state.user.currentUser.id,
+            space_id: this.space_data.id
+          })
+          .then((res) => {
+            this.subscribed = true
+          })
+          .catch(err => this.Failed(err))
+      },
+      unsubscribe() {
+        sbscRepository.unsubscribe(this.space_data.id, this.$store.state.user.currentUser.id)
+          .then(res => {
+            this.subscribed = false
+          })
+          .catch(err => this.failed(err))
+      },
+      unsubscribeSuccessful(res) {
+        this.subscribed = false
+      },
     },
     computed: {}
   }
