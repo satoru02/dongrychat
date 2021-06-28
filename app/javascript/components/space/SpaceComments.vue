@@ -86,13 +86,7 @@
     },
     methods: {
       goUserPage(user) {
-        this.$router.push({
-          name: 'UserTop',
-          params: {
-            // user_name: user.name,
-            user_id: user.id
-          }
-        })
+        this.$router.replace(`/users/${user.id}/watchlists`)
       },
       formalizeTime(time) {
         return moment(time).fromNow()
