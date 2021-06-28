@@ -2,23 +2,24 @@
 #
 # Table name: spaces
 #
-#  id              :bigint           not null, primary key
-#  comments_count  :integer
-#  episode         :integer
-#  episode_title   :string
-#  image_path      :string
-#  media           :integer          default("mv"), not null
-#  name            :string           not null
-#  overview        :text
-#  resource_digest :string           not null
-#  resource_token  :string           not null
-#  season          :integer
-#  users_count     :integer
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  tmdb_comp_id    :integer
-#  tmdb_mv_id      :integer
-#  tmdb_tv_id      :integer
+#  id               :bigint           not null, primary key
+#  comments_count   :integer
+#  episode          :integer
+#  episode_title    :string
+#  image_path       :string
+#  media            :integer          default("mv"), not null
+#  name             :string           not null
+#  overview         :text
+#  resource_digest  :string           not null
+#  resource_token   :string           not null
+#  season           :integer
+#  users_count      :integer
+#  watchlists_count :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  tmdb_comp_id     :integer
+#  tmdb_mv_id       :integer
+#  tmdb_tv_id       :integer
 #
 
 class Space < ApplicationRecord

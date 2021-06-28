@@ -6,13 +6,13 @@
       <v-col lg=3>
         <v-row class="ml-7">
           <v-col lg=5 style="font-weight: bold;">
-            <h2>65</h2>
-            <p class="ml-n2" style="font-size: 13px; font-weight: bold;">総視聴数</p>
+            <h2>{{this.space_data.watchlist_count}}</h2>
+            <p class="ml-n4" style="font-size: 13px; font-weight: bold;">総視聴数</p>
           </v-col>
           <v-col lg=1 class="ml-n4 mb-5 mt-1">
             <v-divider vertical />
           </v-col>
-          <v-col lg=5 style="font-weight: bold;" class="ml-1">
+          <v-col lg=5 style="font-weight: bold;" class="ml-3">
             <h2>4.3</h2>
             <p class="ml-n1" style="font-size: 13px; font-weight: bold;">レビュー</p>
           </v-col>

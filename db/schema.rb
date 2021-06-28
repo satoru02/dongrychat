@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_21_132156) do
+ActiveRecord::Schema.define(version: 2021_06_28_093541) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(version: 2021_06_21_132156) do
     t.integer "tmdb_comp_id"
     t.integer "comments_count"
     t.integer "users_count"
+    t.integer "watchlists_count"
   end
 
   create_table "submissions", force: :cascade do |t|
