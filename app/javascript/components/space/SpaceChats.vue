@@ -10,9 +10,9 @@
           v-model="content" dense :placeholder="textField.placeholder" solo flat />
       </v-col>
     </v-row> -->
-    <v-row no-gutters class="mt-6 mb-5 ml-n2">
-      <v-col lg=3></v-col>
-      <v-col lg=2>
+    <!-- <v-row no-gutters class="mt-n5 mb-5 ml-7">
+      <v-col lg=1></v-col>
+      <v-col lg=3>
         <h4>
           <span>
         <icon-base class="mr-2" :iconColor="'#6c757d'" icon-name="icon-comment" :width="'22'"
@@ -22,15 +22,15 @@
           </span>
           <span>23件のコメント</span></h4>
       </v-col>
-      <v-col lg=5></v-col>
+      <v-col lg=6></v-col>
       <v-col lg=2>
         <v-btn elevation=0 small>フィルター</v-btn>
       </v-col>
-    </v-row>
+    </v-row> -->
     <v-row no-gutters>
-      <v-col lg=3></v-col>
-      <v-col lg=9>
-        <v-divider class="mt-n4" width=630px />
+      <v-col lg=1></v-col>
+      <v-col lg=11>
+        <v-divider class="mt-n4 ml-5" width=740px />
       </v-col>
     </v-row>
     <space-comments :comments="comments" />

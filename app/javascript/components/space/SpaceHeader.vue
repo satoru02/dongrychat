@@ -2,8 +2,8 @@
   <div class="">
     <v-row v-if="space_data" class="">
       <v-col cols=2 sm=2 md=2 lg=3 xl=2 :class="vColAvatarGrid">
-        <v-card elevation=0 class="rounded-lg" width="205px" color="#dee2e6">
-          <v-img v-if="this.space_data.image_path" :src="posterImg()" class="white--text mt-n2" height="290px">
+        <v-card elevation=0 class="rounded-lg" width="225px" color="#dee2e6">
+          <v-img v-if="this.space_data.image_path" :src="posterImg()" class="white--text mt-n2" height="300px">
           </v-img>
           <v-img height="340px" v-else>
             <icon-base :width="'130'" class="mt-15 ml-13" :height="'140'" icon-name="icon-no-image"
@@ -13,7 +13,7 @@
           </v-img>
         </v-card>
       </v-col>
-      <v-col cols=9 sm=9 md=9 lg=9 xl=9 class="ml-n10 mt-8">
+      <v-col cols=9 sm=9 md=9 lg=9 xl=9 class="ml-n8 mt-8">
         <v-row class="ml-8">
           <base-label :style="'font-weight: bold; border-width: 1.8;'" class="rounded-lg" font_size="13px"
             v-if="space_data.media === media.tv" :label="true" :small="true" :color="'#020814'" :outlined="true"
@@ -42,7 +42,7 @@
               <v-btn color="#f0f5fa" style="font-weight: bold; font-size: 12px;" elevation=0 small>あらすじ</v-btn>
             </span>
           </v-col>
-          <!-- <v-col class="" cols=11 sm=12 md=12 lg=2 xl=12>
+          <v-col class="" cols=11 sm=12 md=12 lg=2 xl=12>
             <v-btn small @click="subscribed === true ? unsubscribe() : subscribe()" class="mx-2 rounded-lg" elevation=0
               :outlined="subscribed === false ? false : true"
               :color="subscribed === true ? 'rgb(0 213 247)' : 'rgb(0 213 247)'"
@@ -82,25 +82,8 @@
                 {{watched === true ? this.watchText : this.unwatchText}}
               </span>
             </v-btn>
-          </v-col> -->
-          <!-- <v-col cols=12 sm=12 md=12 lg=3 xl=12 class="">
-            <v-btn class="rounded-lg" small :style="'font-weight: bold; border-width: 0.4;'" outlined color="#0e151f">
-              <icon-base class="mr-3" icon-name="icon-twitter" :viewBox="'0 0 512 512'" :height="'17'" :width="'17'">
-                <icon-twitter />
-              </icon-base>
-              <span style="color: #474747;">ツイートする</span>
-            </v-btn>
           </v-col>
-          <v-col cols=12 sm=12 md=12 lg=2 xl=12 class="ml-n16">
-            <v-btn class="rounded-lg" small :style="'font-weight: bold; border-width: 0.4;'" outlined color="#0e151f">
-              <icon-base class="mr-3" icon-name="icon-facebook" :viewBox="'0 0 512 512'" :height="'17'" :width="'17'">
-                <icon-facebook />
-              </icon-base>
-              <span style="color: #474747;">シェアする</span>
-            </v-btn>
-          </v-col> -->
         </v-row>
-        
         <v-row class="mt-2" style="min-height: 164; max-height: 164;">
           <v-col class="ml-9" cols=11 sm=12 md=12 lg=11 xl=12 :style="vColSummaryStyle"
             v-text="space_data.overview != null ? space_data.overview : dummyText" />
@@ -124,8 +107,6 @@
       'icon-list': () => import( /* webpackPrefetch: true */ '../Icon/IconList.vue'),
       'icon-check': () => import( /* webpackPrefetch: true */ '../Icon/IconCheck.vue'),
       'icon-following': () => import( /* webpackPrefetch: true */ '../Icon/IconFollowing.vue'),
-      'icon-twitter': () => import( /* webpackPrefetch: true */ '../Icon/IconTwitter.vue'),
-      'icon-facebook': () => import( /* webpackPrefetch: true */ '../Icon/IconFacebook.vue'),
       'icon-calendar': () => import( /* webpackPrefetch: true */ '../Icon/IconCalendar.vue'),
       'icon-no-image': () => import( /* webpackPrefetch: true */ '../Icon/IconNoImage.vue'),
       'base-label': () => import( /* webpackPrefetch: true */ '../Base/BaseLabel'),
