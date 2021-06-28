@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_28_112632) do
+ActiveRecord::Schema.define(version: 2021_06_28_132417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,6 +111,9 @@ ActiveRecord::Schema.define(version: 2021_06_28_112632) do
     t.text "creators", default: [], array: true
     t.string "homepage"
     t.string "air_date"
+    t.index ["episode"], name: "index_spaces_on_episode"
+    t.index ["name"], name: "index_spaces_on_name"
+    t.index ["season"], name: "index_spaces_on_season"
   end
 
   create_table "submissions", force: :cascade do |t|

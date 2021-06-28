@@ -24,6 +24,12 @@
 #  tmdb_mv_id       :integer
 #  tmdb_tv_id       :integer
 #
+# Indexes
+#
+#  index_spaces_on_episode  (episode)
+#  index_spaces_on_name     (name)
+#  index_spaces_on_season   (season)
+#
 
 class Space < ApplicationRecord
   has_many :comments, ->{ includes(:user) }, dependent: :destroy
@@ -96,7 +102,6 @@ class Space < ApplicationRecord
 
     # fix => same name tv case.
     def create_or_search_tv(space_params, user)
-      #index
       if @space = self.find_by(name: space_params[:name], season: space_params[:season], episode: space_params[:episode])
         return @space
       else

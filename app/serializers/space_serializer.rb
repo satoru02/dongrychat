@@ -24,6 +24,12 @@
 #  tmdb_mv_id       :integer
 #  tmdb_tv_id       :integer
 #
+# Indexes
+#
+#  index_spaces_on_episode  (episode)
+#  index_spaces_on_name     (name)
+#  index_spaces_on_season   (season)
+#
 class SpaceSerializer
   include JSONAPI::Serializer
   set_type :space
