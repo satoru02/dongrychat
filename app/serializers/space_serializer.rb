@@ -3,9 +3,12 @@
 # Table name: spaces
 #
 #  id               :bigint           not null, primary key
+#  air_date         :string
 #  comments_count   :integer
+#  creators         :text             default([]), is an Array
 #  episode          :integer
 #  episode_title    :string
+#  homepage         :string
 #  image_path       :string
 #  media            :integer          default("mv"), not null
 #  name             :string           not null
@@ -24,7 +27,7 @@
 class SpaceSerializer
   include JSONAPI::Serializer
   set_type :space
-  attributes :id, :name, :media, :season, :episode, :episode_title, :image_path, :tmdb_comp_id, :tmdb_tv_id, :tmdb_mv_id, :created_at, :overview, :tag_list
+  attributes :id, :name, :media, :season, :episode, :episode_title, :image_path, :tmdb_comp_id, :tmdb_tv_id, :tmdb_mv_id, :created_at, :overview, :tag_list, :creators, :air_date, :homepage
 
   attribute :subscribed do |space, params|
     params[:condition]

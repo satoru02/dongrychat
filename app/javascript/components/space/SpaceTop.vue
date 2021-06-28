@@ -76,16 +76,27 @@
             </icon-base>
           </v-col>
         </v-row>
-        <v-row>
-          <v-col lg=12>
+        <v-row v-if="this.space_data.media === 'tv'">
+          <v-col lg=12 v-if="this.space_data.creators.length > 0">
             <h5 color="#000000" style="font-weight: bold; color: #6c757d;">クリエイター</h5>
-            <div class="mt-1" style="font-weight: bold; font-size: 13px;">監督ホニャホニャ</div>
+            <div v-for="(creator, index) in this.space_data.creators" :key="index" class="mt-1" style="font-weight: bold; font-size: 14px;">
+              {{creator}}
+            </div>
+          </v-col>
+          <v-col lg=12 v-else>
+            <h5 color="#000000" style="font-weight: bold; color: #6c757d;">クリエイター</h5>
+            <div class="mt-1" style="font-weight: bold; font-size: 14px;">
+              未登録
+            </div>
           </v-col>
         </v-row>
         <v-row>
           <v-col lg=12>
-            <h5 color="#000000" style="font-weight: bold; color: #6c757d;">公開日/放送日</h5>
-            <p class="mt-1" style="font-weight: bold; font-size: 13px;">2021/01/01</p>
+            <h5 color="#000000" style="font-weight: bold; color: #6c757d;">
+              {{ this.space_data.media === 'mv' ? '公開日' : '放送日'}}
+            </h5>
+            <p v-if="this.space_data.air_date" class="mt-1" style="font-weight: bold; font-size: 13px;">{{this.space_data.air_date}}</p>
+            <p v-else class="mt-1" style="font-weight: bold; font-size: 14px;">未登録</p>
           </v-col>
         </v-row>
         <v-row class="mt-n5">
@@ -101,8 +112,8 @@
           </v-col>
         </v-row>
         <v-row class="mt-n3">
-          <v-col lg=12>
-            <v-btn small block elevation=0>公式HPはこちら</v-btn>
+          <v-col lg=12 v-if="this.space_data.homepage">
+            <v-btn @click="goHomepage()" small block elevation=0>公式HPはこちら</v-btn>
           </v-col>
         </v-row>
       </v-col>
@@ -258,9 +269,12 @@
           episode_title: this.$route.params.episode_title,
           tmdb_comp_id: this.$route.params.tmdb_comp_id,
           tmdb_tv_id: this.$route.params.tmdb_tv_id,
+          air_date: this.$route.params.air_date,
           image_path: this.$route.params.image_path,
           overview: this.$route.params.overview,
           tag_list: this.$route.params.tag_list,
+          creators: this.$route.params.creators,
+          homepage: this.$route.params.homepage
         }
       }
       break;
@@ -272,7 +286,9 @@
           image_path: this.$route.params.image_path,
           tmdb_mv_id: this.$route.params.tmdb_mv_id,
           overview: this.$route.params.overview,
-          tag_list: this.$route.params.tag_list
+          tag_list: this.$route.params.tag_list,
+          air_date: this.$route.params.air_date,
+          homepage: this.$route.params.homepage
         }
       }
       break;
@@ -413,6 +429,9 @@
             name: tag,
           }
         })
+      },
+      goHomepage(){
+        window.open(this.space_data.homepage)
       }
     },
   }

@@ -11,8 +11,11 @@ export default {
   getMvInfo(tmdbId){
     return tmdbAxios.get(`${baseURL}/movie/${tmdbId}?api_key=${apiKey}&language=${language}`);
   },
-  getOverall(tmdbId){
-    return tmdbAxios.get(`${baseURL}/tv/${tmdbId}?api_key=${apiKey}&language=${language}`);
+  getOverall(tmdbId, media_type){
+    return tmdbAxios.get(`${baseURL}/${media_type}/${tmdbId}?api_key=${apiKey}&language=${language}`);
+  },
+  getMovieCredits(tmdbId){
+    return tmdbAxios.get(`${baseURL}/movie/${tmdbId}/credits?api_key=${apiKey}&language=${language}`)
   },
   getTrendTvs(){
     return tmdbAxios.get(`${baseURL}/trending/tv/week?api_key=${apiKey}&language=${language}`);

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_28_093541) do
+ActiveRecord::Schema.define(version: 2021_06_28_112632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,6 +108,9 @@ ActiveRecord::Schema.define(version: 2021_06_28_093541) do
     t.integer "comments_count"
     t.integer "users_count"
     t.integer "watchlists_count"
+    t.text "creators", default: [], array: true
+    t.string "homepage"
+    t.string "air_date"
   end
 
   create_table "submissions", force: :cascade do |t|

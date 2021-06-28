@@ -3,9 +3,12 @@
 # Table name: spaces
 #
 #  id               :bigint           not null, primary key
+#  air_date         :string
 #  comments_count   :integer
+#  creators         :text             default([]), is an Array
 #  episode          :integer
 #  episode_title    :string
+#  homepage         :string
 #  image_path       :string
 #  media            :integer          default("mv"), not null
 #  name             :string           not null
@@ -79,8 +82,13 @@ class Space < ApplicationRecord
         return @space
       else
         @space = self.create(
-          name: space_params[:name], tmdb_mv_id: space_params[:tmdb_mv_id],
-          image_path: space_params[:image_path], overview: space_params[:overview], tag_list: space_params[:tag_list]
+          name: space_params[:name],
+          tmdb_mv_id: space_params[:tmdb_mv_id],
+          image_path: space_params[:image_path],
+          overview: space_params[:overview],
+          tag_list: space_params[:tag_list],
+          air_date: space_params[:air_date],
+          homepage: space_params[:homepage],
         )
         return @space
       end
@@ -88,14 +96,24 @@ class Space < ApplicationRecord
 
     # fix => same name tv case.
     def create_or_search_tv(space_params, user)
+      #index
       if @space = self.find_by(name: space_params[:name], season: space_params[:season], episode: space_params[:episode])
         return @space
       else
         @space = self.create!(
-          name: space_params[:name], season: space_params[:season], episode: space_params[:episode], media: space_params[:media],
-          tmdb_comp_id: space_params[:tmdb_comp_id], tmdb_tv_id: space_params[:tmdb_tv_id],
-          episode_title: space_params[:episode_title], image_path: space_params[:image_path],
-          overview: space_params[:overview], tag_list: space_params[:tag_list]
+          name: space_params[:name],
+          season: space_params[:season],
+          episode: space_params[:episode],
+          media: space_params[:media],
+          tmdb_comp_id: space_params[:tmdb_comp_id],
+          tmdb_tv_id: space_params[:tmdb_tv_id],
+          episode_title: space_params[:episode_title],
+          image_path: space_params[:image_path],
+          overview: space_params[:overview],
+          tag_list: space_params[:tag_list],
+          air_date: space_params[:air_date],
+          homepage: space_params[:homepage],
+          creators: space_params[:creators]
         )
         return @space
       end
