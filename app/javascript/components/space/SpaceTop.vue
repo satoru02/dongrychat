@@ -92,7 +92,7 @@
           <v-col lg=12>
             <h5 color="#000000" style="font-weight: bold; color: #6c757d;">ジャンル</h5>
             <v-chip-group column class="mt-1">
-              <v-chip small active-class="blue--text" outlined class="mb-3 rounded-lg"
+              <v-chip @click="goTagPage(genre)" small active-class="blue--text" outlined class="mb-3 rounded-lg"
                 style="width: auto; font-weight: bold;" color="#000000" label
                 v-for="(genre, index) in this.space_data.tag_list" :key="index">
                 {{genre}}
@@ -406,8 +406,15 @@
       unsubscribeSuccessful(res) {
         this.subscribed = false
       },
+      goTagPage(tag) {
+        this.$router.replace({
+          name: 'Tag',
+          params: {
+            name: tag,
+          }
+        })
+      }
     },
-    computed: {}
   }
 </script>
 
