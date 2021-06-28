@@ -1,6 +1,7 @@
 <template>
   <div :class="vContainer">
-    <v-row v-for="(comment, index) in comments" :key="index" class="mt-n9">
+    <v-row v-for="(comment, index) in comments" :key="index" class="mb-n1 ml-13">
+      <!-- <v-col lg=1></v-col> -->
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="vColAvatarGrid">
         <v-avatar class="mt-3" @click="goUserPage(comment.attributes.user.data.attributes)" :style="avatar.style"
           :size='avatar.size' :height='avatar.height'>
@@ -16,15 +17,17 @@
       </v-col>
       <v-col cols=11 sm=11 md=11 lg=11 xl=11 :class="vColNameGrid">
         <v-row>
-          <v-col cols=12 sm=12 md=12 lg=12 xl=12 class="ml-4">
-            <span :style="username.style">{{comment.attributes.user.data.attributes.name}}</span>
-            <span :style="time.style">・ {{formalizeTime(comment.attributes.created_at)}}</span>
+          <v-col cols=12 sm=12 md=12 lg=12 xl=12 class="ml-9">
+            <div :style="username.style">{{comment.attributes.user.data.attributes.name}}</div>
+            <div :style="time.style">{{formalizeTime(comment.attributes.created_at)}}</div>
           </v-col>
         </v-row>
-        <v-container class="ml-1 mt-n4" :style="content.style">
-          <p>{{comment.attributes.content}}</p>
-        </v-container>
       </v-col>
+          <v-row>
+      <v-col lg=12 class="ml-4">
+        <p>{{comment.attributes.content}}</p>
+      </v-col>
+    </v-row>
     </v-row>
   </div>
 </template>
@@ -52,8 +55,8 @@
         follower_length: '',
         following_length: '',
         avatar: {
-          size: '32',
-          height: '32',
+          size: '40',
+          height: '40',
           style: {
             cursor: 'pointer',
             // color: '#111111',
@@ -63,14 +66,14 @@
           style: {
             color: '#111111',
             fontWeight: 'bold',
-            fontSize: '13px'
+            fontSize: '15px'
           }
         },
         time: {
           style: {
             color: '#6c757d',
             // fontWeight: 'bold',
-            fontSize: '6px'
+            fontSize: '13px'
           }
         },
         content: {
@@ -105,7 +108,7 @@
           case 'md':
             return 'mt-7'
           case 'lg':
-            return 'mt-10'
+            return 'mt-2'
           case 'xl':
             return 'mt-n9'
         }
@@ -134,7 +137,7 @@
           case 'md':
             return 'mt-7'
           case 'lg':
-            return 'ml-n14'
+            return 'ml-n8 '
           case 'xl':
             return 'mt-n6'
         }
