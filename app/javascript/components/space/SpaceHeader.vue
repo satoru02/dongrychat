@@ -29,7 +29,7 @@
               :style="vColTitle.style">{{space_data.name}}</span>
               <icon-base
                 v-if="watched === true"
-               :iconColor="'#0aff99'" class="ml-4 mb-n1" icon-name="icon-check" :viewBox="'0 0 191.667 191.667'" :height="'25'" :width="'25'">
+               :iconColor="'#0aff99'" class="ml-4 mb-n1" icon-name="icon-check" :viewBox="'0 0 191.667 191.667'" :height="'28'" :width="'28'">
                 <icon-check />
               </icon-base>
           </v-col>

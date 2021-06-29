@@ -1,9 +1,9 @@
 <template>
-  <div class="ml-13">
+  <div class="ml-13 mt-n2">
     <v-row>
-      <!-- <v-col lg=9></v-col> -->
+      <v-col lg=10></v-col>
       <v-col lg=1 class="ml-n4">
-        <v-btn @click="openReviewDialog()" elevation=0 outlined small color="black" class="rounded ml-7 mt-4">レビューを書く</v-btn>
+        <v-btn @click="openReviewDialog()" style="font-weight: bold; color: #ffffff;" elevation=0 color="#00d5f7" class="rounded ml-7 mt-4">レビューを書く</v-btn>
       </v-col>
     </v-row>
     <base-review-card :space_reviews="reviews" />
@@ -22,7 +22,7 @@
             </v-row>
             <v-row class="mt-n3">
               <v-col lg=12>
-                <v-btn @click="makeReviews()" block elevation=0 color="blue">登録する</v-btn>
+                <v-btn @click="makeReviews()" style="font-weight: bold; color: #ffffff;" block elevation=0 color="#00d5f7">投稿する</v-btn>
               </v-col>
             </v-row>
           </v-container>

@@ -22,7 +22,7 @@
           <v-col lg=6>
             <v-btn @click="watched === false ? addWatchedlist() : deleteWatchList()"
               :outlined="watched === false ? false : true" :color="watched === true ? '#06d6a0' : '#06d6a0'"
-              style="font-weight: bold;" small block elevation=0>
+              style="font-weight: bold;" block elevation=0>
               <span :style="watched === false ? this.watchColor : this.unwatchColor">
                 {{watched === true ? this.watchText : this.unwatchText}}
               </span>
@@ -31,7 +31,7 @@
           <v-col lg=6 v-if="watched === false">
             <v-btn @click="checked === false ? addWatchlist() : deleteWatchList()" style="font-weight: bold;"
               :color="checked === true ? 'rgb(0 213 247)' : 'rgb(0 213 247)'"
-              :outlined="checked === false ? false : true" small block elevation=0>
+              :outlined="checked === false ? false : true" block elevation=0>
               <span :style="checked === false ? this.checkColor : this.uncheckColor">
                 {{checked === true ? this.checkText : this.uncheckText}}
               </span>
@@ -43,7 +43,7 @@
           <v-col lg=12>
             <v-btn @click="subscribed === true ? unsubscribe() : subscribe()"
               :outlined="subscribed === false ? false : true"
-              :color="subscribed === true ? '#3a86ff' : '#3a86ff'" class="rounded-xl"
+              :color="subscribed === true ? '#000000' : '#000000'" class="rounded"
               style="font-weight: bold;" block elevation=0>
               <span :style="subscribed === false ? this.subscribeColor : this.unsubscribeColor">
                 {{subscribed === true ? this.followText : this.unfollowText}}
@@ -181,7 +181,7 @@
           color: '#ffffff'
         },
         unsubscribeColor: {
-          color: '#3a86ff'
+          color: '#000000'
         },
         checkColor: {
           color: '#ffffff'
