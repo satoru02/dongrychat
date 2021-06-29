@@ -24,7 +24,7 @@
 #
 class Watchlist < ApplicationRecord
   belongs_to :user
-  belongs_to :space
+  belongs_to :space, :counter_cache => true
   validates :user_id, presence: true
   validates :space_id, presence: true
 

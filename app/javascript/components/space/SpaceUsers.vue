@@ -119,12 +119,7 @@
           })
       },
       goUserPage(user) {
-        this.$router.replace({
-          name: 'UserTop',
-          params: {
-            user_id: user.attributes.id
-          }
-        })
+        this.$router.replace(`/users/${user.attributes.id}/watchlists`)
       }
     }
   }

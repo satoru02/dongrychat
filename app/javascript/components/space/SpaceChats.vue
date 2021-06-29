@@ -1,38 +1,22 @@
 <template>
   <div class="mt-2">
-    <!-- <v-row>
-      <v-col lg=7 class="">
-        <v-text-field v-if="$vuetify.breakpoint.width > 600" :class="textFieldGrid" clearable :style="textField.style"
-          v-model="content" @keypress="setMessage()" @keyup.enter="sendComment(content)" dense solo flat outlined
+    <v-row>
+      <!-- <v-col lg=1 /> -->
+      <v-col lg=12 class="ml-16">
+        <v-text-field v-if="$vuetify.breakpoint.width > 600" :class="textFieldGrid" clearable background-color="#ffffff"
+          v-model="content" @keypress="setMessage()" @keyup.enter="sendComment(content)" solo flat outlined dense
           :placeholder="textField.placeholder" />
-        <v-text-field v-else :append-outer-icon="'mdi-send'" :class="textFieldGrid" clearable :style="textField.style"
+        <!-- <v-text-field v-else :append-outer-icon="'mdi-send'" :class="textFieldGrid" clearable :style="textField.style"
           :background-color="textField.color" @click:append-outer="{setMessage(), sendComment(content)}"
-          v-model="content" dense :placeholder="textField.placeholder" solo flat />
+          v-model="content" dense :placeholder="textField.placeholder" solo flat /> -->
       </v-col>
-    </v-row> -->
-    <!-- <v-row no-gutters class="mt-n5 mb-5 ml-7">
-      <v-col lg=1></v-col>
-      <v-col lg=3>
-        <h4>
-          <span>
-        <icon-base class="mr-2" :iconColor="'#6c757d'" icon-name="icon-comment" :width="'22'"
-         :viewBox="'0 0 30.333 30.333'">
-          <icon-comment />
-        </icon-base>
-          </span>
-          <span>23件のコメント</span></h4>
-      </v-col>
-      <v-col lg=6></v-col>
-      <v-col lg=2>
-        <v-btn elevation=0 small>フィルター</v-btn>
-      </v-col>
-    </v-row> -->
-    <v-row no-gutters>
+    </v-row>
+    <!-- <v-row no-gutters>
       <v-col lg=1></v-col>
       <v-col lg=11>
         <v-divider class="mt-n4 ml-5" width=740px />
       </v-col>
-    </v-row>
+    </v-row> -->
     <space-comments :comments="comments" />
     <base-loader :handler="infiniteHandler" :wrapper="false" :text="loader.text" />
   </div>
@@ -81,11 +65,13 @@
           }
         },
         textField: {
-          color: '#f6f6f9',
+          // color: '#000000',
           placeholder: '#コメントを入力...',
-          // style: {
-          //   position: 'static',
-          // }
+          style: {
+            position: 'static',
+          color: '#000000',
+
+          }
         }
       }
     },

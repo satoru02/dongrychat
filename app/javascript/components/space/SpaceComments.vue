@@ -55,8 +55,8 @@
         follower_length: '',
         following_length: '',
         avatar: {
-          size: '40',
-          height: '40',
+          size: '38',
+          height: '38',
           style: {
             cursor: 'pointer',
             // color: '#111111',
@@ -66,7 +66,7 @@
           style: {
             color: '#111111',
             fontWeight: 'bold',
-            fontSize: '15px'
+            fontSize: '13px'
           }
         },
         time: {
@@ -79,20 +79,15 @@
         content: {
           style: {
             color: '#000000',
-            fontSize: '16px',
+            fontSize: '18px',
+            fontWeight: '700',
           }
         }
       }
     },
     methods: {
       goUserPage(user) {
-        this.$router.push({
-          name: 'UserTop',
-          params: {
-            // user_name: user.name,
-            user_id: user.id
-          }
-        })
+        this.$router.replace(`/users/${user.id}/watchlists`)
       },
       formalizeTime(time) {
         return moment(time).fromNow()
@@ -108,7 +103,7 @@
           case 'md':
             return 'mt-7'
           case 'lg':
-            return 'mt-2'
+            return 'mt-n7'
           case 'xl':
             return 'mt-n9'
         }
@@ -137,7 +132,7 @@
           case 'md':
             return 'mt-7'
           case 'lg':
-            return 'ml-n8 '
+            return 'ml-n11'
           case 'xl':
             return 'mt-n6'
         }

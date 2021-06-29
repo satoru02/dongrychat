@@ -88,11 +88,27 @@ module Api
         end
 
         def mv_space_params
-          params.permit(:name, :media, :image_path, :tmdb_mv_id, :overview, :page, :per_page, :tag_list => [])
+          params.permit(:name, :media, :image_path, :tmdb_mv_id, :overview, :page, :per_page, :homepage, :air_date, :tag_list => [])
         end
 
         def tv_space_params
-          params.permit(:name, :season, :episode, :episode_title, :media, :tmdb_comp_id, :tmdb_tv_id, :image_path, :overview, :page, :per_page, :tag_list => [])
+          params.permit(
+            :name,
+            :season,
+            :episode,
+            :episode_title,
+            :media,
+            :tmdb_comp_id,
+            :tmdb_tv_id,
+            :image_path,
+            :overview,
+            :page,
+            :per_page,
+            :homepage,
+            :air_date,
+            :tag_list => [],
+            :creators => []
+          )
         end
     end
   end

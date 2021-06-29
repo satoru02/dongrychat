@@ -6,13 +6,13 @@
       <v-col lg=3>
         <v-row class="ml-7">
           <v-col lg=5 style="font-weight: bold;">
-            <h2>65</h2>
-            <p class="ml-n2" style="font-size: 13px; font-weight: bold;">総視聴数</p>
+            <h2>{{this.space_data.watchlist_count}}</h2>
+            <p class="ml-n4" style="font-size: 13px; font-weight: bold;">総視聴数</p>
           </v-col>
           <v-col lg=1 class="ml-n4 mb-5 mt-1">
             <v-divider vertical />
           </v-col>
-          <v-col lg=5 style="font-weight: bold;" class="ml-1">
+          <v-col lg=5 style="font-weight: bold;" class="ml-3">
             <h2>4.3</h2>
             <p class="ml-n1" style="font-size: 13px; font-weight: bold;">レビュー</p>
           </v-col>
@@ -22,7 +22,7 @@
           <v-col lg=6>
             <v-btn @click="watched === false ? addWatchedlist() : deleteWatchList()"
               :outlined="watched === false ? false : true" :color="watched === true ? '#06d6a0' : '#06d6a0'"
-              style="font-weight: bold;" small block elevation=0>
+              style="font-weight: bold;" block elevation=0>
               <span :style="watched === false ? this.watchColor : this.unwatchColor">
                 {{watched === true ? this.watchText : this.unwatchText}}
               </span>
@@ -31,7 +31,7 @@
           <v-col lg=6 v-if="watched === false">
             <v-btn @click="checked === false ? addWatchlist() : deleteWatchList()" style="font-weight: bold;"
               :color="checked === true ? 'rgb(0 213 247)' : 'rgb(0 213 247)'"
-              :outlined="checked === false ? false : true" small block elevation=0>
+              :outlined="checked === false ? false : true" block elevation=0>
               <span :style="checked === false ? this.checkColor : this.uncheckColor">
                 {{checked === true ? this.checkText : this.uncheckText}}
               </span>
@@ -43,7 +43,7 @@
           <v-col lg=12>
             <v-btn @click="subscribed === true ? unsubscribe() : subscribe()"
               :outlined="subscribed === false ? false : true"
-              :color="subscribed === true ? '#3a86ff' : '#3a86ff'" class="rounded-xl"
+              :color="subscribed === true ? '#000000' : '#000000'" class="rounded"
               style="font-weight: bold;" block elevation=0>
               <span :style="subscribed === false ? this.subscribeColor : this.unsubscribeColor">
                 {{subscribed === true ? this.followText : this.unfollowText}}
@@ -76,23 +76,34 @@
             </icon-base>
           </v-col>
         </v-row>
-        <v-row>
-          <v-col lg=12>
+        <v-row v-if="this.space_data.media === 'tv'">
+          <v-col lg=12 v-if="this.space_data.creators.length > 0">
             <h5 color="#000000" style="font-weight: bold; color: #6c757d;">クリエイター</h5>
-            <div class="mt-1" style="font-weight: bold; font-size: 13px;">監督ホニャホニャ</div>
+            <div v-for="(creator, index) in this.space_data.creators" :key="index" class="mt-1" style="font-weight: bold; font-size: 14px;">
+              {{creator}}
+            </div>
+          </v-col>
+          <v-col lg=12 v-else>
+            <h5 color="#000000" style="font-weight: bold; color: #6c757d;">クリエイター</h5>
+            <div class="mt-1" style="font-weight: bold; font-size: 14px;">
+              未登録
+            </div>
           </v-col>
         </v-row>
         <v-row>
           <v-col lg=12>
-            <h5 color="#000000" style="font-weight: bold; color: #6c757d;">公開日/放送日</h5>
-            <p class="mt-1" style="font-weight: bold; font-size: 13px;">2021/01/01</p>
+            <h5 color="#000000" style="font-weight: bold; color: #6c757d;">
+              {{ this.space_data.media === 'mv' ? '公開日' : '放送日'}}
+            </h5>
+            <p v-if="this.space_data.air_date" class="mt-1" style="font-weight: bold; font-size: 13px;">{{this.space_data.air_date}}</p>
+            <p v-else class="mt-1" style="font-weight: bold; font-size: 14px;">未登録</p>
           </v-col>
         </v-row>
         <v-row class="mt-n5">
           <v-col lg=12>
             <h5 color="#000000" style="font-weight: bold; color: #6c757d;">ジャンル</h5>
             <v-chip-group column class="mt-1">
-              <v-chip small active-class="blue--text" outlined class="mb-3 rounded-lg"
+              <v-chip @click="goTagPage(genre)" small active-class="blue--text" outlined class="mb-3 rounded-lg"
                 style="width: auto; font-weight: bold;" color="#000000" label
                 v-for="(genre, index) in this.space_data.tag_list" :key="index">
                 {{genre}}
@@ -101,8 +112,8 @@
           </v-col>
         </v-row>
         <v-row class="mt-n3">
-          <v-col lg=12>
-            <v-btn small block elevation=0>公式HPはこちら</v-btn>
+          <v-col lg=12 v-if="this.space_data.homepage">
+            <v-btn @click="goHomepage()" small block elevation=0>公式HPはこちら</v-btn>
           </v-col>
         </v-row>
       </v-col>
@@ -170,7 +181,7 @@
           color: '#ffffff'
         },
         unsubscribeColor: {
-          color: '#3a86ff'
+          color: '#000000'
         },
         checkColor: {
           color: '#ffffff'
@@ -258,9 +269,12 @@
           episode_title: this.$route.params.episode_title,
           tmdb_comp_id: this.$route.params.tmdb_comp_id,
           tmdb_tv_id: this.$route.params.tmdb_tv_id,
+          air_date: this.$route.params.air_date,
           image_path: this.$route.params.image_path,
           overview: this.$route.params.overview,
           tag_list: this.$route.params.tag_list,
+          creators: this.$route.params.creators,
+          homepage: this.$route.params.homepage
         }
       }
       break;
@@ -272,7 +286,9 @@
           image_path: this.$route.params.image_path,
           tmdb_mv_id: this.$route.params.tmdb_mv_id,
           overview: this.$route.params.overview,
-          tag_list: this.$route.params.tag_list
+          tag_list: this.$route.params.tag_list,
+          air_date: this.$route.params.air_date,
+          homepage: this.$route.params.homepage
         }
       }
       break;
@@ -406,8 +422,18 @@
       unsubscribeSuccessful(res) {
         this.subscribed = false
       },
+      goTagPage(tag) {
+        this.$router.replace({
+          name: 'Tag',
+          params: {
+            name: tag,
+          }
+        })
+      },
+      goHomepage(){
+        window.open(this.space_data.homepage)
+      }
     },
-    computed: {}
   }
 </script>
 

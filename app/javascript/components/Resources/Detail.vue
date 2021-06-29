@@ -197,6 +197,8 @@
       return {
         base_tmdb_img_url: `https://image.tmdb.org/t/p/w500`,
         loginDialog: false,
+        creators: '',
+        credits: '',
         contents: [
           '概要',
           'クリエイター',
@@ -243,10 +245,11 @@
       if (this.$route.name === 'TvDetails') {
         this.media = 'tv'
         this.getTvContents(this.$route.params.number)
-        this.getTvOverall()
+        this.getMediaOverall('tv')
       } else if (this.$route.name === 'MvDetails') {
         this.media = 'mv'
         this.getMvContents()
+        this.getCredits()
       }
     },
     watch: {
@@ -291,21 +294,36 @@
         this.details = res.data
         this.genres = this.setGenres(this.details.genres)
       },
-      getTvOverall() {
-        tmdbRepository.getOverall(this.$route.params.id)
+      getMediaOverall(media_type) {
+        tmdbRepository.getOverall(this.$route.params.id, media_type)
           .then(res => this.setOverall(res))
+          .catch(err => this.fetchFailed(err))
+      },
+      getCredits(){
+        tmdbRepository.getMovieCredits(this.$route.params.id)
+          .then((res) => {
+            this.credits = res.data
+          })
           .catch(err => this.fetchFailed(err))
       },
       setOverall(res) {
         this.overall = res.data
         this.genres = this.setGenres(this.overall.genres)
+        this.creators = this.setCreators(this.overall.created_by)
       },
       setGenres(content_genres) {
-        var ary = []
+        var genres = []
         for (var i = 0; i < content_genres.length; i++) {
-          ary.push(content_genres[i].name)
+          genres.push(content_genres[i].name)
         }
-        return ary
+        return genres
+      },
+      setCreators(creators){
+        var creators_names = []
+        for (var i = 0; i < creators.length; i ++){
+          creators_names.push(creators[i].name)
+        }
+        return creators_names
       },
       fetchFailed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''
@@ -329,6 +347,7 @@
             params: {
               season_number: tv_data.season_number,
               episode_number: tv_data.episode_number,
+              air_date: tv_data.air_date,
               name: this.$route.params.tv_name,
               episode_title: tv_data.name,
               tmdb_comp_id: this.overall.id,
@@ -337,6 +356,8 @@
               media: this.media,
               overview: tv_data.overview,
               tag_list: this.genres,
+              creators: this.creators,
+              homepage: this.overall.homepage
             }
           })
         }
@@ -353,10 +374,11 @@
               name: this.$route.params.mv_name,
               media: this.media,
               overview: details.overview,
-              tag_list: this.genres
+              tag_list: this.genres,
+              air_date: details.release_date,
+              homepage: details.homepage
             }
           })
-
         }
       },
       goLogin() {

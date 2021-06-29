@@ -15,7 +15,7 @@
       </v-col>
       <v-col cols=9 sm=9 md=9 lg=9 xl=9 class="ml-n8 mt-8">
         <v-row class="ml-8">
-          <base-label :style="'font-weight: bold; border-width: 1.8;'" class="rounded-lg" font_size="13px"
+          <base-label :style="'font-weight: bold; border-width: 1.8;'" class="rounded" font_size="13px"
             v-if="space_data.media === media.tv" :label="true" :small="true" :color="'#020814'" :outlined="true"
             :text_color="'#000000'" :season="space_data.season" :episode="space_data.episode"
             :title="space_data.episode_title" />
@@ -29,7 +29,7 @@
               :style="vColTitle.style">{{space_data.name}}</span>
               <icon-base
                 v-if="watched === true"
-               :iconColor="'#0aff99'" class="ml-4 mb-n1" icon-name="icon-check" :viewBox="'0 0 191.667 191.667'" :height="'25'" :width="'25'">
+               :iconColor="'#0aff99'" class="ml-4 mb-n1" icon-name="icon-check" :viewBox="'0 0 191.667 191.667'" :height="'28'" :width="'28'">
                 <icon-check />
               </icon-base>
           </v-col>
