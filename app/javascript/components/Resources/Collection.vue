@@ -4,12 +4,11 @@
       <v-tabs-slider color="#111111"></v-tabs-slider>
       <v-tab @click="changeContents(tab)" class="tab-name" active-class="black--text" v-for="(tab, index) in tabs"
         :key="index">
-        <icon-base v-if="tab === 'ドラマ'" class="ml-n2 mr-2" :iconColor="'#606770'" :width="'14'" :height="'14'" icon-name="icon-tv" :viewBox="'0 0 64 64'"><icon-tv /></icon-base>
-        <icon-base v-if="tab === '映画'" class="ml-n2 mr-2" :iconColor="'#606770'" :width="'14'" :height="'14'" icon-name="icon-movie" :viewBox="'0 0 511.81 511.81'"><icon-movie /></icon-base>
+        <icon-base v-if="tab === 'ドラマ'" class="ml-n2 mr-2" :iconColor="'#606770'" :width="'17'" :height="'17'" icon-name="icon-tv" :viewBox="'0 0 64 64'"><icon-tv /></icon-base>
+        <icon-base v-if="tab === '映画'" class="ml-n2 mr-2" :iconColor="'#606770'" :width="'17'" :height="'17'" icon-name="icon-movie" :viewBox="'0 0 511.81 511.81'"><icon-movie /></icon-base>
         {{tab}}
       </v-tab>
     </v-tabs>
-    <!-- <v-divider class="" /> -->
     <base-list class="mt-3" :key="componentKey" :items="items" :media="media" />
   </v-container>
 </template>
@@ -196,6 +195,6 @@
 <style scoped>
   .tab-name {
     font-weight: bold;
-    font-size: 14px;
+    font-size: 20px;
   }
 </style>
