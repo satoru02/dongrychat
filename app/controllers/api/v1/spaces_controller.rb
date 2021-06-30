@@ -26,8 +26,9 @@ module Api
       end
 
       def trend
-        @spaces = Space.includes(:users, :tags, :comments).get_trend(params).paginate(:page => params[:page], :per_page => params[:per_page])
-        serializer = set_trend_space_serializer(@spaces)
+        @spaces = Space.includes(:users, :comments).ascending_by_comments.get_trend(params)
+        @paged_spaces = @spaces.paginate(:page => params[:page], :per_page => params[:per_page])
+        serializer = set_trend_space_serializer(@paged_spaces)
         render_json(serializer)
       end
 

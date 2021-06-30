@@ -29,12 +29,12 @@
               :style="vColTitle.style">{{space_data.name}}</span>
               <icon-base
                 v-if="watched === true"
-               :iconColor="'#0aff99'" class="ml-4 mb-n1" icon-name="icon-check" :viewBox="'0 0 191.667 191.667'" :height="'28'" :width="'28'">
+               :iconColor="'#0aff99'" class="ml-4 mb-n1" icon-name="icon-check" :viewBox="'0 0 191.667 191.667'" :height="'23'" :width="'23'">
                 <icon-check />
               </icon-base>
           </v-col>
         </v-row>
-        <v-row class="mt-3">
+        <v-row class="mt-1">
           <v-col lg=1></v-col>
           <v-col lg=5>
             <span class="ml-n7">
@@ -42,7 +42,7 @@
             </span>
           </v-col>
         </v-row>
-        <v-row class="mt-2" style="min-height: 164; max-height: 164;">
+        <v-row class="mt-n2" style="min-height: 164; max-height: 164;">
           <v-col class="ml-9" cols=11 sm=12 md=12 lg=11 xl=12 :style="vColSummaryStyle"
             v-text="space_data.overview != null ? space_data.overview : dummyText" />
         </v-row>
@@ -82,14 +82,14 @@
           style: {
             color: '#020814',
             fontWeight: 'bold',
-            fontSize: '25px',
+            fontSize: '22px',
             cursor: 'pointer',
             lineHeight: '30px'
           },
           hoverStyle: {
             color: '#3a86ff',
             fontWeight: 'bold',
-            fontSize: '25px',
+            fontSize: '22px',
             cursor: 'pointer',
             lineHeight: '30px'
           }
@@ -163,7 +163,7 @@
             case 'lg' || 'xl':
               return {
                 color: '#000000',
-                  fontSize: '14.56px',
+                  fontSize: '13.56px',
                   fontWeight: 'bold',
               }
         }

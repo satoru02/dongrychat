@@ -11,7 +11,6 @@
           </keep-alive>
           <router-view v-if="!$route.meta.keepAlive" />
         </v-col>
-
       </v-row>
     </v-main>
     <footer>
@@ -66,24 +65,6 @@
           'Settings',
           'Terms',
           'Privacy',
-          // 'registeredTvSpace',
-          // 'registeredTvSpaceMembers',
-          // 'registeredTvSpaceReviews',
-          // 'registeredMvSpace',
-          // 'registeredMvSpaceMembers',
-          // 'registeredMvSpaceReviews',
-          // 'TvSpace',
-          // 'TvSpaceMembers',
-          // 'TvSpaceReviews',
-          // 'MvSpace',
-          // 'MvSpaceMembers',
-          // 'MvSpaceReviews',
-          // 'UserTop',
-          // 'UserReviews',
-          // 'UserFollowing',
-          // 'UserFollowers',
-          // 'TvDetails',
-          // 'MvDetails'
         ]
         if (spaceRoute.includes(this.$route.name)) {
           return false
@@ -93,22 +74,6 @@
       },
       changeGrid() {
         switch (this.$route.name) {
-          case 'Privacy':
-          case 'Terms':
-          case 'Settings':
-            case 'registeredTvSpace':
-            case 'registeredTvSpaceMembers':
-            case 'registeredTvSpaceReviews':
-            case 'registeredMvSpace':
-            case 'registeredMvSpaceMembers':
-            case 'registeredMvSpaceReviews':
-            case 'TvSpace':
-            case 'TvSpaceMembers':
-            case 'TvSpaceReviews':
-            case 'MvSpace':
-            case 'MvSpaceMembers':
-            case 'MvSpaceReviews':
-            return this.lgGrid = [2, 8, 0]
             case 'UserTop':
             case 'watchlists':
             case 'UserFollowing':

@@ -2,10 +2,14 @@ class TrendSpaceSerializer
   include JSONAPI::Serializer
 
   set_type :space
-  attributes :id, :name, :media, :season, :episode, :episode_title, :image_path, :tmdb_tv_id, :tmdb_mv_id, :users, :created_at, :overview
+  attributes :id, :name, :media, :season, :episode, :episode_title, :image_path, :tmdb_tv_id, :tmdb_mv_id, :created_at, :overview
 
   attribute :latest_comment do |space|
     space.comments.last
+  end
+
+  attribute :users_count do |space|
+    space.users.size
   end
 
   attribute :latest_comment_user do |space|

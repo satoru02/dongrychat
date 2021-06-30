@@ -7,8 +7,8 @@
           <v-list-item active-class="white--text" @click="enterSpace(item.attributes)" :key="index"
             v-for="(item, index) in items">
             <template v-slot:default="">
-              <v-badge light style="font-weight: bold;" offset-x="26" v-if="item.attributes.users.length" offset-y="26"
-                color="#00bbf9" icon="mdi-lock" overlap :content="item.attributes.users.length">
+              <v-badge light style="font-weight: bold;" offset-x="26" v-if="item.attributes.users_count" offset-y="26"
+                color="#00bbf9" icon="mdi-lock" overlap :content="item.attributes.users_count">
                 <v-list-item-avatar class="rounded-lg" tile size="53" height="53" style="background-color: #dee2e6;">
                   <v-img v-if="item.attributes.image_path" :src="posterImg(item.attributes.image_path)"></v-img>
                   <span v-else>

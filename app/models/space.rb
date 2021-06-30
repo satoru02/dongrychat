@@ -47,6 +47,10 @@ class Space < ApplicationRecord
     # .sort_by{|space| -space.comments.size}
   }
 
+  scope :ascending_by_comments, ->(){
+    order('users_count DESC')
+  }
+
   scope :get_popular, ->(query){
     where(media: query[:media])
     # .sort{|space| -space.users.length}
