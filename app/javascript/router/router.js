@@ -3,7 +3,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
-import Ranking from '../components/Resources/Ranking.vue';
+import Home from '../components/Resources/Home.vue';
 
 // vue store
 import { store } from '../stores/index';
@@ -81,11 +81,11 @@ var router = new VueRouter({
       component: () => import( /* webpackChunkName: "Logout" */ '../components/Authorization/Logout'),
     },
     {
-      path: '/ranking',
-      name: 'Ranking',
-      component: Ranking,
+      path: '/',
+      name: 'Home',
+      component: Home,
       meta: {
-        title: '話題の作品',
+        title: '話題の作品について語ろう！',
         keepAlive: true,
       }
     },
@@ -255,14 +255,6 @@ var router = new VueRouter({
       beforeEnter: checkLoggedIn,
       component: () => import( /* webpackChunkName: "UserTop" */ '../components/User/UserTop'),
       children: [
-        // {
-        //   path: '',
-        //   name: 'UserTop',
-        //   meta: {
-        //     keepAlive: false,
-        //   },
-        //   component: () => import( /* webpackChunkName: "UserProfile" */ '../components/User/UserProfile'),
-        // },
         {
           path: 'watchlists',
           name: 'watchlists',

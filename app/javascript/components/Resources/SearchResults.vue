@@ -1,11 +1,11 @@
 <template>
-  <v-container class="mt-4 ml-n16" :key="componentKey">
-    <v-row>
+  <v-container class="mt-n2 ml-n3" :key="componentKey">
+    <v-row no-gutters>
       <v-col cols=12 sm=12 md=12 lg=12 xl=12>
-        <h3 :style="resultsStyle" v-text="resultsText" />
+        <h1 :style="resultsStyle" v-text="resultsText" />
       </v-col>
     </v-row>
-    <v-row class="mt-n3">
+    <v-row class="mt-2">
       <v-col cols=12 sm=12 md=12 lg=12 xl=12>
         <v-tabs mobile-breakpoint="xs" hide-slider grow :background-color="tabColor">
           <v-tab v-for="(menu, index) in menus" :key="index" :style="listStyle" :active-class="tabActive"
@@ -99,7 +99,7 @@
         tabColor: '#ffffff',
         tabActive: 'black--text',
         resultsStyle: {
-          fontSize: "18px",
+          fontSize: "22px",
           fontWeight: 'bold',
           color: '#111111'
         },

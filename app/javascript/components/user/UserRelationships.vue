@@ -1,5 +1,5 @@
 <template>
-  <v-container :class="this.$vuetify.breakpoint.width < 600 ? 'ml-16' : ''">
+  <v-container :class="this.$vuetify.breakpoint.width < 600 ? '' : ''">
     <v-list-item-group style="background-color: #ffffff;" v-for="(user, index) in relationships" :key="index" multiple>
       <v-list-item>
         <template>

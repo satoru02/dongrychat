@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_28_132417) do
+ActiveRecord::Schema.define(version: 2021_07_01_121135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -183,6 +183,11 @@ ActiveRecord::Schema.define(version: 2021_06_28_132417) do
     t.text "sns_links", default: [], array: true
     t.string "slug"
     t.integer "confirmations_count"
+    t.integer "watchlists_count"
+    t.integer "watchlog_count"
+    t.integer "reviews_count"
+    t.integer "active_relationships_count"
+    t.integer "passive_relationships_count"
     t.index ["activation_token"], name: "index_users_on_activation_token"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"

@@ -16,7 +16,7 @@
 #  index_submissions_on_user_id   (user_id)
 #
 class Submission < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, :counter_cache => :reviews_count
   belongs_to :space
   validates :content, presence: true
 end

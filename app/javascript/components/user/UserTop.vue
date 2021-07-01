@@ -1,51 +1,65 @@
 <template>
-  <div class="mt-n1 ml-5">
-    <v-row class="mt-8">
-      <v-col lg=3>
-        <v-avatar class="ml-15" size=88 elevation=0 color="#dee2e6">
+  <div class="mt-4">
+
+    <v-row>
+      <!-- <v-col lg=1 /> -->
+      <v-col lg=1>
+        <v-avatar class="ml-14" size=88 elevation=0 color="#dee2e6">
           <v-img :src="this.user_info.avatar_url"></v-img>
         </v-avatar>
-        <h2 class="mt-3 ml-10">{{this.user_info.name}}</h2>
-        <div style="font-size: 13px; color: #768390;" class="ml-10">@{{this.user_info.name}}</div>
-        <v-btn class="rounded mt-3 ml-10" small elevation=0 v-if="user_info && ($store.state.user.currentUser.id != user_info.id)"
-          :style="followed ? followingStyle : unfollowStyle"
-          :outlined="followed ? true : false"
+      </v-col>
+      <v-col lg=2 class="ml-16" v-if="user_info && ($store.state.user.currentUser.id != user_info.id)">
+        <h2 class="mt-n2">{{this.user_info.name}}</h2>
+        <div style="font-size: 13px; color: #768390;" class="">@{{this.user_info.name}}</div>
+        <v-btn class="rounded mt-3" small elevation=0
+          v-if="user_info && ($store.state.user.currentUser.id != user_info.id)"
+          :style="followed ? followingStyle : unfollowStyle" :outlined="followed ? true : false"
           @click="followed ? unfollow(user_info.id) : follow(user_info.id)">
           {{ followed ? followingText : unfollowText }}
         </v-btn>
-        <v-row class="mt-3 ml-10" no-gutters>
+      </v-col>
+      <v-col lg=2 class="ml-16" v-else>
+        <h2 class="mt-4">{{this.user_info.name}}</h2>
+        <div style="font-size: 13px; color: #768390;" class="">@{{this.user_info.name}}</div>
+      </v-col>
+      <v-col lg=5>
+        <v-row class="mt-3" no-gutters>
           <v-col lg=8 style="font-size: 12px; color: #111111;">
             <p class="mt-4">{{this.user_info.about}}</p>
           </v-col>
         </v-row>
       </v-col>
-      <v-col lg=8 class="mt-16 ml-n14">
-        <v-row class="mt-n16">
-          <v-col lg=12>
-            <v-tabs background-color="transparent" color="#111111">
-              <v-tabs-slider color="#42ccff"></v-tabs-slider>
-              <v-tab style="font-weight: bold; font-size: 12px;" @click="changePath(tab.path)"
-                v-for="(tab, index) in user_tabs" :key="index">
-                <icon-base v-if="tab.title === 'ウォッチリスト'" :iconColor="'#6c757d'" icon-name="icon-calendar" :width="'20'"
-                  :height="'20'" :viewBox="'-33 -19 626 626.68002'">
-                  <icon-calendar />
-                </icon-base>
-                <icon-base v-if="tab.title === 'ウォッチログ'" :iconColor="'#6c757d'" icon-name="icon-list" :width="'17'"
-                  :height="'17'" :viewBox="'0 0 512 512'">
-                  <icon-list />
-                </icon-base>
-                <icon-base v-if="tab.title === 'レビュー'" :iconColor="'#6c757d'" icon-name="icon-pen" :width="'17'"
-                  :height="'17'" :viewBox="'-42 0 512 512.001'">
-                  <icon-pen />
-                </icon-base>
-                <span class="ml-3">{{tab.title}}</span>
-                <v-chip class="ml-3 rounded-xl" :color="'#f2f2f2'" small v-text="'13'">
-                </v-chip>
-              </v-tab>
-            </v-tabs>
-            <v-divider class="mr-16" style="width: 920px;" />
-          </v-col>
-        </v-row>
+    </v-row>
+    <v-row class="">
+      <!-- <v-col lg=1 /> -->
+      <v-col lg=11>
+        <v-tabs background-color="transparent" color="#111111">
+          <v-tabs-slider color="#42ccff"></v-tabs-slider>
+          <v-tab style="font-weight: bold; font-size: 12px;" @click="changePath(tab.path)"
+            v-for="(tab, index) in user_tabs" :key="index">
+            <icon-base v-if="tab.title === 'ウォッチリスト'" :iconColor="'#6c757d'" icon-name="icon-calendar" :width="'20'"
+              :height="'20'" :viewBox="'-33 -19 626 626.68002'">
+              <icon-calendar />
+            </icon-base>
+            <icon-base v-if="tab.title === 'ウォッチログ'" :iconColor="'#6c757d'" icon-name="icon-list" :width="'17'"
+              :height="'17'" :viewBox="'0 0 512 512'">
+              <icon-list />
+            </icon-base>
+            <icon-base v-if="tab.title === 'レビュー'" :iconColor="'#6c757d'" icon-name="icon-pen" :width="'17'"
+              :height="'17'" :viewBox="'-42 0 512 512.001'">
+              <icon-pen />
+            </icon-base>
+            <span class="ml-3">{{tab.title}}</span>
+            <v-chip class="ml-3 rounded-xl" :color="'#f2f2f2'" small v-text="usersAtrCount(tab.title)">
+            </v-chip>
+          </v-tab>
+        </v-tabs>
+      </v-col>
+    </v-row>
+    <v-divider width=890 />
+    <v-row class="mt-6">
+      <!-- <v-col lg=1 /> -->
+      <v-col lg=9 class="">
         <router-view :user_info="this.user_info" />
       </v-col>
     </v-row>
@@ -162,7 +176,6 @@
         }
       },
       follow(user_id) {
-        console.log(user_id)
         relationshipsRepository.follow({
             followed_id: user_id
           })
@@ -172,8 +185,6 @@
           })
       },
       unfollow(user_id) {
-        console.log(user_id)
-
         relationshipsRepository.unfollow(this.$store.state.user.currentUser.id, {
             id: this.$store.state.user.currentUser.id,
             followed_id: user_id
@@ -183,6 +194,15 @@
             this.followed = false
           })
       },
+      usersAtrCount(user_attributes){
+        switch(user_attributes){
+          case 'ウォッチリスト': return this.$store.state.user.currentUser.watchlists_count
+          case 'ウォッチログ':　return this.$store.state.user.currentUser.watchlog_count
+          case 'レビュー':　return this.$store.state.user.currentUser.reviews_count
+          case 'フォロワー':　return this.$store.state.user.currentUser.followers_count
+          case 'フォロー':　return this.$store.state.user.currentUser.followed_count
+        }
+      }
     }
   }
 </script>

@@ -1,28 +1,24 @@
 <template>
   <v-row>
-    <v-col lg=4 v-for="(item, index) in items" :key="index">
+    <v-col lg=3 v-for="(item, index) in items" :key="index">
       <v-card elevation=0 class="rounded-lg" @click="showContents(item)">
         <v-img position="under" gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)"
-          class="white--text align-end rounded-lg" height="240px" v-if="item.poster_path"
+          class="white--text align-end rounded-lg" height="330px" v-if="item.poster_path"
           :src="base_tmdb_img_url + item.poster_path">
-          <!-- <v-card-title v-if="media === 'tv'" style="font-weight: bold; line-height: 23px; font-size: 12px;">
-            『劇場版「鬼滅の刃」無限列車編』のBlu-ray＆DVD発売を記念したカウントダウン。
-          </v-card-title> -->
           <v-btn :color="media === 'tv' ? '#00bbf9' : '#ff0054'" x-small class="elevation-0 ml-3 rounded-xl" alt="" style="font-size: 12px; font-weight: bold; color: #ffffff;"
             >
             {{item.vote_average}}
           </v-btn>
           <span v-if="media === 'tv'" class="ml-1" style="font-size: 11px; font-weight: bold; color: #ffffff;" >{{item.first_air_date}}・初放送</span>
           <span v-if="media === 'movie'" class="ml-1" style="font-size: 11px; font-weight: bold; color: #ffffff;" >{{item.release_date}}・初公開</span>
-          <v-card-title v-if="media === 'tv'" style="font-weight: bold; line-height: 23px; font-size: 14px;">
-            『劇場版「鬼滅の刃」無限列車編』のBlu-ray＆DVD発売を記念したカウントダウン。
+          <v-card-title v-if="media === 'tv'" style="font-weight: bold; line-height: 23px; font-size: 18px;">
+            {{item.name}}
           </v-card-title>
-          <v-card-title v-if="media === 'movie'" style="font-weight: bold; line-height: 23px; font-size: 20px;">
+          <v-card-title v-if="media === 'movie'" style="font-weight: bold; line-height: 23px; font-size: 18px;">
             {{item.title}}
           </v-card-title>
         </v-img>
       </v-card>
-      <p>sdada</p>
     </v-col>
   </v-row>
 </template>

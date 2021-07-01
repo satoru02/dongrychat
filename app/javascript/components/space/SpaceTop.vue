@@ -1,5 +1,5 @@
 <template>
-  <div class="ml-5 mt-3" v-if="this.space_data">
+  <div class="ml-5 mt-n8" v-if="this.space_data">
     <space-header v-if="this.space_data" :space_data="this.space_data" :watched="this.watched" />
 
     <v-row>
@@ -117,7 +117,7 @@
           </v-col>
         </v-row>
       </v-col>
-      <v-col lg=9 class="ml-n16">
+      <v-col lg=9 class="ml-n16 mt-n16">
         <v-tabs grow class="mt-3 ml-16" v-if="space_data" :background-color='vTabs.backgroundColor'
           :height="vTabs.height">
           <v-tabs-slider color="#0aff99" class="rounded-xl" />

@@ -265,24 +265,16 @@
         ],
         menus: [{
             text: 'ホーム',
-            path_name: 'Trend'
+            path_name: 'Home'
           },
           {
             text: 'チャット',
             path_name: 'Following'
           },
           // {
-          //   text: 'ランキング',
-          //   path_name: 'Ranking'
+          //   text: 'レビュー',
+          //   path_name: ''
           // },
-          {
-            text: 'レビュー',
-            path_name: ''
-          },
-          {
-            text: 'コミュニティ',
-            path_name: 'Trend'
-          },
         ],
         list_item: {
           position: 'mt-1'
