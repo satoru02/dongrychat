@@ -1,9 +1,9 @@
 <template>
   <div>
     <v-row>
-      <v-col cols=2 sm=2 md=2 lg=4 xl=2 class="ml-n2">
-        <v-card elevation=0 :class="' rounded-lg'" width=190 height="295" color="#e9ecef">
-          <v-img class="mt-5" width=190 height="295" v-if="details.poster_path"
+      <v-col cols=2 sm=2 md=2 lg=3 xl=2 class="ml-4">
+        <v-card elevation=0 :class="' rounded-lg'" width=230 height="330" color="#e9ecef">
+          <v-img class="mt-5" width=230 height="330" v-if="details.poster_path"
             :src="base_tmdb_img_url + details.poster_path" />
         </v-card>
         <h2 class="mt-5" v-if="media === 'tv'">
@@ -20,7 +20,7 @@
               {{details.vote_average}}</v-btn>
           </span>
         </h2>
-        <v-btn style="font-weight:bold;" color="#f6f8fb" class="mt-4" small elevation=0>作品紹介</v-btn>
+        <!-- <v-btn style="font-weight:bold;" color="#f6f8fb" class="mt-4" small elevation=0>作品紹介</v-btn>
         <p v-if="details.overview" class="mt-5" :style="bindContentsDetails" v-text="details.overview" />
         <v-card color="#f6f8fb" elevation=0 v-else class="mt-3" width="310">
           <v-list-item three-line>
@@ -28,7 +28,7 @@
               あらすじがまだ登録されていません。
             </v-list-subtitle>
           </v-list-item>
-        </v-card>
+        </v-card> -->
         <v-btn style="font-weight:bold;" color="#f6f8fb" class="mt-4" small elevation=0>カテゴリー</v-btn>
         <v-chip-group column class="mt-3">
           <v-chip small active-class="blue--text" outlined class="mb-3 rounded-lg"
@@ -38,10 +38,10 @@
           </v-chip>
         </v-chip-group>
       </v-col>
-      <v-col cols=2 sm=2 md=2 lg=8 xl=2 class="">
+      <v-col cols=2 sm=2 md=2 lg=8 xl=2 class="ml-5 mt-n4">
         <v-row>
           <v-col lg=12>
-            <v-tabs grow mobile-breakpoint="xs" class="mt-5 ml-8" :style="style.tabs"
+            <v-tabs mobile-breakpoint="xs" class="mt-5 ml-8" :style="style.tabs"
               background-color='#ffffff' :width="tabs.width" :color="'blue'">
               <v-tabs-slider color="#42ccff"></v-tabs-slider>
               <v-tab :active-class="'black--text'" :style="style.tab" v-for="(content, index) in contents" :key="index">
@@ -83,7 +83,7 @@
           </v-col>
         </v-row>
         <v-row v-if="media === 'tv'" class="ml-5">
-          <v-col lg=4 v-for="(episode, index) in details.episodes" :key=index>
+          <v-col lg=6 v-for="(episode, index) in details.episodes" :key=index>
             <v-card v-if="episode.still_path" @click="enterTvSpace(episode)" elevation=0 class="rounded-lg">
               <v-img position="under" gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)"
                 class="white--text align-end rounded-lg" :src="base_tmdb_img_url + episode.still_path">
@@ -201,9 +201,9 @@
         credits: '',
         contents: [
           '概要',
-          'クリエイター',
-          '出演者&スタッフ',
-          'その他',
+          // 'クリエイター',
+          // '出演者&スタッフ',
+          // 'その他',
         ],
         details: [],
         overall: [],

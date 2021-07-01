@@ -48,7 +48,7 @@ class Space < ApplicationRecord
   }
 
   scope :ascending_by_comments, ->(){
-    order('users_count DESC')
+    order('comments_count DESC')
   }
 
   scope :has_comments, -> (){
