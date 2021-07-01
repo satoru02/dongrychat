@@ -7,18 +7,23 @@
 #  activated                       :boolean          default(FALSE)
 #  activated_at                    :datetime
 #  activation_token                :string
+#  active_relationships_count      :integer
 #  birthday                        :string
 #  confirmations_count             :integer
 #  email                           :string
 #  gender                          :integer
 #  location                        :string
 #  name                            :string           not null
+#  passive_relationships_count     :integer
 #  password_digest                 :string
 #  reset_password_token            :string
 #  reset_password_token_expires_at :datetime
+#  reviews_count                   :integer
 #  role                            :integer          default("user")
 #  slug                            :string
 #  sns_links                       :text             default([]), is an Array
+#  watchlists_count                :integer
+#  watchlog_count                  :integer
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
 #
@@ -46,10 +51,11 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :confirmations, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :reviews, dependent: :destroy
+  has_many :reviews, class_name: 'Submission', dependent: :destroy
   has_many :subscriptions, dependent: :destroy, counter_cache: true
   has_many :spaces, -> {includes :comments, :users, :confirmations}, through: :subscriptions, counter_cache: true
   has_many :watchlists, dependent: :destroy
+  has_many :watchlog, class_name: 'Watchlist', dependent: :destroy
   has_many :completed_watchlists, -> { where(status: true) }, class_name: "Watchlist", foreign_key: 'user_id', dependent: :destroy
   has_many :uncompleted_watchlists, -> { where(status: false) }, class_name: "Watchlist", foreign_key: 'user_id', dependent: :destroy
   has_many :watched_spaces, through: :completed_watchlists, dependent: :destroy, source: :space

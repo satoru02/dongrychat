@@ -255,14 +255,6 @@ var router = new VueRouter({
       beforeEnter: checkLoggedIn,
       component: () => import( /* webpackChunkName: "UserTop" */ '../components/User/UserTop'),
       children: [
-        // {
-        //   path: '',
-        //   name: 'UserTop',
-        //   meta: {
-        //     keepAlive: false,
-        //   },
-        //   component: () => import( /* webpackChunkName: "UserProfile" */ '../components/User/UserProfile'),
-        // },
         {
           path: 'watchlists',
           name: 'watchlists',

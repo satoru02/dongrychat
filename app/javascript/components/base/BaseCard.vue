@@ -9,7 +9,7 @@
             <template v-slot:default="">
               <v-badge light style="font-weight: bold;" offset-x="26" v-if="item.attributes.users_count" offset-y="26"
                 color="#00bbf9" icon="mdi-lock" overlap :content="item.attributes.users_count">
-                <v-list-item-avatar class="rounded-lg" tile size="53" height="53" style="background-color: #dee2e6;">
+                <v-list-item-avatar class="rounded-lg" tile size="73" height="103" style="background-color: #dee2e6;">
                   <v-img v-if="item.attributes.image_path" :src="posterImg(item.attributes.image_path)"></v-img>
                   <span v-else>
                     <icon-base :width="'50'" :height="'50'" icon-name="icon-no-image" :iconColor="'#111111'"
@@ -20,7 +20,7 @@
                 </v-list-item-avatar>
               </v-badge>
               <v-badge v-else :value=false>
-                <v-list-item-avatar class="rounded-lg" tile size="53" height="53" style="background-color: #dee2e6;">
+                <v-list-item-avatar class="rounded-lg" tile size="73" height="103" style="background-color: #dee2e6;">
                   <v-img v-if="item.attributes.image_path" :src="posterImg(item.attributes.image_path)"></v-img>
                   <span v-else>
                     <icon-base :width="'45'" :height="'45'" icon-name="icon-no-image" :iconColor="'#ced4da'"
@@ -237,13 +237,13 @@
 
   .contents-name {
     font-weight: bold;
-    font-size: 15.65px;
+    font-size: 17.65px;
     color: #020814;
   }
 
   .comment-name {
     /* font-weight: bold; */
-    font-size: 13px;
+    font-size: 15px;
     color: #536471;
   }
 </style>

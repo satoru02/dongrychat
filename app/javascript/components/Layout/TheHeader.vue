@@ -272,16 +272,8 @@
             path_name: 'Following'
           },
           // {
-          //   text: 'ランキング',
-          //   path_name: 'Ranking'
-          // },
-          {
-            text: 'レビュー',
-            path_name: ''
-          },
-          // {
-          //   text: 'コミュニティ',
-          //   path_name: 'Trend'
+          //   text: 'レビュー',
+          //   path_name: ''
           // },
         ],
         list_item: {

@@ -74,10 +74,11 @@
       },
       changeGrid() {
         switch (this.$route.name) {
-            case 'UserTop':
             case 'watchlists':
+            case 'watchlog':
             case 'UserFollowing':
             case 'UserFollowers':
+            case 'UserReviews':
               return this.lgGrid = [0, 10, 0]
             // case 'TvDetails':
             // case 'MvDetails':
