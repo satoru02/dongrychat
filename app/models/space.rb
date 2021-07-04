@@ -41,10 +41,8 @@ class Space < ApplicationRecord
 
   acts_as_taggable_on :tags
 
-  scope :get_trend, -> (query){
+  scope :filter_by, -> (query){
     where(media: query[:media])
-    # .where(comments: {:created_at => (Date.yesterday - 31).at_beginning_of_month..Date.today})
-    # .sort_by{|space| -space.comments.size}
   }
 
   scope :ascending_by_comments, ->(){
@@ -53,11 +51,6 @@ class Space < ApplicationRecord
 
   scope :has_comments, -> (){
     where("comments_count > 0")
-  }
-
-  scope :get_popular, ->(query){
-    where(media: query[:media])
-    # .sort{|space| -space.users.length}
   }
 
   scope :order_by_comments, -> (user){

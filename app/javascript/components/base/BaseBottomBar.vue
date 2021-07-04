@@ -1,19 +1,26 @@
 <template>
-  <v-bottom-navigation v-if="$vuetify.breakpoint.width < 600 && this.checkRoute()" dark :background-color="color" fixed>
-    <v-btn @click="movePath('Chart')">
-      <v-icon>mdi-access-point</v-icon>
-    </v-btn>
+  <v-bottom-navigation grow app height=80 v-if="$vuetify.breakpoint.width < 600 && this.checkRoute()"
+    background-color="#ffffff">
     <v-btn @click="movePath('Home')">
-      <v-icon>mdi-home</v-icon>
+      <span>ホーム</span>
+      <icon-base :iconColor="'#657482'" icon-name="icon-home" :width="'23'" :height="'23'"
+        :viewBox="'0 0 512.05 512.05'">
+        <icon-home />
+      </icon-base>
+    </v-btn>
+    <v-btn @click="movePath('Following')">
+      <span>チャット</span>
+      <icon-base :iconColor="'#657482'" icon-name="icon-following" :width="'23'" :height="'23'"
+        :viewBox="'0 0 512.05 512.05'">
+        <icon-following />
+      </icon-base>
     </v-btn>
     <v-btn @click="movePath('Search')">
-      <v-icon>mdi-magnify</v-icon>
-    </v-btn>
-    <v-btn>
-      <v-icon>mdi-bell-outline</v-icon>
-    </v-btn>
-    <v-btn>
-      <v-icon>mdi-account-outline</v-icon>
+      <span>レビュー</span>
+      <icon-base :iconColor="'#657482'" icon-name="icon-pen" :width="'23'" :height="'23'"
+        :viewBox="'0 0 512.05 512.05'">
+        <icon-pen/>
+      </icon-base>
     </v-btn>
   </v-bottom-navigation>
 </template>
@@ -21,15 +28,15 @@
 <script>
   export default {
     name: "BottomNavigation",
-    data(){
-      return{
-        color: "#212529"
-      }
+    components: {
+      'icon-base': () => import( /* webpackPrefetch */ '../Icon/IconBase'),
+      'icon-home': () => import( /* webpackPrefetch: true */ '../Icon/IconHome.vue'),
+      'icon-pen': () => import( /* webpackPrefetch: true */ '../Icon/IconPen.vue'),
+      'icon-following': () => import( /* webpackPrefetch: true */ '../Icon/IconFollowing.vue')
     },
     methods: {
-      checkRoute(){
-        let validationRouter =
-         ['MvSpace',
+      checkRoute() {
+        let validationRouter = ['MvSpace',
           'MvSpaceMembers',
           'MvSpaceReviews',
           'MvSpaceNews',
@@ -52,8 +59,10 @@
           return true
         }
       },
-      movePath(path_name){
-        this.$router.push({name: path_name})
+      movePath(path_name) {
+        this.$router.push({
+          name: path_name
+        })
       }
     }
   }

@@ -1,11 +1,12 @@
 <template>
   <v-container>
-    <v-app-bar elevation=1 outlined app color="#ffffff">
-      <v-app-bar-nav-icon class="ml-1" @click="drawer = !drawer">
+    <v-app-bar elevation=0 outlined app color="#ffffff">
+
+      <!-- <v-app-bar-nav-icon class="ml-1" @click="drawer = !drawer">
         <icon-base :width="'20'" :height="'20'" icon-name="icon-user" :iconColor="'#000000'" :viewBox="'0 0 124 124'">
           <icon-menu />
         </icon-base>
-      </v-app-bar-nav-icon>
+      </v-app-bar-nav-icon> -->
 
      <v-spacer />
       <v-toolbar-title class="ml-n13">
@@ -59,7 +60,7 @@
       <v-menu flat open-on-hover offset-y left nudge-bottom="3" nudge-left="50" nudge-height="800">
         <template v-slot:activator="{on, attrs}">
           <div v-bind="attrs" v-on="on">
-            <v-avatar v-if="$store.state.user.currentUser.avatar_url" size="25" class="ml-5 mr-16">
+            <v-avatar v-if="$store.state.user.currentUser.avatar_url" size="35" class="ml-5 mr-16">
               <v-img :src="$store.state.user.currentUser.avatar_url" />
             </v-avatar>
             <v-avatar v-else size="25" class="ml-5 mr-16">
@@ -86,7 +87,7 @@
         color="#016aff" elevation=0 class="signup">アカウント登録</v-btn>
     </v-app-bar>
 
-    <v-navigation-drawer temporary v-model="drawer" class="" width=235 app dark style="background-color: #ffffff;">
+    <!-- <v-navigation-drawer temporary v-model="drawer" class="" width=235 app dark style="background-color: #ffffff;">
       <v-list dense nav class="rounded-lg mt-13">
         <v-subheader :style="category" class="">メニュー</v-subheader>
         <v-list-item-group color="primary" class="mt-1" min-width="200">
@@ -165,7 +166,7 @@
         </v-col>
       </v-hover>
     </v-row>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
 
     <!-- <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
       <v-card color="#ffffff" height="250" class="rounded-lg">
