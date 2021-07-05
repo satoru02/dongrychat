@@ -89,6 +89,12 @@
           'registeredMvSpace',
           'registeredMvSpaceMembers',
           'registeredMvSpaceReviews',
+          'watchlists',
+          'watchlog',
+          'UserFollowing',
+          'UserFollowers',
+          'UserReviews',
+          'UserProfile'
         ]
         if (spaceRoute.includes(this.$route.name)) {
           return false
@@ -103,7 +109,11 @@
           case 'UserFollowing':
           case 'UserFollowers':
           case 'UserReviews':
-            this.lgGrid = [0, 10, 0]
+          case 'UserProfile':
+            this.smGrid = [2, 10, 0]
+            this.mdGrid = [1, 10, 0]
+            this.lgGrid = [1, 8, 0]
+            break;
           case 'Following':
             this.smGrid = [2, 10, 0]
             this.mdGrid = [3, 9, 0]

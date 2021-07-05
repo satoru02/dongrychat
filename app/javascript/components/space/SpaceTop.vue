@@ -25,7 +25,6 @@
                 <p class="ml-n4" style="font-size: 13px; font-weight: bold;">総視聴数</p>
               </v-col>
               <v-col sm=2 md=1 lg=1 class="ml-n4 mb-5 mt-1">
-                <!-- <v-divider vertical /> -->
               </v-col>
               <v-col sm=5 md=5 lg=5 style="font-weight: bold;" class="ml-3">
                 <h2>4.3</h2>
@@ -166,7 +165,6 @@
             <p class="" style="font-size: 13px; font-weight: bold;">総視聴数</p>
           </v-col>
           <v-col cols=1 class="ml-n4 mb-5 mt-1">
-            <!-- <v-divider vertical /> -->
           </v-col>
           <v-col cols=4 style="font-weight: bold;" class="">
             <h4>4.3</h4>
@@ -200,7 +198,6 @@
                 <span v-else class="ml-3">{{setCount(tablist.title)}}</span>
               </v-tab>
             </v-tabs>
-            <!-- <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" /> -->
             <router-view v-if="this.space_data" :spaceId="this.space_data.id" />
           </v-col>
         </v-row>
@@ -261,7 +258,6 @@
           </v-tab>
         </v-tabs>
         <v-divider />　
-        <!-- <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" /> -->
         <router-view v-if="this.space_data" :spaceId="this.space_data.id" />
       </v-col>
     </v-row>

@@ -23,7 +23,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Watchlist < ApplicationRecord
-  belongs_to :user, :counter_cache => true
+  belongs_to :user, :counter_cache => :watchlists_count
   belongs_to :user, :counter_cache => :watchlog_count
   belongs_to :space, :counter_cache => true
   validates :user_id, presence: true

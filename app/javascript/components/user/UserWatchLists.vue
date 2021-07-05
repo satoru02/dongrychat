@@ -1,7 +1,7 @@
 <template>
   <div class="mt-3">
     <v-row>
-      <v-col lg=3 v-for="(space, index) in spaces" :key="index">
+      <v-col cols=6 sm=4 md=3 lg=3 v-for="(space, index) in spaces" :key="index">
         <v-card elevation=0 class="rounded-lg" @click="enterSpace(space)">
           <v-img position="under" gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)"
             class="white--text align-end rounded-lg" height="240px" :src="posterImg(space.attributes.image_path)">
@@ -9,8 +9,6 @@
               class="elevation-0 ml-3 rounded-xl" style="font-size: 11px; font-weight: bold; color: #ffffff;">
               <span v-if="space.attributes.media === 'mv'">映画</span>
               <span v-if="space.attributes.media === 'tv'">
-                <!-- S{{space.attributes.season}} - E{{space.attributes.episode}} -->
-                <!-- エピソード{{space.attributes.season}}-{{space.attributes.episode}} -->
                 ドラマ
               </span>
             </v-btn>
