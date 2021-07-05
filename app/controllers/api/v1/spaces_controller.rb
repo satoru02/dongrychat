@@ -2,7 +2,7 @@ module Api
   module V1
     class SpacesController < ApplicationController
       before_action :authorize_access_request!, only: [:unregistered, :registered, :comments]
-      before_action :set_space, only: [:registered, :comments, :reviews]
+      before_action :set_space, only: [:registered, :comments, :reviews , :users]
       before_action :set_condition, only: [:registered, :comments]
       before_action :watching_condition, only: [:registered]
 
@@ -26,14 +26,14 @@ module Api
       end
 
       def trend
-        @spaces = Space.includes(:users, :comments).has_comments.ascending_by_comments.get_trend(params)
+        @spaces = Space.includes(:users, :comments).has_comments.ascending_by_comments.filter_by(params)
         @paged_spaces = @spaces.paginate(:page => params[:page], :per_page => params[:per_page])
         serializer = set_trend_space_serializer(@paged_spaces)
         render_json(serializer)
       end
 
       def popular
-        @spaces = Space.includes(:users).get_popular(params)
+        @spaces = Space.includes(:users).filter_by(params)
         serializer = set_popular_space_serializer(@spaces)
         render_json(serializer)
       end
@@ -51,6 +51,12 @@ module Api
       def reviews
         @reviews = @space.reviews.paginate(:page => params[:page], :per_page => params[:per_page])
         serializer = set_review_serializer(@reviews)
+        render_json(serializer)
+      end
+
+      def users
+        @users = @space.users.paginate(:page => params[:page], :per_page => params[:per_page])
+        serializer = set_user_serializer(@users)
         render_json(serializer)
       end
 
@@ -74,6 +80,10 @@ module Api
 
         def set_review_serializer(reviews)
           ReviewSerializer.new(reviews)
+        end
+
+        def set_user_serializer(users)
+          SpaceUserSerializer.new(users)
         end
 
         def set_space

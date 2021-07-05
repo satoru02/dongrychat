@@ -1,12 +1,11 @@
 <template>
-  <div class="ml-13 mt-n2">
+  <v-container>
     <v-row>
-      <v-col lg=10></v-col>
-      <v-col lg=1 class="ml-n4">
+      <v-col cols=1 sm=1 md=1 lg=1 xl=1>
         <v-btn @click="openReviewDialog()" style="font-weight: bold; color: #ffffff;" elevation=0 color="#00d5f7" class="rounded ml-7 mt-4">レビューを書く</v-btn>
       </v-col>
     </v-row>
-    <base-review-card :space_reviews="reviews" />
+    <base-review-card class="ml-3" :space_reviews="reviews" />
     <base-loader :handler="infiniteHandler" :wrapper="false" :text="loader.text" />
     <v-dialog width="400" v-model="reviewDialog">
       <v-card color="#ffffff" auto-grow height="460" class="rounded-lg">
@@ -29,7 +28,7 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-  </div>
+  </v-container>
 </template>
 
 <script>

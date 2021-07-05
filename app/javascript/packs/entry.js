@@ -12,7 +12,6 @@ import '../analytics/analytics';
 import '../channels/cable';
 
 Vue.use(Vuetify);
-// import colors from 'vuetify/lib/util/colors'
 Vue.use(InfiniteLoading);
 Vue.use(VueGtag, {
   router

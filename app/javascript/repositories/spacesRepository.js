@@ -5,6 +5,7 @@ const trend_resource = `trend`;
 const comments_resource = `comments`;
 const reviews_resource = `reviews`;
 const popular_resource = `popular`;
+const users_resource = `users`;
 
 export default {
   getTrend(spaceParams){
@@ -22,4 +23,7 @@ export default {
   enterSpace(spaceResource, spaceParams){
     return secureAxios.get(`${baseURL}/${spaceResource}`, { params: spaceParams });
   },
+  getUsers(spaceId, spaceParams){
+    return secureAxios.get(`${baseURL}/${spaceId}/${users_resource}`, { params: spaceParams });
+  }
 };

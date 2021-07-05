@@ -1,10 +1,15 @@
 <template>
   <v-app>
-    <the-header />
+    <the-header v-if="!isMobile(display_size)" />
     <v-main>
-      <v-row class="">
-        <v-col :lg="this.lgGrid[0]" />
-        <v-col class="" :cols="this.colsGrid[1]" :sm="this.smGrid[1]" :md="this.mdGrid[1]" :lg="this.lgGrid[1]"
+      <v-row>
+        <v-col class="d-none d-lg-flex" lg=1 xl=1>
+        </v-col>
+        <v-col class="d-none d-sm-none d-md-flex" :md="this.mdGrid[0]" :lg="this.lgGrid[0]" xl=2>
+          <the-left-bar v-if="checkRouter()" />
+        </v-col>
+        <v-col class="d-none d-sm-flex d-md-none" sm=1 />
+        <v-col :cols="this.colsGrid[1]" :sm="this.smGrid[1]" :md="this.mdGrid[1]" :lg="this.lgGrid[1]"
           :xl="this.xlGrid[1]">
           <keep-alive>
             <router-view v-if="$route.meta.keepAlive" />
@@ -13,37 +18,40 @@
         </v-col>
       </v-row>
     </v-main>
-    <footer>
+    <base-bottom-bar v-if="this.checkAuthorization() " />
+    <!-- <footer>
       <cookie-law buttonClass="button" buttonText="許可する" theme="shade-blue">
         <div slot="message">
           本ウェブサイトでは、最適なサービスを提供するためにクッキーを使用しています。
         </div>
       </cookie-law>
-    </footer>
-    <!-- <base-bottom-bar v-if="this.checkAuthorization() " /> -->
+    </footer> -->
   </v-app>
 </template>
 
 <script>
   import TheHeader from './TheHeader';
+  import TheLeftBar from './TheLeftBar';
+  import TheBottomBar from '../Base/BaseBottomBar'
   import CookieLaw from 'vue-cookie-law';
+  import { isMobile, isTablet } from '../../helper/display';
 
   export default {
     name: 'TheMainPart',
     components: {
       'the-header': TheHeader,
+      'the-left-bar': TheLeftBar,
+      'base-bottom-bar': TheBottomBar,
       'cookie-law': CookieLaw
     },
     data() {
       return {
+        display_size: '',
         colsGrid: '',
-        smGrid: '',
-        mdGrid: '',
-        lgGrid: [2, 8, 0],
+        smGrid: [2, 11, 0],
+        mdGrid: [3, 8, 0],
+        lgGrid: [2, 5, 0],
         xlGrid: [3, 6, 3],
-        grid: {
-          rightPart: 'mt-3 ml-16'
-        }
       }
     },
     watch: {
@@ -51,7 +59,12 @@
         this.changeGrid()
       }
     },
+    created(){
+      this.display_size = this.$vuetify.breakpoint.width
+    },
     methods: {
+      isMobile,
+      isTablet,
       checkAuthorization() {
         let validationRouter = ['Login', 'Signup', 'Authorization', 'ResetPassword', 'ForgotPassword']
         if (validationRouter.includes(this.$route.name)) {
@@ -65,6 +78,18 @@
           'Settings',
           'Terms',
           'Privacy',
+          'TvSpace',
+          'TvSpaceMembers',
+          'TvSpaceReviews',
+          'MvSpace',
+          'MvSpaceMembers',
+          'MvSpaceReviews',
+          'registeredTvSpace',
+          'registeredTvSpaceMembers',
+          'registeredTvSpaceReviews',
+          'registeredMvSpace',
+          'registeredMvSpaceMembers',
+          'registeredMvSpaceReviews',
         ]
         if (spaceRoute.includes(this.$route.name)) {
           return false
@@ -74,24 +99,47 @@
       },
       changeGrid() {
         switch (this.$route.name) {
-            case 'watchlists':
-            case 'watchlog':
-            case 'UserFollowing':
-            case 'UserFollowers':
-            case 'UserReviews':
-              return this.lgGrid = [0, 10, 0]
-            // case 'TvDetails':
-            // case 'MvDetails':
-            //   return this.lgGrid = [0, 12, 0]
+          case 'watchlists':
+          case 'watchlog':
+          case 'UserFollowing':
+          case 'UserFollowers':
+          case 'UserReviews':
+            this.lgGrid = [0, 10, 0]
+          case 'Following':
+            this.smGrid = [2, 10, 0]
+            this.mdGrid = [3, 9, 0]
+            this.lgGrid = [2, 7, 0]
+            break;
+          case 'TvSpace':
+          case 'TvSpaceMembers':
+          case 'TvSpaceReviews':
+          case 'MvSpace':
+          case 'MvSpaceMembers':
+          case 'MvSpaceReviews':
+          case 'registeredTvSpace':
+          case 'registeredTvSpaceMembers':
+          case 'registeredTvSpaceReviews':
+          case 'registeredMvSpace':
+          case 'registeredMvSpaceMembers':
+          case 'registeredMvSpaceReviews':
+            this.smGrid = [0, 11, 0]
+            this.mdGrid = [1, 10, 0]
+            this.lgGrid = [1, 8, 0]
+            break;
+          case 'TvDetails':
+          case 'MvDetails':
+            this.mdGrid = [3, 9, 0]
+            this.lgGrid = [2, 9, 0]
+            break;
           default:
             this.colsGrid = [0, 12, 0]
-            this.smGrid = [4, 8, 0]
-            this.mdGrid = [4, 8, 0]
-            this.lgGrid = [2, 8, 0]
+            this.smGrid = [2, 11, 0]
+            this.mdGrid = [3, 8, 0]
+            this.lgGrid = [2, 5, 0]
             this.xlGrid = [3, 6, 3]
             break;
         }
-      },
+      }
     }
   }
 </script>

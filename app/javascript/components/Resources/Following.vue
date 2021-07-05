@@ -1,56 +1,56 @@
 <template>
-  <v-container fluid class="mt-n7 ml-n2">
+  <v-container fluid class="mt-3">
 
-    <sub-header>
-      <template v-slot:home_header="subHeaderProps">
-        <h1 :class="gridSubHeader">
-          {{subHeaderProps.sub_header}}
-        </h1>
-      </template>
-    </sub-header>
+    <h3 class=ml-3>フォロー中の作品一覧</h3>
+    <v-divider class="ml-3 mt-3" />
 
-    <v-list two-line>
+    <v-list nav two-line>
       <v-list-item-group multiple>
         <template>
           <v-list-item active-class="white--text" @click="enterSpace(item)" :key="index" v-for="(item, index) in items">
             <template v-slot:default="">
-              <v-list-item-avatar class="ml-n7" style="font-size:9px; color: #606770;">
-                <v-badge color="#3a86ff" v-if="item.attributes.unconfirmed_comments > 0" dot />
-              </v-list-item-avatar>
-              <v-list-item-avatar class="ml-n3" size="80" style="background-color: #dee2e6;">
-                <v-img v-if="item.attributes.image_path" :src="base_tmdb_img_url + item.attributes.image_path"></v-img>
-                <span v-else>
-                  <icon-base :width="'30'" :height="'30'" icon-name="icon-no-image" :iconColor="'#111111'"
-                    :viewBox="'0 0 512 512'">
-                    <icon-no-image />
-                  </icon-base>
-                </span>
-              </v-list-item-avatar>
-              <v-list-item-content class="ml-4">
+              <v-badge bordered light style="font-weight: bold;" bottom offset-x="33" offset-y="33"
+                v-if="item.attributes.unconfirmed_comments > 0" color="#06d6a0" overlap>
+                <v-list-item-avatar size="55" style="background-color: #dee2e6;">
+                  <v-img v-if="item.attributes.image_path" :src="base_tmdb_img_url + item.attributes.image_path">
+                  </v-img>
+                  <span v-else>
+                    <icon-base :width="'30'" :height="'30'" icon-name="icon-no-image" :iconColor="'#111111'"
+                      :viewBox="'0 0 512 512'">
+                      <icon-no-image />
+                    </icon-base>
+                  </span>
+                </v-list-item-avatar>
+              </v-badge>
+              <v-badge v-else :value=false>
+                <v-list-item-avatar size="55" style="background-color: #dee2e6;">
+                  <v-img v-if="item.attributes.image_path" :src="base_tmdb_img_url + item.attributes.image_path">
+                  </v-img>
+                  <span v-else>
+                    <icon-base :width="'30'" :height="'30'" icon-name="icon-no-image" :iconColor="'#111111'"
+                      :viewBox="'0 0 512 512'">
+                      <icon-no-image />
+                    </icon-base>
+                  </span>
+                </v-list-item-avatar>
+              </v-badge>
+              <v-list-item-content class="ml-1">
                 <v-list-item-title :style="bindName">
                   {{item.attributes.name}}
                 </v-list-item-title>
-                <v-list-item-subtitle v-if="item.attributes.latest_comment" class="mt-1"
-                  v-text="item.attributes.latest_comment.content">
+                <v-list-item-subtitle v-if="item.attributes.latest_comment">
+                  <span class="comment-name">{{item.attributes.latest_comment.content}}</span>
                 </v-list-item-subtitle>
-                <v-list-item-subtitle v-else class="mt-1" v-text="''">
+                <v-list-item-subtitle v-else v-text="''">
                 </v-list-item-subtitle>
               </v-list-item-content>
-              <v-list-item-content class="ml-16">
-                <v-list-item-title style="font-weight: bold;">
-                  <base-label class="rounded-xl" :color="'#000000'" font_size="12px" :label="true" v-if="item.attributes.media === 'tv'"
-                    :small="false" :outlined="true" :text_color="'#111111'" :season="item.attributes.season"
-                    :episode="item.attributes.episode" :title="item.attributes.episode_title" />
-                  <v-chip style="font-size: 12px;" outlined class="rounded-xl" :color="'#000000'" v-if="item.attributes.media === 'mv'" label v-text="'映画'" />
-                </v-list-item-title>
-              </v-list-item-content>
-              <v-list-item-action>
-                <icon-base :iconColor="'#6c757d'" icon-name="icon-following" :width="'14'" :height="'14'"
+              <v-list-item-action class="mr-n4">
+                <icon-base :iconColor="'#000000'" icon-name="icon-following" :width="'14'" :height="'14'"
                   :viewBox="'0 0 511.996 511.996'">
                   <icon-following />
                 </icon-base>
               </v-list-item-action>
-              <v-list-item-action class="ml-1" style="font-size: 13px; color: #607080; font-weight: bold;">
+              <v-list-item-action style="font-size: 13px; color: #000000; font-weight: bold;">
                 {{item.attributes.comments_count}}
               </v-list-item-action>
             </template>
@@ -73,7 +73,7 @@
     components: {
       'base-label': () => import( /* webpackPrefetch: true */ '../Base/BaseLabel'),
       'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
-      'sub-header': () => import( /* webpackPrefetch: true */ '../Layout/TheSubHeader'),
+      // 'sub-header': () => import( /* webpackPrefetch: true */ '../Layout/TheSubHeader'),
       'icon-base': () => import( /* webpackPrefetch: true */ '../Icon/IconBase'),
       'icon-no-image': () => import( /* webpackPrefetch: true */ '../Icon/IconNoImage.vue'),
       'icon-following': () => import( /* webpackPrefetch: true */ '../Icon/IconFollowing'),
@@ -117,7 +117,7 @@
           case 'xs':
             return {
               fontWeight: 'bold',
-                fontSize: '12px',
+                fontSize: '15px',
                 color: '#111111'
             }
             case 'sm':
@@ -175,7 +175,7 @@
             .then(res => {
               if (res.data.data.length) {
                 this.page += 1,
-                this.items.push(...res.data.data)
+                  this.items.push(...res.data.data)
                 $state.loaded()
               } else {
                 $state.complete();
@@ -209,5 +209,10 @@
     font-weight: bold;
     font-size: 20px;
     color: #111111;
+  }
+
+  .comment-name {
+    font-size: 14px;
+    color: #637888;
   }
 </style>

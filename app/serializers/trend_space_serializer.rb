@@ -12,6 +12,10 @@ class TrendSpaceSerializer
     space.users.size
   end
 
+  attribute :comments_count do |space|
+    space.comments.size
+  end
+
   attribute :latest_comment_user do |space|
     if space.comments.present?
       CommentUserSerializer.new(space.comments.last.user)

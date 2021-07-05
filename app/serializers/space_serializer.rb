@@ -48,14 +48,14 @@ class SpaceSerializer
   end
 
   attribute :comments_count do |space|
-    space.comments.length
+    space.comments.size
   end
 
   attribute :reviews_count do |space|
-    space.reviews.length
+    space.reviews.size
   end
 
-  attribute :users do |space|
-    UserSerializer.new(space.users)
+  attribute :users_count do |space|
+    space.users.size
   end
 end

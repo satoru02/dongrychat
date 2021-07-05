@@ -1,34 +1,61 @@
 <template>
-  <div>
-    <v-row>
-      <v-col cols=2 sm=2 md=2 lg=3 xl=2 class="ml-4">
-        <v-card elevation=0 :class="' rounded-lg'" width=230 height="330" color="#e9ecef">
-          <v-img class="mt-5" width=230 height="330" v-if="details.poster_path"
+  <v-container>
+
+    <v-row v-if="$vuetify.breakpoint.width < 600" class="mb-6">
+      <v-col cols=6>
+        <v-card elevation=0 :class="'rounded-lg'" width=270 height="300" color="#e9ecef">
+          <v-img width=270 height="300" v-if="details.poster_path"
+            :src="base_tmdb_img_url + details.poster_path" />
+        </v-card>
+      </v-col>
+      <v-col cols=6>
+        <h3 v-if="media === 'tv'">
+          {{this.$route.params.tv_name}}
+          <span class="ml-2">
+            <v-btn x-small color="#fcf300" elevation=0 style="font-weight: bold; font-size: 13px;" class="rounded-xl">
+              {{overall.vote_average}}</v-btn>
+          </span>
+        </h3>
+        <h3 v-else>
+          {{this.$route.params.mv_name}}
+          <span class="ml-2">
+            <v-btn x-small color="#fcf300" elevation=0 style="font-weight: bold; font-size: 13px;" class="rounded-xl">
+              {{details.vote_average}}</v-btn>
+          </span>
+        </h3>
+        <v-btn style="font-weight:bold;" color="#f6f8fb" class="mt-4" x-small elevation=0>カテゴリー</v-btn>
+        <v-chip-group column class="mt-3">
+          <v-chip x-small active-class="blue--text" outlined class="mb-3 rounded-lg"
+            style="width: auto; font-weight: bold;" color="#000000" label
+            v-for="(genre, index) in this.genres.slice(0,3)" :key="index">
+            {{genre}}
+          </v-chip>
+        </v-chip-group>
+      </v-col>
+    </v-row>
+
+
+    <v-row class="mt-5">
+
+      <v-col cols=2 sm=4 md=4 lg=3 xl=3 v-if="$vuetify.breakpoint.width > 600">
+        <v-card elevation=0 :class="'rounded-lg'" width=300 height="370" color="#e9ecef">
+          <v-img width=300 height="370" v-if="details.poster_path"
             :src="base_tmdb_img_url + details.poster_path" />
         </v-card>
         <h2 class="mt-5" v-if="media === 'tv'">
           {{this.$route.params.tv_name}}
           <span class="ml-2">
-            <v-btn small color="yellow" elevation=0 style="font-weight: bold; font-size: 15px;" class="rounded-xl">
+            <v-btn small color="#fcf300" elevation=0 style="font-weight: bold; font-size: 15px;" class="rounded-xl">
               {{overall.vote_average}}</v-btn>
           </span>
         </h2>
         <h2 class="mt-5" v-else>
           {{this.$route.params.mv_name}}
           <span class="ml-2">
-            <v-btn small color="yellow" elevation=0 style="font-weight: bold; font-size: 15px;" class="rounded-xl">
+            <v-btn small color="#fcf300" elevation=0 style="font-weight: bold; font-size: 15px;" class="rounded-xl">
               {{details.vote_average}}</v-btn>
           </span>
         </h2>
-        <!-- <v-btn style="font-weight:bold;" color="#f6f8fb" class="mt-4" small elevation=0>作品紹介</v-btn>
-        <p v-if="details.overview" class="mt-5" :style="bindContentsDetails" v-text="details.overview" />
-        <v-card color="#f6f8fb" elevation=0 v-else class="mt-3" width="310">
-          <v-list-item three-line>
-            <v-list-subtitle style="color: #595959;">
-              あらすじがまだ登録されていません。
-            </v-list-subtitle>
-          </v-list-item>
-        </v-card> -->
         <v-btn style="font-weight:bold;" color="#f6f8fb" class="mt-4" small elevation=0>カテゴリー</v-btn>
         <v-chip-group column class="mt-3">
           <v-chip small active-class="blue--text" outlined class="mb-3 rounded-lg"
@@ -38,10 +65,11 @@
           </v-chip>
         </v-chip-group>
       </v-col>
-      <v-col cols=2 sm=2 md=2 lg=8 xl=2 class="ml-5 mt-n4">
+
+      <v-col cols=12 sm=7 md=7 lg=8 xl=8 class="mt-n8">
         <v-row>
-          <v-col lg=12>
-            <v-tabs mobile-breakpoint="xs" class="mt-5 ml-8" :style="style.tabs"
+          <v-col cols=12 sm=12 md=12 lg=12 xl=12>
+            <v-tabs mobile-breakpoint="xs"  :class="$vuetify.breakpoint.width > 600 ? 'ml-8 mt-5': ''" :style="style.tabs"
               background-color='#ffffff' :width="tabs.width" :color="'blue'">
               <v-tabs-slider color="#42ccff"></v-tabs-slider>
               <v-tab :active-class="'black--text'" :style="style.tab" v-for="(content, index) in contents" :key="index">
@@ -64,8 +92,8 @@
           </v-col>
         </v-row>
         <v-row no-gutters>
-          <v-col lg=11></v-col>
-          <v-col lg=1 class="ml-n13" v-if="(media === 'tv') && (overall.seasons)">
+          <v-col cols=9 sm=9 md=9 lg=10 xl=11></v-col>
+          <v-col cols=1 sm=1 md=1 lg=1 xl=1 v-if="(media === 'tv') && (overall.seasons)">
             <v-menu offset-y v-if="overall.seasons.length > 1">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn class="rounded mb-n2" small elevation=0 color="#212529" style="font-weight: bold;" dark
@@ -82,8 +110,8 @@
             </v-menu>
           </v-col>
         </v-row>
-        <v-row v-if="media === 'tv'" class="ml-5">
-          <v-col lg=6 v-for="(episode, index) in details.episodes" :key=index>
+        <v-row v-if="media === 'tv'" :class="$vuetify.breakpoint.width > 600 ? 'ml-5': ''">
+          <v-col cols=12 sm=12 md=6 lg=4 xl=4 v-for="(episode, index) in details.episodes" :key=index>
             <v-card v-if="episode.still_path" @click="enterTvSpace(episode)" elevation=0 class="rounded-lg">
               <v-img position="under" gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)"
                 class="white--text align-end rounded-lg" :src="base_tmdb_img_url + episode.still_path">
@@ -126,8 +154,8 @@
             </v-card>
           </v-col>
         </v-row>
-        <v-row v-else class="ml-5">
-          <v-col lg=6>
+        <v-row v-else :class="$vuetify.breakpoint.width > 600 ? 'ml-5': ''">
+          <v-col cols=12 sm=12 md=6 lg=6 xl=6>
             <v-card @click="enterMovieSpace(details)" elevation=0 class="rounded-lg">
               <v-img v-if="details.backdrop_path" position="under"
                 gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)" class="white--text align-end rounded-lg"
@@ -175,7 +203,7 @@
         </v-row>
       </v-card>
     </v-dialog>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -189,8 +217,8 @@
     components: {
       'icon-base': () => import( /* webpackPrefetch: true */ '../Icon/IconBase.vue'),
       'icon-overview': () => import( /* webpackPrefetch: true */ '../Icon/IconOverview.vue'),
-      'icon-creator': () => import( /* webpackPrefetch: true */ '../Icon/IconCreator.vue'),
-      'icon-staff': () => import( /* webpackPrefetch: true */ '../Icon/IconStaff.vue'),
+      // 'icon-creator': () => import( /* webpackPrefetch: true */ '../Icon/IconCreator.vue'),
+      // 'icon-staff': () => import( /* webpackPrefetch: true */ '../Icon/IconStaff.vue'),
       'icon-no-image': () => import( /* webpackPrefetch */ '../Icon/IconNoImage.vue'),
     },
     data() {
