@@ -1,23 +1,54 @@
 <template>
-  <div class="ml-5 mt-n8" v-if="this.space_data">
+  <v-container v-if="this.space_data">
+    <!-- <v-app-bar absolute shrink-on-scroll
+      prominent elevation=0 color="#ffffff"> -->
     <space-header v-if="this.space_data" :space_data="this.space_data" :watched="this.watched" />
+    <!-- </v-app-bar> -->
+    <v-row class="d-flex d-sm-none ml-1 mt-2">
+      <v-col cols=6>
+        <v-btn small @click="subscribed === true ? unsubscribe() : subscribe()"
+          :outlined="subscribed === false ? false : true" :color="subscribed === true ? '#000000' : '#000000'"
+          class="rounded" style="font-weight: bold;" block elevation=0>
+          <span :style="subscribed === false ? this.subscribeColor : this.unsubscribeColor">
+            {{subscribed === true ? this.followText : this.unfollowText}}
+          </span>
+        </v-btn>
+      </v-col>
+      <v-col cols=3>
+        <v-btn class="rounded" small @click="watched === false ? addWatchedlist() : deleteWatchList()"
+          :outlined="watched === false ? false : true" :color="watched === true ? '#06d6a0' : '#06d6a0'"
+          style="font-weight: bold;" block elevation=0>
+          <span :style="watched === false ? this.watchColor : this.unwatchColor">
+            {{watched === true ? this.watchText : this.unwatchText}}
+          </span>
+        </v-btn>
+      </v-col>
+      <v-col cols=3 v-if="watched === false">
+        <v-btn class="rounded" small @click="checked === false ? addWatchlist() : deleteWatchList()" style="font-weight: bold;"
+          :color="checked === true ? 'rgb(0 213 247)' : 'rgb(0 213 247)'" :outlined="checked === false ? false : true"
+          block elevation=0>
+          <span :style="checked === false ? this.checkColor : this.uncheckColor">
+            {{checked === true ? this.checkText : this.uncheckText}}
+          </span>
+        </v-btn>
+      </v-col>
+    </v-row>
 
     <v-row>
-      <v-col lg=3>
+      <v-col sm=4 md=3 lg=3 xl=3 :class="pointSize" v-if="$vuetify.breakpoint.width > 600">
         <v-row class="ml-7">
-          <v-col lg=5 style="font-weight: bold;">
+          <v-col sm=5 md=5 lg=5 style="font-weight: bold;">
             <h2>{{this.space_data.watchlist_count}}</h2>
             <p class="ml-n4" style="font-size: 13px; font-weight: bold;">総視聴数</p>
           </v-col>
-          <v-col lg=1 class="ml-n4 mb-5 mt-1">
+          <v-col sm=2 md=1 lg=1 class="ml-n4 mb-5 mt-1">
             <v-divider vertical />
           </v-col>
-          <v-col lg=5 style="font-weight: bold;" class="ml-3">
+          <v-col sm=5 md=5 lg=5 style="font-weight: bold;" class="ml-3">
             <h2>4.3</h2>
             <p class="ml-n1" style="font-size: 13px; font-weight: bold;">レビュー</p>
           </v-col>
         </v-row>
-
         <v-row class="mt-n5">
           <v-col lg=6>
             <v-btn @click="watched === false ? addWatchedlist() : deleteWatchList()"
@@ -38,13 +69,11 @@
             </v-btn>
           </v-col>
         </v-row>
-
-        <v-row class="">
+        <v-row>
           <v-col lg=12>
             <v-btn @click="subscribed === true ? unsubscribe() : subscribe()"
-              :outlined="subscribed === false ? false : true"
-              :color="subscribed === true ? '#000000' : '#000000'" class="rounded"
-              style="font-weight: bold;" block elevation=0>
+              :outlined="subscribed === false ? false : true" :color="subscribed === true ? '#000000' : '#000000'"
+              class="rounded" style="font-weight: bold;" block elevation=0>
               <span :style="subscribed === false ? this.subscribeColor : this.unsubscribeColor">
                 {{subscribed === true ? this.followText : this.unfollowText}}
               </span>
@@ -53,54 +82,56 @@
         </v-row>
 
         <v-row class="mt-3">
-          <v-col lg=2>
+          <v-col sm=2 md=2 lg=2>
             <icon-base class="" icon-name="icon-clip" :viewBox="'0 0 471.641 471.641'" :iconColor="'#111111'"
               :height="'17'" :width="'17'">
               <icon-clip />
             </icon-base>
           </v-col>
-          <v-col lg=2>
+          <v-col sm=2 md=2 lg=2>
             <icon-base class="" icon-name="icon-twitter" :viewBox="'0 0 512 512'" :height="'17'" :width="'17'">
               <icon-twitter />
             </icon-base>
           </v-col>
-          <v-col lg=2>
+          <v-col sm=2 md=2 lg=2>
             <icon-base class="" icon-name="icon-facebook" :viewBox="'0 0 512 512'" :height="'17'" :width="'17'">
               <icon-facebook />
             </icon-base>
           </v-col>
-          <v-col lg=2>
+          <v-col sm=2 md=2 lg=2>
             <icon-base class="" icon-name="icon-line" :viewBox="'0 0 24 24'" :iconColor="'#07b53b'" :height="'17'"
               :width="'17'">
               <icon-line />
             </icon-base>
           </v-col>
         </v-row>
-        <v-row v-if="this.space_data.media === 'tv'">
-          <v-col lg=12 v-if="this.space_data.creators.length > 0">
+        <v-row v-if="(this.space_data.media === 'tv') && (this.space_data.creators)" class="">
+          <v-col md=12 lg=12 v-if="this.space_data.creators.length > 0">
             <h5 color="#000000" style="font-weight: bold; color: #6c757d;">クリエイター</h5>
-            <div v-for="(creator, index) in this.space_data.creators" :key="index" class="mt-1" style="font-weight: bold; font-size: 14px;">
+            <div v-for="(creator, index) in this.space_data.creators" :key="index" class="mt-1"
+              style="font-weight: bold; font-size: 14px;">
               {{creator}}
             </div>
           </v-col>
-          <v-col lg=12 v-else>
+          <v-col md=12 lg=12 v-else>
             <h5 color="#000000" style="font-weight: bold; color: #6c757d;">クリエイター</h5>
             <div class="mt-1" style="font-weight: bold; font-size: 14px;">
               未登録
             </div>
           </v-col>
         </v-row>
-        <v-row>
-          <v-col lg=12>
+        <v-row class="">
+          <v-col md=12 lg=12>
             <h5 color="#000000" style="font-weight: bold; color: #6c757d;">
               {{ this.space_data.media === 'mv' ? '公開日' : '放送日'}}
             </h5>
-            <p v-if="this.space_data.air_date" class="mt-1" style="font-weight: bold; font-size: 13px;">{{this.space_data.air_date}}</p>
+            <p v-if="this.space_data.air_date" class="mt-1" style="font-weight: bold; font-size: 13px;">
+              {{this.space_data.air_date}}</p>
             <p v-else class="mt-1" style="font-weight: bold; font-size: 14px;">未登録</p>
           </v-col>
         </v-row>
         <v-row class="mt-n5">
-          <v-col lg=12>
+          <v-col md=12 lg=12>
             <h5 color="#000000" style="font-weight: bold; color: #6c757d;">ジャンル</h5>
             <v-chip-group column class="mt-1">
               <v-chip @click="goTagPage(genre)" small active-class="blue--text" outlined class="mb-3 rounded-lg"
@@ -112,14 +143,14 @@
           </v-col>
         </v-row>
         <v-row class="mt-n3">
-          <v-col lg=12 v-if="this.space_data.homepage">
+          <v-col md=12 lg=12 v-if="this.space_data.homepage">
             <v-btn @click="goHomepage()" small block elevation=0>公式HPはこちら</v-btn>
           </v-col>
         </v-row>
       </v-col>
-      <v-col lg=9 class="ml-n16 mt-n16">
-        <v-tabs grow class="mt-3 ml-16" v-if="space_data" :background-color='vTabs.backgroundColor'
-          :height="vTabs.height">
+
+      <v-col sm=7 md=8 lg=9>
+        <v-tabs :class="gridHeight" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height">
           <v-tabs-slider color="#0aff99" class="rounded-xl" />
           <v-tab :active-class="vTab.activeText" @click="changeTab(tablist.path)" :style="vTab.style"
             v-for="(tablist, index) in tablists" :key="index">
@@ -135,14 +166,15 @@
               :viewBox="'-42 0 512 512.001'">
               <icon-user />
             </icon-base>
-            <span class="ml-3">{{setCount(tablist.title)}}件の{{tablist.title}}</span>
+            <span v-if="$vuetify.breakpoint.width > 960" class="ml-3">{{setCount(tablist.title)}}件の{{tablist.title}}</span>
+            <span v-else class="ml-3">{{setCount(tablist.title)}}</span>
           </v-tab>
         </v-tabs>
-        <v-divider width="900" class="ml-16" />　
+        <v-divider width="900" class="ml-5" />　
         <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" />
       </v-col>
     </v-row>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -430,10 +462,38 @@
           }
         })
       },
-      goHomepage(){
+      goHomepage() {
         window.open(this.space_data.homepage)
       }
     },
+    computed: {
+      pointSize() {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return ''
+          case 'sm':
+            return 'mt-n3'
+          case 'md':
+            return 'mt-n3'
+          case 'lg':
+            return 'mt-n5'
+          case 'xl':
+            return ''
+        }
+      },
+      gridHeight(){
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return ''
+          case 'sm':
+            return ''
+          case 'md':
+          case 'lg':
+          case 'xl':
+            return 'mt-3 ml-5'
+        }
+      }
+    }
   }
 </script>
 

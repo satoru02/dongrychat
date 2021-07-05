@@ -1,9 +1,9 @@
 <template>
-  <div :class="vContainer">
-    <v-row v-for="(comment, index) in comments" :key="index" class="mb-n1 ml-13">
+  <v-container :class="vContainer">
+    <v-row v-for="(comment, index) in comments" :key="index" class="mb-n1">
       <!-- <v-col lg=1></v-col> -->
-      <v-col cols=1 sm=1 md=1 lg=1 xl=1 :class="vColAvatarGrid">
-        <v-avatar class="mt-3" @click="goUserPage(comment.attributes.user.data.attributes)" :style="avatar.style"
+      <v-col cols=2 sm=2 md=1 lg=1 xl=1 :class="vColAvatarGrid">
+        <v-avatar @click="goUserPage(comment.attributes.user.data.attributes)" :style="avatar.style"
           :size='avatar.size' :height='avatar.height'>
           <img outlined v-if="comment.attributes.user.data.attributes.avatar_url"
             :src="comment.attributes.user.data.attributes.avatar_url">
@@ -15,21 +15,23 @@
           </span>
         </v-avatar>
       </v-col>
-      <v-col cols=11 sm=11 md=11 lg=11 xl=11 :class="vColNameGrid">
-        <v-row>
+      <v-col cols=10 sm=10 md=11 lg=11 xl=11 :class="vColNameGrid">
+            <div :style="username.style">{{comment.attributes.user.data.attributes.name}}</div>
+            <div :style="time.style">{{formalizeTime(comment.attributes.created_at)}}</div>
+        <!-- <v-row>
           <v-col cols=12 sm=12 md=12 lg=12 xl=12 class="ml-9">
             <div :style="username.style">{{comment.attributes.user.data.attributes.name}}</div>
             <div :style="time.style">{{formalizeTime(comment.attributes.created_at)}}</div>
           </v-col>
-        </v-row>
+        </v-row> -->
       </v-col>
-          <v-row>
-      <v-col lg=12 class="ml-4">
+      <v-row>
+      <v-col cols=12 md=12 lg=12 class="ml-4">
         <p>{{comment.attributes.content}}</p>
       </v-col>
     </v-row>
     </v-row>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -99,9 +101,9 @@
           case 'xs':
             return 'ml-n4'
           case 'sm':
-            return 'mt-7'
+            return ''
           case 'md':
-            return 'mt-7'
+            return ''
           case 'lg':
             return 'mt-n7'
           case 'xl':
@@ -126,27 +128,27 @@
       vColNameGrid() {
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
-            return 'mt-n16 ml-11'
+            return 'ml-n2'
           case 'sm':
-            return 'mt-7'
+            return 'ml-n2'
           case 'md':
-            return 'mt-7'
+            return ''
           case 'lg':
-            return 'ml-n11'
+            return 'ml-n2'
           case 'xl':
-            return 'mt-n6'
+            return ''
         }
       },
       vColAvatarGrid() {
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
-            return 'mt-n3 ml-n2'
+            return ''
           case 'sm':
-            return 'mt-7'
+            return ''
           case 'md':
-            return 'mt-7'
+            return ''
           case 'lg':
-            return 'mt-n3'
+            return ''
           case 'xl':
             return 'mt-n9'
         }

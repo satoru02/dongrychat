@@ -31,6 +31,10 @@
     data() {
       return {
         base_img_url: `https://image.tmdb.org/t/p/w200`,
+        media: {
+          tv: 'tv',
+          movie: 'mv',
+        },
       }
     },
     methods: {

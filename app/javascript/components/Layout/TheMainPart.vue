@@ -5,8 +5,8 @@
       <v-row>
         <v-col class="d-none d-lg-flex" lg=1 xl=1>
         </v-col>
-        <v-col class="d-none d-sm-none d-md-flex" md=3 :lg="this.lgGrid[0]" xl=2>
-          <the-left-bar />
+        <v-col class="d-none d-sm-none d-md-flex" :md="this.mdGrid[0]" :lg="this.lgGrid[0]" xl=2>
+          <the-left-bar v-if="checkRouter()" />
         </v-col>
         <v-col :cols="this.colsGrid[1]" :sm="this.smGrid[1]" :md="this.mdGrid[1]" :lg="this.lgGrid[1]"
           :xl="this.xlGrid[1]">
@@ -48,7 +48,7 @@
         display_size: '',
         colsGrid: '',
         smGrid: [2, 12, 0],
-        mdGrid: [2, 9, 0],
+        mdGrid: [3, 8, 0],
         lgGrid: [2, 5, 0],
         xlGrid: [3, 6, 3],
       }
@@ -77,6 +77,18 @@
           'Settings',
           'Terms',
           'Privacy',
+          'TvSpace',
+          'TvSpaceMembers',
+          'TvSpaceReviews',
+          'MvSpace',
+          'MvSpaceMembers',
+          'MvSpaceReviews',
+          'registeredTvSpace',
+          'registeredTvSpaceMembers',
+          'registeredTvSpaceReviews',
+          'registeredMvSpace',
+          'registeredMvSpaceMembers',
+          'registeredMvSpaceReviews',
         ]
         if (spaceRoute.includes(this.$route.name)) {
           return false
@@ -93,11 +105,34 @@
           case 'UserReviews':
             this.lgGrid = [0, 10, 0]
           case 'Following':
-            return this.lgGrid = [2, 7, 0]
+            this.mdGrid = [3, 9, 0]
+            this.lgGrid = [2, 7, 0]
+            break;
+          case 'TvSpace':
+          case 'TvSpaceMembers':
+          case 'TvSpaceReviews':
+          case 'MvSpace':
+          case 'MvSpaceMembers':
+          case 'MvSpaceReviews':
+          case 'registeredTvSpace':
+          case 'registeredTvSpaceMembers':
+          case 'registeredTvSpaceReviews':
+          case 'registeredMvSpace':
+          case 'registeredMvSpaceMembers':
+          case 'registeredMvSpaceReviews':
+            this.smGrid = [0, 12, 0]
+            this.mdGrid = [1, 10, 0]
+            this.lgGrid = [1, 8, 0]
+            break;
+          case 'TvDetails':
+          case 'MvDetails':
+            this.mdGrid = [3, 9, 0]
+            this.lgGrid = [2, 9, 0]
+            break;
           default:
             this.colsGrid = [0, 12, 0]
             this.smGrid = [2, 12, 0]
-            this.mdGrid = [0, 9, 0]
+            this.mdGrid = [3, 8, 0]
             this.lgGrid = [2, 5, 0]
             this.xlGrid = [3, 6, 3]
             break;

@@ -9,7 +9,7 @@
       </v-app-bar-nav-icon> -->
 
      <v-spacer />
-      <v-toolbar-title class="ml-n13">
+      <!-- <v-toolbar-title class="ml-n13">
         <v-btn text color="#657482" style="font-size: 14px; font-weight: bold; color: #657482"
           @click="movePath('/trend')">
           <icon-new class="mr-3" />新着</v-btn>
@@ -25,7 +25,7 @@
           style="font-size: 14px; font-weight: bold; color: #657482">
           高評価
         </v-btn>
-      </v-toolbar-title>
+      </v-toolbar-title> -->
       <v-text-field placeholder="検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query" :full-width="true"
         v-if="this.checkAuthorization()" dense background-color="#f0f5fa" solo flat
         class="rounded-lg mt-7 ml-16 mr-16 " />

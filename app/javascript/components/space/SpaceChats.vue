@@ -1,25 +1,15 @@
 <template>
-  <div class="mt-n2">
+  <v-container>
     <v-row>
-      <!-- <v-col lg=1 /> -->
-      <v-col lg=12 class="ml-16">
+      <v-col cols=12 sm=12 md=12 lg=12 xl=12 class="ml-5">
         <v-text-field v-if="$vuetify.breakpoint.width > 600" :class="textFieldGrid" clearable background-color="#ffffff"
           v-model="content" @keypress="setMessage()" @keyup.enter="sendComment(content)" solo flat outlined dense
           :placeholder="textField.placeholder" />
-        <!-- <v-text-field v-else :append-outer-icon="'mdi-send'" :class="textFieldGrid" clearable :style="textField.style"
-          :background-color="textField.color" @click:append-outer="{setMessage(), sendComment(content)}"
-          v-model="content" dense :placeholder="textField.placeholder" solo flat /> -->
       </v-col>
     </v-row>
-    <!-- <v-row no-gutters>
-      <v-col lg=1></v-col>
-      <v-col lg=11>
-        <v-divider class="mt-n4 ml-5" width=740px />
-      </v-col>
-    </v-row> -->
     <space-comments :comments="comments" />
     <base-loader :handler="infiniteHandler" :wrapper="false" :text="loader.text" />
-  </div>
+  </v-container>
 </template>
 
 <script>
