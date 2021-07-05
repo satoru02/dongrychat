@@ -170,7 +170,7 @@
       gridTitle(){
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
-            return 'ml-n2'
+            return 'ml-n1'
           case 'sm':
             return ''
           case 'md':
@@ -209,7 +209,7 @@
           case 'xl':
               return {
                 color: '#000000',
-                fontSize: '15.56px',
+                fontSize: '13.56px',
                 fontWeight: 'bold',
               }
         }

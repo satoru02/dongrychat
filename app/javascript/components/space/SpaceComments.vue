@@ -1,7 +1,6 @@
 <template>
   <v-container :class="vContainer">
     <v-row v-for="(comment, index) in comments" :key="index" class="mb-n1">
-      <!-- <v-col lg=1></v-col> -->
       <v-col cols=2 sm=2 md=1 lg=1 xl=1 :class="vColAvatarGrid">
         <v-avatar @click="goUserPage(comment.attributes.user.data.attributes)" :style="avatar.style"
           :size='avatar.size' :height='avatar.height'>
@@ -16,14 +15,8 @@
         </v-avatar>
       </v-col>
       <v-col cols=10 sm=10 md=11 lg=11 xl=11 :class="vColNameGrid">
-            <div :style="username.style">{{comment.attributes.user.data.attributes.name}}</div>
-            <div :style="time.style">{{formalizeTime(comment.attributes.created_at)}}</div>
-        <!-- <v-row>
-          <v-col cols=12 sm=12 md=12 lg=12 xl=12 class="ml-9">
-            <div :style="username.style">{{comment.attributes.user.data.attributes.name}}</div>
-            <div :style="time.style">{{formalizeTime(comment.attributes.created_at)}}</div>
-          </v-col>
-        </v-row> -->
+        <div :style="username.style">{{comment.attributes.user.data.attributes.name}}</div>
+        <div :style="time.style">{{formalizeTime(comment.attributes.created_at)}}</div>
       </v-col>
       <v-row>
       <v-col cols=12 md=12 lg=12 class="ml-4">
@@ -101,11 +94,10 @@
           case 'xs':
             return 'ml-n4'
           case 'sm':
-            return ''
           case 'md':
-            return ''
+            return 'ml-2'
           case 'lg':
-            return 'mt-n7'
+            return 'mt-n7 ml-2'
           case 'xl':
             return 'mt-n9'
         }
@@ -130,7 +122,7 @@
           case 'xs':
             return 'ml-n2'
           case 'sm':
-            return 'ml-n2'
+            return 'ml-n3'
           case 'md':
             return ''
           case 'lg':

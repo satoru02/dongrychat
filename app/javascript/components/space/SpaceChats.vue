@@ -139,9 +139,9 @@
           case 'xs':
             return 'mt-n2 rounded-s'
           case 'sm':
-            return 'mt-7'
+            return 'mt-2'
           case 'md':
-            return 'mt-7'
+            return 'mt-2'
           case 'lg':
             return 'mt-3 rounded'
           case 'xl':
