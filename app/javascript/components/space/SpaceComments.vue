@@ -92,7 +92,7 @@
       vContainer() {
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
-            return 'ml-n4'
+            return 'ml-n4 mt-n4'
           case 'sm':
           case 'md':
             return 'ml-2'

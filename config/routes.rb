@@ -29,6 +29,7 @@ Rails.application.routes.draw do
         member do
           get :comments, to: "spaces#comments"
           get :reviews, to: "spaces#reviews"
+          get :users, to: "spaces#users"
         end
 
         collection do

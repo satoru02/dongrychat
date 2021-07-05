@@ -1,6 +1,6 @@
 <template>
   <div class="mt-3">
-    <div class="ml-14" v-if="space_reviews">
+    <v-container v-if="space_reviews">
       <v-card class="mb-8 rounded-lg" color="#edf1f3" elevation=0
         v-for="(review, index) in space_reviews" :key="index">
         <v-card-text class="text-h7 font-weight-bold" style="color:#000000;">
@@ -27,7 +27,7 @@
           </v-list-item>
         </v-card-actions>
       </v-card>
-    </div>
+    </v-container>
 
     <v-container v-if="user_reviews">
       <v-card class="mx-auto mb-8 rounded-lg" color="#edf1f3" elevation=0 outlined

@@ -8,6 +8,7 @@
         <v-col class="d-none d-sm-none d-md-flex" :md="this.mdGrid[0]" :lg="this.lgGrid[0]" xl=2>
           <the-left-bar v-if="checkRouter()" />
         </v-col>
+        <v-col class="d-none d-sm-flex d-md-none" sm=1 />
         <v-col :cols="this.colsGrid[1]" :sm="this.smGrid[1]" :md="this.mdGrid[1]" :lg="this.lgGrid[1]"
           :xl="this.xlGrid[1]">
           <keep-alive>
@@ -47,7 +48,7 @@
       return {
         display_size: '',
         colsGrid: '',
-        smGrid: [2, 12, 0],
+        smGrid: [2, 11, 0],
         mdGrid: [3, 8, 0],
         lgGrid: [2, 5, 0],
         xlGrid: [3, 6, 3],
@@ -105,6 +106,7 @@
           case 'UserReviews':
             this.lgGrid = [0, 10, 0]
           case 'Following':
+            this.smGrid = [2, 10, 0]
             this.mdGrid = [3, 9, 0]
             this.lgGrid = [2, 7, 0]
             break;
@@ -120,7 +122,7 @@
           case 'registeredMvSpace':
           case 'registeredMvSpaceMembers':
           case 'registeredMvSpaceReviews':
-            this.smGrid = [0, 12, 0]
+            this.smGrid = [0, 11, 0]
             this.mdGrid = [1, 10, 0]
             this.lgGrid = [1, 8, 0]
             break;
@@ -131,7 +133,7 @@
             break;
           default:
             this.colsGrid = [0, 12, 0]
-            this.smGrid = [2, 12, 0]
+            this.smGrid = [2, 11, 0]
             this.mdGrid = [3, 8, 0]
             this.lgGrid = [2, 5, 0]
             this.xlGrid = [3, 6, 3]

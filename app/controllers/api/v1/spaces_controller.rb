@@ -2,7 +2,7 @@ module Api
   module V1
     class SpacesController < ApplicationController
       before_action :authorize_access_request!, only: [:unregistered, :registered, :comments]
-      before_action :set_space, only: [:registered, :comments, :reviews]
+      before_action :set_space, only: [:registered, :comments, :reviews , :users]
       before_action :set_condition, only: [:registered, :comments]
       before_action :watching_condition, only: [:registered]
 
@@ -54,6 +54,12 @@ module Api
         render_json(serializer)
       end
 
+      def users
+        @users = @space.users.paginate(:page => params[:page], :per_page => params[:per_page])
+        serializer = set_user_serializer(@users)
+        render_json(serializer)
+      end
+
       private
 
         def set_space_serializer(space, condition, watchlist, media)
@@ -74,6 +80,10 @@ module Api
 
         def set_review_serializer(reviews)
           ReviewSerializer.new(reviews)
+        end
+
+        def set_user_serializer(users)
+          SpaceUserSerializer.new(users)
         end
 
         def set_space

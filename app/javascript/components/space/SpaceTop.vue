@@ -7,7 +7,7 @@
       <v-col cols=4 sm=4 md=3 lg=3 xl=3 :class="vColAvatarGrid">
         <v-card elevation=0 class="rounded-lg" width="230px" color="#dee2e6">
           <v-img v-if="this.space_data.image_path" :src="posterImg()" class="white--text mt-n2"
-            :height="$vuetify.breakpoint.width > 600 ?  '320px' : '180px'">
+            :height="$vuetify.breakpoint.width > 600 ?  '330px' : '190px'">
           </v-img>
           <v-img height="340px" v-else>
             <icon-base :width="'130'" class="mt-15 ml-13" :height="'140'" icon-name="icon-no-image"
@@ -25,7 +25,7 @@
                 <p class="ml-n4" style="font-size: 13px; font-weight: bold;">総視聴数</p>
               </v-col>
               <v-col sm=2 md=1 lg=1 class="ml-n4 mb-5 mt-1">
-                <v-divider vertical />
+                <!-- <v-divider vertical /> -->
               </v-col>
               <v-col sm=5 md=5 lg=5 style="font-weight: bold;" class="ml-3">
                 <h2>4.3</h2>
@@ -137,7 +137,7 @@
       </v-col>
 
       <!-- right part -->
-      <v-col cols=8 sm=7 md=8 lg=9 xl=9 :class="$vuetify.breakpoint.width > 600 ? 'mt-8' : 'ml-n4 mt-2'">
+      <v-col cols=8 sm=7 md=8 lg=9 xl=9 :class="$vuetify.breakpoint.width > 600 ? 'mt-8' : 'ml-n5 mt-2'">
         <v-row class="ml-8">
           <base-label :style="'font-weight: bold; border-width: 1.8;'" class="rounded" font_size="13px"
             v-if="space_data.media === media.tv" :label="true" :small="true" :color="'#020814'" :outlined="true"
@@ -153,7 +153,7 @@
               @click="space_data.media === media.tv ? moveDetails(space_data.tmdb_comp_id, space_data.name, space_data.season, 'Tv') : moveDetails(space_data.tmdb_mv_id, space_data.name, null, 'Mv')">
               {{space_data.name}}
             </span>
-            <icon-base v-if="watched === true" :iconColor="'#0aff99'" class="ml-4 mb-n1" icon-name="icon-check"
+            <icon-base v-if="watched === true" :iconColor="'#0aff99'" class="ml-3 mb-n1" icon-name="icon-check"
               :viewBox="'0 0 191.667 191.667'" :height="'23'" :width="'23'">
               <icon-check />
             </icon-base>
@@ -161,14 +161,14 @@
         </v-row>
         <v-row class="d-flex d-sm-none ml-1">
           <v-col cols=1></v-col>
-          <v-col cols=5 sm=5 md=5 lg=5 style="font-weight: bold;">
+          <v-col cols=4  style="font-weight: bold;">
             <h4>{{this.space_data.watchlist_count}}</h4>
             <p class="" style="font-size: 13px; font-weight: bold;">総視聴数</p>
           </v-col>
-          <v-col cols=1 sm=2 md=1 lg=1 class="ml-n4 mb-5 mt-1">
-            <v-divider vertical />
+          <v-col cols=1 class="ml-n4 mb-5 mt-1">
+            <!-- <v-divider vertical /> -->
           </v-col>
-          <v-col cols=4 sm=5 md=5 lg=5 style="font-weight: bold;" class="">
+          <v-col cols=4 style="font-weight: bold;" class="">
             <h4>4.3</h4>
             <p class="ml-n1" style="font-size: 13px; font-weight: bold;">レビュー</p>
           </v-col>
@@ -183,9 +183,9 @@
               <v-tabs-slider color="#0aff99" class="rounded-xl" />
               <v-tab :active-class="vTab.activeText" @click="changeTab(tablist.path)" :style="vTab.style"
                 v-for="(tablist, index) in tablists" :key="index">
-                <icon-base v-if="tablist.title === 'コメント'" :iconColor="'#6c757d'" icon-name="icon-comment" :width="'19'"
-                  :viewBox="'0 0 30.333 30.333'">
-                  <icon-comment />
+                <icon-base v-if="tablist.title === 'コメント'" :iconColor="'#6c757d'" icon-name="icon-following" :width="'19'"
+                  :viewBox="'0 0 511.996 511.996'">
+                  <icon-following />
                 </icon-base>
                 <icon-base v-if="tablist.title === 'レビュー'" :iconColor="'#6c757d'" icon-name="icon-pen" :width="'19'"
                   :viewBox="'0 0 512 512'">
@@ -200,14 +200,15 @@
                 <span v-else class="ml-3">{{setCount(tablist.title)}}</span>
               </v-tab>
             </v-tabs>
-            <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" />
+            <!-- <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" /> -->
+            <router-view v-if="this.space_data" :spaceId="this.space_data.id" />
           </v-col>
         </v-row>
       </v-col>
     </v-row>
 
     <!-- mobile part -->
-    <v-row v-if="$vuetify.breakpoint.width < 600" no-gutters class="mt-4">
+    <v-row v-if="$vuetify.breakpoint.width < 600" no-gutters class="mt-5">
       <v-row>
         <v-col cols=6>
           <v-btn small @click="subscribed === true ? unsubscribe() : subscribe()"
@@ -238,13 +239,13 @@
         </v-col>
       </v-row>
       <v-col cols=12>
-        <v-tabs :class="gridHeight" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height">
+        <v-tabs grow :class="gridHeight" v-if="space_data" :background-color='vTabs.backgroundColor' :height="vTabs.height">
           <v-tabs-slider color="#0aff99" class="rounded-xl" />
           <v-tab :active-class="vTab.activeText" @click="changeTab(tablist.path)" :style="vTab.style"
             v-for="(tablist, index) in tablists" :key="index">
-            <icon-base v-if="tablist.title === 'コメント'" :iconColor="'#6c757d'" icon-name="icon-comment" :width="'19'"
-              :viewBox="'0 0 30.333 30.333'">
-              <icon-comment />
+            <icon-base v-if="tablist.title === 'コメント'" :iconColor="'#6c757d'" icon-name="icon-following" :width="'19'"
+              :viewBox="'0 0 511.996 511.996'">
+              <icon-following />
             </icon-base>
             <icon-base v-if="tablist.title === 'レビュー'" :iconColor="'#6c757d'" icon-name="icon-pen" :width="'19'"
               :viewBox="'0 0 512 512'">
@@ -260,7 +261,8 @@
           </v-tab>
         </v-tabs>
         <v-divider />　
-        <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" />
+        <!-- <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" /> -->
+        <router-view v-if="this.space_data" :spaceId="this.space_data.id" />
       </v-col>
     </v-row>
 
@@ -280,7 +282,7 @@
     components: {
       'icon-base': () => import( /* webpackPrefetch: true */ '../Icon/IconBase'),
       'icon-pen': () => import( /* webpackPrefetch: true */ '../Icon/IconPen'),
-      'icon-comment': () => import( /* webpackPrefetch: true */ '../Icon/IconComment'),
+      'icon-following': () => import( /* webpackPrefetch: true */ '../Icon/IconFollowing'),
       'icon-user': () => import( /* webpackPrefetch: true */ '../Icon/IconUser'),
       'icon-twitter': () => import( /* webpackPrefetch: true */ '../Icon/IconTwitter.vue'),
       'icon-facebook': () => import( /* webpackPrefetch: true */ '../Icon/IconFacebook.vue'),
@@ -494,7 +496,7 @@
           case 'コメント':
             return this.space_data.comments_count;
           case 'ユーザー':
-            return this.space_data.users.data.length;
+            return this.space_data.users_count;
           case 'レビュー':
             return this.space_data.reviews_count;
           default:
@@ -660,14 +662,14 @@
       gridTitle() {
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
-            return 'ml-n2'
+            return 'ml-n4'
           case 'sm':
             return ''
           case 'md':
             return 'ml-n4'
           case 'lg':
           case 'xl':
-            return 'ml-n7'
+            return 'ml-n8'
         }
 
       },

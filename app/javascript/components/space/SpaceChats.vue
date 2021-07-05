@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols=12 sm=12 md=12 lg=12 xl=12 class="ml-5">
-        <v-text-field v-if="$vuetify.breakpoint.width > 600" :class="textFieldGrid" clearable background-color="#ffffff"
+      <v-col cols=12 sm=12 md=12 lg=12 xl=12 :class="$vuetify.breakpoint.width > 600 ? 'ml-5' : '' ">
+        <v-text-field :class="textFieldGrid" clearable background-color="#ffffff"
           v-model="content" @keypress="setMessage()" @keyup.enter="sendComment(content)" solo flat outlined dense
           :placeholder="textField.placeholder" />
       </v-col>
@@ -137,7 +137,7 @@
       textFieldGrid() {
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
-            return 'mt-n2 rounded-s'
+            return 'mt-2 rounded-s'
           case 'sm':
             return 'mt-2'
           case 'md':
