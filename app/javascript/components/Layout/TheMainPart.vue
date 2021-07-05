@@ -34,7 +34,7 @@
   import TheLeftBar from './TheLeftBar';
   import TheBottomBar from '../Base/BaseBottomBar'
   import CookieLaw from 'vue-cookie-law';
-  import { isMobile, isTablet } from '../../helper/display';
+  import { isMobile } from '../../helper/display';
 
   export default {
     name: 'TheMainPart',
@@ -64,7 +64,6 @@
     },
     methods: {
       isMobile,
-      isTablet,
       checkAuthorization() {
         let validationRouter = ['Login', 'Signup', 'Authorization', 'ResetPassword', 'ForgotPassword']
         if (validationRouter.includes(this.$route.name)) {
@@ -106,6 +105,18 @@
           case 'UserReviews':
             this.lgGrid = [0, 10, 0]
           case 'Following':
+            this.smGrid = [2, 10, 0]
+            this.mdGrid = [3, 9, 0]
+            this.lgGrid = [2, 7, 0]
+            break;
+          case 'Popular':
+          case 'Trend':
+          case 'TopRated':
+          case 'multi':
+          case 'person':
+          case 'movie':
+          case 'tv':
+          case 'Company':
             this.smGrid = [2, 10, 0]
             this.mdGrid = [3, 9, 0]
             this.lgGrid = [2, 7, 0]

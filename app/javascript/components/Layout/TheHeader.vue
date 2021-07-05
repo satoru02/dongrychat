@@ -8,8 +8,8 @@
         </icon-base>
       </v-app-bar-nav-icon> -->
 
-     <v-spacer />
-      <!-- <v-toolbar-title class="ml-n13">
+      <v-spacer />
+      <v-toolbar-title class="ml-n13">
         <v-btn text color="#657482" style="font-size: 14px; font-weight: bold; color: #657482"
           @click="movePath('/trend')">
           <icon-new class="mr-3" />新着</v-btn>
@@ -25,9 +25,9 @@
           style="font-size: 14px; font-weight: bold; color: #657482">
           高評価
         </v-btn>
-      </v-toolbar-title> -->
-      <v-text-field placeholder="検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query" :full-width="true"
-        v-if="this.checkAuthorization()" dense background-color="#f0f5fa" solo flat
+      </v-toolbar-title>
+      <v-text-field placeholder="検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
+        :full-width="true" v-if="this.checkAuthorization()" dense background-color="#f0f5fa" solo flat
         class="rounded-lg mt-7 ml-16 mr-16 " />
       <v-spacer />
       <v-menu left nudge-bottom="35" nudge-height="800">
@@ -197,7 +197,7 @@
         </v-row>
       </v-card>
     </v-dialog> -->
-     <v-spacer />
+    <v-spacer />
 
   </v-container>
 </template>
@@ -313,18 +313,18 @@
             fontSize: '4px',
           }
         },
-          hoverlink: {
-            fontWeight: 'bold',
-            fontSize: '9px',
-            color: '#374151',
-            cursor: 'pointer',
-          },
-          unhoverlink: {
-            fontWeight: 'bold',
-            fontSize: '9px',
-            color: '#6c757d',
-            cursor: 'pointer',
-          }
+        hoverlink: {
+          fontWeight: 'bold',
+          fontSize: '9px',
+          color: '#374151',
+          cursor: 'pointer',
+        },
+        unhoverlink: {
+          fontWeight: 'bold',
+          fontSize: '9px',
+          color: '#6c757d',
+          cursor: 'pointer',
+        }
       }
     },
     created() {
@@ -457,6 +457,6 @@
   }
 
   .v-application .elevation-1 {
-    box-shadow: 0 0px 1px -1px rgba(0,0,-4,.2),0 1px 1px 0 rgba(0,0,0,.04),0 1px 0.3px 0 rgba(0,0,0,.02)!important;
-}
+    box-shadow: 0 0px 1px -1px rgba(0, 0, -4, .2), 0 1px 1px 0 rgba(0, 0, 0, .04), 0 1px 0.3px 0 rgba(0, 0, 0, .02) !important;
+  }
 </style>

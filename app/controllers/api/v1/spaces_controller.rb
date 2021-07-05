@@ -2,7 +2,7 @@ module Api
   module V1
     class SpacesController < ApplicationController
       before_action :authorize_access_request!, only: [:unregistered, :registered, :comments]
-      before_action :set_space, only: [:registered, :comments, :reviews , :users]
+      before_action :set_space, only: [:registered, :comments, :reviews, :users]
       before_action :set_condition, only: [:registered, :comments]
       before_action :watching_condition, only: [:registered]
 
