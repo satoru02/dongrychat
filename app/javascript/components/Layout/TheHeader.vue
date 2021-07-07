@@ -1,34 +1,34 @@
 <template>
   <v-container>
-    <v-app-bar elevation=0 outlined app color="#ffffff">
+    <v-app-bar elevation=1 outlined app color="#ffffff">
 
-      <!-- <v-app-bar-nav-icon class="ml-1" @click="drawer = !drawer">
+      <v-app-bar-nav-icon @click="drawer = !drawer" v-if="$vuetify.breakpoint.width < 600">
         <icon-base :width="'20'" :height="'20'" icon-name="icon-user" :iconColor="'#000000'" :viewBox="'0 0 124 124'">
           <icon-menu />
         </icon-base>
-      </v-app-bar-nav-icon> -->
+      </v-app-bar-nav-icon>
 
-      <v-spacer />
-      <v-toolbar-title class="ml-n13">
+      <v-spacer v-if="$vuetify.breakpoint.width > 600" />
+      <v-toolbar-title v-if="$vuetify.breakpoint.width > 600">
         <v-btn text color="#657482" style="font-size: 14px; font-weight: bold; color: #657482"
           @click="movePath('/trend')">
           <icon-new class="mr-3" />新着</v-btn>
       </v-toolbar-title>
-      <v-toolbar-title class="ml-6">
+      <v-toolbar-title v-if="$vuetify.breakpoint.width > 600">
         <v-btn @click="movePath('/popular')" text color="#ffffff"
           style="font-size: 14px; font-weight: bold; color: #657482">
           人気
         </v-btn>
       </v-toolbar-title>
-      <v-toolbar-title class="ml-6">
+      <v-toolbar-title v-if="$vuetify.breakpoint.width > 600">
         <v-btn @click="movePath('/top_rated')" text color="#ffffff"
           style="font-size: 14px; font-weight: bold; color: #657482">
           高評価
         </v-btn>
       </v-toolbar-title>
       <v-text-field placeholder="検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
-        :full-width="true" v-if="this.checkAuthorization()" dense background-color="#f0f5fa" solo flat
-        class="rounded-lg mt-7 ml-16 mr-16 " />
+        :full-width="true" v-if="$vuetify.breakpoint.width > 600" dense
+        background-color="#f0f5fa" solo flat class="rounded-lg mt-7" />
       <v-spacer />
       <v-menu left nudge-bottom="35" nudge-height="800">
         <template v-slot:activator="{on, attrs}">
@@ -57,13 +57,13 @@
         </v-list>
         <base-loader :handler="infiniteHandler" :text="text.loading" />
       </v-menu>
-      <v-menu flat open-on-hover offset-y left nudge-bottom="3" nudge-left="50" nudge-height="800">
+      <v-menu flat open-on-hover offset-y left nudge-bottom="3" nudge-height="800">
         <template v-slot:activator="{on, attrs}">
           <div v-bind="attrs" v-on="on">
-            <v-avatar v-if="$store.state.user.currentUser.avatar_url" size="35" class="ml-5 mr-16">
+            <v-avatar v-if="$store.state.user.currentUser.avatar_url" size="35">
               <v-img :src="$store.state.user.currentUser.avatar_url" />
             </v-avatar>
-            <v-avatar v-else size="25" class="ml-5 mr-16">
+            <v-avatar v-else size="25">
               <icon-base :width="'20'" :height="'20'" icon-name="icon-user" :iconColor="'#ffffff'"
                 :viewBox="'-42 0 512 512.002'">
                 <icon-user />
@@ -81,14 +81,17 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-btn v-if="(this.checkAuthorization()) && !$store.state.user.signedIn" @click="movePath('/login')" outlined
-        small color="#f6f6f9" elevation=0 class="login mr-4">ログイン</v-btn>
-      <v-btn v-if="(this.checkAuthorization()) && !$store.state.user.signedIn" @click="movePath('/singup')" small
-        color="#016aff" elevation=0 class="signup">アカウント登録</v-btn>
+      <v-btn v-if="(this.checkAuthorization()) && !$store.state.user.signedIn" @click="movePath('/login')"
+        color="#ffffff" elevation=0 class="login mr-4" style="color: #000000">ログイン</v-btn>
+      <v-btn v-if="(this.checkAuthorization()) && !$store.state.user.signedIn" @click="movePath('/signup')"
+        color="#00bbf9" elevation=0 class="signup">
+        <span style="color: #ffffff;">アカウント登録</span></v-btn>
     </v-app-bar>
 
-    <!-- <v-navigation-drawer temporary v-model="drawer" class="" width=235 app dark style="background-color: #ffffff;">
-      <v-list dense nav class="rounded-lg mt-13">
+    <v-navigation-drawer temporary v-model="drawer" class="" width=235 app dark style="background-color: #ffffff;">
+      <v-text-field placeholder="検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
+        :full-width="true" dense background-color="#f0f5fa" solo flat class="rounded-lg mt-16" />
+      <v-list dense nav class="rounded-lg">
         <v-subheader :style="category" class="">メニュー</v-subheader>
         <v-list-item-group color="primary" class="mt-1" min-width="200">
           <v-hover v-for="(item, index) in menus" :key="index">
@@ -103,9 +106,9 @@
                     :height="'17'" :viewBox="'0 0 511.996 511.996'">
                     <icon-following />
                   </icon-base>
-                  <icon-base v-if="item.text === 'レビュー'" :iconColor="'#000000'" icon-name="icon-bookmark" :width="'17'"
+                  <icon-base v-if="item.text === 'レビュー'" :iconColor="'#000000'" icon-name="icon-pen" :width="'17'"
                     :height="'17'" :viewBox="'0 0 512 512'">
-                    <icon-bookmark />
+                    <icon-pen />
                   </icon-base>
                   <icon-base v-if="item.text === 'コミュニティ'" :iconColor="'#000000'" icon-name="icon-bookmark"
                     :width="'17'" :height="'17'" :viewBox="'0 0 512 512'">
@@ -129,9 +132,9 @@
           </v-hover>
         </v-list-item-group>
       </v-list>
-      <v-subheader :style="category" class="mt-4 mb-2">カテゴリーから探す</v-subheader>
+      <v-subheader :style="category" class="mt-4 mb-2">注目のカテゴリー</v-subheader>
       <v-row justify="center" class="mt-n4">
-        <v-col cols="12" sm="7" md="6" lg="11" class="ml-2">
+        <v-col cols="12" class="ml-4">
           <v-chip-group column>
             <v-chip small outlined active-class="blue--text" class="mb-2 rounded-xl"
               style="width: auto; font-weight: bold;" @click="goTagPage(tag.attributes)" color="#000000" label
@@ -142,31 +145,31 @@
         </v-col>
       </v-row>
       <v-row no-gutters class="mt-1">
-      <v-hover v-slot="{hover}">
-        <v-col class="ml-4" lg=4 :style="hover ? hoverlink : unhoverlink" @click="changeRoute('Terms')">
-          利用規約
-        </v-col>
-      </v-hover>
-      <v-hover v-slot="{hover}">
-        <v-col lg=8 :style="hover ? hoverlink : unhoverlink" class="ml-n4" @click="changeRoute('Privacy')">
-          プライバシーポリシー
-        </v-col>
-      </v-hover>
-    </v-row>
-    <v-row no-gutters class="">
-      <v-hover v-slot="{hover}">
-        <v-col class="ml-4" lg=3 :style="hover ? hoverlink : unhoverlink">
-          お問い合わせ
-        </v-col>
-      </v-hover>
-      <v-hover v-slot="{hover}">
+        <v-hover v-slot="{hover}">
+          <v-col class="ml-4" cols=4 :style="hover ? hoverlink : unhoverlink" @click="changeRoute('Terms')">
+            利用規約
+          </v-col>
+        </v-hover>
+        <v-hover v-slot="{hover}">
+          <v-col cols=6 :style="hover ? hoverlink : unhoverlink" class="ml-n4" @click="changeRoute('Privacy')">
+            プライバシーポリシー
+          </v-col>
+        </v-hover>
+      </v-row>
+      <v-row no-gutters class="">
+        <v-hover v-slot="{hover}">
+          <v-col class="ml-4" cols=4 :style="hover ? hoverlink : unhoverlink">
+            お問い合わせ
+          </v-col>
+        </v-hover>
+        <v-hover v-slot="{hover}">
 
-        <v-col lg=4 :style="hover ? hoverlink : unhoverlink">
-          © 2021 Devio
-        </v-col>
-      </v-hover>
-    </v-row>
-    </v-navigation-drawer> -->
+          <v-col cols=6 :style="hover ? hoverlink : unhoverlink">
+            © 2021 Devio
+          </v-col>
+        </v-hover>
+      </v-row>
+    </v-navigation-drawer>
 
     <!-- <v-dialog v-model="loginDialog" width="400" transition="dialog-top-transition">
       <v-card color="#ffffff" height="250" class="rounded-lg">
@@ -219,7 +222,7 @@
       'icon-menu': () => import( /* webpackPrefetch */ '../Icon/IconMenu'),
       'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
       'icon-home': () => import( /* webpackPrefetch: true */ '../Icon/IconHome.vue'),
-      'icon-bookmark': () => import( /* webpackPrefetch: true */ '../Icon/IconBookmark.vue'),
+      'icon-pen': () => import( /* webpackPrefetch: true */ '../Icon/IconPen.vue'),
       'icon-following': () => import( /* webpackPrefetch: true */ '../Icon/IconFollowing.vue')
     },
     data() {
@@ -272,10 +275,22 @@
             text: 'チャット',
             path_name: 'Following'
           },
-          // {
-          //   text: 'レビュー',
-          //   path_name: ''
-          // },
+          {
+            text: 'レビュー',
+            path_name: ''
+          },
+          {
+            text: '新着の作品',
+            path_name: ''
+          },
+          {
+            text: '人気の作品',
+            path_name: ''
+          },
+          {
+            text: '評価の高い作品',
+            path_name: ''
+          },
         ],
         list_item: {
           position: 'mt-1'

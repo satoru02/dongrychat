@@ -1,7 +1,7 @@
 <template>
   <v-container fluid :class="tagContainer">
     <v-row class="mt-1 mb-1">
-      <v-col cols=10 sm=10 md=10 lg=10 xl=10>
+      <v-col cols=10 sm=10 md=10 lg=10 xl=11>
         <span style="font-weight: bold;">トップ</span> <span style="color:#657482; font-weight: bold">/ #{{this.$route.params.name}}</span>
       </v-col>
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-n3" v-if="$vuetify.breakpoint.width > 600">
@@ -155,8 +155,9 @@
           case 'sm':
           case 'md':
           case 'lg':
-          case 'xl':
             return 4
+          case 'xl':
+            return 6
         }
       },
       baseCardPosition() {

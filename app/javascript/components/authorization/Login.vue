@@ -1,16 +1,16 @@
 <template>
-  <div>
+  <v-container>
     <v-row :style="$vuetify.breakpoint.width < 600 ? topPartMobile : topPartStyle">
       <v-col cols=12 sm=12 md=12 lg=12 xl=12 />
     </v-row>
     <v-row>
-      <v-col cols=2 sm=2 md=2 lg=2 xl=4 class="ml-14" />
-      <v-col cols=8 sm=8 md=8 lg=5 xl=5 class="ml-16">
+      <v-col cols=1 sm=1 md=2 lg=2 xl=3 :class="gridLeft" v-if="$vuetify.breakpoint.width > 600"  />
+      <v-col cols=10 sm=8 md=8 lg=5 xl=5 :class="gridCard">
         <v-card :color="loginCard.color" :class="loginCard.position" :elevation="loginCard.elevation"
           :height="loginCard.height" :width="loginCard.width">
           <v-row class="mt-4">
-            <v-col cols=3 sm=3 md=3 lg=4 xl=3 />
-            <v-col cols=9 sm=9 md=9 lg=8 xl=9 :class="$vuetify.breakpoint.width < 600 ? 'ml-n5' : 'ml-n10 mt-4'">
+            <v-col cols=3 sm=4 md=4 lg=4 xl=4 />
+            <v-col cols=9 sm=9 md=9 lg=8 xl=8 :class="$vuetify.breakpoint.width < 600 ? 'ml-n5' : 'ml-n10 mt-4'">
               <div :style="loginCard.headerTitleStyle" v-text="loginCard.headerText" />
             </v-col>
           </v-row>
@@ -19,7 +19,10 @@
             <v-col cols=10 sm=10 md=10 lg=10 xl=10>
               <v-btn @click="authenticate(loginCard.googleArg)" :color="loginCard.googleColor"
                 :style="loginCard.btnStyle" elevation=0 block>
-                <v-icon class="mr-4 ml-n3" size=11 v-text="loginCard.googleIcon" />{{loginCard.googleBtn}}
+                <icon-base class="mr-5" :width="'15'" :height="'15'" icon-name="icon-google" :viewBox="'0 0 512 512'">
+                  <icon-google />
+                </icon-base>
+                {{loginCard.googleBtn}}
               </v-btn>
             </v-col>
             <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
@@ -29,7 +32,11 @@
             <v-col cols=10 sm=10 md=10 lg=10 xl=10>
               <v-btn @click="authenticate(loginCard.facebookArg)" :color="loginCard.facebookColor"
                 :style="loginCard.btnStyle" elevation=0 block>
-                <v-icon class="mr-4 ml-1" size=11 v-text="loginCard.facebookIcon" />{{loginCard.facebookBtn}}
+                <icon-base class="ml-4 mr-6" :width="'15'" :height="'15'" icon-name="icon-facebook"
+                  :viewBox="'0 0 512 512'">
+                  <icon-facebook />
+                </icon-base>
+                {{loginCard.facebookBtn}}
               </v-btn>
             </v-col>
             <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
@@ -56,34 +63,34 @@
             </v-col>
           </v-row>
           <v-row :class="$vuetify.breakpoint.width < 600 ? 'mt-n9 mr-n16' : 'mt-n9 mr-n8'">
-            <v-col cols=6 sm=7 md=7 lg=7 xl=6 />
-            <v-col :class="$vuetify.breakpoint.width < 600 ? 'mt-n2 mb-3' : 'mt-n2 mb-3'" cols=6 sm=5 md=5 lg=5 xl=6>
-              <div @click="forgetPassword()" :style="loginCard.forgotTextStyle" v-text="loginCard.forgotPasswordText" />
+            <v-col cols=5 sm=7 md=7 lg=7 xl=7 />
+            <v-col :class="$vuetify.breakpoint.width < 600 ? 'mt-n2 mb-3 ml-4' : 'mt-n2 mb-3'" cols=6 sm=5 md=5 lg=5 xl=5>
+              <div @click="forgetPassword()" :style="loginCard.signupStyle" v-text="loginCard.forgotPasswordText" />
             </v-col>
           </v-row>
           <v-row class="mt-n7">
             <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
             <v-col cols=10 sm=10 md=10 lg=10 xl=10>
               <v-btn v-if="inputComplete === false" disabled block elevation=0>
-                <div :style="loginCard.loginTextStyle" v-text="loginCard.loginText" />
+                <div v-text="loginCard.loginText" />
               </v-btn>
               <v-btn :color="loginCard.loginBtnColor" v-if="inputComplete === true" @click="signIn()"
-                :style="afterInput" dark elevation=0 block>
+                :style="afterInput" elevation=0 block>
                 <div :style="loginCard.loginTextStyle" v-text="loginCard.loginText" />
               </v-btn>
             </v-col>
           </v-row>
           <v-row>
-            <v-col cols=6 sm=7 md=7 lg=7 xl=7 />
-            <v-col :class="$vuetify.breakpoint.width < 600 ? 'ml-2 mt-n3' : 'mt-n4 ml-n1'" cols=5 sm=5 md=5 lg=5 xl=5
+            <v-col cols=5 sm=7 md=7 lg=7 xl=7 />
+            <v-col :class="$vuetify.breakpoint.width < 600 ? 'ml-5 mt-n3' : 'mt-n4 ml-n1'" cols=6 sm=5 md=5 lg=5 xl=4
               @click="makeAccount()">
               <div :style="loginCard.signupStyle" v-text="loginCard.signupText" />
             </v-col>
           </v-row>
           <v-row>
             <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
-            <v-col :class="$vuetify.breakpoint.width < 600 ? 'mt-n1 ml-n5' : 'ml-n1 mt-n2'" cols=8 sm=8 md=8 lg=8 xl=8>
-              <div :style="loginCard.policyStyle" v-text="loginCard.policyText" />
+            <v-col :class="$vuetify.breakpoint.width < 600 ? 'mt-n1 ml-n5' : 'ml-n1 mt-n2'" cols=9 sm=8 md=8 lg=8 xl=8>
+              <div :style="loginCard.signupStyle" v-text="loginCard.policyText" />
             </v-col>
             <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
           </v-row>
@@ -99,16 +106,25 @@
         </v-btn>
       </template>
     </v-snackbar>
-  </div>
+  </v-container>
 </template>
 
 <script>
-  import { simpleAxios } from '../../backend/axios';
-  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  import {
+    simpleAxios
+  } from '../../backend/axios';
+  import {
+    RepositoryFactory
+  } from '../../repositories/RepositoryFactory';
   const authRepository = RepositoryFactory.get('auth');
 
   export default {
     name: 'Login',
+    components: {
+      'icon-base': () => import( /* webpackPrefetch: true */ '../Icon/IconBase'),
+      'icon-google': () => import( /* webpackPrefetch: true */ '../Icon/IconGoogle.vue'),
+      'icon-facebook': () => import( /* webpackPrefetch: true */ '../Icon/IconFacebook.vue'),
+    },
     data() {
       return {
         login_url: '/api/v1/login',
@@ -137,10 +153,10 @@
           backgroundColor: "#134563"
         },
         afterInput: {
-          backgroundColor: "#016aff"
+          backgroundColor: "#000000"
         },
         topPartStyle: {
-          height: '85px'
+          height: '105px'
         },
         topPartMobile: {
           height: '115px'
@@ -149,21 +165,21 @@
           headerText: 'Devioにようこそ！',
           googleArg: 'google',
           googleBtn: 'Googleでログイン',
-          googleColor: '#000000',
+          googleColor: '#212121',
           googleIcon: 'mdi-google',
           facebookArg: 'facebook',
           facebookBtn: 'Facebookでログイン',
           facebookColor: '#2962ff',
           facebookIcon: 'mdi-facebook',
           textFieldColor: '#ffffff',
-          loginBtnColor: '#016aff',
+          loginBtnColor: '#06d6a0',
           emailText: 'Eメール',
           passwordText: 'パスワード',
           forgotPasswordText: 'パスワードを忘れた',
           loginText: 'ログイン',
           signupText: 'アカウント登録はこちら',
           policyText: 'プライバシーポリシーと利用規約について',
-          color: "#edf2f4",
+          color: "#ffffff",
           height: '430px',
           width: '380px',
           position: 'rounded-lg',
@@ -186,7 +202,8 @@
           },
           loginTextStyle: {
             fontWeight: 'bold',
-            fontSize: '11px',
+            fontSize: '14px',
+            color: '#ffffff'
           },
           signupStyle: {
             color: '#adb5bd',
@@ -207,6 +224,31 @@
           return true
         } else {
           return false
+        }
+      },
+      gridLeft(){
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return 'ml-n3'
+          case 'sm':
+            return 'mt-2'
+          case 'md':
+            return 'ml-5'
+          case 'lg':
+          case 'xl':
+            return 'ml-7'
+        }
+      },
+      gridCard(){
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return 'ml-8'
+          case 'sm':
+          case 'md':
+          case 'lg':
+            return 'ml-16'
+          case 'xl':
+            return 'ml-7'
         }
       }
     },

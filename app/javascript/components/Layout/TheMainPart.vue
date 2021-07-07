@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <the-header v-if="!isMobile(display_size)" />
+    <the-header v-if="checkAuthorization()" />
     <v-main>
       <v-row>
         <v-col class="d-none d-lg-flex" lg=1 xl=1>
@@ -18,7 +18,7 @@
         </v-col>
       </v-row>
     </v-main>
-    <base-bottom-bar v-if="this.checkAuthorization() " />
+    <!-- <base-bottom-bar v-if="this.checkAuthorization() " /> -->
     <!-- <footer>
       <cookie-law buttonClass="button" buttonText="許可する" theme="shade-blue">
         <div slot="message">
@@ -94,7 +94,12 @@
           'UserFollowing',
           'UserFollowers',
           'UserReviews',
-          'UserProfile'
+          'UserProfile',
+          'Login',
+          'Signup',
+          'Authorization',
+          'ResetPassword',
+          'ForgotPassword'
         ]
         if (spaceRoute.includes(this.$route.name)) {
           return false
@@ -143,9 +148,17 @@
           case 'registeredMvSpace':
           case 'registeredMvSpaceMembers':
           case 'registeredMvSpaceReviews':
+          case 'Settings':
+          case 'Terms':
+          case 'Privacy':
+          case 'Login':
+          case 'Signup':
+          case 'Authorization':
+          case 'ResetPassword':
+          case 'ForgotPassword':
             this.smGrid = [0, 11, 0]
             this.mdGrid = [1, 10, 0]
-            this.lgGrid = [1, 8, 0]
+            this.lgGrid = [0, 9, 0]
             break;
           case 'TvDetails':
           case 'MvDetails':

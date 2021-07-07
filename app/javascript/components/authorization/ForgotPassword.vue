@@ -4,8 +4,8 @@
       <v-col cols=12 sm=12 md=12 lg=12 xl=12 />
     </v-row>
      <v-row>
-      <v-col cols=2 sm=2 md=2 lg=2 xl=4 class="ml-14" />
-      <v-col cols=8 sm=8 md=8 lg=5 xl=5 class="ml-16">
+      <v-col cols=2 sm=1 md=2 lg=2 xl=3 :class="gridLeft" v-if="$vuetify.breakpoint.width > 600" />
+      <v-col cols=11 sm=8 md=8 lg=5 xl=5 :class="gridCard">
         <v-card :color="card.color" :class="card.position" :elevation="card.elevation" outlined
           :height="card.height" :width="card.width">
           <v-row class="mt-4">
@@ -86,11 +86,11 @@
         card: {
           headerText: 'パスワードの再設定',
           textFieldColor: '#ffffff',
-          btnColor: '#016aff',
+          btnColor: '#000000',
           emailText: 'Eメール',
           sendText: 'メールを送信する',
           policyText: 'プライバシーポリシーと利用規約について',
-          color: "#edf2f4",
+          color: "#ffffff",
           height: '230px',
           width: '380px',
           position: 'rounded-lg',
@@ -108,6 +108,30 @@
             color: '#6c757d',
             fontSize: '8px',
           }
+        }
+      }
+    },
+    computed:{
+      gridLeft(){
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+          case 'sm':
+          case 'md':
+            return 'ml-5'
+          case 'lg':
+          case 'xl':
+            return 'ml-7'
+        }
+      },
+      gridCard(){
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return 'ml-4'
+          case 'sm':
+          case 'md':
+          case 'lg':
+          case 'xl':
+            return 'ml-16'
         }
       }
     },

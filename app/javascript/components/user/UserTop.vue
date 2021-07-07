@@ -1,6 +1,6 @@
 <template>
   <v-container class="mt-5">
-    <v-row>
+    <v-row v-if="$vuetify.breakpoint.width > 600">
       <v-col cols=3 sm=1 md=1 lg=1>
         <v-avatar size=88 elevation=0 color="#dee2e6">
           <v-img :src="this.user_info.avatar_url"></v-img>
@@ -20,6 +20,25 @@
         <h2 class="mt-6">{{this.user_info.name}}</h2>
       </v-col>
     </v-row>
+    <v-row v-if="$vuetify.breakpoint.width < 600">
+      <v-col cols=2>
+        <v-avatar size=45 elevation=0 color="#dee2e6">
+          <v-img :src="this.user_info.avatar_url"></v-img>
+        </v-avatar>
+      </v-col>
+      <v-col cols=10 :class="'ml-3'" v-if="user_info && ($store.state.user.currentUser.id != user_info.id)">
+        <h7 class="mt-2">{{this.user_info.name}}</h7>
+        <v-btn class="rounded mt-3" x-small elevation=0
+          v-if="user_info && ($store.state.user.currentUser.id != user_info.id)"
+          :style="followed ? followingStyle : unfollowStyle" :outlined="followed ? true : false"
+          @click="followed ? unfollow(user_info.id) : follow(user_info.id)">
+          {{ followed ? followingText : unfollowText }}
+        </v-btn>
+      </v-col>
+      <v-col cols=10 v-else class="mt-3">
+        <h7>{{this.user_info.name}}</h7>
+      </v-col>
+    </v-row>
     <v-row>
       <v-col cols=12 sm=12 md=12 lg=12>
         <v-tabs background-color="transparent" color="#111111">
@@ -28,8 +47,6 @@
             v-for="(tab, index) in user_tabs" :key="index">
             <span class="ml-3 mr-3">{{tab.title}}</span>
             {{usersAtrCount(tab.title)}}
-            <!-- <v-chip class="ml-3 rounded-xl" :color="'#f2f2f2'" small v-text="usersAtrCount(tab.title)">
-            </v-chip> -->
           </v-tab>
         </v-tabs>
       </v-col>
@@ -67,18 +84,18 @@
             title: 'レビュー',
             path: 'UserReviews',
           },
-          {
-            title: 'フォロワー',
-            path: 'UserFollowers',
-          },
-          {
-            title: 'フォロー',
-            path: 'UserFollowing',
-          },
-          {
-            title: 'プロフィール',
-            path: 'UserProfile',
-          },
+          // {
+          //   title: 'フォロワー',
+          //   path: 'UserFollowers',
+          // },
+          // {
+          //   title: 'フォロー',
+          //   path: 'UserFollowing',
+          // },
+          // {
+          //   title: 'プロフィール',
+          //   path: 'UserProfile',
+          // },
         ],
         followed: Boolean,
         followingText: 'フォロー中',

@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="mt-3">
+  <v-container fluid>
     <h3 class=ml-3>フォロー中の作品一覧</h3>
     <v-list nav two-line>
       <v-list-item-group multiple>

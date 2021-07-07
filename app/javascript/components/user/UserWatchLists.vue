@@ -1,7 +1,7 @@
 <template>
   <div class="mt-3">
-    <v-row>
-      <v-col cols=6 sm=4 md=3 lg=3 v-for="(space, index) in spaces" :key="index">
+    <v-row v-if="$vuetify.breakpoint.width > 600">
+      <v-col sm=4 md=3 lg=3 v-for="(space, index) in spaces" :key="index">
         <v-card elevation=0 class="rounded-lg" @click="enterSpace(space)">
           <v-img position="under" gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)"
             class="white--text align-end rounded-lg" height="240px" :src="posterImg(space.attributes.image_path)">
@@ -19,6 +19,15 @@
             <v-card-title style="font-weight: bold; line-height: 23px; font-size: 15px;">
               {{space.attributes.name}}
             </v-card-title>
+          </v-img>
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-row v-if="$vuetify.breakpoint.width < 600">
+      <v-col cols=4 v-for="(space, index) in spaces" :key="index">
+        <v-card elevation=0 class="rounded-lg" @click="enterSpace(space)">
+          <v-img
+            class="white--text align-end rounded" height="160px" :src="posterImg(space.attributes.image_path)">
           </v-img>
         </v-card>
       </v-col>

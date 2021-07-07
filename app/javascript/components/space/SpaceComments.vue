@@ -1,7 +1,7 @@
 <template>
   <v-container :class="vContainer">
     <v-row v-for="(comment, index) in comments" :key="index" class="mb-n1">
-      <v-col cols=2 sm=2 md=1 lg=1 xl=1 :class="vColAvatarGrid">
+      <v-col cols=2 sm=2 md=1 lg=1 xl=1>
         <v-avatar @click="goUserPage(comment.attributes.user.data.attributes)" :style="avatar.style"
           :size='avatar.size' :height='avatar.height'>
           <img outlined v-if="comment.attributes.user.data.attributes.avatar_url"
@@ -99,7 +99,7 @@
           case 'lg':
             return 'mt-n7 ml-2'
           case 'xl':
-            return 'mt-n9'
+            return 'mt-n3　ml-4'
         }
 
       },
@@ -131,20 +131,6 @@
             return ''
         }
       },
-      vColAvatarGrid() {
-        switch (this.$vuetify.breakpoint.name) {
-          case 'xs':
-            return ''
-          case 'sm':
-            return ''
-          case 'md':
-            return ''
-          case 'lg':
-            return ''
-          case 'xl':
-            return 'mt-n9'
-        }
-      }
     }
   }
 </script>

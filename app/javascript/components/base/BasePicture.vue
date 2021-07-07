@@ -1,6 +1,6 @@
 <template>
   <v-row :class="topImage">
-    <v-col cols=4 sm=3 md=3 lg=3 xl=3 :class="imageSpace" v-for="(item, index) in items" :key="index">
+    <v-col cols=4 sm=3 md=3 lg=3 xl=2 :class="imageSpace" v-for="(item, index) in items" :key="index">
       <v-card @click="enterSpace(item.attributes)" elevation=0 class="rounded-lg">
         <v-img v-if="item.attributes.image_path" position="under"
           gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 70%)" class="white--text align-end rounded-lg"
