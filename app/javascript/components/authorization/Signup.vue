@@ -5,13 +5,13 @@
       <v-col cols=12 sm=12 md=12 lg=12 xl=12 />
     </v-row>
     <v-row>
-      <v-col cols=2 sm=2 md=2 lg=2 xl=4 class="ml-14" />
-      <v-col cols=8 sm=8 md=8 lg=5 xl=5 class="ml-16">
+      <v-col cols=1 sm=1 md=2 lg=2 xl=3 :class="gridLeft" />
+      <v-col cols=10 sm=8 md=8 lg=5 xl=5 :class="gridCard">
         <v-card :color="signupCard.color" :class="signupCard.position" :elevation="signupCard.elevation"
           :height="signupCard.height" :width="signupCard.width">
           <v-row class="mt-1">
-            <v-col cols=3 sm=3 md=3 lg=4 xl=3 />
-            <v-col cols=9 sm=9 md=9 lg=8 xl=9 :class="$vuetify.breakpoint.width < 600 ? 'ml-n5' : 'ml-n9 mt-3'">
+            <v-col cols=3 sm=4 md=4 lg=4 xl=4 />
+            <v-col cols=9 sm=8 md=8 lg=8 xl=8 :class="$vuetify.breakpoint.width < 600 ? 'ml-n5' : 'ml-n9 mt-3'">
               <div :style="signupCard.headerTitleStyle" v-text="signupCard.headerText" />
             </v-col>
           </v-row>
@@ -20,7 +20,10 @@
             <v-col cols=10 sm=10 md=10 lg=10 xl=10>
               <v-btn @click="authenticate(signupCard.googleArg)" :color="signupCard.googleColor"
                 :style="signupCard.btnStyle" elevation=0 block>
-                <v-icon class="mr-4 ml-n3" size=11 v-text="signupCard.googleIcon" />{{signupCard.googleBtn}}
+                <icon-base class="mr-5" :width="'15'" :height="'15'" icon-name="icon-google" :viewBox="'0 0 512 512'">
+                  <icon-google />
+                </icon-base>
+                {{signupCard.googleBtn}}
               </v-btn>
             </v-col>
             <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
@@ -30,7 +33,11 @@
             <v-col cols=10 sm=10 md=10 lg=10 xl=10>
               <v-btn @click="authenticate(signupCard.facebookArg)" :color="signupCard.facebookColor"
                 :style="signupCard.btnStyle" elevation=0 block>
-                <v-icon class="mr-4 ml-1" size=11 v-text="signupCard.facebookIcon" />{{signupCard.facebookBtn}}
+                <icon-base class="ml-4 mr-6" :width="'15'" :height="'15'" icon-name="icon-facebook"
+                  :viewBox="'0 0 512 512'">
+                  <icon-facebook />
+                </icon-base>
+                {{signupCard.facebookBtn}}
               </v-btn>
             </v-col>
             <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
@@ -77,22 +84,21 @@
               <v-btn v-if="inputComplete === false" disabled block elevation=0>
                 <div :style="signupCard.signupTextStyle" v-text="signupCard.signupText" />
               </v-btn>
-              <v-btn v-if="inputComplete === true" @click="signup()"
-                :style="afterInput" dark elevation=0 block>
+              <v-btn v-if="inputComplete === true" @click="signup()" :style="afterInput" dark elevation=0 block>
                 <div :style="signupCard.signupTextStyle" v-text="signupCard.signupText" />
               </v-btn>
             </v-col>
           </v-row>
           <v-row>
-            <v-col cols=7 sm=7 md=7 lg=8 xl=7 />
-            <v-col :class="$vuetify.breakpoint.width < 600 ? 'ml-2 mt-n3' : 'mt-n3 ml-n1'" cols=4 sm=5 md=5 lg=4 xl=5
+            <v-col cols=7 sm=8 md=8 lg=8 xl=8 />
+            <v-col :class="$vuetify.breakpoint.width < 600 ? 'ml-2 mt-n3' : 'mt-n3 ml-n1'" cols=4 sm=4 md=4 lg=4 xl=4
               @click="haveAccount()">
               <div :style="signupCard.loginStyle" v-text="signupCard.loginText" />
             </v-col>
           </v-row>
           <v-row>
             <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
-            <v-col :class="$vuetify.breakpoint.width < 600 ? 'mt-n1 ml-n5' : 'ml-n1 mt-n3'" cols=8 sm=8 md=8 lg=8 xl=8>
+            <v-col :class="$vuetify.breakpoint.width < 600 ? 'mt-n1 ml-n5' : 'ml-n1 mt-n3'" cols=9 sm=8 md=8 lg=8 xl=8>
               <div :style="signupCard.policyStyle" v-text="signupCard.policyText" />
             </v-col>
             <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
@@ -123,11 +129,18 @@
 </template>
 
 <script>
-  import { RepositoryFactory } from '../../repositories/RepositoryFactory';
+  import {
+    RepositoryFactory
+  } from '../../repositories/RepositoryFactory';
   const authRepository = RepositoryFactory.get('auth');
 
   export default {
     name: 'Signup',
+    components: {
+      'icon-base': () => import( /* webpackPrefetch: true */ '../Icon/IconBase'),
+      'icon-google': () => import( /* webpackPrefetch: true */ '../Icon/IconGoogle.vue'),
+      'icon-facebook': () => import( /* webpackPrefetch: true */ '../Icon/IconFacebook.vue'),
+    },
     data() {
       return {
         email: '',
@@ -164,10 +177,10 @@
           backgroundColor: "#134563"
         },
         afterInput: {
-          backgroundColor: "#016aff"
+          backgroundColor: "#000000"
         },
         topPartStyle: {
-          height: '40px'
+          height: '105px'
         },
         topPartMobile: {
           height: '85px'
@@ -175,11 +188,11 @@
         signupCard: {
           headerText: 'Devioにようこそ！',
           googleArg: 'google',
-          googleBtn: 'Googleアカウントで登録',
-          googleColor: '#000000',
+          googleBtn: 'Googleで登録',
+          googleColor: '#212121',
           googleIcon: 'mdi-google',
           facebookArg: 'facebook',
-          facebookBtn: 'Facebookアカウントで登録',
+          facebookBtn: 'Facebookで登録',
           facebookColor: '#2962ff',
           facebookIcon: 'mdi-facebook',
           textFieldColor: '#ffffff',
@@ -191,7 +204,7 @@
           signupText: 'アカウント登録',
           loginText: 'ログインはこちら',
           policyText: 'プライバシーポリシーと利用規約について',
-          color: "#edf2f4",
+          color: "#ffffff",
           height: '530px',
           width: '380px',
           position: 'rounded-lg',
@@ -213,7 +226,7 @@
           },
           signupTextStyle: {
             fontWeight: 'bold',
-            fontSize: '11px',
+            fontSize: '14px',
           },
           loginStyle: {
             color: '#adb5bd',
@@ -235,6 +248,31 @@
           return true
         } else {
           return false
+        }
+      },
+      gridLeft(){
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return 'ml-n6'
+          case 'sm':
+            return 'ml-3'
+          case 'md':
+            return 'ml-5'
+          case 'lg':
+          case 'xl':
+            return 'ml-7'
+        }
+      },
+      gridCard(){
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return 'ml-7'
+          case 'sm':
+          case 'md':
+          case 'lg':
+            return 'ml-16'
+          case 'xl':
+            return 'ml-7'
         }
       }
     },
@@ -266,11 +304,11 @@
         this.checkFormValidation()
         if (!this.errors.length) {
           authRepository.signup({
-            name: this.name,
-            email: this.email,
-            password: this.password,
-            password_confirmation: this.password_confirmation
-          })
+              name: this.name,
+              email: this.email,
+              password: this.password,
+              password_confirmation: this.password_confirmation
+            })
             .then(this.sendingMail = true)
             .then(res => this.signupSuccessful(res))
             .catch(err => this.signupFailed(err))
@@ -282,7 +320,7 @@
       },
       signupFailed(err) {
         this.sendingMail = false,
-        this.errors.push(this.notify_account)
+          this.errors.push(this.notify_account)
         this.errorbar = true
         this.error = (err.response && err.response.data && err.response.data.error) || ''
       },
@@ -309,6 +347,7 @@
   * {
     text-transform: none !important;
   }
+
   .v-text-field--outlined>>>fieldset {
     border-color: #e9ecef;
   }

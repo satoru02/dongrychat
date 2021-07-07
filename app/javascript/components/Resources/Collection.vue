@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-tabs height="40" class="mt-n1" background-color='#ffffff'>
+    <v-tabs height="40" class="mt-n1">
       <v-tabs-slider color="#111111"></v-tabs-slider>
       <v-tab @click="changeContents(tab)" class="tab-name" active-class="black--text" v-for="(tab, index) in tabs"
         :key="index">

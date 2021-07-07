@@ -1,9 +1,8 @@
 <template>
-  <div style="background-color: #fafafa">
+  <v-container>
     <v-row>
-      <v-col lg=2></v-col>
-      <v-col lg=2>
-        <v-list dense style="background-color: #fafafa">
+      <v-col v-if="$vuetify.breakpoint.width > 600" sm=3 md=3 lg=2 xl=2>
+        <v-list dense>
           <v-subheader class="setting-title ml-2">設定</v-subheader>
           <v-list-item-group color="primary">
             <v-list-item v-for="(n,i) in lists" :key="i">
@@ -14,169 +13,149 @@
           </v-list-item-group>
         </v-list>
       </v-col>
-      <v-col lg=6 class="mt-5">
-        <v-sheet height="1000px;" class="rounded-lg">
+      <v-col cols=12 sm=8 md=8 lg=7 xl=7>
           <v-row dense>
-            <v-col lg=3>
+            <v-col cols=12 sm=12 md=12 lg=3 xl=3>
               <h3 class="setting-title mt-5 ml-5">アカウント設定</h3>
             </v-col>
-            <v-col lg=7 md=8 xl=8 class="mt-1">
-            </v-col>
-            <v-col lg=2>
-            </v-col>
           </v-row>
           <v-row dense>
-            <v-col lg=11 class="ml-5 mt-3">
+            <v-col cols=11 sm=11 md=11 lg=11 xl=11 class="ml-5 mt-3">
               <v-divider />
             </v-col>
-            <v-col lg=1></v-col>
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1></v-col>
           </v-row>
           <v-row dense>
-            <v-col lg=3>
+            <v-col cols=3 sm=3 md=3 lg=3 xl=3>
               <h3 class="setting-title mt-3 ml-5">名前</h3>
             </v-col>
-            <v-col lg=8 md=8 xl=8 class="mt-1 ml-5">
-              <v-text-field class="rounded-lg" outlined :rules="[rules.minName]" background-color="#ffffff" color="red"
+            <v-col cols=8 sm=8 lg=8 md=8 xl=8 class="mt-1 ml-5">
+              <v-text-field class="rounded" outlined :rules="[rules.minName]" background-color="#ffffff" color="red"
                 :placeholder="this.$store.state.user.currentUser.name" solo filled dense flat v-model="name" />
             </v-col>
           </v-row>
           <v-row dense>
-            <v-col lg=3>
+            <v-col cols=3 sm=3 md=3 lg=3 xl=3>
               <h3 class="setting-title mt-3 ml-5">アイコン</h3>
             </v-col>
-            <v-col lg=8 md=8 xl=8 class="mt-1 ml-5">
+            <v-col cols=8 sm=8 lg=8 md=8 xl=8 class="mt-1 ml-5">
               <v-file-input background-color="#ffffff" outlined filled dense flat solo v-model="picture" @change="getPresignedURI()" />
             </v-col>
           </v-row>
           <v-row dense>
-            <v-col lg=11 class="ml-5 mt-n3">
+            <v-col cols=11 sm=11 md=11 lg=11 xl=11 class="ml-5 mt-n3">
               <v-divider />
             </v-col>
-            <v-col lg=1></v-col>
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1></v-col>
           </v-row>
           <v-row dense>
-            <v-col lg=3>
+            <v-col cols=3 sm=3 md=3 lg=3 xl=3>
               <h3 class="setting-title mt-3 ml-5">プロフィール</h3>
             </v-col>
-            <v-col lg=8 md=8 xl=8 class="mt-1 ml-5">
-              <v-textarea class="rounded-lg" outlined background-color="#ffffff" solo flat
+            <v-col cols=8 sm=8 lg=8 md=8 xl=8 class="mt-1 ml-5">
+              <v-textarea class="rounded" outlined background-color="#ffffff" solo flat
                 :placeholder="this.$store.state.user.currentUser.about" filled dense v-model="about" />
             </v-col>
           </v-row>
           <v-row dense>
-            <v-col lg=11 class="ml-5 mt-n3">
+            <v-col cols=11 sm=11 md=11 lg=11 xl=11 class="ml-5 mt-n3">
               <v-divider />
             </v-col>
-            <v-col lg=1></v-col>
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1></v-col>
           </v-row>
           <v-row dense>
-            <v-col lg=3>
+            <v-col cols=3 sm=3 md=3 lg=3 xl=3>
               <h3 class="setting-title mt-3 ml-5">メール</h3>
             </v-col>
-            <v-col lg=8 md=8 xl=8 class="mt-1 ml-5">
-              <v-text-field class="rounded-lg" outlined background-color="#ffffff" solo flat :rules="[rules.testMail]"
+            <v-col cols=8 sm=8 lg=8 md=8 xl=8 class="mt-1 ml-5">
+              <v-text-field class="rounded" outlined background-color="#ffffff" solo flat :rules="[rules.testMail]"
                 :placeholder="this.$store.state.user.currentUser.email" filled dense v-model="email" />
             </v-col>
           </v-row>
           <v-row dense>
-            <v-col lg=11 class="ml-5 mt-n3">
+            <v-col cols=11 sm=11 md=11 lg=11 xl=11 class="ml-5 mt-n3">
               <v-divider />
             </v-col>
-            <v-col lg=1></v-col>
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1></v-col>
           </v-row>
           <v-row dense>
-            <v-col lg=3>
+            <v-col cols=3 sm=3 md=3 lg=3 xl=3>
               <h3 class="setting-title mt-3 ml-5">住所</h3>
             </v-col>
-            <v-col lg=8 md=8 xl=8 class="mt-1 ml-5">
-              <v-text-field class="rounded-lg" background-color="#ffffff" outlined solo flat
+            <v-col cols=8 sm=8 lg=8 md=8 xl=8 class="mt-1 ml-5">
+              <v-text-field class="rounded" background-color="#ffffff" outlined solo flat
                 :placeholder="this.$store.state.user.currentUser.location" filled dense v-model="location" />
             </v-col>
           </v-row>
           <v-row dense>
-            <v-col lg=11 class="ml-5 mt-n3">
+            <v-col cols=11 sm=11 md=11 lg=11 xl=11 class="ml-5 mt-n3">
               <v-divider />
             </v-col>
-            <v-col lg=1></v-col>
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1></v-col>
           </v-row>
           <v-row dense>
-            <v-col lg=3>
+            <v-col cols=3 sm=3 md=3 lg=3 xl=3>
               <h3 class="setting-title mt-3 ml-5">Youtube</h3>
             </v-col>
-            <v-col lg=8 md=8 xl=8 class="mt-1 ml-5">
-              <v-text-field class="rounded-lg" background-color="#ffffff" outlined solo flat :rules="[rules.testURL]"
+            <v-col cols=8 sm=8 lg=8 md=8 xl=8 class="mt-1 ml-5">
+              <v-text-field class="rounded" background-color="#ffffff" outlined solo flat :rules="[rules.testURL]"
                 :placeholder="sns_links[0] == '' ? 'https://youtube.com/username' : sns_links[0]" filled dense
                 v-model="sns_links[0]" />
             </v-col>
           </v-row>
           <v-row dense>
-            <v-col lg=11 class="ml-5 mt-n3">
+            <v-col cols=11 sm=11 md=11 lg=11 xl=11 class="ml-5 mt-n3">
               <v-divider />
             </v-col>
-            <v-col lg=1></v-col>
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1></v-col>
           </v-row>
           <v-row dense>
-            <v-col lg=3>
+            <v-col cols=3 sm=3 md=3 lg=3 xl=3>
               <h3 class="setting-title mt-3 ml-5">Instagram</h3>
             </v-col>
-            <v-col lg=8 md=8 xl=8 class="mt-1 ml-5">
-              <v-text-field class="rounded-lg" background-color="#ffffff" outlined solo flat :rules="[rules.testURL]"
+            <v-col cols=8 sm=8 lg=8 md=8 xl=8 class="mt-1 ml-5">
+              <v-text-field class="rounded" background-color="#ffffff" outlined solo flat :rules="[rules.testURL]"
                 :placeholder="sns_links[1] == '' ? 'https://instagram.com/username' : sns_links[1]" filled dense
                 v-model="sns_links[1]" />
             </v-col>
           </v-row>
           <v-row dense>
-            <v-col lg=11 class="ml-5 mt-n3">
+            <v-col cols=11 sm=11 md=11 lg=11 xl=11 class="ml-5 mt-n3">
               <v-divider />
             </v-col>
-            <v-col lg=1></v-col>
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1></v-col>
           </v-row>
           <v-row dense>
-            <v-col lg=3>
+            <v-col cols=3 sm=3 md=3 lg=3 xl=3>
               <h3 class="setting-title mt-3 ml-5">Twitter</h3>
             </v-col>
-            <v-col lg=8 md=8 xl=8 class="mt-1 ml-5">
-              <v-text-field class="rounded-lg" background-color="#ffffff" outlined solo flat :rules="[rules.testURL]"
+            <v-col cols=8 sm=8 lg=8 md=8 xl=8 class="mt-1 ml-5">
+              <v-text-field class="rounded" background-color="#ffffff" outlined solo flat :rules="[rules.testURL]"
                 :placeholder="sns_links[2] == '' ? 'https://twitter.com/username' : sns_links[2]" filled dense
                 v-model="sns_links[2]" />
             </v-col>
           </v-row>
           <v-row dense>
-            <v-col lg=11 class="ml-5 mt-n3">
+            <v-col cols=11 sm=11 md=11 lg=11 xl=11 class="ml-5 mt-n3">
               <v-divider />
             </v-col>
-            <v-col lg=1></v-col>
+            <v-col cols=1 sm=1 md=1 lg=1 xl=1></v-col>
           </v-row>
           <v-row dense>
-            <v-col lg=3>
+            <v-col cols=3 sm=3 md=3 lg=3 xl=3>
               <h3 class="setting-title mt-3 ml-5">Facebook</h3>
             </v-col>
-            <v-col lg=8 md=8 xl=8 class="mt-1 ml-5">
-              <v-text-field class="rounded-lg" background-color="#ffffff" outlined solo flat :rules="[rules.testURL]"
+            <v-col cols=8 sm=8 lg=8 md=8 xl=8 class="mt-1 ml-5">
+              <v-text-field class="rounded" background-color="#ffffff" outlined solo flat :rules="[rules.testURL]"
                 :placeholder="sns_links[3] == '' ? 'https://facebook.com/username' : sns_links[3]" filled dense
                 v-model="sns_links[3]" />
             </v-col>
           </v-row>
           <v-row dense class="mt-n5">
-            <v-col lg=9 class="ml-5 mt-n3">
-            </v-col>
-            <v-col lg=1 class="ml-8 mt-4">
-              <v-btn elevation=0 class="btn-title" small block color="primary" @click="updateProfile()">変更する</v-btn>
+            <v-col cols=11 sm=11 md=11 lg=11 xl=11 class="ml-5 mt-8">
+              <v-btn elevation=0 class="btn-title" block color="primary" @click="updateProfile()">変更する</v-btn>
             </v-col>
           </v-row>
-          <v-row dense>
-            <v-col lg=11 class="ml-5 mt-n3">
-              <!-- <v-divider /> -->
-            </v-col>
-            <v-col lg=1></v-col>
-          </v-row>
-          <v-row dense>
-            <v-col lg=11 class="ml-5 mt-n3">
-              <!-- <v-divider /> -->
-            </v-col>
-            <v-col lg=1></v-col>
-          </v-row>
-        </v-sheet>
       </v-col>
     </v-row>
 
@@ -196,7 +175,7 @@
         </v-btn>
       </template>
     </v-snackbar>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -325,7 +304,6 @@
 <style scoped>
   .head-title {
     font-weight: bold;
-    font-family: 'Helvetica Neue', sans-serif;
     font-size: 15px;
     color: #111111;
   }
@@ -336,14 +314,12 @@
 
   .setting-title {
     font-weight: bold;
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     color: #374151;
   }
 
   .btn-title {
     font-weight: bold;
-    font-family: 'Helvetica Neue', sans-serif;
     font-size: 11px;
     color: #ffffff;
   }

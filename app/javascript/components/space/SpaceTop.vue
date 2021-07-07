@@ -4,10 +4,10 @@
     <v-row no-gutters>
 
       <!-- left part -->
-      <v-col cols=4 sm=4 md=3 lg=3 xl=3 :class="vColAvatarGrid">
-        <v-card elevation=0 class="rounded-lg" width="230px" color="#dee2e6">
+      <v-col cols=4 sm=4 md=4 lg=3 xl=3 :class="vColAvatarGrid">
+        <v-card elevation=0 class="rounded-lg" width="310px" color="#dee2e6">
           <v-img v-if="this.space_data.image_path" :src="posterImg()" class="white--text mt-n2"
-            :height="$vuetify.breakpoint.width > 600 ?  '330px' : '190px'">
+            :height="$vuetify.breakpoint.width > 600 ?  '380px' : '190px'">
           </v-img>
           <v-img height="340px" v-else>
             <icon-base :width="'130'" class="mt-15 ml-13" :height="'140'" icon-name="icon-no-image"
@@ -19,15 +19,14 @@
 
         <v-row class="mt-1">
           <v-col sm=12 md=12 lg=12 xl=12 v-if="$vuetify.breakpoint.width > 600">
-            <v-row class="ml-7">
+            <v-row class="ml-11">
               <v-col sm=5 md=5 lg=5 style="font-weight: bold;">
                 <h2>{{this.space_data.watchlist_count}}</h2>
                 <p class="ml-n4" style="font-size: 13px; font-weight: bold;">総視聴数</p>
               </v-col>
-              <v-col sm=2 md=1 lg=1 class="ml-n4 mb-5 mt-1">
-                <!-- <v-divider vertical /> -->
+              <v-col sm=2 md=2 lg=2 class="ml-n4 mb-5 mt-1">
               </v-col>
-              <v-col sm=5 md=5 lg=5 style="font-weight: bold;" class="ml-3">
+              <v-col sm=5 md=5 lg=5 style="font-weight: bold;" class="ml-2">
                 <h2>4.3</h2>
                 <p class="ml-n1" style="font-size: 13px; font-weight: bold;">レビュー</p>
               </v-col>
@@ -137,7 +136,7 @@
       </v-col>
 
       <!-- right part -->
-      <v-col cols=8 sm=7 md=8 lg=9 xl=9 :class="$vuetify.breakpoint.width > 600 ? 'mt-8' : 'ml-n5 mt-2'">
+      <v-col cols=8 sm=7 md=8 lg=8 xl=8 :class="$vuetify.breakpoint.width > 600 ? 'mt-8' : 'ml-n5 mt-2'">
         <v-row class="ml-8">
           <base-label :style="'font-weight: bold; border-width: 1.8;'" class="rounded" font_size="13px"
             v-if="space_data.media === media.tv" :label="true" :small="true" :color="'#020814'" :outlined="true"
@@ -166,7 +165,6 @@
             <p class="" style="font-size: 13px; font-weight: bold;">総視聴数</p>
           </v-col>
           <v-col cols=1 class="ml-n4 mb-5 mt-1">
-            <!-- <v-divider vertical /> -->
           </v-col>
           <v-col cols=4 style="font-weight: bold;" class="">
             <h4>4.3</h4>
@@ -200,7 +198,6 @@
                 <span v-else class="ml-3">{{setCount(tablist.title)}}</span>
               </v-tab>
             </v-tabs>
-            <!-- <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" /> -->
             <router-view v-if="this.space_data" :spaceId="this.space_data.id" />
           </v-col>
         </v-row>
@@ -261,7 +258,6 @@
           </v-tab>
         </v-tabs>
         <v-divider />　
-        <!-- <router-view v-if="this.space_data" :spaceId="this.space_data.id" :users="this.space_data.users.data" /> -->
         <router-view v-if="this.space_data" :spaceId="this.space_data.id" />
       </v-col>
     </v-row>
@@ -668,8 +664,9 @@
           case 'md':
             return 'ml-n4'
           case 'lg':
-          case 'xl':
             return 'ml-n8'
+          case 'xl':
+            return 'ml-n6'
         }
 
       },
@@ -682,7 +679,7 @@
           case 'md':
             return 'mt-7 ml-n4'
           case 'lg':
-            return 'mt-7 ml-n4'
+            return 'mt-7'
           case 'xl':
             return 'ml-10 mt-1'
         }

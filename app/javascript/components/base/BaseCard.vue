@@ -146,10 +146,10 @@
             return ''
           case 'sm':
           case 'md':
-            return ''
           case 'lg':
-          case 'xl':
             return '580'
+          case 'xl':
+            return '980'
         }
       },
       itemAvatar() {

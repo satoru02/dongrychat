@@ -38,7 +38,7 @@ class UserSerializer
   include JSONAPI::Serializer
 
   set_type :user
-  attributes :id, :email, :role, :activated, :activated_at, :name, :about, :location, :sns_links, :gender, :birthday
+  attributes :id, :name, :about, :location, :sns_links, :gender, :birthday
   attribute :following do |user|
     user.following.map(&:id)
   end

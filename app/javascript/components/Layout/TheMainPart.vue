@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <the-header v-if="!isMobile(display_size)" />
+    <the-header v-if="checkAuthorization()" />
     <v-main>
       <v-row>
         <v-col class="d-none d-lg-flex" lg=1 xl=1>
@@ -18,7 +18,7 @@
         </v-col>
       </v-row>
     </v-main>
-    <base-bottom-bar v-if="this.checkAuthorization() " />
+    <!-- <base-bottom-bar v-if="this.checkAuthorization() " /> -->
     <!-- <footer>
       <cookie-law buttonClass="button" buttonText="許可する" theme="shade-blue">
         <div slot="message">
@@ -34,7 +34,7 @@
   import TheLeftBar from './TheLeftBar';
   import TheBottomBar from '../Base/BaseBottomBar'
   import CookieLaw from 'vue-cookie-law';
-  import { isMobile, isTablet } from '../../helper/display';
+  import { isMobile } from '../../helper/display';
 
   export default {
     name: 'TheMainPart',
@@ -64,7 +64,6 @@
     },
     methods: {
       isMobile,
-      isTablet,
       checkAuthorization() {
         let validationRouter = ['Login', 'Signup', 'Authorization', 'ResetPassword', 'ForgotPassword']
         if (validationRouter.includes(this.$route.name)) {
@@ -90,6 +89,17 @@
           'registeredMvSpace',
           'registeredMvSpaceMembers',
           'registeredMvSpaceReviews',
+          'watchlists',
+          'watchlog',
+          'UserFollowing',
+          'UserFollowers',
+          'UserReviews',
+          'UserProfile',
+          'Login',
+          'Signup',
+          'Authorization',
+          'ResetPassword',
+          'ForgotPassword'
         ]
         if (spaceRoute.includes(this.$route.name)) {
           return false
@@ -104,8 +114,24 @@
           case 'UserFollowing':
           case 'UserFollowers':
           case 'UserReviews':
-            this.lgGrid = [0, 10, 0]
+          case 'UserProfile':
+            this.smGrid = [2, 10, 0]
+            this.mdGrid = [1, 10, 0]
+            this.lgGrid = [1, 8, 0]
+            break;
           case 'Following':
+            this.smGrid = [2, 10, 0]
+            this.mdGrid = [3, 9, 0]
+            this.lgGrid = [2, 7, 0]
+            break;
+          case 'Popular':
+          case 'Trend':
+          case 'TopRated':
+          case 'multi':
+          case 'person':
+          case 'movie':
+          case 'tv':
+          case 'Company':
             this.smGrid = [2, 10, 0]
             this.mdGrid = [3, 9, 0]
             this.lgGrid = [2, 7, 0]
@@ -122,9 +148,17 @@
           case 'registeredMvSpace':
           case 'registeredMvSpaceMembers':
           case 'registeredMvSpaceReviews':
+          case 'Settings':
+          case 'Terms':
+          case 'Privacy':
+          case 'Login':
+          case 'Signup':
+          case 'Authorization':
+          case 'ResetPassword':
+          case 'ForgotPassword':
             this.smGrid = [0, 11, 0]
             this.mdGrid = [1, 10, 0]
-            this.lgGrid = [1, 8, 0]
+            this.lgGrid = [0, 9, 0]
             break;
           case 'TvDetails':
           case 'MvDetails':

@@ -2,7 +2,7 @@
   <v-container class="pl-9">
 
     <!-- avatar-row -->
-    <v-row>
+    <v-row v-if="$store.state.user.signedIn">
       <v-col md=4 lg=4 xl=4></v-col>
       <v-col md=5 lg=5 xl=5>
         <v-avatar size=70 color="#dee2e6">
@@ -13,7 +13,7 @@
     </v-row>
 
     <!-- username-row -->
-    <v-row class="pl-3" no-gutters>
+    <v-row class="pl-3" no-gutters v-if="$store.state.user.signedIn">
       <v-col md=3 lg=3 xl=3></v-col>
       <v-col md=8 lg=8 xl=8>
         <p class="left-user-name">
@@ -23,7 +23,7 @@
     </v-row>
 
     <!-- button-row -->
-    <v-row class="mt-n1" no-gutters>
+    <v-row class="mt-n1" no-gutters v-if="$store.state.user.signedIn">
       <v-col md=1 lg=1 xl=1></v-col>
       <v-col md=11 lg=11 xl=11>
         <v-btn class="rounded-xl" color="#fcf300" block elevation=0 style="font-weight: bold;">
@@ -77,38 +77,42 @@
       <v-col md=12 lg=12 xl=12>
         <v-chip-group column>
           <v-chip small active-class="blue--text" color="#f2f2f2" class="mb-2 rounded-xl category-chip"
-            @click="goTagPage(tag.attributes)" label v-for="(tag) in tags"
-            :key="tag.attributes.name">
+            @click="goTagPage(tag.attributes)" label v-for="(tag) in tags" :key="tag.attributes.name">
             {{tag.attributes.name}}
           </v-chip>
         </v-chip-group>
       </v-col>
     </v-row>
 
-    <!-- <v-row class="mt-8">
+    <v-row no-gutters class="ml-5">
       <v-hover v-slot="{hover}">
-        <v-col lg=5 xl=5 :style="hover ? hoverlink : unhoverlink" @click="changeRoute('Terms')">
+        <v-col lg=12 xl=12 :style="hover ? hoverlink : unhoverlink" @click="changeRoute('Terms')">
           利用規約
         </v-col>
       </v-hover>
+    </v-row>
+    <v-row no-gutters class="ml-5">
       <v-hover v-slot="{hover}">
-        <v-col lg=7 xl=5 :style="hover ? hoverlink : unhoverlink" class="ml-n4" @click="changeRoute('Privacy')">
+        <v-col lg=12 xl=12 :style="hover ? hoverlink : unhoverlink" @click="changeRoute('Privacy')">
           プライバシーポリシー
         </v-col>
       </v-hover>
     </v-row>
-    <v-row no-gutters class="">
+    <v-row no-gutters class="ml-5">
       <v-hover v-slot="{hover}">
-        <v-col class="ml-4" lg=5 xl=5 :style="hover ? hoverlink : unhoverlink">
+        <v-col lg=12 xl=12 :style="hover ? hoverlink : unhoverlink">
           お問い合わせ
         </v-col>
       </v-hover>
+
+    </v-row>
+    <v-row no-gutters class="ml-5">
       <v-hover v-slot="{hover}">
-        <v-col lg=6 xl=5 :style="hover ? hoverlink : unhoverlink">
+        <v-col lg=12 xl=12 :style="hover ? hoverlink : unhoverlink">
           サービスについて
         </v-col>
       </v-hover>
-    </v-row> -->
+    </v-row>
   </v-container>
 </template>
 
@@ -374,7 +378,7 @@
   .left-user-name {
     font-size: 16px;
     font-weight: bold;
-    color:#020814;
+    color: #020814;
   }
 
   .category-name {

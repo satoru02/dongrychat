@@ -2,7 +2,7 @@
   <v-container fluid :class="homeContainer">
     <!-- <base-banner class="ml-14" /> -->
     <v-tabs height="60">
-      <v-tabs-slider color="#000000" />
+      <v-tabs-slider color="#0aff99" />
       <v-tab v-for="(tab, index) in tabs" :key="index" v-text="tab" @click="changeContents(tab)" class="tab-name"
         active-class="black--text" />
     </v-tabs>
@@ -113,6 +113,7 @@
       homeContainer() {
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
+            return 'mt-n5'
           case 'sm':
             return ''
           case 'md':
@@ -129,8 +130,9 @@
           case 'sm':
           case 'md':
           case 'lg':
-          case 'xl':
             return 4
+          case 'xl':
+            return 6
         }
       },
       baseCardPosition() {

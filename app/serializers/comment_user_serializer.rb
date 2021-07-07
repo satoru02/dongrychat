@@ -2,7 +2,7 @@ class CommentUserSerializer
   include JSONAPI::Serializer
 
   set_type :user
-  attributes :name
+  attributes :id, :name
 
   attribute :avatar_url do |user|
     if user.avatar.attached?

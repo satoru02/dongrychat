@@ -1,9 +1,10 @@
 <template>
   <v-row>
-    <v-col lg=3 v-for="(item, index) in items" :key="index">
-      <v-card elevation=0 class="rounded-lg" @click="showContents(item)">
+    <v-col cols=6 sm=4 md=4 lg=3 xl=3 v-for="(item, index) in items" :key="index">
+      <v-card elevation=0 class="rounded-lg" @click="showContents(item)" v-if="$vuetify.breakpoint.width > 600">
         <v-img position="under" gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)"
-          class="white--text align-end rounded-lg" height="330px" v-if="item.poster_path"
+          class="white--text align-end rounded-lg"
+          :height="'250px'" v-if="item.poster_path"
           :src="base_tmdb_img_url + item.poster_path">
           <v-btn :color="media === 'tv' ? '#00bbf9' : '#ff0054'" x-small class="elevation-0 ml-3 rounded-xl" alt="" style="font-size: 12px; font-weight: bold; color: #ffffff;"
             >
@@ -15,6 +16,20 @@
             {{item.name}}
           </v-card-title>
           <v-card-title v-if="media === 'movie'" style="font-weight: bold; line-height: 23px; font-size: 18px;">
+            {{item.title}}
+          </v-card-title>
+        </v-img>
+      </v-card>
+      <v-card elevation=0 class="rounded-lg" @click="showContents(item)" v-else>
+        <v-img position="under" gradient="to bottom, rgb(81 81 85 / 1%), rgb(0 0 0 / 90%)"
+          class="white--text align-end rounded-lg"
+          :height="'180px'" v-if="item.poster_path"
+          :src="base_tmdb_img_url + item.poster_path">
+
+          <v-card-title v-if="media === 'tv'" style="font-weight: bold; line-height: 20px; font-size: 12px;">
+            {{item.name}}
+          </v-card-title>
+          <v-card-title v-if="media === 'movie'" style="font-weight: bold; line-height: 20px; font-size: 12px;">
             {{item.title}}
           </v-card-title>
         </v-img>

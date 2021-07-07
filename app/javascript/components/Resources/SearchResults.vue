@@ -1,5 +1,5 @@
 <template>
-  <v-container class="mt-n2 ml-n3" :key="componentKey">
+  <v-container class="mt-n2 ml-n3">
     <v-row no-gutters>
       <v-col cols=12 sm=12 md=12 lg=12 xl=12>
         <h1 :style="resultsStyle" v-text="resultsText" />
@@ -7,19 +7,20 @@
     </v-row>
     <v-row class="mt-2">
       <v-col cols=12 sm=12 md=12 lg=12 xl=12>
-        <v-tabs mobile-breakpoint="xs" hide-slider grow :background-color="tabColor">
+        <v-tabs mobile-breakpoint="xs" :background-color="tabColor">
+         <v-tabs-slider color="#111111"></v-tabs-slider>
           <v-tab v-for="(menu, index) in menus" :key="index" :style="listStyle" :active-class="tabActive"
             v-text="menu.name" @click="movePath(menu.path)" />
         </v-tabs>
-        <v-divider />
+        <!-- <v-divider /> -->
       </v-col>
     </v-row>
-    <v-list two-line style="background-color: #ffffff;">
+    <v-list two-line :key="componentKey">
       <v-list-item-group v-for="(item, index) in contents" :key="index" multiple>
         <v-hover v-slot="{hover}">
           <v-list-item :class="'rounded-lg'" @click="showContents(item)"
             :style="hover ? 'background-color: #f5f8fa;' : 'background-color: #ffffff;'">
-            <v-list-item-avatar :size='100' :width='100' :class="avatar.rounded" color="#dee2e6">
+            <v-list-item-avatar :size='70' :width='70' :class="avatar.rounded" color="#dee2e6">
               <v-img v-if="$route.name === 'person' && item.profile_path"
                 :src="base_tmdb_img_url + item.profile_path" />
               <v-img v-else-if="$route.name !== 'person' && item.poster_path"
@@ -91,10 +92,10 @@
             name: '映画',
             path: 'movie',
           },
-          {
-            name: '出演者・スタッフ',
-            path: 'person'
-          },
+          // {
+          //   name: '出演者・スタッフ',
+          //   path: 'person'
+          // },
         ],
         tabColor: '#ffffff',
         tabActive: 'black--text',
@@ -110,11 +111,11 @@
         },
         listItemStyle: {
           fontWeight: 'bold',
-          fontSize: '18px',
+          fontSize: '16px',
           color: '#111111'
         },
         subtitleStyle: {
-          fontSize: '15px',
+          fontSize: '14px',
           fontWeight: 'bold',
           color: '#6c757d'
         },

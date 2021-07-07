@@ -92,7 +92,7 @@
           </v-col>
         </v-row>
         <v-row no-gutters>
-          <v-col cols=9 sm=9 md=9 lg=10 xl=11></v-col>
+          <v-col cols=9 sm=9 md=9 lg=10 xl=10></v-col>
           <v-col cols=1 sm=1 md=1 lg=1 xl=1 v-if="(media === 'tv') && (overall.seasons)">
             <v-menu offset-y v-if="overall.seasons.length > 1">
               <template v-slot:activator="{ on, attrs }">
