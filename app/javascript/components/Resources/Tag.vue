@@ -62,12 +62,12 @@
     beforeRouteEnter(to, from, next) {
       next(vm => {
         setTimeout(() => {
-          document.title = `${vm.$route.params.name} |  Devio` || 'Devio';
+          document.title = `${vm.$route.params.name} -  Filmosh` || 'Filmosh';
         }, 0)
       })
     },
     beforeRouteUpdate(to, from, next) {
-      document.title = `${to.params.name} |  Devio` || 'Devio';
+      document.title = `${to.params.name} -  Filmosh` || 'Filmosh';
       next()
     },
     watch: {

@@ -115,7 +115,7 @@
       <v-hover v-slot="{hover}">
 
         <v-col lg=8 :style="hover ? style.hoverlink : style.unhoverlink">
-          © 2021 Devio
+          © 2021 Filmosh
         </v-col>
       </v-hover>
     </v-row>

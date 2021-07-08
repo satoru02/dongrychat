@@ -9,8 +9,8 @@
         <v-card :color="loginCard.color" :class="loginCard.position" :elevation="loginCard.elevation"
           :height="loginCard.height" :width="loginCard.width">
           <v-row class="mt-4">
-            <v-col cols=3 sm=4 md=4 lg=4 xl=4 />
-            <v-col cols=9 sm=9 md=9 lg=8 xl=8 :class="$vuetify.breakpoint.width < 600 ? 'ml-n5' : 'ml-n10 mt-4'">
+            <v-col cols=2 sm=3 md=3 lg=3 xl=3 />
+            <v-col cols=10 sm=9 md=9 lg=9 xl=9 :class="$vuetify.breakpoint.width < 600 ? 'ml-n5 mb-5' : 'ml-n8 mt-4 mb-4'">
               <div :style="loginCard.headerTitleStyle" v-text="loginCard.headerText" />
             </v-col>
           </v-row>
@@ -63,8 +63,8 @@
             </v-col>
           </v-row>
           <v-row :class="$vuetify.breakpoint.width < 600 ? 'mt-n9 mr-n16' : 'mt-n9 mr-n8'">
-            <v-col cols=5 sm=7 md=7 lg=7 xl=7 />
-            <v-col :class="$vuetify.breakpoint.width < 600 ? 'mt-n2 mb-3 ml-4' : 'mt-n2 mb-3'" cols=6 sm=5 md=5 lg=5 xl=5>
+            <v-col cols=6 sm=7 md=7 lg=7 xl=7 />
+            <v-col :class="$vuetify.breakpoint.width < 600 ? 'mt-n2 mb-3' : 'mt-n2 mb-3'" cols=6 sm=5 md=5 lg=5 xl=5>
               <div @click="forgetPassword()" :style="loginCard.signupStyle" v-text="loginCard.forgotPasswordText" />
             </v-col>
           </v-row>
@@ -81,8 +81,8 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-col cols=5 sm=7 md=7 lg=7 xl=7 />
-            <v-col :class="$vuetify.breakpoint.width < 600 ? 'ml-5 mt-n3' : 'mt-n4 ml-n1'" cols=6 sm=5 md=5 lg=5 xl=4
+            <v-col cols=6 sm=7 md=7 lg=7 xl=7 />
+            <v-col :class="$vuetify.breakpoint.width < 600 ? 'mt-n3' : 'mt-n4 ml-n1'" cols=6 sm=5 md=5 lg=5 xl=4
               @click="makeAccount()">
               <div :style="loginCard.signupStyle" v-text="loginCard.signupText" />
             </v-col>
@@ -162,7 +162,7 @@
           height: '115px'
         },
         loginCard: {
-          headerText: 'Devioにようこそ！',
+          headerText: 'Filmoshにようこそ！',
           googleArg: 'google',
           googleBtn: 'Googleでログイン',
           googleColor: '#212121',
@@ -187,7 +187,7 @@
           headerTitleStyle: {
             color: '#111111',
             fontWeight: 'bold',
-            fontSize: '23px',
+            fontSize: '26px',
           },
           btnStyle: {
             color: '#ffffff',
