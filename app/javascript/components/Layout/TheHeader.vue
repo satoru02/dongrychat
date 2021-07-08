@@ -8,31 +8,41 @@
         </icon-base>
       </v-app-bar-nav-icon>
 
-      <v-spacer v-if="$vuetify.breakpoint.width > 600" />
-      <v-toolbar-title v-if="$vuetify.breakpoint.width > 600">
+      <!-- <v-spacer v-if="$vuetify.breakpoint.width > 600" /> -->
+　　　　
+      <v-toolbar-title style="font-weight:bold;" v-if="$vuetify.breakpoint.width > 600">
+        F
+      </v-toolbar-title>
+
+      <!-- <v-spacer v-if="$vuetify.breakpoint.width > 600" /> -->
+      <v-toolbar-title class="ml-10" v-if="$vuetify.breakpoint.width > 600">
         <v-btn text color="#657482" style="font-size: 14px; font-weight: bold; color: #657482"
           @click="movePath('/trend')">
           <icon-new class="mr-3" />新着</v-btn>
       </v-toolbar-title>
-      <v-toolbar-title v-if="$vuetify.breakpoint.width > 600">
+      <v-toolbar-title class="ml-5" v-if="$vuetify.breakpoint.width > 600">
         <v-btn @click="movePath('/popular')" text color="#ffffff"
           style="font-size: 14px; font-weight: bold; color: #657482">
           人気
         </v-btn>
       </v-toolbar-title>
-      <v-toolbar-title v-if="$vuetify.breakpoint.width > 600">
+      <v-toolbar-title class="ml-5" v-if="$vuetify.breakpoint.width > 600">
         <v-btn @click="movePath('/top_rated')" text color="#ffffff"
           style="font-size: 14px; font-weight: bold; color: #657482">
           高評価
         </v-btn>
       </v-toolbar-title>
+      <!-- <v-spacer v-if="$vuetify.breakpoint.width > 600" /> -->
+
       <v-text-field placeholder="検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
         :full-width="true" v-if="$vuetify.breakpoint.width > 600" dense
-        background-color="#f0f5fa" solo flat class="rounded-lg mt-7" />
+        background-color="#f0f5fa" solo flat class="rounded-lg mt-7 ml-16" />
       <v-spacer />
+
       <v-menu left nudge-bottom="35" nudge-height="800">
         <template v-slot:activator="{on, attrs}">
           <div v-bind="attrs" v-on="on" @click="infiniteHandler()">
+            <!-- ベル -->
           </div>
         </template>
         <v-list class="rounded-s list" v-if="$store.state.user.signedIn">
@@ -57,9 +67,10 @@
         </v-list>
         <base-loader :handler="infiniteHandler" :text="text.loading" />
       </v-menu>
+
       <v-menu flat open-on-hover offset-y left nudge-bottom="3" nudge-height="800">
         <template v-slot:activator="{on, attrs}">
-          <div v-bind="attrs" v-on="on">
+          <v-app-bar-nav-icon v-bind="attrs" v-on="on">
             <v-avatar v-if="$store.state.user.currentUser.avatar_url" size="35">
               <v-img :src="$store.state.user.currentUser.avatar_url" />
             </v-avatar>
@@ -69,7 +80,7 @@
                 <icon-user />
               </icon-base>
             </v-avatar>
-          </div>
+          </v-app-bar-nav-icon>
         </template>
         <v-list elevation=0 class="rounded-s list" v-if="$store.state.user.signedIn">
           <v-list-item v-for="(item, index) in items" :key="index" :to="item.link" :icon="item.icon" link>
@@ -81,6 +92,7 @@
           </v-list-item>
         </v-list>
       </v-menu>
+
       <v-btn v-if="(this.checkAuthorization()) && !$store.state.user.signedIn" @click="movePath('/login')"
         color="#ffffff" elevation=0 class="login mr-4" style="color: #000000">ログイン</v-btn>
       <v-btn v-if="(this.checkAuthorization()) && !$store.state.user.signedIn" @click="movePath('/signup')"
@@ -165,7 +177,7 @@
         <v-hover v-slot="{hover}">
 
           <v-col cols=6 :style="hover ? hoverlink : unhoverlink">
-            © 2021 Devio
+            © 2021 Filmy
           </v-col>
         </v-hover>
       </v-row>
@@ -176,7 +188,7 @@
         <v-row>
           <v-col lg=3 />
           <v-col lg=7>
-            <div class="mt-9 ml-6" :style="dialog.headerStyle">Devioを使ってみる</div>
+            <div class="mt-9 ml-6" :style="dialog.headerStyle">Filmoshを使ってみる</div>
           </v-col>
         </v-row>
         <v-row>

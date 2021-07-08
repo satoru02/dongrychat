@@ -412,7 +412,7 @@ var router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  document.title = to.meta.title + ' |  Devio' || 'Devio';
+  document.title = to.meta.title + ' -  Filmosh' || 'Filmosh';
   NProgress.start();
   NProgress.set(0.0);
   next();

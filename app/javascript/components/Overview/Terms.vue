@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="mt-3 privacy-part rounded-lg" width="1000px" color="#ffffff" elevation=0>
+  <v-container>
     <v-row>
       <v-col cols=10 sm=10 md=10 lg=10 xl=10 />
     </v-row>
@@ -12,7 +12,7 @@
     <v-row>
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
       <v-col cols=10 sm=10 md=10 lg=10 xl=10>
-        この利用規約（以下，「本規約」といいます。）は、Devio（以下，「当社」といいます。）がこのウェブサイト上で提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。登録ユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本サービスをご利用いただきます。
+        この利用規約（以下，「本規約」といいます。）は、Filmosh（以下，「本サービス」といいます。）がこのウェブサイト上で提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。登録ユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本サービスをご利用いただきます。
       </v-col>
     </v-row>
     <v-row>
@@ -247,7 +247,7 @@
     <v-row>
       <v-col cols=10 sm=10 md=10 lg=10 xl=10 />
     </v-row>
-  </v-sheet>
+  </v-container>
 </template>
 
 <script>
@@ -312,9 +312,4 @@
 </script>
 
 <style scoped>
-  .privacy-part {
-    font-family: 'Roboto, -apple-system, system-ui, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "ヒラギノ角ゴ ProN W3", Arial, メイリオ, Meiryo, sans-serif';
-    color: #000000;
-    font-weight: 500;
-  }
 </style>

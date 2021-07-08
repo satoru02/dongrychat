@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="mt-3 privacy-part" width="1000px" rounded elevation=0 color="#ffffff">
+  <v-container>
     <v-row>
       <v-col cols=10 sm=10 md=10 lg=10 xl=10 />
     </v-row>
@@ -12,7 +12,7 @@
     <v-row>
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
       <v-col cols=10 sm=10 md=10 lg=10 xl=10>
-        Devioは，本ウェブサイト上で提供するサービス（以下,「本サービス」といいます。）における，ユーザーの個人情報の取扱いについて，以下のとおりプライバシーポリシー（以下，「本ポリシー」といいます。）を定めます。
+        Filmoshは，本ウェブサイト上で提供するサービス（以下,「本サービス」といいます。）における，ユーザーの個人情報の取扱いについて，以下のとおりプライバシーポリシー（以下，「本ポリシー」といいます。）を定めます。
       </v-col>
     </v-row>
     <v-row>
@@ -188,13 +188,13 @@
       <v-col cols=1 sm=1 md=1 lg=1 xl=1 />
       <v-col cols=10 sm=10 md=10 lg=10 xl=10>
         本ポリシーに関するお問い合わせは，下記の窓口までお願いいたします。
-        Eメールアドレス： cs@devio.com
+        Eメールアドレス： cs@filmosh.com
       </v-col>
     </v-row>
     <v-row>
       <v-col cols=10 sm=10 md=10 lg=10 xl=10 />
     </v-row>
-  </v-sheet>
+  </v-container>
 </template>
 
 <script>
