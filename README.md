@@ -1,6 +1,6 @@
 # Project
 
-filmon.jp
+filmy.jp
 
 # Install
 
