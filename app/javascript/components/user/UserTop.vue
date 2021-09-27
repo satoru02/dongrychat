@@ -3,49 +3,68 @@
     <v-row v-if="$vuetify.breakpoint.width > 600">
       <v-col cols=3 sm=1 md=1 lg=1>
         <v-avatar size=88 elevation=0 color="#dee2e6">
-          <v-img :src="this.user_info.avatar_url"></v-img>
+          <v-img :src="this.usersInfo.avatar_url"></v-img>
         </v-avatar>
       </v-col>
-      <v-col cols=9 sm=10 md=10 lg=10 :class="gridName" v-if="user_info && ($store.state.user.currentUser.id != user_info.id)">
-        <h2 class="mt-n2">{{this.user_info.name}}</h2>
-        <div style="font-size: 13px; color: #768390;" class="">@{{this.user_info.name}}</div>
-        <v-btn class="rounded mt-3" small elevation=0
-          v-if="user_info && ($store.state.user.currentUser.id != user_info.id)"
-          :style="followed ? followingStyle : unfollowStyle" :outlined="followed ? true : false"
-          @click="followed ? unfollow(user_info.id) : follow(user_info.id)">
-          {{ followed ? followingText : unfollowText }}
+      <v-col v-if="usersInfo && ($store.state.user.currentUser.id != usersInfo.id)"
+       cols=9 sm=10 md=10 lg=10 :class="gridName">
+        <h2 class="mt-n2">{{this.usersInfo.name}}</h2>
+        <div style="font-size: 13px; color: #768390;">@{{this.usersInfo.name}}</div>
+        <v-btn
+          v-if="usersInfo && ($store.state.user.currentUser.id != usersInfo.id)"
+          class="rounded mt-3" small elevation=0
+          :style="isFollowed ? followingStyle : unfollowStyle"
+          :outlined="isFollowed ? true : false"
+          @click="isFollowed ? unfollow(usersInfo.id) : follow(usersInfo.id)">
+          {{ isFollowed ? followingText : unfollowText }}
         </v-btn>
       </v-col>
       <v-col sm=10 md=10 lg=10 v-else :class="gridName">
-        <h2 class="mt-6">{{this.user_info.name}}</h2>
+        <h2 class="mt-6">
+          {{this.usersInfo.name}}
+        </h2>
       </v-col>
     </v-row>
     <v-row v-if="$vuetify.breakpoint.width < 600">
       <v-col cols=2>
         <v-avatar size=45 elevation=0 color="#dee2e6">
-          <v-img :src="this.user_info.avatar_url"></v-img>
+          <v-img :src="this.usersInfo.avatar_url"></v-img>
         </v-avatar>
       </v-col>
-      <v-col cols=10 :class="'ml-3'" v-if="user_info && ($store.state.user.currentUser.id != user_info.id)">
-        <h7 class="mt-2">{{this.user_info.name}}</h7>
-        <v-btn class="rounded mt-3" x-small elevation=0
-          v-if="user_info && ($store.state.user.currentUser.id != user_info.id)"
-          :style="followed ? followingStyle : unfollowStyle" :outlined="followed ? true : false"
-          @click="followed ? unfollow(user_info.id) : follow(user_info.id)">
-          {{ followed ? followingText : unfollowText }}
+      <v-col
+        v-if="usersInfo && ($store.state.user.currentUser.id != usersInfo.id)"
+        cols=10
+        :class="'ml-3'">
+        <h7 class="mt-2">
+          {{this.usersInfo.name}}
+        </h7>
+        <v-btn
+          v-if="usersInfo && ($store.state.user.currentUser.id != usersInfo.id)"
+          class="rounded mt-3" x-small elevation=0
+          :style="isFollowed ? followingStyle : unfollowStyle"
+          :outlined="isFollowed ? true : false"
+          @click="isFollowed ? unfollow(usersInfo.id) : follow(usersInfo.id)">
+          {{ isFollowed ? followingText : unfollowText }}
         </v-btn>
       </v-col>
-      <v-col cols=10 v-else class="mt-3">
-        <h7>{{this.user_info.name}}</h7>
+      <v-col v-else cols=10 class="mt-3">
+        <h7>
+          {{this.usersInfo.name}}
+        </h7>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols=12 sm=12 md=12 lg=12>
         <v-tabs background-color="transparent" color="#111111">
           <v-tabs-slider color="#42ccff"></v-tabs-slider>
-          <v-tab style="font-weight: bold; font-size: 14px;" @click="changePath(tab.path)"
-            v-for="(tab, index) in user_tabs" :key="index">
-            <span class="ml-3 mr-3">{{tab.title}}</span>
+          <v-tab
+            v-for="(tab, index) in tabs"
+            :key="index"
+            style="font-weight: bold; font-size: 14px;"
+            @click="changePath(tab.path)">
+            <span class="ml-3 mr-3">
+              {{tab.title}}
+            </span>
             {{usersAtrCount(tab.title)}}
           </v-tab>
         </v-tabs>
@@ -53,7 +72,7 @@
     </v-row>
     <v-row>
       <v-col cols=12 sm=12 md=12 lg=12>
-        <router-view :user_info="this.user_info" />
+        <router-view :userInfo="this.usersInfo" />
       </v-col>
     </v-row>
   </v-container>
@@ -70,9 +89,9 @@
     name: "UserTop",
     data() {
       return {
-        user_info: '',
+        usersInfo: '',
         componentKey: 0,
-        user_tabs: [{
+        tabs: [{
             title: 'リスト',
             path: 'watchlists',
           },
@@ -84,20 +103,20 @@
             title: 'レビュー',
             path: 'UserReviews',
           },
-          // {
-          //   title: 'フォロワー',
-          //   path: 'UserFollowers',
-          // },
-          // {
-          //   title: 'フォロー',
-          //   path: 'UserFollowing',
-          // },
-          // {
-          //   title: 'プロフィール',
-          //   path: 'UserProfile',
-          // },
+          {
+            title: 'フォロワー',
+            path: 'UserFollowers',
+          },
+          {
+            title: 'フォロー',
+            path: 'UserFollowing',
+          },
+          {
+            title: 'プロフィール',
+            path: 'UserProfile',
+          },
         ],
-        followed: Boolean,
+        isFollowed: Boolean,
         followingText: 'フォロー中',
         followingStyle: {
           fontWeight: "bold",
@@ -116,7 +135,7 @@
       }
     },
     computed: {
-      gridName(){
+      gridName() {
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
             return ''
@@ -131,80 +150,85 @@
     },
     beforeRouteEnter(to, from, next) {
       next(vm => {
-        vm.getUser()
+        vm.fetchUser()
         document.title = to.params.user_name
       })
     },
     beforeRouteUpdate(to, from, next) {
-      document.title = this.user_info.name
+      document.title = this.usersInfo.name
       next()
     },
     watch: {
       '$route.params.user_id'() {
-        this.user_info = ''
-        this.getUser()
+        this.usersInfo = ''
+        this.fetchUser()
       },
     },
     methods: {
-      getUser() {
+      fetchUser() {
         usersRepository.getUserInfo(this.$route.params.user_id)
           .then(res => this.fetchSuccessful(res))
           .catch(err => this.fetchFailed(err))
       },
       fetchSuccessful(res) {
-        this.user_info = res.data.data.attributes
-        document.title = this.user_info.name
-        this.follow_check(this.user_info)
+        this.usersInfo = res.data.data.attributes
+        document.title = this.usersInfo.name
+        this.checkRelationship(this.usersInfo)
       },
       fetchFailed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ""
         this.$router.replace('/')
       },
       setAvatar() {
-        if (this.user_info.avatar_url != null) {
-          return this.user_info.avatar_url
+        if (this.usersInfo.avatar_url != null) {
+          return this.usersInfo.avatar_url
         } else {
           return this.default_avatar
         }
       },
-      changePath(path_name) {
+      changePath(pathName) {
         this.$router.push({
-          name: path_name
+          name: pathName
         })
       },
-      follow_check(user) {
+      checkRelationship(user) {
         if (this.$store.state.user.currentUser.following.includes(user.id)) {
-          this.followed = true
+          this.isFollowed = true
         } else {
-          this.followed = false
+          this.isFollowed = false
         }
       },
-      follow(user_id) {
+      follow(userId) {
         relationshipsRepository.follow({
-            followed_id: user_id
+            followed_id: userId
           })
           .then(res => {
-            this.$store.commit('user/follow', user_id)
-            this.followed = true
+            this.$store.commit('user/follow', userId)
+            this.isFollowed = true
           })
       },
-      unfollow(user_id) {
+      unfollow(userId) {
         relationshipsRepository.unfollow(this.$store.state.user.currentUser.id, {
             id: this.$store.state.user.currentUser.id,
-            followed_id: user_id
+            followed_id: userId
           })
           .then(res => {
-            this.$store.commit('user/unfollow', user_id)
-            this.followed = false
+            this.$store.commit('user/unfollow', userId)
+            this.isFollowed = false
           })
       },
-      usersAtrCount(user_attributes){
-        switch(user_attributes){
-          case 'リスト': return this.user_info.watchlists_count
-          case 'ログ':　return this.user_info.watchlog_count
-          case 'レビュー':　return this.user_info.reviews_count
-          case 'フォロワー':　return this.user_info.followers_count
-          case 'フォロー':　return this.user_info.followed_count
+      usersAtrCount(usersAttributes) {
+        switch (usersAttributes) {
+          case 'リスト':
+            return this.usersInfo.watchlists_count
+          case 'ログ':
+            return this.usersInfo.watchlog_count
+          case 'レビュー':
+            return this.usersInfo.reviews_count
+          case 'フォロワー':
+            return this.usersInfo.followers_count
+          case 'フォロー':
+            return this.usersInfo.followed_count
         }
       }
     }
