@@ -1,9 +1,18 @@
 <template>
-  <v-container :class="this.$vuetify.breakpoint.width < 600 ? '' : ''">
-    <v-list-item-group style="background-color: #ffffff;" v-for="(user, index) in relationships" :key="index" multiple>
+  <v-container>
+    <v-list-item-group
+      v-for="(user, index) in relationships"
+      :key="index"
+      style="background-color: #ffffff;"
+      multiple>
       <v-list-item>
         <template>
-          <v-list-item-avatar color="#dee2e6" icon size=38 height=38 @click="goUserPage(user)">
+          <v-list-item-avatar
+            color="#dee2e6"
+            icon
+            size=38
+            height=38
+            @click="goUserPage(user)">
             <v-img :src="user.attributes.avatar_url" />
           </v-list-item-avatar>
           <v-list-item-content class=ml-5>
@@ -12,7 +21,11 @@
             </v-list-item-title>
           </v-list-item-content>
           <v-list-item-action class="ml-n5">
-            <v-btn class="rounded" small elevation=0 v-if="$store.state.user.currentUser.id != user.id"
+            <v-btn
+              v-if="$store.state.user.currentUser.id != user.id"
+              class="rounded"
+              small
+              elevation=0
               :style="checkRelationship(user) ? followingStyle : unfollowStyle"
               :outlined="checkRelationship(user) ? true : false"
               @click="checkRelationship(user) ? unfollow(user.attributes.id) : follow(user.attributes.id)">
@@ -30,6 +43,7 @@
     RepositoryFactory
   } from '../../repositories/RepositoryFactory';
   const relationshipsRepository = RepositoryFactory.get('relationships');
+
   export default {
     name: "UserRelationships",
     props: {
@@ -40,7 +54,7 @@
     },
     data() {
       return {
-        followed: false,
+        isFollowed: false,
         followingText: 'フォロー中',
         followingStyle: {
           fontWeight: "bold",
@@ -66,23 +80,23 @@
           return false
         }
       },
-      follow(user_id) {
+      follow(userId) {
         relationshipsRepository.follow({
-            followed_id: user_id
+            followed_id: userId
           })
           .then(res => {
-            this.$store.commit('user/follow', user_id)
-            this.followed = true
+            this.$store.commit('user/follow', userId)
+            this.isFollowed = true
           })
       },
-      unfollow(user_id) {
+      unfollow(userId) {
         relationshipsRepository.unfollow(this.$store.state.user.currentUser.id, {
             id: this.$store.state.user.currentUser.id,
-            followed_id: user_id
+            followed_id: userId
           })
           .then(res => {
-            this.$store.commit('user/unfollow', user_id)
-            this.followed = false
+            this.$store.commit('user/unfollow', userId)
+            this.isFollowed = false
           })
       },
       goUserPage(user){
