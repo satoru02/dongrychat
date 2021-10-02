@@ -18,14 +18,14 @@
         </v-col>
       </v-row>
     </v-main>
-    <!-- <base-bottom-bar v-if="this.checkAuthorization() " /> -->
-    <!-- <footer>
+    <base-bottom-bar v-if="this.checkAuthorization() " />
+    <footer>
       <cookie-law buttonClass="button" buttonText="許可する" theme="shade-blue">
         <div slot="message">
           本ウェブサイトでは、最適なサービスを提供するためにクッキーを使用しています。
         </div>
       </cookie-law>
-    </footer> -->
+    </footer>
   </v-app>
 </template>
 

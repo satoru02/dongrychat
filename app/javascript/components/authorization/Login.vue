@@ -162,7 +162,7 @@
           height: '115px'
         },
         loginCard: {
-          headerText: 'Filmoshにようこそ！',
+          headerText: 'DongryChatにようこそ！',
           googleArg: 'google',
           googleBtn: 'Googleでログイン',
           googleColor: '#212121',

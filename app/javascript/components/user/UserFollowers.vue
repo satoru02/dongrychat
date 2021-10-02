@@ -23,7 +23,7 @@
         page: 1,
         pageSize: 8,
         componentKey: 0,
-        loading: false,
+        isLoading: false,
       }
     },
     methods: {

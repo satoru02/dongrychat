@@ -23,7 +23,7 @@
         page: 1,
         pageSize: 8,
         componentKey: 0,
-        loading: false,
+        isLoading: false,
       }
     },
     methods: {
@@ -37,7 +37,7 @@
               if (res.data.data.length) {
                 this.page += 1
                 this.followings.push(...res.data.data)
-                // this.loading = true
+                // this.isLoading = true
                 $state.loaded()
               } else {
                 $state.complete()

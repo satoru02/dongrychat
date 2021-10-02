@@ -1,14 +1,14 @@
 <template>
-<v-container>
-  <div class="user-about">{{user_info.about}}</div>
-</v-container>
+  <v-container>
+    <div class="user-about">{{userInfo.about}}</div>
+  </v-container>
 </template>
 
 <script>
 export default {
   name: "UserProfile",
   props: {
-    user_info: ""
+    userInfo: ""
   },
   data(){
     return {}

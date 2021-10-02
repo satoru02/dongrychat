@@ -186,7 +186,7 @@
           height: '85px'
         },
         signupCard: {
-          headerText: 'Filmoshにようこそ！',
+          headerText: 'DongryChatにようこそ！',
           googleArg: 'google',
           googleBtn: 'Googleで登録',
           googleColor: '#212121',

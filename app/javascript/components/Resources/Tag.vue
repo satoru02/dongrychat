@@ -4,11 +4,11 @@
       <v-col cols=10 sm=10 md=10 lg=10 xl=11>
         <span style="font-weight: bold;">トップ</span> <span style="color:#657482; font-weight: bold">/ #{{this.$route.params.name}}</span>
       </v-col>
-      <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-n3" v-if="$vuetify.breakpoint.width > 600">
+      <!-- <v-col cols=1 sm=1 md=1 lg=1 xl=1 class="ml-n3" v-if="$vuetify.breakpoint.width > 600">
         <v-btn small color="#00bbf9" style="font-weight: bold; color: #ffffff;" elevation=0 class="rounded-xl">
           フィルター
         </v-btn>
-      </v-col>
+      </v-col> -->
     </v-row>
 
     <v-tabs height="60">
@@ -62,12 +62,12 @@
     beforeRouteEnter(to, from, next) {
       next(vm => {
         setTimeout(() => {
-          document.title = `${vm.$route.params.name} -  Filmosh` || 'Filmosh';
+          document.title = `${vm.$route.params.name} -  DongryChat` || 'DongryChat';
         }, 0)
       })
     },
     beforeRouteUpdate(to, from, next) {
-      document.title = `${to.params.name} -  Filmosh` || 'Filmosh';
+      document.title = `${to.params.name} -  DongryChat` || 'DongryChat';
       next()
     },
     watch: {

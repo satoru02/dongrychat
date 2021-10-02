@@ -1,5 +1,8 @@
 <template>
-  <infinite-loading :identifier="infiniteId" spinner="circles" @infinite="handler"
+  <infinite-loading
+    :identifier="infiniteId"
+    spinner="circles"
+    @infinite="handler"
     :force-use-infinite-wrapper="wrapper">
     <span slot="no-more" class="loading-text">
     </span>
