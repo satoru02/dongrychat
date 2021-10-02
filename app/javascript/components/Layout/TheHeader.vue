@@ -10,8 +10,11 @@
 
       <!-- <v-spacer v-if="$vuetify.breakpoint.width > 600" /> -->
 　　　　
-      <v-toolbar-title style="font-weight:bold;" v-if="$vuetify.breakpoint.width > 600">
-        DC
+      <v-toolbar-title @click="$router.push('/')" style="font-weight:bold; cursor: pointer;">
+          <icon-base icon-name="icon-bookmark"
+            :width="'33'" :height="'33'" :viewBox="'0 0 512 512'">
+            <icon-logo />
+          </icon-base>
       </v-toolbar-title>
 
       <!-- <v-spacer v-if="$vuetify.breakpoint.width > 600" /> -->
@@ -68,7 +71,7 @@
         <base-loader :handler="infiniteHandler" :text="text.loading" />
       </v-menu>
 
-      <v-menu flat open-on-hover offset-y left nudge-bottom="3" nudge-height="800">
+      <v-menu flat open-on-hover offset-y left nudge-bottom="1" nudge-height="800">
         <template v-slot:activator="{on, attrs}">
           <v-app-bar-nav-icon v-bind="attrs" v-on="on">
             <v-avatar v-if="$store.state.user.currentUser.avatar_url" size="35">
@@ -84,9 +87,9 @@
         </template>
         <v-list elevation=0 class="rounded-s list" v-if="$store.state.user.signedIn">
           <v-list-item v-for="(item, index) in items" :key="index" :to="item.link" :icon="item.icon" link>
-            <v-list-item-icon>
+            <!-- <v-list-item-icon>
               <v-icon v-text="item.icon" />
-            </v-list-item-icon>
+            </v-list-item-icon> -->
             <v-list-item-title class="list-title">{{ item.title }}
             </v-list-item-title>
           </v-list-item>
@@ -108,7 +111,7 @@
         <v-list-item-group color="primary" class="mt-1" min-width="200">
           <v-hover v-for="(item, index) in menus" :key="index">
             <v-list-item @click="changeRoute(item.path_name)" class="ml-1">
-              <v-list-item-icon>
+              <!-- <v-list-item-icon>
                 <v-list-item-subtitle class="mt-1" :size="icon.size">
                   <icon-base v-if="item.text === 'ホーム'" :iconColor="'#000000'" icon-name="icon-home" :width="'17'"
                     :height="'17'" :viewBox="'0 0 512.05 512.05'">
@@ -131,7 +134,7 @@
                     <icon-bookmark />
                   </icon-base>
                 </v-list-item-subtitle>
-              </v-list-item-icon>
+              </v-list-item-icon> -->
               <v-list-item-content class="ml-n4">
                 <v-list-item-title :style="list_item_title.style">
                   {{item.text}}
@@ -177,7 +180,7 @@
         <v-hover v-slot="{hover}">
 
           <v-col cols=6 :style="hover ? hoverlink : unhoverlink">
-            © 2021 Filmy
+            © 2021 DongryChat
           </v-col>
         </v-hover>
       </v-row>
@@ -235,7 +238,8 @@
       'base-loader': () => import( /* webpackPrefetch: true */ '../Base/BaseInfiniteLoader'),
       'icon-home': () => import( /* webpackPrefetch: true */ '../Icon/IconHome.vue'),
       'icon-pen': () => import( /* webpackPrefetch: true */ '../Icon/IconPen.vue'),
-      'icon-following': () => import( /* webpackPrefetch: true */ '../Icon/IconFollowing.vue')
+      'icon-following': () => import( /* webpackPrefetch: true */ '../Icon/IconFollowing.vue'),
+      'icon-logo': () => import( /* webpackPrefetch: true */ '../Icon/IconLogo.vue')
     },
     data() {
       return {
@@ -258,11 +262,6 @@
             title: 'プロフィール',
             name: 'Posts',
             link: '/users/' + `${this.$store.state.user.currentUser.id}` + '/watchlists',
-          },
-          {
-            icon: 'mdi-mailbox-outline',
-            title: '通知',
-            link: '/notifications'
           },
           {
             icon: 'mdi-wrench-outline',
@@ -479,8 +478,8 @@
   }
 
   .list-title {
-    color: #515f6d;
-    font-size: 13px;
+    color: #000000;
+    font-size: 17px;
   }
 
   .v-application .elevation-1 {
