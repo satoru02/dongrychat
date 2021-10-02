@@ -12,7 +12,12 @@
           <v-row class="mt-1">
             <v-col cols=2 sm=3 md=3 lg=3 xl=3 />
             <v-col cols=10 sm=9 md=9 lg=9 xl=9 :class="$vuetify.breakpoint.width < 600 ? 'ml-n5 mb-5' : 'ml-n8 mt-3 mb-4'">
-              <div :style="signupCard.headerTitleStyle" v-text="signupCard.headerText" />
+              <!-- <div :style="signupCard.headerTitleStyle" v-text="signupCard.headerText" /> -->
+                <icon-base icon-name="icon-logo"
+                  :width="'28'" :height="'28'" :viewBox="'0 0 512 512'">
+                  <icon-logo />
+                </icon-base>
+                <span class="ml-2" :style="signupCard.headerTitleStyle">{{signupCard.headerText}}</span>
             </v-col>
           </v-row>
           <v-row class="mt-1">
@@ -138,6 +143,7 @@
     name: 'Signup',
     components: {
       'icon-base': () => import( /* webpackPrefetch: true */ '../Icon/IconBase'),
+      'icon-logo': () => import( /* webpackPrefetch: true */ '../Icon/IconLogo.vue'),
       'icon-google': () => import( /* webpackPrefetch: true */ '../Icon/IconGoogle.vue'),
       'icon-facebook': () => import( /* webpackPrefetch: true */ '../Icon/IconFacebook.vue'),
     },
@@ -186,7 +192,7 @@
           height: '85px'
         },
         signupCard: {
-          headerText: 'DongryChatにようこそ！',
+          headerText: 'DongryChat',
           googleArg: 'google',
           googleBtn: 'Googleで登録',
           googleColor: '#212121',
@@ -212,7 +218,7 @@
           headerTitleStyle: {
             color: '#111111',
             fontWeight: 'bold',
-            fontSize: '26px',
+            fontSize: '30px',
           },
           btnStyle: {
             color: '#ffffff',
