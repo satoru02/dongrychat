@@ -464,7 +464,7 @@
       $route: 'setSpace'
     },
     beforeRouteUpdate(to, from, next) {
-      document.title = `${this.space_data.name} - Filmosh` || 'Filmosh';
+      document.title = `${this.space_data.name} - DongryChat` || 'DongryChat';
       next()
     },
     methods: {
@@ -482,7 +482,7 @@
         this.space_data = res.data.data.attributes
         this.subscribed = this.space_data.subscribed
         this.checkWatchlist()
-        document.title = `${this.space_data.name} - Filmosh` || 'Filmosh';
+        document.title = `${this.space_data.name} - DongryChat` || 'DongryChat';
       },
       failed(err) {
         this.error = (err.response && err.response.data && err.response.data.error) || ''

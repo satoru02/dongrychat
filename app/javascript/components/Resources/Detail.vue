@@ -179,7 +179,7 @@
         <v-row>
           <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
           <v-col cols=7 sm=7 md=7 lg=7 xl=7>
-            <div :class="'mt-9 ml-5'" :style="dialog.headerStyle" v-text="'Filmoshを使ってみる'" />
+            <div :class="'mt-9 ml-5'" :style="dialog.headerStyle" v-text="'DongryChatを使ってみる'" />
           </v-col>
         </v-row>
         <v-row>
@@ -290,17 +290,17 @@
     beforeRouteEnter(to, from, next) {
       next(vm => {
         if (vm.media === 'tv') {
-          document.title = `${vm.$route.params.tv_name} - Filmosh` || 'Filmosh';
+          document.title = `${vm.$route.params.tv_name} - DongryChat` || 'DongryChat';
         } else {
-          document.title = `${vm.$route.params.mv_name} - Filmosh` || 'Filmosh';
+          document.title = `${vm.$route.params.mv_name} - DongryChat` || 'DongryChat';
         }
       })
     },
     beforeRouteUpdate(to, from, next) {
       if (this.media === 'tv') {
-        document.title = `${this.$route.params.tv_name} - Filmosh` || 'Filmosh';
+        document.title = `${this.$route.params.tv_name} - DongryChat` || 'DongryChat';
       } else {
-        document.title = `${this.$route.params.mv_name} - Filmosh` || 'Filmosh';
+        document.title = `${this.$route.params.mv_name} - DongryChat` || 'DongryChat';
       }
       next()
     },

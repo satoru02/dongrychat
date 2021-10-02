@@ -4,7 +4,7 @@
       <v-row>
         <v-col cols=3 sm=3 md=3 lg=3 xl=3 />
         <v-col cols=7 sm=7 md=7 lg=7 xl=7>
-          <div class="mt-9 ml-6" :style="dialog.headerStyle" v-text="'Filmoshを使ってみる'" />
+          <div class="mt-9 ml-6" :style="dialog.headerStyle" v-text="'DongryChatを使ってみる'" />
         </v-col>
       </v-row>
       <v-row>

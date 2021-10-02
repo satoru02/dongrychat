@@ -115,7 +115,7 @@
       <v-hover v-slot="{hover}">
 
         <v-col lg=8 :style="hover ? style.hoverlink : style.unhoverlink">
-          © 2021 Filmosh
+          © 2021 DongryChat
         </v-col>
       </v-hover>
     </v-row>

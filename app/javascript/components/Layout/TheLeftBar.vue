@@ -2,7 +2,7 @@
   <v-container class="pl-9">
 
     <!-- avatar-row -->
-    <v-row v-if="$store.state.user.signedIn">
+    <!-- <v-row v-if="$store.state.user.signedIn" class="pt-4">
       <v-col md=4 lg=4 xl=4></v-col>
       <v-col md=5 lg=5 xl=5>
         <v-avatar size=70 color="#dee2e6">
@@ -10,20 +10,20 @@
         </v-avatar>
       </v-col>
       <v-col lg=3></v-col>
-    </v-row>
+    </v-row> -->
 
     <!-- username-row -->
-    <v-row class="pl-3" no-gutters v-if="$store.state.user.signedIn">
+    <!-- <v-row class="pl-3" no-gutters v-if="$store.state.user.signedIn">
       <v-col md=3 lg=3 xl=3></v-col>
       <v-col md=8 lg=8 xl=8>
         <p class="left-user-name">
           {{this.$store.state.user.currentUser.name}}
         </p>
       </v-col>
-    </v-row>
+    </v-row> -->
 
     <!-- button-row -->
-    <v-row class="mt-n1" no-gutters v-if="$store.state.user.signedIn">
+    <!-- <v-row class="mt-n1" no-gutters v-if="$store.state.user.signedIn">
       <v-col md=1 lg=1 xl=1></v-col>
       <v-col md=11 lg=11 xl=11>
         <v-btn class="rounded-xl" color="#fcf300" block elevation=0 style="font-weight: bold;">
@@ -34,24 +34,24 @@
           投稿
         </v-btn>
       </v-col>
-    </v-row>
+    </v-row> -->
 
     <!-- menu-row -->
-    <v-list nav dense class="mt-3" width="190">
-      <v-list-item-group color="primary" class="mt-1">
+    <v-list nav class="pt-2" width="190">
+      <v-list-item-group color="primary" class="">
         <v-hover v-for="(item, index) in menus" :key="index">
           <v-list-item @click="changeRoute(item.path_name)" class="ml-1">
             <v-list-item-icon>
               <v-list-item-subtitle class="mt-1" :size="icon.size">
-                <icon-base v-if="item.text === 'ホーム'" :iconColor="'#657482'" icon-name="icon-home" :width="'17'"
+                <icon-base v-if="item.text === 'ホーム'" :iconColor="'#000000'" icon-name="icon-home" :width="'17'"
                   :height="'17'" :viewBox="'0 0 512.05 512.05'">
                   <icon-home />
                 </icon-base>
-                <icon-base v-if="item.text === 'チャット'" :iconColor="'#657482'" icon-name="icon-following" :width="'17'"
+                <icon-base v-if="item.text === 'チャット'" :iconColor="'#000000'" icon-name="icon-following" :width="'17'"
                   :height="'17'" :viewBox="'0 0 511.996 511.996'">
                   <icon-following />
                 </icon-base>
-                <icon-base v-if="item.text === 'レビュー'" :iconColor="'#657482'" icon-name="icon-pen" :width="'17'"
+                <icon-base v-if="item.text === 'マイリスト'" :iconColor="'#000000'" icon-name="icon-pen" :width="'17'"
                   :height="'17'" :viewBox="'0 0 512 512'">
                   <icon-pen />
                 </icon-base>
@@ -187,28 +187,28 @@
             path_name: 'Following'
           },
           {
-            text: 'レビュー',
-            path_name: ''
+            text: 'マイリスト',
+            path_name: 'UsersTop'
           },
         ],
         list_item: {
           position: 'mt-1'
         },
         icon: {
-          size: 14,
+          size: 16,
           color: '#6c757d'
         },
         category: {
           // fontWeight: 'bold',
           fontSize: '14px',
-          color: '#657482',
+          color: '#00000',
         },
         list_item_title: {
           color: '#011627',
           style: {
             fontWeight: '600',
-            fontSize: '16px',
-            color: '#657482'
+            fontSize: '18px',
+            color: '#000000'
           }
         },
         dialog: {
@@ -367,7 +367,7 @@
   }
 
   .list-title {
-    color: #011627;
+    color: #000000;
     font-size: 13px;
   }
 
@@ -378,12 +378,12 @@
   .left-user-name {
     font-size: 16px;
     font-weight: bold;
-    color: #020814;
+    color: #000000;
   }
 
   .category-name {
     font-size: 14px;
-    color: #657482;
+    color: #000000;
   }
 
   .category-chip {

@@ -7,10 +7,10 @@
             <template v-slot:default="">
               <v-badge bordered light style="font-weight: bold;" offset-x="28" offset-y="31" v-if="item.attributes.users_count"
                 color="#00bbf9" overlap :content="item.attributes.users_count">
-                <v-list-item-avatar :class="itemAvatar" size="47" height="47" style="background-color: #dee2e6;">
+                <v-list-item-avatar :class="itemAvatar" size="65" height="65" style="background-color: #dee2e6;">
                   <v-img v-if="item.attributes.image_path" :src="posterImg(item.attributes.image_path)" />
                   <span v-else>
-                    <icon-base :width="'50'" :height="'50'" icon-name="icon-no-image" :iconColor="'#111111'"
+                    <icon-base :width="'65'" :height="'65'" icon-name="icon-no-image" :iconColor="'#111111'"
                       :viewBox="'0 0 512 512'">
                       <icon-no-image />
                     </icon-base>
@@ -19,10 +19,10 @@
               </v-badge>
 
               <v-badge v-else :value=false>
-                <v-list-item-avatar :class="itemAvatar" size="47" height="47" style="background-color: #dee2e6;">
+                <v-list-item-avatar :class="itemAvatar" size="65" height="65" style="background-color: #dee2e6;">
                   <v-img v-if="item.attributes.image_path" :src="posterImg(item.attributes.image_path)" />
                   <span v-else>
-                    <icon-base :width="'45'" :height="'45'" icon-name="icon-no-image" :iconColor="'#ced4da'"
+                    <icon-base :width="'65'" :height="'65'" icon-name="icon-no-image" :iconColor="'#ced4da'"
                       :viewBox="'0 0 512 512'">
                       <icon-no-image />
                     </icon-base>

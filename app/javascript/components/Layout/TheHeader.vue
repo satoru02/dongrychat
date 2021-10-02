@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-app-bar elevation=1 outlined app color="#ffffff">
+    <v-app-bar elevation=1 outlined app color="#000000">
 
       <v-app-bar-nav-icon @click="drawer = !drawer" v-if="$vuetify.breakpoint.width < 600">
         <icon-base :width="'20'" :height="'20'" icon-name="icon-user" :iconColor="'#000000'" :viewBox="'0 0 124 124'">
@@ -11,24 +11,24 @@
       <!-- <v-spacer v-if="$vuetify.breakpoint.width > 600" /> -->
 　　　　
       <v-toolbar-title style="font-weight:bold;" v-if="$vuetify.breakpoint.width > 600">
-        F
+        DC
       </v-toolbar-title>
 
       <!-- <v-spacer v-if="$vuetify.breakpoint.width > 600" /> -->
       <v-toolbar-title class="ml-10" v-if="$vuetify.breakpoint.width > 600">
-        <v-btn text color="#657482" style="font-size: 14px; font-weight: bold; color: #657482"
+        <v-btn text color="#657482" style="font-size: 14px; font-weight: bold; color: #ffffff"
           @click="movePath('/trend')">
           <icon-new class="mr-3" />新着</v-btn>
       </v-toolbar-title>
       <v-toolbar-title class="ml-5" v-if="$vuetify.breakpoint.width > 600">
         <v-btn @click="movePath('/popular')" text color="#ffffff"
-          style="font-size: 14px; font-weight: bold; color: #657482">
+          style="font-size: 14px; font-weight: bold; color: #ffffff">
           人気
         </v-btn>
       </v-toolbar-title>
       <v-toolbar-title class="ml-5" v-if="$vuetify.breakpoint.width > 600">
         <v-btn @click="movePath('/top_rated')" text color="#ffffff"
-          style="font-size: 14px; font-weight: bold; color: #657482">
+          style="font-size: 14px; font-weight: bold; color: #ffffff">
           高評価
         </v-btn>
       </v-toolbar-title>
@@ -36,7 +36,7 @@
 
       <v-text-field placeholder="検索" @keypress="setQuery()" @keydown.enter="search(query)" v-model="query"
         :full-width="true" v-if="$vuetify.breakpoint.width > 600" dense
-        background-color="#f0f5fa" solo flat class="rounded-lg mt-7 ml-16" />
+        background-color="#ffffff" solo flat class="rounded-lg mt-7 ml-16" />
       <v-spacer />
 
       <v-menu left nudge-bottom="35" nudge-height="800">
@@ -188,7 +188,7 @@
         <v-row>
           <v-col lg=3 />
           <v-col lg=7>
-            <div class="mt-9 ml-6" :style="dialog.headerStyle">Filmoshを使ってみる</div>
+            <div class="mt-9 ml-6" :style="dialog.headerStyle">DongryChatを使ってみる</div>
           </v-col>
         </v-row>
         <v-row>
