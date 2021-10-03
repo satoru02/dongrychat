@@ -9,9 +9,13 @@
         <v-card :color="loginCard.color" :class="loginCard.position" :elevation="loginCard.elevation"
           :height="loginCard.height" :width="loginCard.width">
           <v-row class="mt-4">
-            <v-col cols=2 sm=3 md=3 lg=3 xl=3 />
-            <v-col cols=10 sm=9 md=9 lg=9 xl=9 :class="$vuetify.breakpoint.width < 600 ? 'ml-n5 mb-5' : 'ml-n8 mt-4 mb-4'">
-              <div :style="loginCard.headerTitleStyle" v-text="loginCard.headerText" />
+            <v-col cols=2 sm=3 md=3 lg=2 xl=3 />
+            <v-col cols=10 sm=9 md=9 lg=10 xl=9 :class="$vuetify.breakpoint.width < 600 ? 'ml-n5 mb-5' : 'mt-4 mb-4'">
+                <icon-base icon-name="icon-logo"
+                  :width="'28'" :height="'28'" :viewBox="'0 0 512 512'">
+                  <icon-logo />
+                </icon-base>
+                <span class="ml-2" :style="loginCard.headerTitleStyle">{{loginCard.headerText}}</span>
             </v-col>
           </v-row>
           <v-row class="mt-3">
@@ -122,6 +126,7 @@
     name: 'Login',
     components: {
       'icon-base': () => import( /* webpackPrefetch: true */ '../Icon/IconBase'),
+      'icon-logo': () => import( /* webpackPrefetch: true */ '../Icon/IconLogo.vue'),
       'icon-google': () => import( /* webpackPrefetch: true */ '../Icon/IconGoogle.vue'),
       'icon-facebook': () => import( /* webpackPrefetch: true */ '../Icon/IconFacebook.vue'),
     },
@@ -162,7 +167,7 @@
           height: '115px'
         },
         loginCard: {
-          headerText: 'DongryChatにようこそ！',
+          headerText: 'DongryChat',
           googleArg: 'google',
           googleBtn: 'Googleでログイン',
           googleColor: '#212121',
@@ -187,7 +192,7 @@
           headerTitleStyle: {
             color: '#111111',
             fontWeight: 'bold',
-            fontSize: '26px',
+            fontSize: '30px',
           },
           btnStyle: {
             color: '#ffffff',

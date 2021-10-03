@@ -65,25 +65,25 @@
             </v-row>
 
             <v-row class="mt-3">
-              <v-col sm=2 md=2 lg=2 xl=2>
+              <v-col sm=2 md=2 lg=2 xl=2 :style="'cursor:pointer;'">
                 <icon-base class="" icon-name="icon-clip" :viewBox="'0 0 471.641 471.641'" :iconColor="'#111111'"
-                  :height="'17'" :width="'17'">
+                  :height="'20'" :width="'20'">
                   <icon-clip />
                 </icon-base>
               </v-col>
-              <v-col sm=2 md=2 lg=2 xl=2>
-                <icon-base class="" icon-name="icon-twitter" :viewBox="'0 0 512 512'" :height="'17'" :width="'17'">
+              <v-col sm=2 md=2 lg=2 xl=2 @click="shareSns('twitter')" :style="'cursor:pointer;'">
+                <icon-base class="" icon-name="icon-twitter" :viewBox="'0 0 512 512'" :height="'20'" :width="'20'">
                   <icon-twitter />
                 </icon-base>
               </v-col>
-              <v-col sm=2 md=2 lg=2 xl=2>
-                <icon-base class="" icon-name="icon-facebook" :viewBox="'0 0 512 512'" :height="'17'" :width="'17'">
+              <v-col sm=2 md=2 lg=2 xl=2 @click="shareSns('facebook')" :style="'cursor:pointer;'">
+                <icon-base class="" icon-name="icon-facebook" :viewBox="'0 0 512 512'" :height="'20'" :width="'20'">
                   <icon-facebook />
                 </icon-base>
               </v-col>
-              <v-col sm=2 md=2 lg=2 xl=2>
-                <icon-base class="" icon-name="icon-line" :viewBox="'0 0 24 24'" :iconColor="'#07b53b'" :height="'17'"
-                  :width="'17'">
+              <v-col sm=2 md=2 lg=2 xl=2 @click="shareSns('line')" :style="'cursor:pointer;'">
+                <icon-base class="" icon-name="icon-line" :viewBox="'0 0 24 24'" :iconColor="'#07b53b'" :height="'20'"
+                  :width="'20'">
                   <icon-line />
                 </icon-base>
               </v-col>
@@ -616,6 +616,18 @@
       posterImg() {
         return this.base_tmdb_img_url + this.space_data.image_path
       },
+      shareSns(target){
+        switch(target){
+          case 'twitter':
+            window.location.href = `https://twitter.com/intent/tweet?&text=${this.space_data.name}&hashtags=DongryChat&url=https://dongrychat.com&screen_name=DongryChat`
+            break;
+          case 'facebook':
+            window.location.href = `https://www.facebook.com/sharer.php?u=https://dongrychat.com&t=${this.space_data.name}`
+            break;
+          case 'line':
+            window.location.href = ``
+        }
+      }
     },
     computed: {
       pointSize() {

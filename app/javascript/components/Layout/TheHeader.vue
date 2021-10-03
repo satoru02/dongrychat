@@ -11,7 +11,7 @@
       <!-- <v-spacer v-if="$vuetify.breakpoint.width > 600" /> -->
 　　　　
       <v-toolbar-title @click="$router.push('/')" style="font-weight:bold; cursor: pointer;">
-          <icon-base icon-name="icon-bookmark"
+          <icon-base icon-name="icon-logo"
             :width="'33'" :height="'33'" :viewBox="'0 0 512 512'">
             <icon-logo />
           </icon-base>
@@ -77,12 +77,12 @@
             <v-avatar v-if="$store.state.user.currentUser.avatar_url" size="35">
               <v-img :src="$store.state.user.currentUser.avatar_url" />
             </v-avatar>
-            <v-avatar v-else size="25">
+            <!-- <v-avatar v-else size="25">
               <icon-base :width="'20'" :height="'20'" icon-name="icon-user" :iconColor="'#ffffff'"
                 :viewBox="'-42 0 512 512.002'">
                 <icon-user />
               </icon-base>
-            </v-avatar>
+            </v-avatar> -->
           </v-app-bar-nav-icon>
         </template>
         <v-list elevation=0 class="rounded-s list" v-if="$store.state.user.signedIn">
